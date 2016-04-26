@@ -44,10 +44,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="obj.remove();">删除</a>
 		</div>
 		<div style="padding:5px;">
-			<lable style="padding:0 10px 0 10px;">查询文件名:</lable>
-			<input type="text" id="scriptname" class="textbox" width="110px" />
-			<lable style="padding:0 10px 0 10px;">创建时间从:</lable><input type="text" name="datefrom" class="easyui-datebox"  width="110px"  />
-			到：<input type="text" name="dateto" class="easyui-datebox"  width="110px"  />
+			<lable style="padding:0 10px 0 10px;">手机号:</lable>
+			<input type="text" id="tbaccountphoneid" class="textbox" width="110px" />
+			<lable style="padding:0 10px 0 10px;">帐号状态类型:</lable>
+			<select id="tbaccountstate">
+				<option value="0">所有</option>
+				<option value="1">未测试</option>
+				<option value="2">可用</option>
+				<option value="3">不可用</option>
+				<option value="4">购物车满</option>
+				<option value="5">未被分配,剩余的</option>
+			</select>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="obj.search();">查询</a>
 		</div>
 	</div>
@@ -67,8 +74,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		obj={
 			search:function(){
 				$("#datagrid").datagrid('load',{
-					datefrom:$("input[name='datefrom']").val(),
-					dateto:$("input[name='dateto']").val(),
+					tbaccountphoneid:$("#tbaccountphoneid").val(),
+					tbaccountstate:$("#tbaccountstate").val(),
 				});
 			},
 			remove:function(){

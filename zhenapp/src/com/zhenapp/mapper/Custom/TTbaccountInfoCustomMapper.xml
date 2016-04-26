@@ -16,11 +16,28 @@
 	
 	<select id="findTbaccountBypage" resultType="com.zhenapp.po.Custom.TTbaccountInfoCustom" parameterType="java.util.HashMap">
 		select * from t_tbaccount_info 
+		<where>
+			<if test="tbaccountphoneid != null and tbaccountphoneid !='' ">
+				tbaccountphoneid = #{tbaccountphoneid}
+			</if>
+			<if test="tbaccountstate != null and tbaccountstate !='' ">
+				tbaccountstate = #{tbaccountstate}
+			</if>
+		</where>
 		order by tbaccountid desc limit #{page},#{rows} 
 	</select>
 	
 	<select id="findAllTbaccountBypage" resultType="com.zhenapp.po.Custom.TTbaccountInfoCustom" parameterType="java.util.HashMap">
-		select * from t_tbaccount_info order by tbaccountid desc 
+		select * from t_tbaccount_info 
+		<where>
+			<if test="tbaccountphoneid != null and tbaccountphoneid !='' ">
+				tbaccountphoneid = #{tbaccountphoneid}
+			</if>
+			<if test="tbaccountstate != null and tbaccountstate !='' ">
+				tbaccountstate = #{tbaccountstate}
+			</if>
+		</where>
+		order by tbaccountid desc 
 	</select>
 
 	<delete id="deleteTbaccountByid" parameterType="String">

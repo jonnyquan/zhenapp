@@ -20,9 +20,15 @@ public class TbaccountInfoController {
 	private TbaccountInfoService tbaccountInfoService;
 	
 	@RequestMapping(value="/findTbaccountBypage")
-	public @ResponseBody ModelMap findTbaccountBypage(Integer page,Integer rows) throws Exception{
+	public @ResponseBody ModelMap findTbaccountBypage(Integer page,Integer rows,String tbaccountphoneid,String tbaccountstate) throws Exception{
 		ModelMap map=new ModelMap();
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
+		pagemap.put("tbaccountphoneid", tbaccountphoneid);
+		if(tbaccountstate.equals("0")){
+			pagemap.put("tbaccountstate", null);
+		}else{
+			pagemap.put("tbaccountstate", tbaccountstate);
+		}
 		if (page == null || page == null) {
 			pagemap.put("page", 0);
 			pagemap.put("rows", 10);

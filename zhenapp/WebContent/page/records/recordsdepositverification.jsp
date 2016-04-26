@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td colspan="2">
-					<button class="btn btn-info" id="btn_cz">>去充值<</button>
+					<button class="btn btn-info" id="btn_cz">>打开充值网页<</button>
 				</td>
 			</tr>
 		</table>
@@ -66,7 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 	;$(function(){
 		$("#btn_cz").click(function(){
-			window.location.href="${pageContext.request.contextPath}/combo/submit/"+$("input[name='taocan']:checked").val();
+			window.open("https://shenghuo.alipay.com/send/payment/fill.htm");
 		});
 	});
 </script>

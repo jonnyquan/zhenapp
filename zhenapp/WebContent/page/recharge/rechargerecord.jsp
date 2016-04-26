@@ -40,9 +40,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<div id="datagridtools">
 		<div style="padding:5px;">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="obj.remove();">删除</a>
-		</div>
-		<div style="padding:5px;">
 			<lable style="padding:0 10px 0 10px;">创建时间从:</lable><input type="text" name="datefrom" class="easyui-datebox"  width="110px"  />
 			到：<input type="text" name="dateto" class="easyui-datebox"  width="110px"  />
 			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="obj.search();">查询</a>
@@ -67,41 +64,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					datefrom:$("input[name='datefrom']").val(),
 					dateto:$("input[name='dateto']").val(),
 				});
-			},
-			remove:function(){
-				var rows=$("#datagrid").datagrid('getSelections');
-				if(rows.length>0){
-					$.messager.confirm('确认','您确认想要删除记录吗？',function(b){    
-					    if (b){
-							var rechargeids=[];
-							for(var i=0;i<rows.length;i++){
-								rechargeids.push(rows[i].rechargeid);
-							}
-							$.ajax({
-								type:"POST",
-								url:"${pageContext.request.contextPath}/recharge/deleteRechargeinfoByid",
-								data:{
-									rechargeids:rechargeids.join(",")
-								},
-								beforeSend:function(){
-									$("#datagrid").datagrid('loading');
-								},
-								success:function(){
-									$("#datagrid").datagrid('loaded');	
-									$.messager.show({
-										title:"提示消息",
-										msg:"删除成功",
-										width:300,
-										height:200,
-									});
-									$("#datagrid").datagrid('load');
-								},
-							});
-					    }
-					});
-				}else{
-					$.messager.alert('提示信息',"请选择要删除的信息",'info');
-				}
 			},
 		};	
 		

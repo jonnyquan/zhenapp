@@ -42,6 +42,7 @@
 	    		and createtime <![CDATA[<=]]> #{dateto}
 	    	</if>
 		</where>
+		order by createtime,rechargepk desc
 	</select>
 	
 	<delete id="deleteRechargeinfoByid" parameterType="String">
