@@ -44,7 +44,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="obj.remove();">删除</a>
 		</div>
 		<div style="padding:5px;">
-			
+			<lable style="padding:0 10px 0 10px;">查询文件名:</lable>
+			<input type="text" id="scriptname" class="textbox" width="110px" />
 			<lable style="padding:0 10px 0 10px;">创建时间从:</lable><input type="text" name="datefrom" class="easyui-datebox"  width="110px"  />
 			到：<input type="text" name="dateto" class="easyui-datebox"  width="110px"  />
 			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="obj.search();">查询</a>
