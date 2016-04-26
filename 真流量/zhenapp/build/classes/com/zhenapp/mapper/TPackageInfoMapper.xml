@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenapp.mapper.TPackageInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zhenapp.po.TPackageInfo" >
+    <id column="packagepk" property="packagepk" jdbcType="INTEGER" />
+    <result column="packageid" property="packageid" jdbcType="INTEGER" />
+    <result column="packagename" property="packagename" jdbcType="VARCHAR" />
+    <result column="packageprice" property="packageprice" jdbcType="VARCHAR" />
+    <result column="packagestate" property="packagestate" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="VARCHAR" />
+    <result column="createuser" property="createuser" jdbcType="VARCHAR" />
+    <result column="updatetime" property="updatetime" jdbcType="VARCHAR" />
+    <result column="updateuser" property="updateuser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    packagepk, packageid, packagename, packageprice, packagestate, createtime, createuser, 
+    updatetime, updateuser
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TPackageInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_package_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_package_info
+    where packagepk = #{packagepk,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_package_info
+    where packagepk = #{packagepk,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zhenapp.po.TPackageInfoExample" >
+    delete from t_package_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhenapp.po.TPackageInfo" >
+    insert into t_package_info (packagepk, packageid, packagename, 
+      packageprice, packagestate, createtime, 
+      createuser, updatetime, updateuser
+      )
+    values (#{packagepk,jdbcType=INTEGER}, #{packageid,jdbcType=INTEGER}, #{packagename,jdbcType=VARCHAR}, 
+      #{packageprice,jdbcType=VARCHAR}, #{packagestate,jdbcType=INTEGER}, #{createtime,jdbcType=VARCHAR}, 
+      #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhenapp.po.TPackageInfo" >
+    insert into t_package_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="packagepk != null" >
+        packagepk,
+      </if>
+      <if test="packageid != null" >
+        packageid,
+      </if>
+      <if test="packagename != null" >
+        packagename,
+      </if>
+      <if test="packageprice != null" >
+        packageprice,
+      </if>
+      <if test="packagestate != null" >
+        packagestate,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="createuser != null" >
+        createuser,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="updateuser != null" >
+        updateuser,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="packagepk != null" >
+        #{packagepk,jdbcType=INTEGER},
+      </if>
+      <if test="packageid != null" >
+        #{packageid,jdbcType=INTEGER},
+      </if>
+      <if test="packagename != null" >
+        #{packagename,jdbcType=VARCHAR},
+      </if>
+      <if test="packageprice != null" >
+        #{packageprice,jdbcType=VARCHAR},
+      </if>
+      <if test="packagestate != null" >
+        #{packagestate,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateuser != null" >
+        #{updateuser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhenapp.po.TPackageInfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_package_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_package_info
+    <set >
+      <if test="record.packagepk != null" >
+        packagepk = #{record.packagepk,jdbcType=INTEGER},
+      </if>
+      <if test="record.packageid != null" >
+        packageid = #{record.packageid,jdbcType=INTEGER},
+      </if>
+      <if test="record.packagename != null" >
+        packagename = #{record.packagename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.packageprice != null" >
+        packageprice = #{record.packageprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.packagestate != null" >
+        packagestate = #{record.packagestate,jdbcType=INTEGER},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createuser != null" >
+        createuser = #{record.createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatetime != null" >
+        updatetime = #{record.updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateuser != null" >
+        updateuser = #{record.updateuser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_package_info
+    set packagepk = #{record.packagepk,jdbcType=INTEGER},
+      packageid = #{record.packageid,jdbcType=INTEGER},
+      packagename = #{record.packagename,jdbcType=VARCHAR},
+      packageprice = #{record.packageprice,jdbcType=VARCHAR},
+      packagestate = #{record.packagestate,jdbcType=INTEGER},
+      createtime = #{record.createtime,jdbcType=VARCHAR},
+      createuser = #{record.createuser,jdbcType=VARCHAR},
+      updatetime = #{record.updatetime,jdbcType=VARCHAR},
+      updateuser = #{record.updateuser,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhenapp.po.TPackageInfo" >
+    update t_package_info
+    <set >
+      <if test="packageid != null" >
+        packageid = #{packageid,jdbcType=INTEGER},
+      </if>
+      <if test="packagename != null" >
+        packagename = #{packagename,jdbcType=VARCHAR},
+      </if>
+      <if test="packageprice != null" >
+        packageprice = #{packageprice,jdbcType=VARCHAR},
+      </if>
+      <if test="packagestate != null" >
+        packagestate = #{packagestate,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        createuser = #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateuser != null" >
+        updateuser = #{updateuser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where packagepk = #{packagepk,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhenapp.po.TPackageInfo" >
+    update t_package_info
+    set packageid = #{packageid,jdbcType=INTEGER},
+      packagename = #{packagename,jdbcType=VARCHAR},
+      packageprice = #{packageprice,jdbcType=VARCHAR},
+      packagestate = #{packagestate,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=VARCHAR},
+      createuser = #{createuser,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=VARCHAR},
+      updateuser = #{updateuser,jdbcType=VARCHAR}
+    where packagepk = #{packagepk,jdbcType=INTEGER}
+  </update>
+</mapper>

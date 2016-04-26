@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="TaoBaojava"
+  id="myeclipse.1446554613686"
+  context-root="/TaoBaojava"
+  j2ee-spec="5.0"
+  archive="TaoBaojava.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

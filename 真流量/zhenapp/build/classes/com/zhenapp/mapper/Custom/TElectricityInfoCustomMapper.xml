@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenapp.mapper.Custom.TElectricityInfoCustomMapper" >
+  
+  <select id="findElectrity_10" resultType="com.zhenapp.po.Custom.TelectricityCustom" >
+    select *
+    from t_electricity_info ORDER BY electricitypk DESC LIMIT 0,10
+  </select>
+  <select id="findAllElectrity" resultType="com.zhenapp.po.Custom.TelectricityCustom" >
+    select *
+    from t_electricity_info ORDER BY electricitypk DESC
+  </select>
+  <select id="findElectrityBypk" resultType="com.zhenapp.po.Custom.TelectricityCustom" parameterType="String">
+    select *
+    from t_electricity_info WHERE electricitypk=#{electricitypk}
+  </select>
+  <select id="findElectrityBypage" resultType="com.zhenapp.po.Custom.TelectricityCustom" parameterType="com.zhenapp.po.PageInfo">
+    select *
+    from t_electricity_info ORDER BY electricitypk DESC LIMIT #{pageagin},#{pagesize}
+  </select>
+  
+</mapper>
