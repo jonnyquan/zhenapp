@@ -71,29 +71,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$("#datagrid").datagrid({
 				fit:true,
 				title : '账户明细信息管理',
-				url:"${pageContext.request.contextPath}/recharge/findRechargeinfoByUserAndpage",
+				url:"${pageContext.request.contextPath}/points/findPointsInfoByPage",
 				columns : [ [
 					{
-						field : 'rechargeid',
-						title : '充值订单号',
-						width : 300,
+						field : 'pointspk',
+						title : '账户明细主键',
+						checkbox:true,
 					}, 
 					{
 						field : 'rechargeverification',
-						title : '充值校验码',
+						title : '任务id',
 					},
 					{
 						field : 'rechargemoney',
-						title : '充值金额',
+						title : '操作类型',
 					},
 					{
 						field : 'rechargestate',
-						title : '充值状态',
+						title : '收入支出',
 					},
 					{
-						field : 'createtime',
+						field : '积分变动',
 						title : '发布时间'
+					},
+					{
+						field : '当前积分',
+						title : '当前积分'
+					},
+					{
+						field : '当前积分',
+						title : '积分变动说明'
 					}
+					
 					] ],
 				pagination:true,
 				pageList:[1,5,10,15,20,25],
