@@ -3,10 +3,13 @@
 <mapper namespace="com.zhenapp.mapper.TPointsInfoMapper" >
   <resultMap id="BaseResultMap" type="com.zhenapp.po.TPointsInfo" >
     <id column="pointspk" property="pointspk" jdbcType="INTEGER" />
-    <result column="pointsid" property="pointsid" jdbcType="INTEGER" />
-    <result column="userid" property="userid" jdbcType="INTEGER" />
-    <result column="pointsnew" property="pointsnew" jdbcType="INTEGER" />
-    <result column="pointsold" property="pointsold" jdbcType="INTEGER" />
+    <result column="pointsid" property="pointsid" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="taskid" property="taskid" jdbcType="VARCHAR" />
+    <result column="pointstype" property="pointstype" jdbcType="VARCHAR" />
+    <result column="pointsupdate" property="pointsupdate" jdbcType="INTEGER" />
+    <result column="points" property="points" jdbcType="INTEGER" />
+    <result column="pointreason" property="pointreason" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="VARCHAR" />
     <result column="createuser" property="createuser" jdbcType="VARCHAR" />
     <result column="updatetime" property="updatetime" jdbcType="VARCHAR" />
@@ -71,8 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    pointspk, pointsid, userid, pointsnew, pointsold, createtime, createuser, updatetime, 
-    updateuser
+    pointspk, pointsid, userid, taskid, pointstype, pointsupdate, points, pointreason, 
+    createtime, createuser, updatetime, updateuser
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TPointsInfoExample" >
     select
@@ -106,11 +109,13 @@
   </delete>
   <insert id="insert" parameterType="com.zhenapp.po.TPointsInfo" >
     insert into t_points_info (pointspk, pointsid, userid, 
-      pointsnew, pointsold, createtime, 
+      taskid, pointstype, pointsupdate, 
+      points, pointreason, createtime, 
       createuser, updatetime, updateuser
       )
-    values (#{pointspk,jdbcType=INTEGER}, #{pointsid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
-      #{pointsnew,jdbcType=INTEGER}, #{pointsold,jdbcType=INTEGER}, #{createtime,jdbcType=VARCHAR}, 
+    values (#{pointspk,jdbcType=INTEGER}, #{pointsid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{taskid,jdbcType=VARCHAR}, #{pointstype,jdbcType=VARCHAR}, #{pointsupdate,jdbcType=INTEGER}, 
+      #{points,jdbcType=INTEGER}, #{pointreason,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
       #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}
       )
   </insert>
@@ -126,11 +131,20 @@
       <if test="userid != null" >
         userid,
       </if>
-      <if test="pointsnew != null" >
-        pointsnew,
+      <if test="taskid != null" >
+        taskid,
       </if>
-      <if test="pointsold != null" >
-        pointsold,
+      <if test="pointstype != null" >
+        pointstype,
+      </if>
+      <if test="pointsupdate != null" >
+        pointsupdate,
+      </if>
+      <if test="points != null" >
+        points,
+      </if>
+      <if test="pointreason != null" >
+        pointreason,
       </if>
       <if test="createtime != null" >
         createtime,
@@ -150,16 +164,25 @@
         #{pointspk,jdbcType=INTEGER},
       </if>
       <if test="pointsid != null" >
-        #{pointsid,jdbcType=INTEGER},
+        #{pointsid,jdbcType=VARCHAR},
       </if>
       <if test="userid != null" >
-        #{userid,jdbcType=INTEGER},
+        #{userid,jdbcType=VARCHAR},
       </if>
-      <if test="pointsnew != null" >
-        #{pointsnew,jdbcType=INTEGER},
+      <if test="taskid != null" >
+        #{taskid,jdbcType=VARCHAR},
       </if>
-      <if test="pointsold != null" >
-        #{pointsold,jdbcType=INTEGER},
+      <if test="pointstype != null" >
+        #{pointstype,jdbcType=VARCHAR},
+      </if>
+      <if test="pointsupdate != null" >
+        #{pointsupdate,jdbcType=INTEGER},
+      </if>
+      <if test="points != null" >
+        #{points,jdbcType=INTEGER},
+      </if>
+      <if test="pointreason != null" >
+        #{pointreason,jdbcType=VARCHAR},
       </if>
       <if test="createtime != null" >
         #{createtime,jdbcType=VARCHAR},
@@ -188,16 +211,25 @@
         pointspk = #{record.pointspk,jdbcType=INTEGER},
       </if>
       <if test="record.pointsid != null" >
-        pointsid = #{record.pointsid,jdbcType=INTEGER},
+        pointsid = #{record.pointsid,jdbcType=VARCHAR},
       </if>
       <if test="record.userid != null" >
-        userid = #{record.userid,jdbcType=INTEGER},
+        userid = #{record.userid,jdbcType=VARCHAR},
       </if>
-      <if test="record.pointsnew != null" >
-        pointsnew = #{record.pointsnew,jdbcType=INTEGER},
+      <if test="record.taskid != null" >
+        taskid = #{record.taskid,jdbcType=VARCHAR},
       </if>
-      <if test="record.pointsold != null" >
-        pointsold = #{record.pointsold,jdbcType=INTEGER},
+      <if test="record.pointstype != null" >
+        pointstype = #{record.pointstype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pointsupdate != null" >
+        pointsupdate = #{record.pointsupdate,jdbcType=INTEGER},
+      </if>
+      <if test="record.points != null" >
+        points = #{record.points,jdbcType=INTEGER},
+      </if>
+      <if test="record.pointreason != null" >
+        pointreason = #{record.pointreason,jdbcType=VARCHAR},
       </if>
       <if test="record.createtime != null" >
         createtime = #{record.createtime,jdbcType=VARCHAR},
@@ -219,10 +251,13 @@
   <update id="updateByExample" parameterType="map" >
     update t_points_info
     set pointspk = #{record.pointspk,jdbcType=INTEGER},
-      pointsid = #{record.pointsid,jdbcType=INTEGER},
-      userid = #{record.userid,jdbcType=INTEGER},
-      pointsnew = #{record.pointsnew,jdbcType=INTEGER},
-      pointsold = #{record.pointsold,jdbcType=INTEGER},
+      pointsid = #{record.pointsid,jdbcType=VARCHAR},
+      userid = #{record.userid,jdbcType=VARCHAR},
+      taskid = #{record.taskid,jdbcType=VARCHAR},
+      pointstype = #{record.pointstype,jdbcType=VARCHAR},
+      pointsupdate = #{record.pointsupdate,jdbcType=INTEGER},
+      points = #{record.points,jdbcType=INTEGER},
+      pointreason = #{record.pointreason,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=VARCHAR},
       createuser = #{record.createuser,jdbcType=VARCHAR},
       updatetime = #{record.updatetime,jdbcType=VARCHAR},
@@ -235,16 +270,25 @@
     update t_points_info
     <set >
       <if test="pointsid != null" >
-        pointsid = #{pointsid,jdbcType=INTEGER},
+        pointsid = #{pointsid,jdbcType=VARCHAR},
       </if>
       <if test="userid != null" >
-        userid = #{userid,jdbcType=INTEGER},
+        userid = #{userid,jdbcType=VARCHAR},
       </if>
-      <if test="pointsnew != null" >
-        pointsnew = #{pointsnew,jdbcType=INTEGER},
+      <if test="taskid != null" >
+        taskid = #{taskid,jdbcType=VARCHAR},
       </if>
-      <if test="pointsold != null" >
-        pointsold = #{pointsold,jdbcType=INTEGER},
+      <if test="pointstype != null" >
+        pointstype = #{pointstype,jdbcType=VARCHAR},
+      </if>
+      <if test="pointsupdate != null" >
+        pointsupdate = #{pointsupdate,jdbcType=INTEGER},
+      </if>
+      <if test="points != null" >
+        points = #{points,jdbcType=INTEGER},
+      </if>
+      <if test="pointreason != null" >
+        pointreason = #{pointreason,jdbcType=VARCHAR},
       </if>
       <if test="createtime != null" >
         createtime = #{createtime,jdbcType=VARCHAR},
@@ -263,10 +307,13 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zhenapp.po.TPointsInfo" >
     update t_points_info
-    set pointsid = #{pointsid,jdbcType=INTEGER},
-      userid = #{userid,jdbcType=INTEGER},
-      pointsnew = #{pointsnew,jdbcType=INTEGER},
-      pointsold = #{pointsold,jdbcType=INTEGER},
+    set pointsid = #{pointsid,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=VARCHAR},
+      taskid = #{taskid,jdbcType=VARCHAR},
+      pointstype = #{pointstype,jdbcType=VARCHAR},
+      pointsupdate = #{pointsupdate,jdbcType=INTEGER},
+      points = #{points,jdbcType=INTEGER},
+      pointreason = #{pointreason,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=VARCHAR},
       createuser = #{createuser,jdbcType=VARCHAR},
       updatetime = #{updatetime,jdbcType=VARCHAR},

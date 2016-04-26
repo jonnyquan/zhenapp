@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhenapp.mapper.TUserInfoMapper" >
   <resultMap id="BaseResultMap" type="com.zhenapp.po.TUserInfo" >
-    <id column="userId" property="userid" jdbcType="INTEGER" />
+    <id column="userpk" property="userpk" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="VARCHAR" />
     <result column="userNick" property="usernick" jdbcType="VARCHAR" />
     <result column="userPwd" property="userpwd" jdbcType="VARCHAR" />
     <result column="username" property="username" jdbcType="VARCHAR" />
@@ -79,7 +80,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    userId, userNick, userPwd, username, userQQ, usercardnum, userroleid, userphone, 
+    userpk, userId, userNick, userPwd, username, userQQ, usercardnum, userroleid, userphone, 
     userState, regEmail, regDate, regIp, regdomain, createtime, createuser, updatetime, 
     updateuser
   </sql>
@@ -101,11 +102,11 @@
     select 
     <include refid="Base_Column_List" />
     from t_user_info
-    where userId = #{userid,jdbcType=INTEGER}
+    where userpk = #{userpk,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_user_info
-    where userId = #{userid,jdbcType=INTEGER}
+    where userpk = #{userpk,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.zhenapp.po.TUserInfoExample" >
     delete from t_user_info
@@ -114,22 +115,27 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.zhenapp.po.TUserInfo" >
-    insert into t_user_info (userId, userNick, userPwd, 
-      username, userQQ, usercardnum, 
-      userroleid, userphone, userState, 
-      regEmail, regDate, regIp, 
-      regdomain, createtime, createuser, 
-      updatetime, updateuser)
-    values (#{userid,jdbcType=INTEGER}, #{usernick,jdbcType=VARCHAR}, #{userpwd,jdbcType=VARCHAR}, 
-      #{username,jdbcType=VARCHAR}, #{userqq,jdbcType=VARCHAR}, #{usercardnum,jdbcType=VARCHAR}, 
-      #{userroleid,jdbcType=INTEGER}, #{userphone,jdbcType=VARCHAR}, #{userstate,jdbcType=VARCHAR}, 
-      #{regemail,jdbcType=VARCHAR}, #{regdate,jdbcType=VARCHAR}, #{regip,jdbcType=VARCHAR}, 
-      #{regdomain,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
-      #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR})
+    insert into t_user_info (userpk, userId, userNick, 
+      userPwd, username, userQQ, 
+      usercardnum, userroleid, userphone, 
+      userState, regEmail, regDate, 
+      regIp, regdomain, createtime, 
+      createuser, updatetime, updateuser
+      )
+    values (#{userpk,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{usernick,jdbcType=VARCHAR}, 
+      #{userpwd,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{userqq,jdbcType=VARCHAR}, 
+      #{usercardnum,jdbcType=VARCHAR}, #{userroleid,jdbcType=INTEGER}, #{userphone,jdbcType=VARCHAR}, 
+      #{userstate,jdbcType=VARCHAR}, #{regemail,jdbcType=VARCHAR}, #{regdate,jdbcType=VARCHAR}, 
+      #{regip,jdbcType=VARCHAR}, #{regdomain,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+      #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.zhenapp.po.TUserInfo" >
     insert into t_user_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userpk != null" >
+        userpk,
+      </if>
       <if test="userid != null" >
         userId,
       </if>
@@ -183,8 +189,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userpk != null" >
+        #{userpk,jdbcType=INTEGER},
+      </if>
       <if test="userid != null" >
-        #{userid,jdbcType=INTEGER},
+        #{userid,jdbcType=VARCHAR},
       </if>
       <if test="usernick != null" >
         #{usernick,jdbcType=VARCHAR},
@@ -245,8 +254,11 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update t_user_info
     <set >
+      <if test="record.userpk != null" >
+        userpk = #{record.userpk,jdbcType=INTEGER},
+      </if>
       <if test="record.userid != null" >
-        userId = #{record.userid,jdbcType=INTEGER},
+        userId = #{record.userid,jdbcType=VARCHAR},
       </if>
       <if test="record.usernick != null" >
         userNick = #{record.usernick,jdbcType=VARCHAR},
@@ -303,7 +315,8 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update t_user_info
-    set userId = #{record.userid,jdbcType=INTEGER},
+    set userpk = #{record.userpk,jdbcType=INTEGER},
+      userId = #{record.userid,jdbcType=VARCHAR},
       userNick = #{record.usernick,jdbcType=VARCHAR},
       userPwd = #{record.userpwd,jdbcType=VARCHAR},
       username = #{record.username,jdbcType=VARCHAR},
@@ -327,6 +340,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.zhenapp.po.TUserInfo" >
     update t_user_info
     <set >
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=VARCHAR},
+      </if>
       <if test="usernick != null" >
         userNick = #{usernick,jdbcType=VARCHAR},
       </if>
@@ -376,11 +392,12 @@
         updateuser = #{updateuser,jdbcType=VARCHAR},
       </if>
     </set>
-    where userId = #{userid,jdbcType=INTEGER}
+    where userpk = #{userpk,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zhenapp.po.TUserInfo" >
     update t_user_info
-    set userNick = #{usernick,jdbcType=VARCHAR},
+    set userId = #{userid,jdbcType=VARCHAR},
+      userNick = #{usernick,jdbcType=VARCHAR},
       userPwd = #{userpwd,jdbcType=VARCHAR},
       username = #{username,jdbcType=VARCHAR},
       userQQ = #{userqq,jdbcType=VARCHAR},
@@ -396,6 +413,6 @@
       createuser = #{createuser,jdbcType=VARCHAR},
       updatetime = #{updatetime,jdbcType=VARCHAR},
       updateuser = #{updateuser,jdbcType=VARCHAR}
-    where userId = #{userid,jdbcType=INTEGER}
+    where userpk = #{userpk,jdbcType=INTEGER}
   </update>
 </mapper>

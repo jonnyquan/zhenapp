@@ -3,6 +3,10 @@
 <mapper namespace="com.zhenapp.mapper.Custom.TPointsInfoCustomMapper" >
   
   <select id="findPointsInfoByPage" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TPointsInfoCustom">
-	  
+	  select * from t_points_info limit #{page},#{rows}
   </select>
+  <select id="findPointsCountsByPage" parameterType="java.util.HashMap" resultType="int">
+	  select count(1) from t_points_info
+  </select>
+  
 </mapper>

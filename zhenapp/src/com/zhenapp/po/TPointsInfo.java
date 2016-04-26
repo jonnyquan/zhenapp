@@ -3,13 +3,19 @@ package com.zhenapp.po;
 public class TPointsInfo {
     private Integer pointspk;
 
-    private Integer pointsid;
+    private String pointsid;
 
-    private Integer userid;
+    private String userid;
 
-    private Integer pointsnew;
+    private String taskid;
 
-    private Integer pointsold;
+    private String pointstype;
+
+    private Integer pointsupdate;
+
+    private Integer points;
+
+    private String pointreason;
 
     private String createtime;
 
@@ -27,36 +33,60 @@ public class TPointsInfo {
         this.pointspk = pointspk;
     }
 
-    public Integer getPointsid() {
+    public String getPointsid() {
         return pointsid;
     }
 
-    public void setPointsid(Integer pointsid) {
-        this.pointsid = pointsid;
+    public void setPointsid(String pointsid) {
+        this.pointsid = pointsid == null ? null : pointsid.trim();
     }
 
-    public Integer getUserid() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUserid(String userid) {
+        this.userid = userid == null ? null : userid.trim();
     }
 
-    public Integer getPointsnew() {
-        return pointsnew;
+    public String getTaskid() {
+        return taskid;
     }
 
-    public void setPointsnew(Integer pointsnew) {
-        this.pointsnew = pointsnew;
+    public void setTaskid(String taskid) {
+        this.taskid = taskid == null ? null : taskid.trim();
     }
 
-    public Integer getPointsold() {
-        return pointsold;
+    public String getPointstype() {
+        return pointstype;
     }
 
-    public void setPointsold(Integer pointsold) {
-        this.pointsold = pointsold;
+    public void setPointstype(String pointstype) {
+        this.pointstype = pointstype == null ? null : pointstype.trim();
+    }
+
+    public Integer getPointsupdate() {
+        return pointsupdate;
+    }
+
+    public void setPointsupdate(Integer pointsupdate) {
+        this.pointsupdate = pointsupdate;
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
+    }
+
+    public String getPointreason() {
+        return pointreason;
+    }
+
+    public void setPointreason(String pointreason) {
+        this.pointreason = pointreason == null ? null : pointreason.trim();
     }
 
     public String getCreatetime() {

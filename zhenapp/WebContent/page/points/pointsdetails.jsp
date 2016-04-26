@@ -67,7 +67,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				});
 			},
 		};	
-		
 			$("#datagrid").datagrid({
 				fit:true,
 				title : '账户明细信息管理',
@@ -79,30 +78,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						checkbox:true,
 					}, 
 					{
-						field : 'rechargeverification',
+						field : 'taskid',
 						title : '任务id',
 					},
 					{
-						field : 'rechargemoney',
+						field : 'pointstype',
 						title : '操作类型',
 					},
 					{
-						field : 'rechargestate',
-						title : '收入支出',
+						field : 'pointsupdate',
+						title : '变动积分数'
 					},
 					{
-						field : '积分变动',
-						title : '发布时间'
-					},
-					{
-						field : '当前积分',
+						field : 'points',
 						title : '当前积分'
 					},
 					{
-						field : '当前积分',
+						field : 'pointreason',
 						title : '积分变动说明'
+					},
+					{
+						field : 'createtime',
+						title : '创建时间'
 					}
-					
 					] ],
 				pagination:true,
 				pageList:[1,5,10,15,20,25],

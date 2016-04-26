@@ -1,7 +1,9 @@
 package com.zhenapp.po;
 
 public class TUserInfo {
-    private Integer userid;
+    private Integer userpk;
+
+    private String userid;
 
     private String usernick;
 
@@ -35,12 +37,20 @@ public class TUserInfo {
 
     private String updateuser;
 
-    public Integer getUserid() {
+    public Integer getUserpk() {
+        return userpk;
+    }
+
+    public void setUserpk(Integer userpk) {
+        this.userpk = userpk;
+    }
+
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUserid(String userid) {
+        this.userid = userid == null ? null : userid.trim();
     }
 
     public String getUsernick() {

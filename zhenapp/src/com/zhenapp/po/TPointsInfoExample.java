@@ -174,52 +174,62 @@ public class TPointsInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andPointsidEqualTo(Integer value) {
+        public Criteria andPointsidEqualTo(String value) {
             addCriterion("pointsid =", value, "pointsid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsidNotEqualTo(Integer value) {
+        public Criteria andPointsidNotEqualTo(String value) {
             addCriterion("pointsid <>", value, "pointsid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsidGreaterThan(Integer value) {
+        public Criteria andPointsidGreaterThan(String value) {
             addCriterion("pointsid >", value, "pointsid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsidGreaterThanOrEqualTo(Integer value) {
+        public Criteria andPointsidGreaterThanOrEqualTo(String value) {
             addCriterion("pointsid >=", value, "pointsid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsidLessThan(Integer value) {
+        public Criteria andPointsidLessThan(String value) {
             addCriterion("pointsid <", value, "pointsid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsidLessThanOrEqualTo(Integer value) {
+        public Criteria andPointsidLessThanOrEqualTo(String value) {
             addCriterion("pointsid <=", value, "pointsid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsidIn(List<Integer> values) {
+        public Criteria andPointsidLike(String value) {
+            addCriterion("pointsid like", value, "pointsid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsidNotLike(String value) {
+            addCriterion("pointsid not like", value, "pointsid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsidIn(List<String> values) {
             addCriterion("pointsid in", values, "pointsid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsidNotIn(List<Integer> values) {
+        public Criteria andPointsidNotIn(List<String> values) {
             addCriterion("pointsid not in", values, "pointsid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsidBetween(Integer value1, Integer value2) {
+        public Criteria andPointsidBetween(String value1, String value2) {
             addCriterion("pointsid between", value1, value2, "pointsid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsidNotBetween(Integer value1, Integer value2) {
+        public Criteria andPointsidNotBetween(String value1, String value2) {
             addCriterion("pointsid not between", value1, value2, "pointsid");
             return (Criteria) this;
         }
@@ -234,173 +244,393 @@ public class TPointsInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andUseridEqualTo(Integer value) {
+        public Criteria andUseridEqualTo(String value) {
             addCriterion("userid =", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridNotEqualTo(Integer value) {
+        public Criteria andUseridNotEqualTo(String value) {
             addCriterion("userid <>", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridGreaterThan(Integer value) {
+        public Criteria andUseridGreaterThan(String value) {
             addCriterion("userid >", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridGreaterThanOrEqualTo(Integer value) {
+        public Criteria andUseridGreaterThanOrEqualTo(String value) {
             addCriterion("userid >=", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridLessThan(Integer value) {
+        public Criteria andUseridLessThan(String value) {
             addCriterion("userid <", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridLessThanOrEqualTo(Integer value) {
+        public Criteria andUseridLessThanOrEqualTo(String value) {
             addCriterion("userid <=", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridIn(List<Integer> values) {
+        public Criteria andUseridLike(String value) {
+            addCriterion("userid like", value, "userid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridNotLike(String value) {
+            addCriterion("userid not like", value, "userid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridIn(List<String> values) {
             addCriterion("userid in", values, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridNotIn(List<Integer> values) {
+        public Criteria andUseridNotIn(List<String> values) {
             addCriterion("userid not in", values, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridBetween(Integer value1, Integer value2) {
+        public Criteria andUseridBetween(String value1, String value2) {
             addCriterion("userid between", value1, value2, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridNotBetween(Integer value1, Integer value2) {
+        public Criteria andUseridNotBetween(String value1, String value2) {
             addCriterion("userid not between", value1, value2, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsnewIsNull() {
-            addCriterion("pointsnew is null");
+        public Criteria andTaskidIsNull() {
+            addCriterion("taskid is null");
             return (Criteria) this;
         }
 
-        public Criteria andPointsnewIsNotNull() {
-            addCriterion("pointsnew is not null");
+        public Criteria andTaskidIsNotNull() {
+            addCriterion("taskid is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPointsnewEqualTo(Integer value) {
-            addCriterion("pointsnew =", value, "pointsnew");
+        public Criteria andTaskidEqualTo(String value) {
+            addCriterion("taskid =", value, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsnewNotEqualTo(Integer value) {
-            addCriterion("pointsnew <>", value, "pointsnew");
+        public Criteria andTaskidNotEqualTo(String value) {
+            addCriterion("taskid <>", value, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsnewGreaterThan(Integer value) {
-            addCriterion("pointsnew >", value, "pointsnew");
+        public Criteria andTaskidGreaterThan(String value) {
+            addCriterion("taskid >", value, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsnewGreaterThanOrEqualTo(Integer value) {
-            addCriterion("pointsnew >=", value, "pointsnew");
+        public Criteria andTaskidGreaterThanOrEqualTo(String value) {
+            addCriterion("taskid >=", value, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsnewLessThan(Integer value) {
-            addCriterion("pointsnew <", value, "pointsnew");
+        public Criteria andTaskidLessThan(String value) {
+            addCriterion("taskid <", value, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsnewLessThanOrEqualTo(Integer value) {
-            addCriterion("pointsnew <=", value, "pointsnew");
+        public Criteria andTaskidLessThanOrEqualTo(String value) {
+            addCriterion("taskid <=", value, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsnewIn(List<Integer> values) {
-            addCriterion("pointsnew in", values, "pointsnew");
+        public Criteria andTaskidLike(String value) {
+            addCriterion("taskid like", value, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsnewNotIn(List<Integer> values) {
-            addCriterion("pointsnew not in", values, "pointsnew");
+        public Criteria andTaskidNotLike(String value) {
+            addCriterion("taskid not like", value, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsnewBetween(Integer value1, Integer value2) {
-            addCriterion("pointsnew between", value1, value2, "pointsnew");
+        public Criteria andTaskidIn(List<String> values) {
+            addCriterion("taskid in", values, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsnewNotBetween(Integer value1, Integer value2) {
-            addCriterion("pointsnew not between", value1, value2, "pointsnew");
+        public Criteria andTaskidNotIn(List<String> values) {
+            addCriterion("taskid not in", values, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsoldIsNull() {
-            addCriterion("pointsold is null");
+        public Criteria andTaskidBetween(String value1, String value2) {
+            addCriterion("taskid between", value1, value2, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsoldIsNotNull() {
-            addCriterion("pointsold is not null");
+        public Criteria andTaskidNotBetween(String value1, String value2) {
+            addCriterion("taskid not between", value1, value2, "taskid");
             return (Criteria) this;
         }
 
-        public Criteria andPointsoldEqualTo(Integer value) {
-            addCriterion("pointsold =", value, "pointsold");
+        public Criteria andPointstypeIsNull() {
+            addCriterion("pointstype is null");
             return (Criteria) this;
         }
 
-        public Criteria andPointsoldNotEqualTo(Integer value) {
-            addCriterion("pointsold <>", value, "pointsold");
+        public Criteria andPointstypeIsNotNull() {
+            addCriterion("pointstype is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPointsoldGreaterThan(Integer value) {
-            addCriterion("pointsold >", value, "pointsold");
+        public Criteria andPointstypeEqualTo(String value) {
+            addCriterion("pointstype =", value, "pointstype");
             return (Criteria) this;
         }
 
-        public Criteria andPointsoldGreaterThanOrEqualTo(Integer value) {
-            addCriterion("pointsold >=", value, "pointsold");
+        public Criteria andPointstypeNotEqualTo(String value) {
+            addCriterion("pointstype <>", value, "pointstype");
             return (Criteria) this;
         }
 
-        public Criteria andPointsoldLessThan(Integer value) {
-            addCriterion("pointsold <", value, "pointsold");
+        public Criteria andPointstypeGreaterThan(String value) {
+            addCriterion("pointstype >", value, "pointstype");
             return (Criteria) this;
         }
 
-        public Criteria andPointsoldLessThanOrEqualTo(Integer value) {
-            addCriterion("pointsold <=", value, "pointsold");
+        public Criteria andPointstypeGreaterThanOrEqualTo(String value) {
+            addCriterion("pointstype >=", value, "pointstype");
             return (Criteria) this;
         }
 
-        public Criteria andPointsoldIn(List<Integer> values) {
-            addCriterion("pointsold in", values, "pointsold");
+        public Criteria andPointstypeLessThan(String value) {
+            addCriterion("pointstype <", value, "pointstype");
             return (Criteria) this;
         }
 
-        public Criteria andPointsoldNotIn(List<Integer> values) {
-            addCriterion("pointsold not in", values, "pointsold");
+        public Criteria andPointstypeLessThanOrEqualTo(String value) {
+            addCriterion("pointstype <=", value, "pointstype");
             return (Criteria) this;
         }
 
-        public Criteria andPointsoldBetween(Integer value1, Integer value2) {
-            addCriterion("pointsold between", value1, value2, "pointsold");
+        public Criteria andPointstypeLike(String value) {
+            addCriterion("pointstype like", value, "pointstype");
             return (Criteria) this;
         }
 
-        public Criteria andPointsoldNotBetween(Integer value1, Integer value2) {
-            addCriterion("pointsold not between", value1, value2, "pointsold");
+        public Criteria andPointstypeNotLike(String value) {
+            addCriterion("pointstype not like", value, "pointstype");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointstypeIn(List<String> values) {
+            addCriterion("pointstype in", values, "pointstype");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointstypeNotIn(List<String> values) {
+            addCriterion("pointstype not in", values, "pointstype");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointstypeBetween(String value1, String value2) {
+            addCriterion("pointstype between", value1, value2, "pointstype");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointstypeNotBetween(String value1, String value2) {
+            addCriterion("pointstype not between", value1, value2, "pointstype");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsupdateIsNull() {
+            addCriterion("pointsupdate is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsupdateIsNotNull() {
+            addCriterion("pointsupdate is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsupdateEqualTo(Integer value) {
+            addCriterion("pointsupdate =", value, "pointsupdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsupdateNotEqualTo(Integer value) {
+            addCriterion("pointsupdate <>", value, "pointsupdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsupdateGreaterThan(Integer value) {
+            addCriterion("pointsupdate >", value, "pointsupdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsupdateGreaterThanOrEqualTo(Integer value) {
+            addCriterion("pointsupdate >=", value, "pointsupdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsupdateLessThan(Integer value) {
+            addCriterion("pointsupdate <", value, "pointsupdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsupdateLessThanOrEqualTo(Integer value) {
+            addCriterion("pointsupdate <=", value, "pointsupdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsupdateIn(List<Integer> values) {
+            addCriterion("pointsupdate in", values, "pointsupdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsupdateNotIn(List<Integer> values) {
+            addCriterion("pointsupdate not in", values, "pointsupdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsupdateBetween(Integer value1, Integer value2) {
+            addCriterion("pointsupdate between", value1, value2, "pointsupdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsupdateNotBetween(Integer value1, Integer value2) {
+            addCriterion("pointsupdate not between", value1, value2, "pointsupdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsIsNull() {
+            addCriterion("points is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsIsNotNull() {
+            addCriterion("points is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsEqualTo(Integer value) {
+            addCriterion("points =", value, "points");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsNotEqualTo(Integer value) {
+            addCriterion("points <>", value, "points");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsGreaterThan(Integer value) {
+            addCriterion("points >", value, "points");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsGreaterThanOrEqualTo(Integer value) {
+            addCriterion("points >=", value, "points");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsLessThan(Integer value) {
+            addCriterion("points <", value, "points");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsLessThanOrEqualTo(Integer value) {
+            addCriterion("points <=", value, "points");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsIn(List<Integer> values) {
+            addCriterion("points in", values, "points");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsNotIn(List<Integer> values) {
+            addCriterion("points not in", values, "points");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsBetween(Integer value1, Integer value2) {
+            addCriterion("points between", value1, value2, "points");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsNotBetween(Integer value1, Integer value2) {
+            addCriterion("points not between", value1, value2, "points");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointreasonIsNull() {
+            addCriterion("pointreason is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointreasonIsNotNull() {
+            addCriterion("pointreason is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointreasonEqualTo(String value) {
+            addCriterion("pointreason =", value, "pointreason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointreasonNotEqualTo(String value) {
+            addCriterion("pointreason <>", value, "pointreason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointreasonGreaterThan(String value) {
+            addCriterion("pointreason >", value, "pointreason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointreasonGreaterThanOrEqualTo(String value) {
+            addCriterion("pointreason >=", value, "pointreason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointreasonLessThan(String value) {
+            addCriterion("pointreason <", value, "pointreason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointreasonLessThanOrEqualTo(String value) {
+            addCriterion("pointreason <=", value, "pointreason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointreasonLike(String value) {
+            addCriterion("pointreason like", value, "pointreason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointreasonNotLike(String value) {
+            addCriterion("pointreason not like", value, "pointreason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointreasonIn(List<String> values) {
+            addCriterion("pointreason in", values, "pointreason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointreasonNotIn(List<String> values) {
+            addCriterion("pointreason not in", values, "pointreason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointreasonBetween(String value1, String value2) {
+            addCriterion("pointreason between", value1, value2, "pointreason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointreasonNotBetween(String value1, String value2) {
+            addCriterion("pointreason not between", value1, value2, "pointreason");
             return (Criteria) this;
         }
 
