@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenapp.mapper.Custom.TPhoneInfoCustomMapper" >
+  
+  <select id="findTPhoneByTask" resultType="com.zhenapp.po.Custom.TPhoneInfoCustom" parameterType="java.util.HashMap" >
+   SELECT aa.phoneid,IFNULL(bb.counts,0) FROM (
+	SELECT b.phoneid FROM t_phone_info b 
+	WHERE b.phoneid NOT IN (SELECT c.phoneid FROM t_task_detailinfo c WHERE c.taskkeynum =#{taskkeynum} AND c.taskdate=#{taskdate} ) 
+	AND b.phonestate='1') aa 
+	LEFT JOIN (SELECT phoneid, COUNT(1) AS counts FROM t_task_detailinfo GROUP BY phoneid) bb ON aa.phoneid=bb.phoneid ORDER BY BB.COUNTS,PHONEID LIMIT 0,1
+  </select>
+  
+  <select id="findAllPhoneBykeynum" resultType="com.zhenapp.po.Custom.TPhoneInfoCustom" parameterType="String" >
+   SELECT aa.phoneid,IFNULL(bb.counts,0) FROM (
+	SELECT b.phoneid FROM t_phone_info b 
+	WHERE b.phoneid NOT IN (SELECT c.phoneid FROM t_task_detailinfo c WHERE c.taskkeynum =#{taskkeynum} AND c.taskdate=#{taskdate} ) 
+	AND b.phonestate='1') aa 
+	LEFT JOIN (SELECT phoneid, COUNT(1) AS counts FROM t_task_detailinfo GROUP BY phoneid) bb ON aa.phoneid=bb.phoneid ORDER BY BB.COUNTS,PHONEID
+  </select>
+</mapper>

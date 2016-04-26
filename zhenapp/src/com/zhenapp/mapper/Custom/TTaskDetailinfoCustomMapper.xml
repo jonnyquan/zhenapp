@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenapp.mapper.Custom.TTaskDetailinfoCustomMapper" >
+  
+  <insert id="insertDetailinfo" parameterType="com.zhenapp.po.Custom.TTaskDetailInfoCustom" >
+    insert into t_task_detailinfo (taskdetailpk, taskdetailid, taskid, 
+      phoneid, taskkeyword, taskkeynum, 
+      ISflow, ISCollection, ISShopping, 
+      taskstate, taskdate, taskhour, 
+      createtime, createuser, updatetime, 
+      updateuser)
+    values (#{taskdetailpk,jdbcType=INTEGER}, #{taskdetailid,jdbcType=VARCHAR}, #{taskid,jdbcType=VARCHAR}, 
+      #{phoneid,jdbcType=VARCHAR}, #{taskkeyword,jdbcType=VARCHAR}, #{taskkeynum,jdbcType=VARCHAR}, 
+      #{isflow,jdbcType=VARCHAR}, #{iscollection,jdbcType=VARCHAR}, #{isshopping,jdbcType=VARCHAR}, 
+      #{taskstate,jdbcType=VARCHAR}, #{taskdate,jdbcType=VARCHAR}, #{taskhour,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{updateuser,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.zhenapp.po.TTaskDetailinfo" >
+     update t_task_detailinfo
+    set taskdetailid = #{taskdetailid,jdbcType=VARCHAR},
+      taskid = #{taskid,jdbcType=VARCHAR},
+      phoneid = #{phoneid,jdbcType=VARCHAR},
+      taskkeyword = #{taskkeyword,jdbcType=VARCHAR},
+      taskkeynum = #{taskkeynum,jdbcType=VARCHAR},
+      ISflow = #{isflow,jdbcType=VARCHAR},
+      ISCollection = #{iscollection,jdbcType=VARCHAR},
+      ISShopping = #{isshopping,jdbcType=VARCHAR},
+      taskstate = #{taskstate,jdbcType=VARCHAR},
+      taskdate = #{taskdate,jdbcType=VARCHAR},
+      taskhour = #{taskhour,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=VARCHAR},
+      createuser = #{createuser,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=VARCHAR},
+      updateuser = #{updateuser,jdbcType=VARCHAR}
+    where taskdetailpk = #{taskdetailpk,jdbcType=INTEGER}
+  </update>
+</mapper>

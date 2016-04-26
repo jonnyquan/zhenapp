@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenapp.mapper.TScriptInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zhenapp.po.TScriptInfo" >
+    <id column="scriptpk" property="scriptpk" jdbcType="INTEGER" />
+    <result column="scriptid" property="scriptid" jdbcType="VARCHAR" />
+    <result column="scriptname" property="scriptname" jdbcType="VARCHAR" />
+    <result column="scriptpath" property="scriptpath" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="VARCHAR" />
+    <result column="createuser" property="createuser" jdbcType="VARCHAR" />
+    <result column="updatetime" property="updatetime" jdbcType="VARCHAR" />
+    <result column="updateuser" property="updateuser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    scriptpk, scriptid, scriptname, scriptpath, createtime, createuser, updatetime, updateuser
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TScriptInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_script_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_script_info
+    where scriptpk = #{scriptpk,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_script_info
+    where scriptpk = #{scriptpk,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zhenapp.po.TScriptInfoExample" >
+    delete from t_script_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhenapp.po.TScriptInfo" >
+    insert into t_script_info (scriptpk, scriptid, scriptname, 
+      scriptpath, createtime, createuser, 
+      updatetime, updateuser)
+    values (#{scriptpk,jdbcType=INTEGER}, #{scriptid,jdbcType=VARCHAR}, #{scriptname,jdbcType=VARCHAR}, 
+      #{scriptpath,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhenapp.po.TScriptInfo" >
+    insert into t_script_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scriptpk != null" >
+        scriptpk,
+      </if>
+      <if test="scriptid != null" >
+        scriptid,
+      </if>
+      <if test="scriptname != null" >
+        scriptname,
+      </if>
+      <if test="scriptpath != null" >
+        scriptpath,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="createuser != null" >
+        createuser,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="updateuser != null" >
+        updateuser,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scriptpk != null" >
+        #{scriptpk,jdbcType=INTEGER},
+      </if>
+      <if test="scriptid != null" >
+        #{scriptid,jdbcType=VARCHAR},
+      </if>
+      <if test="scriptname != null" >
+        #{scriptname,jdbcType=VARCHAR},
+      </if>
+      <if test="scriptpath != null" >
+        #{scriptpath,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateuser != null" >
+        #{updateuser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhenapp.po.TScriptInfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_script_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_script_info
+    <set >
+      <if test="record.scriptpk != null" >
+        scriptpk = #{record.scriptpk,jdbcType=INTEGER},
+      </if>
+      <if test="record.scriptid != null" >
+        scriptid = #{record.scriptid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scriptname != null" >
+        scriptname = #{record.scriptname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scriptpath != null" >
+        scriptpath = #{record.scriptpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createuser != null" >
+        createuser = #{record.createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatetime != null" >
+        updatetime = #{record.updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateuser != null" >
+        updateuser = #{record.updateuser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_script_info
+    set scriptpk = #{record.scriptpk,jdbcType=INTEGER},
+      scriptid = #{record.scriptid,jdbcType=VARCHAR},
+      scriptname = #{record.scriptname,jdbcType=VARCHAR},
+      scriptpath = #{record.scriptpath,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=VARCHAR},
+      createuser = #{record.createuser,jdbcType=VARCHAR},
+      updatetime = #{record.updatetime,jdbcType=VARCHAR},
+      updateuser = #{record.updateuser,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhenapp.po.TScriptInfo" >
+    update t_script_info
+    <set >
+      <if test="scriptid != null" >
+        scriptid = #{scriptid,jdbcType=VARCHAR},
+      </if>
+      <if test="scriptname != null" >
+        scriptname = #{scriptname,jdbcType=VARCHAR},
+      </if>
+      <if test="scriptpath != null" >
+        scriptpath = #{scriptpath,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        createuser = #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateuser != null" >
+        updateuser = #{updateuser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where scriptpk = #{scriptpk,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhenapp.po.TScriptInfo" >
+    update t_script_info
+    set scriptid = #{scriptid,jdbcType=VARCHAR},
+      scriptname = #{scriptname,jdbcType=VARCHAR},
+      scriptpath = #{scriptpath,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=VARCHAR},
+      createuser = #{createuser,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=VARCHAR},
+      updateuser = #{updateuser,jdbcType=VARCHAR}
+    where scriptpk = #{scriptpk,jdbcType=INTEGER}
+  </update>
+</mapper>

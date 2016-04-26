@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenapp.mapper.Custom.TTaskInfoCustomMapper" >
+  
+  
+  <select id="findTaskBypage" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap" >
+    select * from t_task_info
+    <where>
+    	<if test="taskid !=null and taskid!=''">
+    		and taskid like '%${taskid}%'
+    	</if>
+    	<if test="datefrom != null and datefrom != ''">
+    		and createtime <![CDATA[>=]]> #{datefrom}
+    	</if>
+    	<if test="dateto != null and dateto != ''">
+    		and createtime <![CDATA[<=]]> #{dateto}
+    	</if>
+    </where>
+     ORDER BY createtime DESC LIMIT #{page},#{rows}
+  </select>
+  
+  <select id="findAllTaskBypage" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap" >
+    select * from t_task_info
+    <where>
+    	<if test="taskid !=null and taskid!=''">
+    		and taskid like '%${taskid}%'
+    	</if>
+    	<if test="datefrom != null and datefrom != ''">
+    		and createtime <![CDATA[>=]]> #{datefrom}
+    	</if>
+    	<if test="dateto != null and dateto != ''">
+    		and createtime <![CDATA[<=]]> #{dateto}
+    	</if>
+    </where>
+  </select>
+  
+  <select id="findTaskallocation" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap" >
+    select * from t_task_info
+    <where>
+    	<if test="taskstate !=null and taskstate !=''">
+    		AND taskstate=#{taskstate} 
+    	</if>
+    	<if test="taskstartdate != null and taskstartdate != ''">
+    		AND taskstartdate=#{taskstartdate}
+    	</if>
+    </where>
+  </select>
+  
+  <select id="findIsFirst" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="String" >
+    select * from t_task_info WHERE taskkeynum=#{taskkeynum}
+  </select>
+  
+  
+  <insert id="insertTaskByapi" parameterType="com.zhenapp.po.Custom.TTaskInfoCustom">
+  	 insert into t_task_info (taskpk, taskid, taskType, 
+      taskkeynum, taskkeyword, taskstartdate, 
+      taskenddate, taskhourcounts, taskminprice, 
+      taskmaxprice, tasksearchType, taskimgztc, 
+      taskimgpt, flowcount, Collectioncount, 
+      Shoppingcount, tasktmallapppct, taskgprspct, 
+      taskPlus, taskduration, taskstate, 
+      createtime, createuser, updatetime, 
+      updateuser)
+    values (#{taskpk,jdbcType=INTEGER}, #{taskid,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
+      #{taskkeynum,jdbcType=VARCHAR}, #{taskkeyword,jdbcType=VARCHAR}, #{taskstartdate,jdbcType=VARCHAR}, 
+      #{taskenddate,jdbcType=VARCHAR}, #{taskhourcounts,jdbcType=VARCHAR}, #{taskminprice,jdbcType=VARCHAR}, 
+      #{taskmaxprice,jdbcType=VARCHAR}, #{tasksearchtype,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR}, 
+      #{taskimgpt,jdbcType=VARCHAR}, #{flowcount,jdbcType=INTEGER}, #{collectioncount,jdbcType=INTEGER}, 
+      #{shoppingcount,jdbcType=INTEGER}, #{tasktmallapppct,jdbcType=VARCHAR}, #{taskgprspct,jdbcType=VARCHAR}, 
+      #{taskplus,jdbcType=VARCHAR}, #{taskduration,jdbcType=VARCHAR}, #{taskstate,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{updateuser,jdbcType=VARCHAR})
+   </insert>
+  
+  <insert id="insertTaskInfo" parameterType="com.zhenapp.po.Custom.TTaskInfoCustom" >
+     insert into t_task_info (taskpk, taskid, taskType, 
+      taskkeynum, taskkeyword, taskstartdate, 
+      taskenddate, taskhourcounts, taskminprice, 
+      taskmaxprice, tasksearchType, taskimgztc, 
+      taskimgpt, flowcount, Collectioncount, 
+      Shoppingcount, tasktmallapppct, taskgprspct, 
+      taskPlus, taskduration, taskstate, 
+      createtime, createuser, updatetime, 
+      updateuser)
+    values (#{taskpk,jdbcType=INTEGER}, #{taskid,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
+      #{taskkeynum,jdbcType=VARCHAR}, #{taskkeyword,jdbcType=VARCHAR}, #{taskstartdate,jdbcType=VARCHAR}, 
+      #{taskenddate,jdbcType=VARCHAR}, #{taskhourcounts,jdbcType=VARCHAR}, #{taskminprice,jdbcType=VARCHAR}, 
+      #{taskmaxprice,jdbcType=VARCHAR}, #{tasksearchtype,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR}, 
+      #{taskimgpt,jdbcType=VARCHAR}, #{flowcount,jdbcType=INTEGER}, #{collectioncount,jdbcType=INTEGER}, 
+      #{shoppingcount,jdbcType=INTEGER}, #{tasktmallapppct,jdbcType=VARCHAR}, #{taskgprspct,jdbcType=VARCHAR}, 
+      #{taskplus,jdbcType=VARCHAR}, #{taskduration,jdbcType=VARCHAR}, #{taskstate,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{updateuser,jdbcType=VARCHAR})
+  </insert>
+  
+  <delete id="deleteTaskBypk" parameterType="String">
+    delete from t_task_info
+    where taskpk in (${value})
+  </delete>
+</mapper>

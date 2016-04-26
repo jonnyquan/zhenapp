@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenapp.mapper.Custom.TComboInfoCustomMapper">
+	<select id="findAllCombo" resultType="com.zhenapp.po.Custom.TComboInfoCustom">
+		SELECT * FROM t_combo_info ORDER BY combomoney
+	</select>
+
+	<select id="findComboByid" resultType="com.zhenapp.po.Custom.TComboInfoCustom"
+		parameterType="String">
+		SELECT * FROM t_combo_info WHERE comboid=#{comboid}
+	</select>
+
+
+	<select id="findComboBypage" resultType="com.zhenapp.po.Custom.TComboInfoCustom">
+		SELECT * FROM t_combo_info ORDER BY combomoney LIMIT #{page},#{rows}
+	</select>
+	
+	<insert id="insertComboto" parameterType="com.zhenapp.po.Custom.TComboInfoCustom">
+  	  insert into t_combo_info (comboid, comboname, 
+	      combomoney, combointegral, combogivemoney, 
+	      combogiveintegral, combodesc, createuser, 
+	      createtime, updateuser, updatetime
+	      )
+	    values (#{comboid,jdbcType=VARCHAR}, #{comboname,jdbcType=VARCHAR}, 
+	      #{combomoney,jdbcType=INTEGER}, #{combointegral,jdbcType=INTEGER}, #{combogivemoney,jdbcType=INTEGER}, 
+	      #{combogiveintegral,jdbcType=INTEGER}, #{combodesc,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
+	      #{createtime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}
+	      )
+  </insert>
+	
+	
+</mapper>

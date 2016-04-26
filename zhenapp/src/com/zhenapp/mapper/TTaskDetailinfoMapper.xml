@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenapp.mapper.TTaskDetailinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zhenapp.po.TTaskDetailinfo" >
+    <id column="taskdetailpk" property="taskdetailpk" jdbcType="INTEGER" />
+    <result column="taskdetailid" property="taskdetailid" jdbcType="VARCHAR" />
+    <result column="taskid" property="taskid" jdbcType="VARCHAR" />
+    <result column="phoneid" property="phoneid" jdbcType="VARCHAR" />
+    <result column="taskkeyword" property="taskkeyword" jdbcType="VARCHAR" />
+    <result column="taskkeynum" property="taskkeynum" jdbcType="VARCHAR" />
+    <result column="ISflow" property="isflow" jdbcType="VARCHAR" />
+    <result column="ISCollection" property="iscollection" jdbcType="VARCHAR" />
+    <result column="ISShopping" property="isshopping" jdbcType="VARCHAR" />
+    <result column="taskstate" property="taskstate" jdbcType="VARCHAR" />
+    <result column="taskdate" property="taskdate" jdbcType="VARCHAR" />
+    <result column="taskhour" property="taskhour" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="VARCHAR" />
+    <result column="createuser" property="createuser" jdbcType="VARCHAR" />
+    <result column="updatetime" property="updatetime" jdbcType="VARCHAR" />
+    <result column="updateuser" property="updateuser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    taskdetailpk, taskdetailid, taskid, phoneid, taskkeyword, taskkeynum, ISflow, ISCollection, 
+    ISShopping, taskstate, taskdate, taskhour, createtime, createuser, updatetime, updateuser
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TTaskDetailinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_task_detailinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_task_detailinfo
+    where taskdetailpk = #{taskdetailpk,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_task_detailinfo
+    where taskdetailpk = #{taskdetailpk,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zhenapp.po.TTaskDetailinfoExample" >
+    delete from t_task_detailinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhenapp.po.TTaskDetailinfo" >
+    insert into t_task_detailinfo (taskdetailpk, taskdetailid, taskid, 
+      phoneid, taskkeyword, taskkeynum, 
+      ISflow, ISCollection, ISShopping, 
+      taskstate, taskdate, taskhour, 
+      createtime, createuser, updatetime, 
+      updateuser)
+    values (#{taskdetailpk,jdbcType=INTEGER}, #{taskdetailid,jdbcType=VARCHAR}, #{taskid,jdbcType=VARCHAR}, 
+      #{phoneid,jdbcType=VARCHAR}, #{taskkeyword,jdbcType=VARCHAR}, #{taskkeynum,jdbcType=VARCHAR}, 
+      #{isflow,jdbcType=VARCHAR}, #{iscollection,jdbcType=VARCHAR}, #{isshopping,jdbcType=VARCHAR}, 
+      #{taskstate,jdbcType=VARCHAR}, #{taskdate,jdbcType=VARCHAR}, #{taskhour,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{updateuser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhenapp.po.TTaskDetailinfo" >
+    insert into t_task_detailinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="taskdetailpk != null" >
+        taskdetailpk,
+      </if>
+      <if test="taskdetailid != null" >
+        taskdetailid,
+      </if>
+      <if test="taskid != null" >
+        taskid,
+      </if>
+      <if test="phoneid != null" >
+        phoneid,
+      </if>
+      <if test="taskkeyword != null" >
+        taskkeyword,
+      </if>
+      <if test="taskkeynum != null" >
+        taskkeynum,
+      </if>
+      <if test="isflow != null" >
+        ISflow,
+      </if>
+      <if test="iscollection != null" >
+        ISCollection,
+      </if>
+      <if test="isshopping != null" >
+        ISShopping,
+      </if>
+      <if test="taskstate != null" >
+        taskstate,
+      </if>
+      <if test="taskdate != null" >
+        taskdate,
+      </if>
+      <if test="taskhour != null" >
+        taskhour,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="createuser != null" >
+        createuser,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="updateuser != null" >
+        updateuser,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="taskdetailpk != null" >
+        #{taskdetailpk,jdbcType=INTEGER},
+      </if>
+      <if test="taskdetailid != null" >
+        #{taskdetailid,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null" >
+        #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneid != null" >
+        #{phoneid,jdbcType=VARCHAR},
+      </if>
+      <if test="taskkeyword != null" >
+        #{taskkeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="taskkeynum != null" >
+        #{taskkeynum,jdbcType=VARCHAR},
+      </if>
+      <if test="isflow != null" >
+        #{isflow,jdbcType=VARCHAR},
+      </if>
+      <if test="iscollection != null" >
+        #{iscollection,jdbcType=VARCHAR},
+      </if>
+      <if test="isshopping != null" >
+        #{isshopping,jdbcType=VARCHAR},
+      </if>
+      <if test="taskstate != null" >
+        #{taskstate,jdbcType=VARCHAR},
+      </if>
+      <if test="taskdate != null" >
+        #{taskdate,jdbcType=VARCHAR},
+      </if>
+      <if test="taskhour != null" >
+        #{taskhour,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateuser != null" >
+        #{updateuser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhenapp.po.TTaskDetailinfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_task_detailinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_task_detailinfo
+    <set >
+      <if test="record.taskdetailpk != null" >
+        taskdetailpk = #{record.taskdetailpk,jdbcType=INTEGER},
+      </if>
+      <if test="record.taskdetailid != null" >
+        taskdetailid = #{record.taskdetailid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskid != null" >
+        taskid = #{record.taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phoneid != null" >
+        phoneid = #{record.phoneid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskkeyword != null" >
+        taskkeyword = #{record.taskkeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskkeynum != null" >
+        taskkeynum = #{record.taskkeynum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isflow != null" >
+        ISflow = #{record.isflow,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iscollection != null" >
+        ISCollection = #{record.iscollection,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isshopping != null" >
+        ISShopping = #{record.isshopping,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskstate != null" >
+        taskstate = #{record.taskstate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskdate != null" >
+        taskdate = #{record.taskdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskhour != null" >
+        taskhour = #{record.taskhour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createuser != null" >
+        createuser = #{record.createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatetime != null" >
+        updatetime = #{record.updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateuser != null" >
+        updateuser = #{record.updateuser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_task_detailinfo
+    set taskdetailpk = #{record.taskdetailpk,jdbcType=INTEGER},
+      taskdetailid = #{record.taskdetailid,jdbcType=VARCHAR},
+      taskid = #{record.taskid,jdbcType=VARCHAR},
+      phoneid = #{record.phoneid,jdbcType=VARCHAR},
+      taskkeyword = #{record.taskkeyword,jdbcType=VARCHAR},
+      taskkeynum = #{record.taskkeynum,jdbcType=VARCHAR},
+      ISflow = #{record.isflow,jdbcType=VARCHAR},
+      ISCollection = #{record.iscollection,jdbcType=VARCHAR},
+      ISShopping = #{record.isshopping,jdbcType=VARCHAR},
+      taskstate = #{record.taskstate,jdbcType=VARCHAR},
+      taskdate = #{record.taskdate,jdbcType=VARCHAR},
+      taskhour = #{record.taskhour,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=VARCHAR},
+      createuser = #{record.createuser,jdbcType=VARCHAR},
+      updatetime = #{record.updatetime,jdbcType=VARCHAR},
+      updateuser = #{record.updateuser,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhenapp.po.TTaskDetailinfo" >
+    update t_task_detailinfo
+    <set >
+      <if test="taskdetailid != null" >
+        taskdetailid = #{taskdetailid,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null" >
+        taskid = #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneid != null" >
+        phoneid = #{phoneid,jdbcType=VARCHAR},
+      </if>
+      <if test="taskkeyword != null" >
+        taskkeyword = #{taskkeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="taskkeynum != null" >
+        taskkeynum = #{taskkeynum,jdbcType=VARCHAR},
+      </if>
+      <if test="isflow != null" >
+        ISflow = #{isflow,jdbcType=VARCHAR},
+      </if>
+      <if test="iscollection != null" >
+        ISCollection = #{iscollection,jdbcType=VARCHAR},
+      </if>
+      <if test="isshopping != null" >
+        ISShopping = #{isshopping,jdbcType=VARCHAR},
+      </if>
+      <if test="taskstate != null" >
+        taskstate = #{taskstate,jdbcType=VARCHAR},
+      </if>
+      <if test="taskdate != null" >
+        taskdate = #{taskdate,jdbcType=VARCHAR},
+      </if>
+      <if test="taskhour != null" >
+        taskhour = #{taskhour,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        createuser = #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateuser != null" >
+        updateuser = #{updateuser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where taskdetailpk = #{taskdetailpk,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhenapp.po.TTaskDetailinfo" >
+    update t_task_detailinfo
+    set taskdetailid = #{taskdetailid,jdbcType=VARCHAR},
+      taskid = #{taskid,jdbcType=VARCHAR},
+      phoneid = #{phoneid,jdbcType=VARCHAR},
+      taskkeyword = #{taskkeyword,jdbcType=VARCHAR},
+      taskkeynum = #{taskkeynum,jdbcType=VARCHAR},
+      ISflow = #{isflow,jdbcType=VARCHAR},
+      ISCollection = #{iscollection,jdbcType=VARCHAR},
+      ISShopping = #{isshopping,jdbcType=VARCHAR},
+      taskstate = #{taskstate,jdbcType=VARCHAR},
+      taskdate = #{taskdate,jdbcType=VARCHAR},
+      taskhour = #{taskhour,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=VARCHAR},
+      createuser = #{createuser,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=VARCHAR},
+      updateuser = #{updateuser,jdbcType=VARCHAR}
+    where taskdetailpk = #{taskdetailpk,jdbcType=INTEGER}
+  </update>
+</mapper>

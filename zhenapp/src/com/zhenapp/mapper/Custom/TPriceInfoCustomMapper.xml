@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenapp.mapper.Custom.TPriceInfoCustomMapper" >
+  <select id="findPriceBycode" parameterType="String" resultType="com.zhenapp.po.Custom.TPriceInfoCustom" >
+  	SELECT * FROM t_price_info WHERE pricecode=#{pricecode}
+  </select>
+  <select id="findAllPrice" resultType="com.zhenapp.po.Custom.TPriceInfoCustom" >
+  	SELECT * FROM t_price_info order by priceid
+  </select>
+  <update id="updatePriceBycode">
+    update t_price_info
+    set
+      pricecounts = #{pricecount,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=VARCHAR},
+      updateuser = #{usernick,jdbcType=VARCHAR}
+    where pricecode = #{pricecode}
+  </update>
+</mapper>

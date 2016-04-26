@@ -1,0 +1,29 @@
+package com.zhenapp.service;
+
+import java.util.HashMap;
+import java.util.List;
+
+import com.zhenapp.po.Custom.TScriptInfoCustom;
+
+public interface ScriptInfoService {
+	/*
+	 * 插入上传的脚本信息
+	 */
+	public int insertScript(TScriptInfoCustom tScriptInfoCustom) throws Exception;
+	/*
+	 * 查询全部脚本信息
+	 */
+	public List<TScriptInfoCustom> findAllScriptByPage(HashMap<String,Object> pagemap) throws Exception;
+	/*
+	 * 查询全部脚本信息
+	 */
+	public List<TScriptInfoCustom> findScriptByPage(HashMap<String,Object> pagemap) throws Exception;
+	/*
+	 * 根据id查询脚本文件下载
+	 */
+	public TScriptInfoCustom findScriptByid(String scriptid) throws Exception; 
+	/*
+	 * 根据id删除脚本信息
+	 */
+	public int deletescriptByid(String scriptid) throws Exception;
+}
