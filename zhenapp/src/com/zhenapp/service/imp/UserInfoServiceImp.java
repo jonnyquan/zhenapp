@@ -61,4 +61,10 @@ public class UserInfoServiceImp implements UserInfoService {
 		// TODO Auto-generated method stub
 		return tUserInfoCustomMapper.findUserByPage(pagemap);
 	}
+
+	@Override
+	public int deleteUserinfoBypk(String userpk) throws Exception {
+		// TODO Auto-generated method stub
+		return tUserInfoCustomMapper.deleteUserinfoBypk(userpk);
+	}
 }

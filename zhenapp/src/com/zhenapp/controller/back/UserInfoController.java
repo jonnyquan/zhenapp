@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -176,12 +177,23 @@ public class UserInfoController {
 	 * 用于用户修改基本信息
 	 */
 	@RequestMapping(value="/updateUserinfo")
-	public  @ResponseBody ModelAndView updateUserinfo(TUserinfoVo tUserinfoVo) throws Exception{
+	public @ResponseBody ModelAndView updateUserinfo(TUserinfoVo tUserinfoVo) throws Exception{
 		ModelAndView mv =new ModelAndView();
 		int i=userInfoService.updateUserinfo(tUserinfoVo);
 		if(i>0){
 			mv.setViewName("/user/findUserinfoByusernick");
 		}
 		return mv;
+	}
+	/*
+	 * 删除用户信息
+	 */
+	@RequestMapping(value="/deleteUserinfoBypk/{userpk}")
+	public @ResponseBody ModelMap deleteUserinfoBypk(@PathVariable(value="userpk")String userpk) throws Exception{
+		ModelMap map= new ModelMap();
+		
+		int i= userInfoService.deleteUserinfoBypk(userpk);
+		map.put("data", i);
+		return map;
 	}
 }

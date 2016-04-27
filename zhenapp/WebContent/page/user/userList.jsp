@@ -34,7 +34,7 @@
 	<div id="datagridtools" style="padding:5px;height:auto;">
 		<div>
 			<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-edit">充值扣款</a>
-			<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-remove">删除</a>
+			<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-remove" onclick="obj.remove();">删除</a>
 			<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-login">登录</a> 
 			<a href="#" class="easyui-linkbutton" plain="true">设为代理</a> 
 		</div>
@@ -42,10 +42,9 @@
 			账号:<input type="text" name="user" style="width:110px;">
 			创建时间从:<input type="text" name="user" style="width:110px;"> 到：<input
 				type="text" name="user" style="width:110px;"> <a href="#"
-				class="easyui-linkbutton">查询</a>
+				class="easyui-linkbutton" onclick="obj.search();">查询</a>
 		</div>
 	</div>
-
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/easyui/jquery.min.js"></script>
 	<script type="text/javascript"
@@ -60,7 +59,6 @@
 			obj={
 				search:function(){
 					$("#datagrid").datagrid('load',{
-						taskid:$.trim($("#taskid").val()),
 						datefrom:$("input[name='datefrom']").val(),
 						dateto:$("input[name='dateto']").val(),
 					});
@@ -70,24 +68,17 @@
 					if(rows.length>0){
 						$.messager.confirm('确认','您确认想要删除记录吗？',function(b){    
 						    if (b){
-								var pks=[];
-								for(var i=0;i<rows.length;i++){
-									pks.push(rows[i].taskpk);
-								}
 								$.ajax({
 									type:"POST",
-									url:"${pageContext.request.contextPath}/task/deleteTaskBypk",
-									data:{
-										pks:pks.join(",")
-									},
+									url:"${pageContext.request.contextPath}/user/deleteUserinfoBypk/"+rows[0].userpk,
 									beforeSend:function(){
 										$("#datagrid").datagrid('loading');
 									},
-									success:function(){
+									success:function(data){
 										$("#datagrid").datagrid('loaded');	
 										$.messager.show({
 											title:"提示消息",
-											msg:"删除成功",
+											msg:"删除"+data.data+"条记录成功",
 											width:300,
 											height:200,
 										});

@@ -14,6 +14,10 @@
   	SELECT * FROM t_user_info WHERE userNick=#{tUserinfoCustom.usernick} AND regEmail=#{tUserinfoCustom.regemail} limit 0,1
   </select>
   
+  <delete id="deleteUserinfoBypk" parameterType="String">
+ 	delete from  t_user_info where userpk=#{userpk}
+  </delete>
+  
   
   <update id="updateUserinfo" parameterType="com.zhenapp.po.Vo.TUserinfoVo">
   	update t_user_info

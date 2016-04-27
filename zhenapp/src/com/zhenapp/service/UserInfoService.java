@@ -37,4 +37,8 @@ public interface UserInfoService {
 	 * 修改用户信息
 	 */
 	public int updateUserinfo(TUserinfoVo tUserinfoVo) throws Exception;
+	/*
+	 * 根据用户主键删除用户信息
+	 */
+	public int deleteUserinfoBypk(String userpk) throws Exception;
 }
