@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhenapp.po.OrderInfo;
 import com.zhenapp.po.TTaskInfo;
-import com.zhenapp.po.Custom.TUserinfoCustom;
+import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Vo.TUserinfoVo;
 import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.UserInfoService;
@@ -34,7 +34,7 @@ public class platform {
 	public @ResponseBody ModelMap searchBalance(@PathVariable(value="partnerId") String partnerId,@PathVariable(value="password") String password) throws Exception{
 		ModelMap map=new ModelMap();
 		TUserinfoVo tUserinfoVo=new TUserinfoVo();
-		TUserinfoCustom tUserinfoCustom=new TUserinfoCustom();
+		TUserInfoCustom tUserinfoCustom=new TUserInfoCustom();
 		tUserinfoCustom.setUsernick(partnerId);
 		tUserinfoCustom.setUserpwd(MD5Util.string2MD5(password));
 		tUserinfoVo.settUserinfoCustom(tUserinfoCustom);
@@ -51,7 +51,7 @@ public class platform {
 	public @ResponseBody ModelMap searchBalance_2(String partnerId,String password) throws Exception{
 		ModelMap map=new ModelMap();
 		TUserinfoVo tUserinfoVo=new TUserinfoVo();
-		TUserinfoCustom tUserinfoCustom=new TUserinfoCustom();
+		TUserInfoCustom tUserinfoCustom=new TUserInfoCustom();
 		tUserinfoCustom.setUsernick(partnerId);
 		tUserinfoCustom.setUserpwd(MD5Util.string2MD5(password));
 		tUserinfoVo.settUserinfoCustom(tUserinfoCustom);
@@ -68,12 +68,12 @@ public class platform {
 	@RequestMapping(value="/flow/save")
 	public @ResponseBody ModelMap flowsave(String partnerId,String data,String validation) throws Exception{
 		ModelMap map=new ModelMap();
-		List<TUserinfoCustom> tUserinfoCustomlist=userInfoService.findUserBynick(partnerId);
+		List<TUserInfoCustom> tUserinfoCustomlist=userInfoService.findUserBynick(partnerId);
 		if(tUserinfoCustomlist.size()<0){
 			map.put("code", "0");
 			map.put("desc", "用户不存在");
 		}
-		TUserinfoCustom tUserinfoCustom=tUserinfoCustomlist.get(0);
+		TUserInfoCustom tUserinfoCustom=tUserinfoCustomlist.get(0);
 		String validationtest=MD5Util.string2MD5(tUserinfoCustom.getUsernick()+tUserinfoCustom.getUserpwd()+tUserinfoCustom.getUsernick());
 		if(!validation.equals(validationtest)){
 			map.put("code", "0");

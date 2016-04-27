@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.TSysconfInfoCustom;
+import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.SysconfInfoService;
 
 
@@ -40,8 +41,8 @@ public class SysconfInfoController {
 	public @ResponseBody ModelAndView updateSysinfo(TSysconfInfoCustom tSysconfInfoCustom,HttpServletRequest request) throws Exception{
 		ModelAndView mv =new ModelAndView();
 		HttpSession session=request.getSession();
-		String usernick=session.getAttribute("usernick").toString();
-		tSysconfInfoCustom.setUpdateuser(usernick);
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		tSysconfInfoCustom.setUpdateuser(tUserInfoCustom.getUsernick());
 		tSysconfInfoCustom.setUpdatetime(sdf.format(new Date()));
 		int i= sysconfInfoService.updateSysinfo(tSysconfInfoCustom);
 		System.out.println(i);

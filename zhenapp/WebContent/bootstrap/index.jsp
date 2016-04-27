@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div style="height:20px;">
 		<marquee scrollamount="5" onMouseOut=start(); onMouseOver=stop();>
 			<a id="linka1" href="${pageContext.request.contextPath}/page/main/login.jsp"><font
-				style="font-size:20px;">欢迎<font color="#F00">${usernick}</font>登陆本系统
+				style="font-size:20px;">欢迎<font color="#F00">${tUserInfoCustom.usernick}</font>登陆本系统
 			</font></a>  
 			<a id="linka2" href="${pageContext.request.contextPath}/page/main/reg.jsp"><font
 				style="font-size:20px;">| 赶紧加入我们</font></a>

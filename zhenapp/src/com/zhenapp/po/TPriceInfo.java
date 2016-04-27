@@ -5,6 +5,8 @@ public class TPriceInfo {
 
     private String priceid;
 
+    private String agentid;
+
     private String pricetype;
 
     private String pricecode;
@@ -33,6 +35,14 @@ public class TPriceInfo {
 
     public void setPriceid(String priceid) {
         this.priceid = priceid == null ? null : priceid.trim();
+    }
+
+    public String getAgentid() {
+        return agentid;
+    }
+
+    public void setAgentid(String agentid) {
+        this.agentid = agentid == null ? null : agentid.trim();
     }
 
     public String getPricetype() {

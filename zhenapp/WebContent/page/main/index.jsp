@@ -23,7 +23,7 @@
 				color="#fff" size="3px">网站首页</font></a>
 		</div>
 		<div class="logout">
-			您好，<font color="red" size="3px"> ${usernick}</font> | <a
+			您好，<font color="red" size="3px"> ${tUserInfoCustom.usernick}</font> | <a
 				href="${pageContext.request.contextPath}/user/Logout">退出</a>
 		</div>
 	</div>
@@ -54,7 +54,7 @@
 	src="${pageContext.request.contextPath}/page/js/index.js"></script>
 <script type="text/javascript">
 	var uri = "${pageContext.request.contextPath}";
-	var usernick = "${usernick}";
+	var usernick = "${tUserInfoCustom.usernick}";
 	;
 	$(function() {
 		if (usernick.length < 1) {

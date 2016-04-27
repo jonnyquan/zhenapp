@@ -5,6 +5,8 @@ public class TAgentInfo {
 
     private String agentid;
 
+    private String agentuserid;
+
     private String agentperson;
 
     private String agentphone;
@@ -39,6 +41,14 @@ public class TAgentInfo {
 
     public void setAgentid(String agentid) {
         this.agentid = agentid == null ? null : agentid.trim();
+    }
+
+    public String getAgentuserid() {
+        return agentuserid;
+    }
+
+    public void setAgentuserid(String agentuserid) {
+        this.agentuserid = agentuserid == null ? null : agentuserid.trim();
     }
 
     public String getAgentperson() {

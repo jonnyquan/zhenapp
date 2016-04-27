@@ -1,15 +1,15 @@
 package com.zhenapp.po.Vo;
 
-import com.zhenapp.po.Custom.TUserinfoCustom;
+import com.zhenapp.po.Custom.TUserInfoCustom;
 
 public class TUserinfoVo {
-	private TUserinfoCustom tUserinfoCustom;
+	private TUserInfoCustom tUserinfoCustom;
 
-	public TUserinfoCustom gettUserinfoCustom() {
+	public TUserInfoCustom gettUserinfoCustom() {
 		return tUserinfoCustom;
 	}
 
-	public void settUserinfoCustom(TUserinfoCustom tUserinfoCustom) {
+	public void settUserinfoCustom(TUserInfoCustom tUserinfoCustom) {
 		this.tUserinfoCustom = tUserinfoCustom;
 	}
 	

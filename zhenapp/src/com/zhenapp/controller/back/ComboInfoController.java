@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.TComboInfoCustom;
+import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.ComboInfoService;
 
 @Controller
@@ -62,12 +63,12 @@ public class ComboInfoController {
 	ModelAndView insertComboto(HttpServletRequest request,TComboInfoCustom tComboInfoCustom) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		HttpSession session = request.getSession();
-		String usernick = session.getAttribute("usernick").toString();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		tComboInfoCustom.setComboid(UUID.randomUUID().toString());
 		tComboInfoCustom.setCreatetime(sdf.format(new Date()));
 		tComboInfoCustom.setUpdatetime(sdf.format(new Date()));
-		tComboInfoCustom.setCreateuser(usernick);
-		tComboInfoCustom.setUpdateuser(usernick);
+		tComboInfoCustom.setCreateuser(tUserInfoCustom.getUsernick());
+		tComboInfoCustom.setUpdateuser(tUserInfoCustom.getUsernick());
 		int i = comboInfoService.insertComboto(tComboInfoCustom);
 		System.out.println(i);
 		mv.setViewName("findAllCombotoEdit");

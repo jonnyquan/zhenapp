@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.TScriptInfoCustom;
 import com.zhenapp.po.Custom.TTbaccountInfoCustom;
+import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Custom.TWebInfoCustom;
 import com.zhenapp.service.ScriptInfoService;
 import com.zhenapp.service.TbaccountInfoService;
@@ -101,8 +102,8 @@ public class upload {
 				}
 			}
 			HttpSession session = request.getSession();
-			tWebInfoCustom.setUpdateuser(session.getAttribute("usernick")
-					.toString());
+			TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+			tWebInfoCustom.setUpdateuser(tUserInfoCustom.getUsernick());
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 			String updatetime = sdf.format(new Date());
 			tWebInfoCustom.setUpdatetime(updatetime);
@@ -121,7 +122,7 @@ public class upload {
 			@RequestParam("file") MultipartFile file) throws Exception {
 		TScriptInfoCustom tScriptInfoCustom = new TScriptInfoCustom();
 		HttpSession session = request.getSession();
-		String usernick = session.getAttribute("usernick").toString();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 
 		String time = sdf.format(new Date());
 		ModelAndView mv = new ModelAndView();
@@ -146,8 +147,8 @@ public class upload {
 			tScriptInfoCustom.setScriptpath(pic_path + newFileName);
 			tScriptInfoCustom.setScriptname(originalFilename);
 			tScriptInfoCustom.setCreatetime(time);
-			tScriptInfoCustom.setCreateuser(usernick);
-			tScriptInfoCustom.setUpdateuser(usernick);
+			tScriptInfoCustom.setCreateuser(tUserInfoCustom.getUsernick());
+			tScriptInfoCustom.setUpdateuser(tUserInfoCustom.getUsernick());
 			tScriptInfoCustom.setUpdatetime(time);
 			tScriptInfoCustom.setScriptid(UUID.randomUUID().toString());
 			scriptInfoService.insertScript(tScriptInfoCustom);
@@ -167,7 +168,8 @@ public class upload {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		String time = sdf.format(new Date());
 		HttpSession session = request.getSession();
-		String usernick = session.getAttribute("usernick").toString();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		
 		ModelAndView mv = new ModelAndView();
 		// 原始名称
 		String originalFilename = file.getOriginalFilename();
@@ -213,9 +215,9 @@ public class upload {
 					tTbaccountInfoCustom.setTbaccountphoneid(tbaccount[2]);
 				}
 				tTbaccountInfoCustom.setCreatetime(time);
-				tTbaccountInfoCustom.setCreateuser(usernick);
+				tTbaccountInfoCustom.setCreateuser(tUserInfoCustom.getUsernick());
 				tTbaccountInfoCustom.setUpdatetime(time);
-				tTbaccountInfoCustom.setUpdateuser(usernick);
+				tTbaccountInfoCustom.setUpdateuser(tUserInfoCustom.getUsernick());
 				tbaccountInfoService.insertTbaccount(tTbaccountInfoCustom);
 			}
 

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.TUserInfo;
-import com.zhenapp.po.Custom.TUserinfoCustom;
+import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Vo.TUserinfoVo;
 import com.zhenapp.service.UserInfoService;
 import com.zhenapp.util.MD5Util;
@@ -36,12 +36,11 @@ public class UserInfoController {
 	public @ResponseBody TUserInfo Loginrest(HttpSession httpSession, String username,String password) throws Exception{
 		TUserInfo tUserInfo=new TUserInfo();
 		tUserInfo.setUserstate("1");
-		List<TUserinfoCustom> list=userInfoService.findUserBynick(username);
+		List<TUserInfoCustom> list=userInfoService.findUserBynick(username);
 		if (list.size()>0) {
-			tUserInfo=list.get(0);
+			TUserInfoCustom tUserInfoCustom=list.get(0);
 			httpSession.setMaxInactiveInterval(900); //15分钟
-			httpSession.setAttribute("usernick", tUserInfo.getUsernick());
-			
+			httpSession.setAttribute("tUserInfoCustom", tUserInfoCustom);
 		}else{
 			tUserInfo=null;
 		}
@@ -78,7 +77,7 @@ public class UserInfoController {
 	@RequestMapping(value="/findUserByNick"
 			,method={RequestMethod.POST,RequestMethod.GET})
 	public @ResponseBody String findUserByNick(String usernick) throws Exception{
-		List<TUserinfoCustom> list=userInfoService.findUserBynick(usernick);
+		List<TUserInfoCustom> list=userInfoService.findUserBynick(usernick);
 		if(list.size()>0){
 			return "1";
 		}
@@ -91,7 +90,7 @@ public class UserInfoController {
 	@RequestMapping(value="/findAllUser")
 	public @ResponseBody ModelMap findAllUser() throws Exception{
 		ModelMap map=new ModelMap();
-		List<TUserinfoCustom> list=userInfoService.findAllUser();
+		List<TUserInfoCustom> list=userInfoService.findAllUser();
 		map.put("total", list.size());
 		map.put("rows", list);
 		return map;
@@ -105,7 +104,7 @@ public class UserInfoController {
 	public ModelAndView Logout(HttpServletRequest request){
 		ModelAndView mv=new ModelAndView();
 		HttpSession session=request.getSession();
-		session.removeAttribute("usernick");
+		session.removeAttribute("tUserInfoCustom");
 		mv.setViewName("/page/main/login.jsp");
 		return mv;
 	}
@@ -117,9 +116,9 @@ public class UserInfoController {
 	public ModelAndView findUserinfoByusernick(HttpServletRequest request) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		HttpSession session=request.getSession();
-		String usernick=session.getAttribute("usernick").toString();
-		List<TUserinfoCustom> list=userInfoService.findUserBynick(usernick);
-		TUserinfoCustom tUserinfoCustom=null;
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		List<TUserInfoCustom> list=userInfoService.findUserBynick(tUserInfoCustom.getUsernick());
+		TUserInfoCustom tUserinfoCustom=null;
 		if(list != null && list.size()>0){
 			tUserinfoCustom = list.get(0);
 		}
@@ -134,9 +133,9 @@ public class UserInfoController {
 	public ModelAndView findUserinfoByusernicktopassword(HttpServletRequest request) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		HttpSession session=request.getSession();
-		String usernick=session.getAttribute("usernick").toString();
-		List<TUserinfoCustom> list=userInfoService.findUserBynick(usernick);
-		TUserinfoCustom tUserinfoCustom=null;
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		List<TUserInfoCustom> list=userInfoService.findUserBynick(tUserInfoCustom.getUsernick());
+		TUserInfoCustom tUserinfoCustom=null;
 		if(list != null && list.size()>0){
 			tUserinfoCustom = list.get(0);
 		}
@@ -151,7 +150,7 @@ public class UserInfoController {
 	@RequestMapping(value="/findPasswordByemail")
 	public @ResponseBody ModelAndView findPasswordByemail(TUserinfoVo tUserinfoVo) throws Exception{
 		ModelAndView mv =new ModelAndView();
-		TUserinfoCustom TUserinfoCustomtemp=userInfoService.findPasswordByemail(tUserinfoVo);
+		TUserInfoCustom TUserinfoCustomtemp=userInfoService.findPasswordByemail(tUserinfoVo);
 		if(TUserinfoCustomtemp!=null){
 			try{
 				Mail.Send(TUserinfoCustomtemp.getUserpwd());

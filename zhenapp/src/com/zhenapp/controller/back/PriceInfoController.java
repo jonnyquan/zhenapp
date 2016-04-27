@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.TPriceInfoCustom;
+import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.PriceInfoService;
 
 @Controller
@@ -34,7 +35,17 @@ public class PriceInfoController {
 		mv.setViewName("/page/main/pricemange.jsp");
 		return mv;
 	}
-	
+	/*
+	 * 管理端查询代理单价列表
+	 */
+	@RequestMapping(value="/findPriceByAgentid/{agentid}")
+	public ModelAndView findPriceByAgentid(String agentid) throws Exception{
+		ModelAndView mv=new ModelAndView();
+		List<TPriceInfoCustom> tPriceInfoCustomlist=priceInfoService.findAllPrice();
+		mv.addObject("tPriceInfoCustomlist",tPriceInfoCustomlist);
+		mv.setViewName("/page/main/pricemange.jsp");
+		return mv;
+	}
 	/*
 	 * 修改单价信息
 	 */
@@ -44,8 +55,8 @@ public class PriceInfoController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		HashMap<String, Object> hashmap=new HashMap<String,Object>();
 		HttpSession session=request.getSession();
-		String usernick=session.getAttribute("usernick").toString();
-		hashmap.put("usernick", usernick);
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		hashmap.put("usernick", tUserInfoCustom.getUsernick());
 		hashmap.put("updatetime", sdf.format(new Date()));
 		for (int i = 0; i < pricecounts.length; i++) {
 			String pricecount=pricecounts[i];

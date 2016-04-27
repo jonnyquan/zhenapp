@@ -3,18 +3,18 @@
 <mapper namespace="com.zhenapp.mapper.TUserInfoMapper" >
   <resultMap id="BaseResultMap" type="com.zhenapp.po.TUserInfo" >
     <id column="userpk" property="userpk" jdbcType="INTEGER" />
-    <result column="userId" property="userid" jdbcType="VARCHAR" />
-    <result column="userNick" property="usernick" jdbcType="VARCHAR" />
-    <result column="userPwd" property="userpwd" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="usernick" property="usernick" jdbcType="VARCHAR" />
+    <result column="userpwd" property="userpwd" jdbcType="VARCHAR" />
     <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="userQQ" property="userqq" jdbcType="VARCHAR" />
+    <result column="userqq" property="userqq" jdbcType="VARCHAR" />
     <result column="usercardnum" property="usercardnum" jdbcType="VARCHAR" />
     <result column="userroleid" property="userroleid" jdbcType="INTEGER" />
     <result column="userphone" property="userphone" jdbcType="VARCHAR" />
-    <result column="userState" property="userstate" jdbcType="VARCHAR" />
-    <result column="regEmail" property="regemail" jdbcType="VARCHAR" />
-    <result column="regDate" property="regdate" jdbcType="VARCHAR" />
-    <result column="regIp" property="regip" jdbcType="VARCHAR" />
+    <result column="userstate" property="userstate" jdbcType="VARCHAR" />
+    <result column="regemail" property="regemail" jdbcType="VARCHAR" />
+    <result column="regdate" property="regdate" jdbcType="VARCHAR" />
+    <result column="regip" property="regip" jdbcType="VARCHAR" />
     <result column="regdomain" property="regdomain" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="VARCHAR" />
     <result column="createuser" property="createuser" jdbcType="VARCHAR" />
@@ -80,8 +80,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    userpk, userId, userNick, userPwd, username, userQQ, usercardnum, userroleid, userphone, 
-    userState, regEmail, regDate, regIp, regdomain, createtime, createuser, updatetime, 
+    userpk, userid, usernick, userpwd, username, userqq, usercardnum, userroleid, userphone, 
+    userstate, regemail, regdate, regip, regdomain, createtime, createuser, updatetime, 
     updateuser
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TUserInfoExample" >
@@ -115,11 +115,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.zhenapp.po.TUserInfo" >
-    insert into t_user_info (userpk, userId, userNick, 
-      userPwd, username, userQQ, 
+    insert into t_user_info (userpk, userid, usernick, 
+      userpwd, username, userqq, 
       usercardnum, userroleid, userphone, 
-      userState, regEmail, regDate, 
-      regIp, regdomain, createtime, 
+      userstate, regemail, regdate, 
+      regip, regdomain, createtime, 
       createuser, updatetime, updateuser
       )
     values (#{userpk,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{usernick,jdbcType=VARCHAR}, 
@@ -137,19 +137,19 @@
         userpk,
       </if>
       <if test="userid != null" >
-        userId,
+        userid,
       </if>
       <if test="usernick != null" >
-        userNick,
+        usernick,
       </if>
       <if test="userpwd != null" >
-        userPwd,
+        userpwd,
       </if>
       <if test="username != null" >
         username,
       </if>
       <if test="userqq != null" >
-        userQQ,
+        userqq,
       </if>
       <if test="usercardnum != null" >
         usercardnum,
@@ -161,16 +161,16 @@
         userphone,
       </if>
       <if test="userstate != null" >
-        userState,
+        userstate,
       </if>
       <if test="regemail != null" >
-        regEmail,
+        regemail,
       </if>
       <if test="regdate != null" >
-        regDate,
+        regdate,
       </if>
       <if test="regip != null" >
-        regIp,
+        regip,
       </if>
       <if test="regdomain != null" >
         regdomain,
@@ -258,19 +258,19 @@
         userpk = #{record.userpk,jdbcType=INTEGER},
       </if>
       <if test="record.userid != null" >
-        userId = #{record.userid,jdbcType=VARCHAR},
+        userid = #{record.userid,jdbcType=VARCHAR},
       </if>
       <if test="record.usernick != null" >
-        userNick = #{record.usernick,jdbcType=VARCHAR},
+        usernick = #{record.usernick,jdbcType=VARCHAR},
       </if>
       <if test="record.userpwd != null" >
-        userPwd = #{record.userpwd,jdbcType=VARCHAR},
+        userpwd = #{record.userpwd,jdbcType=VARCHAR},
       </if>
       <if test="record.username != null" >
         username = #{record.username,jdbcType=VARCHAR},
       </if>
       <if test="record.userqq != null" >
-        userQQ = #{record.userqq,jdbcType=VARCHAR},
+        userqq = #{record.userqq,jdbcType=VARCHAR},
       </if>
       <if test="record.usercardnum != null" >
         usercardnum = #{record.usercardnum,jdbcType=VARCHAR},
@@ -282,16 +282,16 @@
         userphone = #{record.userphone,jdbcType=VARCHAR},
       </if>
       <if test="record.userstate != null" >
-        userState = #{record.userstate,jdbcType=VARCHAR},
+        userstate = #{record.userstate,jdbcType=VARCHAR},
       </if>
       <if test="record.regemail != null" >
-        regEmail = #{record.regemail,jdbcType=VARCHAR},
+        regemail = #{record.regemail,jdbcType=VARCHAR},
       </if>
       <if test="record.regdate != null" >
-        regDate = #{record.regdate,jdbcType=VARCHAR},
+        regdate = #{record.regdate,jdbcType=VARCHAR},
       </if>
       <if test="record.regip != null" >
-        regIp = #{record.regip,jdbcType=VARCHAR},
+        regip = #{record.regip,jdbcType=VARCHAR},
       </if>
       <if test="record.regdomain != null" >
         regdomain = #{record.regdomain,jdbcType=VARCHAR},
@@ -316,18 +316,18 @@
   <update id="updateByExample" parameterType="map" >
     update t_user_info
     set userpk = #{record.userpk,jdbcType=INTEGER},
-      userId = #{record.userid,jdbcType=VARCHAR},
-      userNick = #{record.usernick,jdbcType=VARCHAR},
-      userPwd = #{record.userpwd,jdbcType=VARCHAR},
+      userid = #{record.userid,jdbcType=VARCHAR},
+      usernick = #{record.usernick,jdbcType=VARCHAR},
+      userpwd = #{record.userpwd,jdbcType=VARCHAR},
       username = #{record.username,jdbcType=VARCHAR},
-      userQQ = #{record.userqq,jdbcType=VARCHAR},
+      userqq = #{record.userqq,jdbcType=VARCHAR},
       usercardnum = #{record.usercardnum,jdbcType=VARCHAR},
       userroleid = #{record.userroleid,jdbcType=INTEGER},
       userphone = #{record.userphone,jdbcType=VARCHAR},
-      userState = #{record.userstate,jdbcType=VARCHAR},
-      regEmail = #{record.regemail,jdbcType=VARCHAR},
-      regDate = #{record.regdate,jdbcType=VARCHAR},
-      regIp = #{record.regip,jdbcType=VARCHAR},
+      userstate = #{record.userstate,jdbcType=VARCHAR},
+      regemail = #{record.regemail,jdbcType=VARCHAR},
+      regdate = #{record.regdate,jdbcType=VARCHAR},
+      regip = #{record.regip,jdbcType=VARCHAR},
       regdomain = #{record.regdomain,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=VARCHAR},
       createuser = #{record.createuser,jdbcType=VARCHAR},
@@ -341,19 +341,19 @@
     update t_user_info
     <set >
       <if test="userid != null" >
-        userId = #{userid,jdbcType=VARCHAR},
+        userid = #{userid,jdbcType=VARCHAR},
       </if>
       <if test="usernick != null" >
-        userNick = #{usernick,jdbcType=VARCHAR},
+        usernick = #{usernick,jdbcType=VARCHAR},
       </if>
       <if test="userpwd != null" >
-        userPwd = #{userpwd,jdbcType=VARCHAR},
+        userpwd = #{userpwd,jdbcType=VARCHAR},
       </if>
       <if test="username != null" >
         username = #{username,jdbcType=VARCHAR},
       </if>
       <if test="userqq != null" >
-        userQQ = #{userqq,jdbcType=VARCHAR},
+        userqq = #{userqq,jdbcType=VARCHAR},
       </if>
       <if test="usercardnum != null" >
         usercardnum = #{usercardnum,jdbcType=VARCHAR},
@@ -365,16 +365,16 @@
         userphone = #{userphone,jdbcType=VARCHAR},
       </if>
       <if test="userstate != null" >
-        userState = #{userstate,jdbcType=VARCHAR},
+        userstate = #{userstate,jdbcType=VARCHAR},
       </if>
       <if test="regemail != null" >
-        regEmail = #{regemail,jdbcType=VARCHAR},
+        regemail = #{regemail,jdbcType=VARCHAR},
       </if>
       <if test="regdate != null" >
-        regDate = #{regdate,jdbcType=VARCHAR},
+        regdate = #{regdate,jdbcType=VARCHAR},
       </if>
       <if test="regip != null" >
-        regIp = #{regip,jdbcType=VARCHAR},
+        regip = #{regip,jdbcType=VARCHAR},
       </if>
       <if test="regdomain != null" >
         regdomain = #{regdomain,jdbcType=VARCHAR},
@@ -396,18 +396,18 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zhenapp.po.TUserInfo" >
     update t_user_info
-    set userId = #{userid,jdbcType=VARCHAR},
-      userNick = #{usernick,jdbcType=VARCHAR},
-      userPwd = #{userpwd,jdbcType=VARCHAR},
+    set userid = #{userid,jdbcType=VARCHAR},
+      usernick = #{usernick,jdbcType=VARCHAR},
+      userpwd = #{userpwd,jdbcType=VARCHAR},
       username = #{username,jdbcType=VARCHAR},
-      userQQ = #{userqq,jdbcType=VARCHAR},
+      userqq = #{userqq,jdbcType=VARCHAR},
       usercardnum = #{usercardnum,jdbcType=VARCHAR},
       userroleid = #{userroleid,jdbcType=INTEGER},
       userphone = #{userphone,jdbcType=VARCHAR},
-      userState = #{userstate,jdbcType=VARCHAR},
-      regEmail = #{regemail,jdbcType=VARCHAR},
-      regDate = #{regdate,jdbcType=VARCHAR},
-      regIp = #{regip,jdbcType=VARCHAR},
+      userstate = #{userstate,jdbcType=VARCHAR},
+      regemail = #{regemail,jdbcType=VARCHAR},
+      regdate = #{regdate,jdbcType=VARCHAR},
+      regip = #{regip,jdbcType=VARCHAR},
       regdomain = #{regdomain,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=VARCHAR},
       createuser = #{createuser,jdbcType=VARCHAR},

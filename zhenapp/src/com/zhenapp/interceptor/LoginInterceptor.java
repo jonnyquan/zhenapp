@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zhenapp.po.Custom.TUserInfoCustom;
+
 /**
  * 
  * <p>
@@ -44,9 +46,9 @@ public class LoginInterceptor implements HandlerInterceptor {
 		// 判断session
 		HttpSession session = request.getSession();
 		// 从session中取出用户身份信息
-		String usernick = (String) session.getAttribute("usernick");
+		TUserInfoCustom tUserInfoCustom = (TUserInfoCustom)session.getAttribute("tUserInfoCustom");
 
-		if (usernick != null) {
+		if (tUserInfoCustom != null) {
 			// 身份存在，放行
 			return true;
 		}

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhenapp.po.Custom.TTaskInfoCustom;
+import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.TaskInfoService;
 
 @Controller
@@ -71,14 +72,15 @@ public class TaskInfoController {
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 		int counts = 0;
 		HttpSession session=request.getSession();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		for (int i = 0; i < taskkeywordarr.length; i++) {
 			tTaskInfoCustom.setTaskid(UUID.randomUUID().toString());
 			tTaskInfoCustom.setTaskkeyword(taskkeywordarr[i]);
 			tTaskInfoCustom.setTaskstate("待分配");
 			tTaskInfoCustom.setCreatetime(sdf.format(new Date()));
 			tTaskInfoCustom.setUpdatetime(sdf.format(new Date()));
-			tTaskInfoCustom.setCreateuser(session.getAttribute("usernick").toString());
-			tTaskInfoCustom.setUpdateuser(session.getAttribute("usernick").toString());
+			tTaskInfoCustom.setCreateuser(tUserInfoCustom.getUsernick());
+			tTaskInfoCustom.setUpdateuser(tUserInfoCustom.getUsernick());
 			int count=taskInfoService.insertTaskInfo(tTaskInfoCustom);
 			counts = counts + count;
 		}

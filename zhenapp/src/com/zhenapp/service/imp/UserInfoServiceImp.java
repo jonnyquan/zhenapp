@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.zhenapp.mapper.TUserInfoMapper;
 import com.zhenapp.mapper.Custom.TUserInfoCustomMapper;
 import com.zhenapp.po.TUserInfo;
-import com.zhenapp.po.Custom.TUserinfoCustom;
+import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Vo.TUserinfoVo;
 import com.zhenapp.service.UserInfoService;
 @Service
@@ -29,14 +29,14 @@ public class UserInfoServiceImp implements UserInfoService {
 	/*
 	 * 根据用户名查询用户信息 -----供登录及根据用户名查询用户信息使用
 	 */
-	public List<TUserinfoCustom> findUserBynick(String usernick) {
+	public List<TUserInfoCustom> findUserBynick(String usernick) {
 		return tUserInfoCustomMapper.findUserBynick(usernick);
 	}
 
 	/*
 	 * 查询所有用户信息
 	 */
-	public List<TUserinfoCustom> findAllUser() throws Exception {
+	public List<TUserInfoCustom> findAllUser() throws Exception {
 		return tUserInfoCustomMapper.findAllUser();
 	}
 
@@ -49,7 +49,7 @@ public class UserInfoServiceImp implements UserInfoService {
 	}
 
 	@Override
-	public TUserinfoCustom findPasswordByemail(TUserinfoVo tUserinfoVo)
+	public TUserInfoCustom findPasswordByemail(TUserinfoVo tUserinfoVo)
 			throws Exception {
 		// TODO Auto-generated method stub
 		return tUserInfoCustomMapper.findPasswordByemail(tUserinfoVo);

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.TComboInfoCustom;
 import com.zhenapp.po.Custom.TRechargeInfoCustom;
+import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Vo.TRechargeInfoVo;
 import com.zhenapp.service.ComboInfoService;
 import com.zhenapp.service.RechargeInfoService;
@@ -47,8 +48,9 @@ public class RechargeInfoController {
 		tRechargeInfoCustom.setRechargestate("0");//待确认状态
 		tRechargeInfoCustom.setRechargeverification(verificationcode);
 		tRechargeInfoCustom.setUpdatetime(sdf.format(new Date()));
-		tRechargeInfoCustom.setUpdateuser(session.getAttribute("usernick").toString());
-		tRechargeInfoCustom.setCreateuser(session.getAttribute("usernick").toString());
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		tRechargeInfoCustom.setUpdateuser(tUserInfoCustom.getUsernick());
+		tRechargeInfoCustom.setCreateuser(tUserInfoCustom.getUsernick());
 		tRechargeInfoCustom.setCreatetime(sdf.format(new Date()));
 		tRechargeInfoVo.settRechargeInfoCustom(tRechargeInfoCustom);
 		int i = rechargeInfoService.insertRechargeinfo(tRechargeInfoVo);
@@ -67,6 +69,7 @@ public class RechargeInfoController {
 	public @ResponseBody ModelMap findRechargeinfoByUserAndpage(String datefrom,String dateto,Integer page,Integer rows,HttpServletRequest request) throws Exception{
 		ModelMap map=new ModelMap();
 		HttpSession session=request.getSession();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		datefrom=datefrom!=null?datefrom.replace("-", ""):"";
 		dateto=dateto!=null?dateto.replace("-", ""):"";
@@ -79,7 +82,8 @@ public class RechargeInfoController {
 			pagemap.put("page", page-1);
 			pagemap.put("rows", rows);
 		}
-		pagemap.put("createuser", session.getAttribute("usernick").toString());
+		
+		pagemap.put("createuser", tUserInfoCustom.getUsernick());
 		List<TRechargeInfoCustom> tRechargeInfoCustomAlllist= rechargeInfoService.findRechargeinfoByUser(pagemap);
 		List<TRechargeInfoCustom> tRechargeInfoCustomlist= rechargeInfoService.findRechargeinfoByUserAndpage(pagemap);
 		map.put("total",tRechargeInfoCustomAlllist.size());

@@ -234,6 +234,76 @@ public class TPriceInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andAgentidIsNull() {
+            addCriterion("agentid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidIsNotNull() {
+            addCriterion("agentid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidEqualTo(String value) {
+            addCriterion("agentid =", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidNotEqualTo(String value) {
+            addCriterion("agentid <>", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidGreaterThan(String value) {
+            addCriterion("agentid >", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidGreaterThanOrEqualTo(String value) {
+            addCriterion("agentid >=", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidLessThan(String value) {
+            addCriterion("agentid <", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidLessThanOrEqualTo(String value) {
+            addCriterion("agentid <=", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidLike(String value) {
+            addCriterion("agentid like", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidNotLike(String value) {
+            addCriterion("agentid not like", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidIn(List<String> values) {
+            addCriterion("agentid in", values, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidNotIn(List<String> values) {
+            addCriterion("agentid not in", values, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidBetween(String value1, String value2) {
+            addCriterion("agentid between", value1, value2, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidNotBetween(String value1, String value2) {
+            addCriterion("agentid not between", value1, value2, "agentid");
+            return (Criteria) this;
+        }
+
         public Criteria andPricetypeIsNull() {
             addCriterion("pricetype is null");
             return (Criteria) this;

@@ -234,6 +234,76 @@ public class TAgentInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andAgentuseridIsNull() {
+            addCriterion("agentuserid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentuseridIsNotNull() {
+            addCriterion("agentuserid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentuseridEqualTo(String value) {
+            addCriterion("agentuserid =", value, "agentuserid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentuseridNotEqualTo(String value) {
+            addCriterion("agentuserid <>", value, "agentuserid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentuseridGreaterThan(String value) {
+            addCriterion("agentuserid >", value, "agentuserid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentuseridGreaterThanOrEqualTo(String value) {
+            addCriterion("agentuserid >=", value, "agentuserid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentuseridLessThan(String value) {
+            addCriterion("agentuserid <", value, "agentuserid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentuseridLessThanOrEqualTo(String value) {
+            addCriterion("agentuserid <=", value, "agentuserid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentuseridLike(String value) {
+            addCriterion("agentuserid like", value, "agentuserid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentuseridNotLike(String value) {
+            addCriterion("agentuserid not like", value, "agentuserid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentuseridIn(List<String> values) {
+            addCriterion("agentuserid in", values, "agentuserid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentuseridNotIn(List<String> values) {
+            addCriterion("agentuserid not in", values, "agentuserid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentuseridBetween(String value1, String value2) {
+            addCriterion("agentuserid between", value1, value2, "agentuserid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentuseridNotBetween(String value1, String value2) {
+            addCriterion("agentuserid not between", value1, value2, "agentuserid");
+            return (Criteria) this;
+        }
+
         public Criteria andAgentpersonIsNull() {
             addCriterion("agentperson is null");
             return (Criteria) this;

@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.zhenapp.po.TPriceInfo" >
     <id column="pricepk" property="pricepk" jdbcType="INTEGER" />
     <result column="priceid" property="priceid" jdbcType="VARCHAR" />
+    <result column="agentid" property="agentid" jdbcType="VARCHAR" />
     <result column="pricetype" property="pricetype" jdbcType="VARCHAR" />
     <result column="pricecode" property="pricecode" jdbcType="VARCHAR" />
     <result column="pricecounts" property="pricecounts" jdbcType="VARCHAR" />
@@ -71,8 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    pricepk, priceid, pricetype, pricecode, pricecounts, createtime, createuser, updatetime, 
-    updateuser
+    pricepk, priceid, agentid, pricetype, pricecode, pricecounts, createtime, createuser, 
+    updatetime, updateuser
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TPriceInfoExample" >
     select
@@ -105,14 +106,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.zhenapp.po.TPriceInfo" >
-    insert into t_price_info (pricepk, priceid, pricetype, 
-      pricecode, pricecounts, createtime, 
-      createuser, updatetime, updateuser
-      )
-    values (#{pricepk,jdbcType=INTEGER}, #{priceid,jdbcType=VARCHAR}, #{pricetype,jdbcType=VARCHAR}, 
-      #{pricecode,jdbcType=VARCHAR}, #{pricecounts,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
-      #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}
-      )
+    insert into t_price_info (pricepk, priceid, agentid, 
+      pricetype, pricecode, pricecounts, 
+      createtime, createuser, updatetime, 
+      updateuser)
+    values (#{pricepk,jdbcType=INTEGER}, #{priceid,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
+      #{pricetype,jdbcType=VARCHAR}, #{pricecode,jdbcType=VARCHAR}, #{pricecounts,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{updateuser,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zhenapp.po.TPriceInfo" >
     insert into t_price_info
@@ -122,6 +123,9 @@
       </if>
       <if test="priceid != null" >
         priceid,
+      </if>
+      <if test="agentid != null" >
+        agentid,
       </if>
       <if test="pricetype != null" >
         pricetype,
@@ -151,6 +155,9 @@
       </if>
       <if test="priceid != null" >
         #{priceid,jdbcType=VARCHAR},
+      </if>
+      <if test="agentid != null" >
+        #{agentid,jdbcType=VARCHAR},
       </if>
       <if test="pricetype != null" >
         #{pricetype,jdbcType=VARCHAR},
@@ -190,6 +197,9 @@
       <if test="record.priceid != null" >
         priceid = #{record.priceid,jdbcType=VARCHAR},
       </if>
+      <if test="record.agentid != null" >
+        agentid = #{record.agentid,jdbcType=VARCHAR},
+      </if>
       <if test="record.pricetype != null" >
         pricetype = #{record.pricetype,jdbcType=VARCHAR},
       </if>
@@ -220,6 +230,7 @@
     update t_price_info
     set pricepk = #{record.pricepk,jdbcType=INTEGER},
       priceid = #{record.priceid,jdbcType=VARCHAR},
+      agentid = #{record.agentid,jdbcType=VARCHAR},
       pricetype = #{record.pricetype,jdbcType=VARCHAR},
       pricecode = #{record.pricecode,jdbcType=VARCHAR},
       pricecounts = #{record.pricecounts,jdbcType=VARCHAR},
@@ -236,6 +247,9 @@
     <set >
       <if test="priceid != null" >
         priceid = #{priceid,jdbcType=VARCHAR},
+      </if>
+      <if test="agentid != null" >
+        agentid = #{agentid,jdbcType=VARCHAR},
       </if>
       <if test="pricetype != null" >
         pricetype = #{pricetype,jdbcType=VARCHAR},
@@ -264,6 +278,7 @@
   <update id="updateByPrimaryKey" parameterType="com.zhenapp.po.TPriceInfo" >
     update t_price_info
     set priceid = #{priceid,jdbcType=VARCHAR},
+      agentid = #{agentid,jdbcType=VARCHAR},
       pricetype = #{pricetype,jdbcType=VARCHAR},
       pricecode = #{pricecode,jdbcType=VARCHAR},
       pricecounts = #{pricecounts,jdbcType=VARCHAR},
