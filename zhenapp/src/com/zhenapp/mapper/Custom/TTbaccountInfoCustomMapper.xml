@@ -18,10 +18,10 @@
 		select * from t_tbaccount_info 
 		<where>
 			<if test="tbaccountphoneid != null and tbaccountphoneid !='' ">
-				tbaccountphoneid = #{tbaccountphoneid}
+				and tbaccountphoneid = #{tbaccountphoneid}
 			</if>
 			<if test="tbaccountstate != null and tbaccountstate !='' ">
-				tbaccountstate = #{tbaccountstate}
+				and tbaccountstate = #{tbaccountstate}
 			</if>
 		</where>
 		order by tbaccountid desc limit #{page},#{rows} 

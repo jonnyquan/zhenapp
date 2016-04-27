@@ -3,7 +3,6 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -38,14 +37,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	<div id="datagridtools" style="padding:5px;">
 		<div style="padding:5px;">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
-			<a href="#" class="easyui-linkbutton" plain="true">价格</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改登录页信息</a>
+			<a href="#" class="easyui-linkbutton" plain="true">修改单价信息</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="obj.remove();">删除</a>
 		</div>
 		<div style="padding:5px;">
+			<!--
+			留待以后拓展查询用 
 			<lable style="padding:0 10px 0 10px;">创建时间从:</lable><input type="text" name="datefrom" class="easyui-datebox"  width="110px"  />
 			到：<input type="text" name="dateto" class="easyui-datebox"  width="110px"  />
 			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="obj.search();">查询</a>
+			 -->
 		</div>
 	</div>
   </body>
@@ -64,24 +66,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		obj={
 			search:function(){
 				$("#datagrid").datagrid('load',{
-					taskid:$.trim($("#taskid").val()),
 					datefrom:$("input[name='datefrom']").val(),
 					dateto:$("input[name='dateto']").val(),
 				});
 			},
-			/*add:function(){
-				$("#datagrid").datagrid('insertRow',{
-					index:0,
-					row:{
-						
-					}
-				});
-				
-			},
-			edit:function(){
-				
-				
-			},*/
 			remove:function(){
 				var rows=$("#datagrid").datagrid('getSelections');
 				if(rows.length>0){
@@ -89,11 +77,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    if (b){
 							var pks=[];
 							for(var i=0;i<rows.length;i++){
-								pks.push(rows[i].taskpk);
+								pks.push(rows[i].agentpk);
 							}
 							$.ajax({
 								type:"POST",
-								url:"${pageContext.request.contextPath}/task/deleteTaskBypk",
+								url:"${pageContext.request.contextPath}/agent/deleteAgentBypk",
 								data:{
 									pks:pks.join(",")
 								},
@@ -122,46 +110,53 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 			$("#datagrid").datagrid({
 				fit:true,
-				title : '任务订单管理',
-				url:"${pageContext.request.contextPath}/task/findTaskBypage",
+				title : '代理信息管理',
+				url:"${pageContext.request.contextPath}/agent/findAgentBypage",
 				columns : [ [ 
 				    {
-						field : 'task',
+						field : 'agentpk',
 						title : '选择',
-						checkbox:true
+						checkbox:true,
 					}, 
 					{
-						field : 'taskpk',
-						title : '代理人'
-						
+						field : 'agentperson',
+						title : '代理人',
+						width : 100,
 					}, 
 					{
-						field : 'errorcount',
-						title : '手机号'
+						field : 'agentphone',
+						title : '手机号',
+						width : 100,
 					}, 
 					{
-						field : 'createtime',
-						title : '网站名称'
+						field : 'agentname',
+						title : '网站名称',
+						width : 100,
 					}, 
 					{
-						field : 'createtime',
-						title : '域名'
+						field : 'agentwww',
+						title : '域名',
+						width : 100,
 					}, 
 					{
-						field : 'createtime',
-						title : '网址'
-					}, 
-					{
-						field : 'createtime',
-						title : '创建时间'
-					}, 
-					{
-						field : 'createtime',
-						title : '更新时间'
+						field : 'agenthttp',
+						title : '网址',
+						width : 100,
 					}, 
 					{
 						field : 'createtime',
-						title : '状态'
+						title : '创建时间',
+						width : 100,
+					}, 
+					{
+						field : 'updatetime',
+						title : '更新时间',
+						width : 100,
+					}, 
+					{
+						field : 'agentstate',
+						title : '状态',
+						width : 100,
 					}
 					] ],
 				pagination:true,
@@ -170,14 +165,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				nowrap:true,
 				fitColumns:true,
 				rownumbers:true,
-				//singleSelect:true,
-				toolbar:'#datagridtools',
-				onDblClickRow:function(rowIndex,rowDate){
-					//console.log(rowDate);
-					if(obj.editRow==undefined){
-						$('#datagrid').datagrid('beginEdit',rowIndex);
-					}
-				}
+				singleSelect:true,
+				toolbar:'#datagridtools'
 			});
 			
 	});

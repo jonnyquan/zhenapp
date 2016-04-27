@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<div id="datagridtools" style="padding:5px;">
 		<div style="padding:5px;">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="obj.edit();">修改</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="obj.remove();">删除</a>
 		</div>
 		<div style="padding:5px;">
@@ -77,6 +77,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					tbaccountphoneid:$("#tbaccountphoneid").val(),
 					tbaccountstate:$("#tbaccountstate").val(),
 				});
+			},
+			edit:function(){
+				$.messager.alert('提示信息','暂不支持修改操作!','info');
 			},
 			remove:function(){
 				var rows=$("#datagrid").datagrid('getSelections');

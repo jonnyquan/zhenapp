@@ -23,11 +23,15 @@ public class TbaccountInfoController {
 	public @ResponseBody ModelMap findTbaccountBypage(Integer page,Integer rows,String tbaccountphoneid,String tbaccountstate) throws Exception{
 		ModelMap map=new ModelMap();
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
-		pagemap.put("tbaccountphoneid", tbaccountphoneid);
-		if(tbaccountstate.equals("0")){
+		if(tbaccountstate==null || tbaccountstate.equals("0")){
 			pagemap.put("tbaccountstate", null);
 		}else{
 			pagemap.put("tbaccountstate", tbaccountstate);
+		}
+		if(tbaccountstate==null ){
+			pagemap.put("tbaccountphoneid", null);
+		}else{
+			pagemap.put("tbaccountphoneid", tbaccountphoneid);
 		}
 		if (page == null || page == null) {
 			pagemap.put("page", 0);
