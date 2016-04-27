@@ -29,9 +29,15 @@ public class AgentInfoServiceImp implements AgentInfoService{
 	}
 
 	@Override
-	public int deleteAgentBypk(String pks) throws Exception {
+	public int deleteAgentByid(String ids) throws Exception {
 		// TODO Auto-generated method stub
-		return tAgentInfoCustomMapper.deleteAgentBypk(pks);
+		return tAgentInfoCustomMapper.deleteAgentByid(ids);
+	}
+
+	@Override
+	public TAgentInfoCustom findAgentByuserid(String userid) throws Exception {
+		// TODO Auto-generated method stub
+		return tAgentInfoCustomMapper.findAgentByuserid(userid);
 	}
 
 }

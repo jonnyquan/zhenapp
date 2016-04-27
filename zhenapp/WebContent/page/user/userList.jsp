@@ -28,10 +28,10 @@
 		href="${pageContext.request.contextPath}/easyui/themes/icon.css" />
 	<link rel="stylesheet" type="text/css"
 		href="${pageContext.request.contextPath}/page/css/index.css" />
-	<table id="tab">
+	<table id="datagrid">
 	</table>
 
-	<div id="usertools" style="padding:5px;height:auto;">
+	<div id="datagridtools" style="padding:5px;height:auto;">
 		<div>
 			<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-edit">充值扣款</a>
 			<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-remove">删除</a>
@@ -56,57 +56,107 @@
 		src="${pageContext.request.contextPath}/page/js/user.js"></script>
 	<script type="text/javascript">
 		var uri = "${pageContext.request.contextPath}";
-		$(function() {
-			$("#tab").datagrid(
-					{
-						url : uri + "/user/findAllUser",
-						title : "用户列表",
-						iconCls : "icon-search",
-						columns : [ [ {
+		;$(function(){
+			obj={
+				search:function(){
+					$("#datagrid").datagrid('load',{
+						taskid:$.trim($("#taskid").val()),
+						datefrom:$("input[name='datefrom']").val(),
+						dateto:$("input[name='dateto']").val(),
+					});
+				},
+				remove:function(){
+					var rows=$("#datagrid").datagrid('getSelections');
+					if(rows.length>0){
+						$.messager.confirm('确认','您确认想要删除记录吗？',function(b){    
+						    if (b){
+								var pks=[];
+								for(var i=0;i<rows.length;i++){
+									pks.push(rows[i].taskpk);
+								}
+								$.ajax({
+									type:"POST",
+									url:"${pageContext.request.contextPath}/task/deleteTaskBypk",
+									data:{
+										pks:pks.join(",")
+									},
+									beforeSend:function(){
+										$("#datagrid").datagrid('loading');
+									},
+									success:function(){
+										$("#datagrid").datagrid('loaded');	
+										$.messager.show({
+											title:"提示消息",
+											msg:"删除成功",
+											width:300,
+											height:200,
+										});
+										$("#datagrid").datagrid('load');
+									},
+								});
+						    }
+						});
+					}else{
+						$.messager.alert('提示信息',"请选择要删除的信息",'info');
+					}
+				},
+			};	
+			
+			
+				$("#datagrid").datagrid({
+					fit:true,
+					title : '用户信息管理',
+					url:"${pageContext.request.contextPath}/user/findUserByPage",
+					columns : [ [ 
+					    {
 							field : 'userpk',
-							title : '用户id',
+							title : '选择',
 							checkbox:true
-						},{
-							field : 'userid',
-							title : '用户id',
-							sortable : true,
-						}, {
-							field : 'usernick',
+						}, 
+						{
+							field : 'username',
 							title : '用户名',
-							sortable : true,
-						}, {
+							width : 100,
+						}, 
+						{
 							field : 'userphone',
 							title : '手机号',
-							sortable : true,
-						}, {
+							width : 100,
+						},
+						{
+							field : 'usercardnum',
+							title : '身份证号'
+						},
+						{
 							field : 'regemail',
-							title : '邮箱',
-							sortable : true,
-						}, {
-							field : 'counts',
-							title : '积分',
-							sortable : true,
-						}, {
+							title : '邮箱'
+						},
+						{
+							field : 'points',
+							title : '积分'
+						},
+						{
 							field : 'createtime',
-							title : '创建时间',
-							sortable : true,
-						}, {
+							title : '创建时间'
+						},
+						{
 							field : 'updatetime',
-							title : '更新时间',
-							sortable : true,
-						}, {
+							title : '更新时间'
+						},
+						{
 							field : 'userstate',
-							title : '状态',
-							sortable : true,
+							title : '状态'
 						}
 						] ],
-						pagination : true,
-						pageSize : 2,
-						pageList : [ 2, 4, 6 ],
-						toolbar : "#usertools",
-						layout : [ 'list', 'sep', 'first', 'prev', 'next',
-								'last', 'links' ],
-					});
+					pagination:true,
+					pageList:[1,5,10,15,20,25],
+					striped:true,
+					nowrap:true,
+					fitColumns:true,
+					rownumbers:true,
+					singleSelect:true,
+					toolbar:'#datagridtools'
+				});
 		});
 	</script>
 </body>

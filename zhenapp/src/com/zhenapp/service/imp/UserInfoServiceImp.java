@@ -1,5 +1,6 @@
 package com.zhenapp.service.imp;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +35,6 @@ public class UserInfoServiceImp implements UserInfoService {
 	}
 
 	/*
-	 * 查询所有用户信息
-	 */
-	public List<TUserInfoCustom> findAllUser() throws Exception {
-		return tUserInfoCustomMapper.findAllUser();
-	}
-
-	/*
 	 * 根据用户名密码查询积分点数
 	 */
 	public String findpointsByUserid(TUserinfoVo tUserinfoVo) throws Exception {
@@ -60,5 +54,11 @@ public class UserInfoServiceImp implements UserInfoService {
 			throws Exception {
 		// TODO Auto-generated method stub
 		return tUserInfoCustomMapper.updateUserinfo(tUserinfoVo);
+	}
+
+	@Override
+	public List<TUserInfoCustom> findUserByPage(HashMap<String, Object> pagemap) throws Exception {
+		// TODO Auto-generated method stub
+		return tUserInfoCustomMapper.findUserByPage(pagemap);
 	}
 }

@@ -95,7 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				QQ号
 			</td>
 			<td>
-				<input type="text" name="QQ">
+				<input type="text" name="QQ" value="${tWebInfoCustom.qq}">
 			</td>
 		</tr>
 		<tr>

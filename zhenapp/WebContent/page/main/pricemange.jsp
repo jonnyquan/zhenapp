@@ -27,13 +27,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
 		<div id="tabs">
 			<div id="basics" title=" 单价配置  " class="container"  style="padding:100px 200px 0 200px;">
-				<form action="${pageContext.request.contextPath}/price/updatePriceBycode" method="post">
-					<c:forEach items="${tPriceInfoCustomlist }" var="list">
-						<div class="form-group" style="width:500px;">
-							<label>${list.pricetype }:</label>
-							<input type="text" class="form-control" name="pricecounts" placeholder="请输入${list.pricetype }" value="${list.pricecounts}" />
-						</div>
-					</c:forEach>
+				<form action="${pageContext.request.contextPath}/price/updatePriceByagentid" method="post">
+					<input type="hidden" name="agentuserid" value="${tPriceInfoCustom.agentid}" />
+					<div class="form-group" style="width:500px;">
+						<label>流量单价:</label>
+						<input type="text" class="form-control" name="pricecounts1" placeholder="请输入流量单价" value="${tPriceInfoCustom.pricecounts1}" />
+					</div>
+					<div class="form-group" style="width:500px;">
+						<label>收藏单价:</label>
+						<input type="text" class="form-control" name="pricecounts2" placeholder="请输入收藏单价" value="${tPriceInfoCustom.pricecounts2}" />
+					</div>
+					<div class="form-group" style="width:500px;">
+						<label>购物车单价:</label>
+						<input type="text" class="form-control" name="pricecounts3" placeholder="请输入购物车单价" value="${tPriceInfoCustom.pricecounts3}" />
+					</div>
+					<div class="form-group" style="width:500px;">
+						<label>直通车单价:</label>
+						<input type="text" class="form-control" name="pricecounts4" placeholder="请输入直通车单价" value="${tPriceInfoCustom.pricecounts4}" />
+					</div>
+					
 					<div class="form-group" style="width:500px;padding:0 0 0 200px;" >
 						<button class="btn btn-info" id="btn_sub">保存系统信息</button>
 					</div>

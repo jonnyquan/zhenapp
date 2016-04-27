@@ -1,8 +1,5 @@
 package com.zhenapp.service.imp;
 
-import java.util.HashMap;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,23 +12,18 @@ public class PriceInfoServiceImp implements PriceInfoService{
 	@Autowired
 	private TPriceInfoCustomMapper tPriceInfoCustomMapper;
 	
-	@Override
-	public TPriceInfoCustom findPriceBycode(String pricecode) throws Exception {
-		// TODO Auto-generated method stub
-		return tPriceInfoCustomMapper.findPriceBycode(pricecode);
-	}
 
 	@Override
-	public List<TPriceInfoCustom> findAllPrice() throws Exception {
-		// TODO Auto-generated method stub
-		return tPriceInfoCustomMapper.findAllPrice();
-	}
-
-	@Override
-	public int updatePriceBycode(HashMap<String, Object> hashmap)
+	public int updatePriceByagentid(TPriceInfoCustom tPriceInfoCustom)
 			throws Exception {
 		// TODO Auto-generated method stub
-		return tPriceInfoCustomMapper.updatePriceBycode(hashmap);
+		return tPriceInfoCustomMapper.updatePriceByagentid(tPriceInfoCustom);
+	}
+
+	@Override
+	public TPriceInfoCustom findPriceByAgentid(String agentid) throws Exception {
+		// TODO Auto-generated method stub
+		return tPriceInfoCustomMapper.findPriceByAgentid(agentid);
 	}
 
 }

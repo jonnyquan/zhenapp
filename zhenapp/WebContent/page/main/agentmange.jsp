@@ -37,8 +37,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	<div id="datagridtools" style="padding:5px;">
 		<div style="padding:5px;">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改登录页信息</a>
-			<a href="#" class="easyui-linkbutton" plain="true">修改单价信息</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" >修改登录页信息</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="obj.editprice();">修改单价信息</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="obj.remove();">删除</a>
 		</div>
 		<div style="padding:5px;">
@@ -70,20 +70,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					dateto:$("input[name='dateto']").val(),
 				});
 			},
+			editprice:function(){
+				var rows=$("#datagrid").datagrid('getSelections');
+				if(rows.length==1){
+					window.location.href="${pageContext.request.contextPath}/price/findPriceByAgentid/"+rows[0].agentid;
+				}else{
+					$.messager.alert('提示信息',"请选择要修改的信息",'info');
+				}
+			},
 			remove:function(){
 				var rows=$("#datagrid").datagrid('getSelections');
 				if(rows.length>0){
 					$.messager.confirm('确认','您确认想要删除记录吗？',function(b){    
 					    if (b){
-							var pks=[];
+							var ids=[];
 							for(var i=0;i<rows.length;i++){
-								pks.push(rows[i].agentpk);
+								ids.push(rows[i].agentid);
 							}
 							$.ajax({
 								type:"POST",
-								url:"${pageContext.request.contextPath}/agent/deleteAgentBypk",
+								url:"${pageContext.request.contextPath}/agent/deleteAgentByid",
 								data:{
-									pks:pks.join(",")
+									ids:ids.join(",")
 								},
 								beforeSend:function(){
 									$("#datagrid").datagrid('loading');
@@ -114,7 +122,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				url:"${pageContext.request.contextPath}/agent/findAgentBypage",
 				columns : [ [ 
 				    {
-						field : 'agentpk',
+						field : 'agentid',
 						title : '选择',
 						checkbox:true,
 					}, 

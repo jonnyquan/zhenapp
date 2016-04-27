@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhenapp.mapper.Custom.TPriceInfoCustomMapper" >
-  <select id="findPriceBycode" parameterType="String" resultType="com.zhenapp.po.Custom.TPriceInfoCustom" >
-  	SELECT * FROM t_price_info WHERE pricecode=#{pricecode}
+  
+  <select id="findPriceByAgentid" parameterType="String" resultType="com.zhenapp.po.Custom.TPriceInfoCustom">
+	 SELECT * FROM t_price_info WHERE agentid=#{agentid}
   </select>
-  <select id="findAllPrice" resultType="com.zhenapp.po.Custom.TPriceInfoCustom" >
-  	SELECT * FROM t_price_info order by priceid
-  </select>
-  <update id="updatePriceBycode">
-    update t_price_info
-    set
-      pricecounts = #{pricecount,jdbcType=VARCHAR},
+  
+  <update id="updatePriceByagentid" parameterType="com.zhenapp.po.Custom.TPriceInfoCustom" >
+     update t_price_info
+    set 
+      pricecounts1 = #{pricecounts1,jdbcType=VARCHAR},
+      pricecounts2 = #{pricecounts2,jdbcType=VARCHAR},
+      pricecounts3 = #{pricecounts3,jdbcType=VARCHAR},
+      pricecounts4 = #{pricecounts4,jdbcType=VARCHAR},
       updatetime = #{updatetime,jdbcType=VARCHAR},
-      updateuser = #{usernick,jdbcType=VARCHAR}
-    where pricecode = #{pricecode}
+      updateuser = #{updateuser,jdbcType=VARCHAR}
+    where agentid = #{agentid,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -79,8 +79,8 @@ public class TaskInfoController {
 			tTaskInfoCustom.setTaskstate("待分配");
 			tTaskInfoCustom.setCreatetime(sdf.format(new Date()));
 			tTaskInfoCustom.setUpdatetime(sdf.format(new Date()));
-			tTaskInfoCustom.setCreateuser(tUserInfoCustom.getUsernick());
-			tTaskInfoCustom.setUpdateuser(tUserInfoCustom.getUsernick());
+			tTaskInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+			tTaskInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
 			int count=taskInfoService.insertTaskInfo(tTaskInfoCustom);
 			counts = counts + count;
 		}

@@ -103,13 +103,13 @@ public class upload {
 			}
 			HttpSession session = request.getSession();
 			TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
-			tWebInfoCustom.setUpdateuser(tUserInfoCustom.getUsernick());
+			tWebInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 			String updatetime = sdf.format(new Date());
 			tWebInfoCustom.setUpdatetime(updatetime);
 			webInfoService.updateWebBywebwww(tWebInfoCustom);
 		}
-		mv.setViewName("/page/upload/webEdit.jsp");
+		mv.setViewName("/web/findWebBywebwww");
 		return mv;
 	}
 
@@ -147,8 +147,8 @@ public class upload {
 			tScriptInfoCustom.setScriptpath(pic_path + newFileName);
 			tScriptInfoCustom.setScriptname(originalFilename);
 			tScriptInfoCustom.setCreatetime(time);
-			tScriptInfoCustom.setCreateuser(tUserInfoCustom.getUsernick());
-			tScriptInfoCustom.setUpdateuser(tUserInfoCustom.getUsernick());
+			tScriptInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+			tScriptInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
 			tScriptInfoCustom.setUpdatetime(time);
 			tScriptInfoCustom.setScriptid(UUID.randomUUID().toString());
 			scriptInfoService.insertScript(tScriptInfoCustom);
@@ -215,9 +215,9 @@ public class upload {
 					tTbaccountInfoCustom.setTbaccountphoneid(tbaccount[2]);
 				}
 				tTbaccountInfoCustom.setCreatetime(time);
-				tTbaccountInfoCustom.setCreateuser(tUserInfoCustom.getUsernick());
+				tTbaccountInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
 				tTbaccountInfoCustom.setUpdatetime(time);
-				tTbaccountInfoCustom.setUpdateuser(tUserInfoCustom.getUsernick());
+				tTbaccountInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
 				tbaccountInfoService.insertTbaccount(tTbaccountInfoCustom);
 			}
 

@@ -1,23 +1,15 @@
 package com.zhenapp.mapper.Custom;
 
-import java.util.HashMap;
-import java.util.List;
-
 import com.zhenapp.po.Custom.TPriceInfoCustom;
 
 public interface TPriceInfoCustomMapper {
+
 	/*
-	 * 根据价格类型代码查询价格信息
+	 * 根据代理id修改价格信息
 	 */
-	public TPriceInfoCustom findPriceBycode(String pricecode) throws Exception;
-	
+	public int updatePriceByagentid(TPriceInfoCustom tPriceInfoCustom) throws Exception;
 	/*
-	 * 根据价格类型代码查询价格信息
+	 * 根据代理id查询对于代理的价格信息
 	 */
-	public List<TPriceInfoCustom> findAllPrice() throws Exception;
-	
-	/*
-	 * 根据价格类型代码修改价格信息
-	 */
-	public int updatePriceBycode(HashMap<String,Object> hashmap) throws Exception;
+	public TPriceInfoCustom findPriceByAgentid(String agentid) throws Exception;
 }

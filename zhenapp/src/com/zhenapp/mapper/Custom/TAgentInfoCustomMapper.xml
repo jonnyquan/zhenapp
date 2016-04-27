@@ -7,7 +7,10 @@
 	<select id="findAllAgentBypage" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TAgentInfoCustom">
 		select * from t_agent_info
 	</select>
-	<delete id="deleteAgentBypk" parameterType="String">
-		delete from t_agent_info where agentpk in (#{pks}) 
+	<select id="findAgentByuserid" parameterType="String" resultType="com.zhenapp.po.Custom.TAgentInfoCustom">
+		select * from t_agent_info where agentuserid = #{userid}
+	</select>
+	<delete id="deleteAgentByid" parameterType="String">
+		delete from t_agent_info where agentid in (#{ids}) 
 	</delete>
 </mapper>

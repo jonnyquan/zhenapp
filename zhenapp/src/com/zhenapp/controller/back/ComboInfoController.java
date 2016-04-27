@@ -67,8 +67,8 @@ public class ComboInfoController {
 		tComboInfoCustom.setComboid(UUID.randomUUID().toString());
 		tComboInfoCustom.setCreatetime(sdf.format(new Date()));
 		tComboInfoCustom.setUpdatetime(sdf.format(new Date()));
-		tComboInfoCustom.setCreateuser(tUserInfoCustom.getUsernick());
-		tComboInfoCustom.setUpdateuser(tUserInfoCustom.getUsernick());
+		tComboInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+		tComboInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
 		int i = comboInfoService.insertComboto(tComboInfoCustom);
 		System.out.println(i);
 		mv.setViewName("findAllCombotoEdit");

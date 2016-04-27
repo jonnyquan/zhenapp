@@ -206,13 +206,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				fitColumns:true,
 				rownumbers:true,
 				//singleSelect:true,
-				toolbar:'#datagridtools',
-				onDblClickRow:function(rowIndex,rowDate){
-					//console.log(rowDate);
-					if(obj.editRow==undefined){
-						$('#datagrid').datagrid('beginEdit',rowIndex);
-					}
-				}
+				toolbar:'#datagridtools'
 			});
 			
 	});

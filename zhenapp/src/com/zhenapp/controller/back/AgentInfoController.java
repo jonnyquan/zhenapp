@@ -38,11 +38,11 @@ public class AgentInfoController {
 		return map;
 	}
 	
-	@RequestMapping(value="/deleteAgentBypk")
-	public @ResponseBody ModelAndView deleteAgentBypk(String pks) throws Exception{
+	@RequestMapping(value="/deleteAgentByid")
+	public @ResponseBody ModelAndView deleteAgentBypk(String ids) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		
-		int i= agentInfoService.deleteAgentBypk(pks);
+		int i= agentInfoService.deleteAgentByid(ids);
 		System.out.println(i);
 		mv.setViewName("findAgentBypage");
 		return mv;

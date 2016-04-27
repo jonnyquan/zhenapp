@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhenapp.mapper.Custom.TUserInfoCustomMapper" >
-  <select id="findUserBynick" resultType="com.zhenapp.po.Custom.TUserinfoCustom" parameterType="String" >
+  <select id="findUserBynick" resultType="com.zhenapp.po.Custom.TUserInfoCustom" parameterType="String" >
     select * from t_user_info where userNick = #{usernick}
   </select>
-  <select id="findAllUser" resultType="com.zhenapp.po.Custom.TUserinfoCustom" >
-    select * from t_user_info
+  <select id="findUserByPage" resultType="com.zhenapp.po.Custom.TUserInfoCustom" parameterType="java.util.HashMap">
+    select * from t_user_info limit #{page},#{rows}
   </select>
   <select id="findpointsByUserid" resultType="String" parameterType="com.zhenapp.po.Vo.TUserinfoVo">
     SELECT A.POINTSNEW FROM t_points_info A LEFT JOIN t_user_info B ON A.USERID=B.USERID WHERE B.userNick=#{tUserinfoCustom.usernick} AND B.USERPWD=#{tUserinfoCustom.userpwd} ORDER BY POINTSPK DESC LIMIT 0,1
   </select>
-  <select id="findPasswordByemail" parameterType="com.zhenapp.po.Vo.TUserinfoVo" resultType="com.zhenapp.po.Custom.TUserinfoCustom">
+  <select id="findPasswordByemail" parameterType="com.zhenapp.po.Vo.TUserinfoVo" resultType="com.zhenapp.po.Custom.TUserInfoCustom">
   	SELECT * FROM t_user_info WHERE userNick=#{tUserinfoCustom.usernick} AND regEmail=#{tUserinfoCustom.regemail} limit 0,1
   </select>
   

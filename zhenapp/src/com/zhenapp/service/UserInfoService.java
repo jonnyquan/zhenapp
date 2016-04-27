@@ -1,5 +1,6 @@
 package com.zhenapp.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.zhenapp.po.TUserInfo;
@@ -14,9 +15,9 @@ public interface UserInfoService {
 	public List<TUserInfoCustom> findUserBynick(String usernick) throws Exception;
 	
 	/*
-	 * 查询出所有的用户
+	 * 分页查询出用户
 	 */
-	public List<TUserInfoCustom> findAllUser() throws Exception;
+	public List<TUserInfoCustom> findUserByPage(HashMap<String, Object> pagemap) throws Exception;
 	
 	/*
 	 * 保存用户信息

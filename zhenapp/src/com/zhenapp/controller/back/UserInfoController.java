@@ -2,6 +2,7 @@ package com.zhenapp.controller.back;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -74,8 +75,7 @@ public class UserInfoController {
 	/*
 	 * 用于校验注册时用户名是否存在
 	 */
-	@RequestMapping(value="/findUserByNick"
-			,method={RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value="/findUserByNick")
 	public @ResponseBody String findUserByNick(String usernick) throws Exception{
 		List<TUserInfoCustom> list=userInfoService.findUserBynick(usernick);
 		if(list.size()>0){
@@ -87,10 +87,18 @@ public class UserInfoController {
 	/*
 	 * 查询用户列表
 	 */
-	@RequestMapping(value="/findAllUser")
-	public @ResponseBody ModelMap findAllUser() throws Exception{
+	@RequestMapping(value="/findUserByPage")
+	public @ResponseBody ModelMap findUserByPage(Integer page,Integer rows) throws Exception{
 		ModelMap map=new ModelMap();
-		List<TUserInfoCustom> list=userInfoService.findAllUser();
+		HashMap<String,Object> pagemap=new HashMap<String,Object>();
+		if (page == null || page == null) {
+			pagemap.put("page", 0);
+			pagemap.put("rows", 10);
+		} else {
+			pagemap.put("page", page-1);
+			pagemap.put("rows", rows);
+		}
+		List<TUserInfoCustom> list=userInfoService.findUserByPage(pagemap);
 		map.put("total", list.size());
 		map.put("rows", list);
 		return map;

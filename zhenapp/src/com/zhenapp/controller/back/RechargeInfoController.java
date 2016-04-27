@@ -32,6 +32,8 @@ public class RechargeInfoController {
 	private ComboInfoService comboInfoService;
 	@Autowired
 	private RechargeInfoService rechargeInfoService;
+	
+	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 	/*
 	 * 插入充值记录
 	 */
@@ -40,7 +42,6 @@ public class RechargeInfoController {
 		ModelAndView mv=new ModelAndView();
 		String verificationcode = UUID.randomUUID().toString();
 		HttpSession session=request.getSession();
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 		TComboInfoCustom tComboInfoCustom= comboInfoService.findComboByid(id);
 		TRechargeInfoCustom tRechargeInfoCustom=new TRechargeInfoCustom();
 		tRechargeInfoCustom.setRechargeid(UUID.randomUUID().toString());
@@ -49,8 +50,8 @@ public class RechargeInfoController {
 		tRechargeInfoCustom.setRechargeverification(verificationcode);
 		tRechargeInfoCustom.setUpdatetime(sdf.format(new Date()));
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
-		tRechargeInfoCustom.setUpdateuser(tUserInfoCustom.getUsernick());
-		tRechargeInfoCustom.setCreateuser(tUserInfoCustom.getUsernick());
+		tRechargeInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
+		tRechargeInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
 		tRechargeInfoCustom.setCreatetime(sdf.format(new Date()));
 		tRechargeInfoVo.settRechargeInfoCustom(tRechargeInfoCustom);
 		int i = rechargeInfoService.insertRechargeinfo(tRechargeInfoVo);
@@ -82,8 +83,7 @@ public class RechargeInfoController {
 			pagemap.put("page", page-1);
 			pagemap.put("rows", rows);
 		}
-		
-		pagemap.put("createuser", tUserInfoCustom.getUsernick());
+		pagemap.put("createuser", tUserInfoCustom.getUserid());
 		List<TRechargeInfoCustom> tRechargeInfoCustomAlllist= rechargeInfoService.findRechargeinfoByUser(pagemap);
 		List<TRechargeInfoCustom> tRechargeInfoCustomlist= rechargeInfoService.findRechargeinfoByUserAndpage(pagemap);
 		map.put("total",tRechargeInfoCustomAlllist.size());

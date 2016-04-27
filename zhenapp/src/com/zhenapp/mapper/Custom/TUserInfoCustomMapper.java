@@ -1,5 +1,6 @@
 package com.zhenapp.mapper.Custom;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.zhenapp.po.Custom.TUserInfoCustom;
@@ -12,10 +13,10 @@ public interface TUserInfoCustomMapper {
 	 */
 	List<TUserInfoCustom> findUserBynick(String usernick);
 
-    /*
-     * 查询所有用户信息
-     */
-	public List<TUserInfoCustom> findAllUser() throws Exception;
+	/*
+	 * 分页查询出用户
+	 */
+	public List<TUserInfoCustom> findUserByPage(HashMap<String, Object> pagemap) throws Exception;
 	
 	/*
 	 * 根据用户名密码查询积分点数

@@ -42,7 +42,7 @@ public class SysconfInfoController {
 		ModelAndView mv =new ModelAndView();
 		HttpSession session=request.getSession();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
-		tSysconfInfoCustom.setUpdateuser(tUserInfoCustom.getUsernick());
+		tSysconfInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
 		tSysconfInfoCustom.setUpdatetime(sdf.format(new Date()));
 		int i= sysconfInfoService.updateSysinfo(tSysconfInfoCustom);
 		System.out.println(i);

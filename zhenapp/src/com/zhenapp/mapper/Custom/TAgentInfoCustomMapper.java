@@ -19,5 +19,9 @@ public interface TAgentInfoCustomMapper {
 	/*
 	 * 根据主键删除代理信息
 	 */
-	public int deleteAgentBypk(String pks) throws Exception;
+	public int deleteAgentByid(String ids) throws Exception;
+	/*
+	 * 根据用户id查询代理信息
+	 */
+	public TAgentInfoCustom findAgentByuserid(String userid) throws Exception;
 }
