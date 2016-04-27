@@ -22,7 +22,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	href="${pageContext.request.contextPath}/page/css/index.css" />
 </head>
 <body>
-<form id="form" action="${pageContext.request.contextPath}/util/uploadwebinfo" method="post" enctype="multipart/form-data">
+<form id="form" action="${pageContext.request.contextPath}/web/updatewebinfo" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="agentid" value="${tWebInfoCustom.agentid }">
 	<table style="width:100%;padding:5px;border: 1px solid #ddd;">
 		<tr>
 			<td>

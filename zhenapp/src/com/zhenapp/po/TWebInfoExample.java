@@ -174,53 +174,133 @@ public class TWebInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andWebidEqualTo(Integer value) {
+        public Criteria andWebidEqualTo(String value) {
             addCriterion("webid =", value, "webid");
             return (Criteria) this;
         }
 
-        public Criteria andWebidNotEqualTo(Integer value) {
+        public Criteria andWebidNotEqualTo(String value) {
             addCriterion("webid <>", value, "webid");
             return (Criteria) this;
         }
 
-        public Criteria andWebidGreaterThan(Integer value) {
+        public Criteria andWebidGreaterThan(String value) {
             addCriterion("webid >", value, "webid");
             return (Criteria) this;
         }
 
-        public Criteria andWebidGreaterThanOrEqualTo(Integer value) {
+        public Criteria andWebidGreaterThanOrEqualTo(String value) {
             addCriterion("webid >=", value, "webid");
             return (Criteria) this;
         }
 
-        public Criteria andWebidLessThan(Integer value) {
+        public Criteria andWebidLessThan(String value) {
             addCriterion("webid <", value, "webid");
             return (Criteria) this;
         }
 
-        public Criteria andWebidLessThanOrEqualTo(Integer value) {
+        public Criteria andWebidLessThanOrEqualTo(String value) {
             addCriterion("webid <=", value, "webid");
             return (Criteria) this;
         }
 
-        public Criteria andWebidIn(List<Integer> values) {
+        public Criteria andWebidLike(String value) {
+            addCriterion("webid like", value, "webid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWebidNotLike(String value) {
+            addCriterion("webid not like", value, "webid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWebidIn(List<String> values) {
             addCriterion("webid in", values, "webid");
             return (Criteria) this;
         }
 
-        public Criteria andWebidNotIn(List<Integer> values) {
+        public Criteria andWebidNotIn(List<String> values) {
             addCriterion("webid not in", values, "webid");
             return (Criteria) this;
         }
 
-        public Criteria andWebidBetween(Integer value1, Integer value2) {
+        public Criteria andWebidBetween(String value1, String value2) {
             addCriterion("webid between", value1, value2, "webid");
             return (Criteria) this;
         }
 
-        public Criteria andWebidNotBetween(Integer value1, Integer value2) {
+        public Criteria andWebidNotBetween(String value1, String value2) {
             addCriterion("webid not between", value1, value2, "webid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidIsNull() {
+            addCriterion("agentid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidIsNotNull() {
+            addCriterion("agentid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidEqualTo(String value) {
+            addCriterion("agentid =", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidNotEqualTo(String value) {
+            addCriterion("agentid <>", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidGreaterThan(String value) {
+            addCriterion("agentid >", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidGreaterThanOrEqualTo(String value) {
+            addCriterion("agentid >=", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidLessThan(String value) {
+            addCriterion("agentid <", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidLessThanOrEqualTo(String value) {
+            addCriterion("agentid <=", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidLike(String value) {
+            addCriterion("agentid like", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidNotLike(String value) {
+            addCriterion("agentid not like", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidIn(List<String> values) {
+            addCriterion("agentid in", values, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidNotIn(List<String> values) {
+            addCriterion("agentid not in", values, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidBetween(String value1, String value2) {
+            addCriterion("agentid between", value1, value2, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidNotBetween(String value1, String value2) {
+            addCriterion("agentid not between", value1, value2, "agentid");
             return (Criteria) this;
         }
 

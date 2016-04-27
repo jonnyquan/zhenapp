@@ -3,11 +3,12 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
     <base href="<%=basePath%>">
-    <title>代理管理</title>
+    <title>数据统计</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -33,21 +34,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 </style>
   <body>
-	<table id="datagrid">
+	
+	<table id="datagridtask">
 	</table>
+	
 	<div id="datagridtools" style="padding:5px;">
 		<div style="padding:5px;">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="obj.editweb();">修改登录页信息</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="obj.editprice();">修改单价信息</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="obj.remove();">删除</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" >导出Excle</a>
 		</div>
 		<div style="padding:5px;">
-			<!--
-			留待以后拓展查询用 
-			<lable style="padding:0 10px 0 10px;">创建时间从:</lable><input type="text" name="datefrom" class="easyui-datebox"  width="110px"  />
+			<lable style="padding:0 10px 0 10px;">代理名称:</lable>
+			<select name="tasktype" class="easyui-select" width="110px">
+				<option value="0">流量老大</option>
+				<option value="1">真流量</option>
+			</select>
+			<lable style="padding:0 10px 0 10px;">流量类型:</lable>
+			<select name="tasktype" class="easyui-select" width="110px">
+				<option value="0">普通流量</option>
+				<option value="1">直通车</option>
+			</select>
+			<lable style="padding:0 10px 0 10px;">统计时间从:</lable><input type="text" name="datefrom" class="easyui-datebox"  width="110px"  />
 			到：<input type="text" name="dateto" class="easyui-datebox"  width="110px"  />
 			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="obj.search();">查询</a>
-			 -->
 		</div>
 	</div>
   </body>
@@ -65,74 +73,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	;$(function(){
 		obj={
 			search:function(){
-				$("#datagrid").datagrid('load',{
+				$("#datagridtask").datagrid('load',{
 					datefrom:$("input[name='datefrom']").val(),
 					dateto:$("input[name='dateto']").val(),
 				});
 			},
-			editprice:function(){
-				var rows=$("#datagrid").datagrid('getSelections');
-				if(rows.length==1){
-					$.ajax({
-						type:"POST",
-						url:"${pageContext.request.contextPath}/price/findPriceByAgentid/"+rows[0].agentid,
-						beforeSend:function(){
-							$("#datagrid").datagrid('loading');
-						},
-						success:function(){
-							$("#datagrid").datagrid('loaded');	
-							window.location.href="${pageContext.request.contextPath}/price/findPriceByAgentid/"+rows[0].agentid;
-						},
-					});
-				}else{
-					$.messager.alert('提示信息',"请选择要修改的信息",'info');
-				}
-			},
-			editweb:function(){
-				var rows=$("#datagrid").datagrid('getSelections');
-				if(rows.length==1){
-					$.ajax({
-						type:"POST",
-						url:"${pageContext.request.contextPath}/web/findWebByAgentid/"+rows[0].agentid,
-						beforeSend:function(){
-							$("#datagrid").datagrid('loading');
-						},
-						success:function(){
-							$("#datagrid").datagrid('loaded');	
-							window.location.href="${pageContext.request.contextPath}/web/findWebByAgentid/"+rows[0].agentid;
-						},
-					});
-				}else{
-					$.messager.alert('提示信息',"请选择要修改的信息",'info');
-				}
-			},
 			remove:function(){
-				var rows=$("#datagrid").datagrid('getSelections');
+				var rows=$("#datagridtask").datagrid('getSelections');
 				if(rows.length>0){
 					$.messager.confirm('确认','您确认想要删除记录吗？',function(b){    
 					    if (b){
-							var ids=[];
+							var pks=[];
 							for(var i=0;i<rows.length;i++){
-								ids.push(rows[i].agentid);
+								pks.push(rows[i].taskpk);
 							}
 							$.ajax({
 								type:"POST",
-								url:"${pageContext.request.contextPath}/agent/deleteAgentByid",
+								url:"${pageContext.request.contextPath}/task/deleteTaskBypk",
 								data:{
-									ids:ids.join(",")
+									pks:pks.join(",")
 								},
 								beforeSend:function(){
-									$("#datagrid").datagrid('loading');
+									$("#datagridtask").datagrid('loading');
 								},
 								success:function(){
-									$("#datagrid").datagrid('loaded');	
+									$("#datagridtask").datagrid('loaded');	
 									$.messager.show({
 										title:"提示消息",
 										msg:"删除成功",
 										width:300,
 										height:200,
 									});
-									$("#datagrid").datagrid('load');
+									$("#datagridtask").datagrid('load');
 								},
 							});
 					    }
@@ -144,54 +116,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		};	
 		
 		
-			$("#datagrid").datagrid({
+			$("#datagridtask").datagrid({
 				fit:true,
-				title : '代理信息管理',
-				url:"${pageContext.request.contextPath}/agent/findAgentBypage",
+				title : '任务订单管理',
+				url:"${pageContext.request.contextPath}/datacount/findDataBydate",
 				columns : [ [ 
-				    {
-						field : 'agentid',
-						title : '选择',
-						checkbox:true,
-					}, 
+				     
 					{
-						field : 'agentperson',
-						title : '代理人',
+						field : 'date',
+						title : '日期',
 						width : 100,
 					}, 
 					{
-						field : 'agentphone',
-						title : '手机号',
+						field : 'flowcount',
+						title : '访问量',
 						width : 100,
-					}, 
+					},
 					{
-						field : 'agentname',
-						title : '网站名称',
+						field : 'collectioncount',
+						title : '收藏量',
 						width : 100,
-					}, 
+					},
 					{
-						field : 'agentwww',
-						title : '域名',
+						field : 'shoppingcount',
+						title : '购物车量',
 						width : 100,
-					}, 
+					},
 					{
-						field : 'agenthttp',
-						title : '网址',
+						field : 'buypoints',
+						title : '购买积分',
 						width : 100,
-					}, 
+					},
 					{
-						field : 'createtime',
-						title : '创建时间',
+						field : 'expendpoints',
+						title : '消耗积分',
 						width : 100,
-					}, 
+					},
 					{
-						field : 'updatetime',
-						title : '更新时间',
-						width : 100,
-					}, 
-					{
-						field : 'agentstate',
-						title : '状态',
+						field : 'backstage',
+						title : '后台操作',
 						width : 100,
 					}
 					] ],
@@ -201,7 +164,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				nowrap:true,
 				fitColumns:true,
 				rownumbers:true,
-				singleSelect:true,
 				toolbar:'#datagridtools'
 			});
 			

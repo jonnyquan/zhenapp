@@ -5,10 +5,15 @@
   <select id="findWebBywebwww" resultType="com.zhenapp.po.Custom.TWebInfoCustom" parameterType="String" >
     select * from t_web_info where webwww = #{webwww,jdbcType=VARCHAR}
   </select>
-  <update id="updateWebBywebwww" parameterType="com.zhenapp.po.Custom.TWebInfoCustom">
-	 update t_web_info
-    set webid = #{webid,jdbcType=INTEGER},
-      webwww = #{webwww,jdbcType=VARCHAR},
+  
+  <select id="findWebByAgentid" parameterType="String" resultType="com.zhenapp.po.Custom.TWebInfoCustom">
+	select * from t_web_info where agentid = #{agentid,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <update id="updateWebByAgentid" parameterType="com.zhenapp.po.Custom.TWebInfoCustom">
+	update t_web_info
+    set
       logo = #{logo,jdbcType=VARCHAR},
       Carousel01 = #{carousel01,jdbcType=VARCHAR},
       Carousel02 = #{carousel02,jdbcType=VARCHAR},
@@ -16,10 +21,8 @@
       QQ = #{qq,jdbcType=VARCHAR},
       bg01 = #{bg01,jdbcType=VARCHAR},
       bg02 = #{bg02,jdbcType=VARCHAR},
-      createuser = #{createuser,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR},
       updateuser = #{updateuser,jdbcType=VARCHAR},
       updatetime = #{updatetime,jdbcType=VARCHAR}
-    where webwww = #{webwww,jdbcType=VARCHAR}
+    where agentid = #{agentid,jdbcType=VARCHAR}
   </update> 
 </mapper>

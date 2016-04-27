@@ -11,5 +11,10 @@ public interface WebInfoService {
 	/*
 	 * 根据访问域名修改web信息
 	 */
-	public int updateWebBywebwww(TWebInfoCustom tWebInfoCustom) throws Exception;
+	public int updateWebByAgentid(TWebInfoCustom tWebInfoCustom) throws Exception;
+	
+	/*
+	 * 根据代理id查询文本信息
+	 */
+	public TWebInfoCustom findWebByAgentid(String agentid) throws Exception;
 }

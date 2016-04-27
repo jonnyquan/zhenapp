@@ -3,7 +3,9 @@ package com.zhenapp.po;
 public class TWebInfo {
     private Integer webpk;
 
-    private Integer webid;
+    private String webid;
+
+    private String agentid;
 
     private String webwww;
 
@@ -37,12 +39,20 @@ public class TWebInfo {
         this.webpk = webpk;
     }
 
-    public Integer getWebid() {
+    public String getWebid() {
         return webid;
     }
 
-    public void setWebid(Integer webid) {
-        this.webid = webid;
+    public void setWebid(String webid) {
+        this.webid = webid == null ? null : webid.trim();
+    }
+
+    public String getAgentid() {
+        return agentid;
+    }
+
+    public void setAgentid(String agentid) {
+        this.agentid = agentid == null ? null : agentid.trim();
     }
 
     public String getWebwww() {
