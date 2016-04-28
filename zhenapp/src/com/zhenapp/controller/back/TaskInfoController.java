@@ -14,9 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.zhenapp.po.Custom.TAgentInfoCustom;
+import com.zhenapp.po.Custom.TPriceInfoCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
+import com.zhenapp.service.AgentInfoService;
+import com.zhenapp.service.PriceInfoService;
 import com.zhenapp.service.TaskInfoService;
 
 @Controller
@@ -25,6 +30,30 @@ public class TaskInfoController {
 	
 	@Autowired
 	private TaskInfoService taskInfoService;
+	@Autowired
+	private PriceInfoService priceInfoService;
+	@Autowired
+	private AgentInfoService agentInfoService;
+	
+	/*
+	 * 查询价格信息  转发到发布任务界面
+	 */
+	@RequestMapping(value="/findPriceToTask")
+	public ModelAndView findPriceToTask(HttpServletRequest request) throws Exception{
+		ModelAndView mv=new ModelAndView();
+		HttpSession session=request.getSession();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
+		
+		TAgentInfoCustom tAgentInfoCustom= agentInfoService.findAgentByAgentid(tUserInfoCustom.getAgentid());//根据登陆用户查询所属代理信息
+		
+		TPriceInfoCustom tPriceInfoCustom= priceInfoService.findPriceByAgentid(tAgentInfoCustom.getAgentid());//根据代理信息查询所设置的价格信息
+		
+		mv.addObject("tPriceInfoCustom",tPriceInfoCustom);
+		
+		mv.setViewName("/page/task/tasklladd.jsp");
+		return mv;
+	}
+	
 
 	/*
 	 * 查询任务订单信息

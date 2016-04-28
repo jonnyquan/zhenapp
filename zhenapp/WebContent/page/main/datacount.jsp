@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<div id="datagridtools" style="padding:5px;">
 		<div style="padding:5px;">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" >导出Excle</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="obj.exportExcle();">导出Excle</a>
 		</div>
 		<div style="padding:5px;">
 			<lable style="padding:0 10px 0 10px;">代理名称:</lable>
@@ -69,7 +69,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	src="${pageContext.request.contextPath}/page/js/user.js"></script>
 <script type="text/javascript">
 	var uri = "${pageContext.request.contextPath}";
-	
 	;$(function(){
 		obj={
 			search:function(){
@@ -77,6 +76,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					datefrom:$("input[name='datefrom']").val(),
 					dateto:$("input[name='dateto']").val(),
 				});
+			},
+			exportExcle:function(){
+				var datefrom = $("input[name='datefrom']").val();
+				var dateto = $("input[name='dateto']").val();
+				window.open("${pageContext.request.contextPath}/datacount/ExportFile/"+datefrom+dateto);
 			},
 			remove:function(){
 				var rows=$("#datagridtask").datagrid('getSelections');
@@ -89,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							}
 							$.ajax({
 								type:"POST",
-								url:"${pageContext.request.contextPath}/task/deleteTaskBypk",
+								url:"${pageContext.request.contextPath}/datacount/deletedatacountBypk",
 								data:{
 									pks:pks.join(",")
 								},

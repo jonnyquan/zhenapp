@@ -44,13 +44,13 @@
 	<div title="费用概览">
 		<table class="table" style="margin-bottom:0px;">
 			<tr class="info">
-				<td>【流量数：<span id="lls_1">0</span>个，单价：<span id="lls_2">10</span>(积分)/个，总计：<span id="lls_3">0</span>(积分)】</td>
+				<td>【流量数：<span id="lls_1">0</span>个，单价：<span id="lls_2">${tPriceInfoCustom.pricecounts1}</span>(积分)/个，总计：<span id="lls_3">0</span>(积分)】</td>
 			</tr>
 			<tr class="default">
-				<td>【收藏数：<span id="scs_1">0</span>个，<span id="scs_2">10</span>(积分)/个，总计：<span id="scs_3">0</span>(积分)】</td>
+				<td>【收藏数：<span id="scs_1">0</span>个，<span id="scs_2">${tPriceInfoCustom.pricecounts2}</span>(积分)/个，总计：<span id="scs_3">0</span>(积分)】</td>
 			</tr>
 			<tr class="active">
-				<td>【购物车数：<span id="gwcs_1">0</span>个，单价：<span id="gwcs_2">10</span>/个，总计：<span id="gwcs_3">0</span>(积分)】</td>
+				<td>【购物车数：<span id="gwcs_1">0</span>个，单价：<span id="gwcs_2">${tPriceInfoCustom.pricecounts3}</span>/个，总计：<span id="gwcs_3">0</span>(积分)】</td>
 			</tr>
 			<tr class="success">
 				<td>总费用:<span id="sum">0</span></td>
@@ -58,8 +58,7 @@
 		</table>
 	</div>
 </div>	
-<div class="easyui-accordion" >
-<div title="任务详情">
+
 	<table class="table">
 		<tr>
 			<td>
@@ -141,6 +140,7 @@
 			<td>
 				<input type="text" class="form-control" name="flowcount" id="flowcount"
 							placeholder="请输入需要的流量数" onblur="fpll(this)"
+							onchange="fpll(this)"
 							onkeyup="this.value=this.value.replace(/\D/g,'')"
 							onafterpaste="this.value=this.value.replace(/\D/g,'')" />
 			</td>
@@ -359,8 +359,6 @@
 			</td>
 		</tr>
 	</table>
-	</div>
-</div>
 </body>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/easyui/jquery.min.js"></script>
@@ -372,18 +370,19 @@
 	var uri = "${pageContext.request.contextPath}";
 	var myDate = new Date();
 	var hour = myDate.getHours();
-	var llmax = 0;
-	var gwcmax = 0;
-	var scmax = 0;
+	var llmax = 0;//最大流量数
+	var gwcmax = 0;//最大购物车数
+	var scmax = 0;//最大收藏数量
+	var keywords=1;//关键词数量
+	var days=1;//天数
+	
 	;$(function() {
 		$('#datefrom').datebox({
 			onSelect : function(date){
 				var day = date.getDate() > 9 ? date.getDate() : "0" + date.getDate();
-				var month = (date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : "0"
-				+ (date.getMonth() + 1);
+				var month = (date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : "0" + (date.getMonth() + 1);
 				var day2 = myDate.getDate() > 9 ? myDate.getDate() : "0" + myDate.getDate();
-				var month2 = (myDate.getMonth() + 1) > 9 ? (myDate.getMonth() + 1) : "0"
-				+ (myDate.getMonth() + 1);
+				var month2 = (myDate.getMonth() + 1) > 9 ? (myDate.getMonth() + 1) : "0" + (myDate.getMonth() + 1);
 				var datevalue1 = date.getFullYear() + "" + month + "" +day;
 				var datevalue2 = myDate.getFullYear() + "" + month2 + "" +day2;
 				if(datevalue1 < datevalue2){
@@ -397,28 +396,32 @@
 		$('#dateto').datebox({
 			onSelect : function(date){
 				var day = date.getDate() > 9 ? date.getDate() : "0" + date.getDate();
-				var month = (date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : "0"
-				+ (date.getMonth() + 1);
+				var month = (date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : "0" + (date.getMonth() + 1);
 				var datevalue1 = date.getFullYear() + "" + month + "" +day;
 				var datevalue2 = $("input[name='datefrom']")[0].value;
 				var datevalue3 = datevalue2.replace("-","").replace("-","");
+				if(datevalue3.length <1){
+					$.messager.alert('消息提示', '请先选择开始时间!', 'info', function () {
+						$('#dateto').datebox('setValue',"");
+					});
+					return false;
+				}
 				if(datevalue1 < datevalue3){
 					$.messager.alert('消息提示', '结束日期不允许小于开始日期!', 'info', function () {
 						$('#dateto').datebox('setValue',"");
 					});
 				}
+				days = parseInt(datevalue1)-parseInt(datevalue3);
 			},
 		});
-
-
 		//开始日期验证
-		$('#datefrom').validatebox({
+		$("input[name='datefrom']").validatebox({
 			required : true,
 			missingMessage : '请输入开始日期',
 			invalidMessage : '开始日期不得为空',
 		});
 		//结束日期验证
-		$('#dateto').validatebox({
+		$("input[name='dateto']").validatebox({
 			required : true,
 			missingMessage : '请输入结束日期',
 			invalidMessage : '结束日期不得为空',
@@ -477,12 +480,18 @@
 				});
 				return false;
 			}
-			
-			
-			
-			
-			
-			
+			if($("input[name='datefrom']")[0].value.length < 1){
+				$.messager.alert('消息提示', '请输入开始日期!', 'info', function () {
+					$('#datefrom').focus();
+				});
+				return false;
+			}
+			if($("input[name='dateto']")[0].value.length < 1){
+				$.messager.alert('消息提示', '请输入结束日期!', 'info', function () {
+					$('#dateto').focus();
+				});
+				return false;
+			}
 			var taskkeywords = [];
 			var inputtaskkeywords = $("input[name='taskkeywords']");
 			for(var i=0;i<inputtaskkeywords.length;i++){
@@ -501,7 +510,6 @@
 				var me = $(this);
 				taskhourcounts.push(me.val());//保存value到一个数组中
 			});
-			alert("");
 			$.ajax({
 				url : "${pageContext.request.contextPath}/task/insertTaskInfo",
 				type : "POST",
@@ -522,16 +530,19 @@
 						$.messager.alert('消息提示', '任务发布成功!', 'info', function () {
 							window.location.href="${pageContext.request.contextPath}/page/task/tasklladd.jsp";
 						});
-						
 					}
 				}
 			});
 		});
 		
+		/*
+		将超过当天时刻的置为不可输入
+		
 		for (var i = 0; i <= hour; i++) {
 			$("#hour_" + i).val("0");
 			$("#hour_" + i).attr("disabled", true);
 		}
+		*/
 		
 	});
 
@@ -556,21 +567,27 @@
 				$("#lls_1").html(temp);
 				$("#lls_3").html(parseInt($('#lls_2').text())*temp);
 				$("#sum").html(parseInt($("#lls_3").text())+parseInt($("#scs_3").text())+parseInt($("#gwcs_3").text()));
-				var count2 = $("input[name='taskkeywords']").length;
-				$("#sum").html(parseInt($("#sum").text())*count2);
+				$("#sum").html(parseInt($("#sum").text())*keywords*days);
 			}
 		}
 	}
-	
+	/*
+	检查输入的流量数
+	*/
 	function fpll(obj) {
 		var number = /^\d+$/;
 		var temp = obj.value;
+		if(temp>llmax){
+			$.messager.alert('消息提示', '该宝贝id发布流量数不能大于允许发布的最大流量数!', 'info', function () {
+				$("#flowcount").val(llmax);
+				fpll($("#flowcount"));
+			});
+		}
 		if (number.test(temp)) {
 			$("#lls_1").html(temp);
 			$("#lls_3").html(parseInt($('#lls_2').text())*temp);
 			$("#sum").html(parseInt($("#lls_3").text())+parseInt($("#scs_3").text())+parseInt($("#gwcs_3").text()));
-			var count2 = $("input[name='taskkeywords']").length;
-			$("#sum").html(parseInt($("#sum").text())*count2);
+			$("#sum").html(parseInt($("#sum").text())*keywords*days);
 			var ys = temp / (24 - hour-1);
 			var fps = temp % (24 - hour-1);
 			for (var i = hour+1; i < 24; i++) {
@@ -589,8 +606,7 @@
 			$("#scs_1").html(temp);
 			$("#scs_3").html(parseInt($("#scs_2").text())*temp);
 			$("#sum").html(parseInt($("#lls_3").text())+parseInt($("#scs_3").text())+parseInt($("#gwcs_3").text()));
-			var count2 = $("input[name='taskkeywords']").length;
-			$("#sum").html(parseInt($("#sum").text())*count2);
+			$("#sum").html(parseInt($("#sum").text())*keywords*days);
 		}
 	}
 	function fpgwc(obj) {
@@ -600,22 +616,32 @@
 			$("#gwcs_1").html(temp);
 			$("#gwcs_3").html(parseInt($("#gwcs_2").text())*temp);
 			$("#sum").html(parseInt($("#lls_3").text())+parseInt($("#scs_3").text())+parseInt($("#gwcs_3").text()));
-			var count2 = $("input[name='taskkeywords']").length;
-			$("#sum").html(parseInt($("#sum").text())*count2);
+			$("#sum").html(parseInt($("#sum").text())*keywords*days);
 		}
 	}
 	/*
 	检查宝贝id当天可以发布多少流量数
 	*/
 	function checkkeynum(obj){
-		$.ajax({
-			url : "${pageContext.request.contextPath}/phone/findAllPhoneInfoBykeynum/"+obj.value,
-			type : "POST",
-			success:function(data,state){
-				llmax=data.count;
-				$("#span").html("最多可发布流量数:"+data.count);
-			}
-		});
+		if(obj.value.length<1){
+			llmax=1000;
+		}else{
+			$.ajax({
+				url : "${pageContext.request.contextPath}/phone/findAllPhoneInfoBykeynum/"+obj.value,
+				type : "POST",
+				success:function(data,state){
+					llmax=data.count;
+					if($("#flowcount").val()>llmax){
+						$.messager.alert('消息提示', '该宝贝id发布流量数不能大于允许发布的最大流量数!', 'info', function () {
+							$("#flowcount").val(llmax);
+							fpll($("#flowcount")[0]);
+						});
+					}
+					
+				}
+			});
+		}
+		$("#span").html("最多可发布流量数:"+llmax);
 	}
 	
 	/*
@@ -628,12 +654,14 @@
 			newTr.insertCell(0).innerHTML="<input type='text' name='taskkeywords' class='form-control' placeholder='请输入关键词' />"; 
 			newTr.insertCell(1).innerHTML="<input type='button' class='easyui-linkbutton' iconCls='icon-remove' onclick='delRow(this)' value='删除' />";
 		}
+		keywords = $("input[name='taskkeywords']").length;
 	}
 	/*
 	删除添加的多关键词
 	 */
 	function delRow(r){ 
-		document.getElementById("tab_keyword").deleteRow(r.parentNode.parentNode.rowIndex)
+		document.getElementById("tab_keyword").deleteRow(r.parentNode.parentNode.rowIndex);
+		keywords = $("input[name='taskkeywords']").length;
 	}
 </script>
 </html>

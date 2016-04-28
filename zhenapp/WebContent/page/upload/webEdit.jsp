@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</td>
 			<td>
 				<c:if test="${tWebInfoCustom.carousel01 != null && tWebInfoCustom.carousel01 != ''}">
-					<img src="${pageContext.request.contextPath}/bootstrap/img/index/${tWebInfoCustom.carousel01}" width="280px" height="80px" alt="真流量">
+					<img src="${pageContext.request.contextPath}/bootstrap/img/index/${tWebInfoCustom.carousel01}" width="1080px" height="380px" alt="真流量">
 				</c:if>
 				上传图片:<input type="file" name="files">
 			</td>
@@ -53,7 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</td>
 			<td>
 				<c:if test="${tWebInfoCustom.carousel02 != null && tWebInfoCustom.carousel02 != ''}">
-					<img src="${pageContext.request.contextPath}/bootstrap/img/index/${tWebInfoCustom.carousel02}" width="280px" height="80px" alt="真流量">
+					<img src="${pageContext.request.contextPath}/bootstrap/img/index/${tWebInfoCustom.carousel02}" width="1080px" height="380px" alt="真流量">
 				</c:if>
 				上传图片:<input type="file" name="files">
 			</td>
@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</td>
 			<td>
 				<c:if test="${tWebInfoCustom.carousel03 != null && tWebInfoCustom.carousel03 != ''}">
-					<img src="${pageContext.request.contextPath}/bootstrap/img/index/${tWebInfoCustom.carousel03}" width="280px" height="80px" alt="真流量">
+					<img src="${pageContext.request.contextPath}/bootstrap/img/index/${tWebInfoCustom.carousel03}" width="1080px" height="380px" alt="真流量">
 				</c:if>
 				上传图片:<input type="file" name="files">
 			</td>

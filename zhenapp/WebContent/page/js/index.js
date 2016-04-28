@@ -7,7 +7,7 @@ $(function() {
 				lines : true,
 				iconCls : 'icon-edit',
 				onClick : function(node) {
-					var content = '<iframe scrolling="no" frameborder="0"'
+					var content = '<iframe scrolling="auto" frameborder="0"'
 							+ 'src="' + uri + node.url
 							+ '" style="width:100%;height:100%;"></iframe>';
 					if (node.url) {
@@ -24,7 +24,10 @@ $(function() {
 					}
 				}
 			});
-
+	$(window).resize(function(){
+		$('#tabs').tabs('resize');
+	});
+	
 	$('#tabs').tabs({
 		fit : true,
 		border : false,

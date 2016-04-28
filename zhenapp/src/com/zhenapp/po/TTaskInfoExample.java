@@ -235,72 +235,72 @@ public class TTaskInfoExample {
         }
 
         public Criteria andTasktypeIsNull() {
-            addCriterion("taskType is null");
+            addCriterion("tasktype is null");
             return (Criteria) this;
         }
 
         public Criteria andTasktypeIsNotNull() {
-            addCriterion("taskType is not null");
+            addCriterion("tasktype is not null");
             return (Criteria) this;
         }
 
         public Criteria andTasktypeEqualTo(String value) {
-            addCriterion("taskType =", value, "tasktype");
+            addCriterion("tasktype =", value, "tasktype");
             return (Criteria) this;
         }
 
         public Criteria andTasktypeNotEqualTo(String value) {
-            addCriterion("taskType <>", value, "tasktype");
+            addCriterion("tasktype <>", value, "tasktype");
             return (Criteria) this;
         }
 
         public Criteria andTasktypeGreaterThan(String value) {
-            addCriterion("taskType >", value, "tasktype");
+            addCriterion("tasktype >", value, "tasktype");
             return (Criteria) this;
         }
 
         public Criteria andTasktypeGreaterThanOrEqualTo(String value) {
-            addCriterion("taskType >=", value, "tasktype");
+            addCriterion("tasktype >=", value, "tasktype");
             return (Criteria) this;
         }
 
         public Criteria andTasktypeLessThan(String value) {
-            addCriterion("taskType <", value, "tasktype");
+            addCriterion("tasktype <", value, "tasktype");
             return (Criteria) this;
         }
 
         public Criteria andTasktypeLessThanOrEqualTo(String value) {
-            addCriterion("taskType <=", value, "tasktype");
+            addCriterion("tasktype <=", value, "tasktype");
             return (Criteria) this;
         }
 
         public Criteria andTasktypeLike(String value) {
-            addCriterion("taskType like", value, "tasktype");
+            addCriterion("tasktype like", value, "tasktype");
             return (Criteria) this;
         }
 
         public Criteria andTasktypeNotLike(String value) {
-            addCriterion("taskType not like", value, "tasktype");
+            addCriterion("tasktype not like", value, "tasktype");
             return (Criteria) this;
         }
 
         public Criteria andTasktypeIn(List<String> values) {
-            addCriterion("taskType in", values, "tasktype");
+            addCriterion("tasktype in", values, "tasktype");
             return (Criteria) this;
         }
 
         public Criteria andTasktypeNotIn(List<String> values) {
-            addCriterion("taskType not in", values, "tasktype");
+            addCriterion("tasktype not in", values, "tasktype");
             return (Criteria) this;
         }
 
         public Criteria andTasktypeBetween(String value1, String value2) {
-            addCriterion("taskType between", value1, value2, "tasktype");
+            addCriterion("tasktype between", value1, value2, "tasktype");
             return (Criteria) this;
         }
 
         public Criteria andTasktypeNotBetween(String value1, String value2) {
-            addCriterion("taskType not between", value1, value2, "tasktype");
+            addCriterion("tasktype not between", value1, value2, "tasktype");
             return (Criteria) this;
         }
 

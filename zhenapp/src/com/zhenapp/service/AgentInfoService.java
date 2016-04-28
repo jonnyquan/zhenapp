@@ -23,5 +23,9 @@ public interface AgentInfoService {
 	 * 根据用户id查询代理信息
 	 */
 	public TAgentInfoCustom findAgentByuserid(String userid) throws Exception;
+	/*
+	 * 根据代理id查询代理信息
+	 */
+	public TAgentInfoCustom findAgentByAgentid(String agentid) throws Exception;
 	
 }

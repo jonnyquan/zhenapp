@@ -40,4 +40,10 @@ public class AgentInfoServiceImp implements AgentInfoService{
 		return tAgentInfoCustomMapper.findAgentByuserid(userid);
 	}
 
+	@Override
+	public TAgentInfoCustom findAgentByAgentid(String agentid) throws Exception {
+		// TODO Auto-generated method stub
+		return tAgentInfoCustomMapper.findAgentByAgentid(agentid);
+	}
+
 }

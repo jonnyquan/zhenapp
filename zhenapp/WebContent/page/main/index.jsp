@@ -37,7 +37,7 @@
 		style="width:180px;padding:10px;">
 		<ul id="nav"></ul>
 	</div>
-	<div data-options="region:'center'" style="overflow:hidden;">
+	<div data-options="region:'center'" style="width:900px;height:900px;"><!-- style="overflow-y:auto;overflow-x:hidden;" -->
 		<div id="tabs">
 			<div title="起始页" iconCls="icon-house"
 				style="padding:0 10px;display:block;">欢迎来到本系统,祝您的店铺越来越红火...</div>

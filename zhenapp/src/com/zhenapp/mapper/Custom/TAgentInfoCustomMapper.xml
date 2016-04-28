@@ -10,6 +10,9 @@
 	<select id="findAgentByuserid" parameterType="String" resultType="com.zhenapp.po.Custom.TAgentInfoCustom">
 		select * from t_agent_info where agentuserid = #{userid}
 	</select>
+	<select id="findAgentByAgentid" parameterType="String" resultType="com.zhenapp.po.Custom.TAgentInfoCustom">
+		select * from t_agent_info where agentid = #{agentid}
+	</select>
 	<delete id="deleteAgentByid" parameterType="String">
 		delete from t_agent_info where agentid in (#{ids}) 
 	</delete>

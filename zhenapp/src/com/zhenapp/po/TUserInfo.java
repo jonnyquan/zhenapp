@@ -29,6 +29,8 @@ public class TUserInfo {
 
     private String regdomain;
 
+    private String agentid;
+
     private String createtime;
 
     private String createuser;
@@ -147,6 +149,14 @@ public class TUserInfo {
 
     public void setRegdomain(String regdomain) {
         this.regdomain = regdomain == null ? null : regdomain.trim();
+    }
+
+    public String getAgentid() {
+        return agentid;
+    }
+
+    public void setAgentid(String agentid) {
+        this.agentid = agentid == null ? null : agentid.trim();
     }
 
     public String getCreatetime() {

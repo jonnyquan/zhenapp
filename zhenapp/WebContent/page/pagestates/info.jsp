@@ -11,7 +11,7 @@ String msg=request.getParameter("msg");
 <title>Insert title here</title>
 </head>
 <body>
-	<div style="margin: auto;padding: 50px 0 0 200px;">
+	<div style="margin: auto;padding: 50px 0 0 200px;color:red;">
 		<h3>
 			${msg}
 		</h3>

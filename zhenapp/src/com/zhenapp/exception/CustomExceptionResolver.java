@@ -48,7 +48,7 @@ public class CustomExceptionResolver implements HandlerExceptionResolver {
 		if(ex instanceof CustomException){
 			customException = (CustomException)ex;
 		}else{
-			customException = new CustomException("未知错误");
+			customException = new CustomException("系统异常,请联系管理员!");
 		}
 		
 		//错误信息
@@ -58,10 +58,10 @@ public class CustomExceptionResolver implements HandlerExceptionResolver {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		//将错误信息传到页面
-		modelAndView.addObject("message", message);
+		modelAndView.addObject("msg", message);
 		
 		//指向错误页面
-		modelAndView.setViewName("error");
+		modelAndView.setViewName("/page/pagestates/info.jsp");
 
 		
 		return modelAndView;

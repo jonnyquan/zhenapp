@@ -1,8 +1,5 @@
-/CustomValidationMessages.properties
 /com
-/config.properties
-/db.properties
-/db2.properties
+/log4j_online.properties
+/log4j_bak.properties
 /log4j.properties
-/mybatis
-/spring
+/log4jbak.properties

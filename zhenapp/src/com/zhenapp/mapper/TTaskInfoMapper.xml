@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.zhenapp.po.TTaskInfo" >
     <id column="taskpk" property="taskpk" jdbcType="INTEGER" />
     <result column="taskid" property="taskid" jdbcType="VARCHAR" />
-    <result column="taskType" property="tasktype" jdbcType="VARCHAR" />
+    <result column="tasktype" property="tasktype" jdbcType="VARCHAR" />
     <result column="taskkeynum" property="taskkeynum" jdbcType="VARCHAR" />
     <result column="taskkeyword" property="taskkeyword" jdbcType="VARCHAR" />
     <result column="taskstartdate" property="taskstartdate" jdbcType="VARCHAR" />
@@ -87,7 +87,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    taskpk, taskid, taskType, taskkeynum, taskkeyword, taskstartdate, taskenddate, taskhourcounts, 
+    taskpk, taskid, tasktype, taskkeynum, taskkeyword, taskstartdate, taskenddate, taskhourcounts, 
     taskminprice, taskmaxprice, tasksearchType, taskimgztc, taskimgpt, flowcount, Collectioncount, 
     Shoppingcount, tasktmallapppct, taskgprspct, taskPlus, taskduration, taskstate, createtime, 
     createuser, updatetime, updateuser
@@ -123,7 +123,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.zhenapp.po.TTaskInfo" >
-    insert into t_task_info (taskpk, taskid, taskType, 
+    insert into t_task_info (taskpk, taskid, tasktype, 
       taskkeynum, taskkeyword, taskstartdate, 
       taskenddate, taskhourcounts, taskminprice, 
       taskmaxprice, tasksearchType, taskimgztc, 
@@ -152,7 +152,7 @@
         taskid,
       </if>
       <if test="tasktype != null" >
-        taskType,
+        tasktype,
       </if>
       <if test="taskkeynum != null" >
         taskkeynum,
@@ -315,7 +315,7 @@
         taskid = #{record.taskid,jdbcType=VARCHAR},
       </if>
       <if test="record.tasktype != null" >
-        taskType = #{record.tasktype,jdbcType=VARCHAR},
+        tasktype = #{record.tasktype,jdbcType=VARCHAR},
       </if>
       <if test="record.taskkeynum != null" >
         taskkeynum = #{record.taskkeynum,jdbcType=VARCHAR},
@@ -392,7 +392,7 @@
     update t_task_info
     set taskpk = #{record.taskpk,jdbcType=INTEGER},
       taskid = #{record.taskid,jdbcType=VARCHAR},
-      taskType = #{record.tasktype,jdbcType=VARCHAR},
+      tasktype = #{record.tasktype,jdbcType=VARCHAR},
       taskkeynum = #{record.taskkeynum,jdbcType=VARCHAR},
       taskkeyword = #{record.taskkeyword,jdbcType=VARCHAR},
       taskstartdate = #{record.taskstartdate,jdbcType=VARCHAR},
@@ -426,7 +426,7 @@
         taskid = #{taskid,jdbcType=VARCHAR},
       </if>
       <if test="tasktype != null" >
-        taskType = #{tasktype,jdbcType=VARCHAR},
+        tasktype = #{tasktype,jdbcType=VARCHAR},
       </if>
       <if test="taskkeynum != null" >
         taskkeynum = #{taskkeynum,jdbcType=VARCHAR},
@@ -500,7 +500,7 @@
   <update id="updateByPrimaryKey" parameterType="com.zhenapp.po.TTaskInfo" >
     update t_task_info
     set taskid = #{taskid,jdbcType=VARCHAR},
-      taskType = #{tasktype,jdbcType=VARCHAR},
+      tasktype = #{tasktype,jdbcType=VARCHAR},
       taskkeynum = #{taskkeynum,jdbcType=VARCHAR},
       taskkeyword = #{taskkeyword,jdbcType=VARCHAR},
       taskstartdate = #{taskstartdate,jdbcType=VARCHAR},

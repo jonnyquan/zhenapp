@@ -7,23 +7,43 @@ public class TTaskDetailinfo {
 
     private String taskid;
 
-    private String phoneid;
-
     private String taskkeyword;
 
-    private String taskkeynum;
+    private String searchtype;
 
-    private String isflow;
+    private String price;
+
+    private String region;
+
+    private String isfreeship;
+
+    private String istmall;
 
     private String iscollection;
 
     private String isshopping;
+
+    private String taskkeynum;
+
+    private String minpicture;
+
+    private String maxpicture;
+
+    private String tasktype;
+
+    private String isflow;
+
+    private String iscreativetitle;
+
+    private String isshopcollect;
 
     private String taskstate;
 
     private String taskdate;
 
     private String taskhour;
+
+    private String phoneid;
 
     private String createtime;
 
@@ -57,14 +77,6 @@ public class TTaskDetailinfo {
         this.taskid = taskid == null ? null : taskid.trim();
     }
 
-    public String getPhoneid() {
-        return phoneid;
-    }
-
-    public void setPhoneid(String phoneid) {
-        this.phoneid = phoneid == null ? null : phoneid.trim();
-    }
-
     public String getTaskkeyword() {
         return taskkeyword;
     }
@@ -73,20 +85,44 @@ public class TTaskDetailinfo {
         this.taskkeyword = taskkeyword == null ? null : taskkeyword.trim();
     }
 
-    public String getTaskkeynum() {
-        return taskkeynum;
+    public String getSearchtype() {
+        return searchtype;
     }
 
-    public void setTaskkeynum(String taskkeynum) {
-        this.taskkeynum = taskkeynum == null ? null : taskkeynum.trim();
+    public void setSearchtype(String searchtype) {
+        this.searchtype = searchtype == null ? null : searchtype.trim();
     }
 
-    public String getIsflow() {
-        return isflow;
+    public String getPrice() {
+        return price;
     }
 
-    public void setIsflow(String isflow) {
-        this.isflow = isflow == null ? null : isflow.trim();
+    public void setPrice(String price) {
+        this.price = price == null ? null : price.trim();
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region == null ? null : region.trim();
+    }
+
+    public String getIsfreeship() {
+        return isfreeship;
+    }
+
+    public void setIsfreeship(String isfreeship) {
+        this.isfreeship = isfreeship == null ? null : isfreeship.trim();
+    }
+
+    public String getIstmall() {
+        return istmall;
+    }
+
+    public void setIstmall(String istmall) {
+        this.istmall = istmall == null ? null : istmall.trim();
     }
 
     public String getIscollection() {
@@ -103,6 +139,62 @@ public class TTaskDetailinfo {
 
     public void setIsshopping(String isshopping) {
         this.isshopping = isshopping == null ? null : isshopping.trim();
+    }
+
+    public String getTaskkeynum() {
+        return taskkeynum;
+    }
+
+    public void setTaskkeynum(String taskkeynum) {
+        this.taskkeynum = taskkeynum == null ? null : taskkeynum.trim();
+    }
+
+    public String getMinpicture() {
+        return minpicture;
+    }
+
+    public void setMinpicture(String minpicture) {
+        this.minpicture = minpicture == null ? null : minpicture.trim();
+    }
+
+    public String getMaxpicture() {
+        return maxpicture;
+    }
+
+    public void setMaxpicture(String maxpicture) {
+        this.maxpicture = maxpicture == null ? null : maxpicture.trim();
+    }
+
+    public String getTasktype() {
+        return tasktype;
+    }
+
+    public void setTasktype(String tasktype) {
+        this.tasktype = tasktype == null ? null : tasktype.trim();
+    }
+
+    public String getIsflow() {
+        return isflow;
+    }
+
+    public void setIsflow(String isflow) {
+        this.isflow = isflow == null ? null : isflow.trim();
+    }
+
+    public String getIscreativetitle() {
+        return iscreativetitle;
+    }
+
+    public void setIscreativetitle(String iscreativetitle) {
+        this.iscreativetitle = iscreativetitle == null ? null : iscreativetitle.trim();
+    }
+
+    public String getIsshopcollect() {
+        return isshopcollect;
+    }
+
+    public void setIsshopcollect(String isshopcollect) {
+        this.isshopcollect = isshopcollect == null ? null : isshopcollect.trim();
     }
 
     public String getTaskstate() {
@@ -127,6 +219,14 @@ public class TTaskDetailinfo {
 
     public void setTaskhour(String taskhour) {
         this.taskhour = taskhour == null ? null : taskhour.trim();
+    }
+
+    public String getPhoneid() {
+        return phoneid;
+    }
+
+    public void setPhoneid(String phoneid) {
+        this.phoneid = phoneid == null ? null : phoneid.trim();
     }
 
     public String getCreatetime() {
