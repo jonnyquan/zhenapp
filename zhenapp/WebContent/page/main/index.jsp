@@ -40,7 +40,22 @@
 	<div data-options="region:'center'" style="width:900px;height:900px;"><!-- style="overflow-y:auto;overflow-x:hidden;" -->
 		<div id="tabs">
 			<div title="起始页" iconCls="icon-house"
-				style="padding:0 10px;display:block;">欢迎来到本系统,祝您的店铺越来越红火...</div>
+				style="padding:0 10px;display:block;">欢迎来到本系统,祝您的店铺越来越红火...
+				
+				<table class="table">
+					<tr>
+						<td>
+							您当前账户余额为:
+						</td>
+						<td>
+							<span id="balabce"></span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="easyui-linkbutton" iconCls="icon-reload">刷新余额</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+				
+			
 		</div>
 	</div>
 </body>

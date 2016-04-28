@@ -37,6 +37,8 @@ public class Taskallocation {
 		ModelMap map=new ModelMap();
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 		HashMap<String,Object> hashmap1=new HashMap<String,Object>();
+		hashmap1.put("taskstate", 15);
+		hashmap1.put("taskstartdate", sdf.format(new Date()));
 		List<TTaskInfoCustom> tTaskInfoCustomlist= taskInfoService.findTaskallocation(hashmap1);
 		for (int i = 0; i < tTaskInfoCustomlist.size(); i++) {
 			TTaskInfoCustom tTaskInfoCustom=tTaskInfoCustomlist.get(i);
@@ -46,25 +48,33 @@ public class Taskallocation {
 			 */
 			if(tTaskInfoCustom.getFlowcount() > 0 && tTaskInfoCustom.getCollectioncount() == 0 && tTaskInfoCustom.getShoppingcount() == 0){
 				String [] hourarr = tTaskInfoCustom.getTaskhourcounts().split(",");
-				
 				for (int j = 0; j < hourarr.length; j++) {
-					for (int j2 = 0; j2 < Integer.parseInt(hourarr[j]); j2++) {
-						hashmap2.put("taskkeynum", tTaskInfoCustom.getTaskkeynum());
-						hashmap2.put("taskdate", tTaskInfoCustom.getTaskstartdate());
-						TPhoneInfoCustom tPhoneInfoCustom = phoneInfoService.findTPhoneByTask(hashmap2);//能做流量任务的手机信息
-						if(tPhoneInfoCustom!=null){
+					if(!hourarr[j].equals("0")){
+						int hourcount = Integer.parseInt(hourarr[j]);
+						int [] minute = new int[hourcount];
+						for(int a=0;a<hourcount ; a++){
+							minute[a]=a*60/hourcount;
+						}
+						for (int j2 = 0; j2 < minute.length; j2++) {
+							hashmap2.put("taskkeynum", tTaskInfoCustom.getTaskkeynum());
+							hashmap2.put("taskdate", tTaskInfoCustom.getTaskstartdate());
 							TTaskDetailInfoCustom tTaskDetailInfoCustom=new TTaskDetailInfoCustom();
 							tTaskDetailInfoCustom.setTaskdetailid(UUID.randomUUID().toString());
 							tTaskDetailInfoCustom.setTaskid(tTaskInfoCustom.getTaskid());
-							tTaskDetailInfoCustom.setPhoneid(tPhoneInfoCustom.getPhoneid());
 							tTaskDetailInfoCustom.setTaskkeyword(tTaskInfoCustom.getTaskkeyword());
 							tTaskDetailInfoCustom.setTaskkeynum(tTaskInfoCustom.getTaskkeynum());
+							tTaskDetailInfoCustom.setSearchtype(tTaskInfoCustom.getTasksearchtype());
+							tTaskDetailInfoCustom.setTasktype(tTaskInfoCustom.getTasktype());
+							tTaskDetailInfoCustom.setPrice(tTaskInfoCustom.getTaskminprice());
 							tTaskDetailInfoCustom.setIsflow("1");
 							tTaskDetailInfoCustom.setIscollection("0");
 							tTaskDetailInfoCustom.setIsshopping("0");
+							tTaskDetailInfoCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
+							tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
 							tTaskDetailInfoCustom.setTaskstate("1");
 							tTaskDetailInfoCustom.setTaskdate(tTaskInfoCustom.getTaskstartdate());
 							tTaskDetailInfoCustom.setTaskhour(j+"");
+							tTaskDetailInfoCustom.setTaskminute((minute[j2]+"").length()>1?(minute[j2]+""):("0"+minute[j2]));
 							tTaskDetailInfoCustom.setCreatetime(sdf.format(new Date()));
 							tTaskDetailInfoCustom.setCreateuser("sys");
 							tTaskDetailInfoCustom.setUpdatetime(sdf.format(new Date()));
@@ -73,6 +83,12 @@ public class Taskallocation {
 						}
 					}
 				}
+				
+				/*
+				 * 分配完成后修改任务状态
+				 */
+				int state = taskInfoService.updateTaskstate(tTaskInfoCustom.getTaskid());
+				System.out.println(state);
 			}
 			/*
 			 * 发流量，无购物车，有收藏

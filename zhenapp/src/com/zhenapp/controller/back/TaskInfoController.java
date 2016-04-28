@@ -105,7 +105,9 @@ public class TaskInfoController {
 		for (int i = 0; i < taskkeywordarr.length; i++) {
 			tTaskInfoCustom.setTaskid(UUID.randomUUID().toString());
 			tTaskInfoCustom.setTaskkeyword(taskkeywordarr[i]);
-			tTaskInfoCustom.setTaskstate("待分配");
+			tTaskInfoCustom.setTaskstate("15");
+			tTaskInfoCustom.setTaskstartdate(tTaskInfoCustom.getTaskstartdate().replace("-", ""));
+			tTaskInfoCustom.setTaskenddate(tTaskInfoCustom.getTaskenddate().replace("-", ""));
 			tTaskInfoCustom.setCreatetime(sdf.format(new Date()));
 			tTaskInfoCustom.setUpdatetime(sdf.format(new Date()));
 			tTaskInfoCustom.setCreateuser(tUserInfoCustom.getUserid());

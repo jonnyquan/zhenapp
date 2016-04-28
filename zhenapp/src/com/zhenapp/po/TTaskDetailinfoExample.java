@@ -1564,6 +1564,76 @@ public class TTaskDetailinfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andTaskminuteIsNull() {
+            addCriterion("taskminute is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskminuteIsNotNull() {
+            addCriterion("taskminute is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskminuteEqualTo(String value) {
+            addCriterion("taskminute =", value, "taskminute");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskminuteNotEqualTo(String value) {
+            addCriterion("taskminute <>", value, "taskminute");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskminuteGreaterThan(String value) {
+            addCriterion("taskminute >", value, "taskminute");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskminuteGreaterThanOrEqualTo(String value) {
+            addCriterion("taskminute >=", value, "taskminute");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskminuteLessThan(String value) {
+            addCriterion("taskminute <", value, "taskminute");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskminuteLessThanOrEqualTo(String value) {
+            addCriterion("taskminute <=", value, "taskminute");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskminuteLike(String value) {
+            addCriterion("taskminute like", value, "taskminute");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskminuteNotLike(String value) {
+            addCriterion("taskminute not like", value, "taskminute");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskminuteIn(List<String> values) {
+            addCriterion("taskminute in", values, "taskminute");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskminuteNotIn(List<String> values) {
+            addCriterion("taskminute not in", values, "taskminute");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskminuteBetween(String value1, String value2) {
+            addCriterion("taskminute between", value1, value2, "taskminute");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskminuteNotBetween(String value1, String value2) {
+            addCriterion("taskminute not between", value1, value2, "taskminute");
+            return (Criteria) this;
+        }
+
         public Criteria andPhoneidIsNull() {
             addCriterion("phoneid is null");
             return (Criteria) this;

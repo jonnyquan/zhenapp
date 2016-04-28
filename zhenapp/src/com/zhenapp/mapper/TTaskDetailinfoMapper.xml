@@ -23,6 +23,7 @@
     <result column="taskstate" property="taskstate" jdbcType="VARCHAR" />
     <result column="taskdate" property="taskdate" jdbcType="VARCHAR" />
     <result column="taskhour" property="taskhour" jdbcType="VARCHAR" />
+    <result column="taskminute" property="taskminute" jdbcType="VARCHAR" />
     <result column="phoneid" property="phoneid" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="VARCHAR" />
     <result column="createuser" property="createuser" jdbcType="VARCHAR" />
@@ -90,8 +91,8 @@
   <sql id="Base_Column_List" >
     taskdetailpk, taskdetailid, taskid, taskkeyword, searchtype, price, region, isfreeship, 
     istmall, iscollection, isshopping, taskkeynum, minpicture, maxpicture, tasktype, 
-    isflow, iscreativetitle, isshopcollect, taskstate, taskdate, taskhour, phoneid, createtime, 
-    createuser, updatetime, updateuser
+    isflow, iscreativetitle, isshopcollect, taskstate, taskdate, taskhour, taskminute, 
+    phoneid, createtime, createuser, updatetime, updateuser
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TTaskDetailinfoExample" >
     select
@@ -131,8 +132,9 @@
       minpicture, maxpicture, tasktype, 
       isflow, iscreativetitle, isshopcollect, 
       taskstate, taskdate, taskhour, 
-      phoneid, createtime, createuser, 
-      updatetime, updateuser)
+      taskminute, phoneid, createtime, 
+      createuser, updatetime, updateuser
+      )
     values (#{taskdetailpk,jdbcType=INTEGER}, #{taskdetailid,jdbcType=VARCHAR}, #{taskid,jdbcType=VARCHAR}, 
       #{taskkeyword,jdbcType=VARCHAR}, #{searchtype,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, 
       #{region,jdbcType=VARCHAR}, #{isfreeship,jdbcType=VARCHAR}, #{istmall,jdbcType=VARCHAR}, 
@@ -140,8 +142,9 @@
       #{minpicture,jdbcType=VARCHAR}, #{maxpicture,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
       #{isflow,jdbcType=VARCHAR}, #{iscreativetitle,jdbcType=VARCHAR}, #{isshopcollect,jdbcType=VARCHAR}, 
       #{taskstate,jdbcType=VARCHAR}, #{taskdate,jdbcType=VARCHAR}, #{taskhour,jdbcType=VARCHAR}, 
-      #{phoneid,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
-      #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR})
+      #{taskminute,jdbcType=VARCHAR}, #{phoneid,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+      #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.zhenapp.po.TTaskDetailinfo" >
     insert into t_task_detailinfo
@@ -208,6 +211,9 @@
       </if>
       <if test="taskhour != null" >
         taskhour,
+      </if>
+      <if test="taskminute != null" >
+        taskminute,
       </if>
       <if test="phoneid != null" >
         phoneid,
@@ -288,6 +294,9 @@
       </if>
       <if test="taskhour != null" >
         #{taskhour,jdbcType=VARCHAR},
+      </if>
+      <if test="taskminute != null" >
+        #{taskminute,jdbcType=VARCHAR},
       </if>
       <if test="phoneid != null" >
         #{phoneid,jdbcType=VARCHAR},
@@ -378,6 +387,9 @@
       <if test="record.taskhour != null" >
         taskhour = #{record.taskhour,jdbcType=VARCHAR},
       </if>
+      <if test="record.taskminute != null" >
+        taskminute = #{record.taskminute,jdbcType=VARCHAR},
+      </if>
       <if test="record.phoneid != null" >
         phoneid = #{record.phoneid,jdbcType=VARCHAR},
       </if>
@@ -421,6 +433,7 @@
       taskstate = #{record.taskstate,jdbcType=VARCHAR},
       taskdate = #{record.taskdate,jdbcType=VARCHAR},
       taskhour = #{record.taskhour,jdbcType=VARCHAR},
+      taskminute = #{record.taskminute,jdbcType=VARCHAR},
       phoneid = #{record.phoneid,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=VARCHAR},
       createuser = #{record.createuser,jdbcType=VARCHAR},
@@ -493,6 +506,9 @@
       <if test="taskhour != null" >
         taskhour = #{taskhour,jdbcType=VARCHAR},
       </if>
+      <if test="taskminute != null" >
+        taskminute = #{taskminute,jdbcType=VARCHAR},
+      </if>
       <if test="phoneid != null" >
         phoneid = #{phoneid,jdbcType=VARCHAR},
       </if>
@@ -533,6 +549,7 @@
       taskstate = #{taskstate,jdbcType=VARCHAR},
       taskdate = #{taskdate,jdbcType=VARCHAR},
       taskhour = #{taskhour,jdbcType=VARCHAR},
+      taskminute = #{taskminute,jdbcType=VARCHAR},
       phoneid = #{phoneid,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=VARCHAR},
       createuser = #{createuser,jdbcType=VARCHAR},

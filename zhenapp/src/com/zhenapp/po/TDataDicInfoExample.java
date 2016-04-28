@@ -364,63 +364,143 @@ public class TDataDicInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andDictypeidIsNull() {
-            addCriterion("dictypeid is null");
+        public Criteria andDictypecodeIsNull() {
+            addCriterion("dictypecode is null");
             return (Criteria) this;
         }
 
-        public Criteria andDictypeidIsNotNull() {
-            addCriterion("dictypeid is not null");
+        public Criteria andDictypecodeIsNotNull() {
+            addCriterion("dictypecode is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDictypeidEqualTo(Integer value) {
-            addCriterion("dictypeid =", value, "dictypeid");
+        public Criteria andDictypecodeEqualTo(String value) {
+            addCriterion("dictypecode =", value, "dictypecode");
             return (Criteria) this;
         }
 
-        public Criteria andDictypeidNotEqualTo(Integer value) {
-            addCriterion("dictypeid <>", value, "dictypeid");
+        public Criteria andDictypecodeNotEqualTo(String value) {
+            addCriterion("dictypecode <>", value, "dictypecode");
             return (Criteria) this;
         }
 
-        public Criteria andDictypeidGreaterThan(Integer value) {
-            addCriterion("dictypeid >", value, "dictypeid");
+        public Criteria andDictypecodeGreaterThan(String value) {
+            addCriterion("dictypecode >", value, "dictypecode");
             return (Criteria) this;
         }
 
-        public Criteria andDictypeidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("dictypeid >=", value, "dictypeid");
+        public Criteria andDictypecodeGreaterThanOrEqualTo(String value) {
+            addCriterion("dictypecode >=", value, "dictypecode");
             return (Criteria) this;
         }
 
-        public Criteria andDictypeidLessThan(Integer value) {
-            addCriterion("dictypeid <", value, "dictypeid");
+        public Criteria andDictypecodeLessThan(String value) {
+            addCriterion("dictypecode <", value, "dictypecode");
             return (Criteria) this;
         }
 
-        public Criteria andDictypeidLessThanOrEqualTo(Integer value) {
-            addCriterion("dictypeid <=", value, "dictypeid");
+        public Criteria andDictypecodeLessThanOrEqualTo(String value) {
+            addCriterion("dictypecode <=", value, "dictypecode");
             return (Criteria) this;
         }
 
-        public Criteria andDictypeidIn(List<Integer> values) {
-            addCriterion("dictypeid in", values, "dictypeid");
+        public Criteria andDictypecodeLike(String value) {
+            addCriterion("dictypecode like", value, "dictypecode");
             return (Criteria) this;
         }
 
-        public Criteria andDictypeidNotIn(List<Integer> values) {
-            addCriterion("dictypeid not in", values, "dictypeid");
+        public Criteria andDictypecodeNotLike(String value) {
+            addCriterion("dictypecode not like", value, "dictypecode");
             return (Criteria) this;
         }
 
-        public Criteria andDictypeidBetween(Integer value1, Integer value2) {
-            addCriterion("dictypeid between", value1, value2, "dictypeid");
+        public Criteria andDictypecodeIn(List<String> values) {
+            addCriterion("dictypecode in", values, "dictypecode");
             return (Criteria) this;
         }
 
-        public Criteria andDictypeidNotBetween(Integer value1, Integer value2) {
-            addCriterion("dictypeid not between", value1, value2, "dictypeid");
+        public Criteria andDictypecodeNotIn(List<String> values) {
+            addCriterion("dictypecode not in", values, "dictypecode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictypecodeBetween(String value1, String value2) {
+            addCriterion("dictypecode between", value1, value2, "dictypecode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictypecodeNotBetween(String value1, String value2) {
+            addCriterion("dictypecode not between", value1, value2, "dictypecode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictypenameIsNull() {
+            addCriterion("dictypename is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictypenameIsNotNull() {
+            addCriterion("dictypename is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictypenameEqualTo(String value) {
+            addCriterion("dictypename =", value, "dictypename");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictypenameNotEqualTo(String value) {
+            addCriterion("dictypename <>", value, "dictypename");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictypenameGreaterThan(String value) {
+            addCriterion("dictypename >", value, "dictypename");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictypenameGreaterThanOrEqualTo(String value) {
+            addCriterion("dictypename >=", value, "dictypename");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictypenameLessThan(String value) {
+            addCriterion("dictypename <", value, "dictypename");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictypenameLessThanOrEqualTo(String value) {
+            addCriterion("dictypename <=", value, "dictypename");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictypenameLike(String value) {
+            addCriterion("dictypename like", value, "dictypename");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictypenameNotLike(String value) {
+            addCriterion("dictypename not like", value, "dictypename");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictypenameIn(List<String> values) {
+            addCriterion("dictypename in", values, "dictypename");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictypenameNotIn(List<String> values) {
+            addCriterion("dictypename not in", values, "dictypename");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictypenameBetween(String value1, String value2) {
+            addCriterion("dictypename between", value1, value2, "dictypename");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictypenameNotBetween(String value1, String value2) {
+            addCriterion("dictypename not between", value1, value2, "dictypename");
             return (Criteria) this;
         }
 

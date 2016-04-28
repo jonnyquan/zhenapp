@@ -33,7 +33,7 @@ public interface TaskInfoService {
 	public int insertTaskByapi(TTaskInfoCustom tTaskInfoCustom) throws Exception;
 	
 	/*
-	 * 查询待分配的任务
+	 * 查询待分配的任务  任务状态为 待分配
 	 */
 	public List<TTaskInfoCustom> findTaskallocation(HashMap<String,Object> hashmap) throws Exception;
 	
@@ -41,4 +41,11 @@ public interface TaskInfoService {
 	 * 查询该宝贝id是否是第一次发布任务
 	 */
 	public List<TTaskInfoCustom> findIsFirst(String taskkeynum) throws Exception;
+	
+	/*
+	 * 根据任务id修改任务状态
+	 */
+	public int updateTaskstate(String taskid) throws Exception;
+	
+	
 }

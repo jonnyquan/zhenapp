@@ -58,4 +58,10 @@ public class TaskInfoServiceImp implements TaskInfoService {
 		return tTaskInfoCustomMapper.findIsFirst(taskkeynum);
 	}
 
+	@Override
+	public int updateTaskstate(String taskid) throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskInfoCustomMapper.updateTaskstate(taskid);
+	}
+
 }

@@ -370,7 +370,7 @@
 	var uri = "${pageContext.request.contextPath}";
 	var myDate = new Date();
 	var hour = myDate.getHours();
-	var llmax = 0;//最大流量数
+	var llmax = 1000;//最大流量数
 	var gwcmax = 0;//最大购物车数
 	var scmax = 0;//最大收藏数量
 	var keywords=1;//关键词数量
@@ -517,10 +517,12 @@
 					taskkeynum : $("#taskkeynum").val(),
 					taskkeywords : taskkeywords.join('===='),
 					tasktype:"0",
+					taskstartdate:$("input[name='datefrom']")[0].value,
+					taskenddate:$("input[name='dateto']")[0].value,
 					taskhourcounts : taskhourcounts.join(','),
 					taskminprice : $("#taskminprice").val(),
 					taskmaxprice : $("#taskmaxprice").val(),
-					tasksearchType : "1",
+					tasksearchtype : $("input[name='tasksearchType']:checked").val(),
 					flowcount : $("#flowcount").val(),
 					collectioncount : $("#collectioncount").val(),
 					shoppingcount : $("#shoppingcount").val(),
@@ -580,7 +582,7 @@
 		if(temp>llmax){
 			$.messager.alert('消息提示', '该宝贝id发布流量数不能大于允许发布的最大流量数!', 'info', function () {
 				$("#flowcount").val(llmax);
-				fpll($("#flowcount"));
+				return false;
 			});
 		}
 		if (number.test(temp)) {
@@ -602,6 +604,10 @@
 	function fpsc(obj) {
 		var number = /^\d+$/;
 		var temp = obj.value;
+		if(temp.length<1){
+			$('#collectioncount').val("0");
+			temp=0;
+		}
 		if (number.test(temp)) {
 			$("#scs_1").html(temp);
 			$("#scs_3").html(parseInt($("#scs_2").text())*temp);
@@ -612,6 +618,10 @@
 	function fpgwc(obj) {
 		var number = /^\d+$/;
 		var temp = obj.value;
+		if(temp.length<1){
+			$('#shoppingcount').val("0");
+			temp=0;
+		}
 		if (number.test(temp)) {
 			$("#gwcs_1").html(temp);
 			$("#gwcs_3").html(parseInt($("#gwcs_2").text())*temp);

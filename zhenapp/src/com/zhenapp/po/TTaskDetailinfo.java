@@ -43,6 +43,8 @@ public class TTaskDetailinfo {
 
     private String taskhour;
 
+    private String taskminute;
+
     private String phoneid;
 
     private String createtime;
@@ -219,6 +221,14 @@ public class TTaskDetailinfo {
 
     public void setTaskhour(String taskhour) {
         this.taskhour = taskhour == null ? null : taskhour.trim();
+    }
+
+    public String getTaskminute() {
+        return taskminute;
+    }
+
+    public void setTaskminute(String taskminute) {
+        this.taskminute = taskminute == null ? null : taskminute.trim();
     }
 
     public String getPhoneid() {

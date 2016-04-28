@@ -1,9 +1,16 @@
 package com.zhenapp.controller.api;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
+import com.zhenapp.service.PhoneInfoService;
+import com.zhenapp.service.TaskDetailInfoService;
+import com.zhenapp.service.TaskInfoService;
 
 /*
  * 供手机端调用的api
@@ -11,19 +18,38 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class phoneapi {
-	
+	@Autowired
+	private PhoneInfoService phoneInfoService;
+	@Autowired
+	private TaskInfoService taskInfoService;
+	@Autowired
+	private TaskDetailInfoService taskDetailInfoService;
 	/*
 	 * 手机端获取任务
 	 * http://120.24.44.130/api/phone/request/task?pid=1
 	 *param:pid-->手机号
 	 */
-	@RequestMapping(value="/api/phone/request/task")
-	public @ResponseBody ModelMap requesttask(String pid) throws Exception{
-		ModelMap map = new ModelMap();
-		
-		
-		
-		return map;
+	@RequestMapping(value="/api/phone/request/task/{pid}")
+	public @ResponseBody String requesttask(@PathVariable(value="pid")String pid) throws Exception{
+		StringBuffer sb=new StringBuffer();
+		TTaskDetailInfoCustom tTaskDetailInfoCustom = taskDetailInfoService.requesttaskByphoneid(pid);
+		sb.append(tTaskDetailInfoCustom.getTaskid()).append("&")
+			.append(tTaskDetailInfoCustom.getTaskkeyword()).append("&")
+			.append(tTaskDetailInfoCustom.getSearchtype()).append("&")
+			.append(tTaskDetailInfoCustom.getMinpicture()).append("&")
+			.append("null").append("&")//地区
+			.append("null").append("&")//是否免运费
+			.append("null").append("&")//是否天猫
+			.append(tTaskDetailInfoCustom.getIscollection()).append("&")
+			.append(tTaskDetailInfoCustom.getIsshopping()).append("&")
+			.append(tTaskDetailInfoCustom.getTaskkeynum()).append("&")
+			.append(tTaskDetailInfoCustom.getMinpicture()).append("&")
+			.append(tTaskDetailInfoCustom.getMaxpicture()).append("&")
+			.append(tTaskDetailInfoCustom.getTasktype()).append("&")
+			.append(tTaskDetailInfoCustom.getIscreativetitle()).append("&")
+			.append(tTaskDetailInfoCustom.getIsshopcollect());
+		String result=sb.toString();
+		return result;
 	}
 	
 	

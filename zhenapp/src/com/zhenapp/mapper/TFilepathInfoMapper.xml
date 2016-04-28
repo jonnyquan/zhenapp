@@ -5,6 +5,7 @@
     <id column="filepathpk" property="filepathpk" jdbcType="INTEGER" />
     <result column="filepathid" property="filepathid" jdbcType="VARCHAR" />
     <result column="filepath" property="filepath" jdbcType="VARCHAR" />
+    <result column="filepathdesc" property="filepathdesc" jdbcType="VARCHAR" />
     <result column="createuser" property="createuser" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="VARCHAR" />
     <result column="updateuser" property="updateuser" jdbcType="VARCHAR" />
@@ -69,7 +70,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    filepathpk, filepathid, filepath, createuser, createtime, updateuser, updatetime
+    filepathpk, filepathid, filepath, filepathdesc, createuser, createtime, updateuser, 
+    updatetime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TFilepathInfoExample" >
     select
@@ -103,11 +105,11 @@
   </delete>
   <insert id="insert" parameterType="com.zhenapp.po.TFilepathInfo" >
     insert into t_filepath_info (filepathpk, filepathid, filepath, 
-      createuser, createtime, updateuser, 
-      updatetime)
+      filepathdesc, createuser, createtime, 
+      updateuser, updatetime)
     values (#{filepathpk,jdbcType=INTEGER}, #{filepathid,jdbcType=VARCHAR}, #{filepath,jdbcType=VARCHAR}, 
-      #{createuser,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, 
-      #{updatetime,jdbcType=VARCHAR})
+      #{filepathdesc,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+      #{updateuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zhenapp.po.TFilepathInfo" >
     insert into t_filepath_info
@@ -120,6 +122,9 @@
       </if>
       <if test="filepath != null" >
         filepath,
+      </if>
+      <if test="filepathdesc != null" >
+        filepathdesc,
       </if>
       <if test="createuser != null" >
         createuser,
@@ -143,6 +148,9 @@
       </if>
       <if test="filepath != null" >
         #{filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="filepathdesc != null" >
+        #{filepathdesc,jdbcType=VARCHAR},
       </if>
       <if test="createuser != null" >
         #{createuser,jdbcType=VARCHAR},
@@ -176,6 +184,9 @@
       <if test="record.filepath != null" >
         filepath = #{record.filepath,jdbcType=VARCHAR},
       </if>
+      <if test="record.filepathdesc != null" >
+        filepathdesc = #{record.filepathdesc,jdbcType=VARCHAR},
+      </if>
       <if test="record.createuser != null" >
         createuser = #{record.createuser,jdbcType=VARCHAR},
       </if>
@@ -198,6 +209,7 @@
     set filepathpk = #{record.filepathpk,jdbcType=INTEGER},
       filepathid = #{record.filepathid,jdbcType=VARCHAR},
       filepath = #{record.filepath,jdbcType=VARCHAR},
+      filepathdesc = #{record.filepathdesc,jdbcType=VARCHAR},
       createuser = #{record.createuser,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=VARCHAR},
       updateuser = #{record.updateuser,jdbcType=VARCHAR},
@@ -214,6 +226,9 @@
       </if>
       <if test="filepath != null" >
         filepath = #{filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="filepathdesc != null" >
+        filepathdesc = #{filepathdesc,jdbcType=VARCHAR},
       </if>
       <if test="createuser != null" >
         createuser = #{createuser,jdbcType=VARCHAR},
@@ -234,6 +249,7 @@
     update t_filepath_info
     set filepathid = #{filepathid,jdbcType=VARCHAR},
       filepath = #{filepath,jdbcType=VARCHAR},
+      filepathdesc = #{filepathdesc,jdbcType=VARCHAR},
       createuser = #{createuser,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=VARCHAR},
       updateuser = #{updateuser,jdbcType=VARCHAR},

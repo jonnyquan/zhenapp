@@ -8,4 +8,8 @@ public interface TaskDetailInfoService {
 	 */
 	public int insertDetailinfo(TTaskDetailInfoCustom tTaskDetailInfoCustom) throws Exception;
 	
+	/*
+	 * 根据手机id获取符合规则的任务详情
+	 */
+	public TTaskDetailInfoCustom requesttaskByphoneid(String phoneid) throws Exception;
 }

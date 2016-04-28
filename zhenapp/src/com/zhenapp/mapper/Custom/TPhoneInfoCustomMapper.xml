@@ -17,4 +17,8 @@
 	AND b.phonestate='1') aa 
 	LEFT JOIN (SELECT phoneid, COUNT(1) AS counts FROM t_task_detailinfo GROUP BY phoneid) bb ON aa.phoneid=bb.phoneid ORDER BY BB.COUNTS,PHONEID
   </select>
+  
+  <select id="findPhonecountBykeynum" parameterType="String" resultType="int">
+  	SELECT COUNT(1) FROM t_phone_info WHERE phoneid NOT IN (SELECT phoneid FROM t_task_detailinfo WHERE taskkeynum=#{taskkeynum} AND taskdate=DATE_FORMAT(NOW(),'%Y%m%d')) AND phonestate='1' 
+  </select>
 </mapper>

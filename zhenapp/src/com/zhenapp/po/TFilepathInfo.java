@@ -7,6 +7,8 @@ public class TFilepathInfo {
 
     private String filepath;
 
+    private String filepathdesc;
+
     private String createuser;
 
     private String createtime;
@@ -37,6 +39,14 @@ public class TFilepathInfo {
 
     public void setFilepath(String filepath) {
         this.filepath = filepath == null ? null : filepath.trim();
+    }
+
+    public String getFilepathdesc() {
+        return filepathdesc;
+    }
+
+    public void setFilepathdesc(String filepathdesc) {
+        this.filepathdesc = filepathdesc == null ? null : filepathdesc.trim();
     }
 
     public String getCreateuser() {

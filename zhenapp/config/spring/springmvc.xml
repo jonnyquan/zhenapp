@@ -57,6 +57,7 @@
 		
 	</bean>
 	
+	<bean class="com.zhenapp.util.UTF8StringBeanPostProcessor"></bean>
 	<!-- 自定义参数绑定 -->
 	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
 		<!-- 转换器 -->

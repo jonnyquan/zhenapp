@@ -28,4 +28,10 @@ public class PhoneInfoServiceImp implements PhoneInfoService{
 		return tPhoneInfoCustomMapper.findAllPhoneBykeynum(keynum);
 	}
 
+	@Override
+	public int findPhonecountBykeynum(String keynum) throws Exception {
+		// TODO Auto-generated method stub
+		return tPhoneInfoCustomMapper.findPhonecountBykeynum(keynum);
+	}
+
 }

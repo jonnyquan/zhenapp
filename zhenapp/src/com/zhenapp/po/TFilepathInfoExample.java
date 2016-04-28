@@ -304,6 +304,76 @@ public class TFilepathInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andFilepathdescIsNull() {
+            addCriterion("filepathdesc is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilepathdescIsNotNull() {
+            addCriterion("filepathdesc is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilepathdescEqualTo(String value) {
+            addCriterion("filepathdesc =", value, "filepathdesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilepathdescNotEqualTo(String value) {
+            addCriterion("filepathdesc <>", value, "filepathdesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilepathdescGreaterThan(String value) {
+            addCriterion("filepathdesc >", value, "filepathdesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilepathdescGreaterThanOrEqualTo(String value) {
+            addCriterion("filepathdesc >=", value, "filepathdesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilepathdescLessThan(String value) {
+            addCriterion("filepathdesc <", value, "filepathdesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilepathdescLessThanOrEqualTo(String value) {
+            addCriterion("filepathdesc <=", value, "filepathdesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilepathdescLike(String value) {
+            addCriterion("filepathdesc like", value, "filepathdesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilepathdescNotLike(String value) {
+            addCriterion("filepathdesc not like", value, "filepathdesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilepathdescIn(List<String> values) {
+            addCriterion("filepathdesc in", values, "filepathdesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilepathdescNotIn(List<String> values) {
+            addCriterion("filepathdesc not in", values, "filepathdesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilepathdescBetween(String value1, String value2) {
+            addCriterion("filepathdesc between", value1, value2, "filepathdesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilepathdescNotBetween(String value1, String value2) {
+            addCriterion("filepathdesc not between", value1, value2, "filepathdesc");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateuserIsNull() {
             addCriterion("createuser is null");
             return (Criteria) this;

@@ -40,5 +40,8 @@ public interface TTaskInfoCustomMapper {
 	 * 查询该宝贝id是否是第一次发布任务
 	 */
 	public List<TTaskInfoCustom> findIsFirst(String taskkeynum) throws Exception;
-	
+	/*
+	 * 根据任务id修改任务状态
+	 */
+	public int updateTaskstate(String taskid) throws Exception;
 }

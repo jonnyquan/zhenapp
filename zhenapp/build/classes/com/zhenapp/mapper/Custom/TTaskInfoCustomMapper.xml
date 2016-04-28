@@ -73,7 +73,7 @@
    </insert>
   
   <insert id="insertTaskInfo" parameterType="com.zhenapp.po.Custom.TTaskInfoCustom" >
-     insert into t_task_info (taskpk, taskid, taskType, 
+     insert into t_task_info (taskid, taskType, 
       taskkeynum, taskkeyword, taskstartdate, 
       taskenddate, taskhourcounts, taskminprice, 
       taskmaxprice, tasksearchType, taskimgztc, 
@@ -82,7 +82,7 @@
       taskPlus, taskduration, taskstate, 
       createtime, createuser, updatetime, 
       updateuser)
-    values (#{taskpk,jdbcType=INTEGER}, #{taskid,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
+    values (#{taskid,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
       #{taskkeynum,jdbcType=VARCHAR}, #{taskkeyword,jdbcType=VARCHAR}, #{taskstartdate,jdbcType=VARCHAR}, 
       #{taskenddate,jdbcType=VARCHAR}, #{taskhourcounts,jdbcType=VARCHAR}, #{taskminprice,jdbcType=VARCHAR}, 
       #{taskmaxprice,jdbcType=VARCHAR}, #{tasksearchtype,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR}, 
@@ -92,6 +92,10 @@
       #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
       #{updateuser,jdbcType=VARCHAR})
   </insert>
+  
+  <update id="updateTaskstate" parameterType="String">
+  	update t_task_info set taskstate="16" where taskid=#{taskid}
+  </update>
   
   <delete id="deleteTaskBypk" parameterType="String">
     delete from t_task_info

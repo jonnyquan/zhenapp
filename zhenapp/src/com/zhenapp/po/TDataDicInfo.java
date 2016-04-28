@@ -9,7 +9,9 @@ public class TDataDicInfo {
 
     private Integer dicinfostate;
 
-    private Integer dictypeid;
+    private String dictypecode;
+
+    private String dictypename;
 
     private String createtime;
 
@@ -51,12 +53,20 @@ public class TDataDicInfo {
         this.dicinfostate = dicinfostate;
     }
 
-    public Integer getDictypeid() {
-        return dictypeid;
+    public String getDictypecode() {
+        return dictypecode;
     }
 
-    public void setDictypeid(Integer dictypeid) {
-        this.dictypeid = dictypeid;
+    public void setDictypecode(String dictypecode) {
+        this.dictypecode = dictypecode == null ? null : dictypecode.trim();
+    }
+
+    public String getDictypename() {
+        return dictypename;
+    }
+
+    public void setDictypename(String dictypename) {
+        this.dictypename = dictypename == null ? null : dictypename.trim();
     }
 
     public String getCreatetime() {

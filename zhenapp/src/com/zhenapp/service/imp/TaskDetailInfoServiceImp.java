@@ -19,4 +19,11 @@ public class TaskDetailInfoServiceImp implements TaskDetailInfoService {
 		return tTaskDetailinfoCustomMapper.insertDetailinfo(tTaskDetailInfoCustom);
 	}
 
+	@Override
+	public TTaskDetailInfoCustom requesttaskByphoneid(String phoneid)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskDetailinfoCustomMapper.requesttaskByphoneid(phoneid);
+	}
+
 }
