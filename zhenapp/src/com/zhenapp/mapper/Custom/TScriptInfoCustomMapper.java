@@ -17,6 +17,10 @@ public interface TScriptInfoCustomMapper {
 	/*
 	 * 查询全部脚本信息
 	 */
+	public int findTotalScriptByPage(HashMap<String,Object> pagemap) throws Exception;
+	/*
+	 * 查询全部脚本信息
+	 */
 	public List<TScriptInfoCustom> findScriptByPage(HashMap<String,Object> pagemap) throws Exception;
 	/*
 	 * 根据id查询脚本文件下载

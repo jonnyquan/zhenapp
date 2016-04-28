@@ -47,4 +47,11 @@ public class ScriptInfoServiceImp implements ScriptInfoService{
 		// TODO Auto-generated method stub
 		return tScriptInfoCustomMapper.findScriptByPage(pagemap);
 	}
+
+	@Override
+	public int findTotalScriptByPage(HashMap<String, Object> pagemap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tScriptInfoCustomMapper.findTotalScriptByPage(pagemap);
+	}
 }

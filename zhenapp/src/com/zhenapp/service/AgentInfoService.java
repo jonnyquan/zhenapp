@@ -14,6 +14,10 @@ public interface AgentInfoService {
 	 * 分页查询代理信息
 	 */
 	public List<TAgentInfoCustom> findAllAgentBypage(HashMap<String, Object> pagemap) throws Exception;
+	/*
+	 * 分页查询代理信息的总条数
+	 */
+	public int findTotalAgentBypage(HashMap<String, Object> pagemap) throws Exception;
 	
 	/*
 	 * 根据主键删除代理信息

@@ -31,9 +31,10 @@ public class ScriptInfoController {
 			pagemap.put("rows", rows);
 		}
 		List<TScriptInfoCustom> tScriptInfoCustomlist=scriptInfoService.findScriptByPage(pagemap);
-		List<TScriptInfoCustom> tScriptInfoCustomAlllist=scriptInfoService.findAllScriptByPage(pagemap);
+		//List<TScriptInfoCustom> tScriptInfoCustomAlllist=scriptInfoService.findAllScriptByPage(pagemap);
+		int total =scriptInfoService.findTotalScriptByPage(pagemap);
 		
-		map.put("total", tScriptInfoCustomAlllist.size());
+		map.put("total", total);
 		map.put("rows", tScriptInfoCustomlist);
 		return map;
 	}

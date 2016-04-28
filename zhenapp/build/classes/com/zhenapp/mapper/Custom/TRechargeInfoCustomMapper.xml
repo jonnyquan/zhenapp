@@ -28,6 +28,20 @@
 		</where>
 		order by createtime desc LIMIT #{page},#{rows}
 	</select>
+	<select id="findRechargeinfoByUserAndpage" parameterType="java.util.HashMap" resultType="int">
+		select count(1) from t_recharge_info 
+		<where>
+			<if test="createuser != null and createuser != ''">
+	    		and createuser <![CDATA[>=]]> #{createuser}
+	    	</if>
+	    	<if test="datefrom != null and datefrom != ''">
+	    		and createtime <![CDATA[>=]]> #{datefrom}
+	    	</if>
+	    	<if test="dateto != null and dateto != ''">
+	    		and createtime <![CDATA[<=]]> #{dateto}
+	    	</if>
+		</where>
+	</select>
 	
 	<select id="findRechargeinfoByUser" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TRechargeInfoCustom">
 		select * from t_recharge_info 

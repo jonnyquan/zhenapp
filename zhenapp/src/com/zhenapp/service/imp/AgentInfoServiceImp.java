@@ -46,4 +46,11 @@ public class AgentInfoServiceImp implements AgentInfoService{
 		return tAgentInfoCustomMapper.findAgentByAgentid(agentid);
 	}
 
+	@Override
+	public int findTotalAgentBypage(HashMap<String, Object> pagemap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tAgentInfoCustomMapper.findTotalAgentBypage(pagemap);
+	}
+
 }

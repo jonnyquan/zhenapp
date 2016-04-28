@@ -8,9 +8,13 @@ import com.zhenapp.po.Custom.TTbaccountInfoCustom;
 public interface TbaccountInfoService {
 
 	/*
-	 * 查询所有有效淘宝账号
+	 * 分页查询所有有效淘宝账号
 	 */
 	public List<TTbaccountInfoCustom> findTbaccountBypage(HashMap<String, Object> hashmap) throws Exception;
+	/*
+	 * 分页查询所有有效淘宝账号
+	 */
+	public int findTotalTbaccountBypage(HashMap<String, Object> hashmap) throws Exception;
 	
 	/*
 	 * 查询所有有效淘宝账号

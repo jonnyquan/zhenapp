@@ -12,7 +12,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zhenapp.po.Custom.TPhoneInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.service.PhoneInfoService;

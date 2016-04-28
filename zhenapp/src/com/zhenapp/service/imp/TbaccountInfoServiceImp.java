@@ -42,4 +42,11 @@ public class TbaccountInfoServiceImp implements TbaccountInfoService{
 		return tTbaccountInfoCustomMapper.deleteTbaccountByid(tbaccountids);
 	}
 
+	@Override
+	public int findTotalTbaccountBypage(HashMap<String, Object> hashmap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tTbaccountInfoCustomMapper.findTotalTbaccountBypage(hashmap);
+	}
+
 }

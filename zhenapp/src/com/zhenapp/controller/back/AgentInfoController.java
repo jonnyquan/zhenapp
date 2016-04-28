@@ -32,8 +32,9 @@ public class AgentInfoController {
 			pagemap.put("rows", rows);
 		}
 		List<TAgentInfoCustom> tAgentInfoCustomlist= agentInfoService.findAgentBypage(pagemap);
-		List<TAgentInfoCustom> tAgentInfoCustomAlllist= agentInfoService.findAllAgentBypage(pagemap);
-		map.put("total", tAgentInfoCustomAlllist.size());
+		//List<TAgentInfoCustom> tAgentInfoCustomAlllist= agentInfoService.findAllAgentBypage(pagemap);
+		int total= agentInfoService.findTotalAgentBypage(pagemap);
+		map.put("total", total);
 		map.put("rows", tAgentInfoCustomlist);
 		return map;
 	}
@@ -41,7 +42,6 @@ public class AgentInfoController {
 	@RequestMapping(value="/deleteAgentByid")
 	public @ResponseBody ModelAndView deleteAgentBypk(String ids) throws Exception{
 		ModelAndView mv=new ModelAndView();
-		
 		int i= agentInfoService.deleteAgentByid(ids);
 		System.out.println(i);
 		mv.setViewName("findAgentBypage");

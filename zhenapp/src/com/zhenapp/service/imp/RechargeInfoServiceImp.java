@@ -43,4 +43,11 @@ public class RechargeInfoServiceImp implements RechargeInfoService{
 		return tRechargeInfoCustomMapper.findRechargeinfoByUserAndpage(hashmap);
 	}
 
+	@Override
+	public int findTotalRechargeinfoByUserAndpage(
+			HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tRechargeInfoCustomMapper.findTotalRechargeinfoByUserAndpage(hashmap);
+	}
+
 }

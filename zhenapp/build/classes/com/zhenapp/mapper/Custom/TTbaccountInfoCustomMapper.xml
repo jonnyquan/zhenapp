@@ -26,6 +26,17 @@
 		</where>
 		order by tbaccountid desc limit #{page},#{rows} 
 	</select>
+	<select id="findTotalTbaccountBypage" resultType="int" parameterType="java.util.HashMap">
+		select count(1) from t_tbaccount_info 
+		<where>
+			<if test="tbaccountphoneid != null and tbaccountphoneid !='' ">
+				and tbaccountphoneid = #{tbaccountphoneid}
+			</if>
+			<if test="tbaccountstate != null and tbaccountstate !='' ">
+				and tbaccountstate = #{tbaccountstate}
+			</if>
+		</where>
+	</select>
 	
 	<select id="findAllTbaccountBypage" resultType="com.zhenapp.po.Custom.TTbaccountInfoCustom" parameterType="java.util.HashMap">
 		select * from t_tbaccount_info 

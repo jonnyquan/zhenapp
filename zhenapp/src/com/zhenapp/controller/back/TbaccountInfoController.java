@@ -41,9 +41,10 @@ public class TbaccountInfoController {
 			pagemap.put("rows", rows);
 		}
 		List<TTbaccountInfoCustom>  tTbaccountInfoCustomlist = tbaccountInfoService.findTbaccountBypage(pagemap);
-		List<TTbaccountInfoCustom>  tTbaccountInfoCustomAlllist = tbaccountInfoService.findAllTbaccountBypage(pagemap);
+		//List<TTbaccountInfoCustom>  tTbaccountInfoCustomAlllist = tbaccountInfoService.findAllTbaccountBypage(pagemap);
+		int total = tbaccountInfoService.findTotalTbaccountBypage(pagemap);
 		
-		map.put("total",tTbaccountInfoCustomAlllist.size());
+		map.put("total",total);
 		map.put("rows", tTbaccountInfoCustomlist);
 		
 		return map;

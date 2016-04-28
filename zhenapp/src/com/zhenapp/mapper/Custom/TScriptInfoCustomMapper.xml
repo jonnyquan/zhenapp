@@ -16,6 +16,9 @@
   <select id="findScriptByPage" resultType="com.zhenapp.po.Custom.TScriptInfoCustom">
   	select * from t_script_info order by updatetime desc limit #{page},#{rows}
   </select>
+  <select id="findTotalScriptByPage" resultType="com.zhenapp.po.Custom.TScriptInfoCustom">
+  	select count(1) from t_script_info order by updatetime desc limit #{page},#{rows}
+  </select>
   <select id="findScriptByid" parameterType="String" resultType="com.zhenapp.po.Custom.TScriptInfoCustom">
   	select * from t_script_info where scriptid=#{scriptid} 
   </select>

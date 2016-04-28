@@ -6,14 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.zhenapp.mapper.TTaskInfoMapper;
 import com.zhenapp.mapper.Custom.TTaskInfoCustomMapper;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.service.TaskInfoService;
 @Service
 public class TaskInfoServiceImp implements TaskInfoService {
-	@Autowired
-	private TTaskInfoMapper tTaskInfoMapper; 
+	
 	@Autowired
 	private TTaskInfoCustomMapper tTaskInfoCustomMapper;
 	
@@ -62,6 +60,13 @@ public class TaskInfoServiceImp implements TaskInfoService {
 	public int updateTaskstate(String taskid) throws Exception {
 		// TODO Auto-generated method stub
 		return tTaskInfoCustomMapper.updateTaskstate(taskid);
+	}
+
+	@Override
+	public int findTotalTaskBypage(HashMap<String, Object> hashmap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

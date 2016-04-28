@@ -84,9 +84,10 @@ public class RechargeInfoController {
 			pagemap.put("rows", rows);
 		}
 		pagemap.put("createuser", tUserInfoCustom.getUserid());
-		List<TRechargeInfoCustom> tRechargeInfoCustomAlllist= rechargeInfoService.findRechargeinfoByUser(pagemap);
+		//List<TRechargeInfoCustom> tRechargeInfoCustomAlllist= rechargeInfoService.findRechargeinfoByUser(pagemap);
+		int total= rechargeInfoService.findTotalRechargeinfoByUserAndpage(pagemap);
 		List<TRechargeInfoCustom> tRechargeInfoCustomlist= rechargeInfoService.findRechargeinfoByUserAndpage(pagemap);
-		map.put("total",tRechargeInfoCustomAlllist.size());
+		map.put("total",total);
 		map.put("rows", tRechargeInfoCustomlist);
 		return map;
 	}

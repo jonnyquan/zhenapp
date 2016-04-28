@@ -19,6 +19,21 @@
      ORDER BY createtime DESC LIMIT #{page},#{rows}
   </select>
   
+  <select id="findTotalTaskBypage" resultType="int" parameterType="java.util.HashMap" >
+    select count(1) from t_task_info
+    <where>
+    	<if test="taskid !=null and taskid!=''">
+    		and taskid like '%${taskid}%'
+    	</if>
+    	<if test="datefrom != null and datefrom != ''">
+    		and createtime <![CDATA[>=]]> #{datefrom}
+    	</if>
+    	<if test="dateto != null and dateto != ''">
+    		and createtime <![CDATA[<=]]> #{dateto}
+    	</if>
+    </where>
+  </select>
+  
   <select id="findAllTaskBypage" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap" >
     select * from t_task_info
     <where>

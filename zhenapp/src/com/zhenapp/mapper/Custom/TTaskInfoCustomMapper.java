@@ -20,6 +20,10 @@ public interface TTaskInfoCustomMapper {
 	 * 根据条件查询所有任务订单信息
 	 */
 	public List<TTaskInfoCustom> findAllTaskBypage(HashMap<String,Object> hashmap) throws Exception;
+	/*
+	 * 根据条件查询所有任务订单信息
+	 */
+	public int findTotalTaskBypage(HashMap<String,Object> hashmap) throws Exception;
 	
 	/*
 	 * 根据接口信息保存任务信息

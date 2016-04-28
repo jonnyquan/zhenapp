@@ -14,6 +14,11 @@ public interface ScriptInfoService {
 	 * 查询全部脚本信息
 	 */
 	public List<TScriptInfoCustom> findAllScriptByPage(HashMap<String,Object> pagemap) throws Exception;
+	
+	/*
+	 * 查询全部脚本信息
+	 */
+	public int findTotalScriptByPage(HashMap<String,Object> pagemap) throws Exception;
 	/*
 	 * 查询全部脚本信息
 	 */

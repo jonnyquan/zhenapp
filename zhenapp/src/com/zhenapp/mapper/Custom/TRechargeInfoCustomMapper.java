@@ -15,6 +15,10 @@ public interface TRechargeInfoCustomMapper {
 	/*
 	 * 根据用户名分页查询充值记录
 	 */
+	public int findTotalRechargeinfoByUserAndpage(HashMap<String, Object> hashmap) throws Exception;
+	/*
+	 * 根据用户名分页查询充值记录
+	 */
 	public List<TRechargeInfoCustom> findRechargeinfoByUserAndpage(HashMap<String, Object> hashmap) throws Exception;
 	
 	/*

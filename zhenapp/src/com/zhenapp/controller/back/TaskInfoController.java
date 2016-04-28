@@ -75,9 +75,9 @@ public class TaskInfoController {
 			pagemap.put("rows", rows);
 		}
 		List<TTaskInfoCustom> tTaskInfoCustomlist=taskInfoService.findTaskBypage(pagemap);
-		List<TTaskInfoCustom> tTaskInfoCustomAlllist=taskInfoService.findAllTaskBypage(pagemap);
+		int total =taskInfoService.findTotalTaskBypage(pagemap);
 		
-		map.put("total",tTaskInfoCustomAlllist.size());
+		map.put("total",total);
 		map.put("rows", tTaskInfoCustomlist);
 		
 		return map;
