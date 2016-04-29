@@ -42,6 +42,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="padding:5px;">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="obj.edit();">修改</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="obj.remove();">删除</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="save" onclick="obj.save();">保存</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="redo" onclick="obj.redo();">撤销编辑</a>
 		</div>
 		<div style="padding:5px;">
 			<lable style="padding:0 10px 0 10px;">手机号:</lable>
@@ -72,6 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	;$(function(){
 		obj={
+			editRow : undefined,
 			search:function(){
 				$("#datagrid").datagrid('load',{
 					tbaccountphoneid:$("#tbaccountphoneid").val(),
@@ -79,7 +82,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				});
 			},
 			edit:function(){
-				$.messager.alert('提示信息','暂不支持修改操作!','info');
+				//$.messager.alert('提示信息','暂不支持修改操作!','info');
+				
+			},
+			save : function () {
+				$('#datagrid').datagrid('endEdit', this.editRow);
+			},
+			redo : function () {
+				$('#save,#redo').hide();
+				this.editRow = undefined;
+				$('#datagrid').datagrid('rejectChanges');
 			},
 			remove:function(){
 				var rows=$("#datagrid").datagrid('getSelections');
@@ -131,29 +143,59 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}, 
 					{
 						field : 'tbaccountid',
-						title : '账户序号'
+						title : '账户序号',
+						width : 100,
 						
 					}, 
 					{
 						field : 'tbaccountname',
 						title : '账号名',
-						width : 300,
+						width : 100,
+						editor : {
+							type : 'validatebox',
+							options : {
+								required : true,
+							},
+						},
 					},
 					{
 						field : 'tbaccountpwd',
-						title : '账号密码'
+						title : '账号密码',
+						width : 100,
+						editor : {
+							type : 'validatebox',
+							options : {
+								required : true,
+							},
+						},
 					},
 					{
 						field : 'tbaccounttime',
-						title : '使用次数'
+						title : '使用次数',
+						width : 100,
 					},
 					{
 						field : 'tbaccountphoneid',
-						title : '手机号'
+						title : '手机号',
+						width : 100,
+						editor : {
+							type : 'validatebox',
+							options : {
+								required : true,
+							},
+						},
+						
 					},
 					{
 						field : 'tbaccountstate',
-						title : '账号状态'
+						title : '账号状态',
+						width : 100,
+						editor : {
+							type : 'validatebox',
+							options : {
+								required : true,
+							},
+						},
 					}
 					] ],
 				pagination:true,
@@ -162,7 +204,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				nowrap:true,
 				fitColumns:true,
 				rownumbers:true,
-				toolbar:'#datagridtools'
+				toolbar:'#datagridtools',
+				onDblClickRow : function(rowIndex,rowDate){
+					if (obj.editRow != undefined) {
+						$('#datagrid').datagrid('endEdit', obj.editRow);
+					}
+				
+					if (obj.editRow == undefined) {
+						$('#save,#redo').show();
+						$('#datagrid').datagrid('beginEdit', rowIndex);
+						obj.editRow = rowIndex;
+					}
+				},
+				onAfterEdit : function (rowIndex, rowData, changes) {
+					$('#save,#redo').hide();
+					obj.editRow = undefined;
+					console.log(rowData);
+				}
 			});
 			
 	});

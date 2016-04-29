@@ -18,5 +18,7 @@
 	  select * from t_sysconf_info
   </select>
   
-  
+  <select id="findSysdesable" resultType="String">
+  	  SELECT sysconfvalue6 FROM t_sysconf_info
+  </select>
 </mapper>

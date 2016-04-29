@@ -24,5 +24,11 @@ public class SysconfInfoServiceImp implements SysconfInfoService{
 		// TODO Auto-generated method stub
 		return tSysconfInfoCustomMapper.updateSysinfo(tSysconfInfoCustom);
 	}
+
+	@Override
+	public String findSysdesable() throws Exception {
+		// TODO Auto-generated method stub
+		return tSysconfInfoCustomMapper.findSysdesable();
+	}
 	
 }

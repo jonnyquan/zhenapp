@@ -4,19 +4,22 @@
   
   
   <select id="findTaskBypage" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap" >
-    select * from t_task_info
-    <where>
+    SELECT a.*,b.dicinfoname,c.finishflowcount,c.finishcollectioncount,c.finishshoppingcount,d.errorcount FROM t_task_info a
+	LEFT JOIN (select dicinfoid,dicinfoname from t_data_dic_info WHERE dictypecode='runstate') b ON a.taskstate=b.dicinfoid
+	LEFT JOIN (SELECT taskid,COUNT(isflow) AS finishflowcount,COUNT(iscreativetitle) AS finishcollectioncount,COUNT(isshopcollect) AS finishshoppingcount FROM t_task_detailinfo where taskstate='21' GROUP BY taskid) c ON a.taskid=c.taskid
+	LEFT JOIN (SELECT taskid,COUNT(isflow) AS errorcount FROM t_task_detailinfo WHERE taskstate='22' GROUP BY taskid) d ON a.taskid=d.taskid
+	<where>
     	<if test="taskid !=null and taskid!=''">
-    		and taskid like '%${taskid}%'
+    		and a.taskid like '%${taskid}%'
     	</if>
     	<if test="datefrom != null and datefrom != ''">
-    		and createtime <![CDATA[>=]]> #{datefrom}
+    		and a.createtime <![CDATA[>=]]> #{datefrom}
     	</if>
     	<if test="dateto != null and dateto != ''">
-    		and createtime <![CDATA[<=]]> #{dateto}
+    		and a.createtime <![CDATA[<=]]> #{dateto}
     	</if>
     </where>
-     ORDER BY createtime DESC LIMIT #{page},#{rows}
+     ORDER BY a.createtime DESC LIMIT #{page},#{rows}
   </select>
   
   <select id="findTotalTaskBypage" resultType="int" parameterType="java.util.HashMap" >

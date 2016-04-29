@@ -40,11 +40,11 @@ public class RechargeInfoController {
 	@RequestMapping(value="/insertRechargeinfo/{id}")
 	public ModelAndView insertRechargeinfo(@PathVariable(value="id")String id,TRechargeInfoVo tRechargeInfoVo,HttpServletRequest request) throws Exception{
 		ModelAndView mv=new ModelAndView();
-		String verificationcode = UUID.randomUUID().toString();
+		String verificationcode = UUID.randomUUID().toString().replace("-", "");
 		HttpSession session=request.getSession();
 		TComboInfoCustom tComboInfoCustom= comboInfoService.findComboByid(id);
 		TRechargeInfoCustom tRechargeInfoCustom=new TRechargeInfoCustom();
-		tRechargeInfoCustom.setRechargeid(UUID.randomUUID().toString());
+		tRechargeInfoCustom.setRechargeid(UUID.randomUUID().toString().replace("-", ""));
 		tRechargeInfoCustom.setRechargemoney(tComboInfoCustom.getCombomoney());
 		tRechargeInfoCustom.setRechargestate("0");//待确认状态
 		tRechargeInfoCustom.setRechargeverification(verificationcode);

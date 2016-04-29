@@ -175,15 +175,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						title : '加购物车数'
 					},
 					{
-						field : 'flowcountok',
+						field : 'finishflowcount',
 						title : '完成访问数'
 					},
 					{
-						field : 'Collectioncountok',
+						field : 'finishcollectioncount',
 						title : '完成收藏数'
 					},
 					{
-						field : 'Shoppingcountok',
+						field : 'finishshoppingcount',
 						title : '完成加购物车数'
 					}, 
 					{
@@ -195,7 +195,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						title : '发布时间'
 					}, 
 					{
-						field : 'taskstate',
+						field : 'dicinfoname',
 						title : '任务状态'
 					}
 					] ],

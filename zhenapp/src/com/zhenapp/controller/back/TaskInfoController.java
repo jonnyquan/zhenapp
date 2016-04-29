@@ -22,6 +22,7 @@ import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.PriceInfoService;
+import com.zhenapp.service.SysconfInfoService;
 import com.zhenapp.service.TaskInfoService;
 
 @Controller
@@ -34,6 +35,8 @@ public class TaskInfoController {
 	private PriceInfoService priceInfoService;
 	@Autowired
 	private AgentInfoService agentInfoService;
+	@Autowired
+	private SysconfInfoService sysconfInfoService;
 	
 	/*
 	 * 查询价格信息  转发到发布任务界面
@@ -97,26 +100,35 @@ public class TaskInfoController {
 	@RequestMapping(value="/insertTaskInfo")
 	public @ResponseBody ModelMap insertTaskInfo(HttpServletRequest request, TTaskInfoCustom tTaskInfoCustom,String taskkeywords) throws Exception{
 		ModelMap map=new ModelMap();
-		String [] taskkeywordarr=taskkeywords.split("====");
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
-		int counts = 0;
-		HttpSession session=request.getSession();
-		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
-		for (int i = 0; i < taskkeywordarr.length; i++) {
-			tTaskInfoCustom.setTaskid(UUID.randomUUID().toString());
-			tTaskInfoCustom.setTaskkeyword(taskkeywordarr[i]);
-			tTaskInfoCustom.setTaskstate("15");
-			tTaskInfoCustom.setTaskstartdate(tTaskInfoCustom.getTaskstartdate().replace("-", ""));
-			tTaskInfoCustom.setTaskenddate(tTaskInfoCustom.getTaskenddate().replace("-", ""));
-			tTaskInfoCustom.setCreatetime(sdf.format(new Date()));
-			tTaskInfoCustom.setUpdatetime(sdf.format(new Date()));
-			tTaskInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
-			tTaskInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
-			int count=taskInfoService.insertTaskInfo(tTaskInfoCustom);
-			counts = counts + count;
+		/*
+		 * 查询系统配置项中是否禁止发布任务
+		 */
+		String desable = sysconfInfoService.findSysdesable();
+		
+		if(desable.equals("1")){
+			String [] taskkeywordarr=taskkeywords.split("====");
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+			int counts = 0;
+			HttpSession session=request.getSession();
+			TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+			for (int i = 0; i < taskkeywordarr.length; i++) {
+				tTaskInfoCustom.setTaskid(UUID.randomUUID().toString().replace("-", ""));
+				tTaskInfoCustom.setTaskkeyword(taskkeywordarr[i]);
+				tTaskInfoCustom.setTaskstate("15");
+				tTaskInfoCustom.setTaskstartdate(tTaskInfoCustom.getTaskstartdate().replace("-", ""));
+				tTaskInfoCustom.setTaskenddate(tTaskInfoCustom.getTaskenddate().replace("-", ""));
+				tTaskInfoCustom.setCreatetime(sdf.format(new Date()));
+				tTaskInfoCustom.setUpdatetime(sdf.format(new Date()));
+				tTaskInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+				tTaskInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
+				int count=taskInfoService.insertTaskInfo(tTaskInfoCustom);
+				counts = counts + count;
+			}
+			System.out.println("发布"+counts+"新任务成功");
+			map.put("data", "insertsuccess");
+		}else{
+			map.put("data", "refuse");
 		}
-		System.out.println("发布"+counts+"新任务成功");
-		map.put("data", "insertsuccess");
 		return map;
 	}
 	

@@ -10,15 +10,19 @@
       #{scriptpath,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
       #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR})
   </insert>
+  
   <select id="findAllScriptByPage" resultType="com.zhenapp.po.Custom.TScriptInfoCustom">
   	select * from t_script_info order by updatetime desc 
   </select>
-  <select id="findScriptByPage" resultType="com.zhenapp.po.Custom.TScriptInfoCustom">
+  
+  <select id="findScriptByPage" resultType="com.zhenapp.po.Custom.TScriptInfoCustom" parameterType="java.util.HashMap">
   	select * from t_script_info order by updatetime desc limit #{page},#{rows}
   </select>
-  <select id="findTotalScriptByPage" resultType="com.zhenapp.po.Custom.TScriptInfoCustom">
-  	select count(1) from t_script_info order by updatetime desc limit #{page},#{rows}
+  
+  <select id="findTotalScriptByPage" parameterType="java.util.HashMap" resultType="int">
+  	select count(1) from t_script_info order by updatetime desc
   </select>
+  
   <select id="findScriptByid" parameterType="String" resultType="com.zhenapp.po.Custom.TScriptInfoCustom">
   	select * from t_script_info where scriptid=#{scriptid} 
   </select>

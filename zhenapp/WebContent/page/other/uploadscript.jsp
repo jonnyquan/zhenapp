@@ -81,52 +81,38 @@
 			},
 			save : function() {
 				var rows = $("#datagrid").datagrid('getSelections');
-				window
-						.open("${pageContext.request.contextPath}/util/downloadFile/"
-								+ rows[0].scriptid);
+				window.open("${pageContext.request.contextPath}/util/downloadFile/" + rows[0].scriptid);
 			},
 			remove : function() {
 				var rows = $("#datagrid").datagrid('getSelections');
 				if (rows.length > 0) {
-					$.messager
-							.confirm(
-									'确认',
-									'您确认想要删除记录吗？',
-									function(b) {
-										if (b) {
-											var scriptid = "";
-											for (var i = 0; i < rows.length; i++) {
-												scriptid = rows[i].scriptid;
-											}
-											$
-													.ajax({
-														type : "POST",
-														url : "${pageContext.request.contextPath}/script/deletescriptByid",
-														data : {
-															scriptid : scriptid
-														},
-														beforeSend : function() {
-															$("#datagrid")
-																	.datagrid(
-																			'loading');
-														},
-														success : function() {
-															$("#datagrid")
-																	.datagrid(
-																			'loaded');
-															$.messager.show({
-																title : "提示消息",
-																msg : "删除成功",
-																width : 300,
-																height : 200,
-															});
-															$("#datagrid")
-																	.datagrid(
-																			'load');
-														},
-													});
-										}
-									});
+					$.messager.confirm('确认','您确认想要删除记录吗？',function(b) {
+						if (b) {
+								/*var scriptid = "";
+								for (var i = 0; i < rows.length; i++) {
+									scriptid = rows[i].scriptid;
+								}*/
+								$.ajax({
+										type : "POST",
+										url : "${pageContext.request.contextPath}/script/deletescriptByid",
+										data : {
+												scriptid : rows[0].scriptid,
+										},
+										beforeSend : function() {
+												$("#datagrid").datagrid('loading');
+										},
+										success : function() {
+												$("#datagrid").datagrid('loaded');
+												$.messager.show({
+															title : "提示消息",
+															msg : "删除成功",
+															width : 300,
+															height : 200});
+												$("#datagrid").datagrid('load');
+										},
+										});
+						}
+					});
 				} else {
 					$.messager.alert('提示信息', "请选择要删除的信息", 'info');
 				}
@@ -159,7 +145,6 @@
 			toolbar : '#datagridtools',
 			singleSelect:true
 		});
-
 	});
 </script>
 </html>

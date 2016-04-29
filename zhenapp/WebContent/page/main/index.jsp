@@ -74,7 +74,9 @@
 	$(function() {
 		if (usernick.length < 1) {
 			alert("请重新登录本系统");
-			window.location.href = "${pageContext.request.contextPath}/page/main/login.jsp";
+			//window.open("${pageContext.request.contextPath}/page/main/login.jsp");
+			window.open("${pageContext.request.contextPath}/page/main/login.jsp",'_blank'); 
+			window.close(); 
 		}
 	});
 </script>

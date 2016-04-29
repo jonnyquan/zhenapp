@@ -71,7 +71,7 @@ public class upload {
 			// "page/other/scriptfile/";
 			String pic_path = "C:/webfile/scriptfile/";
 			// 新的图片名称
-			String newFileName = UUID.randomUUID()
+			String newFileName = UUID.randomUUID().toString().replace("-", "")
 					+ originalFilename.substring(originalFilename
 							.lastIndexOf("."));
 			// 新图片
@@ -84,7 +84,7 @@ public class upload {
 			tScriptInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
 			tScriptInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
 			tScriptInfoCustom.setUpdatetime(time);
-			tScriptInfoCustom.setScriptid(UUID.randomUUID().toString());
+			tScriptInfoCustom.setScriptid(UUID.randomUUID().toString().replace("-", ""));
 			scriptInfoService.insertScript(tScriptInfoCustom);
 		}
 		mv.setViewName("/page/other/uploadscript.jsp");
@@ -115,7 +115,7 @@ public class upload {
 					.getRealPath("/")
 					+ "page/other/tbaccount/";
 			// 新的图片名称
-			String newFileName = UUID.randomUUID()
+			String newFileName = UUID.randomUUID().toString().replace("-", "")
 					+ originalFilename.substring(originalFilename
 							.lastIndexOf("."));
 			// 新图片
@@ -142,7 +142,7 @@ public class upload {
 
 				TTbaccountInfoCustom tTbaccountInfoCustom = new TTbaccountInfoCustom();
 				tTbaccountInfoCustom.setTbaccountid(UUID.randomUUID()
-						.toString());
+						.toString().replace("-", ""));
 				tTbaccountInfoCustom.setTbaccountname(tbaccount[0]);
 				tTbaccountInfoCustom.setTbaccountpwd(tbaccount[1]);
 				if (tbaccount.length > 2) {

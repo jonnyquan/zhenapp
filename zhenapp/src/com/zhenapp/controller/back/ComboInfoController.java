@@ -64,7 +64,7 @@ public class ComboInfoController {
 		ModelAndView mv = new ModelAndView();
 		HttpSession session = request.getSession();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
-		tComboInfoCustom.setComboid(UUID.randomUUID().toString());
+		tComboInfoCustom.setComboid(UUID.randomUUID().toString().replace("-", ""));
 		tComboInfoCustom.setCreatetime(sdf.format(new Date()));
 		tComboInfoCustom.setUpdatetime(sdf.format(new Date()));
 		tComboInfoCustom.setCreateuser(tUserInfoCustom.getUserid());

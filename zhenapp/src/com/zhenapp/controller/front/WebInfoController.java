@@ -86,7 +86,7 @@ public class WebInfoController {
 								.getServletContext().getRealPath("/")
 								+ "bootstrap\\img\\index\\";
 						// 新的图片名称
-						String newFileName = UUID.randomUUID()
+						String newFileName = UUID.randomUUID().toString().replace("-", "")
 								+ originalFilename.substring(originalFilename
 										.lastIndexOf("."));
 						// 新图片

@@ -58,7 +58,7 @@ public class Taskallocation {
 							hashmap2.put("taskkeynum", tTaskInfoCustom.getTaskkeynum());
 							hashmap2.put("taskdate", tTaskInfoCustom.getTaskstartdate());
 							TTaskDetailInfoCustom tTaskDetailInfoCustom=new TTaskDetailInfoCustom();
-							tTaskDetailInfoCustom.setTaskdetailid(UUID.randomUUID().toString());
+							tTaskDetailInfoCustom.setTaskdetailid(UUID.randomUUID().toString().replace("-", ""));
 							tTaskDetailInfoCustom.setTaskid(tTaskInfoCustom.getTaskid());
 							tTaskDetailInfoCustom.setTaskkeyword(tTaskInfoCustom.getTaskkeyword());
 							tTaskDetailInfoCustom.setTaskkeynum(tTaskInfoCustom.getTaskkeynum());
