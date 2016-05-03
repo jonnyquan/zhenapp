@@ -129,12 +129,15 @@
 			}, {
 				field : 'scriptid',
 				title : '脚本编号',
+				width : 100 ,
 			}, {
 				field : 'scriptname',
 				title : '脚本文件名称',
+				width : 100 ,
 			}, {
 				field : 'createtime',
 				title : '发布时间',
+				width : 100 ,
 			} ] ],
 			pagination : true,
 			pageList : [ 1, 5, 10, 15, 20, 25 ],

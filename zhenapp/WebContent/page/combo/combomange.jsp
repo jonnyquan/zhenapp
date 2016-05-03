@@ -84,6 +84,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 	var uri = "${pageContext.request.contextPath}";
 	function add(){
+		$("#dialog").dialog('open');
+	}
+	;$(function(){
+		$("#a_sub").click(function(){
+			$("#formadd").submit();
+		});
 		$("#dialog").dialog({
 			title : '新增套餐信息',
 			width : 450,
@@ -91,12 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			modal : true,
 			maximizable:true,
 			iconCls : 'icon-add'
-		});
-	}
-	;$(function(){
-		$("#a_sub").click(function(){
-			$("#formadd").submit();
-		});
+		}).dialog('close');
 	});
 </script>
 </html>

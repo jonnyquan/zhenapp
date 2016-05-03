@@ -45,15 +45,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="padding:5px;">
 			<lable style="padding:0 10px 0 10px;">代理名称:</lable>
 			<select name="tasktype" class="easyui-select" width="110px">
-				<option value="0">流量老大</option>
-				<option value="1">真流量</option>
+				<option value="0">所有</option>
+				<option value="1">流量老大</option>
+				<option value="2">真流量</option>
 			</select>
 			<lable style="padding:0 10px 0 10px;">流量类型:</lable>
 			<select name="tasktype" class="easyui-select" width="110px">
-				<option value="0">普通流量</option>
-				<option value="1">直通车</option>
+				<option value="0">全部</option>
+				<option value="1">普通流量</option>
+				<option value="2">直通车</option>
 			</select>
-			<lable style="padding:0 10px 0 10px;">统计时间从:</lable><input type="text" name="datefrom" class="easyui-datebox"  width="110px"  />
+			<lable style="padding:0 10px 0 10px;">统计时间从:</lable>
+			<input type="text" name="datefrom" class="easyui-datebox"  width="110px"  />
 			到：<input type="text" name="dateto" class="easyui-datebox"  width="110px"  />
 			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="obj.search();">查询</a>
 		</div>
