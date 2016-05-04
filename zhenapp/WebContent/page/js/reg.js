@@ -8,11 +8,10 @@ var state_agree="0";
 		$("#usernick").change(function(){
 			$.ajax({
 				type:"post",
-				url:uri+"/user/findUserByNick.action",
-				data:$("form").serializeArray(),
+				url:uri+"/user/findUserByNick/"+$("#usernick").val(),
 				dataTepy:'json',
 				success:function(response,states,xhr){
-					if(response=="1"){
+					if(response.state=="1"){
 						$('#nickdiv').html("<font color='red'>×</font>&nbsp;&nbsp;用户名已存在");
 						$('#reg_btn').attr("disabled", true);
 					}else{

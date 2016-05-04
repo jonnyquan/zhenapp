@@ -12,12 +12,12 @@
 <body>
 	<!-- <form id="form_login" action="${pageContext.request.contextPath}/user/Login.action" method="post"> -->
 		<div id="div_login" style="margin:auto;text-align:center;" >
-			<p><lable>用户名：</lable><input type="text" id="username" class="textbox" value="wuxiaofan"></p>
-			<p><lable>&nbsp;密&nbsp;&nbsp;码：</lable><input type="password" id="password" class="textbox" value="wuxiaofan"></p>
+			<p><lable>用户名：</lable><input type="text" id="username" class="textbox" value="wuxiaofan2"></p>
+			<p><lable>密&nbsp;码：</lable><input type="password" id="password" class="textbox" value="wuxiaofan"></p>
 		</div>
 		
 		<div id="btn_login">
-			<a id="btn_login_a" href="#" class="easyui-linkbutton">&nbsp;登&nbsp;&nbsp;录&nbsp;</a>&nbsp;&nbsp;
+			<a id="btn_login_a" href="#" class="easyui-linkbutton">&nbsp;登&nbsp;录&nbsp;</a>&nbsp;&nbsp;
 			<a href="#" class="easyui-linkbutton">忘记密码</a>
 		</div>
 		<div id="div_jg">

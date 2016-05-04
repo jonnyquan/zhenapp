@@ -56,7 +56,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	src="${pageContext.request.contextPath}/page/js/user.js"></script>
 <script type="text/javascript">
 	var uri = "${pageContext.request.contextPath}";
-	
 	;$(function(){
 		obj={
 			search:function(){
@@ -65,52 +64,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					dateto:$("input[name='dateto']").val(),
 				});
 			},
-		};	
-		
-		
-			$("#datagrid").datagrid({
-				fit:true,
-				title : '任务订单管理',
-				url:"${pageContext.request.contextPath}/recharge/findRechargeinfoByUserAndpage",
-				columns : [ [ 
-				    {
-						field : 'rechargepk',
-						title : '选择',
-						checkbox:true,
-						
-						
-					}, 
-					{
-						field : 'rechargeid',
-						title : '充值订单号',
-						width : 300,
-					}, 
-					{
-						field : 'rechargeverification',
-						title : '充值校验码',
-					},
-					{
-						field : 'rechargemoney',
-						title : '充值金额',
-					},
-					{
-						field : 'rechargestate',
-						title : '充值状态',
-					},
-					{
-						field : 'createtime',
-						title : '发布时间'
-					}
-					] ],
-				pagination:true,
-				pageList:[1,5,10,15,20,25],
-				striped:true,
-				nowrap:true,
-				fitColumns:true,
-				rownumbers:true,
-				toolbar:'#datagridtools'
-			});
+		};
+	$("#datagrid").datagrid(
+						{
+							fit : true,
+							title : '任务订单管理',
+							url : "${pageContext.request.contextPath}/recharge/findRechargeinfoByUserAndpage",
+							columns : [ [ {
+								field : 'rechargepk',
+								title : '选择',
+								checkbox : true,
+
+							}, {
+								field : 'rechargeid',
+								title : '充值订单号',
+								width : 300,
+							}, {
+								field : 'rechargeverification',
+								title : '充值校验码',
+							}, {
+								field : 'rechargemoney',
+								title : '充值金额',
+							}, {
+								field : 'rechargestatename',
+								title : '充值状态',
+							}, {
+								field : 'createtime',
+								title : '发布时间'
+							} ] ],
+							pagination : true,
+							pageList : [ 1, 5, 10, 15, 20, 25 ],
+							striped : true,
+							nowrap : true,
+							fitColumns : true,
+							rownumbers : true,
+							toolbar : '#datagridtools'
+						});
 	});
-	
 </script>
 </html>

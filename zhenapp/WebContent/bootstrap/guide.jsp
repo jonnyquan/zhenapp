@@ -22,17 +22,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #FFF;">
 	<div style="height:20px;">
-		<c:if test="${username=='' || username == null}">
-			<marquee scrollamount="5" onMouseOut=start(); onMouseOver=stop();>
-				<a href="${pageContext.request.contextPath}/page/main/login.jsp"><font style="font-size:20px;">欢迎登陆 |</font></a> 
-				<a href="${pageContext.request.contextPath}/page/main/reg.jsp"><font style="font-size:20px;">| 赶紧加入我们</font></a>
-			</marquee>	
-		</c:if>
-		<c:if test="${username!='' || username != null}">
-			<marquee scrollamount="5" onMouseOut=start(); onMouseOver=stop();>
-				<a href="javascript:void(0);"><font style="font-size:20px;">欢迎<font color="#F00">${username}</font>使用本系统！</font></a>
-			</marquee>	
-		</c:if>
+		<marquee scrollamount="5" onMouseOut=start(); onMouseOver=stop();>
+			<a id="linka1" href="${pageContext.request.contextPath}/page/main/login.jsp"><font
+				style="font-size:20px;">欢迎<font color="#F00">${tUserInfoCustom.usernick}</font>登陆本系统
+			</font></a>  
+			<a id="linka2" href="${pageContext.request.contextPath}/page/main/reg.jsp"><font
+				style="font-size:20px;">| 赶紧加入我们</font></a>
+		</marquee>
 	</div>
 	<div class="container" style="height:85px;">
 		<div class="navbar-header">
@@ -49,6 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li><a href="${pageContext.request.contextPath}/electrity/findElectrity_10" style="height:85px;line-height:80px;font-size:20px;"><span class="glyphicon glyphicon-list"></span> 电商干货</a></li>
 				<li><a href="${pageContext.request.contextPath}/guide/findGuide_10" style="height:85px;line-height:80px;font-size:20px;color: #FFA8A8;"><span class="glyphicon glyphicon-fire"></span> 新手指引</a></li>
 				<li><a href="${pageContext.request.contextPath}/about/findGuideandelectrity" style="height:85px;line-height:80px;font-size:20px;"><span class="glyphicon glyphicon-question-sign"></span> 联系我们</a></li>
+				<li><a href="${pageContext.request.contextPath}/page/main/reg.jsp" style="height:85px;line-height:80px;font-size:20px;"><span class="glyphicon glyphicon-question-sign"></span> 用户中心</a></li>
 			</ul>	
 		</div>
 	</div>
@@ -182,6 +179,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 <script type="text/javascript">
 	;$(function(){
+		if($('#linka1').text().indexOf("欢迎登")==-1){
+			$('#linka2').innerHTML="";
+			$('#linka1').attr("href","${pageContext.request.contextPath}/page/main/index.jsp");
+		}
 		$("#paginateion").pagination({
 			width:500,
 			total:${total},

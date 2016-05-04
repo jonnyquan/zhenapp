@@ -3,8 +3,8 @@ $(function() {
 	$('#nav').tree(
 			{
 				url : uri + '/menu/findAllMenuById',
-				width : 400,
-				lines : true,
+				width : 900,
+				lines : false,
 				iconCls : 'icon-edit',
 				onClick : function(node) {
 					var content = '<iframe scrolling="auto" frameborder="0"'
@@ -18,9 +18,18 @@ $(function() {
 								title : node.text,
 								iconCls : node.iconCls,
 								closable : true,
-								content : content,
+								content : content
 							});
 						}
+					}
+				},
+				onLoadSuccess : function (node, data) {
+					if (data) {
+						$(data).each(function (index, value) {
+							if (this.state == 'closed') {
+								$('#nav').tree('expandAll');
+							}
+						});
 					}
 				}
 			});

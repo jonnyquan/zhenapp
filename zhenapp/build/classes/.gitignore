@@ -1,1 +1,10 @@
+/CustomValidationMessages.properties
 /com
+/config.properties
+/db.properties
+/db2.properties
+/log4j.properties
+/log4j20160504.properties
+/log4jbak.properties
+/mybatis
+/spring

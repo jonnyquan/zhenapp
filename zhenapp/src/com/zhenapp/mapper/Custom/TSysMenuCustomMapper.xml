@@ -6,7 +6,7 @@
     select * from t_sys_menu
   </select>
   
-  <select id="findMenuBytid" resultType="com.zhenapp.po.Custom.TSysMenuCustom" parameterType="String">
-    select * from t_sys_menu WHERE tid=#{tid}
+  <select id="findMenuBytid" resultType="com.zhenapp.po.Custom.TSysMenuCustom" parameterType="java.util.HashMap">
+    SELECT a.* FROM t_sys_menu a LEFT JOIN t_rolemenu_info b ON a.id=b.menuid WHERE b.roleid=#{userroleid} and tid=#{tid}
   </select>
 </mapper>

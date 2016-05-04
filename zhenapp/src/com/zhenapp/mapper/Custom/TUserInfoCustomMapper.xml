@@ -29,4 +29,21 @@
       updateuser = #{tUserinfoCustom.updateuser,jdbcType=VARCHAR}
     where userId = #{tUserinfoCustom.userid,jdbcType=INTEGER}
    </update>
+   
+   <insert id="saveUser" parameterType="com.zhenapp.po.Custom.TUserInfoCustom">
+	   insert into t_user_info ( userid, usernick, 
+	      userpwd, username, userqq, 
+	      usercardnum, userroleid, userphone, 
+	      userstate, regemail,
+	      regip, regdomain, agentid, 
+	      createtime, createuser, updatetime, 
+	      updateuser)
+	    values ( #{userid,jdbcType=VARCHAR}, #{usernick,jdbcType=VARCHAR}, 
+	      #{userpwd,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{userqq,jdbcType=VARCHAR}, 
+	      #{usercardnum,jdbcType=VARCHAR}, #{userroleid,jdbcType=INTEGER}, #{userphone,jdbcType=VARCHAR}, 
+	      #{userstate,jdbcType=VARCHAR}, #{regemail,jdbcType=VARCHAR},  
+	      #{regip,jdbcType=VARCHAR}, #{regdomain,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
+	      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+	      #{updateuser,jdbcType=VARCHAR})
+   </insert>
 </mapper>

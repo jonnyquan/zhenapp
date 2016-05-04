@@ -6,14 +6,11 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
 <base href="<%=basePath%>">
-
 <title>发布任务</title>
-
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -28,13 +25,10 @@
 	href="${pageContext.request.contextPath}/easyui/themes/bootstrap/easyui.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/easyui/themes/icon.css" />
-
-
 <style type="text/css">
 #table1 td {
 	border: 1px solid #aaa;
 }
-
 .hour {
 	width: 40px;
 }
@@ -58,7 +52,6 @@
 		</table>
 	</div>
 </div>	
-
 	<table class="table">
 		<tr>
 			<td>
@@ -87,7 +80,6 @@
 				</table>
 			</td>
 		</tr>
-		
 		<tr>
 			<td>
 				发布时间
@@ -144,7 +136,6 @@
 							onkeyup="this.value=this.value.replace(/\D/g,'')"
 							onafterpaste="this.value=this.value.replace(/\D/g,'')" />
 			</td>
-			
 		</tr>
 		<tr>
 			<td>

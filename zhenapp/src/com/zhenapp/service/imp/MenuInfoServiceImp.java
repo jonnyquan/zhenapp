@@ -1,5 +1,6 @@
 package com.zhenapp.service.imp;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,8 @@ public class MenuInfoServiceImp implements MenuInfoService {
 	}
 
 	@Override
-	public List<TSysMenuCustom> findMenuBytid(String tid) throws Exception {
+	public List<TSysMenuCustom> findMenuBytid(HashMap<String, String> hashmap) throws Exception {
 		// TODO Auto-generated method stub
-		return tSysMenuCustomMapper.findMenuBytid(tid);
+		return tSysMenuCustomMapper.findMenuBytid(hashmap);
 	}
 }

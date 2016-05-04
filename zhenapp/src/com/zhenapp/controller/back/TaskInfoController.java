@@ -9,6 +9,8 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,7 +30,7 @@ import com.zhenapp.service.TaskInfoService;
 @Controller
 @RequestMapping(value="/task")
 public class TaskInfoController {
-	
+	private static Log logger = LogFactory.getLog(TaskInfoController.class);
 	@Autowired
 	private TaskInfoService taskInfoService;
 	@Autowired
@@ -48,11 +50,14 @@ public class TaskInfoController {
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
 		
 		TAgentInfoCustom tAgentInfoCustom= agentInfoService.findAgentByAgentid(tUserInfoCustom.getAgentid());//根据登陆用户查询所属代理信息
-		
-		TPriceInfoCustom tPriceInfoCustom= priceInfoService.findPriceByAgentid(tAgentInfoCustom.getAgentid());//根据代理信息查询所设置的价格信息
-		
-		mv.addObject("tPriceInfoCustom",tPriceInfoCustom);
-		
+		try{
+			TPriceInfoCustom tPriceInfoCustom= priceInfoService.findPriceByAgentid(tAgentInfoCustom.getAgentid());//根据代理信息查询所设置的价格信息
+			mv.addObject("tPriceInfoCustom",tPriceInfoCustom);
+		}catch(NullPointerException e){
+			System.out.println("未查询到所属代理信息的单价,无法发布任务!");
+			logger.error("未查询到所属代理信息的单价,无法发布任务!");
+			throw e;
+		}
 		mv.setViewName("/page/task/tasklladd.jsp");
 		return mv;
 	}

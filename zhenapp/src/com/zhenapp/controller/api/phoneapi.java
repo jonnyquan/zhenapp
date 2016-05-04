@@ -33,21 +33,24 @@ public class phoneapi {
 	public @ResponseBody String requesttask(@PathVariable(value="pid")String pid) throws Exception{
 		StringBuffer sb=new StringBuffer();
 		TTaskDetailInfoCustom tTaskDetailInfoCustom = taskDetailInfoService.requesttaskByphoneid(pid);
-		sb.append(tTaskDetailInfoCustom.getTaskid()).append("&")
-			.append(tTaskDetailInfoCustom.getTaskkeyword()).append("&")
-			.append(tTaskDetailInfoCustom.getSearchtype()).append("&")
-			.append(tTaskDetailInfoCustom.getMinpicture()).append("&")
-			.append("null").append("&")//地区
-			.append("null").append("&")//是否免运费
-			.append("null").append("&")//是否天猫
-			.append(tTaskDetailInfoCustom.getIscollection()).append("&")
-			.append(tTaskDetailInfoCustom.getIsshopping()).append("&")
-			.append(tTaskDetailInfoCustom.getTaskkeynum()).append("&")
-			.append(tTaskDetailInfoCustom.getMinpicture()).append("&")
-			.append(tTaskDetailInfoCustom.getMaxpicture()).append("&")
-			.append(tTaskDetailInfoCustom.getTasktype()).append("&")
-			.append(tTaskDetailInfoCustom.getIscreativetitle()).append("&")
-			.append(tTaskDetailInfoCustom.getIsshopcollect());
+		int i =taskDetailInfoService.updateTaskDetailstate(tTaskDetailInfoCustom.getTaskdetailid());
+		if(i > 0){
+			sb.append(tTaskDetailInfoCustom.getTaskid()).append("&")
+				.append(tTaskDetailInfoCustom.getTaskkeyword()).append("&")
+				.append(tTaskDetailInfoCustom.getSearchtype()).append("&")
+				.append(tTaskDetailInfoCustom.getMinpicture()).append("&")
+				.append("null").append("&")//地区
+				.append("null").append("&")//是否免运费
+				.append("null").append("&")//是否天猫
+				.append(tTaskDetailInfoCustom.getIscollection()).append("&")
+				.append(tTaskDetailInfoCustom.getIsshopping()).append("&")
+				.append(tTaskDetailInfoCustom.getTaskkeynum()).append("&")
+				.append(tTaskDetailInfoCustom.getMinpicture()).append("&")
+				.append(tTaskDetailInfoCustom.getMaxpicture()).append("&")
+				.append(tTaskDetailInfoCustom.getTasktype()).append("&")
+				.append(tTaskDetailInfoCustom.getIscreativetitle()).append("&")
+				.append(tTaskDetailInfoCustom.getIsshopcollect());
+		}
 		String result=sb.toString();
 		return result;
 	}

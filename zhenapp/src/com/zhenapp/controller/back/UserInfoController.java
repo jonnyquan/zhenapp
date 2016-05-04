@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,8 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.TUserInfo;
+import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Vo.TUserinfoVo;
+import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.UserInfoService;
 import com.zhenapp.util.MD5Util;
 import com.zhenapp.util.Mail;
@@ -29,6 +32,9 @@ import com.zhenapp.util.Mail;
 public class UserInfoController {
 	@Autowired
 	private UserInfoService userInfoService;
+	@Autowired
+	private AgentInfoService agentInfoService;
+	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 	
 	/*
 	 * 使用用户名密码登录
@@ -54,15 +60,23 @@ public class UserInfoController {
 	 */
 	@RequestMapping(value="/register"
 			,method={RequestMethod.POST,RequestMethod.GET})
-	public @ResponseBody ModelAndView register(TUserInfo tUserInfo) throws Exception{
+	public @ResponseBody ModelAndView register(HttpServletRequest request,TUserInfoCustom tUserInfoCustom) throws Exception{
 		ModelAndView mv=new ModelAndView();
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
-		System.out.println(sdf.format(new Date()));
-		tUserInfo.setRegdate(sdf.format(new Date()));
-		tUserInfo.setUserroleid(1);//默认初始化角色id
-		tUserInfo.setUserstate("1");//默认初始化用户状态
-		tUserInfo.setUserpwd(MD5Util.string2MD5(tUserInfo.getUserpwd()));
-		int i=userInfoService.saveUser(tUserInfo);
+		String webwww=request.getServerName();
+		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
+		String time = sdf.format(new Date());
+		tUserInfoCustom.setUserroleid(3);//默认初始化角色id
+		tUserInfoCustom.setRegdomain(webwww);
+		tUserInfoCustom.setRegip(webwww);
+		tUserInfoCustom.setUserstate("1");//默认初始化用户状态
+		tUserInfoCustom.setUserid(UUID.randomUUID().toString().replace("-", ""));
+		tUserInfoCustom.setUserpwd(MD5Util.string2MD5(tUserInfoCustom.getUserpwd()));
+		tUserInfoCustom.setAgentid(tAgentInfoCustom.getAgentid());
+		tUserInfoCustom.setCreatetime(time);
+		tUserInfoCustom.setCreateuser("sys");
+		tUserInfoCustom.setUpdatetime(time);
+		tUserInfoCustom.setUpdateuser("sys");
+		int i=userInfoService.saveUser(tUserInfoCustom);
 		if(i>0){
 			mv.addObject("msg","注册成功..");
 			mv.setViewName("/page/main/login.jsp");
@@ -76,13 +90,16 @@ public class UserInfoController {
 	/*
 	 * 用于校验注册时用户名是否存在
 	 */
-	@RequestMapping(value="/findUserByNick")
-	public @ResponseBody String findUserByNick(String usernick) throws Exception{
+	@RequestMapping(value="/findUserByNick/{usernick}")
+	public @ResponseBody ModelMap findUserByNick(@PathVariable(value="usernick")String usernick) throws Exception{
 		List<TUserInfoCustom> list=userInfoService.findUserBynick(usernick);
+		ModelMap map= new ModelMap();
 		if(list.size()>0){
-			return "1";
+			map.put("state", "1");
+		}else{
+			map.put("state", "0");
 		}
-		return "0";
+		return map;
 	}
 	
 	/*
@@ -191,7 +208,6 @@ public class UserInfoController {
 	@RequestMapping(value="/deleteUserinfoBypk/{userpk}")
 	public @ResponseBody ModelMap deleteUserinfoBypk(@PathVariable(value="userpk")String userpk) throws Exception{
 		ModelMap map= new ModelMap();
-		
 		int i= userInfoService.deleteUserinfoBypk(userpk);
 		map.put("data", i);
 		return map;

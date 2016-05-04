@@ -32,4 +32,8 @@ public interface TAgentInfoCustomMapper {
 	 * 根据代理id查询代理信息
 	 */
 	public TAgentInfoCustom findAgentByAgentid(String agentid) throws Exception;
+	/*
+	 * 根据访问域名查询代理信息
+	 */
+	public TAgentInfoCustom findAgentBywww(String www) throws Exception;
 }

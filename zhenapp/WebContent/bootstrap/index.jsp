@@ -43,6 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li><a href="${pageContext.request.contextPath}/electrity/findElectrity_10" style="height:85px;line-height:80px;font-size:20px;"><span class="glyphicon glyphicon-list"></span> 电商干货</a></li>
 				<li><a href="${pageContext.request.contextPath}/guide/findGuide_10" style="height:85px;line-height:80px;font-size:20px;"><span class="glyphicon glyphicon-fire"></span> 新手指引</a></li>
 				<li><a href="${pageContext.request.contextPath}/about/findGuideandelectrity" style="height:85px;line-height:80px;font-size:20px;"><span class="glyphicon glyphicon-question-sign"></span> 联系我们</a></li>
+				<li><a href="${pageContext.request.contextPath}/page/main/reg.jsp" style="height:85px;line-height:80px;font-size:20px;"><span class="glyphicon glyphicon-question-sign"></span> 用户中心</a></li>
 			</ul>	
 		</div>
 	</div>
@@ -56,15 +57,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<li data-target="#myCarousel" data-slide-to="1"></li>
 		<li data-target="#myCarousel" data-slide-to="2"></li>
 	</ol>
-	<div class="carousel-inner" style="height:470px;">
-		<div class="item active" style="background:#223240">
-			<img src="${pageContext.request.contextPath}/bootstrap/img/index/${tWebInfoCustom.carousel01}" style="height:470px;" alt="第一张">
+	<div class="carousel-inner" style="height:400px;">
+		<div class="item active" style="background:#fff">
+			<img src="${pageContext.request.contextPath}/bootstrap/img/index/${tWebInfoCustom.carousel01}" style="height:450px;width:1920px;" alt="第一张">
 		</div>
-		<div class="item" style="background:#F5E4DC;">
-			<img src="${pageContext.request.contextPath}/bootstrap/img/index/${tWebInfoCustom.carousel02}" style="height:470px;" alt="第二张">
+		<div class="item" style="background:#fff;">
+			<img src="${pageContext.request.contextPath}/bootstrap/img/index/${tWebInfoCustom.carousel02}" style="height:450px;width:1920px;" alt="第二张">
 		</div>
-		<div class="item" style="background:#DE2A2D;">
-			<img src="${pageContext.request.contextPath}/bootstrap/img/index/${tWebInfoCustom.carousel03}" style="height:470px;" alt="第三张">
+		<div class="item" style="background:#fff;">
+			<img src="${pageContext.request.contextPath}/bootstrap/img/index/${tWebInfoCustom.carousel03}" style="height:450px;width:1920px;" alt="第三张">
 		</div>
 	</div>
 	<a href="#myCarousel" data-slide="prev" class="carousel-control left">
@@ -286,6 +287,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 		if($('#linka1').text().indexOf("欢迎登")==-1){
 			$('#linka2').innerHTML="";
+			$('#linka1').attr("href","${pageContext.request.contextPath}/page/main/index.jsp");
 		}
 	
 	});

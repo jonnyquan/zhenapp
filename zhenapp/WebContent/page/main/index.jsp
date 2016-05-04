@@ -34,7 +34,7 @@
 		浙ICP备140452118号-5.</div>
 	<div
 		data-options="region:'west',title:'导航',split:true,iconCls:'icon-world'"
-		style="width:180px;padding:10px;">
+		style="width:220px;padding:10px;">
 		<ul id="nav"></ul>
 	</div>
 	<div data-options="region:'center'" style="width:900px;height:900px;"><!-- style="overflow-y:auto;overflow-x:hidden;" -->
@@ -53,9 +53,6 @@
 					</tr>
 				</table>
 			</div>
-			
-				
-			
 		</div>
 	</div>
 </body>
@@ -70,8 +67,8 @@
 <script type="text/javascript">
 	var uri = "${pageContext.request.contextPath}";
 	var usernick = "${tUserInfoCustom.usernick}";
-	;
-	$(function() {
+	var roleid = "${tUserInfoCustom.userroleid}";
+	;$(function() {
 		if (usernick.length < 1) {
 			alert("请重新登录本系统");
 			//window.open("${pageContext.request.contextPath}/page/main/login.jsp");

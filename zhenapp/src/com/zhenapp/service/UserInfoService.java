@@ -3,7 +3,6 @@ package com.zhenapp.service;
 import java.util.HashMap;
 import java.util.List;
 
-import com.zhenapp.po.TUserInfo;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Vo.TUserinfoVo;
 
@@ -22,7 +21,7 @@ public interface UserInfoService {
 	/*
 	 * 保存用户信息
 	 */
-	public int saveUser(TUserInfo tUserInfo) throws Exception;
+	public int saveUser(TUserInfoCustom tUserInfoCustom) throws Exception;
 	
 	/*
 	 * 根据用户信息查询积分

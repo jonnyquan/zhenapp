@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.zhenapp.mapper.TUserInfoMapper;
 import com.zhenapp.mapper.Custom.TUserInfoCustomMapper;
-import com.zhenapp.po.TUserInfo;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Vo.TUserinfoVo;
 import com.zhenapp.service.UserInfoService;
@@ -23,8 +22,8 @@ public class UserInfoServiceImp implements UserInfoService {
 	 * 保存用户信息 -----注册使用
 	 */
 	@Override
-	public int saveUser(TUserInfo tUserInfo) throws Exception {
-		return tUserInfoMapper.insert(tUserInfo);
+	public int saveUser(TUserInfoCustom tUserInfoCustom) throws Exception {
+		return tUserInfoCustomMapper.saveUser(tUserInfoCustom);
 	}
 
 	/*
@@ -33,6 +32,7 @@ public class UserInfoServiceImp implements UserInfoService {
 	public List<TUserInfoCustom> findUserBynick(String usernick) {
 		return tUserInfoCustomMapper.findUserBynick(usernick);
 	}
+	
 
 	/*
 	 * 根据用户名密码查询积分点数

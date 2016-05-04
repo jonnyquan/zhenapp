@@ -7,11 +7,14 @@ import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Vo.TUserinfoVo;
 
 public interface TUserInfoCustomMapper {
-    
+	/*
+	 * 保存用户信息
+	 */
+	public int saveUser(TUserInfoCustom tUserInfoCustom) throws Exception;
 	/*
 	 * 根据用户名查询用户信息
 	 */
-	List<TUserInfoCustom> findUserBynick(String usernick);
+	public List<TUserInfoCustom> findUserBynick(String usernick);
 
 	/*
 	 * 分页查询出用户

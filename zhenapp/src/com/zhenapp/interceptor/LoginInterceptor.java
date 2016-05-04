@@ -38,7 +38,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		String url = request.getRequestURI();
 		// 判断url是否是公开 地址（实际使用时将公开 地址配置配置文件中）
 		// 这里公开地址是登陆提交的地址
-		if (url.indexOf("user/Loginrest") >= 0 || url.indexOf("user/register") >= 0) {
+		if (url.indexOf("user/Loginrest") >= 0 || url.indexOf("user/register") >= 0 || url.indexOf("user/findUserByNick") >=0 ) {
 			// 如果进行登陆提交，放行
 			return true;
 		}
@@ -103,7 +103,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 			HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 
-		System.out.println("LoginInterceptor...postHandle");
+		//System.out.println("LoginInterceptor...postHandle");
 
 	}
 
@@ -118,7 +118,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 			request.getRequestDispatcher("/page/pagestates/error.jsp").forward(
 					request, response);
 		}
-		System.out.println("LoginInterceptor...afterCompletion");
+		//System.out.println("LoginInterceptor...afterCompletion");
 	}
 
 }

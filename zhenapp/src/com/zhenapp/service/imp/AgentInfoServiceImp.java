@@ -53,4 +53,10 @@ public class AgentInfoServiceImp implements AgentInfoService{
 		return tAgentInfoCustomMapper.findTotalAgentBypage(pagemap);
 	}
 
+	@Override
+	public TAgentInfoCustom findAgentBywww(String www) throws Exception {
+		// TODO Auto-generated method stub
+		return tAgentInfoCustomMapper.findAgentBywww(www);
+	}
+
 }

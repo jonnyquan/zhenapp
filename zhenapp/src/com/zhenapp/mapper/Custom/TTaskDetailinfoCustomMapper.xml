@@ -7,7 +7,6 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskstate='1' AND taskdate=DATE_F
 ) ORDER BY taskhour,taskminute LIMIT 0,1
   </select>
   
-  
   <insert id="insertDetailinfo" parameterType="com.zhenapp.po.Custom.TTaskDetailInfoCustom" >
     insert into t_task_detailinfo ( taskdetailid, taskid, 
       taskkeyword, searchtype, price, 
@@ -49,5 +48,8 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskstate='1' AND taskdate=DATE_F
       updatetime = #{updatetime,jdbcType=VARCHAR},
       updateuser = #{updateuser,jdbcType=VARCHAR}
     where taskdetailpk = #{taskdetailpk,jdbcType=INTEGER}
+  </update>
+  <update id="updateTaskDetailstate" parameterType="String">
+  	update t_task_detailinfo set taskstate = '26' where taskdetailid = #{taskdetailid}
   </update>
 </mapper>
