@@ -724,6 +724,286 @@ public class TWebInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andQqgroupIsNull() {
+            addCriterion("qqgroup is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQqgroupIsNotNull() {
+            addCriterion("qqgroup is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQqgroupEqualTo(String value) {
+            addCriterion("qqgroup =", value, "qqgroup");
+            return (Criteria) this;
+        }
+
+        public Criteria andQqgroupNotEqualTo(String value) {
+            addCriterion("qqgroup <>", value, "qqgroup");
+            return (Criteria) this;
+        }
+
+        public Criteria andQqgroupGreaterThan(String value) {
+            addCriterion("qqgroup >", value, "qqgroup");
+            return (Criteria) this;
+        }
+
+        public Criteria andQqgroupGreaterThanOrEqualTo(String value) {
+            addCriterion("qqgroup >=", value, "qqgroup");
+            return (Criteria) this;
+        }
+
+        public Criteria andQqgroupLessThan(String value) {
+            addCriterion("qqgroup <", value, "qqgroup");
+            return (Criteria) this;
+        }
+
+        public Criteria andQqgroupLessThanOrEqualTo(String value) {
+            addCriterion("qqgroup <=", value, "qqgroup");
+            return (Criteria) this;
+        }
+
+        public Criteria andQqgroupLike(String value) {
+            addCriterion("qqgroup like", value, "qqgroup");
+            return (Criteria) this;
+        }
+
+        public Criteria andQqgroupNotLike(String value) {
+            addCriterion("qqgroup not like", value, "qqgroup");
+            return (Criteria) this;
+        }
+
+        public Criteria andQqgroupIn(List<String> values) {
+            addCriterion("qqgroup in", values, "qqgroup");
+            return (Criteria) this;
+        }
+
+        public Criteria andQqgroupNotIn(List<String> values) {
+            addCriterion("qqgroup not in", values, "qqgroup");
+            return (Criteria) this;
+        }
+
+        public Criteria andQqgroupBetween(String value1, String value2) {
+            addCriterion("qqgroup between", value1, value2, "qqgroup");
+            return (Criteria) this;
+        }
+
+        public Criteria andQqgroupNotBetween(String value1, String value2) {
+            addCriterion("qqgroup not between", value1, value2, "qqgroup");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatIsNull() {
+            addCriterion("wechat is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatIsNotNull() {
+            addCriterion("wechat is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatEqualTo(String value) {
+            addCriterion("wechat =", value, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatNotEqualTo(String value) {
+            addCriterion("wechat <>", value, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatGreaterThan(String value) {
+            addCriterion("wechat >", value, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatGreaterThanOrEqualTo(String value) {
+            addCriterion("wechat >=", value, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatLessThan(String value) {
+            addCriterion("wechat <", value, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatLessThanOrEqualTo(String value) {
+            addCriterion("wechat <=", value, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatLike(String value) {
+            addCriterion("wechat like", value, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatNotLike(String value) {
+            addCriterion("wechat not like", value, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatIn(List<String> values) {
+            addCriterion("wechat in", values, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatNotIn(List<String> values) {
+            addCriterion("wechat not in", values, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatBetween(String value1, String value2) {
+            addCriterion("wechat between", value1, value2, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatNotBetween(String value1, String value2) {
+            addCriterion("wechat not between", value1, value2, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andArchivalIsNull() {
+            addCriterion("archival is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andArchivalIsNotNull() {
+            addCriterion("archival is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andArchivalEqualTo(String value) {
+            addCriterion("archival =", value, "archival");
+            return (Criteria) this;
+        }
+
+        public Criteria andArchivalNotEqualTo(String value) {
+            addCriterion("archival <>", value, "archival");
+            return (Criteria) this;
+        }
+
+        public Criteria andArchivalGreaterThan(String value) {
+            addCriterion("archival >", value, "archival");
+            return (Criteria) this;
+        }
+
+        public Criteria andArchivalGreaterThanOrEqualTo(String value) {
+            addCriterion("archival >=", value, "archival");
+            return (Criteria) this;
+        }
+
+        public Criteria andArchivalLessThan(String value) {
+            addCriterion("archival <", value, "archival");
+            return (Criteria) this;
+        }
+
+        public Criteria andArchivalLessThanOrEqualTo(String value) {
+            addCriterion("archival <=", value, "archival");
+            return (Criteria) this;
+        }
+
+        public Criteria andArchivalLike(String value) {
+            addCriterion("archival like", value, "archival");
+            return (Criteria) this;
+        }
+
+        public Criteria andArchivalNotLike(String value) {
+            addCriterion("archival not like", value, "archival");
+            return (Criteria) this;
+        }
+
+        public Criteria andArchivalIn(List<String> values) {
+            addCriterion("archival in", values, "archival");
+            return (Criteria) this;
+        }
+
+        public Criteria andArchivalNotIn(List<String> values) {
+            addCriterion("archival not in", values, "archival");
+            return (Criteria) this;
+        }
+
+        public Criteria andArchivalBetween(String value1, String value2) {
+            addCriterion("archival between", value1, value2, "archival");
+            return (Criteria) this;
+        }
+
+        public Criteria andArchivalNotBetween(String value1, String value2) {
+            addCriterion("archival not between", value1, value2, "archival");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlipayIsNull() {
+            addCriterion("alipay is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlipayIsNotNull() {
+            addCriterion("alipay is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlipayEqualTo(String value) {
+            addCriterion("alipay =", value, "alipay");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlipayNotEqualTo(String value) {
+            addCriterion("alipay <>", value, "alipay");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlipayGreaterThan(String value) {
+            addCriterion("alipay >", value, "alipay");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlipayGreaterThanOrEqualTo(String value) {
+            addCriterion("alipay >=", value, "alipay");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlipayLessThan(String value) {
+            addCriterion("alipay <", value, "alipay");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlipayLessThanOrEqualTo(String value) {
+            addCriterion("alipay <=", value, "alipay");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlipayLike(String value) {
+            addCriterion("alipay like", value, "alipay");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlipayNotLike(String value) {
+            addCriterion("alipay not like", value, "alipay");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlipayIn(List<String> values) {
+            addCriterion("alipay in", values, "alipay");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlipayNotIn(List<String> values) {
+            addCriterion("alipay not in", values, "alipay");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlipayBetween(String value1, String value2) {
+            addCriterion("alipay between", value1, value2, "alipay");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlipayNotBetween(String value1, String value2) {
+            addCriterion("alipay not between", value1, value2, "alipay");
+            return (Criteria) this;
+        }
+
         public Criteria andBg01IsNull() {
             addCriterion("bg01 is null");
             return (Criteria) this;

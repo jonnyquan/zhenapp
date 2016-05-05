@@ -1,18 +1,16 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
 <base href="<%=basePath%>">
-
-<title>用户列表</title>
-
+<title>手工充值扣款</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -20,28 +18,58 @@
 <meta http-equiv="description" content="This is my page">
 </head>
 <body>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/style.css">
 	<link rel="stylesheet" type="text/css"
 		href="${pageContext.request.contextPath}/easyui/themes/bootstrap/easyui.css" />
 	<link rel="stylesheet" type="text/css"
 		href="${pageContext.request.contextPath}/easyui/themes/icon.css" />
 	<link rel="stylesheet" type="text/css"
 		href="${pageContext.request.contextPath}/page/css/index.css" />
-	<table id="datagrid">
+	<form action="${pageContext.request.contextPath}/user/updatepoints" method="post">
+	<input type="hidden" name="points" value="${tUserInfoCustom.points}"/>
+	<input type="hidden" name="userpk" value="${tUserInfoCustom.userpk}"/>
+	<table class="table">
+		<tr>
+			<td >
+				用户积分
+			</td>
+			<td >
+				${tUserInfoCustom.points}
+			</td>
+		</tr>
+		<tr>
+			<td >
+				执行操作
+			</td>
+			<td >
+				<lable class="radio-inline"><input type="radio" name="caozo" value="0">充值</lable>
+				<lable class="radio-inline"><input type="radio" name="caozo" value="1">扣款</lable>
+			</td>
+		</tr>
+		<tr>
+			<td >
+				积分
+			</td>
+			<td >
+				<input type="text" class='form-control' name="updatepoints" placeholder="请输入需要修改的积分数量">
+			</td>
+		</tr>
+		<tr>
+			<td >
+				备注
+			</td>
+			<td >
+				<input type="text" class='form-control' name="desc" placeholder="请输入修改积分的原因">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="padding-left: 200px;">
+				<button class="btn btn-info" type="submit">保存修改</button>
+			</td>
+		</tr>
 	</table>
-	<div id="datagridtools" style="padding:10px;height:auto;">
-		<div>
-			<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-edit" onclick="obj.updatepoints();">充值扣款</a>
-			<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-remove" onclick="obj.remove();">删除</a>
-			<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-login" onclick="obj.login();">登录</a> 
-			<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-edit" onclick="obj.updaterole();">设为代理</a> 
-		</div>
-		<div>
-			账号:<input type="text" name="user" style="width:110px;">
-			创建时间从:<input type="text" name="user" style="width:110px;"> 到：<input
-				type="text" name="user" style="width:110px;"> <a href="#"
-				class="easyui-linkbutton" onclick="obj.search();">查询</a>
-		</div>
-	</div>
+	</form>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/easyui/jquery.min.js"></script>
 	<script type="text/javascript"
@@ -101,12 +129,6 @@
 								window.parent.location="${pageContext.request.contextPath}/page/main/index.jsp";
 							},
 						});
-					}
-				},
-				updatepoints:function(){
-					var rows=$("#datagrid").datagrid('getSelections');
-					if(rows.length>0){
-						window.location="${pageContext.request.contextPath}/user/findPointsByuserpk/"+rows[0].userpk;	
 					}
 				},
 				remove:function(){

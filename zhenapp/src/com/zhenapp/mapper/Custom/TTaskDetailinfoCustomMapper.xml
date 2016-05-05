@@ -8,16 +8,16 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskstate='1' AND taskdate=DATE_F
   </select>
   
   <insert id="insertDetailinfo" parameterType="com.zhenapp.po.Custom.TTaskDetailInfoCustom" >
-    insert into t_task_detailinfo ( taskdetailid, taskid, 
+     insert into t_task_detailinfo ( taskdetailid, taskid, 
       taskkeyword, searchtype, price, 
       region, isfreeship, istmall, 
       iscollection, isshopping, taskkeynum, 
       minpicture, maxpicture, tasktype, 
       isflow, iscreativetitle, isshopcollect, 
       taskstate, taskdate, taskhour, 
-      taskminute, phoneid, createtime, 
-      createuser, updatetime, updateuser
-      )
+      taskminute, phoneid, subtractpoints, 
+      createtime, createuser, updatetime, 
+      updateuser)
     values ( #{taskdetailid,jdbcType=VARCHAR}, #{taskid,jdbcType=VARCHAR}, 
       #{taskkeyword,jdbcType=VARCHAR}, #{searchtype,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, 
       #{region,jdbcType=VARCHAR}, #{isfreeship,jdbcType=VARCHAR}, #{istmall,jdbcType=VARCHAR}, 
@@ -25,30 +25,11 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskstate='1' AND taskdate=DATE_F
       #{minpicture,jdbcType=VARCHAR}, #{maxpicture,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
       #{isflow,jdbcType=VARCHAR}, #{iscreativetitle,jdbcType=VARCHAR}, #{isshopcollect,jdbcType=VARCHAR}, 
       #{taskstate,jdbcType=VARCHAR}, #{taskdate,jdbcType=VARCHAR}, #{taskhour,jdbcType=VARCHAR}, 
-      #{taskminute,jdbcType=VARCHAR}, #{phoneid,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
-      #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}
-      )
+      #{taskminute,jdbcType=VARCHAR}, #{phoneid,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{updateuser,jdbcType=VARCHAR})
   </insert>
-  
-  <update id="updateByPrimaryKey" parameterType="com.zhenapp.po.TTaskDetailinfo" >
-     update t_task_detailinfo
-    set taskdetailid = #{taskdetailid,jdbcType=VARCHAR},
-      taskid = #{taskid,jdbcType=VARCHAR},
-      phoneid = #{phoneid,jdbcType=VARCHAR},
-      taskkeyword = #{taskkeyword,jdbcType=VARCHAR},
-      taskkeynum = #{taskkeynum,jdbcType=VARCHAR},
-      ISflow = #{isflow,jdbcType=VARCHAR},
-      ISCollection = #{iscollection,jdbcType=VARCHAR},
-      ISShopping = #{isshopping,jdbcType=VARCHAR},
-      taskstate = #{taskstate,jdbcType=VARCHAR},
-      taskdate = #{taskdate,jdbcType=VARCHAR},
-      taskhour = #{taskhour,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR},
-      createuser = #{createuser,jdbcType=VARCHAR},
-      updatetime = #{updatetime,jdbcType=VARCHAR},
-      updateuser = #{updateuser,jdbcType=VARCHAR}
-    where taskdetailpk = #{taskdetailpk,jdbcType=INTEGER}
-  </update>
+
   <update id="updateTaskDetailstate" parameterType="String">
   	update t_task_detailinfo set taskstate = '26' where taskdetailid = #{taskdetailid}
   </update>

@@ -28,6 +28,12 @@ public class WebInfoServiceImp implements WebInfoService {
 		// TODO Auto-generated method stub
 		return tWebInfoCustomMapper.findWebByAgentid(agentid);
 	}
+
+	@Override
+	public int saveWebInfo(TWebInfoCustom tWebInfoCustom) throws Exception {
+		// TODO Auto-generated method stub
+		return tWebInfoCustomMapper.saveWebInfo(tWebInfoCustom);
+	}
 	
 	
 }

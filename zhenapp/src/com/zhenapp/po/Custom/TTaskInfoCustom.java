@@ -12,7 +12,16 @@ public class TTaskInfoCustom extends TTaskInfo{
     private Integer errorcount;
     
     private String dicinfoname;
+    private String tasktypename;
     
+
+	public String getTasktypename() {
+		return tasktypename;
+	}
+
+	public void setTasktypename(String tasktypename) {
+		this.tasktypename = tasktypename;
+	}
 
 	public Integer getFinishflowcount() {
 		return finishflowcount;

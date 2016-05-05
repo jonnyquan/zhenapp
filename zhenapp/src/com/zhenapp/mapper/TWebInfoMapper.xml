@@ -11,6 +11,10 @@
     <result column="Carousel02" property="carousel02" jdbcType="VARCHAR" />
     <result column="Carousel03" property="carousel03" jdbcType="VARCHAR" />
     <result column="QQ" property="qq" jdbcType="VARCHAR" />
+    <result column="qqgroup" property="qqgroup" jdbcType="VARCHAR" />
+    <result column="wechat" property="wechat" jdbcType="VARCHAR" />
+    <result column="archival" property="archival" jdbcType="VARCHAR" />
+    <result column="alipay" property="alipay" jdbcType="VARCHAR" />
     <result column="bg01" property="bg01" jdbcType="VARCHAR" />
     <result column="bg02" property="bg02" jdbcType="VARCHAR" />
     <result column="createuser" property="createuser" jdbcType="VARCHAR" />
@@ -77,8 +81,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    webpk, webid, agentid, webwww, logo, Carousel01, Carousel02, Carousel03, QQ, bg01, 
-    bg02, createuser, createtime, updateuser, updatetime
+    webpk, webid, agentid, webwww, logo, Carousel01, Carousel02, Carousel03, QQ, qqgroup, 
+    wechat, archival, alipay, bg01, bg02, createuser, createtime, updateuser, updatetime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TWebInfoExample" >
     select
@@ -114,15 +118,17 @@
     insert into t_web_info (webpk, webid, agentid, 
       webwww, logo, Carousel01, 
       Carousel02, Carousel03, QQ, 
-      bg01, bg02, createuser, 
-      createtime, updateuser, updatetime
-      )
+      qqgroup, wechat, archival, 
+      alipay, bg01, bg02, 
+      createuser, createtime, updateuser, 
+      updatetime)
     values (#{webpk,jdbcType=INTEGER}, #{webid,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
       #{webwww,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, #{carousel01,jdbcType=VARCHAR}, 
       #{carousel02,jdbcType=VARCHAR}, #{carousel03,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
-      #{bg01,jdbcType=VARCHAR}, #{bg02,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
-      #{createtime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}
-      )
+      #{qqgroup,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, #{archival,jdbcType=VARCHAR}, 
+      #{alipay,jdbcType=VARCHAR}, #{bg01,jdbcType=VARCHAR}, #{bg02,jdbcType=VARCHAR}, 
+      #{createuser,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zhenapp.po.TWebInfo" >
     insert into t_web_info
@@ -153,6 +159,18 @@
       </if>
       <if test="qq != null" >
         QQ,
+      </if>
+      <if test="qqgroup != null" >
+        qqgroup,
+      </if>
+      <if test="wechat != null" >
+        wechat,
+      </if>
+      <if test="archival != null" >
+        archival,
+      </if>
+      <if test="alipay != null" >
+        alipay,
       </if>
       <if test="bg01 != null" >
         bg01,
@@ -200,6 +218,18 @@
       </if>
       <if test="qq != null" >
         #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="qqgroup != null" >
+        #{qqgroup,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="archival != null" >
+        #{archival,jdbcType=VARCHAR},
+      </if>
+      <if test="alipay != null" >
+        #{alipay,jdbcType=VARCHAR},
       </if>
       <if test="bg01 != null" >
         #{bg01,jdbcType=VARCHAR},
@@ -257,6 +287,18 @@
       <if test="record.qq != null" >
         QQ = #{record.qq,jdbcType=VARCHAR},
       </if>
+      <if test="record.qqgroup != null" >
+        qqgroup = #{record.qqgroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wechat != null" >
+        wechat = #{record.wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.archival != null" >
+        archival = #{record.archival,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alipay != null" >
+        alipay = #{record.alipay,jdbcType=VARCHAR},
+      </if>
       <if test="record.bg01 != null" >
         bg01 = #{record.bg01,jdbcType=VARCHAR},
       </if>
@@ -291,6 +333,10 @@
       Carousel02 = #{record.carousel02,jdbcType=VARCHAR},
       Carousel03 = #{record.carousel03,jdbcType=VARCHAR},
       QQ = #{record.qq,jdbcType=VARCHAR},
+      qqgroup = #{record.qqgroup,jdbcType=VARCHAR},
+      wechat = #{record.wechat,jdbcType=VARCHAR},
+      archival = #{record.archival,jdbcType=VARCHAR},
+      alipay = #{record.alipay,jdbcType=VARCHAR},
       bg01 = #{record.bg01,jdbcType=VARCHAR},
       bg02 = #{record.bg02,jdbcType=VARCHAR},
       createuser = #{record.createuser,jdbcType=VARCHAR},
@@ -328,6 +374,18 @@
       <if test="qq != null" >
         QQ = #{qq,jdbcType=VARCHAR},
       </if>
+      <if test="qqgroup != null" >
+        qqgroup = #{qqgroup,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        wechat = #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="archival != null" >
+        archival = #{archival,jdbcType=VARCHAR},
+      </if>
+      <if test="alipay != null" >
+        alipay = #{alipay,jdbcType=VARCHAR},
+      </if>
       <if test="bg01 != null" >
         bg01 = #{bg01,jdbcType=VARCHAR},
       </if>
@@ -359,6 +417,10 @@
       Carousel02 = #{carousel02,jdbcType=VARCHAR},
       Carousel03 = #{carousel03,jdbcType=VARCHAR},
       QQ = #{qq,jdbcType=VARCHAR},
+      qqgroup = #{qqgroup,jdbcType=VARCHAR},
+      wechat = #{wechat,jdbcType=VARCHAR},
+      archival = #{archival,jdbcType=VARCHAR},
+      alipay = #{alipay,jdbcType=VARCHAR},
       bg01 = #{bg01,jdbcType=VARCHAR},
       bg02 = #{bg02,jdbcType=VARCHAR},
       createuser = #{createuser,jdbcType=VARCHAR},

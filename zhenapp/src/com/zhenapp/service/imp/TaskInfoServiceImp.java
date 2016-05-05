@@ -66,7 +66,21 @@ public class TaskInfoServiceImp implements TaskInfoService {
 	public int findTotalTaskBypage(HashMap<String, Object> hashmap)
 			throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return tTaskInfoCustomMapper.findTotalTaskBypage(hashmap);
+	}
+
+	@Override
+	public List<TTaskInfoCustom> findTaskBypageAndrole(
+			HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskInfoCustomMapper.findTaskBypageAndrole(hashmap);
+	}
+
+	@Override
+	public int findTotalTaskBypageAndrole(
+			HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskInfoCustomMapper.findTotalTaskBypageAndrole(hashmap);
 	}
 
 }

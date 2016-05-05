@@ -2,20 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhenapp.mapper.Custom.TRechargeInfoCustomMapper">
 	<insert id="insertRechargeinfo" parameterType="com.zhenapp.po.Vo.TRechargeInfoVo">
-	insert into t_recharge_info (rechargeid, rechargeverification, 
-      rechargemoney, rechargestate, createtime, 
+	insert into t_recharge_info ( rechargeid, rechargeverification, 
+      rechargemoney, rechargepoints, rechargegivemoney, 
+      rechargegivepoints, rechargestate, createtime, 
       createuser, updatetime, updateuser
       )
-    values (#{tRechargeInfoCustom.rechargeid,jdbcType=VARCHAR}, #{tRechargeInfoCustom.rechargeverification,jdbcType=VARCHAR}, 
-      #{tRechargeInfoCustom.rechargemoney,jdbcType=INTEGER}, #{tRechargeInfoCustom.rechargestate,jdbcType=VARCHAR}, #{tRechargeInfoCustom.createtime,jdbcType=VARCHAR}, 
-      #{tRechargeInfoCustom.createuser,jdbcType=VARCHAR}, #{tRechargeInfoCustom.updatetime,jdbcType=VARCHAR}, #{tRechargeInfoCustom.updateuser,jdbcType=VARCHAR}
+    values ( #{rechargeid,jdbcType=VARCHAR}, #{rechargeverification,jdbcType=VARCHAR}, 
+      #{rechargemoney,jdbcType=INTEGER}, #{rechargepoints,jdbcType=INTEGER}, #{rechargegivemoney,jdbcType=INTEGER}, 
+      #{rechargegivepoints,jdbcType=INTEGER}, #{rechargestate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+      #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}
       )
 	</insert>
 	<select id="findRechargeinfoByUserAndpage" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TRechargeInfoCustom">
 		SELECT a.*,b.dicinfoname as rechargestatename FROM t_recharge_info a LEFT JOIN t_data_dic_info b ON a.rechargestate=b.dicinfoid
 		<where>
 			<if test="createuser != null and createuser != ''">
-	    		and a.createuser <![CDATA[>=]]> #{createuser}
+	    		and a.createuser = #{createuser}
 	    	</if>
 	    	<if test="datefrom != null and datefrom != ''">
 	    		and a.createtime <![CDATA[>=]]> #{datefrom}
@@ -27,19 +29,46 @@
 		order by a.createtime desc LIMIT #{page},#{rows}
 	</select>
 	<select id="findTotalRechargeinfoByUserAndpage" parameterType="java.util.HashMap" resultType="int">
-		select count(1) from t_recharge_info 
+		SELECT count(1) FROM t_recharge_info a LEFT JOIN t_data_dic_info b ON a.rechargestate=b.dicinfoid
 		<where>
 			<if test="createuser != null and createuser != ''">
-	    		and createuser <![CDATA[>=]]> #{createuser}
+	    		and a.createuser = #{createuser}
 	    	</if>
 	    	<if test="datefrom != null and datefrom != ''">
-	    		and createtime <![CDATA[>=]]> #{datefrom}
+	    		and a.createtime <![CDATA[>=]]> #{datefrom}
 	    	</if>
 	    	<if test="dateto != null and dateto != ''">
-	    		and createtime <![CDATA[<=]]> #{dateto}
+	    		and a.createtime <![CDATA[<=]]> #{dateto}
 	    	</if>
 		</where>
 	</select>
+	
+	<select id="findRechargeinfoByRoleAndpage" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TRechargeInfoCustom">
+		SELECT a.*,b.dicinfoname as rechargestatename FROM t_recharge_info a LEFT JOIN t_data_dic_info b ON a.rechargestate=b.dicinfoid
+		INNER JOIN (SELECT a.* FROM t_user_info a WHERE a.agentid IN (SELECT agentid FROM t_agent_info WHERE agentuserid=#{userid})) c ON a.createuser=c.userid
+		<where>
+	    	<if test="datefrom != null and datefrom != ''">
+	    		and a.createtime <![CDATA[>=]]> #{datefrom}
+	    	</if>
+	    	<if test="dateto != null and dateto != ''">
+	    		and a.createtime <![CDATA[<=]]> #{dateto}
+	    	</if>
+		</where>
+		order by a.createtime desc LIMIT #{page},#{rows}
+	</select>
+	<select id="findTotalRechargeinfoByRoleAndpage" parameterType="java.util.HashMap" resultType="int">
+		SELECT count(1) FROM t_recharge_info a LEFT JOIN t_data_dic_info b ON a.rechargestate=b.dicinfoid
+		INNER JOIN (SELECT a.* FROM t_user_info a WHERE a.agentid IN (SELECT agentid FROM t_agent_info WHERE agentuserid=#{userid})) c ON a.createuser=c.userid
+		<where>
+	    	<if test="datefrom != null and datefrom != ''">
+	    		and a.createtime <![CDATA[>=]]> #{datefrom}
+	    	</if>
+	    	<if test="dateto != null and dateto != ''">
+	    		and a.createtime <![CDATA[<=]]> #{dateto}
+	    	</if>
+		</where>
+	</select>
+	
 	
 	<select id="findRechargeinfoByUser" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TRechargeInfoCustom">
 		select * from t_recharge_info 
@@ -57,7 +86,16 @@
 		order by createtime,rechargepk desc
 	</select>
 	
+	<select id="findRechargeBycode" parameterType="String" resultType="com.zhenapp.po.Custom.TRechargeInfoCustom">
+		select * from t_recharge_info where rechargeverification=#{verificationcode} and rechargestate='25'
+	</select>
+	
 	<delete id="deleteRechargeinfoByid" parameterType="String">
 		delete from t_recharge_info where rechargeid in (#{rechargeids})
 	</delete>
+	
+	
+	<update id="updateRechargestate" parameterType="String">
+		UPDATE t_recharge_info SET rechargestate='25' WHERE rechargeverification=#{verificationcode} AND rechargestate='24'
+	</update>
 </mapper>

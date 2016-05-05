@@ -48,7 +48,7 @@
 							您当前账户余额为:
 						</td>
 						<td>
-							<span id="balabce"></span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="easyui-linkbutton" iconCls="icon-reload">刷新余额</a>
+							<span id="balabce" style="color:red;"></span>&nbsp;&nbsp;&nbsp;<a href="#" class="easyui-linkbutton" id="refresh" iconCls="icon-reload">刷新余额</a>
 						</td>
 					</tr>
 				</table>
@@ -70,11 +70,18 @@
 	var roleid = "${tUserInfoCustom.userroleid}";
 	;$(function() {
 		if (usernick.length < 1) {
-			alert("请重新登录本系统");
-			//window.open("${pageContext.request.contextPath}/page/main/login.jsp");
-			window.open("${pageContext.request.contextPath}/page/main/login.jsp",'_blank'); 
-			window.close(); 
+			window.parent.location="${pageContext.request.contextPath}/page/main/login.jsp"; 
 		}
+		
+		$("#refresh").click(function(){
+			$.ajax({
+				url : uri+"/user/findpoints",
+				type : "POST",
+				success:function(data,state){
+					$("#balabce").text(data.points);
+				}
+			});
+		});
 	});
 </script>
 </html>

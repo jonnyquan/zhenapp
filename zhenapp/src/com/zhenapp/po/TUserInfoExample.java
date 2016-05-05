@@ -444,6 +444,66 @@ public class TUserInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andPointsIsNull() {
+            addCriterion("points is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsIsNotNull() {
+            addCriterion("points is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsEqualTo(Integer value) {
+            addCriterion("points =", value, "points");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsNotEqualTo(Integer value) {
+            addCriterion("points <>", value, "points");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsGreaterThan(Integer value) {
+            addCriterion("points >", value, "points");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsGreaterThanOrEqualTo(Integer value) {
+            addCriterion("points >=", value, "points");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsLessThan(Integer value) {
+            addCriterion("points <", value, "points");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsLessThanOrEqualTo(Integer value) {
+            addCriterion("points <=", value, "points");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsIn(List<Integer> values) {
+            addCriterion("points in", values, "points");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsNotIn(List<Integer> values) {
+            addCriterion("points not in", values, "points");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsBetween(Integer value1, Integer value2) {
+            addCriterion("points between", value1, value2, "points");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointsNotBetween(Integer value1, Integer value2) {
+            addCriterion("points not between", value1, value2, "points");
+            return (Criteria) this;
+        }
+
         public Criteria andUserqqIsNull() {
             addCriterion("userqq is null");
             return (Criteria) this;
@@ -851,76 +911,6 @@ public class TUserInfoExample {
 
         public Criteria andRegemailNotBetween(String value1, String value2) {
             addCriterion("regemail not between", value1, value2, "regemail");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegdateIsNull() {
-            addCriterion("regdate is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegdateIsNotNull() {
-            addCriterion("regdate is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegdateEqualTo(String value) {
-            addCriterion("regdate =", value, "regdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegdateNotEqualTo(String value) {
-            addCriterion("regdate <>", value, "regdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegdateGreaterThan(String value) {
-            addCriterion("regdate >", value, "regdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegdateGreaterThanOrEqualTo(String value) {
-            addCriterion("regdate >=", value, "regdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegdateLessThan(String value) {
-            addCriterion("regdate <", value, "regdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegdateLessThanOrEqualTo(String value) {
-            addCriterion("regdate <=", value, "regdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegdateLike(String value) {
-            addCriterion("regdate like", value, "regdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegdateNotLike(String value) {
-            addCriterion("regdate not like", value, "regdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegdateIn(List<String> values) {
-            addCriterion("regdate in", values, "regdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegdateNotIn(List<String> values) {
-            addCriterion("regdate not in", values, "regdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegdateBetween(String value1, String value2) {
-            addCriterion("regdate between", value1, value2, "regdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andRegdateNotBetween(String value1, String value2) {
-            addCriterion("regdate not between", value1, value2, "regdate");
             return (Criteria) this;
         }
 

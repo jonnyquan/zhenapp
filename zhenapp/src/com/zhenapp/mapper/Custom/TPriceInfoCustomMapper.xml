@@ -17,4 +17,21 @@
       updateuser = #{updateuser,jdbcType=VARCHAR}
     where agentid = #{agentid,jdbcType=VARCHAR}
   </update>
+  
+   <insert id="savePriceInfo" parameterType="com.zhenapp.po.TPriceInfo" >
+    insert into t_price_info ( priceid, agentid, 
+      pricetype1, pricecode1, pricecounts1, 
+      pricetype2, pricecode2, pricecounts2, 
+      pricetype3, pricecode3, pricecounts3, 
+      pricetype4, pricecode4, pricecounts4, 
+      createtime, createuser, updatetime, 
+      updateuser)
+    values ( #{priceid,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
+      #{pricetype1,jdbcType=VARCHAR}, #{pricecode1,jdbcType=VARCHAR}, #{pricecounts1,jdbcType=VARCHAR}, 
+      #{pricetype2,jdbcType=VARCHAR}, #{pricecode2,jdbcType=VARCHAR}, #{pricecounts2,jdbcType=VARCHAR}, 
+      #{pricetype3,jdbcType=VARCHAR}, #{pricecode3,jdbcType=VARCHAR}, #{pricecounts3,jdbcType=VARCHAR}, 
+      #{pricetype4,jdbcType=VARCHAR}, #{pricecode4,jdbcType=VARCHAR}, #{pricecounts4,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{updateuser,jdbcType=VARCHAR})
+  </insert>
 </mapper>

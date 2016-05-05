@@ -19,6 +19,14 @@ public class TWebInfo {
 
     private String qq;
 
+    private String qqgroup;
+
+    private String wechat;
+
+    private String archival;
+
+    private String alipay;
+
     private String bg01;
 
     private String bg02;
@@ -101,6 +109,38 @@ public class TWebInfo {
 
     public void setQq(String qq) {
         this.qq = qq == null ? null : qq.trim();
+    }
+
+    public String getQqgroup() {
+        return qqgroup;
+    }
+
+    public void setQqgroup(String qqgroup) {
+        this.qqgroup = qqgroup == null ? null : qqgroup.trim();
+    }
+
+    public String getWechat() {
+        return wechat;
+    }
+
+    public void setWechat(String wechat) {
+        this.wechat = wechat == null ? null : wechat.trim();
+    }
+
+    public String getArchival() {
+        return archival;
+    }
+
+    public void setArchival(String archival) {
+        this.archival = archival == null ? null : archival.trim();
+    }
+
+    public String getAlipay() {
+        return alipay;
+    }
+
+    public void setAlipay(String alipay) {
+        this.alipay = alipay == null ? null : alipay.trim();
     }
 
     public String getBg01() {

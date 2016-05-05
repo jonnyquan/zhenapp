@@ -7,13 +7,13 @@
     <result column="usernick" property="usernick" jdbcType="VARCHAR" />
     <result column="userpwd" property="userpwd" jdbcType="VARCHAR" />
     <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="points" property="points" jdbcType="INTEGER" />
     <result column="userqq" property="userqq" jdbcType="VARCHAR" />
     <result column="usercardnum" property="usercardnum" jdbcType="VARCHAR" />
     <result column="userroleid" property="userroleid" jdbcType="INTEGER" />
     <result column="userphone" property="userphone" jdbcType="VARCHAR" />
     <result column="userstate" property="userstate" jdbcType="VARCHAR" />
     <result column="regemail" property="regemail" jdbcType="VARCHAR" />
-    <result column="regdate" property="regdate" jdbcType="VARCHAR" />
     <result column="regip" property="regip" jdbcType="VARCHAR" />
     <result column="regdomain" property="regdomain" jdbcType="VARCHAR" />
     <result column="agentid" property="agentid" jdbcType="VARCHAR" />
@@ -81,8 +81,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    userpk, userid, usernick, userpwd, username, userqq, usercardnum, userroleid, userphone, 
-    userstate, regemail, regdate, regip, regdomain, agentid, createtime, createuser, 
+    userpk, userid, usernick, userpwd, username, points, userqq, usercardnum, userroleid, 
+    userphone, userstate, regemail, regip, regdomain, agentid, createtime, createuser, 
     updatetime, updateuser
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TUserInfoExample" >
@@ -117,16 +117,16 @@
   </delete>
   <insert id="insert" parameterType="com.zhenapp.po.TUserInfo" >
     insert into t_user_info (userpk, userid, usernick, 
-      userpwd, username, userqq, 
-      usercardnum, userroleid, userphone, 
-      userstate, regemail, regdate, 
+      userpwd, username, points, 
+      userqq, usercardnum, userroleid, 
+      userphone, userstate, regemail, 
       regip, regdomain, agentid, 
       createtime, createuser, updatetime, 
       updateuser)
     values (#{userpk,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{usernick,jdbcType=VARCHAR}, 
-      #{userpwd,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{userqq,jdbcType=VARCHAR}, 
-      #{usercardnum,jdbcType=VARCHAR}, #{userroleid,jdbcType=INTEGER}, #{userphone,jdbcType=VARCHAR}, 
-      #{userstate,jdbcType=VARCHAR}, #{regemail,jdbcType=VARCHAR}, #{regdate,jdbcType=VARCHAR}, 
+      #{userpwd,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{points,jdbcType=INTEGER}, 
+      #{userqq,jdbcType=VARCHAR}, #{usercardnum,jdbcType=VARCHAR}, #{userroleid,jdbcType=INTEGER}, 
+      #{userphone,jdbcType=VARCHAR}, #{userstate,jdbcType=VARCHAR}, #{regemail,jdbcType=VARCHAR}, 
       #{regip,jdbcType=VARCHAR}, #{regdomain,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
       #{updateuser,jdbcType=VARCHAR})
@@ -149,6 +149,9 @@
       <if test="username != null" >
         username,
       </if>
+      <if test="points != null" >
+        points,
+      </if>
       <if test="userqq != null" >
         userqq,
       </if>
@@ -166,9 +169,6 @@
       </if>
       <if test="regemail != null" >
         regemail,
-      </if>
-      <if test="regdate != null" >
-        regdate,
       </if>
       <if test="regip != null" >
         regip,
@@ -208,6 +208,9 @@
       <if test="username != null" >
         #{username,jdbcType=VARCHAR},
       </if>
+      <if test="points != null" >
+        #{points,jdbcType=INTEGER},
+      </if>
       <if test="userqq != null" >
         #{userqq,jdbcType=VARCHAR},
       </if>
@@ -225,9 +228,6 @@
       </if>
       <if test="regemail != null" >
         #{regemail,jdbcType=VARCHAR},
-      </if>
-      <if test="regdate != null" >
-        #{regdate,jdbcType=VARCHAR},
       </if>
       <if test="regip != null" >
         #{regip,jdbcType=VARCHAR},
@@ -276,6 +276,9 @@
       <if test="record.username != null" >
         username = #{record.username,jdbcType=VARCHAR},
       </if>
+      <if test="record.points != null" >
+        points = #{record.points,jdbcType=INTEGER},
+      </if>
       <if test="record.userqq != null" >
         userqq = #{record.userqq,jdbcType=VARCHAR},
       </if>
@@ -293,9 +296,6 @@
       </if>
       <if test="record.regemail != null" >
         regemail = #{record.regemail,jdbcType=VARCHAR},
-      </if>
-      <if test="record.regdate != null" >
-        regdate = #{record.regdate,jdbcType=VARCHAR},
       </if>
       <if test="record.regip != null" >
         regip = #{record.regip,jdbcType=VARCHAR},
@@ -330,13 +330,13 @@
       usernick = #{record.usernick,jdbcType=VARCHAR},
       userpwd = #{record.userpwd,jdbcType=VARCHAR},
       username = #{record.username,jdbcType=VARCHAR},
+      points = #{record.points,jdbcType=INTEGER},
       userqq = #{record.userqq,jdbcType=VARCHAR},
       usercardnum = #{record.usercardnum,jdbcType=VARCHAR},
       userroleid = #{record.userroleid,jdbcType=INTEGER},
       userphone = #{record.userphone,jdbcType=VARCHAR},
       userstate = #{record.userstate,jdbcType=VARCHAR},
       regemail = #{record.regemail,jdbcType=VARCHAR},
-      regdate = #{record.regdate,jdbcType=VARCHAR},
       regip = #{record.regip,jdbcType=VARCHAR},
       regdomain = #{record.regdomain,jdbcType=VARCHAR},
       agentid = #{record.agentid,jdbcType=VARCHAR},
@@ -363,6 +363,9 @@
       <if test="username != null" >
         username = #{username,jdbcType=VARCHAR},
       </if>
+      <if test="points != null" >
+        points = #{points,jdbcType=INTEGER},
+      </if>
       <if test="userqq != null" >
         userqq = #{userqq,jdbcType=VARCHAR},
       </if>
@@ -380,9 +383,6 @@
       </if>
       <if test="regemail != null" >
         regemail = #{regemail,jdbcType=VARCHAR},
-      </if>
-      <if test="regdate != null" >
-        regdate = #{regdate,jdbcType=VARCHAR},
       </if>
       <if test="regip != null" >
         regip = #{regip,jdbcType=VARCHAR},
@@ -414,13 +414,13 @@
       usernick = #{usernick,jdbcType=VARCHAR},
       userpwd = #{userpwd,jdbcType=VARCHAR},
       username = #{username,jdbcType=VARCHAR},
+      points = #{points,jdbcType=INTEGER},
       userqq = #{userqq,jdbcType=VARCHAR},
       usercardnum = #{usercardnum,jdbcType=VARCHAR},
       userroleid = #{userroleid,jdbcType=INTEGER},
       userphone = #{userphone,jdbcType=VARCHAR},
       userstate = #{userstate,jdbcType=VARCHAR},
       regemail = #{regemail,jdbcType=VARCHAR},
-      regdate = #{regdate,jdbcType=VARCHAR},
       regip = #{regip,jdbcType=VARCHAR},
       regdomain = #{regdomain,jdbcType=VARCHAR},
       agentid = #{agentid,jdbcType=VARCHAR},

@@ -11,6 +11,8 @@ public class TUserInfo {
 
     private String username;
 
+    private Integer points;
+
     private String userqq;
 
     private String usercardnum;
@@ -22,8 +24,6 @@ public class TUserInfo {
     private String userstate;
 
     private String regemail;
-
-    private String regdate;
 
     private String regip;
 
@@ -79,6 +79,14 @@ public class TUserInfo {
         this.username = username == null ? null : username.trim();
     }
 
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
+    }
+
     public String getUserqq() {
         return userqq;
     }
@@ -125,14 +133,6 @@ public class TUserInfo {
 
     public void setRegemail(String regemail) {
         this.regemail = regemail == null ? null : regemail.trim();
-    }
-
-    public String getRegdate() {
-        return regdate;
-    }
-
-    public void setRegdate(String regdate) {
-        this.regdate = regdate == null ? null : regdate.trim();
     }
 
     public String getRegip() {

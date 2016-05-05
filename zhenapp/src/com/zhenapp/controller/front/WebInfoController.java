@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Custom.TWebInfoCustom;
 import com.zhenapp.service.AgentInfoService;
@@ -43,7 +44,9 @@ public class WebInfoController {
 		ModelAndView mv = new ModelAndView();
 		String webwww=request.getServerName();
 		TWebInfoCustom tWebInfoCustom = webInfoService.findWebBywebwww(webwww);
+		TAgentInfoCustom tAgentInfoCustom =agentInfoService.findAgentBywww(webwww);
 		mv.addObject("tWebInfoCustom",tWebInfoCustom);
+		mv.addObject("tAgentInfoCustom",tAgentInfoCustom);
 		mv.setViewName("/page/upload/webEdit.jsp");
 		return mv;
 	}
@@ -65,16 +68,23 @@ public class WebInfoController {
 	 * 修改web页面图片信息
 	 */
 	@RequestMapping(value = "/updatewebinfo")
-	public @ResponseBody ModelAndView uploadwebinfo(HttpServletRequest request,String agentid, @RequestParam("files") MultipartFile[] files) throws Exception {
+	public @ResponseBody ModelAndView uploadwebinfo(HttpServletRequest request,TAgentInfoCustom tAgentInfoCustom,TWebInfoCustom tWebInfoCustom, @RequestParam("files") MultipartFile[] files) throws Exception {
 		ModelAndView mv = new ModelAndView();
+		HttpSession session = request.getSession();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		TWebInfoCustom tWebInfoCustomold = webInfoService.findWebBywebwww(tWebInfoCustom.getAgentid());
+		
+		TAgentInfoCustom tAgentInfoCustomold = agentInfoService.findAgentByAgentid(tAgentInfoCustom.getAgentid());
+		tAgentInfoCustomold.setAgentname(tAgentInfoCustom.getAgentname());
+		tAgentInfoCustomold.setAgentwww(tAgentInfoCustom.getAgentwww());
+		tAgentInfoCustomold.setAgenthttp(tAgentInfoCustom.getAgenthttp());
+		tAgentInfoCustomold.setUpdatetime(sdf.format(new Date()));
+		tAgentInfoCustomold.setUpdateuser(tUserInfoCustom.getUserid());
+		agentInfoService.updateAgentByid(tAgentInfoCustomold);
 		// 判断file数组不能为空并且长度大于0
 		if (files != null && files.length > 0) {
-			String webwww = request.getServerName();
-			TWebInfoCustom tWebInfoCustom = webInfoService
-					.findWebBywebwww(webwww);
-			if (tWebInfoCustom != null) {
 				// 循环获取file数组中得文件
-				for (int i = 0; i < files.length; i++) {
+			for (int i = 0; i < files.length; i++) {
 					MultipartFile file = files[i];
 					// 原始名称
 					String originalFilename = file.getOriginalFilename();
@@ -95,27 +105,26 @@ public class WebInfoController {
 						file.transferTo(newFile);
 
 						if (i == 0) {
-							tWebInfoCustom.setLogo(newFileName);
+							tWebInfoCustomold.setLogo(newFileName);
 						} else if (i == 1) {
-							tWebInfoCustom.setCarousel01(newFileName);
+							tWebInfoCustomold.setCarousel01(newFileName);
 						} else if (i == 2) {
-							tWebInfoCustom.setCarousel02(newFileName);
+							tWebInfoCustomold.setCarousel02(newFileName);
 						} else if (i == 3) {
-							tWebInfoCustom.setCarousel03(newFileName);
+							tWebInfoCustomold.setCarousel03(newFileName);
 						} else if (i == 4) {
-							tWebInfoCustom.setBg01(newFileName);
+							tWebInfoCustomold.setBg01(newFileName);
 						} else if (i == 5) {
-							tWebInfoCustom.setBg02(newFileName);
+							tWebInfoCustomold.setBg02(newFileName);
 						}
 					}
-				}
 			}
-			HttpSession session = request.getSession();
-			TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
-			tWebInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
-			String updatetime = sdf.format(new Date());
-			tWebInfoCustom.setUpdatetime(updatetime);
-			tWebInfoCustom.setAgentid(agentid);
+			tWebInfoCustomold.setQq(tWebInfoCustom.getQq());
+			tWebInfoCustomold.setQqgroup(tWebInfoCustom.getQqgroup());
+			tWebInfoCustomold.setArchival(tWebInfoCustom.getArchival());
+			tWebInfoCustomold.setAlipay(tWebInfoCustom.getAlipay());
+			tWebInfoCustomold.setUpdateuser(tUserInfoCustom.getUserid());
+			tWebInfoCustomold.setUpdatetime(sdf.format(new Date()));
 			webInfoService.updateWebByAgentid(tWebInfoCustom);
 		}
 		mv.setViewName("/web/findWebBywebwww");

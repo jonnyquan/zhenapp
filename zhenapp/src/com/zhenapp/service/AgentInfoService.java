@@ -18,7 +18,6 @@ public interface AgentInfoService {
 	 * 分页查询代理信息的总条数
 	 */
 	public int findTotalAgentBypage(HashMap<String, Object> pagemap) throws Exception;
-	
 	/*
 	 * 根据主键删除代理信息
 	 */
@@ -35,4 +34,12 @@ public interface AgentInfoService {
 	 * 根据访问域名查询代理信息
 	 */
 	public TAgentInfoCustom findAgentBywww(String www) throws Exception;
+	/*
+	 * 插入代理信息
+	 */
+	public int saveAgentInfo(TAgentInfoCustom tAgentInfoCustom) throws Exception;
+	/*
+	 * 根据代理id更新代理信息
+	 */
+	public int updateAgentByid(TAgentInfoCustom tAgentInfoCustom) throws Exception;
 }

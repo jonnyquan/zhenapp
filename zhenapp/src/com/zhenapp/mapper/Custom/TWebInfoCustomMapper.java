@@ -16,4 +16,8 @@ public interface TWebInfoCustomMapper {
 	 * 根据代理id查询文本信息
 	 */
 	public TWebInfoCustom findWebByAgentid(String agentid) throws Exception;
+	/*
+	 * 保存代理web信息
+	 */
+	public int saveWebInfo(TWebInfoCustom tWebInfoCustom) throws Exception;
 }

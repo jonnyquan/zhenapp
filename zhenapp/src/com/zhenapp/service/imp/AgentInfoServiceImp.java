@@ -55,8 +55,19 @@ public class AgentInfoServiceImp implements AgentInfoService{
 
 	@Override
 	public TAgentInfoCustom findAgentBywww(String www) throws Exception {
-		// TODO Auto-generated method stub
 		return tAgentInfoCustomMapper.findAgentBywww(www);
+	}
+
+	@Override
+	public int saveAgentInfo(TAgentInfoCustom tAgentInfoCustom)
+			throws Exception {
+		return tAgentInfoCustomMapper.saveAgentInfo(tAgentInfoCustom);
+	}
+
+	@Override
+	public int updateAgentByid(TAgentInfoCustom tAgentInfoCustom)
+			throws Exception {
+		return tAgentInfoCustomMapper.updateAgentByid(tAgentInfoCustom);
 	}
 
 }

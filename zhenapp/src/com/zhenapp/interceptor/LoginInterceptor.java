@@ -85,8 +85,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		if(url.indexOf("/test/")>=0 ){ 
 			return true; 
 		}
-		 
-
+		
 		// 执行这里表示用户身份需要认证，跳转登陆页面
 		request.getRequestDispatcher("/page/main/login.jsp").forward(request,
 				response);

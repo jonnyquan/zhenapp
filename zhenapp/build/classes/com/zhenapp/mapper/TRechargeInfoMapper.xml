@@ -6,6 +6,9 @@
     <result column="rechargeid" property="rechargeid" jdbcType="VARCHAR" />
     <result column="rechargeverification" property="rechargeverification" jdbcType="VARCHAR" />
     <result column="rechargemoney" property="rechargemoney" jdbcType="INTEGER" />
+    <result column="rechargepoints" property="rechargepoints" jdbcType="INTEGER" />
+    <result column="rechargegivemoney" property="rechargegivemoney" jdbcType="INTEGER" />
+    <result column="rechargegivepoints" property="rechargegivepoints" jdbcType="INTEGER" />
     <result column="rechargestate" property="rechargestate" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="VARCHAR" />
     <result column="createuser" property="createuser" jdbcType="VARCHAR" />
@@ -71,8 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    rechargepk, rechargeid, rechargeverification, rechargemoney, rechargestate, createtime, 
-    createuser, updatetime, updateuser
+    rechargepk, rechargeid, rechargeverification, rechargemoney, rechargepoints, rechargegivemoney, 
+    rechargegivepoints, rechargestate, createtime, createuser, updatetime, updateuser
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TRechargeInfoExample" >
     select
@@ -106,11 +109,13 @@
   </delete>
   <insert id="insert" parameterType="com.zhenapp.po.TRechargeInfo" >
     insert into t_recharge_info (rechargepk, rechargeid, rechargeverification, 
-      rechargemoney, rechargestate, createtime, 
+      rechargemoney, rechargepoints, rechargegivemoney, 
+      rechargegivepoints, rechargestate, createtime, 
       createuser, updatetime, updateuser
       )
     values (#{rechargepk,jdbcType=INTEGER}, #{rechargeid,jdbcType=VARCHAR}, #{rechargeverification,jdbcType=VARCHAR}, 
-      #{rechargemoney,jdbcType=INTEGER}, #{rechargestate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+      #{rechargemoney,jdbcType=INTEGER}, #{rechargepoints,jdbcType=INTEGER}, #{rechargegivemoney,jdbcType=INTEGER}, 
+      #{rechargegivepoints,jdbcType=INTEGER}, #{rechargestate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
       #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}
       )
   </insert>
@@ -128,6 +133,15 @@
       </if>
       <if test="rechargemoney != null" >
         rechargemoney,
+      </if>
+      <if test="rechargepoints != null" >
+        rechargepoints,
+      </if>
+      <if test="rechargegivemoney != null" >
+        rechargegivemoney,
+      </if>
+      <if test="rechargegivepoints != null" >
+        rechargegivepoints,
       </if>
       <if test="rechargestate != null" >
         rechargestate,
@@ -157,6 +171,15 @@
       </if>
       <if test="rechargemoney != null" >
         #{rechargemoney,jdbcType=INTEGER},
+      </if>
+      <if test="rechargepoints != null" >
+        #{rechargepoints,jdbcType=INTEGER},
+      </if>
+      <if test="rechargegivemoney != null" >
+        #{rechargegivemoney,jdbcType=INTEGER},
+      </if>
+      <if test="rechargegivepoints != null" >
+        #{rechargegivepoints,jdbcType=INTEGER},
       </if>
       <if test="rechargestate != null" >
         #{rechargestate,jdbcType=VARCHAR},
@@ -196,6 +219,15 @@
       <if test="record.rechargemoney != null" >
         rechargemoney = #{record.rechargemoney,jdbcType=INTEGER},
       </if>
+      <if test="record.rechargepoints != null" >
+        rechargepoints = #{record.rechargepoints,jdbcType=INTEGER},
+      </if>
+      <if test="record.rechargegivemoney != null" >
+        rechargegivemoney = #{record.rechargegivemoney,jdbcType=INTEGER},
+      </if>
+      <if test="record.rechargegivepoints != null" >
+        rechargegivepoints = #{record.rechargegivepoints,jdbcType=INTEGER},
+      </if>
       <if test="record.rechargestate != null" >
         rechargestate = #{record.rechargestate,jdbcType=VARCHAR},
       </if>
@@ -222,6 +254,9 @@
       rechargeid = #{record.rechargeid,jdbcType=VARCHAR},
       rechargeverification = #{record.rechargeverification,jdbcType=VARCHAR},
       rechargemoney = #{record.rechargemoney,jdbcType=INTEGER},
+      rechargepoints = #{record.rechargepoints,jdbcType=INTEGER},
+      rechargegivemoney = #{record.rechargegivemoney,jdbcType=INTEGER},
+      rechargegivepoints = #{record.rechargegivepoints,jdbcType=INTEGER},
       rechargestate = #{record.rechargestate,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=VARCHAR},
       createuser = #{record.createuser,jdbcType=VARCHAR},
@@ -242,6 +277,15 @@
       </if>
       <if test="rechargemoney != null" >
         rechargemoney = #{rechargemoney,jdbcType=INTEGER},
+      </if>
+      <if test="rechargepoints != null" >
+        rechargepoints = #{rechargepoints,jdbcType=INTEGER},
+      </if>
+      <if test="rechargegivemoney != null" >
+        rechargegivemoney = #{rechargegivemoney,jdbcType=INTEGER},
+      </if>
+      <if test="rechargegivepoints != null" >
+        rechargegivepoints = #{rechargegivepoints,jdbcType=INTEGER},
       </if>
       <if test="rechargestate != null" >
         rechargestate = #{rechargestate,jdbcType=VARCHAR},
@@ -266,6 +310,9 @@
     set rechargeid = #{rechargeid,jdbcType=VARCHAR},
       rechargeverification = #{rechargeverification,jdbcType=VARCHAR},
       rechargemoney = #{rechargemoney,jdbcType=INTEGER},
+      rechargepoints = #{rechargepoints,jdbcType=INTEGER},
+      rechargegivemoney = #{rechargegivemoney,jdbcType=INTEGER},
+      rechargegivepoints = #{rechargegivepoints,jdbcType=INTEGER},
       rechargestate = #{rechargestate,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=VARCHAR},
       createuser = #{createuser,jdbcType=VARCHAR},

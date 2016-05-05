@@ -29,4 +29,24 @@ public class PointsInfoServiceImp implements PointsInfoService{
 		return tPointsInfoCustomMapper.findPointsCountsByPage(pagemap);
 	}
 
+	@Override
+	public int savePoints(TPointsInfoCustom tPointsInfoCustom) throws Exception {
+		// TODO Auto-generated method stub
+		return tPointsInfoCustomMapper.savePoints(tPointsInfoCustom);
+	}
+
+	@Override
+	public List<TPointsInfoCustom> findPointsInfoByPageandRole(
+			HashMap<String, Object> pagemap) throws Exception {
+		// TODO Auto-generated method stub
+		return tPointsInfoCustomMapper.findPointsInfoByPageandRole(pagemap);
+	}
+
+	@Override
+	public int findPointsCountsByPageandRole(HashMap<String, Object> pagemap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tPointsInfoCustomMapper.findPointsCountsByPageandRole(pagemap);
+	}
+
 }

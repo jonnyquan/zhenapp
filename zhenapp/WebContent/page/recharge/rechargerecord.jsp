@@ -45,6 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="obj.search();">查询</a>
 		</div>
 	</div>
+	
   </body>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/easyui/jquery.min.js"></script>
@@ -68,29 +69,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	$("#datagrid").datagrid(
 						{
 							fit : true,
-							title : '任务订单管理',
+							title : '充值订单管理',
 							url : "${pageContext.request.contextPath}/recharge/findRechargeinfoByUserAndpage",
 							columns : [ [ {
 								field : 'rechargepk',
 								title : '选择',
 								checkbox : true,
-
 							}, {
 								field : 'rechargeid',
 								title : '充值订单号',
-								width : 300,
+								width : 100,
 							}, {
 								field : 'rechargeverification',
 								title : '充值校验码',
+								width : 100,
 							}, {
 								field : 'rechargemoney',
 								title : '充值金额',
+								width : 100,
 							}, {
 								field : 'rechargestatename',
 								title : '充值状态',
+								width : 100,
 							}, {
 								field : 'createtime',
-								title : '发布时间'
+								title : '发布时间',
+								width : 100,
 							} ] ],
 							pagination : true,
 							pageList : [ 1, 5, 10, 15, 20, 25 ],

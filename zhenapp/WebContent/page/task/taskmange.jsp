@@ -53,6 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<option value="0">普通流量</option>
 				<option value="1">直通车</option>
 			</select>
+			<br/>
 			<lable style="padding:0 10px 0 10px;">创建时间从:</lable><input type="text" name="datefrom" class="easyui-datebox"  width="110px"  />
 			到：<input type="text" name="dateto" class="easyui-datebox"  width="110px"  />
 			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="obj.search();">查询</a>
@@ -142,61 +143,73 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}, 
 					{
 						field : 'taskpk',
-						title : '任务订单号'
-						
+						title : '任务订单号',
+						width : 100,
 					}, 
 					{
 						field : 'taskid',
 						title : '任务名称',
-						width : 300,
+						width : 100,
 					},
 					{
 						field : 'taskkeynum',
-						title : '宝贝id'
+						title : '宝贝id',
+						width : 100,
 					},
 					{
 						field : 'taskkeyword',
-						title : '关键词'
+						title : '关键词',
+						width : 100,
 					},
 					{
-						field : 'tasktype',
-						title : '任务类型'
+						field : 'tasktypename',
+						title : '任务类型',
+						width : 100,
 					},
 					{
 						field : 'flowcount',
-						title : '访问数'
+						title : '访问数',
+						width : 100,
 					},
 					{
 						field : 'collectioncount',
-						title : '收藏数'
+						title : '收藏数',
+						width : 100,
 					},
 					{
 						field : 'shoppingcount',
-						title : '加购物车数'
+						title : '加购物车数',
+						width : 100,
 					},
 					{
 						field : 'finishflowcount',
-						title : '完成访问数'
+						title : '完成访问数',
+						width : 100,
 					},
 					{
 						field : 'finishcollectioncount',
-						title : '完成收藏数'
+						title : '完成收藏数',
+						width : 100,
 					},
 					{
 						field : 'finishshoppingcount',
-						title : '完成加购物车数'
+						title : '完成加购物车数',
+						width : 100,
 					}, 
 					{
 						field : 'errorcount',
-						title : '失败数'
+						title : '失败数',
+						width : 100,
 					}, 
 					{
 						field : 'createtime',
-						title : '发布时间'
+						title : '发布时间',
+						width : 100,
 					}, 
 					{
 						field : 'dicinfoname',
-						title : '任务状态'
+						title : '任务状态',
+						width : 100,
 					}
 					] ],
 				pagination:true,

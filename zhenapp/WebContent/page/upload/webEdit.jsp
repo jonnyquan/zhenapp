@@ -23,11 +23,75 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <form id="form" action="${pageContext.request.contextPath}/web/updatewebinfo" method="post" enctype="multipart/form-data">
-	<input type="hidden" name="agentid" value="${tWebInfoCustom.agentid }">
+	<input type="hidden" name="agentid" value="${tAgentInfoCustom.agentid }">
 	<table style="width:100%;padding:5px;border: 1px solid #ddd;">
 		<tr>
 			<td>
-				weblogo
+				网站名称
+			</td>
+			<td>
+				<input type="text" name="agentname" value="${tAgentInfoCustom.agentname}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				域名
+			</td>
+			<td>
+				<input type="text" name="agentwww" value="${tAgentInfoCustom.agentwww}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				网站地址
+			</td>
+			<td>
+				<input type="text" name="agenthttp" value="${tAgentInfoCustom.agenthttp}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				QQ号
+			</td>
+			<td>
+				<input type="text" name="qq" value="${tWebInfoCustom.qq}">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				QQ群号
+			</td>
+			<td>
+				<input type="text" name="qqgroup" value="${tWebInfoCustom.qqgroup}">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				微信号
+			</td>
+			<td>
+				<input type="text" name="wechat" value="${tWebInfoCustom.wechat}">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				备案信息
+			</td>
+			<td>
+				<input type="text" name="archival" value="${tWebInfoCustom.archival}">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				支付宝账号
+			</td>
+			<td>
+				<input type="text" name="alipay" value="${tWebInfoCustom.alipay}">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				网站logo
 			</td>
 			<td>
 				<c:if test="${tWebInfoCustom.logo != null && tWebInfoCustom.logo != ''}">
@@ -89,14 +153,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<img src="${pageContext.request.contextPath}/bootstrap/img/index/${tWebInfoCustom.bg02}" width="280px" height="40px" alt="真流量">
 				</c:if>
 				上传图片:<input type="file" name="files">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				QQ号
-			</td>
-			<td>
-				<input type="text" name="QQ" value="${tWebInfoCustom.qq}">
 			</td>
 		</tr>
 		<tr>

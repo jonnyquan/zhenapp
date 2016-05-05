@@ -15,7 +15,14 @@ public interface TaskInfoService {
 	 * 根据条件分页查询任务订单信息
 	 */
 	public List<TTaskInfoCustom> findTaskBypage(HashMap<String,Object> hashmap) throws Exception;
-	
+	/*
+	 * 根据条件分页查询任务订单信息角色为代理
+	 */
+	public List<TTaskInfoCustom> findTaskBypageAndrole(HashMap<String,Object> hashmap) throws Exception;
+	/*
+	 * 根据角色为代理查询任务订单信息总数
+	 */
+	public int findTotalTaskBypageAndrole(HashMap<String,Object> hashmap) throws Exception;
 	/*
 	 * 根据条件查询所有任务订单信息
 	 */

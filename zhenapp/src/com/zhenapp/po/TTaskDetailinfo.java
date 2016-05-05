@@ -47,6 +47,8 @@ public class TTaskDetailinfo {
 
     private String phoneid;
 
+    private Integer subtractpoints;
+
     private String createtime;
 
     private String createuser;
@@ -237,6 +239,14 @@ public class TTaskDetailinfo {
 
     public void setPhoneid(String phoneid) {
         this.phoneid = phoneid == null ? null : phoneid.trim();
+    }
+
+    public Integer getSubtractpoints() {
+        return subtractpoints;
+    }
+
+    public void setSubtractpoints(Integer subtractpoints) {
+        this.subtractpoints = subtractpoints;
     }
 
     public String getCreatetime() {

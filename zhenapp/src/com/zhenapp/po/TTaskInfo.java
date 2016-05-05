@@ -41,6 +41,8 @@ public class TTaskInfo {
 
     private String taskduration;
 
+    private Integer subtractpoints;
+
     private String taskstate;
 
     private String createtime;
@@ -209,6 +211,14 @@ public class TTaskInfo {
 
     public void setTaskduration(String taskduration) {
         this.taskduration = taskduration == null ? null : taskduration.trim();
+    }
+
+    public Integer getSubtractpoints() {
+        return subtractpoints;
+    }
+
+    public void setSubtractpoints(Integer subtractpoints) {
+        this.subtractpoints = subtractpoints;
     }
 
     public String getTaskstate() {

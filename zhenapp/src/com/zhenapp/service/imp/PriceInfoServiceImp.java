@@ -26,4 +26,11 @@ public class PriceInfoServiceImp implements PriceInfoService{
 		return tPriceInfoCustomMapper.findPriceByAgentid(agentid);
 	}
 
+	@Override
+	public int savePriceInfo(TPriceInfoCustom tPriceInfoCustom)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tPriceInfoCustomMapper.savePriceInfo(tPriceInfoCustom);
+	}
+
 }

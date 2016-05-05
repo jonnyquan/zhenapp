@@ -16,16 +16,16 @@
 	</select>
 	
 	<insert id="insertComboto" parameterType="com.zhenapp.po.Custom.TComboInfoCustom">
-  	  insert into t_combo_info (comboid, comboname, 
-	      combomoney, combointegral, combogivemoney, 
-	      combogiveintegral, combodesc, createuser, 
-	      createtime, updateuser, updatetime
-	      )
-	    values (#{comboid,jdbcType=VARCHAR}, #{comboname,jdbcType=VARCHAR}, 
-	      #{combomoney,jdbcType=INTEGER}, #{combointegral,jdbcType=INTEGER}, #{combogivemoney,jdbcType=INTEGER}, 
-	      #{combogiveintegral,jdbcType=INTEGER}, #{combodesc,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
-	      #{createtime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}
-	      )
+  	  insert into t_combo_info ( comboid, comboname, 
+      combomoney, combointegral, combogivemoney, 
+      combogiveintegral, combodesc, createuser, 
+      createtime, updateuser, updatetime
+      )
+    values ( #{comboid,jdbcType=VARCHAR}, #{comboname,jdbcType=VARCHAR}, 
+      #{combomoney,jdbcType=INTEGER}, #{combointegral,jdbcType=INTEGER}, #{combogivemoney,jdbcType=INTEGER}, 
+      #{combogiveintegral,jdbcType=INTEGER}, #{combodesc,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}
+      )
   </insert>
 	
 	

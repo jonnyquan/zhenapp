@@ -1,6 +1,7 @@
 package com.zhenapp.controller.back;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -19,18 +20,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.TAgentInfoCustom;
+import com.zhenapp.po.Custom.TPointsInfoCustom;
 import com.zhenapp.po.Custom.TPriceInfoCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.AgentInfoService;
+import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.PriceInfoService;
 import com.zhenapp.service.SysconfInfoService;
 import com.zhenapp.service.TaskInfoService;
+import com.zhenapp.service.UserInfoService;
 
 @Controller
 @RequestMapping(value="/task")
 public class TaskInfoController {
 	private static Log logger = LogFactory.getLog(TaskInfoController.class);
+	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 	@Autowired
 	private TaskInfoService taskInfoService;
 	@Autowired
@@ -39,6 +44,10 @@ public class TaskInfoController {
 	private AgentInfoService agentInfoService;
 	@Autowired
 	private SysconfInfoService sysconfInfoService;
+	@Autowired
+	private UserInfoService userInfoService;
+	@Autowired
+	private PointsInfoService pointsInfoService;
 	
 	/*
 	 * 查询价格信息  转发到发布任务界面
@@ -56,6 +65,7 @@ public class TaskInfoController {
 		}catch(NullPointerException e){
 			System.out.println("未查询到所属代理信息的单价,无法发布任务!");
 			logger.error("未查询到所属代理信息的单价,无法发布任务!");
+			mv.addObject("msg","未查询到所属代理信息");
 			throw e;
 		}
 		mv.setViewName("/page/task/tasklladd.jsp");
@@ -67,8 +77,11 @@ public class TaskInfoController {
 	 * 查询任务订单信息
 	 */
 	@RequestMapping(value="/findTaskBypage")
-	public @ResponseBody ModelMap findTaskBypage(Integer page, Integer rows,String taskid,String datefrom,String dateto) throws Exception{
+	public @ResponseBody ModelMap findTaskBypage(HttpServletRequest request,Integer page, Integer rows,String taskid,String datefrom,String dateto) throws Exception{
 		ModelMap map=new ModelMap();
+		HttpSession session = request.getSession();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
+		
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		datefrom=datefrom!=null?datefrom.replace("-", ""):"";
 		dateto=dateto!=null?dateto.replace("-", ""):"";
@@ -82,8 +95,29 @@ public class TaskInfoController {
 			pagemap.put("page", page-1);
 			pagemap.put("rows", rows);
 		}
-		List<TTaskInfoCustom> tTaskInfoCustomlist=taskInfoService.findTaskBypage(pagemap);
-		int total =taskInfoService.findTotalTaskBypage(pagemap);
+		List<TTaskInfoCustom> tTaskInfoCustomlist =new ArrayList<TTaskInfoCustom>();
+		int total = 0;
+		if(tUserInfoCustom.getUserroleid()==1){
+			/*
+			 * 系统管理员
+			 */
+			tTaskInfoCustomlist = taskInfoService.findTaskBypage(pagemap);
+			total = taskInfoService.findTotalTaskBypage(pagemap);
+		}else if(tUserInfoCustom.getUserroleid()==2){
+			/*
+			 * 代理用户
+			 */
+			tTaskInfoCustomlist = taskInfoService.findTaskBypageAndrole(pagemap);
+			total = taskInfoService.findTotalTaskBypageAndrole(pagemap);
+		}else{
+			/*
+			 * 普通用户
+			 */
+			pagemap.put("userid", tUserInfoCustom.getUserid());
+			tTaskInfoCustomlist = taskInfoService.findTaskBypage(pagemap);
+			total = taskInfoService.findTotalTaskBypage(pagemap);
+		}
+		
 		
 		map.put("total",total);
 		map.put("rows", tTaskInfoCustomlist);
@@ -103,19 +137,25 @@ public class TaskInfoController {
 	 * 发布任务 新增订单信息
 	 */
 	@RequestMapping(value="/insertTaskInfo")
-	public @ResponseBody ModelMap insertTaskInfo(HttpServletRequest request, TTaskInfoCustom tTaskInfoCustom,String taskkeywords) throws Exception{
+	public @ResponseBody ModelMap insertTaskInfo(HttpServletRequest request, TTaskInfoCustom tTaskInfoCustom,String taskkeywords,String subtractpoints) throws Exception{
 		ModelMap map=new ModelMap();
 		/*
 		 * 查询系统配置项中是否禁止发布任务
 		 */
+		HttpSession session=request.getSession();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		String points = userInfoService.findpointsByUserid(tUserInfoCustom);
+		if(Integer.parseInt(points) < Integer.parseInt(subtractpoints)){
+			map.put("data", "low");
+			return map;
+		}
 		String desable = sysconfInfoService.findSysdesable();
-		
-		if(desable.equals("1")){
+		if(!desable.equals("1")){
+			map.put("data", "refuse");
+			return map;
+		}
 			String [] taskkeywordarr=taskkeywords.split("====");
-			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 			int counts = 0;
-			HttpSession session=request.getSession();
-			TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 			for (int i = 0; i < taskkeywordarr.length; i++) {
 				tTaskInfoCustom.setTaskid(UUID.randomUUID().toString().replace("-", ""));
 				tTaskInfoCustom.setTaskkeyword(taskkeywordarr[i]);
@@ -126,14 +166,32 @@ public class TaskInfoController {
 				tTaskInfoCustom.setUpdatetime(sdf.format(new Date()));
 				tTaskInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
 				tTaskInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
+				tTaskInfoCustom.setSubtractpoints(Integer.parseInt(subtractpoints));
 				int count=taskInfoService.insertTaskInfo(tTaskInfoCustom);
 				counts = counts + count;
 			}
-			System.out.println("发布"+counts+"新任务成功");
 			map.put("data", "insertsuccess");
-		}else{
-			map.put("data", "refuse");
-		}
+			/*
+			 * 扣除消耗的积分
+			 */
+			tUserInfoCustom.setPoints(Integer.parseInt(points)-Integer.parseInt(subtractpoints));
+			userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
+			/*
+			 * 添加积分明细记录
+			 */
+			TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
+			tPointsInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+			tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
+			tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
+			tPointsInfoCustom.setUpdateuser("sys");
+			tPointsInfoCustom.setPointreason("发布任务消耗积分"+subtractpoints);
+			tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
+			tPointsInfoCustom.setPoints(tUserInfoCustom.getPoints());
+			tPointsInfoCustom.setPointstype("27");
+			tPointsInfoCustom.setPointsupdate(Integer.parseInt(subtractpoints));
+			tPointsInfoCustom.setTaskid("0");
+			tPointsInfoCustom.setUserid(tUserInfoCustom.getUserid());
+			pointsInfoService.savePoints(tPointsInfoCustom);
 		return map;
 	}
 	

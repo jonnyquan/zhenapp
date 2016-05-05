@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.zhenapp.po.OrderInfo;
 import com.zhenapp.po.TTaskInfo;
 import com.zhenapp.po.Custom.TUserInfoCustom;
-import com.zhenapp.po.Vo.TUserinfoVo;
 import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.UserInfoService;
 import com.zhenapp.util.MD5Util;
@@ -33,12 +32,10 @@ public class platform {
 	@RequestMapping(value="/searchBalance/{partnerId}/{password}")
 	public @ResponseBody ModelMap searchBalance(@PathVariable(value="partnerId") String partnerId,@PathVariable(value="password") String password) throws Exception{
 		ModelMap map=new ModelMap();
-		TUserinfoVo tUserinfoVo=new TUserinfoVo();
-		TUserInfoCustom tUserinfoCustom=new TUserInfoCustom();
-		tUserinfoCustom.setUsernick(partnerId);
-		tUserinfoCustom.setUserpwd(MD5Util.string2MD5(password));
-		tUserinfoVo.settUserinfoCustom(tUserinfoCustom);
-		String points=userInfoService.findpointsByUserid(tUserinfoVo);
+		TUserInfoCustom tUserInfoCustom=new TUserInfoCustom();
+		tUserInfoCustom.setUsernick(partnerId);
+		tUserInfoCustom.setUserpwd(MD5Util.string2MD5(password));
+		String points=userInfoService.findpointsByUserid(tUserInfoCustom);
 		map.put("code", "200");
 		map.put("desc", points==null?"0":points);
 		return map;
@@ -50,12 +47,10 @@ public class platform {
 	@RequestMapping(value="/searchBalance")
 	public @ResponseBody ModelMap searchBalance_2(String partnerId,String password) throws Exception{
 		ModelMap map=new ModelMap();
-		TUserinfoVo tUserinfoVo=new TUserinfoVo();
-		TUserInfoCustom tUserinfoCustom=new TUserInfoCustom();
-		tUserinfoCustom.setUsernick(partnerId);
-		tUserinfoCustom.setUserpwd(MD5Util.string2MD5(password));
-		tUserinfoVo.settUserinfoCustom(tUserinfoCustom);
-		String points=userInfoService.findpointsByUserid(tUserinfoVo);
+		TUserInfoCustom tUserInfoCustom=new TUserInfoCustom();
+		tUserInfoCustom.setUsernick(partnerId);
+		tUserInfoCustom.setUserpwd(MD5Util.string2MD5(password));
+		String points=userInfoService.findpointsByUserid(tUserInfoCustom);
 		map.put("code", "200");
 		map.put("desc", points);
 		return map;

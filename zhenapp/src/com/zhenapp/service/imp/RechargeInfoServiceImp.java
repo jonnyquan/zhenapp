@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.zhenapp.mapper.Custom.TRechargeInfoCustomMapper;
 import com.zhenapp.po.Custom.TRechargeInfoCustom;
-import com.zhenapp.po.Vo.TRechargeInfoVo;
 import com.zhenapp.service.RechargeInfoService;
 
 @Service
@@ -24,10 +23,10 @@ public class RechargeInfoServiceImp implements RechargeInfoService{
 	}
 
 	@Override
-	public int insertRechargeinfo(TRechargeInfoVo tRechargeInfoVo)
+	public int insertRechargeinfo(TRechargeInfoCustom tRechargeInfoCustom)
 			throws Exception {
 		// TODO Auto-generated method stub
-		return tRechargeInfoCustomMapper.insertRechargeinfo(tRechargeInfoVo);
+		return tRechargeInfoCustomMapper.insertRechargeinfo(tRechargeInfoCustom);
 	}
 
 	@Override
@@ -48,6 +47,33 @@ public class RechargeInfoServiceImp implements RechargeInfoService{
 			HashMap<String, Object> hashmap) throws Exception {
 		// TODO Auto-generated method stub
 		return tRechargeInfoCustomMapper.findTotalRechargeinfoByUserAndpage(hashmap);
+	}
+
+	@Override
+	public int updateRechargestate(String verificationcode) throws Exception {
+		// TODO Auto-generated method stub
+		return tRechargeInfoCustomMapper.updateRechargestate(verificationcode);
+	}
+
+	@Override
+	public TRechargeInfoCustom findRechargeBycode(String verificationcode)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tRechargeInfoCustomMapper.findRechargeBycode(verificationcode);
+	}
+
+	@Override
+	public int findTotalRechargeinfoByRoleAndpage(
+			HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tRechargeInfoCustomMapper.findTotalRechargeinfoByRoleAndpage(hashmap);
+	}
+
+	@Override
+	public List<TRechargeInfoCustom> findRechargeinfoByRoleAndpage(
+			HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tRechargeInfoCustomMapper.findRechargeinfoByRoleAndpage(hashmap);
 	}
 
 }

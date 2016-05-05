@@ -4,16 +4,36 @@
   <select id="findUserBynick" resultType="com.zhenapp.po.Custom.TUserInfoCustom" parameterType="String" >
     select * from t_user_info where userNick = #{usernick}
   </select>
-  <select id="findUserByPage" resultType="com.zhenapp.po.Custom.TUserInfoCustom" parameterType="java.util.HashMap">
-    select * from t_user_info limit #{page},#{rows}
+  <select id="findUserByuserid" parameterType="String" resultType="com.zhenapp.po.Custom.TUserInfoCustom">
+  	select * from t_user_info where userid = #{userid}
   </select>
-  <select id="findpointsByUserid" resultType="String" parameterType="com.zhenapp.po.Vo.TUserinfoVo">
-    SELECT A.POINTSNEW FROM t_points_info A LEFT JOIN t_user_info B ON A.USERID=B.USERID WHERE B.userNick=#{tUserinfoCustom.usernick} AND B.USERPWD=#{tUserinfoCustom.userpwd} ORDER BY POINTSPK DESC LIMIT 0,1
+  <select id="findUserByPage" resultType="com.zhenapp.po.Custom.TUserInfoCustom" parameterType="java.util.HashMap">
+    SELECT a.*,b.rolename,c.dicinfoname FROM t_user_info a LEFT JOIN t_role_info b ON b.roleid=a.userroleid LEFT JOIN t_data_dic_info c ON a.userstate=c.dicinfoid limit #{page},#{rows}
+  </select>
+  <select id="findTotalUserByPage" resultType="int" parameterType="java.util.HashMap">
+    SELECT count(1) FROM t_user_info a LEFT JOIN t_role_info b ON b.roleid=a.userroleid LEFT JOIN t_data_dic_info c ON a.userstate=c.dicinfoid 
+  </select>
+  
+  <select id="findUserByPageandRole" resultType="com.zhenapp.po.Custom.TUserInfoCustom" parameterType="java.util.HashMap">
+    SELECT a.*,b.rolename,c.dicinfoname FROM t_user_info a LEFT JOIN t_role_info b ON b.roleid=a.userroleid LEFT JOIN t_data_dic_info c ON a.userstate=c.dicinfoid 
+    INNER JOIN (SELECT agentid FROM t_agent_info WHERE agentuserid=#{userid}) d ON a.agentid=d.agentid 
+    limit #{page},#{rows}
+  </select>
+  <select id="findTotalUserByPageandRole" resultType="int" parameterType="java.util.HashMap">
+    SELECT count(1) FROM t_user_info a LEFT JOIN t_role_info b ON b.roleid=a.userroleid LEFT JOIN t_data_dic_info c ON a.userstate=c.dicinfoid 
+    INNER JOIN (SELECT agentid FROM t_agent_info WHERE agentuserid=#{userid}) d ON a.agentid=d.agentid  
+  </select>
+  
+   
+  <select id="findpointsByUserid" resultType="String" parameterType="com.zhenapp.po.Custom.TUserInfoCustom">
+    SELECT points FROM t_user_info WHERE usernick=#{usernick} AND userpwd=#{userpwd}
   </select>
   <select id="findPasswordByemail" parameterType="com.zhenapp.po.Vo.TUserinfoVo" resultType="com.zhenapp.po.Custom.TUserInfoCustom">
   	SELECT * FROM t_user_info WHERE userNick=#{tUserinfoCustom.usernick} AND regEmail=#{tUserinfoCustom.regemail} limit 0,1
   </select>
-  
+  <select id="findUserByuserpk" parameterType="String" resultType="com.zhenapp.po.Custom.TUserInfoCustom">
+  	SELECT * FROM t_user_info where userpk=#{userpk}
+  </select>
   <delete id="deleteUserinfoBypk" parameterType="String">
  	delete from  t_user_info where userpk=#{userpk}
   </delete>
@@ -30,20 +50,28 @@
     where userId = #{tUserinfoCustom.userid,jdbcType=INTEGER}
    </update>
    
+   <update id="updateUserinfoPointByUserid" parameterType="com.zhenapp.po.Custom.TUserInfoCustom">
+   	update t_user_info set points=#{points} where userId = #{userid}
+   </update>
+   
+   <update id="updaterole" parameterType="String">
+   	UPDATE t_user_info SET userroleid='2' WHERE userpk=#{userpk} AND userstate='1' AND userroleid='3'
+   </update>
+   
    <insert id="saveUser" parameterType="com.zhenapp.po.Custom.TUserInfoCustom">
 	   insert into t_user_info ( userid, usernick, 
-	      userpwd, username, userqq, 
-	      usercardnum, userroleid, userphone, 
-	      userstate, regemail,
-	      regip, regdomain, agentid, 
-	      createtime, createuser, updatetime, 
-	      updateuser)
-	    values ( #{userid,jdbcType=VARCHAR}, #{usernick,jdbcType=VARCHAR}, 
-	      #{userpwd,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{userqq,jdbcType=VARCHAR}, 
-	      #{usercardnum,jdbcType=VARCHAR}, #{userroleid,jdbcType=INTEGER}, #{userphone,jdbcType=VARCHAR}, 
-	      #{userstate,jdbcType=VARCHAR}, #{regemail,jdbcType=VARCHAR},  
-	      #{regip,jdbcType=VARCHAR}, #{regdomain,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
-	      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
-	      #{updateuser,jdbcType=VARCHAR})
+      userpwd, username, points, 
+      userqq, usercardnum, userroleid, 
+      userphone, userstate, regemail, 
+      regip, regdomain, agentid, 
+      createtime, createuser, updatetime, 
+      updateuser)
+    values ( #{userid,jdbcType=VARCHAR}, #{usernick,jdbcType=VARCHAR}, 
+      #{userpwd,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{points,jdbcType=INTEGER}, 
+      #{userqq,jdbcType=VARCHAR}, #{usercardnum,jdbcType=VARCHAR}, #{userroleid,jdbcType=INTEGER}, 
+      #{userphone,jdbcType=VARCHAR}, #{userstate,jdbcType=VARCHAR}, #{regemail,jdbcType=VARCHAR}, 
+      #{regip,jdbcType=VARCHAR}, #{regdomain,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{updateuser,jdbcType=VARCHAR})
    </insert>
 </mapper>

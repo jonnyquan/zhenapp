@@ -1,7 +1,11 @@
 package com.zhenapp.controller.back;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhenapp.po.Custom.TPointsInfoCustom;
+import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.PointsInfoService;
 
 @Controller
@@ -20,8 +25,10 @@ public class PointsInfoController {
 	private PointsInfoService pointsInfoService;
 	
 	@RequestMapping(value="/findPointsInfoByPage")
-	public @ResponseBody ModelMap findPointsInfoByPage(Integer page,Integer rows) throws Exception{
+	public @ResponseBody ModelMap findPointsInfoByPage(Integer page,Integer rows,HttpServletRequest request) throws Exception{
 		ModelMap map=new ModelMap();
+		HttpSession session = request.getSession();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		HashMap<String, Object> pagemap= new HashMap<String, Object>();
 		if (page == null || page == null) {
 			pagemap.put("page", 0);
@@ -30,9 +37,30 @@ public class PointsInfoController {
 			pagemap.put("page", page-1);
 			pagemap.put("rows", rows);
 		}
-		List<TPointsInfoCustom> tPointsInfoCustomlist= pointsInfoService.findPointsInfoByPage(pagemap);
-		int counts = pointsInfoService.findPointsCountsByPage(pagemap);
 		
+		List<TPointsInfoCustom> tPointsInfoCustomlist = new ArrayList<TPointsInfoCustom>();
+		int counts = 0;
+		if(tUserInfoCustom.getUserroleid()==1){
+			/*
+			 * 系统管理员
+			 */
+			tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPage(pagemap);
+			counts = pointsInfoService.findPointsCountsByPage(pagemap);
+		}else if(tUserInfoCustom.getUserroleid()==2){
+			/*
+			 * 代理用户
+			 */
+			pagemap.put("userid", tUserInfoCustom.getUserid());
+			tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPageandRole(pagemap);
+			counts = pointsInfoService.findPointsCountsByPageandRole(pagemap);
+		}else{
+			/*
+			 * 普通用户
+			 */
+			pagemap.put("createuser", tUserInfoCustom.getUserid());
+			tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPage(pagemap);
+			counts = pointsInfoService.findPointsCountsByPage(pagemap);
+		}
 		map.put("total", counts);
 		map.put("rows", tPointsInfoCustomlist);
 		

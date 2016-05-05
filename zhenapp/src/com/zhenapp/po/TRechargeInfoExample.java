@@ -364,6 +364,186 @@ public class TRechargeInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andRechargepointsIsNull() {
+            addCriterion("rechargepoints is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargepointsIsNotNull() {
+            addCriterion("rechargepoints is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargepointsEqualTo(Integer value) {
+            addCriterion("rechargepoints =", value, "rechargepoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargepointsNotEqualTo(Integer value) {
+            addCriterion("rechargepoints <>", value, "rechargepoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargepointsGreaterThan(Integer value) {
+            addCriterion("rechargepoints >", value, "rechargepoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargepointsGreaterThanOrEqualTo(Integer value) {
+            addCriterion("rechargepoints >=", value, "rechargepoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargepointsLessThan(Integer value) {
+            addCriterion("rechargepoints <", value, "rechargepoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargepointsLessThanOrEqualTo(Integer value) {
+            addCriterion("rechargepoints <=", value, "rechargepoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargepointsIn(List<Integer> values) {
+            addCriterion("rechargepoints in", values, "rechargepoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargepointsNotIn(List<Integer> values) {
+            addCriterion("rechargepoints not in", values, "rechargepoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargepointsBetween(Integer value1, Integer value2) {
+            addCriterion("rechargepoints between", value1, value2, "rechargepoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargepointsNotBetween(Integer value1, Integer value2) {
+            addCriterion("rechargepoints not between", value1, value2, "rechargepoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivemoneyIsNull() {
+            addCriterion("rechargegivemoney is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivemoneyIsNotNull() {
+            addCriterion("rechargegivemoney is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivemoneyEqualTo(Integer value) {
+            addCriterion("rechargegivemoney =", value, "rechargegivemoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivemoneyNotEqualTo(Integer value) {
+            addCriterion("rechargegivemoney <>", value, "rechargegivemoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivemoneyGreaterThan(Integer value) {
+            addCriterion("rechargegivemoney >", value, "rechargegivemoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivemoneyGreaterThanOrEqualTo(Integer value) {
+            addCriterion("rechargegivemoney >=", value, "rechargegivemoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivemoneyLessThan(Integer value) {
+            addCriterion("rechargegivemoney <", value, "rechargegivemoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivemoneyLessThanOrEqualTo(Integer value) {
+            addCriterion("rechargegivemoney <=", value, "rechargegivemoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivemoneyIn(List<Integer> values) {
+            addCriterion("rechargegivemoney in", values, "rechargegivemoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivemoneyNotIn(List<Integer> values) {
+            addCriterion("rechargegivemoney not in", values, "rechargegivemoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivemoneyBetween(Integer value1, Integer value2) {
+            addCriterion("rechargegivemoney between", value1, value2, "rechargegivemoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivemoneyNotBetween(Integer value1, Integer value2) {
+            addCriterion("rechargegivemoney not between", value1, value2, "rechargegivemoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivepointsIsNull() {
+            addCriterion("rechargegivepoints is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivepointsIsNotNull() {
+            addCriterion("rechargegivepoints is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivepointsEqualTo(Integer value) {
+            addCriterion("rechargegivepoints =", value, "rechargegivepoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivepointsNotEqualTo(Integer value) {
+            addCriterion("rechargegivepoints <>", value, "rechargegivepoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivepointsGreaterThan(Integer value) {
+            addCriterion("rechargegivepoints >", value, "rechargegivepoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivepointsGreaterThanOrEqualTo(Integer value) {
+            addCriterion("rechargegivepoints >=", value, "rechargegivepoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivepointsLessThan(Integer value) {
+            addCriterion("rechargegivepoints <", value, "rechargegivepoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivepointsLessThanOrEqualTo(Integer value) {
+            addCriterion("rechargegivepoints <=", value, "rechargegivepoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivepointsIn(List<Integer> values) {
+            addCriterion("rechargegivepoints in", values, "rechargegivepoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivepointsNotIn(List<Integer> values) {
+            addCriterion("rechargegivepoints not in", values, "rechargegivepoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivepointsBetween(Integer value1, Integer value2) {
+            addCriterion("rechargegivepoints between", value1, value2, "rechargegivepoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargegivepointsNotBetween(Integer value1, Integer value2) {
+            addCriterion("rechargegivepoints not between", value1, value2, "rechargegivepoints");
+            return (Criteria) this;
+        }
+
         public Criteria andRechargestateIsNull() {
             addCriterion("rechargestate is null");
             return (Criteria) this;

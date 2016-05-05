@@ -1464,6 +1464,66 @@ public class TTaskInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andSubtractpointsIsNull() {
+            addCriterion("subtractpoints is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtractpointsIsNotNull() {
+            addCriterion("subtractpoints is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtractpointsEqualTo(Integer value) {
+            addCriterion("subtractpoints =", value, "subtractpoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtractpointsNotEqualTo(Integer value) {
+            addCriterion("subtractpoints <>", value, "subtractpoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtractpointsGreaterThan(Integer value) {
+            addCriterion("subtractpoints >", value, "subtractpoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtractpointsGreaterThanOrEqualTo(Integer value) {
+            addCriterion("subtractpoints >=", value, "subtractpoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtractpointsLessThan(Integer value) {
+            addCriterion("subtractpoints <", value, "subtractpoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtractpointsLessThanOrEqualTo(Integer value) {
+            addCriterion("subtractpoints <=", value, "subtractpoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtractpointsIn(List<Integer> values) {
+            addCriterion("subtractpoints in", values, "subtractpoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtractpointsNotIn(List<Integer> values) {
+            addCriterion("subtractpoints not in", values, "subtractpoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtractpointsBetween(Integer value1, Integer value2) {
+            addCriterion("subtractpoints between", value1, value2, "subtractpoints");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtractpointsNotBetween(Integer value1, Integer value2) {
+            addCriterion("subtractpoints not between", value1, value2, "subtractpoints");
+            return (Criteria) this;
+        }
+
         public Criteria andTaskstateIsNull() {
             addCriterion("taskstate is null");
             return (Criteria) this;

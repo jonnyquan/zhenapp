@@ -1,6 +1,7 @@
 package com.zhenapp.controller.back;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -18,11 +19,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.TComboInfoCustom;
+import com.zhenapp.po.Custom.TPointsInfoCustom;
 import com.zhenapp.po.Custom.TRechargeInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Vo.TRechargeInfoVo;
 import com.zhenapp.service.ComboInfoService;
+import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.RechargeInfoService;
+import com.zhenapp.service.UserInfoService;
 
 
 @Controller
@@ -32,6 +36,10 @@ public class RechargeInfoController {
 	private ComboInfoService comboInfoService;
 	@Autowired
 	private RechargeInfoService rechargeInfoService;
+	@Autowired
+	private PointsInfoService pointsInfoService;
+	@Autowired
+	private UserInfoService userInfoService;
 	
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 	/*
@@ -46,15 +54,17 @@ public class RechargeInfoController {
 		TRechargeInfoCustom tRechargeInfoCustom=new TRechargeInfoCustom();
 		tRechargeInfoCustom.setRechargeid(UUID.randomUUID().toString().replace("-", ""));
 		tRechargeInfoCustom.setRechargemoney(tComboInfoCustom.getCombomoney());
-		tRechargeInfoCustom.setRechargestate("0");//待确认状态
+		tRechargeInfoCustom.setRechargepoints(tComboInfoCustom.getCombointegral());
+		tRechargeInfoCustom.setRechargegivemoney(tComboInfoCustom.getCombogivemoney());
+		tRechargeInfoCustom.setRechargegivepoints(tComboInfoCustom.getCombogiveintegral());
+		tRechargeInfoCustom.setRechargestate("24");//待确认状态
 		tRechargeInfoCustom.setRechargeverification(verificationcode);
 		tRechargeInfoCustom.setUpdatetime(sdf.format(new Date()));
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		tRechargeInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
 		tRechargeInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
 		tRechargeInfoCustom.setCreatetime(sdf.format(new Date()));
-		tRechargeInfoVo.settRechargeInfoCustom(tRechargeInfoCustom);
-		int i = rechargeInfoService.insertRechargeinfo(tRechargeInfoVo);
+		int i = rechargeInfoService.insertRechargeinfo(tRechargeInfoCustom);
 		if(i>0){
 			mv.addObject("tComboInfoCustom", tComboInfoCustom);
 			mv.addObject("Verificationcode", verificationcode);
@@ -83,9 +93,29 @@ public class RechargeInfoController {
 			pagemap.put("page", page-1);
 			pagemap.put("rows", rows);
 		}
-		pagemap.put("createuser", tUserInfoCustom.getUserid());
-		int total= rechargeInfoService.findTotalRechargeinfoByUserAndpage(pagemap);
-		List<TRechargeInfoCustom> tRechargeInfoCustomlist= rechargeInfoService.findRechargeinfoByUserAndpage(pagemap);
+		List<TRechargeInfoCustom> tRechargeInfoCustomlist = new ArrayList<TRechargeInfoCustom>();
+		int total = 0;
+		if(tUserInfoCustom.getUserroleid()==1){
+			/*
+			 * 系统管理员
+			 */
+			total = rechargeInfoService.findTotalRechargeinfoByUserAndpage(pagemap);
+			tRechargeInfoCustomlist = rechargeInfoService.findRechargeinfoByUserAndpage(pagemap);
+		}else if(tUserInfoCustom.getUserroleid()==2){
+			/*
+			 * 代理用户
+			 */
+			pagemap.put("userid", tUserInfoCustom.getUserid());
+			total = rechargeInfoService.findTotalRechargeinfoByRoleAndpage(pagemap);
+			tRechargeInfoCustomlist = rechargeInfoService.findRechargeinfoByRoleAndpage(pagemap);
+		}else{
+			/*
+			 * 普通用户
+			 */
+			pagemap.put("createuser", tUserInfoCustom.getUserid());
+			total = rechargeInfoService.findTotalRechargeinfoByUserAndpage(pagemap);
+			tRechargeInfoCustomlist = rechargeInfoService.findRechargeinfoByUserAndpage(pagemap);
+		}
 		map.put("total",total);
 		map.put("rows", tRechargeInfoCustomlist);
 		return map;
@@ -98,5 +128,44 @@ public class RechargeInfoController {
 	public @ResponseBody String deleteRechargeinfoByid(String rechargeids) throws Exception{
 		rechargeInfoService.deleteRechargeinfoByid(rechargeids);
 		return "removsuccess";
+	}
+	
+	/*
+	 * 确认充值
+	 */
+	@RequestMapping(value="updateRechargestate/{verificationcode}")
+	public @ResponseBody ModelMap updateRechargestate(@PathVariable(value="verificationcode")String verificationcode) throws Exception{
+		ModelMap map = new ModelMap();
+		/*
+		 * 修改充值记录状态为已确认
+		 */
+		int i= rechargeInfoService.updateRechargestate(verificationcode);
+		if(i>0){
+			TRechargeInfoCustom tRechargeInfoCustom=rechargeInfoService.findRechargeBycode(verificationcode);
+			/*
+			 * 插入账户明细
+			 */
+			TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserid(tRechargeInfoCustom.getCreateuser());
+			TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
+			tPointsInfoCustom.setCreateuser(tRechargeInfoCustom.getCreateuser());
+			tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
+			tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
+			tPointsInfoCustom.setUpdateuser("sys");
+			tPointsInfoCustom.setPointreason("充值到账"+tRechargeInfoCustom.getRechargepoints()+"赠送"+tRechargeInfoCustom.getRechargegivepoints());
+			tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
+			tPointsInfoCustom.setPoints(tUserInfoCustom.getPoints()+tRechargeInfoCustom.getRechargepoints()+tRechargeInfoCustom.getRechargegivepoints());
+			tPointsInfoCustom.setPointstype("26");
+			tPointsInfoCustom.setPointsupdate(tRechargeInfoCustom.getRechargepoints()+tRechargeInfoCustom.getRechargegivepoints());
+			tPointsInfoCustom.setTaskid("0");
+			tPointsInfoCustom.setUserid(tUserInfoCustom.getUserid());
+			int ii1 = pointsInfoService.savePoints(tPointsInfoCustom);
+			/*
+			 * 修改用户当前积分
+			 */
+			tUserInfoCustom.setPoints(tUserInfoCustom.getPoints()+tRechargeInfoCustom.getRechargepoints()+tRechargeInfoCustom.getRechargegivepoints());
+			int ii2 = userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
+			System.out.println(ii1+"============"+ii2);
+		}
+		return map;
 	}
 }

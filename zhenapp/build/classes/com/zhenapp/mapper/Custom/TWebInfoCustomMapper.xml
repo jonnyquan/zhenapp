@@ -25,4 +25,19 @@
       updatetime = #{updatetime,jdbcType=VARCHAR}
     where agentid = #{agentid,jdbcType=VARCHAR}
   </update> 
+  
+  <insert id="saveWebInfo" parameterType="com.zhenapp.po.Custom.TWebInfoCustom" >
+    insert into t_web_info ( webid, agentid, 
+      webwww, logo, Carousel01, 
+      Carousel02, Carousel03, QQ, 
+      bg01, bg02, createuser, 
+      createtime, updateuser, updatetime
+      )
+    values ( #{webid,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
+      #{webwww,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, #{carousel01,jdbcType=VARCHAR}, 
+      #{carousel02,jdbcType=VARCHAR}, #{carousel03,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
+      #{bg01,jdbcType=VARCHAR}, #{bg02,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}
+      )
+  </insert>
 </mapper>

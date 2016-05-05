@@ -23,4 +23,28 @@
 	<delete id="deleteAgentByid" parameterType="String">
 		delete from t_agent_info where agentid in (#{ids}) 
 	</delete>
+	<insert id="saveAgentInfo" parameterType="com.zhenapp.po.Custom.TAgentInfoCustom" >
+    insert into t_agent_info ( agentid, agentuserid, 
+      agentperson, agentphone, agentname, 
+      agentwww, agenthttp, agentstate, 
+      createtime, createuser, updatetime, 
+      updateuser)
+    values (#{agentid,jdbcType=VARCHAR}, #{agentuserid,jdbcType=VARCHAR}, 
+      #{agentperson,jdbcType=VARCHAR}, #{agentphone,jdbcType=VARCHAR}, #{agentname,jdbcType=VARCHAR}, 
+      #{agentwww,jdbcType=VARCHAR}, #{agenthttp,jdbcType=VARCHAR}, #{agentstate,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{updateuser,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateAgentByid" parameterType="com.zhenapp.po.Custom.TAgentInfoCustom">
+  	update t_agent_info
+    set 
+      agentperson = #{agentperson,jdbcType=VARCHAR},
+      agentphone = #{agentphone,jdbcType=VARCHAR},
+      agentname = #{agentname,jdbcType=VARCHAR},
+      agentwww = #{agentwww,jdbcType=VARCHAR},
+      agenthttp = #{agenthttp,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=VARCHAR},
+      updateuser = #{updateuser,jdbcType=VARCHAR}
+    where agentid = #{agentid,jdbcType=VARCHAR},
+  </update>
 </mapper>

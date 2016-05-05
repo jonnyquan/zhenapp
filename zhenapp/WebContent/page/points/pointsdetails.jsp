@@ -82,7 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						title : '任务id',
 					},
 					{
-						field : 'pointstype',
+						field : 'pointstypename',
 						title : '操作类型',
 					},
 					{

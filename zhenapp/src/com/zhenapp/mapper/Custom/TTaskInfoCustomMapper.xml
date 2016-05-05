@@ -4,10 +4,35 @@
   
   
   <select id="findTaskBypage" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap" >
-    SELECT a.*,b.dicinfoname,c.finishflowcount,c.finishcollectioncount,c.finishshoppingcount,d.errorcount FROM t_task_info a
+    SELECT a.*,b.dicinfoname,c.finishflowcount,c.finishcollectioncount,c.finishshoppingcount,d.errorcount,e.dicinfoname as tasktypename FROM t_task_info a
 	LEFT JOIN (select dicinfoid,dicinfoname from t_data_dic_info WHERE dictypecode='runstate') b ON a.taskstate=b.dicinfoid
+	left join t_data_dic_info e ON a.tasktype=e.dicinfoid
 	LEFT JOIN (SELECT taskid,COUNT(isflow) AS finishflowcount,COUNT(iscreativetitle) AS finishcollectioncount,COUNT(isshopcollect) AS finishshoppingcount FROM t_task_detailinfo where taskstate='21' GROUP BY taskid) c ON a.taskid=c.taskid
 	LEFT JOIN (SELECT taskid,COUNT(isflow) AS errorcount FROM t_task_detailinfo WHERE taskstate='22' GROUP BY taskid) d ON a.taskid=d.taskid
+	<where>
+    	<if test="taskid !=null and taskid!=''">
+    		and a.taskid like '%${taskid}%'
+    	</if>
+    	<if test="datefrom != null and datefrom != ''">
+    		and a.createtime <![CDATA[>=]]> #{datefrom}
+    	</if>
+    	<if test="dateto != null and dateto != ''">
+    		and a.createtime <![CDATA[<=]]> #{dateto}
+    	</if>
+    	<if test="userid != null and userid != ''">
+    		and a.createuser = #{userid}
+    	</if>
+    </where>
+     ORDER BY a.createtime DESC LIMIT #{page},#{rows}
+  </select>
+  
+  <select id="findTaskBypageAndrole" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap" >
+    SELECT a.*,b.dicinfoname,c.finishflowcount,c.finishcollectioncount,c.finishshoppingcount,d.errorcount,e.dicinfoname as tasktypename FROM t_task_info a
+	LEFT JOIN (select dicinfoid,dicinfoname from t_data_dic_info WHERE dictypecode='runstate') b ON a.taskstate=b.dicinfoid
+	left join t_data_dic_info e ON a.tasktype=e.dicinfoid
+	LEFT JOIN (SELECT taskid,COUNT(isflow) AS finishflowcount,COUNT(iscreativetitle) AS finishcollectioncount,COUNT(isshopcollect) AS finishshoppingcount FROM t_task_detailinfo where taskstate='21' GROUP BY taskid) c ON a.taskid=c.taskid
+	LEFT JOIN (SELECT taskid,COUNT(isflow) AS errorcount FROM t_task_detailinfo WHERE taskstate='22' GROUP BY taskid) d ON a.taskid=d.taskid
+	INNER JOIN (SELECT a.* FROM t_user_info a WHERE a.agentid IN (SELECT agentid FROM t_agent_info WHERE agentuserid=#{userid})) f ON a.createuser=f.userid
 	<where>
     	<if test="taskid !=null and taskid!=''">
     		and a.taskid like '%${taskid}%'
@@ -22,6 +47,26 @@
      ORDER BY a.createtime DESC LIMIT #{page},#{rows}
   </select>
   
+    <select id="findTotalTaskBypageAndrole" resultType="int" parameterType="java.util.HashMap" >
+    SELECT count(1) FROM t_task_info a
+	LEFT JOIN (select dicinfoid,dicinfoname from t_data_dic_info WHERE dictypecode='runstate') b ON a.taskstate=b.dicinfoid
+	left join t_data_dic_info e ON a.tasktype=e.dicinfoid
+	LEFT JOIN (SELECT taskid,COUNT(isflow) AS finishflowcount,COUNT(iscreativetitle) AS finishcollectioncount,COUNT(isshopcollect) AS finishshoppingcount FROM t_task_detailinfo where taskstate='21' GROUP BY taskid) c ON a.taskid=c.taskid
+	LEFT JOIN (SELECT taskid,COUNT(isflow) AS errorcount FROM t_task_detailinfo WHERE taskstate='22' GROUP BY taskid) d ON a.taskid=d.taskid
+	INNER JOIN (SELECT a.* FROM t_user_info a WHERE a.agentid IN (SELECT agentid FROM t_agent_info WHERE agentuserid=#{userid})) f ON a.createuser=f.userid
+	<where>
+    	<if test="taskid !=null and taskid!=''">
+    		and a.taskid like '%${taskid}%'
+    	</if>
+    	<if test="datefrom != null and datefrom != ''">
+    		and a.createtime <![CDATA[>=]]> #{datefrom}
+    	</if>
+    	<if test="dateto != null and dateto != ''">
+    		and a.createtime <![CDATA[<=]]> #{dateto}
+    	</if>
+    </where>
+  </select>
+  
   <select id="findTotalTaskBypage" resultType="int" parameterType="java.util.HashMap" >
     select count(1) from t_task_info
     <where>
@@ -33,6 +78,9 @@
     	</if>
     	<if test="dateto != null and dateto != ''">
     		and createtime <![CDATA[<=]]> #{dateto}
+    	</if>
+    	<if test="userid != null and userid != ''">
+    		and createuser = #{userid}
     	</if>
     </where>
   </select>
@@ -59,7 +107,7 @@
     		AND taskstate=#{taskstate} 
     	</if>
     	<if test="taskstartdate != null and taskstartdate != ''">
-    		AND taskstartdate=#{taskstartdate}
+    		AND taskstartdate <![CDATA[<=]]> #{taskstartdate} AND taskenddate <![CDATA[>=]]> #{taskstartdate}
     	</if>
     </where>
   </select>
@@ -70,45 +118,45 @@
   
   
   <insert id="insertTaskByapi" parameterType="com.zhenapp.po.Custom.TTaskInfoCustom">
-  	 insert into t_task_info (taskpk, taskid, taskType, 
+  	 insert into t_task_info ( taskid, tasktype, 
       taskkeynum, taskkeyword, taskstartdate, 
       taskenddate, taskhourcounts, taskminprice, 
       taskmaxprice, tasksearchType, taskimgztc, 
       taskimgpt, flowcount, Collectioncount, 
       Shoppingcount, tasktmallapppct, taskgprspct, 
-      taskPlus, taskduration, taskstate, 
-      createtime, createuser, updatetime, 
-      updateuser)
-    values (#{taskpk,jdbcType=INTEGER}, #{taskid,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
+      taskPlus, taskduration, subtractpoints, 
+      taskstate, createtime, createuser, 
+      updatetime, updateuser)
+    values ( #{taskid,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
       #{taskkeynum,jdbcType=VARCHAR}, #{taskkeyword,jdbcType=VARCHAR}, #{taskstartdate,jdbcType=VARCHAR}, 
       #{taskenddate,jdbcType=VARCHAR}, #{taskhourcounts,jdbcType=VARCHAR}, #{taskminprice,jdbcType=VARCHAR}, 
       #{taskmaxprice,jdbcType=VARCHAR}, #{tasksearchtype,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR}, 
       #{taskimgpt,jdbcType=VARCHAR}, #{flowcount,jdbcType=INTEGER}, #{collectioncount,jdbcType=INTEGER}, 
       #{shoppingcount,jdbcType=INTEGER}, #{tasktmallapppct,jdbcType=VARCHAR}, #{taskgprspct,jdbcType=VARCHAR}, 
-      #{taskplus,jdbcType=VARCHAR}, #{taskduration,jdbcType=VARCHAR}, #{taskstate,jdbcType=VARCHAR}, 
-      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
-      #{updateuser,jdbcType=VARCHAR})
+      #{taskplus,jdbcType=VARCHAR}, #{taskduration,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, 
+      #{taskstate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR})
    </insert>
   
   <insert id="insertTaskInfo" parameterType="com.zhenapp.po.Custom.TTaskInfoCustom" >
-     insert into t_task_info (taskid, taskType, 
+     insert into t_task_info ( taskid, tasktype, 
       taskkeynum, taskkeyword, taskstartdate, 
       taskenddate, taskhourcounts, taskminprice, 
       taskmaxprice, tasksearchType, taskimgztc, 
       taskimgpt, flowcount, Collectioncount, 
       Shoppingcount, tasktmallapppct, taskgprspct, 
-      taskPlus, taskduration, taskstate, 
-      createtime, createuser, updatetime, 
-      updateuser)
+      taskPlus, taskduration, subtractpoints, 
+      taskstate, createtime, createuser, 
+      updatetime, updateuser)
     values (#{taskid,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
       #{taskkeynum,jdbcType=VARCHAR}, #{taskkeyword,jdbcType=VARCHAR}, #{taskstartdate,jdbcType=VARCHAR}, 
       #{taskenddate,jdbcType=VARCHAR}, #{taskhourcounts,jdbcType=VARCHAR}, #{taskminprice,jdbcType=VARCHAR}, 
       #{taskmaxprice,jdbcType=VARCHAR}, #{tasksearchtype,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR}, 
       #{taskimgpt,jdbcType=VARCHAR}, #{flowcount,jdbcType=INTEGER}, #{collectioncount,jdbcType=INTEGER}, 
       #{shoppingcount,jdbcType=INTEGER}, #{tasktmallapppct,jdbcType=VARCHAR}, #{taskgprspct,jdbcType=VARCHAR}, 
-      #{taskplus,jdbcType=VARCHAR}, #{taskduration,jdbcType=VARCHAR}, #{taskstate,jdbcType=VARCHAR}, 
-      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
-      #{updateuser,jdbcType=VARCHAR})
+      #{taskplus,jdbcType=VARCHAR}, #{taskduration,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, 
+      #{taskstate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR})
   </insert>
   
   <update id="updateTaskstate" parameterType="String">
@@ -116,7 +164,6 @@
   </update>
   
   <delete id="deleteTaskBypk" parameterType="String">
-    delete from t_task_info
-    where taskpk in (${value})
+    delete from t_task_info where taskpk in (${value})
   </delete>
 </mapper>

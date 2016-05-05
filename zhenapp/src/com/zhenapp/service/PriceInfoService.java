@@ -12,5 +12,8 @@ public interface PriceInfoService {
 	 */
 	public TPriceInfoCustom findPriceByAgentid(String agentid) throws Exception;
 	
-	
+	/*
+	 * 插入代理信息
+	 */
+	public int savePriceInfo(TPriceInfoCustom tPriceInfoCustom) throws Exception;
 }

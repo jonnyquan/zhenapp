@@ -9,6 +9,12 @@ public class TRechargeInfo {
 
     private Integer rechargemoney;
 
+    private Integer rechargepoints;
+
+    private Integer rechargegivemoney;
+
+    private Integer rechargegivepoints;
+
     private String rechargestate;
 
     private String createtime;
@@ -49,6 +55,30 @@ public class TRechargeInfo {
 
     public void setRechargemoney(Integer rechargemoney) {
         this.rechargemoney = rechargemoney;
+    }
+
+    public Integer getRechargepoints() {
+        return rechargepoints;
+    }
+
+    public void setRechargepoints(Integer rechargepoints) {
+        this.rechargepoints = rechargepoints;
+    }
+
+    public Integer getRechargegivemoney() {
+        return rechargegivemoney;
+    }
+
+    public void setRechargegivemoney(Integer rechargegivemoney) {
+        this.rechargegivemoney = rechargegivemoney;
+    }
+
+    public Integer getRechargegivepoints() {
+        return rechargegivepoints;
+    }
+
+    public void setRechargegivepoints(Integer rechargegivepoints) {
+        this.rechargegivepoints = rechargegivepoints;
     }
 
     public String getRechargestate() {

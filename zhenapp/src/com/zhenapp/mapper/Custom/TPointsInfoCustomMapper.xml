@@ -3,10 +3,49 @@
 <mapper namespace="com.zhenapp.mapper.Custom.TPointsInfoCustomMapper" >
   
   <select id="findPointsInfoByPage" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TPointsInfoCustom">
-	  select * from t_points_info limit #{page},#{rows}
+	  SELECT a.*,b.dicinfoname as pointstypename FROM t_points_info a
+		LEFT JOIN t_data_dic_info b ON a.pointstype=b.dicinfoid
+		<where>
+			<if test="createuser != null and createuser != ''">
+		    	and a.createuser = #{createuser}
+		    </if>
+	    </where>
+		limit #{page},#{rows}
   </select>
   <select id="findPointsCountsByPage" parameterType="java.util.HashMap" resultType="int">
-	  select count(1) from t_points_info
+	   SELECT count(1) FROM t_points_info a
+		LEFT JOIN t_data_dic_info b ON a.pointstype=b.dicinfoid
+		<where>
+			<if test="createuser != null and createuser != ''">
+		    	and a.createuser = #{createuser}
+		    </if>
+	    </where>
+  </select> 
+  <select id="findPointsInfoByPageandRole" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TPointsInfoCustom">
+	  SELECT a.*,b.dicinfoname as pointstypename FROM t_points_info a
+		LEFT JOIN t_data_dic_info b ON a.pointstype=b.dicinfoid
+		INNER JOIN (SELECT a.* FROM t_user_info a WHERE a.agentid IN (SELECT agentid FROM t_agent_info WHERE agentuserid=#{userid})) c ON a.createuser=c.userid
+		limit #{page},#{rows}
+  </select>
+  <select id="findPointsCountsByPageandRole" parameterType="java.util.HashMap" resultType="int">
+	    SELECT count(1) FROM t_points_info a
+		LEFT JOIN t_data_dic_info b ON a.pointstype=b.dicinfoid
+		INNER JOIN (SELECT a.* FROM t_user_info a WHERE a.agentid IN (SELECT agentid FROM t_agent_info WHERE agentuserid=#{userid})) c ON a.createuser=c.userid
+		
   </select>
   
+  
+  
+  <insert id="savePoints" parameterType="com.zhenapp.po.Custom.TPointsInfoCustom">
+  	 insert into t_points_info ( pointsid, userid, 
+      taskid, pointstype, pointsupdate, 
+      points, pointreason, createtime, 
+      createuser, updatetime, updateuser
+      )
+    values ( #{pointsid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{taskid,jdbcType=VARCHAR}, #{pointstype,jdbcType=VARCHAR}, #{pointsupdate,jdbcType=INTEGER}, 
+      #{points,jdbcType=INTEGER}, #{pointreason,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+      #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}
+      )
+  </insert>
 </mapper>

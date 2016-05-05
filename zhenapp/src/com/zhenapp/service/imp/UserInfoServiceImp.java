@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.zhenapp.mapper.TUserInfoMapper;
 import com.zhenapp.mapper.Custom.TUserInfoCustomMapper;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Vo.TUserinfoVo;
@@ -14,57 +13,72 @@ import com.zhenapp.service.UserInfoService;
 @Service
 public class UserInfoServiceImp implements UserInfoService {
 	@Autowired
-	private TUserInfoMapper tUserInfoMapper;
-	@Autowired
 	private TUserInfoCustomMapper tUserInfoCustomMapper;
-
 	/*
 	 * 保存用户信息 -----注册使用
 	 */
-	@Override
 	public int saveUser(TUserInfoCustom tUserInfoCustom) throws Exception {
 		return tUserInfoCustomMapper.saveUser(tUserInfoCustom);
 	}
-
 	/*
 	 * 根据用户名查询用户信息 -----供登录及根据用户名查询用户信息使用
 	 */
 	public List<TUserInfoCustom> findUserBynick(String usernick) {
 		return tUserInfoCustomMapper.findUserBynick(usernick);
 	}
-	
-
 	/*
 	 * 根据用户名密码查询积分点数
 	 */
-	public String findpointsByUserid(TUserinfoVo tUserinfoVo) throws Exception {
-		// TODO Auto-generated method stub
-		return tUserInfoCustomMapper.findpointsByUserid(tUserinfoVo);
+	public String findpointsByUserid(TUserInfoCustom tUserInfoCustom) throws Exception {
+		return tUserInfoCustomMapper.findpointsByUserid(tUserInfoCustom);
 	}
-
 	@Override
 	public TUserInfoCustom findPasswordByemail(TUserinfoVo tUserinfoVo)
 			throws Exception {
-		// TODO Auto-generated method stub
 		return tUserInfoCustomMapper.findPasswordByemail(tUserinfoVo);
 	}
-
 	@Override
 	public int updateUserinfo(TUserinfoVo tUserinfoVo)
 			throws Exception {
-		// TODO Auto-generated method stub
 		return tUserInfoCustomMapper.updateUserinfo(tUserinfoVo);
 	}
-
 	@Override
 	public List<TUserInfoCustom> findUserByPage(HashMap<String, Object> pagemap) throws Exception {
-		// TODO Auto-generated method stub
 		return tUserInfoCustomMapper.findUserByPage(pagemap);
 	}
-
 	@Override
 	public int deleteUserinfoBypk(String userpk) throws Exception {
-		// TODO Auto-generated method stub
 		return tUserInfoCustomMapper.deleteUserinfoBypk(userpk);
+	}
+	@Override
+	public TUserInfoCustom findUserByuserid(String userid) throws Exception {
+		return tUserInfoCustomMapper.findUserByuserid(userid);
+	}
+	@Override
+	public int updateUserinfoPointByUserid(TUserInfoCustom tUserInfoCustom) throws Exception {
+		return tUserInfoCustomMapper.updateUserinfoPointByUserid(tUserInfoCustom);
+	}
+	@Override
+	public int updaterole(String userpk) throws Exception {
+		return tUserInfoCustomMapper.updaterole(userpk);
+	}
+	@Override
+	public TUserInfoCustom findUserByuserpk(String userpk) throws Exception {
+		return tUserInfoCustomMapper.findUserByuserpk(userpk);
+	}
+	@Override
+	public int findTotalUserByPage(HashMap<String, Object> pagemap)
+			throws Exception {
+		return tUserInfoCustomMapper.findTotalUserByPage(pagemap);
+	}
+	@Override
+	public List<TUserInfoCustom> findUserByPageandRole(
+			HashMap<String, Object> pagemap) throws Exception {
+		return tUserInfoCustomMapper.findUserByPageandRole(pagemap);
+	}
+	@Override
+	public int findTotalUserByPageandRole(HashMap<String, Object> pagemap)
+			throws Exception {
+		return tUserInfoCustomMapper.findTotalUserByPageandRole(pagemap);
 	}
 }
