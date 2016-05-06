@@ -106,8 +106,8 @@ var myDate = new Date();
 				});
 				return false;
 			}
-			if($('#collectioncount').val()<$('#flowcount').val()){
-				$.messager.alert('消息提示', '发布的收藏数必须大于或等于流量数!', 'info', function () {
+			if($('#collectioncount').val()>$('#flowcount').val()){
+				$.messager.alert('消息提示', '发布的收藏数必须小于或等于流量数!', 'info', function () {
 					$('#collectioncount').focus();
 				});
 				return false;
@@ -118,8 +118,8 @@ var myDate = new Date();
 				});
 				return false;
 			}
-			if($('#shoppingcount').val()<$('#flowcount').val()){
-				$.messager.alert('消息提示', '发布的加购物车数必须大于或等于流量数!', 'info', function () {
+			if($('#shoppingcount').val()>$('#flowcount').val()){
+				$.messager.alert('消息提示', '发布的加购物车数必须小于或等于流量数!', 'info', function () {
 					$('#shoppingcount').focus();
 				});
 				return false;

@@ -29,8 +29,8 @@ public class UserInfoServiceImp implements UserInfoService {
 	/*
 	 * 根据用户名密码查询积分点数
 	 */
-	public String findpointsByUserid(TUserInfoCustom tUserInfoCustom) throws Exception {
-		return tUserInfoCustomMapper.findpointsByUserid(tUserInfoCustom);
+	public String findpointsByUsernickAndPwd(TUserInfoCustom tUserInfoCustom) throws Exception {
+		return tUserInfoCustomMapper.findpointsByUsernickAndPwd(tUserInfoCustom);
 	}
 	@Override
 	public TUserInfoCustom findPasswordByemail(TUserinfoVo tUserinfoVo)

@@ -45,6 +45,12 @@ public class TTaskDetailinfo {
 
     private String taskminute;
 
+    private String visit;
+
+    private String collect;
+
+    private String trolley;
+
     private String phoneid;
 
     private Integer subtractpoints;
@@ -231,6 +237,30 @@ public class TTaskDetailinfo {
 
     public void setTaskminute(String taskminute) {
         this.taskminute = taskminute == null ? null : taskminute.trim();
+    }
+
+    public String getVisit() {
+        return visit;
+    }
+
+    public void setVisit(String visit) {
+        this.visit = visit == null ? null : visit.trim();
+    }
+
+    public String getCollect() {
+        return collect;
+    }
+
+    public void setCollect(String collect) {
+        this.collect = collect == null ? null : collect.trim();
+    }
+
+    public String getTrolley() {
+        return trolley;
+    }
+
+    public void setTrolley(String trolley) {
+        this.trolley = trolley == null ? null : trolley.trim();
     }
 
     public String getPhoneid() {

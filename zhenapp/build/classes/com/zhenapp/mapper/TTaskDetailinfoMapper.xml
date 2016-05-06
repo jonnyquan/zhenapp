@@ -24,6 +24,9 @@
     <result column="taskdate" property="taskdate" jdbcType="VARCHAR" />
     <result column="taskhour" property="taskhour" jdbcType="VARCHAR" />
     <result column="taskminute" property="taskminute" jdbcType="VARCHAR" />
+    <result column="visit" property="visit" jdbcType="VARCHAR" />
+    <result column="collect" property="collect" jdbcType="VARCHAR" />
+    <result column="trolley" property="trolley" jdbcType="VARCHAR" />
     <result column="phoneid" property="phoneid" jdbcType="VARCHAR" />
     <result column="subtractpoints" property="subtractpoints" jdbcType="INTEGER" />
     <result column="createtime" property="createtime" jdbcType="VARCHAR" />
@@ -93,7 +96,8 @@
     taskdetailpk, taskdetailid, taskid, taskkeyword, searchtype, price, region, isfreeship, 
     istmall, iscollection, isshopping, taskkeynum, minpicture, maxpicture, tasktype, 
     isflow, iscreativetitle, isshopcollect, taskstate, taskdate, taskhour, taskminute, 
-    phoneid, subtractpoints, createtime, createuser, updatetime, updateuser
+    visit, collect, trolley, phoneid, subtractpoints, createtime, createuser, updatetime, 
+    updateuser
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TTaskDetailinfoExample" >
     select
@@ -133,7 +137,8 @@
       minpicture, maxpicture, tasktype, 
       isflow, iscreativetitle, isshopcollect, 
       taskstate, taskdate, taskhour, 
-      taskminute, phoneid, subtractpoints, 
+      taskminute, visit, collect, 
+      trolley, phoneid, subtractpoints, 
       createtime, createuser, updatetime, 
       updateuser)
     values (#{taskdetailpk,jdbcType=INTEGER}, #{taskdetailid,jdbcType=VARCHAR}, #{taskid,jdbcType=VARCHAR}, 
@@ -143,7 +148,8 @@
       #{minpicture,jdbcType=VARCHAR}, #{maxpicture,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
       #{isflow,jdbcType=VARCHAR}, #{iscreativetitle,jdbcType=VARCHAR}, #{isshopcollect,jdbcType=VARCHAR}, 
       #{taskstate,jdbcType=VARCHAR}, #{taskdate,jdbcType=VARCHAR}, #{taskhour,jdbcType=VARCHAR}, 
-      #{taskminute,jdbcType=VARCHAR}, #{phoneid,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, 
+      #{taskminute,jdbcType=VARCHAR}, #{visit,jdbcType=VARCHAR}, #{collect,jdbcType=VARCHAR}, 
+      #{trolley,jdbcType=VARCHAR}, #{phoneid,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, 
       #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
       #{updateuser,jdbcType=VARCHAR})
   </insert>
@@ -215,6 +221,15 @@
       </if>
       <if test="taskminute != null" >
         taskminute,
+      </if>
+      <if test="visit != null" >
+        visit,
+      </if>
+      <if test="collect != null" >
+        collect,
+      </if>
+      <if test="trolley != null" >
+        trolley,
       </if>
       <if test="phoneid != null" >
         phoneid,
@@ -301,6 +316,15 @@
       </if>
       <if test="taskminute != null" >
         #{taskminute,jdbcType=VARCHAR},
+      </if>
+      <if test="visit != null" >
+        #{visit,jdbcType=VARCHAR},
+      </if>
+      <if test="collect != null" >
+        #{collect,jdbcType=VARCHAR},
+      </if>
+      <if test="trolley != null" >
+        #{trolley,jdbcType=VARCHAR},
       </if>
       <if test="phoneid != null" >
         #{phoneid,jdbcType=VARCHAR},
@@ -397,6 +421,15 @@
       <if test="record.taskminute != null" >
         taskminute = #{record.taskminute,jdbcType=VARCHAR},
       </if>
+      <if test="record.visit != null" >
+        visit = #{record.visit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collect != null" >
+        collect = #{record.collect,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trolley != null" >
+        trolley = #{record.trolley,jdbcType=VARCHAR},
+      </if>
       <if test="record.phoneid != null" >
         phoneid = #{record.phoneid,jdbcType=VARCHAR},
       </if>
@@ -444,6 +477,9 @@
       taskdate = #{record.taskdate,jdbcType=VARCHAR},
       taskhour = #{record.taskhour,jdbcType=VARCHAR},
       taskminute = #{record.taskminute,jdbcType=VARCHAR},
+      visit = #{record.visit,jdbcType=VARCHAR},
+      collect = #{record.collect,jdbcType=VARCHAR},
+      trolley = #{record.trolley,jdbcType=VARCHAR},
       phoneid = #{record.phoneid,jdbcType=VARCHAR},
       subtractpoints = #{record.subtractpoints,jdbcType=INTEGER},
       createtime = #{record.createtime,jdbcType=VARCHAR},
@@ -520,6 +556,15 @@
       <if test="taskminute != null" >
         taskminute = #{taskminute,jdbcType=VARCHAR},
       </if>
+      <if test="visit != null" >
+        visit = #{visit,jdbcType=VARCHAR},
+      </if>
+      <if test="collect != null" >
+        collect = #{collect,jdbcType=VARCHAR},
+      </if>
+      <if test="trolley != null" >
+        trolley = #{trolley,jdbcType=VARCHAR},
+      </if>
       <if test="phoneid != null" >
         phoneid = #{phoneid,jdbcType=VARCHAR},
       </if>
@@ -564,6 +609,9 @@
       taskdate = #{taskdate,jdbcType=VARCHAR},
       taskhour = #{taskhour,jdbcType=VARCHAR},
       taskminute = #{taskminute,jdbcType=VARCHAR},
+      visit = #{visit,jdbcType=VARCHAR},
+      collect = #{collect,jdbcType=VARCHAR},
+      trolley = #{trolley,jdbcType=VARCHAR},
       phoneid = #{phoneid,jdbcType=VARCHAR},
       subtractpoints = #{subtractpoints,jdbcType=INTEGER},
       createtime = #{createtime,jdbcType=VARCHAR},

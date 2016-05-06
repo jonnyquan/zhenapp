@@ -1634,6 +1634,216 @@ public class TTaskDetailinfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andVisitIsNull() {
+            addCriterion("visit is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitIsNotNull() {
+            addCriterion("visit is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitEqualTo(String value) {
+            addCriterion("visit =", value, "visit");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitNotEqualTo(String value) {
+            addCriterion("visit <>", value, "visit");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitGreaterThan(String value) {
+            addCriterion("visit >", value, "visit");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitGreaterThanOrEqualTo(String value) {
+            addCriterion("visit >=", value, "visit");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitLessThan(String value) {
+            addCriterion("visit <", value, "visit");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitLessThanOrEqualTo(String value) {
+            addCriterion("visit <=", value, "visit");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitLike(String value) {
+            addCriterion("visit like", value, "visit");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitNotLike(String value) {
+            addCriterion("visit not like", value, "visit");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitIn(List<String> values) {
+            addCriterion("visit in", values, "visit");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitNotIn(List<String> values) {
+            addCriterion("visit not in", values, "visit");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitBetween(String value1, String value2) {
+            addCriterion("visit between", value1, value2, "visit");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitNotBetween(String value1, String value2) {
+            addCriterion("visit not between", value1, value2, "visit");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectIsNull() {
+            addCriterion("collect is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectIsNotNull() {
+            addCriterion("collect is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectEqualTo(String value) {
+            addCriterion("collect =", value, "collect");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectNotEqualTo(String value) {
+            addCriterion("collect <>", value, "collect");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectGreaterThan(String value) {
+            addCriterion("collect >", value, "collect");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectGreaterThanOrEqualTo(String value) {
+            addCriterion("collect >=", value, "collect");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectLessThan(String value) {
+            addCriterion("collect <", value, "collect");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectLessThanOrEqualTo(String value) {
+            addCriterion("collect <=", value, "collect");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectLike(String value) {
+            addCriterion("collect like", value, "collect");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectNotLike(String value) {
+            addCriterion("collect not like", value, "collect");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectIn(List<String> values) {
+            addCriterion("collect in", values, "collect");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectNotIn(List<String> values) {
+            addCriterion("collect not in", values, "collect");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectBetween(String value1, String value2) {
+            addCriterion("collect between", value1, value2, "collect");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectNotBetween(String value1, String value2) {
+            addCriterion("collect not between", value1, value2, "collect");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrolleyIsNull() {
+            addCriterion("trolley is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrolleyIsNotNull() {
+            addCriterion("trolley is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrolleyEqualTo(String value) {
+            addCriterion("trolley =", value, "trolley");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrolleyNotEqualTo(String value) {
+            addCriterion("trolley <>", value, "trolley");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrolleyGreaterThan(String value) {
+            addCriterion("trolley >", value, "trolley");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrolleyGreaterThanOrEqualTo(String value) {
+            addCriterion("trolley >=", value, "trolley");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrolleyLessThan(String value) {
+            addCriterion("trolley <", value, "trolley");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrolleyLessThanOrEqualTo(String value) {
+            addCriterion("trolley <=", value, "trolley");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrolleyLike(String value) {
+            addCriterion("trolley like", value, "trolley");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrolleyNotLike(String value) {
+            addCriterion("trolley not like", value, "trolley");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrolleyIn(List<String> values) {
+            addCriterion("trolley in", values, "trolley");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrolleyNotIn(List<String> values) {
+            addCriterion("trolley not in", values, "trolley");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrolleyBetween(String value1, String value2) {
+            addCriterion("trolley between", value1, value2, "trolley");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrolleyNotBetween(String value1, String value2) {
+            addCriterion("trolley not between", value1, value2, "trolley");
+            return (Criteria) this;
+        }
+
         public Criteria andPhoneidIsNull() {
             addCriterion("phoneid is null");
             return (Criteria) this;

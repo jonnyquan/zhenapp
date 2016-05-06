@@ -6,9 +6,11 @@
     <result column="taskid" property="taskid" jdbcType="VARCHAR" />
     <result column="tasktype" property="tasktype" jdbcType="VARCHAR" />
     <result column="taskkeynum" property="taskkeynum" jdbcType="VARCHAR" />
-    <result column="taskkeyword" property="taskkeyword" jdbcType="VARCHAR" />
     <result column="taskstartdate" property="taskstartdate" jdbcType="VARCHAR" />
     <result column="taskenddate" property="taskenddate" jdbcType="VARCHAR" />
+    <result column="taskdate" property="taskdate" jdbcType="VARCHAR" />
+    <result column="taskreleasekeyword" property="taskreleasekeyword" jdbcType="VARCHAR" />
+    <result column="taskkeyword" property="taskkeyword" jdbcType="VARCHAR" />
     <result column="taskhourcounts" property="taskhourcounts" jdbcType="VARCHAR" />
     <result column="taskminprice" property="taskminprice" jdbcType="VARCHAR" />
     <result column="taskmaxprice" property="taskmaxprice" jdbcType="VARCHAR" />
@@ -88,10 +90,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    taskpk, taskid, tasktype, taskkeynum, taskkeyword, taskstartdate, taskenddate, taskhourcounts, 
-    taskminprice, taskmaxprice, tasksearchType, taskimgztc, taskimgpt, flowcount, Collectioncount, 
-    Shoppingcount, tasktmallapppct, taskgprspct, taskPlus, taskduration, subtractpoints, 
-    taskstate, createtime, createuser, updatetime, updateuser
+    taskpk, taskid, tasktype, taskkeynum, taskstartdate, taskenddate, taskdate, taskreleasekeyword, 
+    taskkeyword, taskhourcounts, taskminprice, taskmaxprice, tasksearchType, taskimgztc, 
+    taskimgpt, flowcount, Collectioncount, Shoppingcount, tasktmallapppct, taskgprspct, 
+    taskPlus, taskduration, subtractpoints, taskstate, createtime, createuser, updatetime, 
+    updateuser
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TTaskInfoExample" >
     select
@@ -125,23 +128,25 @@
   </delete>
   <insert id="insert" parameterType="com.zhenapp.po.TTaskInfo" >
     insert into t_task_info (taskpk, taskid, tasktype, 
-      taskkeynum, taskkeyword, taskstartdate, 
-      taskenddate, taskhourcounts, taskminprice, 
-      taskmaxprice, tasksearchType, taskimgztc, 
-      taskimgpt, flowcount, Collectioncount, 
-      Shoppingcount, tasktmallapppct, taskgprspct, 
-      taskPlus, taskduration, subtractpoints, 
-      taskstate, createtime, createuser, 
-      updatetime, updateuser)
+      taskkeynum, taskstartdate, taskenddate, 
+      taskdate, taskreleasekeyword, taskkeyword, 
+      taskhourcounts, taskminprice, taskmaxprice, 
+      tasksearchType, taskimgztc, taskimgpt, 
+      flowcount, Collectioncount, Shoppingcount, 
+      tasktmallapppct, taskgprspct, taskPlus, 
+      taskduration, subtractpoints, taskstate, 
+      createtime, createuser, updatetime, 
+      updateuser)
     values (#{taskpk,jdbcType=INTEGER}, #{taskid,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
-      #{taskkeynum,jdbcType=VARCHAR}, #{taskkeyword,jdbcType=VARCHAR}, #{taskstartdate,jdbcType=VARCHAR}, 
-      #{taskenddate,jdbcType=VARCHAR}, #{taskhourcounts,jdbcType=VARCHAR}, #{taskminprice,jdbcType=VARCHAR}, 
-      #{taskmaxprice,jdbcType=VARCHAR}, #{tasksearchtype,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR}, 
-      #{taskimgpt,jdbcType=VARCHAR}, #{flowcount,jdbcType=INTEGER}, #{collectioncount,jdbcType=INTEGER}, 
-      #{shoppingcount,jdbcType=INTEGER}, #{tasktmallapppct,jdbcType=VARCHAR}, #{taskgprspct,jdbcType=VARCHAR}, 
-      #{taskplus,jdbcType=VARCHAR}, #{taskduration,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, 
-      #{taskstate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
-      #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR})
+      #{taskkeynum,jdbcType=VARCHAR}, #{taskstartdate,jdbcType=VARCHAR}, #{taskenddate,jdbcType=VARCHAR}, 
+      #{taskdate,jdbcType=VARCHAR}, #{taskreleasekeyword,jdbcType=VARCHAR}, #{taskkeyword,jdbcType=VARCHAR}, 
+      #{taskhourcounts,jdbcType=VARCHAR}, #{taskminprice,jdbcType=VARCHAR}, #{taskmaxprice,jdbcType=VARCHAR}, 
+      #{tasksearchtype,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR}, #{taskimgpt,jdbcType=VARCHAR}, 
+      #{flowcount,jdbcType=INTEGER}, #{collectioncount,jdbcType=INTEGER}, #{shoppingcount,jdbcType=INTEGER}, 
+      #{tasktmallapppct,jdbcType=VARCHAR}, #{taskgprspct,jdbcType=VARCHAR}, #{taskplus,jdbcType=VARCHAR}, 
+      #{taskduration,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, #{taskstate,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{updateuser,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zhenapp.po.TTaskInfo" >
     insert into t_task_info
@@ -158,14 +163,20 @@
       <if test="taskkeynum != null" >
         taskkeynum,
       </if>
-      <if test="taskkeyword != null" >
-        taskkeyword,
-      </if>
       <if test="taskstartdate != null" >
         taskstartdate,
       </if>
       <if test="taskenddate != null" >
         taskenddate,
+      </if>
+      <if test="taskdate != null" >
+        taskdate,
+      </if>
+      <if test="taskreleasekeyword != null" >
+        taskreleasekeyword,
+      </if>
+      <if test="taskkeyword != null" >
+        taskkeyword,
       </if>
       <if test="taskhourcounts != null" >
         taskhourcounts,
@@ -238,14 +249,20 @@
       <if test="taskkeynum != null" >
         #{taskkeynum,jdbcType=VARCHAR},
       </if>
-      <if test="taskkeyword != null" >
-        #{taskkeyword,jdbcType=VARCHAR},
-      </if>
       <if test="taskstartdate != null" >
         #{taskstartdate,jdbcType=VARCHAR},
       </if>
       <if test="taskenddate != null" >
         #{taskenddate,jdbcType=VARCHAR},
+      </if>
+      <if test="taskdate != null" >
+        #{taskdate,jdbcType=VARCHAR},
+      </if>
+      <if test="taskreleasekeyword != null" >
+        #{taskreleasekeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="taskkeyword != null" >
+        #{taskkeyword,jdbcType=VARCHAR},
       </if>
       <if test="taskhourcounts != null" >
         #{taskhourcounts,jdbcType=VARCHAR},
@@ -327,14 +344,20 @@
       <if test="record.taskkeynum != null" >
         taskkeynum = #{record.taskkeynum,jdbcType=VARCHAR},
       </if>
-      <if test="record.taskkeyword != null" >
-        taskkeyword = #{record.taskkeyword,jdbcType=VARCHAR},
-      </if>
       <if test="record.taskstartdate != null" >
         taskstartdate = #{record.taskstartdate,jdbcType=VARCHAR},
       </if>
       <if test="record.taskenddate != null" >
         taskenddate = #{record.taskenddate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskdate != null" >
+        taskdate = #{record.taskdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskreleasekeyword != null" >
+        taskreleasekeyword = #{record.taskreleasekeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskkeyword != null" >
+        taskkeyword = #{record.taskkeyword,jdbcType=VARCHAR},
       </if>
       <if test="record.taskhourcounts != null" >
         taskhourcounts = #{record.taskhourcounts,jdbcType=VARCHAR},
@@ -404,9 +427,11 @@
       taskid = #{record.taskid,jdbcType=VARCHAR},
       tasktype = #{record.tasktype,jdbcType=VARCHAR},
       taskkeynum = #{record.taskkeynum,jdbcType=VARCHAR},
-      taskkeyword = #{record.taskkeyword,jdbcType=VARCHAR},
       taskstartdate = #{record.taskstartdate,jdbcType=VARCHAR},
       taskenddate = #{record.taskenddate,jdbcType=VARCHAR},
+      taskdate = #{record.taskdate,jdbcType=VARCHAR},
+      taskreleasekeyword = #{record.taskreleasekeyword,jdbcType=VARCHAR},
+      taskkeyword = #{record.taskkeyword,jdbcType=VARCHAR},
       taskhourcounts = #{record.taskhourcounts,jdbcType=VARCHAR},
       taskminprice = #{record.taskminprice,jdbcType=VARCHAR},
       taskmaxprice = #{record.taskmaxprice,jdbcType=VARCHAR},
@@ -442,14 +467,20 @@
       <if test="taskkeynum != null" >
         taskkeynum = #{taskkeynum,jdbcType=VARCHAR},
       </if>
-      <if test="taskkeyword != null" >
-        taskkeyword = #{taskkeyword,jdbcType=VARCHAR},
-      </if>
       <if test="taskstartdate != null" >
         taskstartdate = #{taskstartdate,jdbcType=VARCHAR},
       </if>
       <if test="taskenddate != null" >
         taskenddate = #{taskenddate,jdbcType=VARCHAR},
+      </if>
+      <if test="taskdate != null" >
+        taskdate = #{taskdate,jdbcType=VARCHAR},
+      </if>
+      <if test="taskreleasekeyword != null" >
+        taskreleasekeyword = #{taskreleasekeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="taskkeyword != null" >
+        taskkeyword = #{taskkeyword,jdbcType=VARCHAR},
       </if>
       <if test="taskhourcounts != null" >
         taskhourcounts = #{taskhourcounts,jdbcType=VARCHAR},
@@ -516,9 +547,11 @@
     set taskid = #{taskid,jdbcType=VARCHAR},
       tasktype = #{tasktype,jdbcType=VARCHAR},
       taskkeynum = #{taskkeynum,jdbcType=VARCHAR},
-      taskkeyword = #{taskkeyword,jdbcType=VARCHAR},
       taskstartdate = #{taskstartdate,jdbcType=VARCHAR},
       taskenddate = #{taskenddate,jdbcType=VARCHAR},
+      taskdate = #{taskdate,jdbcType=VARCHAR},
+      taskreleasekeyword = #{taskreleasekeyword,jdbcType=VARCHAR},
+      taskkeyword = #{taskkeyword,jdbcType=VARCHAR},
       taskhourcounts = #{taskhourcounts,jdbcType=VARCHAR},
       taskminprice = #{taskminprice,jdbcType=VARCHAR},
       taskmaxprice = #{taskmaxprice,jdbcType=VARCHAR},

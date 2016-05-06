@@ -1,5 +1,7 @@
 package com.zhenapp.controller.api;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,24 +34,28 @@ public class phoneapi {
 	@RequestMapping(value="/api/phone/request/task/{pid}")
 	public @ResponseBody String requesttask(@PathVariable(value="pid")String pid) throws Exception{
 		StringBuffer sb=new StringBuffer();
-		TTaskDetailInfoCustom tTaskDetailInfoCustom = taskDetailInfoService.requesttaskByphoneid(pid);
-		int i =taskDetailInfoService.updateTaskDetailstate(tTaskDetailInfoCustom.getTaskdetailid());
-		if(i > 0){
-			sb.append(tTaskDetailInfoCustom.getTaskid()).append("&")
-				.append(tTaskDetailInfoCustom.getTaskkeyword()).append("&")
-				.append(tTaskDetailInfoCustom.getSearchtype()).append("&")
-				.append(tTaskDetailInfoCustom.getMinpicture()).append("&")
-				.append("null").append("&")//地区
-				.append("null").append("&")//是否免运费
-				.append("null").append("&")//是否天猫
-				.append(tTaskDetailInfoCustom.getIscollection()).append("&")
-				.append(tTaskDetailInfoCustom.getIsshopping()).append("&")
-				.append(tTaskDetailInfoCustom.getTaskkeynum()).append("&")
-				.append(tTaskDetailInfoCustom.getMinpicture()).append("&")
-				.append(tTaskDetailInfoCustom.getMaxpicture()).append("&")
-				.append(tTaskDetailInfoCustom.getTasktype()).append("&")
-				.append(tTaskDetailInfoCustom.getIscreativetitle()).append("&")
-				.append(tTaskDetailInfoCustom.getIsshopcollect());
+		/*
+		 * 查询当前手机是否有未完成的任务
+		 */
+		HashMap<String, Object> hashmap = new HashMap<String,Object>();
+		hashmap.put("phoneid", pid);
+		hashmap.put("taskstate", 20);
+		TTaskDetailInfoCustom tTaskDetailInfoCustoming = taskDetailInfoService.findTaskDetailByPidAndState(hashmap);
+		if(tTaskDetailInfoCustoming!=null){
+			sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustoming);
+		}else{
+			TTaskDetailInfoCustom tTaskDetailInfoCustom = taskDetailInfoService.requesttaskByphoneid(pid);
+			if(tTaskDetailInfoCustom!= null){
+				hashmap.put("taskdetailid", tTaskDetailInfoCustom.getTaskdetailid());
+				int i =taskDetailInfoService.updateTaskDetailstate(hashmap);
+				if(i > 0){
+					sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustom);
+				}else{
+					sb.append("未获取到符合要求的详细任务");
+				}
+			}else{
+				sb.append("未获取到符合要求的详细任务");
+			}
 		}
 		String result=sb.toString();
 		return result;
@@ -81,9 +87,28 @@ public class phoneapi {
 	@RequestMapping(value="/api/phone/deleteTask/task")
 	public @ResponseBody ModelMap requesttask(String pid,String visit,String collect,String trolley) throws Exception{
 		ModelMap map = new ModelMap();
-		
-		
-		
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("phoneid", pid);
+		hashmap.put("taskstate", "20");
+		TTaskDetailInfoCustom tTaskDetailInfoCustom = taskDetailInfoService.findTaskDetailByPidAndState(hashmap);
+		if(tTaskDetailInfoCustom!=null){
+			if(visit.equals("yes")){
+				hashmap.put("taskstatenew", 21);
+			}else{
+				hashmap.put("taskstatenew", 22);
+			}
+			hashmap.put("visit", visit);
+			hashmap.put("collect", collect);
+			hashmap.put("trolley", trolley);
+			int i = taskDetailInfoService.updateTaskDetailByPidAndState(hashmap);
+			if(i > 0){
+				map.put("反馈情况", "已更新该手机执行任务状态!");
+			}else{
+				map.put("反馈情况", "更新该手机执行任务状态失败!");
+			}
+		}else{
+			map.put("反馈情况", "该手机编号当前没有正在执行的任务!");
+		}
 		return map;
 	}
 }

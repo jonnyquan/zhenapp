@@ -106,10 +106,14 @@
     	<if test="taskstate !=null and taskstate !=''">
     		AND taskstate=#{taskstate} 
     	</if>
-    	<if test="taskstartdate != null and taskstartdate != ''">
-    		AND taskstartdate <![CDATA[<=]]> #{taskstartdate} AND taskenddate <![CDATA[>=]]> #{taskstartdate}
+    	<if test="taskdate != null and taskdate != ''">
+    		AND taskdate = #{taskdate} 
     	</if>
     </where>
+  </select>
+  
+  <select id="findTaskInfoByTaskid" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="String" >
+    select * from t_task_info WHERE taskid=#{taskid}
   </select>
   
   <select id="findIsFirst" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="String" >
@@ -117,50 +121,31 @@
   </select>
   
   
-  <insert id="insertTaskByapi" parameterType="com.zhenapp.po.Custom.TTaskInfoCustom">
-  	 insert into t_task_info ( taskid, tasktype, 
-      taskkeynum, taskkeyword, taskstartdate, 
-      taskenddate, taskhourcounts, taskminprice, 
-      taskmaxprice, tasksearchType, taskimgztc, 
-      taskimgpt, flowcount, Collectioncount, 
-      Shoppingcount, tasktmallapppct, taskgprspct, 
-      taskPlus, taskduration, subtractpoints, 
-      taskstate, createtime, createuser, 
-      updatetime, updateuser)
-    values ( #{taskid,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
-      #{taskkeynum,jdbcType=VARCHAR}, #{taskkeyword,jdbcType=VARCHAR}, #{taskstartdate,jdbcType=VARCHAR}, 
-      #{taskenddate,jdbcType=VARCHAR}, #{taskhourcounts,jdbcType=VARCHAR}, #{taskminprice,jdbcType=VARCHAR}, 
-      #{taskmaxprice,jdbcType=VARCHAR}, #{tasksearchtype,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR}, 
-      #{taskimgpt,jdbcType=VARCHAR}, #{flowcount,jdbcType=INTEGER}, #{collectioncount,jdbcType=INTEGER}, 
-      #{shoppingcount,jdbcType=INTEGER}, #{tasktmallapppct,jdbcType=VARCHAR}, #{taskgprspct,jdbcType=VARCHAR}, 
-      #{taskplus,jdbcType=VARCHAR}, #{taskduration,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, 
-      #{taskstate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
-      #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR})
-   </insert>
-  
   <insert id="insertTaskInfo" parameterType="com.zhenapp.po.Custom.TTaskInfoCustom" >
-     insert into t_task_info ( taskid, tasktype, 
-      taskkeynum, taskkeyword, taskstartdate, 
-      taskenddate, taskhourcounts, taskminprice, 
-      taskmaxprice, tasksearchType, taskimgztc, 
-      taskimgpt, flowcount, Collectioncount, 
-      Shoppingcount, tasktmallapppct, taskgprspct, 
-      taskPlus, taskduration, subtractpoints, 
-      taskstate, createtime, createuser, 
-      updatetime, updateuser)
-    values (#{taskid,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
-      #{taskkeynum,jdbcType=VARCHAR}, #{taskkeyword,jdbcType=VARCHAR}, #{taskstartdate,jdbcType=VARCHAR}, 
-      #{taskenddate,jdbcType=VARCHAR}, #{taskhourcounts,jdbcType=VARCHAR}, #{taskminprice,jdbcType=VARCHAR}, 
-      #{taskmaxprice,jdbcType=VARCHAR}, #{tasksearchtype,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR}, 
-      #{taskimgpt,jdbcType=VARCHAR}, #{flowcount,jdbcType=INTEGER}, #{collectioncount,jdbcType=INTEGER}, 
-      #{shoppingcount,jdbcType=INTEGER}, #{tasktmallapppct,jdbcType=VARCHAR}, #{taskgprspct,jdbcType=VARCHAR}, 
-      #{taskplus,jdbcType=VARCHAR}, #{taskduration,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, 
-      #{taskstate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
-      #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR})
+      insert into t_task_info ( taskid, tasktype, 
+      taskkeynum, taskstartdate, taskenddate, 
+      taskdate, taskreleasekeyword, taskkeyword, 
+      taskhourcounts, taskminprice, taskmaxprice, 
+      tasksearchType, taskimgztc, taskimgpt, 
+      flowcount, Collectioncount, Shoppingcount, 
+      tasktmallapppct, taskgprspct, taskPlus, 
+      taskduration, subtractpoints, taskstate, 
+      createtime, createuser, updatetime, 
+      updateuser)
+    values ( #{taskid,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
+      #{taskkeynum,jdbcType=VARCHAR}, #{taskstartdate,jdbcType=VARCHAR}, #{taskenddate,jdbcType=VARCHAR}, 
+      #{taskdate,jdbcType=VARCHAR}, #{taskreleasekeyword,jdbcType=VARCHAR}, #{taskkeyword,jdbcType=VARCHAR}, 
+      #{taskhourcounts,jdbcType=VARCHAR}, #{taskminprice,jdbcType=VARCHAR}, #{taskmaxprice,jdbcType=VARCHAR}, 
+      #{tasksearchtype,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR}, #{taskimgpt,jdbcType=VARCHAR}, 
+      #{flowcount,jdbcType=INTEGER}, #{collectioncount,jdbcType=INTEGER}, #{shoppingcount,jdbcType=INTEGER}, 
+      #{tasktmallapppct,jdbcType=VARCHAR}, #{taskgprspct,jdbcType=VARCHAR}, #{taskplus,jdbcType=VARCHAR}, 
+      #{taskduration,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, #{taskstate,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{updateuser,jdbcType=VARCHAR})
   </insert>
   
-  <update id="updateTaskstate" parameterType="String">
-  	update t_task_info set taskstate="16" where taskid=#{taskid}
+  <update id="updateTaskstate" parameterType="java.util.HashMap">
+  	update t_task_info set taskstate=#{taskstate} where taskid=#{taskid} and createuser=#{userid}
   </update>
   
   <delete id="deleteTaskBypk" parameterType="String">

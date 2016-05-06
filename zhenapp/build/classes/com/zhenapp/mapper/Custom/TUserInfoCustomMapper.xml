@@ -25,7 +25,7 @@
   </select>
   
    
-  <select id="findpointsByUserid" resultType="String" parameterType="com.zhenapp.po.Custom.TUserInfoCustom">
+  <select id="findpointsByUsernickAndPwd" resultType="String" parameterType="com.zhenapp.po.Custom.TUserInfoCustom">
     SELECT points FROM t_user_info WHERE usernick=#{usernick} AND userpwd=#{userpwd}
   </select>
   <select id="findPasswordByemail" parameterType="com.zhenapp.po.Vo.TUserinfoVo" resultType="com.zhenapp.po.Custom.TUserInfoCustom">

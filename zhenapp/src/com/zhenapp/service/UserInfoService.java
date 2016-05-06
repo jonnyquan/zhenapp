@@ -14,7 +14,7 @@ public interface UserInfoService {
 	public List<TUserInfoCustom> findUserBynick(String usernick) throws Exception;
 	
 	/*
-	 * 根据用户名查询用户信息
+	 * 根据id查询用户信息
 	 */
 	public TUserInfoCustom findUserByuserid(String userid) throws Exception;
 	
@@ -44,7 +44,7 @@ public interface UserInfoService {
 	/*
 	 * 根据用户信息查询积分
 	 */
-	public String findpointsByUserid(TUserInfoCustom tUserInfoCustom) throws Exception;
+	public String findpointsByUsernickAndPwd(TUserInfoCustom tUserInfoCustom) throws Exception;
 	
 	/*
 	 * 根据用户名和注册邮箱找回密码

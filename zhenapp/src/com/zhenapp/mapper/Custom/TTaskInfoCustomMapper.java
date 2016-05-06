@@ -34,10 +34,6 @@ public interface TTaskInfoCustomMapper {
 	public int findTotalTaskBypage(HashMap<String,Object> hashmap) throws Exception;
 	
 	/*
-	 * 根据接口信息保存任务信息
-	 */
-	public int insertTaskByapi(TTaskInfoCustom tTaskInfoCustom) throws Exception;
-	/*
 	 * 查询待分配的任务
 	 */
 	public List<TTaskInfoCustom> findTaskallocation(HashMap<String,Object> hashmap) throws Exception;
@@ -55,5 +51,9 @@ public interface TTaskInfoCustomMapper {
 	/*
 	 * 根据任务id修改任务状态
 	 */
-	public int updateTaskstate(String taskid) throws Exception;
+	public int updateTaskstate(HashMap<String,Object> hashmap) throws Exception;
+	/*
+	 * 根据taskid查询任务信息
+	 */
+	public TTaskInfoCustom findTaskInfoByTaskid(String taskid) throws Exception;
 }

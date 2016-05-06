@@ -9,11 +9,15 @@ public class TTaskInfo {
 
     private String taskkeynum;
 
-    private String taskkeyword;
-
     private String taskstartdate;
 
     private String taskenddate;
+
+    private String taskdate;
+
+    private String taskreleasekeyword;
+
+    private String taskkeyword;
 
     private String taskhourcounts;
 
@@ -85,14 +89,6 @@ public class TTaskInfo {
         this.taskkeynum = taskkeynum == null ? null : taskkeynum.trim();
     }
 
-    public String getTaskkeyword() {
-        return taskkeyword;
-    }
-
-    public void setTaskkeyword(String taskkeyword) {
-        this.taskkeyword = taskkeyword == null ? null : taskkeyword.trim();
-    }
-
     public String getTaskstartdate() {
         return taskstartdate;
     }
@@ -107,6 +103,30 @@ public class TTaskInfo {
 
     public void setTaskenddate(String taskenddate) {
         this.taskenddate = taskenddate == null ? null : taskenddate.trim();
+    }
+
+    public String getTaskdate() {
+        return taskdate;
+    }
+
+    public void setTaskdate(String taskdate) {
+        this.taskdate = taskdate == null ? null : taskdate.trim();
+    }
+
+    public String getTaskreleasekeyword() {
+        return taskreleasekeyword;
+    }
+
+    public void setTaskreleasekeyword(String taskreleasekeyword) {
+        this.taskreleasekeyword = taskreleasekeyword == null ? null : taskreleasekeyword.trim();
+    }
+
+    public String getTaskkeyword() {
+        return taskkeyword;
+    }
+
+    public void setTaskkeyword(String taskkeyword) {
+        this.taskkeyword = taskkeyword == null ? null : taskkeyword.trim();
     }
 
     public String getTaskhourcounts() {

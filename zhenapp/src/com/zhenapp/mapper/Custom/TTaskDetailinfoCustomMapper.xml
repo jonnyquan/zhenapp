@@ -3,19 +3,20 @@
 <mapper namespace="com.zhenapp.mapper.Custom.TTaskDetailinfoCustomMapper" >
   <select id="requesttaskByphoneid" parameterType="String" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
   	SELECT * FROM t_task_detailinfo WHERE taskkeynum NOT IN (
-SELECT taskkeynum FROM t_task_detailinfo WHERE taskstate='1' AND taskdate=DATE_FORMAT(NOW(),'%Y%m%d') AND phoneid = #{phoneid}
-) ORDER BY taskhour,taskminute LIMIT 0,1
+SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%d') AND phoneid = #{phoneid}
+) and phoneid is null and taskstate = '40' ORDER BY taskhour,taskminute LIMIT 0,1
   </select>
   
   <insert id="insertDetailinfo" parameterType="com.zhenapp.po.Custom.TTaskDetailInfoCustom" >
-     insert into t_task_detailinfo ( taskdetailid, taskid, 
+     insert into t_task_detailinfo (taskdetailid, taskid, 
       taskkeyword, searchtype, price, 
       region, isfreeship, istmall, 
       iscollection, isshopping, taskkeynum, 
       minpicture, maxpicture, tasktype, 
       isflow, iscreativetitle, isshopcollect, 
       taskstate, taskdate, taskhour, 
-      taskminute, phoneid, subtractpoints, 
+      taskminute, visit, collect, 
+      trolley, phoneid, subtractpoints, 
       createtime, createuser, updatetime, 
       updateuser)
     values ( #{taskdetailid,jdbcType=VARCHAR}, #{taskid,jdbcType=VARCHAR}, 
@@ -25,12 +26,32 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskstate='1' AND taskdate=DATE_F
       #{minpicture,jdbcType=VARCHAR}, #{maxpicture,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
       #{isflow,jdbcType=VARCHAR}, #{iscreativetitle,jdbcType=VARCHAR}, #{isshopcollect,jdbcType=VARCHAR}, 
       #{taskstate,jdbcType=VARCHAR}, #{taskdate,jdbcType=VARCHAR}, #{taskhour,jdbcType=VARCHAR}, 
-      #{taskminute,jdbcType=VARCHAR}, #{phoneid,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, 
+      #{taskminute,jdbcType=VARCHAR}, #{visit,jdbcType=VARCHAR}, #{collect,jdbcType=VARCHAR}, 
+      #{trolley,jdbcType=VARCHAR}, #{phoneid,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, 
       #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
       #{updateuser,jdbcType=VARCHAR})
   </insert>
 
-  <update id="updateTaskDetailstate" parameterType="String">
-  	update t_task_detailinfo set taskstate = '26' where taskdetailid = #{taskdetailid}
+  <update id="updateTaskDetailstate" parameterType="java.util.HashMap">
+  	update t_task_detailinfo set taskstate = #{taskstate},phoneid = #{phoneid}  where taskdetailid = #{taskdetailid} and phoneid is null
+  </update>
+  
+  <update id="updateterminationstate" parameterType="java.util.HashMap">
+  	update t_task_detailinfo set taskstate = '23'  where taskid = #{taskid} and phoneid is null and taskstate = '40'
+  </update>
+  
+  <select id="findPointsByteterminationstate" parameterType="String" resultType="int">
+  	select sum(subtractpoints) t_task_detailinfo where taskid = #{taskid} and phoneid is null and taskstate = '23'
+  </select>
+  <select id="findTaskDetailByPidAndState" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
+  	select * from t_task_detailinfo where phoneid = #{phoneid} and taskstate = #{taskstate}
+  </select>
+  
+  <update id="updateTaskDetailByPidAndState" parameterType="java.util.HashMap" >
+  	UPDATE t_task_detailinfo SET visit = (SELECT dicinfoid FROM t_data_dic_info WHERE dictypecode = 'visit' AND dictypename=#{visit}),
+  	collect = (SELECT dicinfoid FROM t_data_dic_info WHERE dictypecode = 'collect' AND dictypename=#{collect}),
+  	trolley = (SELECT dicinfoid FROM t_data_dic_info WHERE dictypecode = 'trolley' AND dictypename=#{trolley}),
+  	taskstate = #{taskstatenew}
+	WHERE phoneid =#{phoneid} AND taskstate=#{taskstate}
   </update>
 </mapper>

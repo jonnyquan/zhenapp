@@ -374,76 +374,6 @@ public class TTaskInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andTaskkeywordIsNull() {
-            addCriterion("taskkeyword is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTaskkeywordIsNotNull() {
-            addCriterion("taskkeyword is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTaskkeywordEqualTo(String value) {
-            addCriterion("taskkeyword =", value, "taskkeyword");
-            return (Criteria) this;
-        }
-
-        public Criteria andTaskkeywordNotEqualTo(String value) {
-            addCriterion("taskkeyword <>", value, "taskkeyword");
-            return (Criteria) this;
-        }
-
-        public Criteria andTaskkeywordGreaterThan(String value) {
-            addCriterion("taskkeyword >", value, "taskkeyword");
-            return (Criteria) this;
-        }
-
-        public Criteria andTaskkeywordGreaterThanOrEqualTo(String value) {
-            addCriterion("taskkeyword >=", value, "taskkeyword");
-            return (Criteria) this;
-        }
-
-        public Criteria andTaskkeywordLessThan(String value) {
-            addCriterion("taskkeyword <", value, "taskkeyword");
-            return (Criteria) this;
-        }
-
-        public Criteria andTaskkeywordLessThanOrEqualTo(String value) {
-            addCriterion("taskkeyword <=", value, "taskkeyword");
-            return (Criteria) this;
-        }
-
-        public Criteria andTaskkeywordLike(String value) {
-            addCriterion("taskkeyword like", value, "taskkeyword");
-            return (Criteria) this;
-        }
-
-        public Criteria andTaskkeywordNotLike(String value) {
-            addCriterion("taskkeyword not like", value, "taskkeyword");
-            return (Criteria) this;
-        }
-
-        public Criteria andTaskkeywordIn(List<String> values) {
-            addCriterion("taskkeyword in", values, "taskkeyword");
-            return (Criteria) this;
-        }
-
-        public Criteria andTaskkeywordNotIn(List<String> values) {
-            addCriterion("taskkeyword not in", values, "taskkeyword");
-            return (Criteria) this;
-        }
-
-        public Criteria andTaskkeywordBetween(String value1, String value2) {
-            addCriterion("taskkeyword between", value1, value2, "taskkeyword");
-            return (Criteria) this;
-        }
-
-        public Criteria andTaskkeywordNotBetween(String value1, String value2) {
-            addCriterion("taskkeyword not between", value1, value2, "taskkeyword");
-            return (Criteria) this;
-        }
-
         public Criteria andTaskstartdateIsNull() {
             addCriterion("taskstartdate is null");
             return (Criteria) this;
@@ -581,6 +511,216 @@ public class TTaskInfoExample {
 
         public Criteria andTaskenddateNotBetween(String value1, String value2) {
             addCriterion("taskenddate not between", value1, value2, "taskenddate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskdateIsNull() {
+            addCriterion("taskdate is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskdateIsNotNull() {
+            addCriterion("taskdate is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskdateEqualTo(String value) {
+            addCriterion("taskdate =", value, "taskdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskdateNotEqualTo(String value) {
+            addCriterion("taskdate <>", value, "taskdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskdateGreaterThan(String value) {
+            addCriterion("taskdate >", value, "taskdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskdateGreaterThanOrEqualTo(String value) {
+            addCriterion("taskdate >=", value, "taskdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskdateLessThan(String value) {
+            addCriterion("taskdate <", value, "taskdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskdateLessThanOrEqualTo(String value) {
+            addCriterion("taskdate <=", value, "taskdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskdateLike(String value) {
+            addCriterion("taskdate like", value, "taskdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskdateNotLike(String value) {
+            addCriterion("taskdate not like", value, "taskdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskdateIn(List<String> values) {
+            addCriterion("taskdate in", values, "taskdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskdateNotIn(List<String> values) {
+            addCriterion("taskdate not in", values, "taskdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskdateBetween(String value1, String value2) {
+            addCriterion("taskdate between", value1, value2, "taskdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskdateNotBetween(String value1, String value2) {
+            addCriterion("taskdate not between", value1, value2, "taskdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskreleasekeywordIsNull() {
+            addCriterion("taskreleasekeyword is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskreleasekeywordIsNotNull() {
+            addCriterion("taskreleasekeyword is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskreleasekeywordEqualTo(String value) {
+            addCriterion("taskreleasekeyword =", value, "taskreleasekeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskreleasekeywordNotEqualTo(String value) {
+            addCriterion("taskreleasekeyword <>", value, "taskreleasekeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskreleasekeywordGreaterThan(String value) {
+            addCriterion("taskreleasekeyword >", value, "taskreleasekeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskreleasekeywordGreaterThanOrEqualTo(String value) {
+            addCriterion("taskreleasekeyword >=", value, "taskreleasekeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskreleasekeywordLessThan(String value) {
+            addCriterion("taskreleasekeyword <", value, "taskreleasekeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskreleasekeywordLessThanOrEqualTo(String value) {
+            addCriterion("taskreleasekeyword <=", value, "taskreleasekeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskreleasekeywordLike(String value) {
+            addCriterion("taskreleasekeyword like", value, "taskreleasekeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskreleasekeywordNotLike(String value) {
+            addCriterion("taskreleasekeyword not like", value, "taskreleasekeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskreleasekeywordIn(List<String> values) {
+            addCriterion("taskreleasekeyword in", values, "taskreleasekeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskreleasekeywordNotIn(List<String> values) {
+            addCriterion("taskreleasekeyword not in", values, "taskreleasekeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskreleasekeywordBetween(String value1, String value2) {
+            addCriterion("taskreleasekeyword between", value1, value2, "taskreleasekeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskreleasekeywordNotBetween(String value1, String value2) {
+            addCriterion("taskreleasekeyword not between", value1, value2, "taskreleasekeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskkeywordIsNull() {
+            addCriterion("taskkeyword is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskkeywordIsNotNull() {
+            addCriterion("taskkeyword is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskkeywordEqualTo(String value) {
+            addCriterion("taskkeyword =", value, "taskkeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskkeywordNotEqualTo(String value) {
+            addCriterion("taskkeyword <>", value, "taskkeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskkeywordGreaterThan(String value) {
+            addCriterion("taskkeyword >", value, "taskkeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskkeywordGreaterThanOrEqualTo(String value) {
+            addCriterion("taskkeyword >=", value, "taskkeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskkeywordLessThan(String value) {
+            addCriterion("taskkeyword <", value, "taskkeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskkeywordLessThanOrEqualTo(String value) {
+            addCriterion("taskkeyword <=", value, "taskkeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskkeywordLike(String value) {
+            addCriterion("taskkeyword like", value, "taskkeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskkeywordNotLike(String value) {
+            addCriterion("taskkeyword not like", value, "taskkeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskkeywordIn(List<String> values) {
+            addCriterion("taskkeyword in", values, "taskkeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskkeywordNotIn(List<String> values) {
+            addCriterion("taskkeyword not in", values, "taskkeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskkeywordBetween(String value1, String value2) {
+            addCriterion("taskkeyword between", value1, value2, "taskkeyword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskkeywordNotBetween(String value1, String value2) {
+            addCriterion("taskkeyword not between", value1, value2, "taskkeyword");
             return (Criteria) this;
         }
 

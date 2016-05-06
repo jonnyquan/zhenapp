@@ -38,12 +38,6 @@ public class TaskInfoServiceImp implements TaskInfoService {
 	}
 
 	@Override
-	public int insertTaskByapi(TTaskInfoCustom tTaskInfoCustom)
-			throws Exception {
-		return tTaskInfoCustomMapper.insertTaskByapi(tTaskInfoCustom);
-	}
-
-	@Override
 	public List<TTaskInfoCustom> findTaskallocation(
 			HashMap<String, Object> hashmap) throws Exception {
 		// TODO Auto-generated method stub
@@ -57,9 +51,9 @@ public class TaskInfoServiceImp implements TaskInfoService {
 	}
 
 	@Override
-	public int updateTaskstate(String taskid) throws Exception {
+	public int updateTaskstate(HashMap<String,Object> hashmap) throws Exception {
 		// TODO Auto-generated method stub
-		return tTaskInfoCustomMapper.updateTaskstate(taskid);
+		return tTaskInfoCustomMapper.updateTaskstate(hashmap);
 	}
 
 	@Override
@@ -81,6 +75,12 @@ public class TaskInfoServiceImp implements TaskInfoService {
 			HashMap<String, Object> hashmap) throws Exception {
 		// TODO Auto-generated method stub
 		return tTaskInfoCustomMapper.findTotalTaskBypageAndrole(hashmap);
+	}
+
+	@Override
+	public TTaskInfoCustom findTaskInfoByTaskid(String taskid) throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskInfoCustomMapper.findTaskInfoByTaskid(taskid);
 	}
 
 }

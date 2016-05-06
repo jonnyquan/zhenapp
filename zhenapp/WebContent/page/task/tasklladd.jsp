@@ -102,19 +102,19 @@
 			<td>搜索方式</td>
 			<td>
 				<label class="radio-inline"> 
-					<input type="radio" name="tasksearchType" value="0" checked="checked">综合
+					<input type="radio" name="tasksearchType" value="35" checked="checked">综合
 				</label> 
 				<label class="radio-inline">
-					 <input type="radio" name="tasksearchType" value="1">信用
+					 <input type="radio" name="tasksearchType" value="36">信用
 				</label> 
 				<label class="radio-inline"> 
-				     <input type="radio" name="tasksearchType" value="2">价格低到高
+				     <input type="radio" name="tasksearchType" value="37">价格低到高
 				</label> 
 				<label class="radio-inline">
-					 <input type="radio" name="tasksearchType" value="3">价格高到低
+					 <input type="radio" name="tasksearchType" value="38">价格高到低
 				</label> 
 				<label class="radio-inline">
-					 <input type="radio" name="tasksearchType" value="4">销量
+					 <input type="radio" name="tasksearchType" value="39">销量
 				</label>
 			</td>
 		</tr>

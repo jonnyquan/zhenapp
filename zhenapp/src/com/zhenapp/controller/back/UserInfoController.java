@@ -253,7 +253,7 @@ public class UserInfoController {
 		ModelMap map= new ModelMap();
 		HttpSession session=request.getSession();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
-		String points= userInfoService.findpointsByUserid(tUserInfoCustom);
+		String points= userInfoService.findpointsByUsernickAndPwd(tUserInfoCustom);
 		map.put("points", points);
 		return map;
 	}

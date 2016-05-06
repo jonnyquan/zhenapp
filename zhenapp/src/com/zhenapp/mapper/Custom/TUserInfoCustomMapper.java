@@ -42,7 +42,7 @@ public interface TUserInfoCustomMapper {
 	/*
 	 * 根据用户名密码查询积分点数
 	 */
-	public String findpointsByUserid(TUserInfoCustom tUserInfoCustom) throws Exception;
+	public String findpointsByUsernickAndPwd(TUserInfoCustom tUserInfoCustom) throws Exception;
 	
 	/*
 	 * 根据用户名和注册邮箱找回密码

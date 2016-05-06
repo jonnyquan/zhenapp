@@ -1,6 +1,5 @@
 package com.zhenapp.controller.api;
 
-import java.awt.Point;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -47,14 +46,13 @@ public class Taskallocation {
 		ModelMap map=new ModelMap();
 		HashMap<String,Object> hashmap1=new HashMap<String,Object>();
 		hashmap1.put("taskstate", 15);
-		hashmap1.put("taskstartdate", sdf.format(new Date()));
+		hashmap1.put("taskdate", sdf.format(new Date()));
 		Date date = new Date();
 		int hours = date.getHours()+1;
 		List<TTaskInfoCustom> tTaskInfoCustomlist= taskInfoService.findTaskallocation(hashmap1);
 		
 		for (int i = 0; i < tTaskInfoCustomlist.size(); i++) {
 			TTaskInfoCustom tTaskInfoCustom=tTaskInfoCustomlist.get(i);
-			
 			TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserid(tTaskInfoCustom.getCreateuser());
 			TPriceInfoCustom tPriceInfoCustom = priceInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
 			HashMap<String,Object> hashmap2=new HashMap<String,Object>();
@@ -64,7 +62,7 @@ public class Taskallocation {
 			String [] hourarr = tTaskInfoCustom.getTaskhourcounts().split(",");
 			if(tTaskInfoCustom.getFlowcount() > 0 && tTaskInfoCustom.getCollectioncount() == 0 && tTaskInfoCustom.getShoppingcount() == 0){
 				for (int j = 0; j < hourarr.length; j++) {
-					if(!hourarr[j].equals("0") && j < hours){//当天大于当前小时的不分配
+					if(!hourarr[j].equals("0") && j > hours){//当天大于当前小时的不分配
 						int hourcount = Integer.parseInt(hourarr[j]);
 						int [] minute = new int[hourcount];
 						for(int a=0;a<hourcount ; a++){
@@ -86,7 +84,7 @@ public class Taskallocation {
 							tTaskDetailInfoCustom.setIsshopping("0");
 							tTaskDetailInfoCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
 							tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
-							tTaskDetailInfoCustom.setTaskstate("1");
+							tTaskDetailInfoCustom.setTaskstate("40");
 							tTaskDetailInfoCustom.setSubtractpoints(Integer.parseInt(tPriceInfoCustom.getPricecounts1()));
 							tTaskDetailInfoCustom.setTaskdate(tTaskInfoCustom.getTaskstartdate());
 							tTaskDetailInfoCustom.setTaskhour(j+"");
@@ -96,14 +94,17 @@ public class Taskallocation {
 							tTaskDetailInfoCustom.setUpdatetime(sdf.format(new Date()));
 							tTaskDetailInfoCustom.setUpdateuser("sys");
 							taskDetailInfoService.insertDetailinfo(tTaskDetailInfoCustom);
+							
 						}
 					}
 				}
 				/*
 				 * 分配完成后修改任务状态
 				 */
-				int state = taskInfoService.updateTaskstate(tTaskInfoCustom.getTaskid());
-				System.out.println(state);
+				HashMap<String,Object> hashmap3=new HashMap<String,Object>();
+				hashmap3.put("taskid", tTaskInfoCustom.getTaskid());
+				hashmap3.put("taskstate", "16");
+				taskInfoService.updateTaskstate(hashmap3);
 			}
 			/*
 			 * 发流量，无购物车，有收藏
@@ -111,7 +112,7 @@ public class Taskallocation {
 			else if(tTaskInfoCustom.getFlowcount() > 0 && tTaskInfoCustom.getCollectioncount() > 0 && tTaskInfoCustom.getShoppingcount() == 0){
 				int collectioncount = tTaskInfoCustom.getCollectioncount();
 					for (int j = 0; j < hourarr.length; j++) {
-						if(!hourarr[j].equals("0") && j < hours){//当天大于当前小时的不分配
+						if(!hourarr[j].equals("0") && j > hours){//当天大于当前小时的不分配
 							int hourcount = Integer.parseInt(hourarr[j]);
 							int [] minute = new int[hourcount];
 							for(int a=0;a<hourcount ; a++){
@@ -141,7 +142,7 @@ public class Taskallocation {
 								tTaskDetailInfoCustom.setIsshopping("0");
 								tTaskDetailInfoCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
 								tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
-								tTaskDetailInfoCustom.setTaskstate("1");
+								tTaskDetailInfoCustom.setTaskstate("40");
 								tTaskDetailInfoCustom.setTaskdate(tTaskInfoCustom.getTaskstartdate());
 								tTaskDetailInfoCustom.setTaskhour(j+"");
 								tTaskDetailInfoCustom.setTaskminute((minute[j2]+"").length()>1?(minute[j2]+""):("0"+minute[j2]));
@@ -153,6 +154,13 @@ public class Taskallocation {
 							}
 						}
 				}
+					/*
+					 * 分配完成后修改任务状态
+					 */
+					HashMap<String,Object> hashmap3=new HashMap<String,Object>();
+					hashmap3.put("taskid", tTaskInfoCustom.getTaskid());
+					hashmap3.put("taskstate", "16");
+					taskInfoService.updateTaskstate(hashmap3);
 			}
 			/*
 			 * 发流量，有购物车，无收藏
@@ -160,7 +168,7 @@ public class Taskallocation {
 			else if(tTaskInfoCustom.getFlowcount() > 0 && tTaskInfoCustom.getCollectioncount() == 0 && tTaskInfoCustom.getShoppingcount() > 0){
 				int shoppingcount = tTaskInfoCustom.getShoppingcount();
 					for (int j = 0; j < hourarr.length; j++) {
-						if(!hourarr[j].equals("0") && j < hours){//当天大于当前小时的不分配
+						if(!hourarr[j].equals("0") && j > hours){//当天大于当前小时的不分配
 							int hourcount = Integer.parseInt(hourarr[j]);
 							int [] minute = new int[hourcount];
 							for(int a=0;a<hourcount ; a++){
@@ -190,7 +198,7 @@ public class Taskallocation {
 								}
 								tTaskDetailInfoCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
 								tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
-								tTaskDetailInfoCustom.setTaskstate("1");
+								tTaskDetailInfoCustom.setTaskstate("40");
 								tTaskDetailInfoCustom.setTaskdate(tTaskInfoCustom.getTaskstartdate());
 								tTaskDetailInfoCustom.setTaskhour(j+"");
 								tTaskDetailInfoCustom.setTaskminute((minute[j2]+"").length()>1?(minute[j2]+""):("0"+minute[j2]));
@@ -202,6 +210,13 @@ public class Taskallocation {
 							}
 						}
 				}
+					/*
+					 * 分配完成后修改任务状态
+					 */
+					HashMap<String,Object> hashmap3=new HashMap<String,Object>();
+					hashmap3.put("taskid", tTaskInfoCustom.getTaskid());
+					hashmap3.put("taskstate", "16");
+					taskInfoService.updateTaskstate(hashmap3);
 			}
 			/*
 			 * 发流量，有购物车，有收藏
@@ -210,7 +225,7 @@ public class Taskallocation {
 				int shoppingcount = tTaskInfoCustom.getShoppingcount();
 				int collectioncount = tTaskInfoCustom.getCollectioncount();
 				for (int j = 0; j < hourarr.length; j++) {
-					if(!hourarr[j].equals("0") && j < hours){//当天大于当前小时的不分配
+					if(!hourarr[j].equals("0") && j > hours){//当天大于当前小时的不分配
 						int hourcount = Integer.parseInt(hourarr[j]);
 						int [] minute = new int[hourcount];
 						for(int a=0;a<hourcount ; a++){
@@ -240,14 +255,14 @@ public class Taskallocation {
 							if(shoppingcount==0){
 								tTaskDetailInfoCustom.setIsshopping("0");
 							}else{
-								count = count + Integer.parseInt(tPriceInfoCustom.getPricecounts2());
+								count = count + Integer.parseInt(tPriceInfoCustom.getPricecounts3());
 								shoppingcount= shoppingcount-1;
 								tTaskDetailInfoCustom.setIsshopping("1");
 							}
 							tTaskDetailInfoCustom.setSubtractpoints(count);
 							tTaskDetailInfoCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
 							tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
-							tTaskDetailInfoCustom.setTaskstate("1");
+							tTaskDetailInfoCustom.setTaskstate("40");//待获取状态
 							tTaskDetailInfoCustom.setTaskdate(tTaskInfoCustom.getTaskstartdate());
 							tTaskDetailInfoCustom.setTaskhour(j+"");
 							tTaskDetailInfoCustom.setTaskminute((minute[j2]+"").length()>1?(minute[j2]+""):("0"+minute[j2]));
@@ -259,6 +274,13 @@ public class Taskallocation {
 						}
 					}
 			}
+				/*
+				 * 分配完成后修改任务状态
+				 */
+				HashMap<String,Object> hashmap3=new HashMap<String,Object>();
+				hashmap3.put("taskid", tTaskInfoCustom.getTaskid());
+				hashmap3.put("taskstate", "16");//任务运行中
+				taskInfoService.updateTaskstate(hashmap3);
 			}
 		}
 		return map;
