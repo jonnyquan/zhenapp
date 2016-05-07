@@ -1,0 +1,54 @@
+@charset "utf-8";
+/*验证码样式*/
+#verifybox{position:relative;}
+#verifyimg{position:absolute;bottom:40px;left:150px;cursor:pointer;border:1px solid #ddd;display:none;}
+/*Layer弹出层 用户登录框*/
+.layForm{width:520px;padding:20px}
+.layForm .lay_userBox{width:250px;border-right:1px solid #ddd; padding-right:19px;}
+.layForm .lay_api{width:230px;}
+.lay_userBox h2{height:50px;line-height:50px; font-size:25px;color:#494949;}
+.lay_control{position:relative;}
+.lay_control .form_input{margin-top:15px;height:34px;line-height:34px;border-top:1px solid #848484;border-left:1px solid #848484;border-right:1px solid #e0e0e0;border-bottom:1px solid #e0e0e0;padding:0 5px; font-size:14px;}
+.lay_control img{margin-top:6px;cursor:pointer;border:1px solid #ddd;}
+.lay_control .botton{margin-top:15px;}
+.lay_control .form_btn{width:248px;height:44px;line-height:44px; text-align:center; background-color:#f64e2d;color:#fff; border:1px solid #cc3214; font-size:14px; font-weight:bold;}
+.lay_control .form_btn:hover{background-color:#de3f1f;}
+.lay_control label{position:absolute; width:120px; padding:0 5px 0 15px;left:240px;display:none;top:22px;height:22px;line-height:22px; background:url(../images/web_ico.png) -460px -60px no-repeat;color:#fff;overflow:hidden;}
+.lay_control label.Validform_wrong{display:block;}
+.lay_control label.Validform_right{display:block; background-position:-460px -90px;}
+.lay_control label.Validform_loading{display:block;}
+.lay_api h2{height:50px; line-height:50px; font-size:18px;color:#494949; text-align:right;}
+.layapi_info li{width:230px; height:45px;margin-top:10px;}
+.layapi_info li a{display:block;width:230px;height:45px;text-indent:-999999px; background:url(../images/web_ico.png) -220px -40px no-repeat;}
+.layapi_info li a.api_sina{background-position:-220px -85px;}
+.layapi_info li a.api_seller{background-position:-220px -130px;}
+.layapi_info li.btn {margin-top:30px;}
+.layapi_info li.btn .close_lay{float:right;width:70px;text-align:center;height:36px; margin-left:10px;line-height:36px; text-align:center;background-color:#f8f8f8;color:#666;border:1px solid #ddd; font-size:14px; font-weight:bold;}
+.layapi_info li a.register{float:right;width:100px;height:34px;line-height:34px;margin-top:0px;text-indent:inherit;background:none;text-align:center; background-color:#f8f8f8;color:#333; border:1px solid #ddd; font-size:14px; font-weight:bold}
+.layapi_info li.btn .close_lay:hover,.layapi_info li a.register:hover{background-color:#efefef;}
+
+/*顶部Bar条用户登录状态样式*/
+/*topBar*/
+#topbar{width:100%;height:35px;line-height:35px;background-color:#313131;}
+#topbar .welcome{height:36px;line-height:36px;}
+#topbar .welcome i{padding:0 5px;color:#f06;font-size:16px;}
+#topbar .welcome a{color:#039; margin:0 10px;}
+/*用户未登录*/
+.userlogininfo{width:400px;height:36px;line-height:36px;}
+.userlogininfo .nologin{text-align:right;}
+.nologin{text-align:right;color:#efefef;height:36px;line-height:36px;}
+.nologin a{color:#efefef; text-align:left;margin:0 5px;display:inline-block;width:68px;height:20px;line-height:20px;background:#0091ff;color:#fff;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;text-indent:3px;}
+.nologin a.reg{background-color:#e67e0f;}
+.nologin a:hover{color:#ff0}
+.nologin a i{ padding:0 7px;}
+/*用户已登录*/
+.islogin{text-align:right;color:#efefef;height:36px;line-height:36px;}
+.islogin a{color:#efefef; margin:0 10px;}.islogin a:hover{color:#ff0}
+.islogin a span{color:#fac905;}
+.islogin a i{ padding:0 7px;}
+
+/*Bar用户中心导航*/
+.userlogininfo .ucenter_box{display:none; position:absolute;width:140px;top:36px; z-index:99;padding:5px 5px;left:117px; background-color:#fff;border-left:1px solid #dedede;border-right:1px solid #dedede;border-bottom:1px solid #dedede;}
+.ucenter_box ul li{height:35px;line-height:35px;border-bottom:1px dashed #eee;}
+.ucenter_box ul li a{font-size:14px;}
+.ucenter_box ul li a i{padding-left:5px; padding-right:10px;color:#F03; font-size:14px;}

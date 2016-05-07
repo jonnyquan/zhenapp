@@ -80,6 +80,13 @@ public class LoginInterceptor implements HandlerInterceptor {
 			 return true; 
 		 }
 		 /*
+		  * 调用前端请求不用登录
+		  */
+		 if(url.indexOf("/frontend/")>=0 ){ 
+				 return true; 
+		 }
+		 
+		 /*
 		  * 调用测试方法测试  上线删除
 		  */
 		if(url.indexOf("/test/")>=0 ){ 
