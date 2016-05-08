@@ -9,9 +9,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<meta name="keywords" content="流量村,淘口令,刷淘宝流量,淘宝刷流量软件,淘宝流量,淘宝刷流量" />
+<meta name="keywords" content="真流量,淘口令,刷淘宝流量,淘宝刷流量软件,淘宝流量,淘宝刷流量" />
 <meta name="description"
-	content="流量村是一个快速提升淘宝手机流量、淘口令流量、淘宝无线流量、淘宝APP流量的平台,流量村优势:  百分百模拟刷淘宝手机流量、淘口令、淘宝刷流量软件、刷淘宝流量软件。" />
+	content="真流量是一个快速提升淘宝手机流量、淘口令流量、淘宝无线流量、淘宝APP流量的平台,真流量优势:  百分百模拟刷淘宝手机流量、淘口令、淘宝刷流量软件、刷淘宝流量软件。" />
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/font-awesome.min.css">
@@ -35,7 +35,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="topbar">
 		<div class="warp1200 toplogin clearfix">
 			<div class="userlogin row_r" id="userLogin">
-				您好，欢迎来到真流量网！<a href="/auth/login">马上登录</a>|<a href="/auth/register">快速注册</a>
+				<c:if test="${tUserInfoCustom == null}">
+					您好，欢迎来到真流量网！<a href="${pageContext.request.contextPath}/frontend/authlogin">马上登录</a>|<a href="${pageContext.request.contextPath}/frontend/authregister">快速注册</a>
+				</c:if>
+				<c:if test="${tUserInfoCustom != null}">
+					<div class="userlogin row_r" id="userLogin">您好 <span>${tUserInfoCustom.usernick }</span> 欢迎您回来！<a href="${pageContext.request.contextPath}/user/responsepersonal">进入会员中心</a>|<a href="${pageContext.request.contextPath}/user/authlogout">退出登录</a></div>
+				</c:if>
 			</div>
 		</div>
 	</div>
@@ -53,7 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li><a href="${pageContext.request.contextPath}/frontend/anli" class="scl3">成功案例</a></li>
 					<li><a href="${pageContext.request.contextPath}/frontend/articlenews" class="scl4" title="电商干货">电商干货</a></li>
 					<li><a href="${pageContext.request.contextPath}/frontend/articleguide" class="scl5">新手指引</a></li>
-					<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="流量村用户中心">用户中心</a></li>
+					<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="真流量用户中心">用户中心</a></li>
 					<li><a href="${pageContext.request.contextPath}/frontend/about" class="scl7">联系我们</a></li>
 				</ul>
 			</div>
@@ -139,45 +144,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 	</div>
-
 	<script type="text/javascript"
-		src="http://www.liuliangcun.com/script/floatTools.js"></script>
+		src="${pageContext.request.contextPath}/frontend/pagematter/common/js/floatTools.js"></script>
 	<script type="text/javascript"
-		src="http://www.liuliangcun.com/script/layer.min.js"></script>
-
+		src="${pageContext.request.contextPath}/frontend/pagematter/common/js/layer.min.js"></script>
 	<script>
         uParse('.content', {
             rootPath: '../'
         })
     </script>
-
-
 	<div class="copyRight">
 		<div class="warp1200 footer">
 			<p>
-				Copyright<span>&copy;</span>2010-2015<span><a
-					href="http://www.liuliangcun.com" title="淘宝流量">淘宝流量</a> | <a
-					href="http://www.liuliangcun.com" title="流量村">流量村</a>(LiuLiangCun.COM).</span>All
-				Rights Reserved.
+				Copyright (c) 2015 <a href="${pageContext.request.contextPath}/frontend/index" title="淘宝流量">淘宝流量</a> | <a href="${pageContext.request.contextPath}/frontend/index" title="真流量">真流量</a>(www.zhenapp.cn) Inc. All Rights. 浙ICP备140452118号-5.
 			</p>
 		</div>
-	</div>
-
-	<div id="cnzz" style="display: none">
-		<script
-			src="http://s95.cnzz.com/stat.php?id=1256426482&web_id=1256426482"
-			language="JavaScript"></script>
-	</div>
-	<div id="baidu" style="display: none">
-		<script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "//hm.baidu.com/hm.js?5bea207fb51957576263526af963d0ff";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
 	</div>
 </body>
 </html>

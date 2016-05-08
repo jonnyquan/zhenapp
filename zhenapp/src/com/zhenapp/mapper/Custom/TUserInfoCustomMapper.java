@@ -8,6 +8,19 @@ import com.zhenapp.po.Vo.TUserinfoVo;
 
 public interface TUserInfoCustomMapper {
 	/*
+	 * 个人信息的更新
+	 */
+	public int updateUser(TUserInfoCustom tUserInfoCustom) throws Exception;
+	/*
+	 * 根据手机号是否存在此手机信息
+	 */
+	public int checkMobileUnique(String userphone) throws Exception;
+	
+	/*
+	 * 根据查询是否存在此邮件账号信息
+	 */
+	public int checkEmailUnique(String regemail) throws Exception;
+	/*
 	 * 保存用户信息
 	 */
 	public int saveUser(TUserInfoCustom tUserInfoCustom) throws Exception;

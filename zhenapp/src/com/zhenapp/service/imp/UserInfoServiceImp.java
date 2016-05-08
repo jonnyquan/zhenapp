@@ -81,4 +81,19 @@ public class UserInfoServiceImp implements UserInfoService {
 			throws Exception {
 		return tUserInfoCustomMapper.findTotalUserByPageandRole(pagemap);
 	}
+	@Override
+	public int checkEmailUnique(String regemail) throws Exception {
+		// TODO Auto-generated method stub
+		return tUserInfoCustomMapper.checkEmailUnique(regemail);
+	}
+	@Override
+	public int checkMobileUnique(String userphone) throws Exception {
+		// TODO Auto-generated method stub
+		return tUserInfoCustomMapper.checkMobileUnique(userphone);
+	}
+	@Override
+	public int updateUser(TUserInfoCustom tUserInfoCustom) throws Exception {
+		// TODO Auto-generated method stub
+		return tUserInfoCustomMapper.updateUser(tUserInfoCustom);
+	}
 }

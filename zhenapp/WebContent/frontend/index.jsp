@@ -8,11 +8,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-<meta name="keywords" content="流量村,淘口令,刷淘宝流量,淘宝刷流量软件,淘宝流量,淘宝刷流量" />
+<meta name="keywords" content="真流量,淘口令,刷淘宝流量,淘宝刷流量软件,淘宝流量,淘宝刷流量" />
 <meta name="description"
-	content="流量村是一个快速提升淘宝手机流量、淘口令流量、淘宝无线流量、淘宝APP流量的平台,流量村优势:  百分百模拟刷淘宝手机流量、淘口令、淘宝刷流量软件、刷淘宝流量软件。" />
-
+	content="流量真真流量是一个快速提升淘宝手机流量、淘口令流量、淘宝无线流量、淘宝APP流量的平台,真流量优势:  百分百模拟刷淘宝手机流量、淘口令、淘宝刷流量软件、刷淘宝流量软件。" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
@@ -21,7 +19,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/common.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/index.css">
-	
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/frontend/pagematter/common/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript"
@@ -35,7 +32,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="topbar">
 		<div class="warp1200 toplogin clearfix">
 			<div class="userlogin row_r" id="userLogin">
-				您好，欢迎来到真流量网！<a href="/auth/login">马上登录</a>|<a href="/auth/register">快速注册</a>
+				<c:if test="${tUserInfoCustom == null}">
+					您好，欢迎来到真流量网！<a href="${pageContext.request.contextPath}/frontend/authlogin">马上登录</a>|<a href="${pageContext.request.contextPath}/frontend/authregister">快速注册</a>
+				</c:if>
+				<c:if test="${tUserInfoCustom != null}">
+					<div class="userlogin row_r" id="userLogin">您好 <span>${tUserInfoCustom.usernick }</span> 欢迎您回来！<a href="${pageContext.request.contextPath}/user/responsepersonal">进入会员中心</a>|<a href="${pageContext.request.contextPath}/user/authlogout">退出登录</a></div>
+				</c:if>
 			</div>
 		</div>
 	</div>
@@ -53,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li><a href="${pageContext.request.contextPath}/frontend/anli" class="scl3">成功案例</a></li>
 					<li><a href="${pageContext.request.contextPath}/frontend/articlenews" class="scl4" title="电商干货">电商干货</a></li>
 					<li><a href="${pageContext.request.contextPath}/frontend/articleguide" class="scl5">新手指引</a></li>
-					<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="流量村用户中心">用户中心</a></li>
+					<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="真流量用户中心">用户中心</a></li>
 					<li><a href="${pageContext.request.contextPath}/frontend/about" class="scl7">联系我们</a></li>
 				</ul>
 			</div>
@@ -62,28 +64,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
         $('.scl1').addClass('hover');
     </script>
-
 	<div class="slideBox">
 		<div class="hd">
 			<span>0</span><span>1</span><span>2</span>
 		</div>
 		<div class="bd">
 			<ul>
-				<a href="http://www.liuliangcun.com/user/task/taokouling/add"
-					title="淘口令流量" target="_blank">
-					<li
-					style="background:url(${pageContext.request.contextPath}/frontend/pagematter/common/img/taokouling.jpg) #fff center top no-repeat;"></li>
+				<a href="javascript:void(0);" title="淘口令流量" target="_blank">
+					<li style="background:url(${pageContext.request.contextPath}/frontend/pagematter/common/img/taokouling.jpg) #fff center top no-repeat;"></li>
 				</a>
-				<li
-					style="background:url(${pageContext.request.contextPath}/frontend/pagematter/common/img/1.jpg) #fff center top no-repeat;"></li>
-				<li
-					style="background:url(${pageContext.request.contextPath}/frontend/pagematter/common/img/2.jpg) #fff center top no-repeat;"></li>
+				<li style="background:url(${pageContext.request.contextPath}/frontend/pagematter/common/img/1.jpg) #fff center top no-repeat;"></li>
+				<li style="background:url(${pageContext.request.contextPath}/frontend/pagematter/common/img/2.jpg) #fff center top no-repeat;"></li>
 			</ul>
 		</div>
 	</div>
-
 	<script type="text/javascript">jQuery(".slideBox").slide({titCell:".hd span",mainCell:".bd ul",effect:"fold",trigger:"click",delayTime:2000,autoPlay:true});</script>
-
 	<div class="pageFull" id="part_1">
 		<div class="youshi">我们的无线流量优势</div>
 	</div>
@@ -193,8 +188,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				关于我们<span>ABOUT</span>
 			</h3>
 			<div class="cont">
-				<p>流量村是一个针对淘宝店铺增加无线端APP手机流量、收藏、加购物车、淘口令和提高直通车质量得分的平台！您可以通过流量村平台注册会员进行提升淘宝app流量、收藏、加购等操作，真实有效提升商品关键词指数和商品排名。</p>
-				<p>流量村团队，有国内最有技术实力的淘宝专业技术公司团队，针对淘宝规则的整个系统进行的研发。网站技术团队有多位实力成员，负责整个平台的研发、测试、上线、维护、更新、服务。一直不断的根据淘宝的监察规则和淘宝不断变化的情况来研发最真实的流量，符合淘宝的规则。为客户提供流量的必备工具(刷手机淘宝流量、淘宝手机流量软件、淘宝无线流量软件)。</p>
+				<p>真流量是一个针对淘宝店铺增加无线端APP手机流量、收藏、加购物车、淘口令和提高直通车质量得分的平台！您可以通过真流量平台注册会员进行提升淘宝app流量、收藏、加购等操作，真实有效提升商品关键词指数和商品排名。</p>
+				<p>真流量团队，有国内最有技术实力的淘宝专业技术公司团队，针对淘宝规则的整个系统进行的研发。网站技术团队有多位实力成员，负责整个平台的研发、测试、上线、维护、更新、服务。一直不断的根据淘宝的监察规则和淘宝不断变化的情况来研发最真实的流量，符合淘宝的规则。为客户提供流量的必备工具(刷手机淘宝流量、淘宝手机流量软件、淘宝无线流量软件)。</p>
 				<p>我们拥有5万以上真实手机，全国分布多个流量机房，轮流提高流量及点击率，提供最真实人工流量，及完全模拟手工操作。造爆款必备，提升网店浏览量和宝贝人气，提高直通车质量得分，完全通过生意参谋检测，可以查到真实的手机淘宝流量，非wap网页模拟流量！</p>
 				<p>专业打造优质无线流量 欢迎广大卖家咨询合作 加入我们共享双赢网店</p>
 			</div>
@@ -240,32 +235,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="copyRight">
 		<div class="warp1200 footer">
 			<p>
-				Copyright<span>&copy;</span>2010-2017<span><a
-					href="http://www.zhenapp.cn" title="淘宝流量">淘宝流量</a> | <a
-					href="http://www.zhenapp.cn" title="流量村">流量村</a>(LiuLiangCun.COM).</span>All
-				Rights Reserved.
+				Copyright (c) 2015 <a href="${pageContext.request.contextPath}/frontend/index" title="淘宝流量">淘宝流量</a> | <a href="${pageContext.request.contextPath}/frontend/index" title="真流量">真流量</a>(www.zhenapp.cn) Inc. All Rights. 浙ICP备140452118号-5.
 			</p>
 		</div>
 	</div>
 
-	<div id="cnzz" style="display: none">
-		<script
-			src="http://s95.cnzz.com/stat.php?id=1256426482&web_id=1256426482"
-			language="JavaScript"></script>
-	</div>
-	<div id="baidu" style="display: none">
-		<script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "//hm.baidu.com/hm.js?5bea207fb51957576263526af963d0ff";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-            
+	<script>
+        $(function() {
             var anli = ${anli};
             location.hash="anli"; 
-        })();
+        };
     </script>
-	</div>
 </body>
 </html>

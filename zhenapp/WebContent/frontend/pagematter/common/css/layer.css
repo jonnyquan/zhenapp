@@ -1,9 +1,9 @@
-﻿/**
+/**
 
  @Name: layer's style
  @Date: 2012.09.15
- @Author: 贤心
- @blog： sentsin.com
+ @Author: ����
+ @blog�� sentsin.com
 
 **/
 
@@ -20,10 +20,10 @@
 .xubox_page{top:0; left:0;}
 .xubox_load{background:url(../image/xubox_loading0.gif) #fff center center no-repeat;}
 .xubox_loading{display:block; float:left; text-decoration:none; color:#FFF; _float:none; }
-.xulayer_png32{background:url(../image/xubox_ico0.png) no-repeat;}
+.xulayer_png32{background:url(../img/xubox_ico0.png) no-repeat;}
 .xubox_moves{border:3px solid #666; cursor:move; background-color:rgba(255,255,255,.3); background-color:#fff\9;  filter:alpha(opacity=50);}
 
-.xubox_msgico{width:32px; height:32px; top:52px; left:15px; background:url(../image/xubox_ico0.png) no-repeat;}
+.xubox_msgico{width:32px; height:32px; top:52px; left:15px; background:url(../img/xubox_ico0.png) no-repeat;}
 .xubox_text{padding-left:55px; float:left; line-height:25px; word-break:break-all; padding-right:50px; overflow:hidden; font-size:14px;color:#c00;}
 .xubox_msgtype0{background-position:-91px -38px;}
 .xubox_msgtype1{background-position:-128px -38px }
@@ -62,7 +62,7 @@
 .xubox_title{width:100%; height:35px; line-height:35px; border-bottom:1px solid #D5D5D5; background:url(../image/xubox_title0.png) #EBEBEB repeat-x; font-size:14px; color:#333;}
 .xubox_title em{height:20px; line-height:20px; width:60%; top:7px; left:10px; font-style:normal; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
 
-.xubox_botton a{position:absolute; bottom:10px; left:50%; background:url(../image/xubox_ico0.png) repeat; text-decoration:none; color:#FFF;  font-size:14px;  text-align:center; font-weight:bold; overflow:hidden; }
+.xubox_botton a{position:absolute; bottom:10px; left:50%; background:url(../img/xubox_ico0.png) repeat; text-decoration:none; color:#FFF;  font-size:14px;  text-align:center; font-weight:bold; overflow:hidden; }
 .xubox_botton a:hover{text-decoration:none; color:#FFF; }
 .xubox_botton .xubox_botton1{ width:79px; height:32px; line-height:32px; margin-left:-39px; background-position:-6px -34px;}
 .xubox_botton1:hover{background-position:-6px -72px;}

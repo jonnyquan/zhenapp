@@ -7,6 +7,20 @@ import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Vo.TUserinfoVo;
 
 public interface UserInfoService {
+	/*
+	 * 个人信息的更新
+	 */
+	public int updateUser(TUserInfoCustom tUserInfoCustom) throws Exception;
+	
+	/*
+	 * 根据手机号是否存在此手机信息
+	 */
+	public int checkMobileUnique(String userphone) throws Exception;
+	
+	/*
+	 * 根据查询是否存在此邮件账号信息
+	 */
+	public int checkEmailUnique(String regemail) throws Exception;
 	
 	/*
 	 * 根据用户名查询用户信息

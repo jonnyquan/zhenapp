@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhenapp.mapper.Custom.TUserInfoCustomMapper" >
+
+
+  <select id="checkMobileUnique" resultType="int" parameterType="String" >
+    select count(1) from t_user_info where userphone = #{userphone}
+  </select>
+  <select id="checkEmailUnique" resultType="int" parameterType="String" >
+    select count(1) from t_user_info where regemail = #{regemail}
+  </select>
   <select id="findUserBynick" resultType="com.zhenapp.po.Custom.TUserInfoCustom" parameterType="String" >
     select * from t_user_info where userNick = #{usernick}
   </select>
@@ -38,6 +46,10 @@
  	delete from  t_user_info where userpk=#{userpk}
   </delete>
   
+  
+  <update id="updateUser" parameterType="com.zhenapp.po.Custom.TUserInfoCustom">
+  	update t_user_info set username = #{username},userqq = #{userqq},updatetime = #{updatetime},updateuser = #{updateuser} where userId = #{userid}
+   </update>
   
   <update id="updateUserinfo" parameterType="com.zhenapp.po.Vo.TUserinfoVo">
   	update t_user_info

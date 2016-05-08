@@ -51,6 +51,30 @@ public class TaskInfoController {
 	private PointsInfoService pointsInfoService;
 	
 	/*
+	 * 跳转到发布任务界面
+	 */
+	@RequestMapping(value="/responsetaskadd")
+	public ModelAndView responsetaskadd() throws Exception{
+		ModelAndView mv=new ModelAndView();
+		
+		
+		mv.setViewName("/backstage/task/taskadd.jsp");
+		return mv;
+	}
+	/*
+	 * 跳转到任务管理界面
+	 */
+	@RequestMapping(value="/responsetaskmanage")
+	public ModelAndView responsetaskmanage() throws Exception{
+		ModelAndView mv=new ModelAndView();
+		
+		
+		mv.setViewName("/backstage/task/taskmanage.jsp");
+		return mv;
+	}
+	
+	
+	/*
 	 * 查询价格信息  转发到发布任务界面
 	 */
 	@RequestMapping(value="/findPriceToTask")

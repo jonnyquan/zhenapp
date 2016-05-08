@@ -25,14 +25,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/frontend/pagematter/common/js/jquery.SuperSlide.2.1.1.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/frontend/pagematter/common/js/ueditor.parse.js"></script>
-<title>服务介绍 - 流量村</title>
+<title>服务介绍 - 真流量</title>
 </head>
 
 <body>
 <div class="topbar">
 		<div class="warp1200 toplogin clearfix">
 			<div class="userlogin row_r" id="userLogin">
-				您好，欢迎来到真流量网！<a href="/auth/login">马上登录</a>|<a href="/auth/register">快速注册</a>
+				<c:if test="${tUserInfoCustom == null}">
+					您好，欢迎来到真流量网！<a href="${pageContext.request.contextPath}/frontend/authlogin">马上登录</a>|<a href="${pageContext.request.contextPath}/frontend/authregister">快速注册</a>
+				</c:if>
+				<c:if test="${tUserInfoCustom != null}">
+					<div class="userlogin row_r" id="userLogin">您好 <span>${tUserInfoCustom.usernick }</span> 欢迎您回来！<a href="${pageContext.request.contextPath}/user/responsepersonal">进入会员中心</a>|<a href="${pageContext.request.contextPath}/user/authlogout">退出登录</a></div>
+				</c:if>
 			</div>
 		</div>
 	</div>
@@ -50,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li><a href="${pageContext.request.contextPath}/frontend/anli" class="scl3">成功案例</a></li>
 					<li><a href="${pageContext.request.contextPath}/frontend/articlenews" class="scl4" title="电商干货">电商干货</a></li>
 					<li><a href="${pageContext.request.contextPath}/frontend/articleguide" class="scl5">新手指引</a></li>
-					<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="流量村用户中心">用户中心</a></li>
+					<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="真流量用户中心">用户中心</a></li>
 					<li><a href="${pageContext.request.contextPath}/frontend/about" class="scl7">联系我们</a></li>
 				</ul>
 			</div>
@@ -109,10 +114,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="mainBox">
 					<div class="newsContent">
 						<div class="content">
-							<p>流量村是一个针对淘宝店铺增加无线端APP手机流量、收藏、加购物车、淘口令和提高直通车质量得分的平台！您可以通过流量村平台注册会员进行提升无线端流量、收藏、加购等操作，真实有效提升商品关键词指数和商品排名。</p>
+							<p>真流量是一个针对淘宝店铺增加无线端APP手机流量、收藏、加购物车、淘口令和提高直通车质量得分的平台！您可以通过真流量平台注册会员进行提升无线端流量、收藏、加购等操作，真实有效提升商品关键词指数和商品排名。</p>
 							<br />
 
-							<p>流量村团队，有国内最有技术实力的淘宝专业技术公司团队，针对淘宝规则的整个系统进行的研发。网站技术团队有多位实力成员，负责整个平台的研发、测试、上线、维护、更新、服务。一直不断的根据淘宝的监察规则和淘宝不断变化的情况来研发最真实的流量，符合淘宝的规则。为客户提供流量的必备工具。</p>
+							<p>真流量团队，有国内最有技术实力的淘宝专业技术公司团队，针对淘宝规则的整个系统进行的研发。网站技术团队有多位实力成员，负责整个平台的研发、测试、上线、维护、更新、服务。一直不断的根据淘宝的监察规则和淘宝不断变化的情况来研发最真实的流量，符合淘宝的规则。为客户提供流量的必备工具。</p>
 							<br />
 
 							<p>我们拥有5万以上真实手机，全国分布多个流量机房，轮流提高流量及点击率，提供最真实人工流量，及完全模拟手工操作。造爆款必备，提升网店浏览量和宝贝人气，提高直通车质量得分，完全通过生意参谋检测，可以查到真实的手机淘宝流量，非wap网页模拟流量！</p>
@@ -210,7 +215,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</table>
 
 							*推荐朋友来注册可以获得10%的佣金哦，<a
-								href="http://www.liuliangcun.com/user/broker">我要获取推广链接</a>！
+								href="javascript:void(0);">我要获取推广链接</a>！
 						</div>
 					</div>
 				</div>
@@ -222,40 +227,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		src="${pageContext.request.contextPath}/frontend/pagematter/common/js/floatTools.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/frontend/pagematter/common/js/layer.min.js"></script>
-
 	<script>
         uParse('.content', {
             rootPath: '../'
         })
     </script>
-
-
 	<div class="copyRight">
 		<div class="warp1200 footer">
 			<p>
-				Copyright<span>&copy;</span>2010-2015<span><a
-					href="${pageContext.request.contextPath}/frontend/index" title="淘宝流量">淘宝流量</a> | <a
-					href="${pageContext.request.contextPath}/frontend/index" title="流量村">流量村</a>(LiuLiangCun.COM).</span>All
-				Rights Reserved.
+				Copyright (c) 2015 <a href="${pageContext.request.contextPath}/frontend/index" title="淘宝流量">淘宝流量</a> | <a href="${pageContext.request.contextPath}/frontend/index" title="真流量">真流量</a>(www.zhenapp.cn) Inc. All Rights. 浙ICP备140452118号-5.
 			</p>
 		</div>
-	</div>
-
-	<div id="cnzz" style="display: none">
-		<script
-			src="http://s95.cnzz.com/stat.php?id=1256426482&web_id=1256426482"
-			language="JavaScript"></script>
-	</div>
-	<div id="baidu" style="display: none">
-		<script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "//hm.baidu.com/hm.js?5bea207fb51957576263526af963d0ff";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
 	</div>
 </body>
 </html>

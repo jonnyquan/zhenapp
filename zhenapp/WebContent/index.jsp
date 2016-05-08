@@ -12,9 +12,11 @@
 </head>
 <body>
 
-	<form id="form" action="${pageContext.request.contextPath}/index/findwebinfo" method="post">
+	<!--  <form id="form" action="${pageContext.request.contextPath}/indegx/findwebinfo" method="post">
 	</form>
-	
+	-->
+	<form id="form" action="${pageContext.request.contextPath}/frontend/index" method="post">
+	</form>
 	
 </body>
 <script type="text/javascript"

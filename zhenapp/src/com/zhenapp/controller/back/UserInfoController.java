@@ -49,6 +49,77 @@ public class UserInfoController {
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 	
 	/*
+	 * 跳转到个人中心页面
+	 */
+	@RequestMapping(value="/responseuser")
+	public ModelAndView responseuser() throws Exception{
+		ModelAndView mv=new ModelAndView();
+		
+		
+		mv.setViewName("/backstage/user/user.jsp");
+		return mv;
+	}
+	/*
+	 * 跳转到个人基本信息页面
+	 */
+	@RequestMapping(value="/responsepersonal")
+	public ModelAndView responsepersonal(HttpSession session) throws Exception{
+		ModelAndView mv=new ModelAndView();
+		if(session.getAttribute("tUserInfoCustom")==null){
+			mv.setViewName("/frontend/authlogin.jsp");
+		}else{
+			TUserInfoCustom tUserInfoCustom = (TUserInfoCustom)session.getAttribute("tUserInfoCustom");
+			tUserInfoCustom = userInfoService.findUserByuserid(tUserInfoCustom.getUserid());
+			session.setAttribute("tUserInfoCustom", tUserInfoCustom);
+			mv.setViewName("/backstage/user/personal.jsp");
+		}
+		return mv;
+	}
+	
+	/*
+	 * 跳转到修改密码页面
+	 */
+	@RequestMapping(value="/responseupdatepassword")
+	public ModelAndView responseupdatepassword() throws Exception{
+		ModelAndView mv=new ModelAndView();
+		
+		
+		mv.setViewName("/backstage/user/updatepassword.jsp");
+		return mv;
+	}
+	
+	/*
+	 * 退出系统
+	 */
+	@RequestMapping(value="/authlogout")
+	public ModelAndView authlogout(HttpSession session){
+		ModelAndView mv=new ModelAndView();
+		session.removeAttribute("tUserInfoCustom");
+		mv.setViewName("/frontend/authlogin.jsp");
+		return mv;
+	}
+	
+	/*
+	 * 用于用户修改基本信息
+	 */
+	@RequestMapping(value="/updateUser")
+	public @ResponseBody ModelAndView updateUser(HttpSession session,TUserInfoCustom tUserInfoCustom) throws Exception{
+		ModelAndView mv =new ModelAndView();
+		tUserInfoCustom.setUpdatetime(sdf.format(new Date()));
+		tUserInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
+		int i=userInfoService.updateUser(tUserInfoCustom);
+		if(i>0){
+			mv.setViewName("responsepersonal");
+		}else{
+			mv.setViewName("/info.jsp");
+		}
+		return mv;
+	}
+	
+	
+	//===============================================================================以上为新
+	
+	/*
 	 * 使用用户名密码登录
 	 */
 	@RequestMapping(value="/Loginrest/{username}/{password}"
@@ -70,54 +141,6 @@ public class UserInfoController {
 		}
 		return tUserInfo;
 	}
-	
-	/*
-	 * 注册
-	 */
-	@RequestMapping(value="/register"
-			,method={RequestMethod.POST,RequestMethod.GET})
-	public @ResponseBody ModelAndView register(HttpServletRequest request,TUserInfoCustom tUserInfoCustom) throws Exception{
-		ModelAndView mv=new ModelAndView();
-		String webwww=request.getServerName();
-		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
-		String time = sdf.format(new Date());
-		tUserInfoCustom.setUserroleid(3);//默认初始化角色id
-		tUserInfoCustom.setRegdomain(webwww);
-		tUserInfoCustom.setRegip(webwww);
-		tUserInfoCustom.setUserstate("1");//默认初始化用户状态
-		tUserInfoCustom.setUserid(UUID.randomUUID().toString().replace("-", ""));
-		tUserInfoCustom.setUserpwd(MD5Util.string2MD5(tUserInfoCustom.getUserpwd()));
-		tUserInfoCustom.setAgentid(tAgentInfoCustom.getAgentid());
-		tUserInfoCustom.setCreatetime(time);
-		tUserInfoCustom.setCreateuser("sys");
-		tUserInfoCustom.setUpdatetime(time);
-		tUserInfoCustom.setUpdateuser("sys");
-		int i=userInfoService.saveUser(tUserInfoCustom);
-		if(i>0){
-			mv.addObject("msg","注册成功..");
-			mv.setViewName("/page/main/login.jsp");
-		}else{
-			mv.addObject("msg","注册失败..");
-			mv.setViewName("/page/main/reg.jsp");
-		}
-		return mv;
-	}
-	
-	/*
-	 * 用于校验注册时用户名是否存在
-	 */
-	@RequestMapping(value="/findUserByNick/{usernick}")
-	public @ResponseBody ModelMap findUserByNick(@PathVariable(value="usernick")String usernick) throws Exception{
-		List<TUserInfoCustom> list=userInfoService.findUserBynick(usernick);
-		ModelMap map= new ModelMap();
-		if(list.size()>0){
-			map.put("state", "1");
-		}else{
-			map.put("state", "0");
-		}
-		return map;
-	}
-	
 	/*
 	 * 查询用户列表
 	 */

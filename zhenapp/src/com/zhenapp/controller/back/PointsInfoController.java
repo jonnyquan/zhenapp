@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.TPointsInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
@@ -20,10 +21,34 @@ import com.zhenapp.service.PointsInfoService;
 @Controller
 @RequestMapping(value="/points")
 public class PointsInfoController {
-
 	@Autowired
 	private PointsInfoService pointsInfoService;
 	
+	/*
+	 * 跳转到购买积分界面
+	 */
+	@RequestMapping(value="/responsebuypoints")
+	public ModelAndView responsebuypoints() throws Exception{
+		ModelAndView mv=new ModelAndView();
+		
+		
+		mv.setViewName("/backstage/points/buypoints.jsp");
+		return mv;
+	}
+	
+	/*
+	 * 跳转到积分明细界面
+	 */
+	@RequestMapping(value="/responserecordspoints")
+	public ModelAndView responserecordspoints() throws Exception{
+		ModelAndView mv=new ModelAndView();
+		
+		
+		mv.setViewName("/backstage/points/recordspoints.jsp");
+		return mv;
+	}
+	
+//============================================================================================以上为最新
 	@RequestMapping(value="/findPointsInfoByPage")
 	public @ResponseBody ModelMap findPointsInfoByPage(Integer page,Integer rows,HttpServletRequest request) throws Exception{
 		ModelMap map=new ModelMap();

@@ -4,37 +4,98 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/global.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/common.css">
+	<link rel="stylesheet" type="text/css"
+		href="${pageContext.request.contextPath}/frontend/pagematter/common/css/global.css">
+		<link rel="stylesheet" type="text/css"
+			href="${pageContext.request.contextPath}/frontend/pagematter/common/css/common.css">
 
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/frontend/pagematter/common/js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/frontend/pagematter/common/js/common.js"></script>
+			<script type="text/javascript"
+				src="${pageContext.request.contextPath}/frontend/pagematter/common/js/jquery-1.11.1.min.js"></script>
+			<script type="text/javascript"
+				src="${pageContext.request.contextPath}/frontend/pagematter/common/js/common.js"></script>
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/user/layer_user.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/user/user.css" type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/validform.style.css"
-	type="text/css">
+			<link rel="stylesheet"
+				href="${pageContext.request.contextPath}/frontend/pagematter/common/css/layer_user.css"
+				type="text/css">
+				<link rel="stylesheet"
+					href="${pageContext.request.contextPath}/frontend/pagematter/common/css/user.css"
+					type="text/css">
+					<link rel="stylesheet"
+						href="${pageContext.request.contextPath}/frontend/pagematter/common/css/validform.style.css"
+						type="text/css">
 
-<style type="text/css">
+						<style type="text/css">
 
 /*header*/
+.pageFull {
+	width: 100%;
+	height: 80px;
+	background-color: #fff;
+	background-image: none;
+	padding-bottom: 0px;
+}
 
+.webHeader {
+	height: 80px;
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.webHeader .logo {
+	width: 280px;
+	height: 80px;
+	overflow: hidden;
+}
+
+.webHeader .logo a {
+	display: block;
+	width: 280px;
+	height: 80px;
+	background: url(pagematter/common/img/logo.png) no-repeat;
+	text-indent: -99999px;
+}
+
+.webHeader .channel {
+	width: 770px;
+}
+
+.webHeader .channel ul {
+	margin-top: 17px;
+}
+
+.webHeader .channel ul li {
+	float: left;
+	width: 80px;
+	height: 45px;
+	line-height: 45px;
+	display: inline-block;
+	margin-left: 20px;
+}
+
+.webHeader .channel ul li a {
+	display: block;
+	width: 80px;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+	font-size: 16px;
+}
+
+.webHeader .channel ul li a:hover,.webHeader .channel ul li a.hover {
+	height: 44px;
+	line-height: 44px;
+	border-bottom: 1px solid #ed7200;
+	color: #d54308;
+}
 
 .huiyuandenglu {
 	padding-bottom: 20px;
@@ -162,7 +223,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	color: red;
 }
 </style>
-<title>会员登录 - 流量村</title>
+						<title>会员登录 - 真流量</title>
 </head>
 
 <body>
@@ -170,7 +231,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="topbar">
 		<div class="warp1200 toplogin clearfix">
 			<div class="userlogin row_r" id="userLogin">
-				您好，欢迎来到流量村！<a href="/auth/login">马上登录</a>|<a href="/auth/register">快速注册</a>
+				<c:if test="${tUserInfoCustom == null}">
+					您好，欢迎来到真流量网！<a href="${pageContext.request.contextPath}/frontend/authlogin">马上登录</a>|<a href="${pageContext.request.contextPath}/frontend/authregister">快速注册</a>
+				</c:if>
+				<c:if test="${tUserInfoCustom != null}">
+					<div class="userlogin row_r" id="userLogin">您好 <span>${tUserInfoCustom.usernick }</span> 欢迎您回来！<a href="${pageContext.request.contextPath}/user/responsepersonal">进入会员中心</a>|<a href="${pageContext.request.contextPath}/user/authlogout">退出登录</a></div>
+				</c:if>
 			</div>
 		</div>
 	</div>
@@ -178,7 +244,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="pageFull">
 		<div class="webHeader clearfix">
 			<div class="logo row_l">
-				<a href="${pageContext.request.contextPath}/frontend/index" title="电商流量">真流量</a>
+				<a href="${pageContext.request.contextPath}/frontend/index"
+					title="淘宝流量">真流量</a>
 			</div>
 			<div class="channel row_r">
 				<ul class="clearfix">
@@ -188,7 +255,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li><a href="${pageContext.request.contextPath}/frontend/anli" class="scl3">成功案例</a></li>
 					<li><a href="${pageContext.request.contextPath}/frontend/articlenews" class="scl4" title="电商干货">电商干货</a></li>
 					<li><a href="${pageContext.request.contextPath}/frontend/articleguide" class="scl5">新手指引</a></li>
-					<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="流量村用户中心">用户中心</a></li>
+					<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="真流量用户中心">用户中心</a></li>
 					<li><a href="${pageContext.request.contextPath}/frontend/about" class="scl7">联系我们</a></li>
 				</ul>
 			</div>
@@ -207,34 +274,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 				<div class="loginBox">
 
-					<form class="koo_fromBox" action="/auth/login" method="post">
+					<form class="koo_fromBox" action="${pageContext.request.contextPath}/frontend/login" method="post">
 						<input type="hidden" name="_token"
-							value="XuPy54zNSHdOJ3diTiK9G2jGsoQ20TeGkrXVibVS">
-						<h2>会员登录</h2>
+							value="Y2ZM2EhoU6uFf43IlOBRLsaogFZXlqyfLz7dviDn">
+							<h2>会员登录</h2>
 
-						<div class="form_control clearfix">
+							<div class="form_control clearfix">
 
-							<input class="form_input input240" type="text" name="username"
-								id="username" placeholder="用户名：" value="" />
+								<input class="form_input input240" type="text" name="username"
+									id="username" placeholder="用户名：" value="" />
 
-						</div>
-
-						<div class="form_control clearfix">
-
-							<input class="form_input input240" type="password"
-								name="password" id="password" placeholder="密 码：">
-
-						</div>
-
-						<div class="form_control clearfix">
-
-							<div class="botton">
-								<button type="submit" name="submit" class="form_btn">登
-									录</button>
 							</div>
 
-						</div>
+							<div class="form_control clearfix">
 
+								<input class="form_input input240" type="password"
+									name="password" id="password" placeholder="密 码：">
+							</div>
+
+							<div class="form_control clearfix">
+
+								<div class="botton">
+									<button type="submit" name="submit" class="form_btn">登 录</button>
+								</div>
+
+							</div>
 					</form>
 
 					<div class="tipwz"></div>
@@ -243,14 +307,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 				<div class="aregtips">
 
-					<div class="tipwz">您还没有注册流量村帐号？您只需10秒钟！</div>
+					<div class="tipwz">您还没有注册真流量帐号？您只需10秒钟！</div>
 
 					<div class="tipwz">成功注册立刻发布任务！</div>
 					<div class="reg">
-						<a href="/auth/register">快速免费注册新用户</a>
+						<a href="${pageContext.request.contextPath}/frontend/authregister">快速免费注册新用户</a>
 					</div>
 					<div class="getpwd">
-						<a href="/password/sms">找回登录密码</a>
+						<a href="${pageContext.request.contextPath}/frontend/passwordsms">找回登录密码</a>
 					</div>
 
 				</div>
@@ -269,28 +333,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<tbody>
 							<tr class="firstRow">
 								<td width="60" align="right"><img width="57" height="60"
-									style="border: 0px currentColor; border-image: none;" alt="流量村"
+									style="border: 0px currentColor; border-image: none;" alt="流量网"
 									src="${pageContext.request.contextPath}/frontend/pagematter/common/img/ico_5.gif" /></td>
 								<td width="10">&nbsp;</td>
 								<td><strong>超低的费用 方便快捷的排单方式</strong><br />全面支持系统下单，支持计划任务，可以24小时下单；</td>
 							</tr>
 							<tr>
 								<td width="60" align="right"><img width="57" height="60"
-									style="border: 0px currentColor; border-image: none;" alt="流量村"
+									style="border: 0px currentColor; border-image: none;" alt="流量网"
 									src="${pageContext.request.contextPath}/frontend/pagematter/common/img/ico_5.gif" /></td>
 								<td>&nbsp;</td>
 								<td><strong>高端个性化流量 最真实的模拟人工点击</strong><br />独创百分百模拟、符合淘宝个性化搜索规则、百倍手机订单由此开始；</td>
 							</tr>
 							<tr>
 								<td align="right"><img width="60" height="51"
-									style="border: 0px currentColor; border-image: none;" alt="流量村"
+									style="border: 0px currentColor; border-image: none;" alt="流量网"
 									src="${pageContext.request.contextPath}/frontend/pagematter/common/img/ico_5.gif" /></td>
 								<td>&nbsp;</td>
 								<td><strong>全能规避淘宝规则个性化搜索规则</strong><br />独创分布式随机算法、任务随机分配到不同地区、自定义时间安排流量,更真实；</td>
 							</tr>
 							<tr>
 								<td align="right"><img width="61" height="54"
-									style="border: 0px currentColor; border-image: none;" alt="流量村"
+									style="border: 0px currentColor; border-image: none;" alt="流量网"
 									src="${pageContext.request.contextPath}/frontend/pagematter/common/img/ico_5.gif" /></td>
 								<td>&nbsp;</td>
 								<td><strong>成熟的放单系统</strong><br />操作轻松简单、任务进度一目了然、成熟的流量REP系统。</td>
@@ -298,15 +362,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</tbody>
 					</table>
 				</div>
-
 			</div>
 		</div>
-
 	</div>
-
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/frontend/pagematter/common/js/scroll.js"></script>
-
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/frontend/pagematter/common/js/layer.min.js"></script>
 	<script type="text/javascript"
@@ -315,29 +375,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="copyRight">
 		<div class="warp1200 footer">
 			<p>
-				Copyright<span>&copy;</span>2010-2015<span><a
-					href="http://www.liuliangcun.com" title="淘宝流量">淘宝流量</a> | <a
-					href="http://www.liuliangcun.com" title="流量村">流量村</a>(LiuLiangCun.COM).</span>All
-				Rights Reserved.
+				Copyright (c) 2015 <a href="${pageContext.request.contextPath}/frontend/index" title="淘宝流量">淘宝流量</a> | <a href="${pageContext.request.contextPath}/frontend/index" title="真流量">真流量</a>(www.zhenapp.cn) Inc. All Rights. 浙ICP备140452118号-5.
 			</p>
 		</div>
-	</div>
-
-	<div id="cnzz" style="display: none">
-		<script
-			src="http://s95.cnzz.com/stat.php?id=1256426482&web_id=1256426482"
-			language="JavaScript"></script>
-	</div>
-	<div id="baidu" style="display: none">
-		<script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "//hm.baidu.com/hm.js?5bea207fb51957576263526af963d0ff";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
 	</div>
 </body>
 </html>
