@@ -6,7 +6,6 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -28,7 +27,6 @@
 	src="${pageContext.request.contextPath}/backstage/pagematter/common/js/common.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/backstage/pagematter/common/js/sweetalert-dev.js"></script>
-
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/layer_user.css"
 	type="text/css">
@@ -38,7 +36,6 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/validform.style.css"
 	type="text/css">
-
  <style type="text/css">
         .process {
             background: url(/image/process.png) 40px -35px no-repeat;
@@ -46,11 +43,9 @@
             line-height: 35px;
             margin-top: 30px;
         }
-
         .messagebox {
             padding: 20px;
         }
-
         .messagebox h1 {
             line-height: 40px;
             text-align: center;
@@ -59,18 +54,15 @@
             font-size: 16px;
             font-weight: bold;
         }
-
         .messagebox .time {
             border-bottom: 1px dashed #dedede;
             height: 30px;
             line-height: 30px;
             text-align: center;
         }
-
         .messagebox .time span {
             margin: 0 10px;
         }
-
         .messagebox .msgContent {
             margin-top: 20px;
             font-size: 14px;
@@ -78,44 +70,40 @@
     </style>
     <title>基本资料 - 真流量</title>
 </head>
-
 <body>
-
 <div id="topbar">
     <div class="warp1200">
         <div class="clearfix">
             <div class="welcome row_l"><div class="welcome row_l"></div></div>
             <div class="userlogininfo row_r">
                 <div class="islogin" id="islogin">
-                    <a href="/user"><i class="fa fa-user"></i><span id="username">fekong</span></a>
-                    <a href="/user"><i class="fa fa-cog"></i>会员中心</a>
-                    <a href="/auth/logout"><i class="fa fa-sign-out"></i>退出</a>
-                </div>
+					<a href="${pageContext.request.contextPath}/user/responseuser"><i class="fa fa-user"></i><span id="username">${tUserInfoCustom.usernick}</span></a>
+					<a href="${pageContext.request.contextPath}/user/responseuser"><i class="fa fa-cog"></i>会员中心</a> 
+					<a href="${pageContext.request.contextPath}/user/authlogout"><i class="fa fa-sign-out"></i>退出</a>
+				</div>
             </div>
         </div>
     </div>
 </div>
-
 <div class="pageFull">
     <div class="webHeader clearfix">
          <div class="logo row_l"><a href="${pageContext.request.contextPath}/frontend/index" title="电商流量">真流量</a></div>
         <div class="channel row_r">
            <ul class="clearfix">
-						<li><a href="${pageContext.request.contextPath}/frontend/index" title="电商流量" class="scl1">网站首页</a></li>
-						<li><a href="${pageContext.request.contextPath}/frontend/intro" class="scl2">服务介绍</a></li>
-						<li><a href="${pageContext.request.contextPath}/frontend/anli" class="scl3">成功案例</a></li>
-						<li><a href="${pageContext.request.contextPath}/frontend/articlenews" class="scl4" title="电商干货">电商干货</a></li>
-						<li><a href="${pageContext.request.contextPath}/frontend/articleguide" class="scl5">新手指引</a></li>
-						<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="真流量用户中心">用户中心</a></li>
-						<li><a href="${pageContext.request.contextPath}/frontend/about" class="scl7">联系我们</a></li>
-					</ul>
+				<li><a href="${pageContext.request.contextPath}/frontend/index" title="电商流量" class="scl1">网站首页</a></li>
+				<li><a href="${pageContext.request.contextPath}/frontend/intro" class="scl2">服务介绍</a></li>
+				<li><a href="${pageContext.request.contextPath}/frontend/anli" class="scl3">成功案例</a></li>
+				<li><a href="${pageContext.request.contextPath}/frontend/articlenews" class="scl4" title="电商干货">电商干货</a></li>
+				<li><a href="${pageContext.request.contextPath}/frontend/articleguide" class="scl5">新手指引</a></li>
+				<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="真流量用户中心">用户中心</a></li>
+				<li><a href="${pageContext.request.contextPath}/frontend/about" class="scl7">联系我们</a></li>
+			</ul>
         </div>
     </div>
 </div>
 <script type="text/javascript">
     $('.scl6').addClass('hover');
 </script>
-
 <div class="uc_warp">
     <div class="userbody clearfix">
         <div class="leftmenu row_l">
@@ -149,7 +137,7 @@
 					</dl>
 					<dl>
 						<dt>
-							<a href="/user/cash/records">财务中心</a>
+							<a href="javascript:void(0);">财务中心</a>
 						</dt>
 						<dd class="acc">
 							<p>

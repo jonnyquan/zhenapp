@@ -14,6 +14,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="真流量,无线流量,无限流量代运营,无线刷流量 " />
 <meta name="description" content="真流量,无线流量,无限流量代运营,无线刷流量 " />
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap-theme.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/easyui/themes/bootstrap/easyui.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/easyui/themes/icon.css" />
+	
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
@@ -254,9 +264,9 @@
 				</div>
 				<div class="userlogininfo row_r">
 					<div class="islogin" id="islogin">
-						<a href="/user"><i class="fa fa-user"></i><span id="username">fekong</span></a>
-						<a href="/user"><i class="fa fa-cog"></i>会员中心</a> <a
-							href="/auth/logout"><i class="fa fa-sign-out"></i>退出</a>
+						<a href="${pageContext.request.contextPath}/user/responseuser"><i class="fa fa-user"></i><span id="username">${tUserInfoCustom.usernick}</span></a>
+						<a href="${pageContext.request.contextPath}/user/responseuser"><i class="fa fa-cog"></i>会员中心</a> 
+						<a href="${pageContext.request.contextPath}/user/authlogout"><i class="fa fa-sign-out"></i>退出</a>
 					</div>
 				</div>
 			</div>
@@ -317,26 +327,20 @@
 						</p>
 
 						<p>
-							<a
-								href="${pageContext.request.contextPath}/task/responsetaskmanage"
-								id="managetask"><i class="fa fa-angle-right"></i>任务管理</a>
+							<a href="${pageContext.request.contextPath}/task/responsetaskmanage" id="managetask"><i class="fa fa-angle-right"></i>任务管理</a>
 						</p>
 					</dd>
 				</dl>
 				<dl>
 					<dt>
-						<a href="/user/cash/records">财务中心</a>
+						<a href="javascript:void(0);">财务中心</a>
 					</dt>
 					<dd class="acc">
 						<p>
-							<a
-								href="${pageContext.request.contextPath}/points/responsebuypoints"
-								id="purchase"><i class="fa fa-angle-right"></i>购买积分</a>
+							<a href="${pageContext.request.contextPath}/points/responsebuypoints" id="purchase"><i class="fa fa-angle-right"></i>购买积分</a>
 						</p>
 						<p>
-							<a
-								href="${pageContext.request.contextPath}/points/responserecordspoints"
-								id="point"><i class="fa fa-angle-right"></i>积分明细</a>
+							<a href="${pageContext.request.contextPath}/points/responserecordspoints" id="point"><i class="fa fa-angle-right"></i>积分明细</a>
 						</p>
 					</dd>
 				</dl>
@@ -356,7 +360,7 @@
 					<div class="umainbox">
 						<!--main-->
 						<div id="addTaskDiv">
-							<form class="koo_fromBox" action="/user/task/add" method="post">
+							<form class="koo_fromBox" >
 								<input type="hidden" name="_token"
 									value="t1yIDXF06aLrBmCEySsRpefqJxLY1EARgWOjXaYV">
 
@@ -367,31 +371,61 @@
 										任务基本信息区
 									</h2>
 								</div>
-
-								<div class="form_control clearfix">
-									<label class="form_label">关键字：</label> <input
-										class="form_input input200" type="text" name="keyWords"
-										id="keyWords" datatype="*" value="" v-model='keyWords' />
-								</div>
-
-								<div class="form_control clearfix">
-									<label class="form_label">宝贝链接：</label> <input
-										class="form_input input400" type="text" name="goodsLink"
-										id="goodsLink" datatype="url" ajaxurl="/ajax/checkGoodUrl"
-										value="" v-model='goodsLink' />
-								</div>
-
-								<div class="form_control clearfix">
-									<label class="form_label">宝贝标题：</label> <input
-										class="form_input input400" type="text" name="goodsTitle"
-										id="goodsTitle" datatype="*3-200" value="" />
-								</div>
-
-								<div class="form_control clearfix">
-									<label class="form_label">无线端标题：</label> <input
-										class="form_input input400" type="text" name="goodsSubTitle"
-										id="goodsSubTitle" value="" />
-								</div>
+								<table class="table">
+									<tr>
+										<td>
+											宝贝id
+										</td>
+										<td>
+											<input type="text" name="taskkeynum" id="taskkeynum"
+												placeholder="请输入宝贝id" class='form-control' value="528712405918" onblur="checkkeynum(this);" />
+											<span id="span" style="color:#aaa;"></span>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											关键词
+										</td>
+										<td>
+											<table id="tab_keyword">
+												<tr>
+													<td>
+														<input type="text" name="taskkeywords" class='form-control' style="width:600px;" placeholder="请输入关键词" value="2016夏季新款亚麻女装"/>		
+													</td>
+													<td>
+														<input type="button" class="easyui-linkbutton" iconCls="icon-add" onclick="addinput();" value="&nbsp;&nbsp;添 &nbsp;加 &nbsp;&nbsp;" />
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											发布时间
+										</td>
+										<td>
+											<lable style="padding:0 10px 0 10px;">从:</lable>
+											<input type="text" name="datefrom" id="datefrom"  width="200px"  />
+											到：<input type="text" name="dateto" id="dateto"  width="200px"  />
+										</td>
+									</tr>
+									<tr>
+										<td>
+											宝贝标题
+										</td>
+										<td>
+											<input type="text" name="taskbi" class='form-control' placeholder="请输入宝贝标题" value="2016夏季新款亚麻女装"/>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											无线端标题
+										</td>
+										<td>
+											<input type="text" name="taskwxbi" class='form-control' placeholder="请输入无线端标题" value="2016夏季新款亚麻女装"/>
+										</td>
+									</tr>
+								</table>
 
 								<div class="box">
 
@@ -399,7 +433,7 @@
 										<h2>
 											<scan class="scan_icon">
 											<a><i class="fa fa-chevron-circle-right fa-lg"></i></a></scan>
-											卡位可选信息区（点击显示更多可选项，以更好的提升宝贝流量）
+											卡位可选信息区（点击显示更多可选项，以更好的提升宝贝流量）建议保持默认不做更改!!
 										</h2>
 									</div>
 
@@ -513,26 +547,18 @@
 											<label class="form_radio"><input type="checkbox"
 												name="cxChecked" v-model="cxChecked" /><span>促销</span></label>
 										</div>
-
 									</div>
-
 								</div>
-
 								<div class="box">
-
 									<div class="taxkTips box_toggle">
 										<h2>
 											<scan class="scan_icon">
 											<a><i class="fa fa-chevron-circle-right fa-lg"></i></a></scan>
-											任务可选信息区（点击显示更多可选项，以更好的提升宝贝流量）
+											任务可选信息区（点击显示更多可选项，以更好的提升宝贝流量）建议保持默认不做更改!!
 										</h2>
 									</div>
-
 									<div class="toggle_wrapper">
-
-
 										<div class="form_control clearfix">
-
 											<label class="form_label">主宝贝浏览时间：</label> <select
 												name="searchGoodsBrowseMinTime"
 												id="searchGoodsBrowseMinTime"
@@ -603,7 +629,6 @@
 												<option selected value="150">150</option>
 											</select> <span class="Validform_checktip"> 秒 </span>
 										</div>
-
 										<div class="form_control clearfix">
 											<label class="form_label">副宝贝浏览数量：</label> <select
 												name="otherGoodsBrowseMinCount"
@@ -675,10 +700,7 @@
 												<option value="115">115</option>
 												<option value="120">120</option>
 											</select> <span class="Validform_checktip"> 秒 </span>
-
 										</div>
-
-
 										<div class="form_control clearfix">
 											<label class="form_label">货比：</label> <select
 												name="accessOtherShopMinCount" id="accessOtherShopMinCount"
@@ -717,9 +739,7 @@
 												<option selected value="40">40</option>
 											</select> <span class="Validform_checktip"> 秒 </span>
 										</div>
-
 										<div class="form_control clearfix">
-
 											<label class="form_label">跳失率：</label> <select
 												name="goodsJumpLoseRate" id="goodsJumpLoseRate"
 												class="form_select select_small">
@@ -821,9 +841,7 @@
 												<option value="95">95</option>
 												<option value="100">100</option>
 											</select> <span class="Validform_checktip"> % </span>
-
 										</div>
-
 										<div class="form_control clearfix">
 											<label class="form_label">收藏率：</label> <select
 												name="collectRate" id="collectRate"
@@ -870,15 +888,11 @@
 												class="Validform_checktip scan_break"></span> <label
 												class="form_radio" style="display: none"><input
 												type="checkbox" name="onlyShow" v-model="onlyShow" /><span>展现宝贝</span></label>
-
 											<label class="form_radio" style="display: none"><input
 												type="checkbox" name="zhiTongChe" v-model="zhiTongChe" /><span>直通车</span></label>
-
 										</div>
 									</div>
-
 								</div>
-
 								<div class="taxkTips">
 									<h2>
 										<scan class="scan_icon">
@@ -886,263 +900,238 @@
 										本次刷流量共需费用
 									</h2>
 								</div>
-
+								<table class="table" style="margin-bottom:0px;">
+									<tr class="info">
+										<td>【流量数：<span id="lls_1">0</span>个，流量单个花费:<span id="lls_2" style="color:red;">${tPriceInfoCustom.pricecounts1}</span>(积分)/个，总计：<span id="lls_3">0</span>(积分)】</td>
+									</tr>
+									<tr class="default">
+										<td>【收藏数：<span id="scs_1">0</span>个，收藏单个花费:<span id="scs_2" style="color:red;">${tPriceInfoCustom.pricecounts2}</span>(积分)/个，总计：<span id="scs_3">0</span>(积分)】</td>
+									</tr>
+									<tr class="active">
+										<td>【购物车数：<span id="gwcs_1">0</span>个，加购物车单个花费:<span id="gwcs_2" style="color:red;">${tPriceInfoCustom.pricecounts3}</span>/个，总计：<span id="gwcs_3">0</span>(积分)】</td>
+									</tr>
+									<tr class="success">
+										<td>【总费用:<span id="sum" style="color:red;">0</span>(积分)】</td>
+									</tr>
+								</table>
 								<div class="form_control clearfix">
-									<label class="form_label">任务数量：</label> <input name="taskCount"
-										id="taskCount" class="input50" v-model="taskCount" number
-										v-on="change: calculatePoints()"> </input> <label
-										class="form_radio"><input checked type="checkbox"
-										name="znBd" /><span>智能补流量</span></label>
-
+									<label class="form_label">任务数量：</label> 
+									<input type="text" name="flowcount" id="flowcount"
+										placeholder="请输入需要的流量数" onblur="fpll(this)"
+										onchange="fpll(this)" value="1"
+										onkeyup="this.value=this.value.replace(/\D/g,'')"
+										onafterpaste="this.value=this.value.replace(/\D/g,'')" />
 								</div>
-
 								<div class="form_control form_control_dist clearfix">
 									<label class="form_label">任务分布：</label>
-
 									<div class="hourCounts clearfix">
-
-
 										<div class="task_dist">
 											<div class="task_time_title">0时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_0
-													v-model=hourCounts[0] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_0"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
-
-
 										<div class="task_dist">
 											<div class="task_time_title">1时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_1
-													v-model=hourCounts[1] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_1"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
-
-
 										<div class="task_dist">
 											<div class="task_time_title">2时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_2
-													v-model=hourCounts[2] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_2"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
-
-
 										<div class="task_dist">
 											<div class="task_time_title">3时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_3
-													v-model=hourCounts[3] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_3"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
-
-
 										<div class="task_dist">
 											<div class="task_time_title">4时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_4
-													v-model=hourCounts[4] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_4"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
-
-
 										<div class="task_dist">
 											<div class="task_time_title">5时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_5
-													v-model=hourCounts[5] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_5"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
-
-
 										<div class="task_dist">
 											<div class="task_time_title">6时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_6
-													v-model=hourCounts[6] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_6"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
-
-
 										<div class="task_dist">
 											<div class="task_time_title">7时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_7
-													v-model=hourCounts[7] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_7"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
-
-
 										<div class="task_dist">
 											<div class="task_time_title">8时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_8
-													v-model=hourCounts[8] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_8"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
-
-
 										<div class="task_dist">
 											<div class="task_time_title">9时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_9
-													v-model=hourCounts[9] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_9"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
-
-
 										<div class="task_dist">
 											<div class="task_time_title">10时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_10
-													v-model=hourCounts[10] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_10"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
-
-
 										<div class="task_dist">
 											<div class="task_time_title">11时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_11
-													v-model=hourCounts[11] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_11"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
-
-
 									</div>
-
 								</div>
-
 								<div class="form_control form_control_dist clearfix">
 									<label class="form_label"></label>
-
 									<div class="hourCounts clearfix">
-
 										<div class="task_dist">
 											<div class="task_time_title">12时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_12
-													v-model=hourCounts[12] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_12"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
 										<div class="task_dist">
 											<div class="task_time_title">13时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_13
-													v-model=hourCounts[13] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_13"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
 										<div class="task_dist">
 											<div class="task_time_title">14时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_14
-													v-model=hourCounts[14] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_14"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
 										<div class="task_dist">
 											<div class="task_time_title">15时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_15
-													v-model=hourCounts[15] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_15"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
 										<div class="task_dist">
 											<div class="task_time_title">16时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_16
-													v-model=hourCounts[16] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_16"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
 										<div class="task_dist">
 											<div class="task_time_title">17时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_17
-													v-model=hourCounts[17] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_17"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
 										<div class="task_dist">
 											<div class="task_time_title">18时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_18
-													v-model=hourCounts[18] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_18"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
 										<div class="task_dist">
 											<div class="task_time_title">19时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_19
-													v-model=hourCounts[19] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_19"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
 										<div class="task_dist">
 											<div class="task_time_title">20时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_20
-													v-model=hourCounts[20] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_20"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
 										<div class="task_dist">
 											<div class="task_time_title">21时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_21
-													v-model=hourCounts[21] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_21"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
 										<div class="task_dist">
 											<div class="task_time_title">22时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_22
-													v-model=hourCounts[22] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_22"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
 										<div class="task_dist">
 											<div class="task_time_title">23时</div>
 											<div class="task_time_count">
-												<input class="input_time" type="text" name=hourCounts_23
-													v-model=hourCounts[23] number v-on="blur: inputBlur(this)" />
+												<input class="input_time" type="text"
+													name="taskhourcounts" id="hour_23"	onblur="checkNum(this)" value="0" maxlength="3" />
 											</div>
 										</div>
-
 									</div>
-
 								</div>
-
 								<div class="form_control clearfix">
-									<label class="form_label">单个花费：</label> <input
-										class="form_input input150 readonly" readonly type="text"
-										name="danjia" id="danjia" v-model="danjia" /> <span
-										class="Validform_checktip">单位（流量点/个）</span>
+									<label class="form_label">收藏数量：</label> 
+									<input name="collectioncount" id="collectioncount"
+										placeholder="请输入收藏数" onblur="fpsc(this)" value="0"
+										onkeyup="this.value=this.value.replace(/\D/g,'')"
+										onafterpaste="this.value=this.value.replace(/\D/g,'')"/> 
 								</div>
-
 								<div class="form_control clearfix">
-									<label class="form_label">共计花费：</label> <input
-										class="form_input input150 readonly" readonly type="text"
-										name="heji" id="heji" v-model="heji" /> <span
-										class="Validform_checktip"></span>
+									<label class="form_label">加购物车数量：</label> 
+									<input type="text" name="shoppingcount" id="shoppingcount"
+										placeholder="请输入购物车数"  onblur="fpgwc(this)" value="0"
+										onkeyup="this.value=this.value.replace(/\D/g,'')"
+										onafterpaste="this.value=this.value.replace(/\D/g,'')" />
 								</div>
-
 								<div class="form_control clearfix">
 									<label class="form_label">任务备注：</label> <input
 										class="form_input input400" type="text" name="memo" id="memo"
-										value="" />
+										value="${tUserInfoCustom.username}发布任务" />
 								</div>
-
 								<div id="buttonSubmit" class="form_control clearfix"
 									style="margin-top:20px; border-bottom:none;">
-									<div class="botton">
-										<button type="submit" name="submit" class="form_btn">发布任务</button>
-										<button id="orderCheck" type="button" name="orderCheck"
-											class="form_btn" v-on="click: searchOrder">排名检查</button>
-										&nbsp;&nbsp;<font color="#FF0000">*发布任务前务必先进行“排名检查”</font>
+									<div class="botton" style="margin-left:40px;">
+										<input type="button" class="btn btn-info" id="subbtn" value="发布任务" />
+										<!--  <button id="orderCheck" type="button" name="orderCheck"
+											 v-on="click: searchOrder">排名检查</button>
+										&nbsp;&nbsp;<font color="#FF0000">*发布任务前务必先进行“排名检查”</font>-->
 									</div>
 								</div>
-
 								<div id="searchOrderWrapper" class="form_control clearfix"
 									style="margin-top:20px; border-bottom:none;">
 									<div id="searchOrderInnerWrapper" class="botton"></div>
 								</div>
-
 							</form>
 						</div>
 						<!--main-->
@@ -1150,19 +1139,9 @@
 				</div>
 			</div>
 			<script type="text/javascript">
-
         $(function () {
-
             $(".koo_fromBox").Validform({
-
                 tiptype: 3,
-
-                ajaxurl:{
-                    headers: {
-
-                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                    }
-                }
             });
         });
         $(document).ready(function(){
@@ -1172,17 +1151,23 @@
                 $(this).next(".toggle_wrapper").animate({height: 'toggle', opacity: 'toggle'}, "slow");
             }));
         });
+        var uri = "${pageContext.request.contextPath}";
     </script>
 			<script type="text/javascript"
 				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/vue.js"></script>
 			<script type="text/javascript"
 				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/addtask-v3.26.js"></script>
 			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/getTitles.js"></script>
-			<script type="text/javascript"
 				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/layer_user.js"></script>
 			<script type="text/javascript"
+				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/taskadd.js"></script>
+			<script type="text/javascript"
 				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/Validform_v5.3.2.js"></script>
+				
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/easyui/locale/easyui-lang-zh_CN.js"></script>
 		</div>
 	</div>
 	<div class="copyRight">

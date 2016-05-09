@@ -3,11 +3,12 @@ package com.zhenapp.util;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.params.HttpMethodParams;
 
 public class Httprequeset {
 	private static String url2 = "http://liuliangapp.com/api/tasks/durations";
-	
 	private static String url6 = "http://liuliangapp.com/api/url/validate";
+	private static String url8 = "http://liuliangapp.com/api/points";
 	
 	
 	public String Get(String url) throws Exception{
@@ -35,6 +36,9 @@ public class Httprequeset {
         postMethod.setParameter("url", "https://item.taobao.com/item.htm?id=531027639098");
         postMethod.setParameter("cache", "true");
         postMethod.setRequestHeader("secret", "bLT?lAgO?zx=mNTJb85ryzRM<]s^wpxQ?_x0NLRMu2:Hosxp2ne^cIXjF`G9Ez9K");
+        //postMethod.setRequestHeader("Content-Type", "text/html;charset=UTF-8");
+        //postMethod.addRequestHeader("Content-Type","text/html;charset=UTF-8");
+        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
         int statusCode =  httpClient.executeMethod(postMethod);
         if(statusCode == 200) {
             System.out.println("调用成功");

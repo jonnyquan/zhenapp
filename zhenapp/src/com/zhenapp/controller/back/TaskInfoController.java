@@ -10,8 +10,6 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -35,7 +33,6 @@ import com.zhenapp.util.DateUtilWxf;
 @Controller
 @RequestMapping(value="/task")
 public class TaskInfoController {
-	private static Log logger = LogFactory.getLog(TaskInfoController.class);
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 	@Autowired
 	private TaskInfoService taskInfoService;
@@ -54,9 +51,19 @@ public class TaskInfoController {
 	 * 跳转到发布任务界面
 	 */
 	@RequestMapping(value="/responsetaskadd")
-	public ModelAndView responsetaskadd() throws Exception{
+	public ModelAndView responsetaskadd(HttpSession session) throws Exception{
 		ModelAndView mv=new ModelAndView();
-		
+	
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
+		TAgentInfoCustom tAgentInfoCustom= agentInfoService.findAgentByAgentid(tUserInfoCustom.getAgentid());//根据登陆用户查询所属代理信息
+		try{
+			TPriceInfoCustom tPriceInfoCustom= priceInfoService.findPriceByAgentid(tAgentInfoCustom.getAgentid());//根据代理信息查询所设置的价格信息
+			mv.addObject("tPriceInfoCustom",tPriceInfoCustom);
+		}catch(NullPointerException e){
+			System.out.println("未查询到所属代理信息的单价,无法发布任务!");
+			mv.addObject("msg","未查询到所属代理信息");
+			throw e;
+		}
 		
 		mv.setViewName("/backstage/task/taskadd.jsp");
 		return mv;
@@ -74,6 +81,9 @@ public class TaskInfoController {
 	}
 	
 	
+	
+//=================================================================================================================
+	
 	/*
 	 * 查询价格信息  转发到发布任务界面
 	 */
@@ -89,7 +99,6 @@ public class TaskInfoController {
 			mv.addObject("tPriceInfoCustom",tPriceInfoCustom);
 		}catch(NullPointerException e){
 			System.out.println("未查询到所属代理信息的单价,无法发布任务!");
-			logger.error("未查询到所属代理信息的单价,无法发布任务!");
 			mv.addObject("msg","未查询到所属代理信息");
 			throw e;
 		}
@@ -174,7 +183,7 @@ public class TaskInfoController {
 		Date date = new Date();
 		int hours = date.getHours()+1;
 		int days = DateUtilWxf.getBetweenDays(tTaskInfoCustom.getTaskstartdate().replace("-", ""), tTaskInfoCustom.getTaskenddate().replace("-", ""));
-		String [] taskkeywordarr=tTaskInfoCustom.getTaskkeyword().split("====");
+		String [] taskkeywordarr=taskkeywords.split("====");
 		String [] hourarr = tTaskInfoCustom.getTaskhourcounts().split(",");
 		int flowcounts = 0;
 		int subflowcounts = 0;
@@ -184,7 +193,7 @@ public class TaskInfoController {
 		for (int i = 0; i < hours; i++) {
 			subflowcounts = subflowcounts + Integer.parseInt(hourarr[i]);
 		}
-		int flowpoints = flowcounts * Integer.parseInt(tPriceInfoCustom.getPricecounts1()) * hourarr.length * (days + 1)  - subflowcounts * Integer.parseInt(tPriceInfoCustom.getPricecounts1());
+		int flowpoints = flowcounts * Integer.parseInt(tPriceInfoCustom.getPricecounts1()) * taskkeywordarr.length * (days + 1)  - subflowcounts * Integer.parseInt(tPriceInfoCustom.getPricecounts1());
 		int Collectionpoints = tTaskInfoCustom.getCollectioncount() * Integer.parseInt(tPriceInfoCustom.getPricecounts2());
 		int Shoppingpoints = tTaskInfoCustom.getShoppingcount() * Integer.parseInt(tPriceInfoCustom.getPricecounts3());
 		int subtractpoints=flowpoints + Collectionpoints + Shoppingpoints;
@@ -199,8 +208,6 @@ public class TaskInfoController {
 			map.put("data", "refuse");
 			return map;
 		}
-		
-		
 		
 		tTaskInfoCustom.setTasktype(tTaskInfoCustom.getTasktype());//33 流量   34 直通车
 		tTaskInfoCustom.setTaskkeynum(tTaskInfoCustom.getTaskkeynum());

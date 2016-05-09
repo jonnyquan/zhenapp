@@ -50,6 +50,10 @@
   <update id="updateUser" parameterType="com.zhenapp.po.Custom.TUserInfoCustom">
   	update t_user_info set username = #{username},userqq = #{userqq},updatetime = #{updatetime},updateuser = #{updateuser} where userId = #{userid}
    </update>
+   
+   <update id="updateUserpwdByuserid" parameterType="com.zhenapp.po.Custom.TUserInfoCustom">
+  	update t_user_info set userpwd = #{userpwd},updatetime = #{updatetime},updateuser = #{updateuser} where userId = #{userid}
+   </update>
   
   <update id="updateUserinfo" parameterType="com.zhenapp.po.Vo.TUserinfoVo">
   	update t_user_info

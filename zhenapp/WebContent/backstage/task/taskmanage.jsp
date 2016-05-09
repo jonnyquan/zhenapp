@@ -238,9 +238,9 @@ input {
 				</div>
 				<div class="userlogininfo row_r">
 					<div class="islogin" id="islogin">
-						<a href="/user"><i class="fa fa-user"></i><span id="username">fekong</span></a>
-						<a href="/user"><i class="fa fa-cog"></i>会员中心</a> <a
-							href="/auth/logout"><i class="fa fa-sign-out"></i>退出</a>
+						<a href="${pageContext.request.contextPath}/user/responseuser"><i class="fa fa-user"></i><span id="username">${tUserInfoCustom.usernick}</span></a>
+						<a href="${pageContext.request.contextPath}/user/responseuser"><i class="fa fa-cog"></i>会员中心</a> 
+						<a href="${pageContext.request.contextPath}/user/authlogout"><i class="fa fa-sign-out"></i>退出</a>
 					</div>
 				</div>
 			</div>
@@ -255,26 +255,13 @@ input {
 			</div>
 			<div class="channel row_r">
 				<ul class="clearfix">
-					<li><a
-						href="${pageContext.request.contextPath}/frontend/index"
-						title="电商流量" class="scl1">网站首页</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/frontend/intro"
-						class="scl2">服务介绍</a></li>
-					<li><a href="${pageContext.request.contextPath}/frontend/anli"
-						class="scl3">成功案例</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/frontend/articlenews"
-						class="scl4" title="电商干货">电商干货</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/frontend/articleguide"
-						class="scl5">新手指引</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/frontend/authlogin"
-						class="scl6" title="真流量用户中心">用户中心</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/frontend/about"
-						class="scl7">联系我们</a></li>
+					<li><a href="${pageContext.request.contextPath}/frontend/index" title="电商流量" class="scl1">网站首页</a></li>
+					<li><a href="${pageContext.request.contextPath}/frontend/intro" class="scl2">服务介绍</a></li>
+					<li><a href="${pageContext.request.contextPath}/frontend/anli" class="scl3">成功案例</a></li>
+					<li><a href="${pageContext.request.contextPath}/frontend/articlenews" class="scl4" title="电商干货">电商干货</a></li>
+					<li><a href="${pageContext.request.contextPath}/frontend/articleguide" class="scl5">新手指引</a></li>
+					<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="真流量用户中心">用户中心</a></li>
+					<li><a href="${pageContext.request.contextPath}/frontend/about" class="scl7">联系我们</a></li>
 				</ul>
 			</div>
 		</div>
@@ -292,14 +279,11 @@ input {
 					</dt>
 					<dd>
 						<p>
-							<a
-								href="${pageContext.request.contextPath}/user/responsepersonal"
-								id="info"><i class="fa fa-angle-right"></i>基本信息</a>
+							<a href="${pageContext.request.contextPath}/user/responsepersonal" id="info"><i class="fa fa-angle-right"></i>基本信息</a>
 						</p>
 						<p>
 							<!-- <a href="/user/broker" id="account"><i class="fa fa-angle-right"></i>我的推广</a> -->
-							<a href="javascript:void(0);" id="account"><i
-								class="fa fa-angle-right"></i>我的推广</a>
+							<a href="javascript:void(0);" id="account"><i class="fa fa-angle-right"></i>我的推广</a>
 						</p>
 					</dd>
 				</dl>
@@ -309,31 +293,24 @@ input {
 					</dt>
 					<dd>
 						<p>
-							<a href="${pageContext.request.contextPath}/task/responsetaskadd"
-								id="addtask"><i class="fa fa-angle-right"></i>发布任务</a>
+							<a href="${pageContext.request.contextPath}/task/responsetaskadd" id="addtask"><i class="fa fa-angle-right"></i>发布任务</a>
 						</p>
 
 						<p>
-							<a
-								href="${pageContext.request.contextPath}/task/responsetaskmanage"
-								id="managetask"><i class="fa fa-angle-right"></i>任务管理</a>
+							<a href="${pageContext.request.contextPath}/task/responsetaskmanage" id="managetask"><i class="fa fa-angle-right"></i>任务管理</a>
 						</p>
 					</dd>
 				</dl>
 				<dl>
 					<dt>
-						<a href="/user/cash/records">财务中心</a>
+						<a href="javascript:void(0);">财务中心</a>
 					</dt>
 					<dd class="acc">
 						<p>
-							<a
-								href="${pageContext.request.contextPath}/points/responsebuypoints"
-								id="purchase"><i class="fa fa-angle-right"></i>购买积分</a>
+							<a href="${pageContext.request.contextPath}/points/responsebuypoints" id="purchase"><i class="fa fa-angle-right"></i>购买积分</a>
 						</p>
 						<p>
-							<a
-								href="${pageContext.request.contextPath}/points/responserecordspoints"
-								id="point"><i class="fa fa-angle-right"></i>积分明细</a>
+							<a href="${pageContext.request.contextPath}/points/responserecordspoints" id="point"><i class="fa fa-angle-right"></i>积分明细</a>
 						</p>
 					</dd>
 				</dl>

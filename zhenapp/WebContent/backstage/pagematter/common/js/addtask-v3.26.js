@@ -157,7 +157,7 @@ new Vue({
     },
 
     methods: {
-
+/*
         inputBlur: function (count) {
 
             for (var sum = i = 0; i < this.hourCounts.length; i++) {
@@ -173,7 +173,7 @@ new Vue({
             this.taskCount = sum;
 
         },
-
+*/
         taskInit: function () {
             var myDate = new Date();
             var startHours = myDate.getHours();

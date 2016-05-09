@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.TAgentInfoCustom;
+import com.zhenapp.po.Custom.TPointsInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.AgentInfoService;
+import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.UserInfoService;
 import com.zhenapp.util.MD5Util;
 
@@ -24,6 +26,8 @@ import com.zhenapp.util.MD5Util;
 @RequestMapping(value="/frontend")
 public class FrontendAuthregisterController {
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+	@Autowired
+	private PointsInfoService pointsInfoService;
 	@Autowired
 	private UserInfoService userInfoService;
 	@Autowired
@@ -45,6 +49,7 @@ public class FrontendAuthregisterController {
 		String time = sdf.format(new Date());
 		tUserInfoCustom.setUserroleid(3);//默认初始化角色id
 		tUserInfoCustom.setRegdomain(webwww);
+		tUserInfoCustom.setPoints(0);//默认用户注册积分为0 并插入积分明细记录
 		tUserInfoCustom.setRegip(webwww);
 		tUserInfoCustom.setUserstate("29");//默认初始化用户状态
 		tUserInfoCustom.setUserid(UUID.randomUUID().toString().replace("-", ""));
@@ -56,6 +61,19 @@ public class FrontendAuthregisterController {
 		tUserInfoCustom.setUpdateuser("sys");
 		int i=userInfoService.saveUser(tUserInfoCustom);
 		if(i>0){
+			TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
+			tPointsInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+			tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
+			tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
+			tPointsInfoCustom.setUpdateuser("sys");
+			tPointsInfoCustom.setPointreason("注册账号,赠送积分"+0);
+			tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
+			tPointsInfoCustom.setPoints(0);
+			tPointsInfoCustom.setPointstype("27");
+			tPointsInfoCustom.setPointsupdate(0);
+			tPointsInfoCustom.setTaskid("0");
+			tPointsInfoCustom.setUserid(tUserInfoCustom.getUserid());
+			pointsInfoService.savePoints(tPointsInfoCustom);
 			mv.addObject("msg","注册成功..");
 			mv.setViewName("/frontend/authlogin");
 		}else{

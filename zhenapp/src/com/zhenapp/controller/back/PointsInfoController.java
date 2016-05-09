@@ -1,8 +1,11 @@
 package com.zhenapp.controller.back;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,41 +13,161 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zhenapp.po.Custom.TComboInfoCustom;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
+import com.zhenapp.po.Custom.TRechargeInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
+import com.zhenapp.po.Vo.TRechargeInfoVo;
+import com.zhenapp.service.ComboInfoService;
 import com.zhenapp.service.PointsInfoService;
+import com.zhenapp.service.RechargeInfoService;
 
 @Controller
 @RequestMapping(value="/points")
 public class PointsInfoController {
+	
+	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+	
 	@Autowired
 	private PointsInfoService pointsInfoService;
-	
+	@Autowired
+	private ComboInfoService comboInfoService;
+	@Autowired
+	private RechargeInfoService rechargeInfoService;
 	/*
 	 * 跳转到购买积分界面
 	 */
 	@RequestMapping(value="/responsebuypoints")
 	public ModelAndView responsebuypoints() throws Exception{
-		ModelAndView mv=new ModelAndView();
-		
-		
+		ModelAndView mv = new ModelAndView();
+		List<TComboInfoCustom> tComboInfoCustomlist = comboInfoService .findAllCombo();
+		mv.addObject("tComboInfoCustomlist", tComboInfoCustomlist);
 		mv.setViewName("/backstage/points/buypoints.jsp");
 		return mv;
 	}
+
+	/*
+	 * 插入充值记录
+	 */
+	@RequestMapping(value="/buypoints")
+	public ModelAndView buypoints(String id,HttpServletRequest request) throws Exception{
+		ModelAndView mv=new ModelAndView();
+		String verificationcode = UUID.randomUUID().toString().replace("-", "");
+		HttpSession session=request.getSession();
+		TComboInfoCustom tComboInfoCustom= comboInfoService.findComboByid(id);
+		TRechargeInfoCustom tRechargeInfoCustom=new TRechargeInfoCustom();
+		tRechargeInfoCustom.setRechargeid(UUID.randomUUID().toString().replace("-", ""));
+		tRechargeInfoCustom.setRechargemoney(tComboInfoCustom.getCombomoney());
+		tRechargeInfoCustom.setRechargepoints(tComboInfoCustom.getCombointegral());
+		tRechargeInfoCustom.setRechargegivemoney(tComboInfoCustom.getCombogivemoney());
+		tRechargeInfoCustom.setRechargegivepoints(tComboInfoCustom.getCombogiveintegral());
+		tRechargeInfoCustom.setRechargestate("24");//待确认状态
+		tRechargeInfoCustom.setRechargeverification(verificationcode);
+		tRechargeInfoCustom.setUpdatetime(sdf.format(new Date()));
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		tRechargeInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
+		tRechargeInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+		tRechargeInfoCustom.setCreatetime(sdf.format(new Date()));
+		int i = rechargeInfoService.insertRechargeinfo(tRechargeInfoCustom);
+		if(i>0){
+			mv.addObject("tComboInfoCustom", tComboInfoCustom);
+			mv.addObject("Verificationcode", verificationcode);
+			mv.setViewName("/backstage/points/buyingpoints.jsp");
+		}
+		return mv;
+	}
+	//===========================================================
 	
 	/*
 	 * 跳转到积分明细界面
 	 */
 	@RequestMapping(value="/responserecordspoints")
-	public ModelAndView responserecordspoints() throws Exception{
+	public ModelAndView responserecordspoints(HttpSession session,Integer page,Integer rows) throws Exception{
 		ModelAndView mv=new ModelAndView();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		HashMap<String, Object> pagemap= new HashMap<String, Object>();
+		if (page == null || page == null) {
+			pagemap.put("page", 0);
+			pagemap.put("rows", 10);
+		} else {
+			pagemap.put("page", page-1);
+			pagemap.put("rows", rows);
+		}
 		
-		
+		List<TPointsInfoCustom> tPointsInfoCustomlist = new ArrayList<TPointsInfoCustom>();
+		int counts = 0;
+		if(tUserInfoCustom.getUserroleid()==1){
+			/*
+			 * 系统管理员
+			 */
+			tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPage(pagemap);
+			counts = pointsInfoService.findPointsCountsByPage(pagemap);
+		}else if(tUserInfoCustom.getUserroleid()==2){
+			/*
+			 * 代理用户
+			 */
+			pagemap.put("userid", tUserInfoCustom.getUserid());
+			tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPageandRole(pagemap);
+			counts = pointsInfoService.findPointsCountsByPageandRole(pagemap);
+		}else{
+			/*
+			 * 普通用户
+			 */
+			pagemap.put("createuser", tUserInfoCustom.getUserid());
+			tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPage(pagemap);
+			counts = pointsInfoService.findPointsCountsByPage(pagemap);
+		}
+		mv.addObject("tPointsInfoCustomlist",tPointsInfoCustomlist);
 		mv.setViewName("/backstage/points/recordspoints.jsp");
+		return mv;
+	}
+	
+	/*
+	 * 跳转到购买记录界面
+	 */
+	@RequestMapping(value="/responseconsume")
+	public ModelAndView responseconsume(HttpSession session,String datefrom,String dateto) throws Exception{
+		ModelAndView mv=new ModelAndView();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		HashMap<String,Object> pagemap=new HashMap<String,Object>();
+		datefrom=datefrom!=null?datefrom.replace("-", ""):"";
+		dateto=dateto!=null?dateto.replace("-", ""):"";
+		pagemap.put("datefrom", datefrom);
+		pagemap.put("dateto", dateto);
+		List<TRechargeInfoCustom> tRechargeInfoCustomlist = new ArrayList<TRechargeInfoCustom>();
+		pagemap.put("page", 0);
+		pagemap.put("rows", 10);
+		
+		int total = 0;
+		if(tUserInfoCustom.getUserroleid()==1){
+			/*
+			 * 系统管理员
+			 */
+			total = rechargeInfoService.findTotalRechargeinfoByUserAndpage(pagemap);
+			tRechargeInfoCustomlist = rechargeInfoService.findRechargeinfoByUserAndpage(pagemap);
+		}else if(tUserInfoCustom.getUserroleid()==2){
+			/*
+			 * 代理用户
+			 */
+			pagemap.put("userid", tUserInfoCustom.getUserid());
+			total = rechargeInfoService.findTotalRechargeinfoByRoleAndpage(pagemap);
+			tRechargeInfoCustomlist = rechargeInfoService.findRechargeinfoByRoleAndpage(pagemap);
+		}else{
+			/*
+			 * 普通用户
+			 */
+			pagemap.put("createuser", tUserInfoCustom.getUserid());
+			total = rechargeInfoService.findTotalRechargeinfoByUserAndpage(pagemap);
+			tRechargeInfoCustomlist = rechargeInfoService.findRechargeinfoByUserAndpage(pagemap);
+		}
+		mv.addObject("total",total);
+		mv.addObject("tRechargeInfoCustomlist", tRechargeInfoCustomlist);
+		mv.setViewName("/backstage/points/consumepoints.jsp");
 		return mv;
 	}
 	

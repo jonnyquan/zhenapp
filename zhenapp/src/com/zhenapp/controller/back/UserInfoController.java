@@ -116,6 +116,63 @@ public class UserInfoController {
 		return mv;
 	}
 	
+	/*
+	 * 查询该用户登录密码与该帐号是否匹配
+	 */
+	@RequestMapping(value="/ajax/checkOldPassword")
+	public @ResponseBody ModelMap checkOldPassword(HttpSession session,String param) throws Exception{
+		ModelMap map =new ModelMap();
+		String usernick = ((TUserInfoCustom)session.getAttribute("tUserInfoCustom")).getUsernick();
+		List<TUserInfoCustom> tUserInfoCustomlist=userInfoService.findUserBynick(usernick);
+		if(tUserInfoCustomlist!=null && tUserInfoCustomlist.size()>0){
+			TUserInfoCustom tUserInfoCustom=tUserInfoCustomlist.get(0);
+			if(tUserInfoCustom.getUserpwd().equals(MD5Util.string2MD5(param))){
+				map.put("status", "y");
+			}else{
+				map.put("status", "n");
+				map.put("info", "原密码不正确");
+			}
+		}
+		return map;
+	}
+	
+	/*
+	 * 修改用户密码
+	 */
+	@RequestMapping(value="/updateOldPassword")
+	public @ResponseBody ModelAndView updateOldPassword(HttpSession session,String oldpassword,String userpwd) throws Exception{
+		ModelAndView mv =new ModelAndView();
+		String usernick = ((TUserInfoCustom)session.getAttribute("tUserInfoCustom")).getUsernick();
+		List<TUserInfoCustom> tUserInfoCustomlist=userInfoService.findUserBynick(usernick);
+		if(tUserInfoCustomlist!=null && tUserInfoCustomlist.size()>0){
+			TUserInfoCustom tUserInfoCustom=tUserInfoCustomlist.get(0);
+			if(tUserInfoCustom.getUserpwd().equals(MD5Util.string2MD5(oldpassword))){
+				tUserInfoCustom.setUserpwd(MD5Util.string2MD5(userpwd));
+				tUserInfoCustom.setUpdatetime(sdf.format(new Date()));
+				tUserInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
+				int i = userInfoService.updateUserpwdByuserid(tUserInfoCustom);
+				if(i > 0){
+					session.setAttribute("tUserInfoCustom", tUserInfoCustom);
+				}
+				mv.addObject("msg", "修改密码成功");
+			}else{
+				mv.addObject("msg", "修改密码失败");
+			}
+		}
+		mv.setViewName("responseupdatepassword");
+		return mv;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//===============================================================================以上为新
 	

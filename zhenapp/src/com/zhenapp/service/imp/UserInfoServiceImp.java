@@ -96,4 +96,10 @@ public class UserInfoServiceImp implements UserInfoService {
 		// TODO Auto-generated method stub
 		return tUserInfoCustomMapper.updateUser(tUserInfoCustom);
 	}
+	@Override
+	public int updateUserpwdByuserid(TUserInfoCustom tUserInfoCustom)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tUserInfoCustomMapper.updateUserpwdByuserid(tUserInfoCustom);
+	}
 }

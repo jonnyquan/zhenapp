@@ -8,6 +8,10 @@ import com.zhenapp.po.Vo.TUserinfoVo;
 
 public interface TUserInfoCustomMapper {
 	/*
+	 * 根据用户id修改用户密码
+	 */
+	public int updateUserpwdByuserid(TUserInfoCustom tUserInfoCustom) throws Exception;
+	/*
 	 * 个人信息的更新
 	 */
 	public int updateUser(TUserInfoCustom tUserInfoCustom) throws Exception;

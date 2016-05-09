@@ -78,38 +78,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<h3>电商干货</h3>
 
 				<ul class="titlelist">
-					<li><a href="/detail/2118" target="_blank"><i
-							class="fa fa-angle-right"></i>ROI的小心机,实操指导如何提高ROI</a></li>
-					<li><a href="/detail/2117" target="_blank"><i
-							class="fa fa-angle-right"></i>小细节,淘抢购报名通过率提高翻倍</a></li>
-					<li><a href="/detail/2115" target="_blank"><i
-							class="fa fa-angle-right"></i>标题优化技巧，淘宝无线端宝贝标题优化技巧</a></li>
-					<li><a href="/detail/2116" target="_blank"><i
-							class="fa fa-angle-right"></i>淘宝卖家常遇到的问题及解决办法</a></li>
-					<li><a href="/detail/2114" target="_blank"><i
-							class="fa fa-angle-right"></i>新品宝贝如何玩转直通车</a></li>
+					<c:forEach items="${TelectricityCustomlist}" var="list">
+						<li><a href="${pageContext.request.contextPath}/detail/2118" target="_blank"><i class="fa fa-angle-right"></i>${list.electricityname}</a></li>
+					</c:forEach>
 				</ul>
 
 			</div>
 			<div class="chennalBox mtop15">
-
 				<h3>新手指引</h3>
-
 				<ul class="titlelist">
-					<li><a href="/detail/2010" target="_blank"><i
-							class="fa fa-angle-right"></i>淘口令在哪里？淘口令怎么打开？</a></li>
-					<li><a href="/detail/1879" target="_blank"><i
-							class="fa fa-angle-right"></i>APP流量在淘宝后台怎么看？在生意参谋中怎么看？</a></li>
-					<li><a href="/detail/1825" target="_blank"><i
-							class="fa fa-angle-right"></i>什么是真假流量？真假流量对比？教你辨别真假流量</a></li>
-					<li><a href="/detail/1814" target="_blank"><i
-							class="fa fa-angle-right"></i>发布淘宝无线端APP流量任务常见问题？</a></li>
-					<li><a href="/detail/1715" target="_blank"><i
-							class="fa fa-angle-right"></i>如何发布淘宝无线端APP流量任务？</a></li>
+					<c:forEach items="${TGuideInfoCustomlist}" var="list">
+						<li><a href="${pageContext.request.contextPath}/detail/2118" target="_blank"><i class="fa fa-angle-right"></i>${list.guidename}</a></li>
+					</c:forEach>
 				</ul>
-
 			</div>
-
 		</div>
 
 		<div class="rightBox row_r">
@@ -117,63 +99,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<h3>电商干货</h3>
 				<div class="mainBox">
 					<ul class="newslist">
-						<li><span>2016-05-05 16:58:15</span><a href="/detail/2118"
-							target="_blank"><i class="fa fa-angle-right"></i>ROI的小心机,实操指导如何提高ROI</a></li>
-						<li><span>2016-05-05 16:58:14</span><a href="/detail/2117"
-							target="_blank"><i class="fa fa-angle-right"></i>小细节,淘抢购报名通过率提高翻倍</a></li>
-						<li><span>2016-05-05 16:58:13</span><a href="/detail/2115"
-							target="_blank"><i class="fa fa-angle-right"></i>标题优化技巧，淘宝无线端宝贝标题优化技巧</a></li>
-						<li><span>2016-05-05 16:58:13</span><a href="/detail/2116"
-							target="_blank"><i class="fa fa-angle-right"></i>淘宝卖家常遇到的问题及解决办法</a></li>
-						<li><span>2016-05-05 16:58:12</span><a href="/detail/2114"
-							target="_blank"><i class="fa fa-angle-right"></i>新品宝贝如何玩转直通车</a></li>
-						<li><span>2016-05-05 16:58:11</span><a href="/detail/2112"
-							target="_blank"><i class="fa fa-angle-right"></i>店铺推广引流怎么做？</a></li>
-						<li><span>2016-05-05 16:58:11</span><a href="/detail/2113"
-							target="_blank"><i class="fa fa-angle-right"></i>淘抢购审核通不过怎么办？</a></li>
-						<li><span>2016-05-05 16:58:10</span><a href="/detail/2110"
-							target="_blank"><i class="fa fa-angle-right"></i>利用生意参谋挖掘不知道的类目流量</a></li>
-						<li><span>2016-05-05 16:58:10</span><a href="/detail/2111"
-							target="_blank"><i class="fa fa-angle-right"></i>如何搭建店铺团队,店铺经营方法</a></li>
-						<li><span>2016-05-05 16:58:09</span><a href="/detail/2109"
-							target="_blank"><i class="fa fa-angle-right"></i>钻展广告预算，钻展广告预算如何花在刀刃上</a></li>
-						<li><span>2016-05-02 21:22:04</span><a href="/detail/2108"
-							target="_blank"><i class="fa fa-angle-right"></i>
-								内容运营是什么，淘宝卖家如何玩转内容运营？</a></li>
-						<li><span>2016-05-02 21:22:03</span><a href="/detail/2107"
-							target="_blank"><i class="fa fa-angle-right"></i>直通车点击率飙到10%的优化细节</a></li>
-						<li><span>2016-05-02 21:22:02</span><a href="/detail/2105"
-							target="_blank"><i class="fa fa-angle-right"></i>如何&ldquo;快速、精准&rdquo;稳定直通车排名</a></li>
-						<li><span>2016-05-02 21:22:02</span><a href="/detail/2106"
-							target="_blank"><i class="fa fa-angle-right"></i>详情页中不可少的卖点提炼</a></li>
-						<li><span>2016-05-02 21:22:01</span><a href="/detail/2103"
-							target="_blank"><i class="fa fa-angle-right"></i>直通车推广如何提升质量得分?</a></li>
-						<li><span>2016-05-02 21:22:01</span><a href="/detail/2104"
-							target="_blank"><i class="fa fa-angle-right"></i>卖家如何提高转化率和质量分</a></li>
-						<li><span>2016-05-02 21:22:00</span><a href="/detail/2102"
-							target="_blank"><i class="fa fa-angle-right"></i>2016淘宝运营7个实用技巧</a></li>
-						<li><span>2016-05-02 21:21:59</span><a href="/detail/2101"
-							target="_blank"><i class="fa fa-angle-right"></i>直通车测款方法，直通车定价方法</a></li>
-						<li><span>2016-04-30 20:07:53</span><a href="/detail/2099"
-							target="_blank"><i class="fa fa-angle-right"></i>直通车这样开才有效！</a></li>
-						<li><span>2016-04-30 20:07:53</span><a href="/detail/2100"
-							target="_blank"><i class="fa fa-angle-right"></i>内容营销这么做，你的店铺有点火</a></li>
+						<c:forEach items="${TelectricityCustomAlllist}" var="list">
+							<li><span>${list.createtime}</span><a href="/detail/2118" target="_blank"><i class="fa fa-angle-right"></i>${list.electricityname}</a></li>
+						</c:forEach>
 					</ul>
 
 					<div class="paging">
 						<a>上一页</a> 
 						<a class="cur">1</a>
-						<a href="${pageContext.request.contextPath}/article/news/?page=2">2</a>
-						<a href="${pageContext.request.contextPath}/article/news/?page=3">3</a>
-						<a href="${pageContext.request.contextPath}/article/news/?page=4">4</a>
-						<a href="${pageContext.request.contextPath}/article/news/?page=5">5</a>
-						<a href="${pageContext.request.contextPath}/article/news/?page=6">6</a>
-						<a href="${pageContext.request.contextPath}/article/news/?page=7">7</a>
-						<a href="${pageContext.request.contextPath}/article/news/?page=8">8</a>
+						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=2">2</a>
+						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=3">3</a>
+						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=4">4</a>
+						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=5">5</a>
+						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=6">6</a>
+						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=7">7</a>
+						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=8">8</a>
 						<a>...</a>
-						<a href="${pageContext.request.contextPath}/article/news/?page=48">48</a>
-						<a href="${pageContext.request.contextPath}/article/news/?page=49">49</a> 
-						<a href="${pageContext.request.contextPath}/article/news/?page=2" rel="next">下一页</a>
+						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=48">48</a>
+						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=49">49</a> 
+						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=2" rel="next">下一页</a>
 					</div>
 				</div>
 			</div>

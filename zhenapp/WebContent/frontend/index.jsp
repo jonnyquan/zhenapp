@@ -240,11 +240,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 
-	<script>
+	<script type="text/javascript">
         $(function() {
-            var anli = ${anli};
-            location.hash="anli"; 
-        };
+        	load();
+        });
+
+    	function load(){
+            var anli = "${anli}";
+            if(anli.length > 0){
+            	location.hash="anli";
+            }
+    	}
     </script>
 </body>
 </html>

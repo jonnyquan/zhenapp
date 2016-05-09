@@ -36,22 +36,10 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 		// 获取请求的url
 		String url = request.getRequestURI();
-		// 判断url是否是公开 地址（实际使用时将公开 地址配置配置文件中）
-		// 这里公开地址是登陆提交的地址
-		if (url.indexOf("user/Loginrest") >= 0 || url.indexOf("user/register") >= 0 || url.indexOf("user/findUserByNick") >=0 ) {
-			// 如果进行登陆提交，放行
-			return true;
-		}
-
-		// 判断session
-		HttpSession session = request.getSession();
-		// 从session中取出用户身份信息
-		TUserInfoCustom tUserInfoCustom = (TUserInfoCustom)session.getAttribute("tUserInfoCustom");
-
-		if (tUserInfoCustom != null) {
-			// 身份存在，放行
-			return true;
-		}
+		
+		/*
+		 * 静态资源全部放行
+		 */
 		if (url.indexOf(".js") >= 0 || url.indexOf(".css") >= 0
 				|| url.indexOf(".icon") >= 0 || url.indexOf(".jpg") >= 0
 				|| url.indexOf(".png") >= 0 || url.indexOf(".jsp") >= 0
@@ -59,20 +47,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 			// 如果进行登陆提交，放行
 			return true;
 		}
-
-		/*
-		 * 让无需登录的即可查看的功能能正常使用
-		 */
-		if (url.indexOf("index/findwebinfo") >= 0// 查询web信息（logo 轮播图等）
-				|| url.indexOf("/electrity/") >= 0 // 查询电商信息
-				|| url.indexOf("/guide/findGuide_10") >= 0 // 查询新手指引信息
-				|| url.indexOf("/about/findGuideandelectrity") >= 0 // 查询电商及新手指引信息
-				|| url.indexOf("/note/findNoteInfo.action") >= 0// 查询注册须知信息
-				|| url.indexOf("/guide/details/") >= 0// 查询新手指引信息详情
-		) {
-			return true;
-		}
-
 		/*
 		 * 调用api的请求不用登录
 		 */
@@ -85,16 +59,36 @@ public class LoginInterceptor implements HandlerInterceptor {
 		 if(url.indexOf("/frontend/")>=0 ){ 
 				 return true; 
 		 }
-		 
-		 /*
-		  * 调用测试方法测试  上线删除
-		  */
-		if(url.indexOf("/test/")>=0 ){ 
-			return true; 
+		// 判断url是否是公开 地址（实际使用时将公开 地址配置配置文件中）
+		// 这里公开地址是登陆提交的地址
+		if (url.indexOf("user/Loginrest") >= 0 || url.indexOf("user/register") >= 0 || url.indexOf("user/findUserByNick") >=0 ) {
+			// 如果进行登陆提交，放行
+			return true;
+		}
+		// 判断session
+		HttpSession session = request.getSession();
+		// 从session中取出用户身份信息
+		TUserInfoCustom tUserInfoCustom = (TUserInfoCustom)session.getAttribute("tUserInfoCustom");
+		if (tUserInfoCustom != null) {
+			// 身份存在，放行
+			return true;
 		}
 		
+		/*
+		 * 让无需登录的即可查看的功能能正常使用
+		 *
+		if (url.indexOf("index/findwebinfo") >= 0// 查询web信息（logo 轮播图等）
+				|| url.indexOf("/electrity/") >= 0 // 查询电商信息
+				|| url.indexOf("/guide/findGuide_10") >= 0 // 查询新手指引信息
+				|| url.indexOf("/about/findGuideandelectrity") >= 0 // 查询电商及新手指引信息
+				|| url.indexOf("/note/findNoteInfo.action") >= 0// 查询注册须知信息
+				|| url.indexOf("/guide/details/") >= 0// 查询新手指引信息详情
+		) {
+			return true;
+		} */
+		
 		// 执行这里表示用户身份需要认证，跳转登陆页面
-		request.getRequestDispatcher("/page/main/login.jsp").forward(request,
+		request.getRequestDispatcher("/frontend/authlogin.jsp").forward(request,
 				response);
 
 		// return false表示拦截，不向下执行

@@ -46,7 +46,6 @@ public class FrontendAuthloginController {
 			if(tUserInfoCustom.getUserpwd().equals(MD5Util.string2MD5(password))){
 				httpSession.setMaxInactiveInterval(900); //15分钟
 				httpSession.setAttribute("tUserInfoCustom", tUserInfoCustom);
-				mv.addObject("msg","登陆成功");
 				mv.setViewName("/backstage/user/user.jsp");
 			}else{
 				mv.addObject("msg","密码不正确");

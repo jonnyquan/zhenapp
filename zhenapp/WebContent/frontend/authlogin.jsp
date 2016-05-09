@@ -60,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	display: block;
 	width: 280px;
 	height: 80px;
-	background: url(pagematter/common/img/logo.png) no-repeat;
+	background: url("${pageContext.request.contextPath}/frontend/pagematter/common/img/logo.png") no-repeat;
 	text-indent: -99999px;
 }
 
@@ -366,10 +366,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/frontend/pagematter/common/js/scroll.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/frontend/pagematter/common/js/layer.min.js"></script>
-	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/frontend/pagematter/common/js/layer_user.js"></script>
 
 	<div class="copyRight">
@@ -379,5 +375,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</p>
 		</div>
 	</div>
+	<script type="text/javascript">
+		$(function(){
+			 var msg = "${msg}";
+		     if(msg.length > 0){
+		     	alert(msg);
+		     }
+		});
+	</script>
+	
 </body>
 </html>

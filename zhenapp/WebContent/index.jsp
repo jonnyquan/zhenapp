@@ -11,13 +11,12 @@
 	href="${pageContext.request.contextPath}/easyui/themes/icon.css" />
 </head>
 <body>
-
 	<!--  <form id="form" action="${pageContext.request.contextPath}/indegx/findwebinfo" method="post">
 	</form>
-	-->
+	
 	<form id="form" action="${pageContext.request.contextPath}/frontend/index" method="post">
 	</form>
-	
+	-->
 </body>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/easyui/jquery.min.js"></script>
@@ -26,12 +25,6 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/easyui/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript">
-		var uri="${pageContext.request.contextPath}";
-		$(function(){
-			
-			$("#form").submit();
-			
-		});
+	window.location.href="${pageContext.request.contextPath}/frontend/index";
 </script>
-	
 </html>

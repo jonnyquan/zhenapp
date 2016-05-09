@@ -15,8 +15,7 @@
     from t_electricity_info WHERE electricitypk=#{electricitypk}
   </select>
   <select id="findElectrityBypage" resultType="com.zhenapp.po.Custom.TelectricityCustom" parameterType="java.util.HashMap">
-    select *
-    from t_electricity_info ORDER BY electricitypk DESC LIMIT #{page},#{rows}
+    select * from t_electricity_info ORDER BY electricitypk DESC LIMIT #{page},#{rows}
   </select>
   
 </mapper>
