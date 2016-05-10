@@ -1,6 +1,7 @@
 package com.zhenapp.controller.back;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,12 +21,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.TUserInfo;
 import com.zhenapp.po.Custom.TAgentInfoCustom;
+import com.zhenapp.po.Custom.TGuideInfoCustom;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
 import com.zhenapp.po.Custom.TPriceInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Custom.TWebInfoCustom;
+import com.zhenapp.po.Custom.TelectricityCustom;
 import com.zhenapp.po.Vo.TUserinfoVo;
 import com.zhenapp.service.AgentInfoService;
+import com.zhenapp.service.ElectrityInfoService;
+import com.zhenapp.service.GuideInfoService;
 import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.PriceInfoService;
 import com.zhenapp.service.UserInfoService;
@@ -46,17 +51,35 @@ public class UserInfoController {
 	private PriceInfoService priceInfoService;
 	@Autowired
 	private WebInfoService webInfoService;
+	@Autowired
+	private ElectrityInfoService electrityService;
+	@Autowired
+	private GuideInfoService guideService;
+	
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 	
 	/*
 	 * 跳转到个人中心页面
 	 */
 	@RequestMapping(value="/responseuser")
-	public ModelAndView responseuser() throws Exception{
+	public ModelAndView responseuser(HttpSession session) throws Exception{
 		ModelAndView mv=new ModelAndView();
-		
-		
-		mv.setViewName("/backstage/user/user.jsp");
+		List<TelectricityCustom> TelectricityCustomlist = electrityService
+				.findElectrity_10();
+		List<TGuideInfoCustom> TGuideInfoCustomlist = guideService
+				.findGuide_10();
+		mv.addObject("TelectricityCustomlist", TelectricityCustomlist);
+		mv.addObject("TGuideInfoCustomlist", TGuideInfoCustomlist);
+		TUserInfoCustom tUserInfoCustom = (TUserInfoCustom)session.getAttribute("tUserInfoCustom");
+		String url="";
+		if(tUserInfoCustom.getUserroleid()==3){//普通用户角色
+			url = "/backstage/user/user.jsp";
+		}else if(tUserInfoCustom.getUserroleid()==2){//代理角色
+			url = "/backstage/agent/useragent.jsp";
+		}else if(tUserInfoCustom.getUserroleid()==1){//系统管理员
+			url = "/backstage/sys/usersys.jsp";
+		}
+		mv.setViewName(url);	
 		return mv;
 	}
 	/*
@@ -163,7 +186,43 @@ public class UserInfoController {
 		return mv;
 	}
 	
-	
+	/*
+	 * 代理查询用户列表
+	 */
+	@RequestMapping(value="/findUserByPageandRole")
+	public @ResponseBody ModelAndView findUserByPageandRole(HttpSession session,Integer page,Integer rows) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
+		HashMap<String,Object> pagemap=new HashMap<String,Object>();
+		if (page == null || page==0) {
+			page = 1;
+		} 
+		rows = 10;
+		pagemap.put("page", (page - 1) * rows);
+		pagemap.put("rows", rows);
+		List<TUserInfoCustom> tUserInfoCustomlist=new ArrayList<TUserInfoCustom>();
+		int total=0;
+		if(tUserInfoCustom.getUserroleid()==1){
+			/*
+			 * 系统管理员
+			 */
+			tUserInfoCustomlist = userInfoService.findUserByPage(pagemap);
+			total = userInfoService.findTotalUserByPage(pagemap);
+		}else if(tUserInfoCustom.getUserroleid()==2){
+			/*
+			 * 代理用户
+			 */
+			pagemap.put("userid", tUserInfoCustom.getUserid());
+			tUserInfoCustomlist = userInfoService.findUserByPageandRole(pagemap);
+			total = userInfoService.findTotalUserByPageandRole(pagemap);
+		}
+		mv.addObject("total", total);
+		mv.addObject("pagenum", page);
+		
+		mv.addObject("tUserInfoCustomlist", tUserInfoCustomlist);
+		mv.setViewName("/backstage/agent/useragent.jsp");
+		return mv;
+	}
 	
 	
 	

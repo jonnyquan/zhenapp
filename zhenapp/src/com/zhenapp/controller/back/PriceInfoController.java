@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.TAgentInfoCustom;
@@ -28,6 +29,38 @@ public class PriceInfoController {
 	private AgentInfoService agentInfoService;
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+	/*
+	 * 查询单价列表 --代理
+	 */
+	@RequestMapping(value="/findPriceByAgentid")
+	public @ResponseBody ModelAndView findPriceByAgentid(HttpSession session) throws Exception{
+		ModelAndView mv=new ModelAndView();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		TAgentInfoCustom tAgentInfoCustom= agentInfoService.findAgentByuserid(tUserInfoCustom.getUserid());
+		TPriceInfoCustom tPriceInfoCustom= priceInfoService.findPriceByAgentid(tAgentInfoCustom.getAgentid());
+		mv.addObject("tPriceInfoCustom",tPriceInfoCustom);
+		mv.setViewName("/backstage/agent/sysconf.jsp");
+		return mv;
+	}
+	/*
+	 *根据代理id修改单价信息---代理
+	 */
+	@RequestMapping(value="/updatePriceByAgentid")
+	public @ResponseBody ModelAndView updatepriceByAgentid(HttpSession session,TPriceInfoCustom tPriceInfoCustom) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		tPriceInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+		tPriceInfoCustom.setUpdatetime(sdf.format(new Date()));
+		if(tPriceInfoCustom.getAgentid() == null || tPriceInfoCustom.getAgentid().equals("")){
+			TAgentInfoCustom tAgentInfoCustom= agentInfoService.findAgentByuserid(tUserInfoCustom.getUserid());
+			tPriceInfoCustom.setAgentid(tAgentInfoCustom.getAgentid());
+		}
+		priceInfoService.updatePriceByagentid(tPriceInfoCustom);
+		mv.setViewName("findPriceByAgentid");
+		return mv;
+	}
+	
+	//=====================================================================
 	
 	/*
 	 * 查询单价列表

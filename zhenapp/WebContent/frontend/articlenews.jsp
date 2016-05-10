@@ -14,12 +14,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	content="电商实操运营经验哪里找，尽在真流量电商干货频道。无论你是深耕天猫淘宝开店的，还是刚刚涉足跨境电商领域的，或是刚刚投奔微商领域的，总有一款电商干货是你需要的，看这里就够了。" />
 
 <link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
+	
+<link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/global.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/common.css">
 
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/bootstrap/css/pagination.css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/frontend/pagematter/common/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript"
@@ -29,6 +36,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/index.css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/frontend/pagematter/common/js/jquery.SuperSlide.2.1.1.js"></script>
+	
+	
+<script src="${pageContext.request.contextPath}/bootstrap/js/jqPaginator.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/bootstrap/js/myPage.js" type="text/javascript"></script>
 <title>电商干货 - 真流量</title>
 </head>
 
@@ -79,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 				<ul class="titlelist">
 					<c:forEach items="${TelectricityCustomlist}" var="list">
-						<li><a href="${pageContext.request.contextPath}/detail/2118" target="_blank"><i class="fa fa-angle-right"></i>${list.electricityname}</a></li>
+						<li><a href="${pageContext.request.contextPath}/frontend/articlenewsdetail/${list.electricitypk}" target="_blank"><i class="fa fa-angle-right"></i>${list.electricityname}</a></li>
 					</c:forEach>
 				</ul>
 
@@ -88,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<h3>新手指引</h3>
 				<ul class="titlelist">
 					<c:forEach items="${TGuideInfoCustomlist}" var="list">
-						<li><a href="${pageContext.request.contextPath}/detail/2118" target="_blank"><i class="fa fa-angle-right"></i>${list.guidename}</a></li>
+						<li><a href="${pageContext.request.contextPath}/frontend/articleguidedetail/${list.guidepk}" target="_blank"><i class="fa fa-angle-right"></i>${list.guidename}</a></li>
 					</c:forEach>
 				</ul>
 			</div>
@@ -100,11 +111,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="mainBox">
 					<ul class="newslist">
 						<c:forEach items="${TelectricityCustomAlllist}" var="list">
-							<li><span>${list.createtime}</span><a href="/detail/2118" target="_blank"><i class="fa fa-angle-right"></i>${list.electricityname}</a></li>
+							<li><span>${list.createtime}</span><a href="${pageContext.request.contextPath}/frontend/articlenewsdetail/${list.electricitypk}" target="_blank"><i class="fa fa-angle-right"></i>${list.electricityname}</a></li>
 						</c:forEach>
 					</ul>
 
-					<div class="paging">
+					<!-- <div class="paging">
 						<a>上一页</a> 
 						<a class="cur">1</a>
 						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=2">2</a>
@@ -118,12 +129,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=48">48</a>
 						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=49">49</a> 
 						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=2" rel="next">下一页</a>
-					</div>
+					</div> -->
+						<div>
+					        <ul class="pagination" id="pagination">
+					        </ul>
+					        <input type="hidden" id="PageCount" runat="server" value="${total}"/>
+					        <input type="hidden" id="PageSize" runat="server" value="15" />
+					        <input type="hidden" id="countindex" runat="server" value="10"/>
+					        <!--设置最多显示的页码数 可以手动设置 默认为7-->
+					        <input type="hidden" id="visiblePages" runat="server" value="12" />
+					    </div>
 				</div>
 			</div>
 
 		</div>
 	</div>
+	
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/frontend/pagematter/common/js/floatTools.js"></script>
 	<script type="text/javascript"
@@ -136,5 +157,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</p>
 		</div>
 	</div>
+
+	<script type="text/javascript">
+		var index = Number("${pagenum}");
+		if (index.length < 1) {
+			index = 1;
+		}
+		function loadpage() {
+			var myPageCount = parseInt($("#PageCount").val());
+			var myPageSize = parseInt($("#PageSize").val());
+			var countindex = myPageCount % myPageSize > 0 ? (myPageCount / myPageSize) + 1
+					: (myPageCount / myPageSize);
+			$("#countindex").val(countindex);
+			$.jqPaginator('#pagination',
+							{
+								totalPages : parseInt($("#countindex").val()),
+								visiblePages : parseInt($("#visiblePages").val()),
+								currentPage : index,
+								first : '<li class="first"><a href="${pageContext.request.contextPath}/frontend/articlenews?page=1">首页</a></li>',
+								prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
+								next : '<li class="next"><a href="javascript:;">下一页</a></li>',
+								last : '<li class="last"><a href="javascript:;">末页</a></li>',
+								page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+								onPageChange : function(num, type) {
+									if (type == "change") {
+										//exeData(num, type);
+										window.location.href = "${pageContext.request.contextPath}/frontend/articlenews?page=" + num;
+									}
+								}
+							});
+		}
+	</script>
 </body>
 </html>

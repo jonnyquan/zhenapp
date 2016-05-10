@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhenapp.mapper.Custom.TComboInfoCustomMapper">
+	<delete id="deleteCombo" parameterType="java.util.HashMap">
+		delete FROM t_combo_info where combopk=#{combopk} and agentid = #{agentid}
+	</delete>
+
 	<select id="findAllCombo" resultType="com.zhenapp.po.Custom.TComboInfoCustom">
 		SELECT * FROM t_combo_info ORDER BY combomoney
 	</select>
@@ -9,23 +13,34 @@
 		parameterType="String">
 		SELECT * FROM t_combo_info WHERE comboid=#{comboid}
 	</select>
+	<select id="findComboByAgentid" resultType="com.zhenapp.po.Custom.TComboInfoCustom" parameterType="java.util.HashMap">
+		SELECT * FROM t_combo_info WHERE agentid=#{agentid} order by combopk limit #{page},#{rows}
+	</select>
+	<select id="findTotalComboByAgentid" resultType="int" parameterType="java.util.HashMap">
+		SELECT count(1) FROM t_combo_info WHERE agentid=#{agentid}
+	</select>
 
 
 	<select id="findComboBypage" resultType="com.zhenapp.po.Custom.TComboInfoCustom">
 		SELECT * FROM t_combo_info ORDER BY combomoney LIMIT #{page},#{rows}
 	</select>
 	
+	
+	<update id="updateCombotoByid" parameterType="com.zhenapp.po.Custom.TComboInfoCustom">
+		update t_combo_info set comboname=#{comboname},combomoney=#{combomoney},combointegral=#{combointegral},combogivemoney=#{combogivemoney},combogiveintegral=#{combogiveintegral}  where combopk=#{combopk}
+	</update>
+	
 	<insert id="insertComboto" parameterType="com.zhenapp.po.Custom.TComboInfoCustom">
-  	  insert into t_combo_info ( comboid, comboname, 
-      combomoney, combointegral, combogivemoney, 
-      combogiveintegral, combodesc, createuser, 
-      createtime, updateuser, updatetime
-      )
-    values ( #{comboid,jdbcType=VARCHAR}, #{comboname,jdbcType=VARCHAR}, 
-      #{combomoney,jdbcType=INTEGER}, #{combointegral,jdbcType=INTEGER}, #{combogivemoney,jdbcType=INTEGER}, 
-      #{combogiveintegral,jdbcType=INTEGER}, #{combodesc,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
-      #{createtime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}
-      )
+  	  insert into t_combo_info ( comboid, agentid, 
+      comboname, combomoney, combointegral, 
+      combogivemoney, combogiveintegral, combodesc, 
+      createuser, createtime, updateuser, 
+      updatetime)
+    values (#{comboid,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
+      #{comboname,jdbcType=VARCHAR}, #{combomoney,jdbcType=INTEGER}, #{combointegral,jdbcType=INTEGER}, 
+      #{combogivemoney,jdbcType=INTEGER}, #{combogiveintegral,jdbcType=INTEGER}, #{combodesc,jdbcType=VARCHAR}, 
+      #{createuser,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=VARCHAR})
   </insert>
 	
 	

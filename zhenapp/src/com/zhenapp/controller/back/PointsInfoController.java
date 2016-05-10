@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,7 +21,6 @@ import com.zhenapp.po.Custom.TComboInfoCustom;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
 import com.zhenapp.po.Custom.TRechargeInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
-import com.zhenapp.po.Vo.TRechargeInfoVo;
 import com.zhenapp.service.ComboInfoService;
 import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.RechargeInfoService;
@@ -82,46 +80,106 @@ public class PointsInfoController {
 		return mv;
 	}
 	//===========================================================
+	/*
+	 * 跳转到充值记录界面--代理
+	 */
+	@RequestMapping(value="/responseconsumeagent")
+	public ModelAndView responseconsumeagent(HttpSession session,Integer page,Integer rows) throws Exception{
+		ModelAndView mv=new ModelAndView();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		HashMap<String, Object> pagemap= new HashMap<String, Object>();
+		if (page == null || page==0) {
+			page = 1;
+		} 
+		rows = 10;
+		pagemap.put("page", (page - 1) * rows);
+		pagemap.put("rows", rows);
+		List<TRechargeInfoCustom> tRechargeInfoCustomlist = new ArrayList<TRechargeInfoCustom>();
+		int total = 0;
+		/*
+		* 代理用户
+		*/
+		pagemap.put("userid", tUserInfoCustom.getUserid());
+		total = rechargeInfoService.findTotalRechargeinfoByUserAndpage(pagemap);
+		tRechargeInfoCustomlist = rechargeInfoService.findRechargeinfoByUserAndpage(pagemap);
+		
+		mv.addObject("total",total);
+		mv.addObject("pagenum", page);
+		mv.addObject("tRechargeInfoCustomlist",tRechargeInfoCustomlist);
+		mv.setViewName("/backstage/agent/listrecharge.jsp");
+		return mv;
+	}
+	/*
+	 * 跳转到积分记录界面--代理
+	 */
+	@RequestMapping(value="/responserecordspointsagent")
+	public ModelAndView responserecordspointsagent(HttpSession session,Integer page,Integer rows) throws Exception{
+		ModelAndView mv=new ModelAndView();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		HashMap<String, Object> pagemap= new HashMap<String, Object>();
+		if (page == null || page==0) {
+			page = 1;
+		} 
+		rows = 10;
+		pagemap.put("page", (page - 1) * rows);
+		pagemap.put("rows", rows);
+		List<TPointsInfoCustom> tPointsInfoCustomlist = new ArrayList<TPointsInfoCustom>();
+		int total = 0;
+		/*
+		* 代理用户
+		*/
+		pagemap.put("userid", tUserInfoCustom.getUserid());
+		tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPage(pagemap);
+		total = pointsInfoService.findPointsCountsByPage(pagemap);
+		
+		mv.addObject("total",total);
+		mv.addObject("pagenum", page);
+		mv.addObject("tPointsInfoCustomlist",tPointsInfoCustomlist);
+		mv.setViewName("/backstage/agent/listcoin.jsp");
+		return mv;
+	}
+	
 	
 	/*
-	 * 跳转到积分明细界面
+	 * 跳转到积分明细界面--用户
 	 */
 	@RequestMapping(value="/responserecordspoints")
 	public ModelAndView responserecordspoints(HttpSession session,Integer page,Integer rows) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		HashMap<String, Object> pagemap= new HashMap<String, Object>();
-		if (page == null || page == null) {
-			pagemap.put("page", 0);
-			pagemap.put("rows", 10);
-		} else {
-			pagemap.put("page", page-1);
-			pagemap.put("rows", rows);
-		}
+		if (page == null || page==0) {
+			page = 1;
+		} 
+		rows = 10;
+		pagemap.put("page", (page - 1) * rows);
+		pagemap.put("rows", rows);
 		
 		List<TPointsInfoCustom> tPointsInfoCustomlist = new ArrayList<TPointsInfoCustom>();
-		int counts = 0;
+		int total = 0;
 		if(tUserInfoCustom.getUserroleid()==1){
 			/*
 			 * 系统管理员
 			 */
 			tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPage(pagemap);
-			counts = pointsInfoService.findPointsCountsByPage(pagemap);
+			total = pointsInfoService.findPointsCountsByPage(pagemap);
 		}else if(tUserInfoCustom.getUserroleid()==2){
 			/*
 			 * 代理用户
 			 */
 			pagemap.put("userid", tUserInfoCustom.getUserid());
 			tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPageandRole(pagemap);
-			counts = pointsInfoService.findPointsCountsByPageandRole(pagemap);
+			total = pointsInfoService.findPointsCountsByPageandRole(pagemap);
 		}else{
 			/*
 			 * 普通用户
 			 */
 			pagemap.put("createuser", tUserInfoCustom.getUserid());
 			tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPage(pagemap);
-			counts = pointsInfoService.findPointsCountsByPage(pagemap);
+			total = pointsInfoService.findPointsCountsByPage(pagemap);
 		}
+		mv.addObject("total",total);
+		mv.addObject("pagenum", page);
 		mv.addObject("tPointsInfoCustomlist",tPointsInfoCustomlist);
 		mv.setViewName("/backstage/points/recordspoints.jsp");
 		return mv;
@@ -131,7 +189,7 @@ public class PointsInfoController {
 	 * 跳转到购买记录界面
 	 */
 	@RequestMapping(value="/responseconsume")
-	public ModelAndView responseconsume(HttpSession session,String datefrom,String dateto) throws Exception{
+	public ModelAndView responseconsume(HttpSession session,Integer page,Integer rows, String datefrom,String dateto) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
@@ -140,9 +198,13 @@ public class PointsInfoController {
 		pagemap.put("datefrom", datefrom);
 		pagemap.put("dateto", dateto);
 		List<TRechargeInfoCustom> tRechargeInfoCustomlist = new ArrayList<TRechargeInfoCustom>();
-		pagemap.put("page", 0);
-		pagemap.put("rows", 10);
 		
+		if (page == null || page==0) {
+			page = 1;
+		} 
+		rows = 10;
+		pagemap.put("page", (page - 1) * rows);
+		pagemap.put("rows", rows);
 		int total = 0;
 		if(tUserInfoCustom.getUserroleid()==1){
 			/*
@@ -166,6 +228,7 @@ public class PointsInfoController {
 			tRechargeInfoCustomlist = rechargeInfoService.findRechargeinfoByUserAndpage(pagemap);
 		}
 		mv.addObject("total",total);
+		mv.addObject("pagenum", page);
 		mv.addObject("tRechargeInfoCustomlist", tRechargeInfoCustomlist);
 		mv.setViewName("/backstage/points/consumepoints.jsp");
 		return mv;

@@ -47,4 +47,5 @@
       updateuser = #{updateuser,jdbcType=VARCHAR}
     where agentid = #{agentid,jdbcType=VARCHAR},
   </update>
+  
 </mapper>

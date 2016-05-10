@@ -15,6 +15,11 @@
 <meta name="keywords" content="真流量,无线流量,无限流量代运营,无线刷流量 " />
 <meta name="description" content="真流量,无线流量,无限流量代运营,无线刷流量 " />
 <link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
+
+<link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/global.css">
@@ -38,7 +43,13 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/validform.style.css"
 	type="text/css">
-
+	
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/easyui/themes/bootstrap/easyui.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/easyui/themes/icon.css" />
+<script src="${pageContext.request.contextPath}/bootstrap/js/jqPaginator.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/bootstrap/js/myPage.js" type="text/javascript"></script>
 <style type="text/css">
 .money {
 	color: #f00;
@@ -322,40 +333,34 @@ input {
 			<div class="rightbox row_r">
 				<div class="u_outbox">
 					<div class="tabtitle clearfix">
-						<a href="/user/task/manage" class="row_l hover">流量任务管理</a><a
-							href="/user" class="row_l back">返回个人中心</a>
+						<a href="${pageContext.request.contextPath}/task/responsetaskmanage" class="row_l hover">流量任务管理</a>
+						<a href="${pageContext.request.contextPath}/user/responseuser" class="row_l back">返回个人中心</a>
 					</div>
 					<div class="umainbox">
 						<!--main-->
-						<form class="koo_fromBox" action="/user/task/manage" method="post">
+						<form class="koo_fromBox" action="${pageContext.request.contextPath}/task/responsetaskmanage" method="post">
 							<div class="searchbox ">
 								<div>
-									<label class="form_label">搜索关键字:</label> <input
-										class="form_input input120" type="text" name="keyword"
-										id="keyword" value="" /> <label class="form_label">商品标题:</label>
-									<input class="form_input input120" type="text" name="title"
-										id="title" value="" /> <label class="form_label">任务状态:</label>
-
-									<select name="status" id="status">
-										<option selected value="全部状态">全部状态</option>
-										<option value="同步中">同步中</option>
-										<option value="已经完成">已经完成</option>
-										<option value="正在执行">正在执行</option>
-										<option value="自动暂停">自动暂停</option>
-										<option value="手动暂停">手动暂停</option>
-									</select> <label class="form_label">任务开始时间:</label> <input type="text"
-										name="fromDate" class="Wdate search_time"
-										onClick="WdatePicker()" value="2016-05-10" /> <label
-										class="form_label">至</label> <input type="text" name="toDate"
-										class="Wdate search_time" onClick="WdatePicker()"
-										value="2016-05-26" />
-
+									<label class="form_label">搜索关键字:</label> 
+									<input class="form_input input120" type="text" name="keyword" id="keyword" value="" /> 
+									<label class="form_label">商品标题:</label>
+									<input class="form_input input120" type="text" name="title" id="title" value="" /> 
+									<label class="form_label">任务状态:</label>
+										<select name="status" id="status">
+											<option selected value="全部状态">全部状态</option>
+											<option value="同步中">同步中</option>
+											<option value="已经完成">已经完成</option>
+											<option value="正在执行">正在执行</option>
+											<option value="自动暂停">自动暂停</option>
+											<option value="手动暂停">手动暂停</option>
+										</select> 
+									<label class="form_label">任务开始时间:</label> 
+									<input type="text" name="datefrom" id="datefrom" class="Wdate search_time" onClick="WdatePicker()" value="" /> 
+									<label class="form_label">至</label> 
+									<input type="text" name="dateto" id="dateto" class="Wdate search_time" onClick="WdatePicker()" value="" />
 									<button type="submit" name="submit" class="search_btn">搜索</button>
-
 								</div>
-
 							</div>
-
 						</form>
 
 						<div class="tablebox">
@@ -370,22 +375,68 @@ input {
 									<th width="15%">备注</th>
 									<th width="15%">操作</th>
 								</thead>
-								<tr>
-									<td colspan="8">
-										<div class="no_data">暂无任务记录</div>
-									</td>
-								</tr>
+								<c:if test="${tTaskInfoCustomlist == null}">
+									<tr>
+										<td colspan="8">
+											<div class="no_data">暂无任务记录</div>
+										</td>
+									</tr>
+								</c:if>
+								<c:if test="${tTaskInfoCustomlist != null}">
+									<c:forEach items="${tTaskInfoCustomlist}" var="list">
+										<tr>
+											<td >
+												<div class="no_data">${list.taskpk}</div>
+											</td>
+											<td >
+												<div class="no_data">${list.taskkeyword}</div>
+											</td>
+											<td>
+												<div class="no_data">${list.taskid}</div>
+											</td>
+											<td>
+												<div class="no_data">${list.flowcount}</div>
+											</td>
+											<td>
+												<div class="no_data">${list.taskdate}</div>
+											</td>
+											<td>
+												<div class="no_data">${list.taskstate}</div>
+											</td>
+											<td>
+												<div class="no_data">${list.createtime}</div>
+											</td>
+											<td>
+												<div class="no_data">再次发布&nbsp;||&nbsp;<input type="button" class="btn btn-default"  onclick="fn_deleteTaskBypk('${list.taskpk}');" value="删除 "/></div>
+											</td>
+										</tr>
+									</c:forEach>
+								</c:if>
 							</table>
+							
 						</div>
+						
+					</div>
+					<div>
+						<ul class="pagination" id="pagination">
+						</ul>
+						<input type="hidden" id="PageCount" runat="server" value="${total}"/>
+						<input type="hidden" id="PageSize" runat="server" value="10" />
+						<input type="hidden" id="countindex" runat="server" value="10"/>
+						<!--设置最多显示的页码数 可以手动设置 默认为7-->
+						<input type="hidden" id="visiblePages" runat="server" value="12" />
 					</div>
 				</div>
 			</div>
+			
 			<script type="text/javascript"
 				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/layer_user.js"></script>
 			<script type="text/javascript"
 				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/Validform_v5.3.2.js"></script>
 			<script type="text/javascript"
 				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/WdatePicker.js "></script>
+			<script type="text/javascript" src="${pageContext.request.contextPath}/easyui/jquery.easyui.min.js"></script>
+			<script type="text/javascript" src="${pageContext.request.contextPath}/easyui/locale/easyui-lang-zh_CN.js"></script>
 		</div>
 	</div>
 	<div class="copyRight">
@@ -395,5 +446,55 @@ input {
 			</p>
 		</div>
 	</div>
+	
+	
+<script type="text/javascript">
+;$(function(){
+	$('#datefrom').datebox();
+	$('#dateto').datebox();
+});
+
+
+		var index = Number("${pagenum}");
+		if (index.length < 1) {
+			index = 1;
+		}
+		function loadpage() {
+			var myPageCount = parseInt($("#PageCount").val());
+			var myPageSize = parseInt($("#PageSize").val());
+			var countindex = myPageCount % myPageSize > 0 ? (myPageCount / myPageSize) + 1
+					: (myPageCount / myPageSize);
+			if(countindex==0){
+				countindex=1;
+			}
+			$("#countindex").val(countindex);
+			$.jqPaginator('#pagination',
+							{
+								totalPages : parseInt($("#countindex").val()),
+								visiblePages : parseInt($("#visiblePages").val()),
+								currentPage : index,
+								first : '<li class="first"><a href="${pageContext.request.contextPath}/task/responsetaskmanage?page=1">首页</a></li>',
+								prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
+								next : '<li class="next"><a href="javascript:;">下一页</a></li>',
+								last : '<li class="last"><a href="javascript:;">末页</a></li>',
+								page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+								onPageChange : function(num, type) {
+									if (type == "change") {
+										//exeData(num, type);
+										window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanage?page=" + num;
+									}
+								}
+							});
+		}
+		
+		function fn_deleteTaskBypk (obj){
+			$.messager.confirm('确认','您确认想要删除该条记录吗？',function(b){    
+			    if (b){
+			    	window.location.href="${pageContext.request.contextPath}/task/deleteTaskBypk/"+obj;
+			    }
+			});
+		}
+		
+	</script>
 </body>
 </html>

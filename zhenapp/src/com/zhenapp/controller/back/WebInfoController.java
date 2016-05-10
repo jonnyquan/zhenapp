@@ -1,4 +1,4 @@
-package com.zhenapp.controller.front;
+package com.zhenapp.controller.back;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -18,23 +18,42 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.TAgentInfoCustom;
+import com.zhenapp.po.Custom.TPriceInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Custom.TWebInfoCustom;
 import com.zhenapp.service.AgentInfoService;
+import com.zhenapp.service.PriceInfoService;
 import com.zhenapp.service.WebInfoService;
 
 @Controller
 @RequestMapping(value="/web")
 public class WebInfoController {
-
 	@Autowired
 	private WebInfoService webInfoService;
-	
 	@Autowired
 	private AgentInfoService agentInfoService;
-	
+	@Autowired
+	private PriceInfoService priceInfoService;
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+	
+	/*
+	 * 根据代理id查询web信息--代理
+	 * 
+	 */
+	@RequestMapping(value="/findWebByAgentid")
+	public @ResponseBody ModelAndView findWebByAgentid(HttpSession session) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		TAgentInfoCustom tAgentInfoCustom= agentInfoService.findAgentByuserid(tUserInfoCustom.getUserid());
+		TWebInfoCustom tWebInfoCustom = webInfoService.findWebByAgentid(tAgentInfoCustom.getAgentid());
+		mv.addObject("tWebInfoCustom",tWebInfoCustom);
+		mv.addObject("tAgentInfoCustom",tAgentInfoCustom);
+		mv.setViewName("/backstage/agent/websetting.jsp");
+		return mv;
+	}
+	
+	
 	/*
 	 * 根据访问域名查询web信息
 	 *

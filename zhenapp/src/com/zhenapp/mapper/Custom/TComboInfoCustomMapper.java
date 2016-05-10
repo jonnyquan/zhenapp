@@ -8,6 +8,18 @@ import com.zhenapp.po.Custom.TComboInfoCustom;
 
 public interface TComboInfoCustomMapper {
 	/*
+	 * 根据套餐id和代理id删除权限内的套餐信息
+	 */
+	public int deleteCombo(HashMap<String, Object> pagemap) throws Exception;
+	/*
+	 * 根据代理id查询套餐信息总数
+	 */
+	public int findTotalComboByAgentid(HashMap<String, Object> pagemap) throws Exception;
+	/*
+	 * 根据代理id查询套餐信息
+	 */
+	public List<TComboInfoCustom> findComboByAgentid(HashMap<String, Object> pagemap) throws Exception;
+	/*
 	 * 查询全部套餐信息
 	 */
 	public List<TComboInfoCustom> findAllCombo() throws Exception;
@@ -25,5 +37,9 @@ public interface TComboInfoCustomMapper {
 	 * 保存套餐信息
 	 */
 	public int insertComboto(TComboInfoCustom tComboInfoCustom) throws Exception;
+	/*
+	 * 根据套餐id更新信息
+	 */
+	public int updateCombotoByid(TComboInfoCustom tComboInfoCustom) throws Exception;
 	
 }

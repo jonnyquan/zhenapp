@@ -5,6 +5,8 @@ public class TComboInfo {
 
     private String comboid;
 
+    private String agentid;
+
     private String comboname;
 
     private Integer combomoney;
@@ -39,6 +41,14 @@ public class TComboInfo {
 
     public void setComboid(String comboid) {
         this.comboid = comboid == null ? null : comboid.trim();
+    }
+
+    public String getAgentid() {
+        return agentid;
+    }
+
+    public void setAgentid(String agentid) {
+        this.agentid = agentid == null ? null : agentid.trim();
     }
 
     public String getComboname() {

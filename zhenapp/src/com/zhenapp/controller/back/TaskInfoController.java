@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -69,18 +70,123 @@ public class TaskInfoController {
 		return mv;
 	}
 	/*
-	 * 跳转到任务管理界面
+	 * 跳转到订单查询界面--代理
 	 */
-	@RequestMapping(value="/responsetaskmanage")
-	public ModelAndView responsetaskmanage() throws Exception{
+	@RequestMapping(value="/responsetaskmanageagent")
+	public ModelAndView responsetaskmanageagent(HttpSession session,Integer page,Integer rows,String keyword,String title,String status,String datefrom,String dateto) throws Exception{
 		ModelAndView mv=new ModelAndView();
-		
-		
-		mv.setViewName("/backstage/task/taskmanage.jsp");
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
+		HashMap<String,Object> pagemap=new HashMap<String,Object>();
+		List<TTaskInfoCustom> tTaskInfoCustomlist =new ArrayList<TTaskInfoCustom>();
+		if (page == null || page==0) {
+			page = 1;
+		} 
+		rows = 10;
+		pagemap.put("page", (page - 1) * rows);
+		pagemap.put("rows", rows);
+		if(keyword!=null){
+			pagemap.put("keyword", keyword);
+		}
+		if(title!=null){
+			pagemap.put("title", title);
+		}
+		if(status!=null){
+			pagemap.put("status", status);
+		}
+		if(datefrom!=null){
+			pagemap.put("datefrom", datefrom.replace("-", ""));
+		}
+		if(dateto!=null){
+			pagemap.put("dateto", dateto.replace("-", ""));
+		}
+		pagemap.put("userid", tUserInfoCustom.getUserid());
+		int total = 0;
+		/*
+		* 代理用户
+		*/
+		tTaskInfoCustomlist = taskInfoService.findTaskBypageAndrole(pagemap);
+		total = taskInfoService.findTotalTaskBypageAndrole(pagemap);
+		mv.addObject("tTaskInfoCustomlist", tTaskInfoCustomlist);
+		mv.addObject("total", total);
+		mv.addObject("pagenum", page);
+		mv.setViewName("/backstage/agent/tasklist.jsp");
 		return mv;
 	}
 	
-	
+	/*
+	 * 跳转到任务管理界面
+	 */
+	@RequestMapping(value="/responsetaskmanage")
+	public ModelAndView responsetaskmanage(HttpSession session,Integer page,Integer rows,String keyword,String title,String status,String datefrom,String dateto) throws Exception{
+		ModelAndView mv=new ModelAndView();
+		
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
+		
+		HashMap<String,Object> pagemap=new HashMap<String,Object>();
+
+		List<TTaskInfoCustom> tTaskInfoCustomlist =new ArrayList<TTaskInfoCustom>();
+		if (page == null || page==0) {
+			page = 1;
+		} 
+		rows = 10;
+		pagemap.put("page", (page - 1) * rows);
+		pagemap.put("rows", rows);
+		if(keyword!=null){
+			pagemap.put("keyword", keyword);
+		}
+		if(title!=null){
+			pagemap.put("title", title);
+		}
+		if(status!=null){
+			pagemap.put("status", status);
+		}
+		if(datefrom!=null){
+			pagemap.put("datefrom", datefrom.replace("-", ""));
+		}
+		if(dateto!=null){
+			pagemap.put("dateto", dateto.replace("-", ""));
+		}
+		
+		int total = 0;
+		if(tUserInfoCustom.getUserroleid()==1){
+			/*
+			 * 系统管理员
+			 */
+			tTaskInfoCustomlist = taskInfoService.findTaskBypage(pagemap);
+			total = taskInfoService.findTotalTaskBypage(pagemap);
+		}else if(tUserInfoCustom.getUserroleid()==2){
+			/*
+			 * 代理用户
+			 */
+			tTaskInfoCustomlist = taskInfoService.findTaskBypageAndrole(pagemap);
+			total = taskInfoService.findTotalTaskBypageAndrole(pagemap);
+		}else{
+			/*
+			 * 普通用户
+			 */
+			pagemap.put("userid", tUserInfoCustom.getUserid());
+			tTaskInfoCustomlist = taskInfoService.findTaskBypage(pagemap);
+			total = taskInfoService.findTotalTaskBypage(pagemap);
+		}
+		
+		mv.addObject("tTaskInfoCustomlist", tTaskInfoCustomlist);
+		mv.addObject("total", total);
+		mv.addObject("pagenum", page);
+		mv.setViewName("/backstage/task/taskmanage.jsp");
+		return mv;
+	}
+	/*
+	 * 删除任务
+	 */
+	@RequestMapping(value="/deleteTaskBypk/{taskpk}")
+	public ModelAndView deleteTaskBypk(HttpSession session,@PathVariable(value="taskpk")String taskpk) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		
+		taskInfoService.deleteTaskBypk(taskpk);
+		
+		mv.setViewName("/task/responsetaskmanage");
+		return mv;
+	}
 	
 //=================================================================================================================
 	
@@ -104,6 +210,100 @@ public class TaskInfoController {
 		}
 		mv.setViewName("/page/task/tasklladd.jsp");
 		return mv;
+	}
+	
+	/*
+	 * 发布任务 新增订单信息
+	 */
+	@RequestMapping(value="/saveTaskInfo")
+	public @ResponseBody ModelMap saveTaskInfo(HttpServletRequest request, TTaskInfoCustom tTaskInfoCustom,String taskkeywords) throws Exception{
+		ModelMap map=new ModelMap();
+		/*
+		 * 查询系统配置项中是否禁止发布任务
+		 */
+		HttpSession session=request.getSession();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		TPriceInfoCustom tPriceInfoCustom = priceInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
+		
+		Date date = new Date();
+		int hours = date.getHours()+1;
+		int days = DateUtilWxf.getBetweenDays(tTaskInfoCustom.getTaskstartdate().replace("-", ""), tTaskInfoCustom.getTaskenddate().replace("-", ""));
+		String [] taskkeywordarr=taskkeywords.split("====");
+		String [] hourarr = tTaskInfoCustom.getTaskhourcounts().split(",");
+		int flowcounts = 0;
+		int subflowcounts = 0;
+		for (int i = 0; i < hourarr.length; i++) {
+			flowcounts = flowcounts + Integer.parseInt(hourarr[i]);
+		}
+		for (int i = 0; i < hours; i++) {
+			subflowcounts = subflowcounts + Integer.parseInt(hourarr[i]);
+		}
+		int flowpoints = flowcounts * Integer.parseInt(tPriceInfoCustom.getPricecounts1()) * taskkeywordarr.length * (days + 1)  - subflowcounts * Integer.parseInt(tPriceInfoCustom.getPricecounts1());
+		int Collectionpoints = tTaskInfoCustom.getCollectioncount() * Integer.parseInt(tPriceInfoCustom.getPricecounts2());
+		int Shoppingpoints = tTaskInfoCustom.getShoppingcount() * Integer.parseInt(tPriceInfoCustom.getPricecounts3());
+		int subtractpoints=flowpoints + Collectionpoints + Shoppingpoints;
+		
+		String points = userInfoService.findpointsByUsernickAndPwd(tUserInfoCustom);
+		if(Integer.parseInt(points) < subtractpoints){
+			map.put("data", "low");
+			return map;
+		}
+		String desable = sysconfInfoService.findSysdesable();
+		if(!desable.equals("1")){
+			map.put("data", "refuse");
+			return map;
+		}
+		
+		tTaskInfoCustom.setTasktype(tTaskInfoCustom.getTasktype());//33 流量   34 直通车
+		tTaskInfoCustom.setTaskkeynum(tTaskInfoCustom.getTaskkeynum());
+		tTaskInfoCustom.setTaskreleasekeyword(taskkeywords);
+		tTaskInfoCustom.setTaskstartdate(tTaskInfoCustom.getTaskstartdate().replace("-", ""));
+		tTaskInfoCustom.setTaskenddate(tTaskInfoCustom.getTaskenddate().replace("-", ""));
+		tTaskInfoCustom.setTaskhourcounts(tTaskInfoCustom.getTaskhourcounts());
+		tTaskInfoCustom.setTaskminprice(tTaskInfoCustom.getTaskminprice());
+		tTaskInfoCustom.setTaskmaxprice(tTaskInfoCustom.getTaskmaxprice());
+		tTaskInfoCustom.setTasksearchtype(tTaskInfoCustom.getTasksearchtype());
+		tTaskInfoCustom.setFlowcount(tTaskInfoCustom.getFlowcount());
+		tTaskInfoCustom.setCollectioncount(tTaskInfoCustom.getCollectioncount());
+		tTaskInfoCustom.setShoppingcount(tTaskInfoCustom.getShoppingcount());
+		tTaskInfoCustom.setSubtractpoints(subtractpoints);
+		tTaskInfoCustom.setTaskstate("15");//待分配状态
+		tTaskInfoCustom.setCreatetime(sdf.format(new Date()));
+		tTaskInfoCustom.setUpdatetime(sdf.format(new Date()));
+		tTaskInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+		tTaskInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
+		for (int i = 0; i <= days; i++) {
+			for (int ii = 0; ii < taskkeywordarr.length; ii++) {
+				tTaskInfoCustom.setTaskid(UUID.randomUUID().toString().replace("-", ""));
+				tTaskInfoCustom.setTaskkeyword(taskkeywordarr[ii]);
+				tTaskInfoCustom.setTaskdate(sdf.format(date));
+				taskInfoService.insertTaskInfo(tTaskInfoCustom);
+			}
+			date = sdf.parse(sdf.format(date.getTime()+24*3600*1000));
+		}
+			map.put("data", "insertsuccess");
+			/*
+			 * 扣除消耗的积分
+			 */
+			tUserInfoCustom.setPoints(Integer.parseInt(points)-subtractpoints);
+			userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
+			/*
+			 * 添加积分明细记录
+			 */
+			TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
+			tPointsInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+			tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
+			tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
+			tPointsInfoCustom.setUpdateuser("sys");
+			tPointsInfoCustom.setPointreason("发布任务消耗积分"+subtractpoints);
+			tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
+			tPointsInfoCustom.setPoints(tUserInfoCustom.getPoints());
+			tPointsInfoCustom.setPointstype("27");
+			tPointsInfoCustom.setPointsupdate(subtractpoints);
+			tPointsInfoCustom.setTaskid("0");
+			tPointsInfoCustom.setUserid(tUserInfoCustom.getUserid());
+			pointsInfoService.savePoints(tPointsInfoCustom);
+		return map;
 	}
 	
 

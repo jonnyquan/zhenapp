@@ -317,52 +317,38 @@
 									<label>真实姓名：</label>${tUserInfoCustom.username}<label class="kong">手机号码：</label>${tUserInfoCustom.userphone}
 								</div>
 								<div class="uMoeny">
-									<label>当前积分余额：</label><span>0</span>个 <a href="/user/points">购买点卡</a>
-									<a href="/user/task/add" class="mx">发布任务</a>
+									<label>当前积分余额：</label><span>${tUserInfoCustom.points}</span>个 <a href="${pageContext.request.contextPath}/points/responsebuypoints">购买积分</a>
+									<a href="${pageContext.request.contextPath}/task/responsetaskadd" class="mx">发布任务</a>
 								</div>
 							</div>
 						</div>
 
 						<div class="sysMsg clearfix">
-							<a href="/user/task/manage">已完成任务<span>(0)</span></a> <a
-								href="/user/task/manage">待完成任务<span>(0)</span></a> <a
-								href="/user/cash/orders">充值订单<span>(1)</span></a>
+							<a href="${pageContext.request.contextPath}/task/responsetaskmanage">已完成任务<span>(0)</span></a> <a
+								href="${pageContext.request.contextPath}/task/responsetaskmanage">待完成任务<span>(0)</span></a> <a
+								href="${pageContext.request.contextPath}/task/responsetaskmanage">购买记录<span>(0)</span></a>
 						</div>
 						<div class="news clearfix">
 							<div class="articlebox row_l">
 								<h2>
-									<a href="/article/news" target="_blank">更多<i
-										class="fa fa-angle-right"></i></a>行业动态
+									电商干货
+									<a href="${pageContext.request.contextPath}/frontend/articlenews" target="_blank">更多 <i class="fa fa-angle-right"></i></a>
 								</h2>
 								<ul>
-									<li><a href="/detail/2118" target="_blank"><i
-											class="fa fa-angle-right"></i>ROI的小心机,实操指导如何提高ROI</a></li>
-									<li><a href="/detail/2117" target="_blank"><i
-											class="fa fa-angle-right"></i>小细节,淘抢购报名通过率提高翻倍</a></li>
-									<li><a href="/detail/2115" target="_blank"><i
-											class="fa fa-angle-right"></i>标题优化技巧，淘宝无线端宝贝标题优化技巧</a></li>
-									<li><a href="/detail/2116" target="_blank"><i
-											class="fa fa-angle-right"></i>淘宝卖家常遇到的问题及解决办法</a></li>
-									<li><a href="/detail/2114" target="_blank"><i
-											class="fa fa-angle-right"></i>新品宝贝如何玩转直通车</a></li>
+									<c:forEach items="${TelectricityCustomlist}" var="list">
+										<li><a href="${pageContext.request.contextPath}/frontend/articlenewsdetail/${list.electricitypk}" target="_blank"><i class="fa fa-angle-right"></i>${list.electricityname}</a></li>
+									</c:forEach>
 								</ul>
 							</div>
 							<div class="articlebox row_r">
 								<h2>
-									<a href="/article/guide" target="_blank">更多<i
-										class="fa fa-angle-right"></i></a>新手教程
+									新手指引
+									<a href="${pageContext.request.contextPath}/frontend/articleguide" target="_blank">更多<i class="fa fa-angle-right"></i></a>
 								</h2>
 								<ul>
-									<li><a href="/detail/2010" target="_blank"><i
-											class="fa fa-angle-right"></i>淘口令在哪里？淘口令怎么打开？</a></li>
-									<li><a href="/detail/1879" target="_blank"><i
-											class="fa fa-angle-right"></i>APP流量在淘宝后台怎么看？在生意参谋中怎么看？</a></li>
-									<li><a href="/detail/1825" target="_blank"><i
-											class="fa fa-angle-right"></i>什么是真假流量？真假流量对比？教你辨别真假流量</a></li>
-									<li><a href="/detail/1814" target="_blank"><i
-											class="fa fa-angle-right"></i>发布淘宝无线端APP流量任务常见问题？</a></li>
-									<li><a href="/detail/1715" target="_blank"><i
-											class="fa fa-angle-right"></i>如何发布淘宝无线端APP流量任务？</a></li>
+									<c:forEach items="${TGuideInfoCustomlist}" var="list">
+										<li><a href="${pageContext.request.contextPath}/frontend/articleguidedetail/${list.guidepk}" target="_blank"><i class="fa fa-angle-right"></i>${list.guidename}</a></li>
+									</c:forEach>
 								</ul>
 							</div>
 						</div>
@@ -384,11 +370,5 @@
 				</p>
 			</div>
 		</div>
-		<script type="text/javascript">
-		$(function(){
-			//var msg = "${msg}";
-			//alert(msg);
-		});
-	</script>
 </body>
 </html>

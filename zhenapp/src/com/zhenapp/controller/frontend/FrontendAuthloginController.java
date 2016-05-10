@@ -26,8 +26,9 @@ public class FrontendAuthloginController {
 	public @ResponseBody ModelAndView authlogin(HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		
+		
 		if(session.getAttribute("tUserInfoCustom") != null){
-			mv.setViewName("/backstage/user/user.jsp");
+			mv.setViewName("/user/responseuser");
 		}else{
 			mv.setViewName("/frontend/authlogin.jsp");
 		}
@@ -46,7 +47,7 @@ public class FrontendAuthloginController {
 			if(tUserInfoCustom.getUserpwd().equals(MD5Util.string2MD5(password))){
 				httpSession.setMaxInactiveInterval(900); //15分钟
 				httpSession.setAttribute("tUserInfoCustom", tUserInfoCustom);
-				mv.setViewName("/backstage/user/user.jsp");
+				mv.setViewName("/user/responseuser");
 			}else{
 				mv.addObject("msg","密码不正确");
 				mv.setViewName("/frontend/authlogin.jsp");

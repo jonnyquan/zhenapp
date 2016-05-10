@@ -8,6 +8,7 @@ var myDate = new Date();
 	var subtractll = 0;//统计消耗积分时要去掉的当天不发布的流量数
 	
 	;$(function() {
+		fpll($("#flowcount")[0]);//默认加载一次分配流量数
 		$('#datefrom').datebox({
 			onSelect : function(date){
 				var day = date.getDate() > 9 ? date.getDate() : "0" + date.getDate();
@@ -151,12 +152,19 @@ var myDate = new Date();
 			});
 			var taskhourcounts = [];
 			var inputtaskhourcounts = $("input[name='taskhourcounts']");
+			var temphourcounts=0;
 			inputtaskhourcounts.each(function(){
 				var me = $(this);
+				temphourcounts=parseInt(temphourcounts)+parseInt(me.val());
 				taskhourcounts.push(me.val());//保存value到一个数组中
 			});
+			
+			if(temphourcounts==0){
+				$.messager.alert('消息提示', '流量数最少不能小于1', 'info');
+				return false;
+			}
 			$.ajax({
-				url : uri+"/task/insertTaskInfo",
+				url : uri+"/task/saveTaskInfo",
 				type : "POST",
 				data : {
 					taskkeynum : $("#taskkeynum").val(),

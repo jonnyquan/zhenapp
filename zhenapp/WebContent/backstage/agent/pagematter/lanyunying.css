@@ -1,0 +1,8 @@
+[class*=am-u-]+[class*=am-u-]:last-child {
+   float: left;
+}
+
+.error {
+  color: #a62000;
+}
+

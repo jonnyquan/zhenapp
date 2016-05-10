@@ -15,6 +15,11 @@
 <meta name="keywords" content="真流量,无线流量,无限流量代运营,无线刷流量 " />
 <meta name="description" content="真流量,无线流量,无限流量代运营,无线刷流量 " />
 <link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
+
+<link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/global.css">
@@ -39,7 +44,8 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/validform.style.css"
 	type="text/css">
-
+<script src="${pageContext.request.contextPath}/bootstrap/js/jqPaginator.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/bootstrap/js/myPage.js" type="text/javascript"></script>
 <style type="text/css">
 .money {
 	font-size: 14px;
@@ -58,7 +64,7 @@
 	color: #f00;
 }
 </style>
-<title>积分账户 - 真流量</title>
+<title>积分明细</title>
 </head>
 
 <body>
@@ -185,7 +191,7 @@
 							<c:if test="${tPointsInfoCustomlist==null}">
 		                        <tr>
 		                            <td colspan="4">
-		                                <div class="no_data">暂无积分记录32</div>
+		                                <div class="no_data">暂无积分记录</div>
 		                            </td>
 		                        </tr>
 	                        </c:if>
@@ -212,6 +218,15 @@
 						<!--main-->
 					</div>
 				</div>
+				<div>
+						<ul class="pagination" id="pagination">
+						</ul>
+						<input type="hidden" id="PageCount" runat="server" value="${total}"/>
+						<input type="hidden" id="PageSize" runat="server" value="10" />
+						<input type="hidden" id="countindex" runat="server" value="10"/>
+						<!--设置最多显示的页码数 可以手动设置 默认为7-->
+						<input type="hidden" id="visiblePages" runat="server" value="12" />
+					</div>
 			</div>
 			<script type="text/javascript"
 				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/layer_user.js"></script>
@@ -226,5 +241,39 @@
 			</p>
 		</div>
 	</div>
+
+<script type="text/javascript">
+var index = Number("${pagenum}");
+		if (index.length < 1) {
+			index = 1;
+		}
+		function loadpage() {
+			var myPageCount = parseInt($("#PageCount").val());
+			var myPageSize = parseInt($("#PageSize").val());
+			var countindex = myPageCount % myPageSize > 0 ? (myPageCount / myPageSize) + 1
+					: (myPageCount / myPageSize);
+			if(countindex==0){
+				countindex=1;
+			}
+			$("#countindex").val(countindex);
+			$.jqPaginator('#pagination',
+							{
+								totalPages : parseInt($("#countindex").val()),
+								visiblePages : parseInt($("#visiblePages").val()),
+								currentPage : index,
+								first : '<li class="first"><a href="${pageContext.request.contextPath}/points/responserecordspoints?page=1">首页</a></li>',
+								prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
+								next : '<li class="next"><a href="javascript:;">下一页</a></li>',
+								last : '<li class="last"><a href="javascript:;">末页</a></li>',
+								page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+								onPageChange : function(num, type) {
+									if (type == "change") {
+										//exeData(num, type);
+										window.location.href = "${pageContext.request.contextPath}/points/responserecordspoints?page=" + num;
+									}
+								}
+							});
+		}
+</script>
 </body>
 </html>

@@ -23,7 +23,7 @@
     		and a.createuser = #{userid}
     	</if>
     </where>
-     ORDER BY a.createtime DESC LIMIT #{page},#{rows}
+     ORDER BY a.taskpk DESC LIMIT #{page},#{rows}
   </select>
   
   <select id="findTaskBypageAndrole" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap" >
@@ -43,8 +43,11 @@
     	<if test="dateto != null and dateto != ''">
     		and a.createtime <![CDATA[<=]]> #{dateto}
     	</if>
+    	<if test="taskkeyword != null and taskkeyword != ''">
+    		and a.taskkeyword like '%${taskkeyword}%'
+    	</if>
     </where>
-     ORDER BY a.createtime DESC LIMIT #{page},#{rows}
+     ORDER BY a.taskpk DESC LIMIT #{page},#{rows}
   </select>
   
     <select id="findTotalTaskBypageAndrole" resultType="int" parameterType="java.util.HashMap" >
@@ -98,6 +101,7 @@
     		and createtime <![CDATA[<=]]> #{dateto}
     	</if>
     </where>
+    order by taskpk desc
   </select>
   
   <select id="findTaskallocation" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap" >
@@ -110,6 +114,7 @@
     		AND taskdate = #{taskdate} 
     	</if>
     </where>
+    order by taskpk desc
   </select>
   
   <select id="findTaskInfoByTaskid" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="String" >

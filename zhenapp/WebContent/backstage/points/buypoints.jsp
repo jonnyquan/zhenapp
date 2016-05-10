@@ -152,7 +152,7 @@
 	margin-top: 10px;
 }
 </style>
-<title>积分账户 - 真流量</title>
+<title>购买积分</title>
 </head>
 <body>
 	<div id="topbar">

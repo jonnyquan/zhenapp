@@ -40,5 +40,29 @@ public class ComboInfoServiceImp implements ComboInfoService{
 		// TODO Auto-generated method stub
 		return tComboInfoCustomMapper.insertComboto(tComboInfoCustom);
 	}
+
+	@Override
+	public List<TComboInfoCustom> findComboByAgentid(HashMap<String, Object> pagemap) throws Exception {
+		// TODO Auto-generated method stub
+		return tComboInfoCustomMapper.findComboByAgentid(pagemap);
+	}
+	@Override
+	public int findTotalComboByAgentid(HashMap<String, Object> pagemap) throws Exception {
+		// TODO Auto-generated method stub
+		return tComboInfoCustomMapper.findTotalComboByAgentid(pagemap);
+	}
+
+	@Override
+	public int deleteCombo(HashMap<String, Object> pagemap) throws Exception {
+		// TODO Auto-generated method stub
+		return tComboInfoCustomMapper.deleteCombo(pagemap);
+	}
+
+	@Override
+	public int updateCombotoByid(TComboInfoCustom tComboInfoCustom)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tComboInfoCustomMapper.updateCombotoByid(tComboInfoCustom);
+	}
 	
 }
