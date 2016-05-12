@@ -52,12 +52,14 @@ var myDate = new Date();
 			required : true,
 			missingMessage : '请输入开始日期',
 			invalidMessage : '开始日期不得为空',
+			disabled : true,
 		});
 		//结束日期验证
 		$("input[name='dateto']").validatebox({
 			required : true,
 			missingMessage : '请输入结束日期',
 			invalidMessage : '结束日期不得为空',
+			disabled : true,
 		});
 		//宝贝id验证
 		$('#taskkeynum').validatebox({
@@ -83,6 +85,18 @@ var myDate = new Date();
 			missingMessage : '请输入发布购物车数',
 			invalidMessage : '发布购物车数不得为空',
 		});
+		//宝贝标题验证
+		$('#tasktitle').validatebox({
+			required : true,
+			missingMessage : '请输入宝贝标题',
+			invalidMessage : '宝贝标题不得为空',
+		});
+		//无线端标题验证
+		$('#taskwirelesstitle').validatebox({
+			required : true,
+			missingMessage : '请输入无线端标题',
+			invalidMessage : '无线端标题不得为空',
+		});
 		
 		
 		/*
@@ -107,6 +121,20 @@ var myDate = new Date();
 				});
 				return false;
 			}
+			if (!$('#tasktitle').validatebox('isValid')) {
+				$.messager.alert('消息提示', '请输入标题!', 'info', function () {
+					$('#tasktitle').focus();
+				});
+				return false;
+			}
+			if (!$('#taskwirelesstitle').validatebox('isValid')) {
+				$.messager.alert('消息提示', '请输入无线端标题!', 'info', function () {
+					$('#taskwirelesstitle').focus();
+				});
+				return false;
+			}
+			
+			
 			if(parseInt($('#collectioncount').val())>parseInt($('#flowcount').val())){
 				$.messager.alert('消息提示', '发布的收藏数必须小于或等于流量数!', 'info', function () {
 					alert("流量数"+$('#flowcount').val());
@@ -138,6 +166,9 @@ var myDate = new Date();
 				});
 				return false;
 			}
+			
+			
+			
 			var taskkeywords = [];
 			var inputtaskkeywords = $("input[name='taskkeywords']");
 			for(var i=0;i<inputtaskkeywords.length;i++){
@@ -168,6 +199,8 @@ var myDate = new Date();
 				type : "POST",
 				data : {
 					taskkeynum : $("#taskkeynum").val(),
+					tasktitle : $("#tasktitle").val(),
+					taskwirelesstitle : $("#taskwirelesstitle").val(),
 					taskkeywords : taskkeywords.join('===='),
 					tasktype:"33",
 					taskstartdate:$("input[name='datefrom']")[0].value,
@@ -175,7 +208,7 @@ var myDate = new Date();
 					taskhourcounts : taskhourcounts.join(','),
 					taskminprice : $("#taskminprice").val(),
 					taskmaxprice : $("#taskmaxprice").val(),
-					tasksearchtype : $("input[name='tasksearchType']:checked").val(),
+					tasksearchtype : $("#tasksearchType").val(),
 					flowcount : $("#flowcount").val(),
 					collectioncount : $("#collectioncount").val(),
 					shoppingcount : $("#shoppingcount").val(),

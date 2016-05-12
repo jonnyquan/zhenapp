@@ -1,6 +1,9 @@
 package com.zhenapp.controller.api;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
+import com.zhenapp.po.Custom.TTbaccountInfoCustom;
 import com.zhenapp.service.PhoneInfoService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskInfoService;
+import com.zhenapp.service.TbaccountInfoService;
 
 /*
  * 供手机端调用的api
@@ -26,6 +31,9 @@ public class phoneapi {
 	private TaskInfoService taskInfoService;
 	@Autowired
 	private TaskDetailInfoService taskDetailInfoService;
+	@Autowired
+	private TbaccountInfoService tbaccountInfoService;
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	/*
 	 * 手机端获取任务
 	 * http://120.24.44.130/api/phone/request/task?pid=1
@@ -108,6 +116,51 @@ public class phoneapi {
 			}
 		}else{
 			map.put("反馈情况", "该手机编号当前没有正在执行的任务!");
+		}
+		return map;
+	}
+	
+	
+	/*
+	 * 手机端获取淘宝账号信息
+	 * http://120.24.44.130/api/phone/requestAccount/task?pid=1
+	 */
+	@RequestMapping(value="/api/phone/requestAccount/task")
+	public @ResponseBody String requestAccounttask(String pid)throws Exception{
+		StringBuffer sb=new StringBuffer();
+		List<TTbaccountInfoCustom> tTbaccountInfoCustomlist = tbaccountInfoService.findTbaccountByPhoneid(pid);
+		if(tTbaccountInfoCustomlist!=null ){
+			TTbaccountInfoCustom tTbaccountInfoCustom = tTbaccountInfoCustomlist.get(0);
+			//淘宝帐号|淘宝密码 |帐号序号|附加标记
+			sb.append(tTbaccountInfoCustom.getTbaccountname()).append("|")
+				.append(tTbaccountInfoCustom.getTbaccountpwd()).append("|")
+				.append(tTbaccountInfoCustom.getTbaccountpk()).append("|")
+				.append("-1");
+		}
+		return sb.toString();
+	}
+	/*
+	 * 手机端反馈淘宝账号信息
+	 * http://120.24.44.130/api/phone/postProblem/task?accountid=1&problem=unusable
+	 */
+	@RequestMapping(value="api/phone/postProblem/task")
+	public @ResponseBody ModelMap postProblemtask(String accountid,String problem)throws Exception{
+		ModelMap map = new ModelMap();
+		List<TTbaccountInfoCustom> tTbaccountInfoCustomlist = tbaccountInfoService.findTbaccountByAccountname(accountid);
+		if(tTbaccountInfoCustomlist!=null && tTbaccountInfoCustomlist.size()==1){
+			TTbaccountInfoCustom tTbaccountInfoCustom = tTbaccountInfoCustomlist.get(0);
+			if(problem.equals("avaliable")){
+				tTbaccountInfoCustom.setTbaccountstate("61");
+			}else if(problem.equals("unusable")){
+				tTbaccountInfoCustom.setTbaccountstate("62");
+			}
+			tTbaccountInfoCustom.setTbaccounttime(tTbaccountInfoCustom.getTbaccounttime()+1);
+			tTbaccountInfoCustom.setUpdatetime(sdf.format(new Date()));
+			tTbaccountInfoCustom.setUpdateuser("api");
+			tbaccountInfoService.updateTbaccountByid(tTbaccountInfoCustom);
+			map.put("return", "success");
+		}else{
+			map.put("return", "为查询到该账号信息或该账号信息不唯一");
 		}
 		return map;
 	}

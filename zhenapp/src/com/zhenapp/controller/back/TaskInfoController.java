@@ -73,6 +73,27 @@ public class TaskInfoController {
 		return mv;
 	}
 	/*
+	 * 跳转到发布直通车任务界面
+	 */
+	@RequestMapping(value="/responsetaskztcadd")
+	public ModelAndView responsetaskztcadd(HttpSession session) throws Exception{
+		ModelAndView mv=new ModelAndView();
+	
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
+		TAgentInfoCustom tAgentInfoCustom= agentInfoService.findAgentByAgentid(tUserInfoCustom.getAgentid());//根据登陆用户查询所属代理信息
+		try{
+			TPriceInfoCustom tPriceInfoCustom= priceInfoService.findPriceByAgentid(tAgentInfoCustom.getAgentid());//根据代理信息查询所设置的价格信息
+			mv.addObject("tPriceInfoCustom",tPriceInfoCustom);
+		}catch(NullPointerException e){
+			System.out.println("未查询到所属代理信息的单价,无法发布任务!");
+			mv.addObject("msg","未查询到所属代理信息");
+			throw e;
+		}
+		
+		mv.setViewName("/backstage/task/taskztcadd.jsp");
+		return mv;
+	}
+	/*
 	 * 跳转到订单查询界面--代理
 	 */
 	@RequestMapping(value="/responsetaskmanageagent")
@@ -149,7 +170,7 @@ public class TaskInfoController {
 			pagemap.put("title", title);
 		}
 		if(status!=null){
-			pagemap.put("status", status);
+			pagemap.put("state", status);
 		}
 		if(datefrom!=null){
 			pagemap.put("datefrom", datefrom.replace("-", ""));
@@ -159,26 +180,13 @@ public class TaskInfoController {
 		}
 		
 		int total = 0;
-		if(tUserInfoCustom.getUserroleid()==1){
-			/*
-			 * 系统管理员
-			 */
-			tTaskInfoCustomlist = taskInfoService.findTaskBypage(pagemap);
-			total = taskInfoService.findTotalTaskBypage(pagemap);
-		}else if(tUserInfoCustom.getUserroleid()==2){
-			/*
-			 * 代理用户
-			 */
-			tTaskInfoCustomlist = taskInfoService.findTaskBypageAndrole(pagemap);
-			total = taskInfoService.findTotalTaskBypageAndrole(pagemap);
-		}else{
-			/*
-			 * 普通用户
-			 */
-			pagemap.put("userid", tUserInfoCustom.getUserid());
-			tTaskInfoCustomlist = taskInfoService.findTaskBypage(pagemap);
-			total = taskInfoService.findTotalTaskBypage(pagemap);
-		}
+		/*
+		 * 普通用户
+		 */
+		pagemap.put("userid", tUserInfoCustom.getUserid());
+		tTaskInfoCustomlist = taskInfoService.findTaskBypage(pagemap);
+		total = taskInfoService.findTotalTaskBypage(pagemap);
+		
 		
 		mv.addObject("tTaskInfoCustomlist", tTaskInfoCustomlist);
 		mv.addObject("total", total);
@@ -433,7 +441,8 @@ public class TaskInfoController {
 			map.put("data", "refuse");
 			return map;
 		}
-		
+		tTaskInfoCustom.setTasktitle(tTaskInfoCustom.getTasktitle());
+		tTaskInfoCustom.setTaskwirelesstitle(tTaskInfoCustom.getTaskwirelesstitle());
 		tTaskInfoCustom.setTasktype(tTaskInfoCustom.getTasktype());//33 流量   34 直通车
 		tTaskInfoCustom.setTaskkeynum(tTaskInfoCustom.getTaskkeynum());
 		tTaskInfoCustom.setTaskreleasekeyword(taskkeywords);

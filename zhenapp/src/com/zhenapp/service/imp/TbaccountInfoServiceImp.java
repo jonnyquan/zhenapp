@@ -49,4 +49,24 @@ public class TbaccountInfoServiceImp implements TbaccountInfoService{
 		return tTbaccountInfoCustomMapper.findTotalTbaccountBypage(hashmap);
 	}
 
+	@Override
+	public List<TTbaccountInfoCustom> findTbaccountByPhoneid(
+			String tbaccountphoneid) throws Exception {
+		// TODO Auto-generated method stub
+		return tTbaccountInfoCustomMapper.findTbaccountByPhoneid(tbaccountphoneid);
+	}
+
+	@Override
+	public List<TTbaccountInfoCustom> findTbaccountByAccountname(String tbaccountphoneid)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tTbaccountInfoCustomMapper.findTbaccountByAccountname(tbaccountphoneid);
+	}
+
+	@Override
+	public int updateTbaccountByid(TTbaccountInfoCustom tTbaccountInfoCustom) throws Exception {
+		// TODO Auto-generated method stub
+		return tTbaccountInfoCustomMapper.updateTbaccountByid(tTbaccountInfoCustom);
+	}
+
 }

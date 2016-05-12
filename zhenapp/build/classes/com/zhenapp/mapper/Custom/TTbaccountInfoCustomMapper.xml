@@ -22,9 +22,12 @@
 			<if test="tbaccountstate != null and tbaccountstate !='' ">
 				and tbaccountstate = #{tbaccountstate}
 			</if>
+			and tbaccountstate != '65'
 		</where>
+		
 		order by tbaccountid desc limit #{page},#{rows} 
 	</select>
+	
 	<select id="findTotalTbaccountBypage" resultType="int" parameterType="java.util.HashMap">
 		select count(1) from t_tbaccount_info 
 		<where>
@@ -34,7 +37,9 @@
 			<if test="tbaccountstate != null and tbaccountstate !='' ">
 				and tbaccountstate = #{tbaccountstate}
 			</if>
+			and tbaccountstate != '65'
 		</where>
+		
 	</select>
 	
 	<select id="findAllTbaccountBypage" resultType="com.zhenapp.po.Custom.TTbaccountInfoCustom" parameterType="java.util.HashMap">
@@ -46,11 +51,27 @@
 			<if test="tbaccountstate != null and tbaccountstate !='' ">
 				tbaccountstate = #{tbaccountstate}
 			</if>
+			and tbaccountstate != '65'
 		</where>
+		
 		order by tbaccountid desc 
 	</select>
+	
+	
+	<select id="findTbaccountByPhoneid" parameterType="String" resultType="com.zhenapp.po.Custom.TTbaccountInfoCustom">
+		select * from t_tbaccount_info where tbaccountphoneid=#{tbaccountphoneid} and (tbaccountstate ='60' or tbaccountstate='61')
+	</select>
+	
+	<select id="findTbaccountByAccountname" parameterType="String" resultType="com.zhenapp.po.Custom.TTbaccountInfoCustom">
+		select * from t_tbaccount_info where tbaccountname=#{tbaccountname} and tbaccountstate != '65'
+	</select>
+	
+	<update id="updateTbaccountByid" parameterType="com.zhenapp.po.Custom.TTbaccountInfoCustom">
+		update t_tbaccount_info set tbaccountstate=#{tbaccountstate},tbaccounttime=#{tbaccounttime},updatetime=#{updatetime},updateuser=#{updateuser}
+		where tbaccountid=#{tbaccountid} and tbaccountname=#{tbaccountname}
+	</update>
 
 	<delete id="deleteTbaccountByid" parameterType="String">
-		delete from t_tbaccount_info where tbaccountid in (#{tbaccountids})
+		update t_tbaccount_info set tbaccountstate = '65' where tbaccountid in (#{tbaccountids})
 	</delete>
 </mapper>

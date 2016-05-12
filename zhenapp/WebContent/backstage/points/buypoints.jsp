@@ -220,6 +220,9 @@
 							<a href="${pageContext.request.contextPath}/task/responsetaskadd" id="addtask"><i class="fa fa-angle-right"></i>发布任务</a>
 						</p>
 						<p>
+							<a href="${pageContext.request.contextPath}/task/responsetaskztcadd" id="addtask"><i class="fa fa-angle-right"></i>发布直通车任务</a>
+						</p>
+						<p>
 							<a href="${pageContext.request.contextPath}/task/responsetaskmanage" id="managetask"><i class="fa fa-angle-right"></i>任务管理</a>
 						</p>
 					</dd>

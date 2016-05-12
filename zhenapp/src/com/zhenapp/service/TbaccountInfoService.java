@@ -25,10 +25,20 @@ public interface TbaccountInfoService {
 	 * 插入淘宝账号信息
 	 */
 	public int insertTbaccount(TTbaccountInfoCustom tTbaccountInfoCustom ) throws Exception;
-	
-	
 	/*
 	 * 根据id删除帐号信息
 	 */
 	public int deleteTbaccountByid(String tbaccountids) throws Exception;
+	/*
+	 * 根据手机号查询有效的淘宝账号信息
+	 */
+	public List<TTbaccountInfoCustom> findTbaccountByPhoneid(String tbaccountphoneid) throws Exception;
+	/*
+	 * 根据淘宝账号id查询账号信息
+	 */
+	public List<TTbaccountInfoCustom> findTbaccountByAccountname(String tbaccountphoneid) throws Exception;
+	/*
+	 * 根据id修改淘宝账号信息
+	 */
+	public int updateTbaccountByid(TTbaccountInfoCustom tTbaccountInfoCustom ) throws Exception;
 }

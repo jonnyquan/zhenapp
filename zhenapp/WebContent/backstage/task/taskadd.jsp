@@ -322,10 +322,11 @@
 					</dt>
 					<dd>
 						<p>
-							<a href="${pageContext.request.contextPath}/task/responsetaskadd"
-								id="addtask"><i class="fa fa-angle-right"></i>发布任务</a>
+							<a href="${pageContext.request.contextPath}/task/responsetaskadd" id="addtask"><i class="fa fa-angle-right"></i>发布任务</a>
 						</p>
-
+						<p>
+							<a href="${pageContext.request.contextPath}/task/responsetaskztcadd" id="addtask"><i class="fa fa-angle-right"></i>发布直通车任务</a>
+						</p>
 						<p>
 							<a href="${pageContext.request.contextPath}/task/responsetaskmanage" id="managetask"><i class="fa fa-angle-right"></i>任务管理</a>
 						</p>
@@ -354,16 +355,12 @@
 					<div class="tabtitle clearfix">
 						<a href="../task/responsetaskadd" class="row_l hover">淘宝APP流量</a>
 						<!--  <a href="/user/task/taokouling/add" class="row_l">淘口令流量</a>-->
-						<a href="${pageContext.request.contextPath}/detail/1715" target="_blank"
-							class="row_r" style="color:#FF0000">如何发布淘宝APP流量？</a>
+						<a href="${pageContext.request.contextPath}/frontend/articleguidedetail/5" target="_blank" class="row_r" style="color:#FF0000">如何发布淘宝APP流量？</a>
 					</div>
 					<div class="umainbox">
 						<!--main-->
 						<div id="addTaskDiv">
 							<form class="koo_fromBox" >
-								<input type="hidden" name="_token"
-									value="t1yIDXF06aLrBmCEySsRpefqJxLY1EARgWOjXaYV">
-
 								<div class="taxkTips">
 									<h2>
 										<scan class="scan_icon">
@@ -378,7 +375,7 @@
 										</td>
 										<td>
 											<input type="text" name="taskkeynum" id="taskkeynum"
-												placeholder="请输入宝贝id" class='form-control' value="528712405918" onblur="checkkeynum(this);" />
+												placeholder="请输入宝贝id" class='form-control'  onblur="checkkeynum(this);" />
 											<span id="span" style="color:#aaa;"></span>
 										</td>
 									</tr>
@@ -390,7 +387,7 @@
 											<table id="tab_keyword">
 												<tr>
 													<td>
-														<input type="text" name="taskkeywords" class='form-control' style="width:600px;" placeholder="请输入关键词" value="2016夏季新款亚麻女装"/>		
+														<input type="text" name="taskkeywords" class='form-control' style="width:600px;" placeholder="请输入关键词" />		
 													</td>
 													<td>
 														<input type="button" class="easyui-linkbutton" iconCls="icon-add" onclick="addinput();" value="&nbsp;&nbsp;添 &nbsp;加 &nbsp;&nbsp;" />
@@ -405,8 +402,8 @@
 										</td>
 										<td>
 											<lable style="padding:0 10px 0 10px;">从:</lable>
-											<input type="text" name="datefrom" id="datefrom"  width="200px"  />
-											到：<input type="text" name="dateto" id="dateto"  width="200px"  />
+											<input type="text" name="datefrom" id="datefrom" width="200px"  />
+											到：<input type="text" name="dateto" id="dateto" width="200px"  />
 										</td>
 									</tr>
 									<tr>
@@ -414,7 +411,7 @@
 											宝贝标题
 										</td>
 										<td>
-											<input type="text" name="taskbi" class='form-control' placeholder="请输入宝贝标题" value="2016夏季新款亚麻女装"/>
+											<input type="text" name="tasktitle" id="tasktitle" class='form-control' placeholder="请输入宝贝标题"/>
 										</td>
 									</tr>
 									<tr>
@@ -422,7 +419,7 @@
 											无线端标题
 										</td>
 										<td>
-											<input type="text" name="taskwxbi" class='form-control' placeholder="请输入无线端标题" value="2016夏季新款亚麻女装"/>
+											<input type="text" name="taskwirelesstitle" id="taskwirelesstitle" class='form-control' placeholder="请输入无线端标题"/>
 										</td>
 									</tr>
 								</table>
@@ -440,29 +437,22 @@
 									<div class="toggle_wrapper">
 
 										<div class="form_control clearfix">
-											<label class="form_label">排序类型：</label> <select
-												name="sortType" id="sortType" class="form_select select_big"
-												v-model="sortType">
-												<option value="综合排序">综合排序</option>
-												<option value="销量优先">销量优先</option>
-												<option value="价格从低到高">价格从低到高</option>
-												<option value="价格从高到低">价格从高到低</option>
-												<option value="信用排序">信用排序</option>
+											<label class="form_label">排序类型：</label> 
+											<select name="tasksearchType" id="tasksearchType" class="form_select select_big" v-model="sortType">
+												<option selected="selected" value="35">综合排序</option>
+												<option value="39">销量优先</option>
+												<option value="37">价格从低到高</option>
+												<option value="38">价格从高到低</option>
+												<option value="36">信用排序</option>
 											</select>
 										</div>
-
 										<div class="form_control clearfix">
-
-											<label class="form_label">限价区间：</label> <input
-												class="form_input input50" type="text"
-												name="priceRangeMinValue" id="priceRangeMinValue"
-												v-model="start_price" value=0 /> <span
-												class="Validform_checktip scan_break">--</span> <input
-												class="form_input input50" type="text"
-												name="priceRangeMaxValue" id="priceRangeMaxValue"
-												v-model="end_price" value=0 /> <label class="form_label">发货地：</label>
-											<select name="searchArea" id="searchArea"
-												class="form_select select_big" v-model="loc">
+											<label class="form_label">限价区间：</label> 
+											<input class="form_input input50" type="text" name="priceRangeMinValue" id="priceRangeMinValue" v-model="start_price" value=0 /> 
+											<span class="Validform_checktip scan_break">--</span> 
+											<input class="form_input input50" type="text" name="priceRangeMaxValue" id="priceRangeMaxValue" v-model="end_price" value=0 /> 
+											<label class="form_label">发货地：</label>
+											<select name="searchArea" id="searchArea" class="form_select select_big" v-model="loc">
 												<option value="所有地区">所有地区</option>
 												<option value="江浙沪">江浙沪</option>
 												<option value="珠三角">珠三角</option>
@@ -533,19 +523,30 @@
 										</div>
 
 										<div class="form_control clearfix">
-											<label class="form_label">折扣和服务：</label> <label
-												class="form_radio"><input type="checkbox"
-												name="myfChecked" v-model="myfChecked" /><span>免运费</span></label> <label
-												class="form_radio"><input type="checkbox"
-												name="tmChecked" v-model="tmChecked" /><span>天猫</span></label> <label
-												class="form_radio"><input type="checkbox"
-												name="sjzxChecked" v-model="sjzxChecked" /><span>手机专享</span></label>
-											<label class="form_radio"><input type="checkbox"
-												name="tjbChecked" v-model="tjbChecked" /><span>淘金币抵钱</span></label>
-											<label class="form_radio"><input type="checkbox"
-												name="hdfkChecked" v-model="hdfkChecked" /><span>货到付款</span></label>
-											<label class="form_radio"><input type="checkbox"
-												name="cxChecked" v-model="cxChecked" /><span>促销</span></label>
+											<label class="form_label">折扣和服务：</label> 
+											<label class="form_radio">
+												<input type="checkbox" name="myfChecked" v-model="myfChecked" />
+												<span>免运费</span></label> 
+											<label class="form_radio">
+												<input type="checkbox" name="tmChecked" v-model="tmChecked" />
+												<span>天猫</span>
+											</label> 
+											<label class="form_radio">
+												<input type="checkbox" name="sjzxChecked" v-model="sjzxChecked" />
+												<span>手机专享</span>
+											</label>
+											<label class="form_radio">
+												<input type="checkbox" name="tjbChecked" v-model="tjbChecked" />
+												<span>淘金币抵钱</span>
+											</label>
+											<label class="form_radio">
+												<input type="checkbox" name="hdfkChecked" v-model="hdfkChecked" />
+												<span>货到付款</span>
+											</label>
+											<label class="form_radio">
+												<input type="checkbox" name="cxChecked" v-model="cxChecked" />
+												<span>促销</span>
+											</label>
 										</div>
 									</div>
 								</div>
@@ -559,10 +560,8 @@
 									</div>
 									<div class="toggle_wrapper">
 										<div class="form_control clearfix">
-											<label class="form_label">主宝贝浏览时间：</label> <select
-												name="searchGoodsBrowseMinTime"
-												id="searchGoodsBrowseMinTime"
-												class="form_select select_small">
+											<label class="form_label">主宝贝浏览时间：</label> 
+											<select name="searchGoodsBrowseMinTime" id="searchGoodsBrowseMinTime" class="form_select select_small">
 												<option value="5">5</option>
 												<option value="10">10</option>
 												<option value="15">15</option>
@@ -593,10 +592,9 @@
 												<option value="140">140</option>
 												<option value="145">145</option>
 												<option value="150">150</option>
-											</select> <span class="Validform_checktip scan_break">--</span> <select
-												name="searchGoodsBrowseMaxTime"
-												id="searchGoodsBrowseMaxTime"
-												class="form_select select_small">
+											</select> 
+											<span class="Validform_checktip scan_break">--</span> 
+											<select name="searchGoodsBrowseMaxTime" id="searchGoodsBrowseMaxTime" class="form_select select_small">
 												<option value="5">5</option>
 												<option value="10">10</option>
 												<option value="15">15</option>
@@ -630,14 +628,13 @@
 											</select> <span class="Validform_checktip"> 秒 </span>
 										</div>
 										<div class="form_control clearfix">
-											<label class="form_label">副宝贝浏览数量：</label> <select
-												name="otherGoodsBrowseMinCount"
-												id="otherGoodsBrowseMinCount"
-												class="form_select select_small"
-												v-model="otherGoodsBrowseMinCountSelected"
-												options="otherGoodsBrowseMinCountOptions"> {{
-												otherGoodsBrowseMinCountSelected }}
-											</select> <span class="Validform_checktip scan_break">--</span> <select
+											<label class="form_label">副宝贝浏览数量：</label> 
+											<select name="otherGoodsBrowseMinCount" id="otherGoodsBrowseMinCount" class="form_select select_small" 
+											v-model="otherGoodsBrowseMinCountSelected" options="otherGoodsBrowseMinCountOptions"> 
+												{{ otherGoodsBrowseMinCountSelected }}
+											</select> 
+											<span class="Validform_checktip scan_break">--</span> 
+											<select
 												name="otherGoodsBrowseMaxCount"
 												id="otherGoodsBrowseMaxCount"
 												class="form_select select_small"
@@ -901,7 +898,7 @@
 									</h2>
 								</div>
 								<table class="table" style="margin-bottom:0px;">
-									<tr class="info">
+									<tr class="active">
 										<td>【流量数：<span id="lls_1">0</span>个，流量单个花费:<span id="lls_2" style="color:red;">${tPriceInfoCustom.pricecounts1}</span>(积分)/个，总计：<span id="lls_3">0</span>(积分)】</td>
 									</tr>
 									<tr class="default">
@@ -1117,7 +1114,7 @@
 								<div class="form_control clearfix">
 									<label class="form_label">任务备注：</label> <input
 										class="form_input input400" type="text" name="memo" id="memo"
-										value="${tUserInfoCustom.username}发布任务" />
+										value="${tUserInfoCustom.username}&nbsp;&nbsp;&nbsp;发布任务" />
 								</div>
 								<div id="buttonSubmit" class="form_control clearfix"
 									style="margin-top:20px; border-bottom:none;">

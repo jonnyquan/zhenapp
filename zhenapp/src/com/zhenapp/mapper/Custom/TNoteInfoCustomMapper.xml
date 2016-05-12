@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenapp.mapper.Custom.TNoteInfoCustomMapper" >
+  <select id="findAllNoteinfo" resultType="com.zhenapp.po.Custom.TNoteInfoCustom">
+  	select * from t_note_info
+  </select>
+  
+  <select id="findNoteinfoById" resultType="com.zhenapp.po.Custom.TNoteInfoCustom" parameterType="java.util.HashMap">
+  	select * from t_note_info where noteid=#{noteid}
+  </select>
+  
+  <update id="updatenoteByid"  parameterType="com.zhenapp.po.Custom.TNoteInfoCustom" >
+  	update t_note_info
+      notetype = #{notetype,jdbcType=VARCHAR},
+      notename = #{notename,jdbcType=VARCHAR},
+      notetext = #{notetext},
+      updatetime = #{updatetime,jdbcType=VARCHAR},
+      updateuser = #{updateuser,jdbcType=VARCHAR}
+    where noteid = #{noteid,jdbcType=INTEGER}
+  </update>
+    
+  <update id="updateByPrimaryKey" parameterType="com.zhenapp.po.Custom.TNoteInfoCustom" >
+    update t_note_info
+    set noteid = #{noteid,jdbcType=INTEGER},
+      notetype = #{notetype,jdbcType=VARCHAR},
+      notename = #{notename,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=VARCHAR},
+      createuser = #{createuser,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=VARCHAR},
+      updateuser = #{updateuser,jdbcType=VARCHAR}
+    where notepk = #{notepk,jdbcType=INTEGER}
+  </update>
+</mapper>

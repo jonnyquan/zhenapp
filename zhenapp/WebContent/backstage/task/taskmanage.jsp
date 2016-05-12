@@ -306,7 +306,9 @@ input {
 						<p>
 							<a href="${pageContext.request.contextPath}/task/responsetaskadd" id="addtask"><i class="fa fa-angle-right"></i>发布任务</a>
 						</p>
-
+						<p>
+							<a href="${pageContext.request.contextPath}/task/responsetaskztcadd" id="addtask"><i class="fa fa-angle-right"></i>发布直通车任务</a>
+						</p>
 						<p>
 							<a href="${pageContext.request.contextPath}/task/responsetaskmanage" id="managetask"><i class="fa fa-angle-right"></i>任务管理</a>
 						</p>
@@ -347,12 +349,11 @@ input {
 									<input class="form_input input120" type="text" name="title" id="title" value="" /> 
 									<label class="form_label">任务状态:</label>
 										<select name="status" id="status">
-											<option selected value="全部状态">全部状态</option>
-											<option value="同步中">同步中</option>
-											<option value="已经完成">已经完成</option>
-											<option value="正在执行">正在执行</option>
-											<option value="自动暂停">自动暂停</option>
-											<option value="手动暂停">手动暂停</option>
+											<option selected value="">全部状态</option>
+											<option value="15">待分配</option>
+											<option value="16">运行中</option>
+											<option value="17">已完成</option>											
+											<option value="19">已终止</option>
 										</select> 
 									<label class="form_label">任务开始时间:</label> 
 									<input type="text" name="datefrom" id="datefrom" class="Wdate search_time" onClick="WdatePicker()" value="" /> 

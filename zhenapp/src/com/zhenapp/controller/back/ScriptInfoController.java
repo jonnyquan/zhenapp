@@ -27,19 +27,18 @@ public class ScriptInfoController {
 	public @ResponseBody ModelAndView responsescriptmanage(Integer page,Integer rows) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
-		if (page == null || page == null) {
-			pagemap.put("page", 0);
-			pagemap.put("rows", 10);
-		} else {
-			pagemap.put("page", page-1);
-			pagemap.put("rows", rows);
-		}
+		if (page == null || page==0) {
+			page = 1;
+		} 
+		rows = 10;
+		pagemap.put("page", (page - 1) * rows);
+		pagemap.put("rows", rows);
 		List<TScriptInfoCustom> tScriptInfoCustomlist=scriptInfoService.findScriptByPage(pagemap);
 		int total =scriptInfoService.findTotalScriptByPage(pagemap);
 		
 		mv.addObject("total", total);
 		mv.addObject("pagenum",page);
-		mv.addObject("rows", tScriptInfoCustomlist);
+		mv.addObject("tScriptInfoCustomlist", tScriptInfoCustomlist);
 		
 		mv.setViewName("/backstage/admin/scriptmanage.jsp");
 		return mv;

@@ -2,11 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -28,7 +25,6 @@
 	src="${pageContext.request.contextPath}/backstage/pagematter/common/js/common.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/backstage/pagematter/common/js/sweetalert-dev.js"></script>
-
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/layer_user.css"
 	type="text/css">
@@ -38,7 +34,6 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/validform.style.css"
 	type="text/css">
-
 <style type="text/css">
 .uMainbox {
 	border: 1px solid #dedede;
@@ -236,21 +231,20 @@
         <div class="logo row_l"><a href="${pageContext.request.contextPath}/frontend/index" title="电商流量">真流量</a></div>
         <div class="channel row_r">
             <ul class="clearfix">
-						<li><a href="${pageContext.request.contextPath}/frontend/index" title="电商流量" class="scl1">网站首页</a></li>
-						<li><a href="${pageContext.request.contextPath}/frontend/intro" class="scl2">服务介绍</a></li>
-						<li><a href="${pageContext.request.contextPath}/frontend/anli" class="scl3">成功案例</a></li>
-						<li><a href="${pageContext.request.contextPath}/frontend/articlenews" class="scl4" title="电商干货">电商干货</a></li>
-						<li><a href="${pageContext.request.contextPath}/frontend/articleguide" class="scl5">新手指引</a></li>
-						<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="真流量用户中心">用户中心</a></li>
-						<li><a href="${pageContext.request.contextPath}/frontend/about" class="scl7">联系我们</a></li>
-					</ul>
+				<li><a href="${pageContext.request.contextPath}/frontend/index" title="电商流量" class="scl1">网站首页</a></li>
+				<li><a href="${pageContext.request.contextPath}/frontend/intro" class="scl2">服务介绍</a></li>
+				<li><a href="${pageContext.request.contextPath}/frontend/anli" class="scl3">成功案例</a></li>
+				<li><a href="${pageContext.request.contextPath}/frontend/articlenews" class="scl4" title="电商干货">电商干货</a></li>
+				<li><a href="${pageContext.request.contextPath}/frontend/articleguide" class="scl5">新手指引</a></li>
+				<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="真流量用户中心">用户中心</a></li>
+				<li><a href="${pageContext.request.contextPath}/frontend/about" class="scl7">联系我们</a></li>
+			</ul>
         </div>
     </div>
 </div>
 <script type="text/javascript">
     $('.scl6').addClass('hover');
 </script>
-
 <div class="uc_warp">
     <div class="userbody clearfix">
         <div class="leftmenu row_l">
@@ -276,7 +270,9 @@
 							<p>
 								<a href="${pageContext.request.contextPath}/task/responsetaskadd" id="addtask"><i class="fa fa-angle-right"></i>发布任务</a>
 							</p>
-
+							<p>
+								<a href="${pageContext.request.contextPath}/task/responsetaskztcadd" id="addtask"><i class="fa fa-angle-right"></i>发布直通车任务</a>
+							</p>
 							<p>
 								<a href="${pageContext.request.contextPath}/task/responsetaskmanage" id="managetask"><i class="fa fa-angle-right"></i>任务管理</a>
 							</p>
