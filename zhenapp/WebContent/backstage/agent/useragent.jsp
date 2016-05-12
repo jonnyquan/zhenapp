@@ -80,8 +80,8 @@
             <li><a href="${pageContext.request.contextPath}/combo/findComboByagent"><span class="am-icon-cubes"></span> 套餐信息</a></li>
             <li><a href="${pageContext.request.contextPath}/price/findPriceByAgentid"><span class="am-icon-puzzle-piece"></span>系统配置</a></li>
             <li><a href="${pageContext.request.contextPath}/web/findWebByAgentid"><span class="am-icon-puzzle-piece"></span>设置登录页面</a></li>
-            <li><a href="/admin/proxy/points"><span class="am-icon-heart"></span>剩余积分</a></li>
-            <li><a href="/admin/stat"><span class="am-icon-bar-chart"></span>数据统计</a></li>
+            <li><a href="${pageContext.request.contextPath}/user/findPointsByUsernick"><span class="am-icon-heart"></span>剩余积分</a></li>
+            <li><a href="${pageContext.request.contextPath}/datacount/findDataByDateAndTasktype"><span class="am-icon-bar-chart"></span>数据统计</a></li>
           </ul>
         </div>
       </div>
@@ -97,13 +97,13 @@
     <div class="am-u-sm-12">
       <form class="am-form-inline" role="form">
         <div class="am-form-group">
-          <input type="text" id="userId" value="" class="am-form-field" placeholder="用户ID">
+          <input type="text" id="userId" value="${userpk}" class="am-form-field" placeholder="用户ID">
         </div>
         <div class="am-form-group">
-          <input type="text" id="userName" value="" class="am-form-field" placeholder="用户名">
+          <input type="text" id="userName" value="${usernick}" class="am-form-field" placeholder="用户名">
         </div>
         <div class="am-form-group">
-          <input type="text" id="mobile" value="" class="am-form-field" placeholder="手机号">
+          <input type="text" id="mobile" value="${userphone}" class="am-form-field" placeholder="手机号">
         </div>
         <button type="button" class="am-btn am-btn-default" id="search">搜索</button>
       </form>
@@ -142,9 +142,9 @@
               <td>${list.createtime}</td>
               <td>${list.updatetime}</td>
               <td>${list.userstate}</td>
-			  <td><a href="/admin/user/recharge?id=3685" class="am-badge am-badge-primary">充值/扣款</a> 
-                  <a data-id="3685" class="am-badge am-badge-primary deleteUser">删除</a>
-                  <a href="/admin/user/doLogin?id=3685" data-id="3685" class="am-badge am-badge-primary">登录</a>
+			  <td><a href="${pageContext.request.contextPath}/user/recharge?userpk=${list.userpk}" class="am-badge am-badge-primary">充值/扣款</a> 
+                  <a data-id="${list.userpk}" class="am-badge am-badge-primary deleteUser">删除</a>
+                  <a href="${pageContext.request.contextPath}/user/handworkLogin?userpk=${list.userpk}" data-id="3685" class="am-badge am-badge-primary">登录</a>
               </td>
             </tr>
           </c:forEach>
@@ -169,38 +169,23 @@
       var name = $("#userName").val();
       var id = $("#userId").val();
       var mobile = $("#mobile").val();
-      location.href = "/admin/user?page=1&name=" + name + "&id=" + id + "&mobile=" + mobile;
+      location.href = "${pageContext.request.contextPath}/user/findUserByPageandRole?page=1&usernick=" + name + "&userpk=" + id + "&userphone=" + mobile;
     });
 
     $(document).on("click", ".deleteUser", function() {
       if (confirm("你确定要删除吗？")) {
-        $.getJSON('/admin/user/delete', {
-          id : $(this).attr("data-id")
+        $.getJSON('${pageContext.request.contextPath}/user/deleteUserByUserpkAndRole', {
+          userpk : $(this).attr("data-id")
         }, function(resp) {
           if (resp && resp.ec == 0) {
-            location.href = '/admin/user';
+            location.href = '${pageContext.request.contextPath}/user/findUserByPageandRole';
           } else {
-            Message.error('删除失败！', true);
+            Message.error('删除失败!', true);
           }
         });
       }
     });
-
-    $(".setproxy").click(function() {
-      if (confirm("你确定要将此用户设为代理吗？")) {
-        $.getJSON('/admin/user/proxy', {
-          id : $(this).attr("data-id")
-        }, function(resp) {
-          if (resp && resp.ec == 0) {
-            	location.href = '/admin/user';
-          } else {
-            Message.error('操作失败！', true);
-          }
-        });
-      }
     });
-
-  });
   
   var index = Number("${pagenum}");
 	if (index.length < 1) {

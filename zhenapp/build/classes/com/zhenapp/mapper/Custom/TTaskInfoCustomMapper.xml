@@ -46,6 +46,15 @@
     	<if test="taskkeyword != null and taskkeyword != ''">
     		and a.taskkeyword like '%${taskkeyword}%'
     	</if>
+    	<if test="taskkeynum != null and taskkeynum != ''">
+    		and a.taskkeynum = #{taskkeynum}
+    	</if>
+    	<if test="tasktype != null and tasktype != ''">
+    		and a.tasktype = #{tasktype}
+    	</if>
+    	<if test="createuser != null and createuser != ''">
+    		and a.createuser = #{createuser}
+    	</if>
     </where>
      ORDER BY a.taskpk DESC LIMIT #{page},#{rows}
   </select>
@@ -66,6 +75,18 @@
     	</if>
     	<if test="dateto != null and dateto != ''">
     		and a.createtime <![CDATA[<=]]> #{dateto}
+    	</if>
+    	<if test="taskkeyword != null and taskkeyword != ''">
+    		and a.taskkeyword like '%${taskkeyword}%'
+    	</if>
+    	<if test="taskkeynum != null and taskkeynum != ''">
+    		and a.taskkeynum = #{taskkeynum}
+    	</if>
+    	<if test="tasktype != null and tasktype != ''">
+    		and a.tasktype = #{tasktype}
+    	</if>
+    	<if test="createuser != null and createuser != ''">
+    		and a.createuser = #{createuser}
     	</if>
     </where>
   </select>

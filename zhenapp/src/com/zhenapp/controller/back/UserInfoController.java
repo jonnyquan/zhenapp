@@ -75,9 +75,9 @@ public class UserInfoController {
 		if(tUserInfoCustom.getUserroleid()==3){//普通用户角色
 			url = "/backstage/user/user.jsp";
 		}else if(tUserInfoCustom.getUserroleid()==2){//代理角色
-			url = "/backstage/agent/useragent.jsp";
+			url = "findUserByPageandRole";
 		}else if(tUserInfoCustom.getUserroleid()==1){//系统管理员
-			url = "/backstage/sys/usersys.jsp";
+			url = "findUserByPageAndAdmin";
 		}
 		mv.setViewName(url);	
 		return mv;
@@ -110,7 +110,6 @@ public class UserInfoController {
 		mv.setViewName("/backstage/user/updatepassword.jsp");
 		return mv;
 	}
-	
 	/*
 	 * 退出系统
 	 */
@@ -121,7 +120,6 @@ public class UserInfoController {
 		mv.setViewName("/frontend/authlogin.jsp");
 		return mv;
 	}
-	
 	/*
 	 * 用于用户修改基本信息
 	 */
@@ -187,10 +185,10 @@ public class UserInfoController {
 	}
 	
 	/*
-	 * 代理查询用户列表
+	 * 查询用户列表-----代理
 	 */
 	@RequestMapping(value="/findUserByPageandRole")
-	public @ResponseBody ModelAndView findUserByPageandRole(HttpSession session,Integer page,Integer rows) throws Exception{
+	public @ResponseBody ModelAndView findUserByPageandRole(HttpSession session,Integer page,Integer rows,String usernick,String userpk,String userphone) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
@@ -200,38 +198,216 @@ public class UserInfoController {
 		rows = 10;
 		pagemap.put("page", (page - 1) * rows);
 		pagemap.put("rows", rows);
+		pagemap.put("usernick", usernick);
+		pagemap.put("userpk", userpk);
+		pagemap.put("userphone", userphone);
+		
 		List<TUserInfoCustom> tUserInfoCustomlist=new ArrayList<TUserInfoCustom>();
 		int total=0;
-		if(tUserInfoCustom.getUserroleid()==1){
-			/*
-			 * 系统管理员
-			 */
-			tUserInfoCustomlist = userInfoService.findUserByPage(pagemap);
-			total = userInfoService.findTotalUserByPage(pagemap);
-		}else if(tUserInfoCustom.getUserroleid()==2){
-			/*
-			 * 代理用户
-			 */
-			pagemap.put("userid", tUserInfoCustom.getUserid());
-			tUserInfoCustomlist = userInfoService.findUserByPageandRole(pagemap);
-			total = userInfoService.findTotalUserByPageandRole(pagemap);
-		}
+		/*
+		* 代理用户
+		*/
+		pagemap.put("userid", tUserInfoCustom.getUserid());
+		tUserInfoCustomlist = userInfoService.findUserByPageandRole(pagemap);
+		total = userInfoService.findTotalUserByPageandRole(pagemap);
 		mv.addObject("total", total);
 		mv.addObject("pagenum", page);
-		
+		mv.addObject("usernick", usernick);
+		mv.addObject("userpk", userpk);
+		mv.addObject("userphone", userphone);
 		mv.addObject("tUserInfoCustomlist", tUserInfoCustomlist);
 		mv.setViewName("/backstage/agent/useragent.jsp");
 		return mv;
 	}
+	/*
+	 * 查询代理积分
+	 */
+	@RequestMapping(value="/findPointsByUsernick")
+	public @ResponseBody ModelAndView findPointsByUsernick(HttpSession session) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		String points= userInfoService.findpointsByUsernickAndPwd(tUserInfoCustom);
+		mv.addObject("points", points);
+		mv.setViewName("/backstage/agent/points.jsp");
+		return mv;
+	}
+	/*
+	 * 删除用户信息  ------代理
+	 */
+	@RequestMapping(value="/deleteUserByUserpkAndRole")
+	public @ResponseBody ModelMap deleteUserByUserpkAndRole(HttpSession session,String userpk) throws Exception{
+		ModelMap map = new ModelMap();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentByuserid(tUserInfoCustom.getUserid());
+		HashMap<String,Object> hashmap=new HashMap<String,Object>();
+		hashmap.put("userpk", userpk);
+		hashmap.put("agentid", tAgentInfoCustom.getAgentid());
+		userInfoService.deleteUserByUserpkAndRole(hashmap);
+		map.put("ec", 0);
+		return map;
+	}
 	
 	
+	/*
+	 * 跳转到手工充值扣款界面 -----代理
+	 */
+	@RequestMapping(value="/recharge")
+	public @ResponseBody ModelAndView recharge(String userpk) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		TUserInfoCustom tUserInfoCustom= userInfoService.findUserByuserpk(userpk);
+		mv.addObject("points", tUserInfoCustom.getPoints());
+		mv.addObject("userpk", userpk);
+		mv.setViewName("/backstage/agent/recharge.jsp");
+		return mv;
+	}
 	
+	/*
+	 * 对用户积分手工充值扣款-----代理 
+	 */
+	@RequestMapping(value="/handworkrecharge")
+	public @ResponseBody ModelMap handworkrecharge(HttpSession session,String userpk,String updatepoints,String recharge,String memo) throws Exception{
+		ModelMap map = new ModelMap();
+		TUserInfoCustom tUserInfoCustomsession=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserpk(userpk);
+		Integer newpoints = 0;
+		String Pointstype = "";
+		if(recharge.equals("recharge")){
+			newpoints=tUserInfoCustom.getPoints() + Integer.parseInt(updatepoints);
+			Pointstype = "31";//充值
+		}else{
+			newpoints=tUserInfoCustom.getPoints() - Integer.parseInt(updatepoints);
+			Pointstype = "32";//扣款
+		}
+		/*
+		 * 插入账户明细
+		 */
+		TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
+		tPointsInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+		tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
+		tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
+		tPointsInfoCustom.setUpdateuser("sys");
+		tPointsInfoCustom.setPointreason(memo);
+		tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
+		tPointsInfoCustom.setPoints(newpoints);
+		tPointsInfoCustom.setPointstype(Pointstype);
+		tPointsInfoCustom.setPointsupdate(Integer.parseInt(updatepoints));
+		tPointsInfoCustom.setTaskid("0");
+		tPointsInfoCustom.setUserid(tUserInfoCustomsession.getUserid());
+		pointsInfoService.savePoints(tPointsInfoCustom);
+		/*
+		 * 修改用户积分
+		 */
+		tUserInfoCustom.setPoints(newpoints);
+		userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
+		map.put("ec", "0");
+		return map;
+	}
 	
+	/*
+	 * 后台登录用户账号 -----代理
+	 */
+	@RequestMapping(value="/handworkLogin")
+	public @ResponseBody ModelAndView handworkLogin(HttpSession session,String userpk) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		TUserInfoCustom tUserInfoCustom= userInfoService.findUserByuserpk(userpk);
+		if(tUserInfoCustom!=null){
+			session.removeAttribute("tUserInfoCustom");
+			session.setAttribute("tUserInfoCustom", tUserInfoCustom);
+		}
+		mv.setViewName("responseuser");
+		return mv;
+	}
 	
-	
-	
-	
-	
+	/*
+	 * 
+	 */
+	/*
+	 * 查询用户列表-----系统管理员
+	 */
+	@RequestMapping(value="/findUserByPageAndAdmin")
+	public @ResponseBody ModelAndView findUserByPageAndAdmin(HttpSession session,Integer page,Integer rows,String usernick,String userpk,String userphone) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
+		HashMap<String,Object> pagemap=new HashMap<String,Object>();
+		if (page == null || page==0) {
+			page = 1;
+		} 
+		rows = 10;
+		pagemap.put("page", (page - 1) * rows);
+		pagemap.put("rows", rows);
+		pagemap.put("usernick", usernick);
+		pagemap.put("userpk", userpk);
+		pagemap.put("userphone", userphone);
+		List<TUserInfoCustom> tUserInfoCustomlist=new ArrayList<TUserInfoCustom>();
+		int total=0;
+		/*
+		* 系统管理员用户
+		*/
+		pagemap.put("userid", tUserInfoCustom.getUserid());
+		tUserInfoCustomlist = userInfoService.findUserByPage(pagemap);
+		total = userInfoService.findTotalUserByPage(pagemap);
+		mv.addObject("total", total);
+		mv.addObject("pagenum", page);
+		mv.addObject("usernick", usernick);
+		mv.addObject("userpk", userpk);
+		mv.addObject("userphone", userphone);
+		mv.addObject("tUserInfoCustomlist", tUserInfoCustomlist);
+		mv.setViewName("/backstage/admin/useradmin.jsp");
+		return mv;
+	}
+	/*
+	 * 跳转到手工充值扣款界面 -----代理
+	 */
+	@RequestMapping(value="/rechargeadmin")
+	public @ResponseBody ModelAndView rechargeadmin(String userpk) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		TUserInfoCustom tUserInfoCustom= userInfoService.findUserByuserpk(userpk);
+		mv.addObject("points", tUserInfoCustom.getPoints());
+		mv.addObject("userpk", userpk);
+		mv.setViewName("/backstage/admin/recharge.jsp");
+		return mv;
+	}
+	/*
+	 * 对用户积分手工充值扣款-----系统管理员
+	 */
+	@RequestMapping(value="/handworkrechargeadmin")
+	public @ResponseBody ModelMap handworkrechargeadmin(HttpSession session,String userpk,String updatepoints,String recharge,String memo) throws Exception{
+		ModelMap map = new ModelMap();
+		TUserInfoCustom tUserInfoCustomsession=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserpk(userpk);
+		Integer newpoints = 0;
+		String Pointstype = "";
+		if(recharge.equals("recharge")){
+			newpoints=tUserInfoCustom.getPoints() + Integer.parseInt(updatepoints);
+			Pointstype = "31";//充值
+		}else{
+			newpoints=tUserInfoCustom.getPoints() - Integer.parseInt(updatepoints);
+			Pointstype = "32";//扣款
+		}
+		/*
+		 * 插入账户明细
+		 */
+		TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
+		tPointsInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+		tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
+		tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
+		tPointsInfoCustom.setUpdateuser("sys");
+		tPointsInfoCustom.setPointreason(memo);
+		tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
+		tPointsInfoCustom.setPoints(newpoints);
+		tPointsInfoCustom.setPointstype(Pointstype);
+		tPointsInfoCustom.setPointsupdate(Integer.parseInt(updatepoints));
+		tPointsInfoCustom.setTaskid("0");
+		tPointsInfoCustom.setUserid(tUserInfoCustomsession.getUserid());
+		pointsInfoService.savePoints(tPointsInfoCustom);
+		/*
+		 * 修改用户积分
+		 */
+		tUserInfoCustom.setPoints(newpoints);
+		userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
+		map.put("ec", "0");
+		return map;
+	}
 	
 	//===============================================================================以上为新
 	

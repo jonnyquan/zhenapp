@@ -1,6 +1,7 @@
 package com.zhenapp.service.imp;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,5 +46,17 @@ public class TaskDetailInfoServiceImp implements TaskDetailInfoService {
 			throws Exception {
 		// TODO Auto-generated method stub
 		return tTaskDetailinfoCustomMapper.updateTaskDetailByPidAndState(hashmap);
+	}
+	@Override
+	public List<TTaskDetailInfoCustom> findTaskDetailByPage(
+			HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskDetailinfoCustomMapper.findTaskDetailByPage(hashmap);
+	}
+	@Override
+	public int findTaskDetailTotalByPage(
+			HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskDetailinfoCustomMapper.findTaskDetailTotalByPage(hashmap);
 	}
 }

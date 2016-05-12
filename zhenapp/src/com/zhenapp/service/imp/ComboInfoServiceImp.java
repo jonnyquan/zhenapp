@@ -64,5 +64,19 @@ public class ComboInfoServiceImp implements ComboInfoService{
 		// TODO Auto-generated method stub
 		return tComboInfoCustomMapper.updateCombotoByid(tComboInfoCustom);
 	}
+
+	@Override
+	public List<TComboInfoCustom> findAllComboByAdmin(HashMap<String, Object> pagemap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tComboInfoCustomMapper.findAllComboByAdmin(pagemap);
+	}
+
+	@Override
+	public int findAllTotalComboByAdmin(HashMap<String, Object> pagemap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tComboInfoCustomMapper.findAllTotalComboByAdmin(pagemap);
+	}
 	
 }

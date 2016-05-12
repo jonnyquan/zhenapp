@@ -36,25 +36,19 @@
       <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
         <div class=" admin-offcanvas-bar">
           <ul class="am-list admin-sidebar-list">
-            <li><a href="/admin"><span class="am-icon-home"></span> 首页</a></li>
             <li class="admin-parent"><a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span
                 class="am-icon-user"></span>用户管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
               <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
-                <li><a href="/admin/user" class="am-cf"><span class="am-icon-list"></span>用户列表</a></li>
-                <li><a href="/admin/user/listRecharge"><span class="am-icon-usd"></span>充值记录</a></li>
-                <li><a href="/admin/user/listCoin"><span class="am-icon-money"></span>资金记录</a></li>
+                <li><a href="${pageContext.request.contextPath}/user/findUserByPageandRole" class="am-cf"><span class="am-icon-list"></span>用户列表</a></li>
+                <li><a href="${pageContext.request.contextPath}/points/responseconsumeagent"><span class="am-icon-usd"></span>充值记录</a></li>
+                <li><a href="${pageContext.request.contextPath}/points/responserecordspointsagent"><span class="am-icon-money"></span>资金记录</a></li>
               </ul></li>
-            <li><a href="/admin/user/taskList"><span class="am-icon-pencil-square-o"></span>订单查询</a></li>
-            <li><a href="/admin/combo"><span class="am-icon-cubes"></span> 套餐信息</a></li>
-
-            
-            
-              <li><a href="/admin/sysconf"><span class="am-icon-puzzle-piece"></span>系统配置</a></li>
-              <li><a href="/admin/proxy/setting"><span class="am-icon-puzzle-piece"></span>设置登录页面</a></li>
-              <li><a href="/admin/proxy/points"><span class="am-icon-heart"></span>剩余积分</a></li>
-              <li><a href="/admin/stat"><span class="am-icon-bar-chart"></span>数据统计</a></li>
-            
-
+            <li><a href="${pageContext.request.contextPath}/task/responsetaskmanageagent"><span class="am-icon-pencil-square-o"></span>订单查询</a></li>
+            <li><a href="${pageContext.request.contextPath}/combo/findComboByagent"><span class="am-icon-cubes"></span> 套餐信息</a></li>
+            <li><a href="${pageContext.request.contextPath}/price/findPriceByAgentid"><span class="am-icon-puzzle-piece"></span>系统配置</a></li>
+            <li><a href="${pageContext.request.contextPath}/web/findWebByAgentid"><span class="am-icon-puzzle-piece"></span>设置登录页面</a></li>
+            <li><a href="${pageContext.request.contextPath}/user/findPointsByUsernick"><span class="am-icon-heart"></span>剩余积分</a></li>
+            <li><a href="${pageContext.request.contextPath}/datacount/findDataByDateAndTasktype"><span class="am-icon-bar-chart"></span>数据统计</a></li>
           </ul>
         </div>
       </div>
@@ -102,8 +96,8 @@
         </div>
         <div class="am-form-group">
           <select name="type" id="ktype">
-          	<option value="FLOW">流量</option>
-            <option value="ZTCFLOW">直通车</option>
+          	<option value="33">流量</option>
+            <option value="34">直通车</option>
           </select>
         </div>
         <button class="am-btn am-btn-default" id="search" type="button">搜索</button>
@@ -214,39 +208,27 @@
           var entTime = $("#my-endDate").text();
           var fid = $("#fid").val();
           var nid = $("#nid").val();
-          location.href = "/admin/user/taskList?page=1&startTime=" + startTime + "&endTime=" + entTime + "&fid=" + fid
-              + "&nick=" + $("#nick").val()+"&nid="+nid+"&type="+$("#ktype").val();
+          location.href = "${pageContext.request.contextPath}/task/responsetaskmanageagent?page=1&datefrom=" + startTime + "&dateto=" + entTime + "&taskid=" + fid
+              + "&usernick=" + $("#nick").val()+"&taskkeynum="+nid+"&tasktype="+$("#ktype").val();
         });
     
-    $(document)
-	.on(
-			"click",
-			".shutdownTaks",
-			function() {
+    $(document).on("click",".shutdownTaks", function() {
 				if (confirm("您确定要终止该订单吗？")) {
-					$
-							.ajax({
-								type : "post",
+					$.ajax({type : "post",
 								url : "/admin/user/terminateTask",
 								data : {
 									id : $(this).attr("data-id")
 								},
 								success : function(resp) {
 									if (resp && resp.ec == 0) {
-										Message
-												.info('终止成功：',
-														false);
+										Message.info('终止成功：',false);
 										setTimeout(
 												function() {
 													window.location.href = '/admin/user/taskList?page=1';
 												}, 2000);
-
 									} else {
-										Message
-												.error(resp.em,
-														true);
+										Message.error(resp.em,true);
 									}
-
 								},
 								error : function() {
 									Message.error(resp.em, true);
@@ -281,7 +263,6 @@
 							page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
 							onPageChange : function(num, type) {
 								if (type == "change") {
-									//exeData(num, type);
 									window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanageagent?page=" + num;
 								}
 							}

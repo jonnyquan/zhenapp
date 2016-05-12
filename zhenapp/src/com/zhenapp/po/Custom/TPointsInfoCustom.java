@@ -7,6 +7,15 @@ import com.zhenapp.util.DateUtilWxf;
 
 public class TPointsInfoCustom extends TPointsInfo{
 	private String pointstypename;
+	private String usernick;
+	
+	public String getUsernick() {
+		return usernick;
+	}
+
+	public void setUsernick(String usernick) {
+		this.usernick = usernick;
+	}
 
 	public String getPointstypename() {
 		return pointstypename;

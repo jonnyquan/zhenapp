@@ -70,4 +70,10 @@ public class AgentInfoServiceImp implements AgentInfoService{
 		return tAgentInfoCustomMapper.updateAgentByid(tAgentInfoCustom);
 	}
 
+	@Override
+	public int updateagentstateByPk(String agentpk) throws Exception {
+		// TODO Auto-generated method stub
+		return tAgentInfoCustomMapper.updateagentstateByPk(agentpk);
+	}
+
 }

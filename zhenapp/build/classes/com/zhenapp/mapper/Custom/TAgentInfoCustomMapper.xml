@@ -35,6 +35,11 @@
       #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
       #{updateuser,jdbcType=VARCHAR})
   </insert>
+  
+  <update id="updateagentstateByPk" parameterType="String">
+  	update t_agent_info set agentstate = '30' where agentpk=#{agentpk}
+  </update>
+  
   <update id="updateAgentByid" parameterType="com.zhenapp.po.Custom.TAgentInfoCustom">
   	update t_agent_info
     set 

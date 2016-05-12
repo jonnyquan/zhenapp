@@ -35,6 +35,80 @@ public class DatacountInfoController {
 	private DatacountInfoService datacountInfoService;
 	@Autowired
 	private FilepathInfoService filepathInfoService;
+	/*
+	 * 根据日期和任务类型查询统计 -----代理
+	 */
+	@RequestMapping(value="/findDataByDateAndTasktype")
+	public @ResponseBody ModelAndView findDataByDateAndTasktype(String tasktype,String datefrom,String dateto) throws Exception{
+		ModelAndView mv= new ModelAndView();
+		HashMap<String, Object> hashmap=new HashMap<String, Object>();
+		if(datefrom!=null){
+			hashmap.put("datefrom", datefrom.replace("-", ""));
+		}
+		if(datefrom!=null){
+			hashmap.put("dateto", dateto.replace("-", ""));
+		}
+		if(tasktype!=null){
+			hashmap.put("tasktype", dateto);
+		}
+		List<DatacountInfoCustom> datacountInfoCustomlist=datacountInfoService.findDataBydate(hashmap);
+		TFilepathInfoCustom tFilepathInfoCustom= filepathInfoService.findFilepathByid("1");
+		File file =new File(tFilepathInfoCustom.getFilepath()+datefrom+""+dateto);
+		//如果文件夹不存在则创建    
+		if  (!file .exists()  && !file .isDirectory())      
+		{       
+			logger.info("指定导出Excle目录不存在,创建目录"); 
+		    file.mkdir();    
+		} else   
+		{  
+			logger.info("指定导出Excle目录已存在"); 
+		}  
+		ExportExcle exportExcle = new ExportExcle();
+		exportExcle.ExprotExcle(datacountInfoCustomlist,tFilepathInfoCustom.getFilepath()+datefrom+""+dateto);
+		mv.addObject("total", datacountInfoCustomlist.size());
+		mv.addObject("datacountInfoCustomlist", datacountInfoCustomlist);
+		mv.setViewName("/backstage/agent/datasum.jsp");
+		return mv;
+	}
+	
+	/*
+	 * 根据日期和任务类型查询统计 -----系统管理员
+	 */
+	@RequestMapping(value="/responsedatasumadmin")
+	public @ResponseBody ModelAndView responsedatasumadmin(String tasktype,String datefrom,String dateto) throws Exception{
+		ModelAndView mv= new ModelAndView();
+		HashMap<String, Object> hashmap=new HashMap<String, Object>();
+		if(datefrom!=null){
+			hashmap.put("datefrom", datefrom.replace("-", ""));
+		}
+		if(datefrom!=null){
+			hashmap.put("dateto", dateto.replace("-", ""));
+		}
+		if(tasktype!=null){
+			hashmap.put("tasktype", dateto);
+		}
+		List<DatacountInfoCustom> datacountInfoCustomlist=datacountInfoService.findDataBydate(hashmap);
+		TFilepathInfoCustom tFilepathInfoCustom= filepathInfoService.findFilepathByid("1");
+		File file =new File(tFilepathInfoCustom.getFilepath()+datefrom+""+dateto);
+		//如果文件夹不存在则创建    
+		if  (!file .exists()  && !file .isDirectory())      
+		{       
+			logger.info("指定导出Excle目录不存在,创建目录"); 
+		    file.mkdir();    
+		} else   
+		{  
+			logger.info("指定导出Excle目录已存在"); 
+		}  
+		ExportExcle exportExcle = new ExportExcle();
+		exportExcle.ExprotExcle(datacountInfoCustomlist,tFilepathInfoCustom.getFilepath()+datefrom+""+dateto);
+		mv.addObject("total", datacountInfoCustomlist.size());
+		mv.addObject("datacountInfoCustomlist", datacountInfoCustomlist);
+		mv.setViewName("/backstage/admin/datasum.jsp");
+		return mv;
+	}
+	
+	
+	
 	
 	@RequestMapping(value="/findDataBydate")
 	public @ResponseBody ModelMap findDataBydate(String datefrom,String dateto) throws Exception{

@@ -24,6 +24,7 @@ import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.ComboInfoService;
 import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.RechargeInfoService;
+import com.zhenapp.service.UserInfoService;
 
 @Controller
 @RequestMapping(value="/points")
@@ -37,6 +38,8 @@ public class PointsInfoController {
 	private ComboInfoService comboInfoService;
 	@Autowired
 	private RechargeInfoService rechargeInfoService;
+	@Autowired
+	private UserInfoService userInfoService;
 	/*
 	 * 跳转到购买积分界面
 	 */
@@ -113,9 +116,9 @@ public class PointsInfoController {
 	 * 跳转到积分记录界面--代理
 	 */
 	@RequestMapping(value="/responserecordspointsagent")
-	public ModelAndView responserecordspointsagent(HttpSession session,Integer page,Integer rows) throws Exception{
+	public ModelAndView responserecordspointsagent(HttpSession session,Integer page,Integer rows,String datefrom ,String dateto,String usernick) throws Exception{
 		ModelAndView mv=new ModelAndView();
-		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		TUserInfoCustom tUserInfoCustomsession=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		HashMap<String, Object> pagemap= new HashMap<String, Object>();
 		if (page == null || page==0) {
 			page = 1;
@@ -123,14 +126,28 @@ public class PointsInfoController {
 		rows = 10;
 		pagemap.put("page", (page - 1) * rows);
 		pagemap.put("rows", rows);
+		if(datefrom != null && !datefrom.equals("")){
+			pagemap.put("datefrom", datefrom.replace("-", ""));
+		}
+		if(dateto != null && !dateto.equals("")){
+			pagemap.put("dateto", dateto.replace("-", ""));
+		}
+		if(usernick != null && !usernick.equals("")){
+			List<TUserInfoCustom> TUserInfoCustomlist = userInfoService.findUserBynick(usernick);
+			if(TUserInfoCustomlist !=null && TUserInfoCustomlist.size()>0){
+				pagemap.put("createuser", TUserInfoCustomlist.get(0).getUserid());
+			}else{
+				pagemap.put("createuser", "没有该用户名");
+			}
+		}
 		List<TPointsInfoCustom> tPointsInfoCustomlist = new ArrayList<TPointsInfoCustom>();
 		int total = 0;
 		/*
 		* 代理用户
 		*/
-		pagemap.put("userid", tUserInfoCustom.getUserid());
-		tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPage(pagemap);
-		total = pointsInfoService.findPointsCountsByPage(pagemap);
+		pagemap.put("userid", tUserInfoCustomsession.getUserid());
+		tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPageandRole(pagemap);
+		total = pointsInfoService.findPointsCountsByPageandRole(pagemap);
 		
 		mv.addObject("total",total);
 		mv.addObject("pagenum", page);
@@ -231,6 +248,84 @@ public class PointsInfoController {
 		mv.addObject("pagenum", page);
 		mv.addObject("tRechargeInfoCustomlist", tRechargeInfoCustomlist);
 		mv.setViewName("/backstage/points/consumepoints.jsp");
+		return mv;
+	}
+	
+	
+	
+	
+	/*
+	 * 跳转到充值记录界面-----系统管理员
+	 */
+	@RequestMapping(value="/responseconsumeadmin")
+	public ModelAndView responseconsumeadmin(HttpSession session,Integer page,Integer rows) throws Exception{
+		ModelAndView mv=new ModelAndView();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		HashMap<String, Object> pagemap= new HashMap<String, Object>();
+		if (page == null || page==0) {
+			page = 1;
+		} 
+		rows = 10;
+		pagemap.put("page", (page - 1) * rows);
+		pagemap.put("rows", rows);
+		List<TRechargeInfoCustom> tRechargeInfoCustomlist = new ArrayList<TRechargeInfoCustom>();
+		int total = 0;
+		/*
+		* 系统管理员
+		*/
+		pagemap.put("userid", tUserInfoCustom.getUserid());
+		total = rechargeInfoService.findTotalRechargeinfoByUserAndpage(pagemap);
+		tRechargeInfoCustomlist = rechargeInfoService.findRechargeinfoByUser(pagemap);
+		
+		mv.addObject("total",total);
+		mv.addObject("pagenum", page);
+		mv.addObject("tRechargeInfoCustomlist",tRechargeInfoCustomlist);
+		mv.setViewName("/backstage/admin/listrecharge.jsp");
+		return mv;
+	}
+	
+	
+	/*
+	 * 跳转到积分记录界面--代理
+	 */
+	@RequestMapping(value="/responserecordspointsadmin")
+	public ModelAndView responserecordspointsadmin(HttpSession session,Integer page,Integer rows,String datefrom ,String dateto,String usernick) throws Exception{
+		ModelAndView mv=new ModelAndView();
+		TUserInfoCustom tUserInfoCustomsession=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		HashMap<String, Object> pagemap= new HashMap<String, Object>();
+		if (page == null || page==0) {
+			page = 1;
+		} 
+		rows = 10;
+		pagemap.put("page", (page - 1) * rows);
+		pagemap.put("rows", rows);
+		if(datefrom != null && !datefrom.equals("")){
+			pagemap.put("datefrom", datefrom.replace("-", ""));
+		}
+		if(dateto != null && !dateto.equals("")){
+			pagemap.put("dateto", dateto.replace("-", ""));
+		}
+		if(usernick != null && !usernick.equals("")){
+			List<TUserInfoCustom> TUserInfoCustomlist = userInfoService.findUserBynick(usernick);
+			if(TUserInfoCustomlist !=null && TUserInfoCustomlist.size()>0){
+				pagemap.put("createuser", TUserInfoCustomlist.get(0).getUserid());
+			}else{
+				pagemap.put("createuser", "没有该用户名");
+			}
+		}
+		List<TPointsInfoCustom> tPointsInfoCustomlist = new ArrayList<TPointsInfoCustom>();
+		int total = 0;
+		/*
+		* 系统管理员
+		*/
+		pagemap.put("userid", tUserInfoCustomsession.getUserid());
+		tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPage(pagemap);
+		total = pointsInfoService.findPointsCountsByPage(pagemap);
+		
+		mv.addObject("total",total);
+		mv.addObject("pagenum", page);
+		mv.addObject("tPointsInfoCustomlist",tPointsInfoCustomlist);
+		mv.setViewName("/backstage/admin/listcoin.jsp");
 		return mv;
 	}
 	

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,8 +47,8 @@ public class PriceInfoController {
 	 *根据代理id修改单价信息---代理
 	 */
 	@RequestMapping(value="/updatePriceByAgentid")
-	public @ResponseBody ModelAndView updatepriceByAgentid(HttpSession session,TPriceInfoCustom tPriceInfoCustom) throws Exception{
-		ModelAndView mv = new ModelAndView();
+	public @ResponseBody ModelMap updatepriceByAgentid(HttpSession session,TPriceInfoCustom tPriceInfoCustom) throws Exception{
+		ModelMap map = new ModelMap();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		tPriceInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
 		tPriceInfoCustom.setUpdatetime(sdf.format(new Date()));
@@ -56,8 +57,34 @@ public class PriceInfoController {
 			tPriceInfoCustom.setAgentid(tAgentInfoCustom.getAgentid());
 		}
 		priceInfoService.updatePriceByagentid(tPriceInfoCustom);
-		mv.setViewName("findPriceByAgentid");
+		map.put("ec", "0");
+		return map;
+	}
+	/*
+	 *根据代理id查询单价信息-----系统管理员
+	 */
+	@RequestMapping(value="/findPriceByAgentidadmin")
+	public @ResponseBody ModelAndView findPriceByAgentidadmin(String agentid) throws Exception{
+		ModelAndView mv=new ModelAndView();
+		TPriceInfoCustom tPriceInfoCustom= priceInfoService.findPriceByAgentid(agentid);
+		mv.addObject("tPriceInfoCustom",tPriceInfoCustom);
+		mv.setViewName("/backstage/admin/pricesetting.jsp");
 		return mv;
+	}
+	
+	/*
+	 *根据代理id修改单价信息-----系统管理员
+	 */
+	@RequestMapping(value="/updatePriceByAgentidadmin")
+	public @ResponseBody ModelMap updatepriceByAgentidadmin(HttpSession session,TPriceInfoCustom tPriceInfoCustom,String agentid) throws Exception{
+		ModelMap map = new ModelMap();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		tPriceInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+		tPriceInfoCustom.setUpdatetime(sdf.format(new Date()));
+		tPriceInfoCustom.setAgentid(agentid);
+		priceInfoService.updatePriceByagentid(tPriceInfoCustom);
+		map.put("ec", "0");
+		return map;
 	}
 	
 	//=====================================================================

@@ -6,7 +6,14 @@
 	</delete>
 
 	<select id="findAllCombo" resultType="com.zhenapp.po.Custom.TComboInfoCustom">
-		SELECT * FROM t_combo_info ORDER BY combomoney
+		SELECT * FROM t_combo_info ORDER BY combomoney 
+	</select>
+	
+	<select id="findAllComboByAdmin" resultType="com.zhenapp.po.Custom.TComboInfoCustom" parameterType="java.util.HashMap">
+		SELECT * FROM t_combo_info ORDER BY combomoney limit #{page},#{rows}
+	</select>
+	<select id="findAllTotalComboByAdmin" resultType="int"  parameterType="java.util.HashMap">
+		SELECT count(1) FROM t_combo_info ORDER BY combomoney 
 	</select>
 
 	<select id="findComboByid" resultType="com.zhenapp.po.Custom.TComboInfoCustom"

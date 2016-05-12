@@ -7,6 +7,43 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
 ) and phoneid is null and taskstate = '40' ORDER BY taskhour,taskminute LIMIT 0,1
   </select>
   
+  <select id="findTaskDetailByPage" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom" parameterType="java.util.HashMap">
+	  SELECT a.* FROM t_task_detailinfo a
+	  <where>
+	  	<if test="taskid !=null and taskid != ''">
+	  		a.taskid = #{taskid}
+	  	</if>
+	  	<if test="taskkeynum !=null and taskkeynum != ''">
+	  		a.taskkeynum = #{taskkeynum}
+	  	</if>
+	  	<if test="phoneid !=null and phoneid != ''">
+	  		a.phoneid = #{phoneid}
+	  	</if>
+	  	<if test="taskhour !=null and taskhour != ''">
+	  		a.taskhour+0 >= #{taskhour}
+	  	</if>
+	  </where>
+	  order by a.phoneid desc limit #{page},#{rows}
+  </select>
+    <select id="findTaskDetailTotalByPage" resultType="int" parameterType="java.util.HashMap">
+	  SELECT count(1) FROM t_task_detailinfo a
+	  <where>
+	  	<if test="taskid !=null and taskid != ''">
+	  		a.taskid = #{taskid}
+	  	</if>
+	  	<if test="taskkeynum !=null and taskkeynum != ''">
+	  		a.taskkeynum = #{taskkeynum}
+	  	</if>
+	  	<if test="phoneid !=null and phoneid != ''">
+	  		a.phoneid = #{phoneid}
+	  	</if>
+	  	<if test="taskhour !=null and taskhour != ''">
+	  		a.taskhour+0 >= #{taskhour}
+	  	</if>
+	  </where>
+  </select>
+  
+  
   <insert id="insertDetailinfo" parameterType="com.zhenapp.po.Custom.TTaskDetailInfoCustom" >
      insert into t_task_detailinfo (taskdetailid, taskid, 
       taskkeyword, searchtype, price, 

@@ -102,4 +102,10 @@ public class UserInfoServiceImp implements UserInfoService {
 		// TODO Auto-generated method stub
 		return tUserInfoCustomMapper.updateUserpwdByuserid(tUserInfoCustom);
 	}
+	@Override
+	public int deleteUserByUserpkAndRole(HashMap<String, Object> hashmap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tUserInfoCustomMapper.deleteUserByUserpkAndRole(hashmap);
+	}
 }

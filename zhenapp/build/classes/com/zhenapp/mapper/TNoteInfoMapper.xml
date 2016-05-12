@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.zhenapp.po.TNoteInfo" >
     <id column="notepk" property="notepk" jdbcType="INTEGER" />
     <result column="noteid" property="noteid" jdbcType="INTEGER" />
+    <result column="notetype" property="notetype" jdbcType="VARCHAR" />
     <result column="notename" property="notename" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="VARCHAR" />
     <result column="createuser" property="createuser" jdbcType="VARCHAR" />
@@ -72,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    notepk, noteid, notename, createtime, createuser, updatetime, updateuser
+    notepk, noteid, notetype, notename, createtime, createuser, updatetime, updateuser
   </sql>
   <sql id="Blob_Column_List" >
     notetext
@@ -126,12 +127,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.zhenapp.po.TNoteInfo" >
-    insert into t_note_info (notepk, noteid, notename, 
-      createtime, createuser, updatetime, 
-      updateuser, notetext)
-    values (#{notepk,jdbcType=INTEGER}, #{noteid,jdbcType=INTEGER}, #{notename,jdbcType=VARCHAR}, 
-      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
-      #{updateuser,jdbcType=VARCHAR}, #{notetext,jdbcType=LONGVARCHAR})
+    insert into t_note_info (notepk, noteid, notetype, 
+      notename, createtime, createuser, 
+      updatetime, updateuser, notetext
+      )
+    values (#{notepk,jdbcType=INTEGER}, #{noteid,jdbcType=INTEGER}, #{notetype,jdbcType=VARCHAR}, 
+      #{notename,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, #{notetext,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.zhenapp.po.TNoteInfo" >
     insert into t_note_info
@@ -141,6 +144,9 @@
       </if>
       <if test="noteid != null" >
         noteid,
+      </if>
+      <if test="notetype != null" >
+        notetype,
       </if>
       <if test="notename != null" >
         notename,
@@ -167,6 +173,9 @@
       </if>
       <if test="noteid != null" >
         #{noteid,jdbcType=INTEGER},
+      </if>
+      <if test="notetype != null" >
+        #{notetype,jdbcType=VARCHAR},
       </if>
       <if test="notename != null" >
         #{notename,jdbcType=VARCHAR},
@@ -203,6 +212,9 @@
       <if test="record.noteid != null" >
         noteid = #{record.noteid,jdbcType=INTEGER},
       </if>
+      <if test="record.notetype != null" >
+        notetype = #{record.notetype,jdbcType=VARCHAR},
+      </if>
       <if test="record.notename != null" >
         notename = #{record.notename,jdbcType=VARCHAR},
       </if>
@@ -230,6 +242,7 @@
     update t_note_info
     set notepk = #{record.notepk,jdbcType=INTEGER},
       noteid = #{record.noteid,jdbcType=INTEGER},
+      notetype = #{record.notetype,jdbcType=VARCHAR},
       notename = #{record.notename,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=VARCHAR},
       createuser = #{record.createuser,jdbcType=VARCHAR},
@@ -244,6 +257,7 @@
     update t_note_info
     set notepk = #{record.notepk,jdbcType=INTEGER},
       noteid = #{record.noteid,jdbcType=INTEGER},
+      notetype = #{record.notetype,jdbcType=VARCHAR},
       notename = #{record.notename,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=VARCHAR},
       createuser = #{record.createuser,jdbcType=VARCHAR},
@@ -258,6 +272,9 @@
     <set >
       <if test="noteid != null" >
         noteid = #{noteid,jdbcType=INTEGER},
+      </if>
+      <if test="notetype != null" >
+        notetype = #{notetype,jdbcType=VARCHAR},
       </if>
       <if test="notename != null" >
         notename = #{notename,jdbcType=VARCHAR},
@@ -283,6 +300,7 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zhenapp.po.TNoteInfo" >
     update t_note_info
     set noteid = #{noteid,jdbcType=INTEGER},
+      notetype = #{notetype,jdbcType=VARCHAR},
       notename = #{notename,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=VARCHAR},
       createuser = #{createuser,jdbcType=VARCHAR},
@@ -294,6 +312,7 @@
   <update id="updateByPrimaryKey" parameterType="com.zhenapp.po.TNoteInfo" >
     update t_note_info
     set noteid = #{noteid,jdbcType=INTEGER},
+      notetype = #{notetype,jdbcType=VARCHAR},
       notename = #{notename,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=VARCHAR},
       createuser = #{createuser,jdbcType=VARCHAR},

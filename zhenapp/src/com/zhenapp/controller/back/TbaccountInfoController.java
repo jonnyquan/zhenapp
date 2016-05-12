@@ -8,16 +8,42 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.TTbaccountInfoCustom;
 import com.zhenapp.service.TbaccountInfoService;
 
 @Controller
-@RequestMapping(value="/tbaccount")
+@RequestMapping(value="/tbaoccount")
 public class TbaccountInfoController {
 	
 	@Autowired
 	private TbaccountInfoService tbaccountInfoService;
+	
+	/*
+	 * 跳转到上传淘宝账号界面
+	 */
+	@RequestMapping(value="responsetbaoccount")
+	public @ResponseBody ModelAndView responsetbaoccount() throws Exception{
+		ModelAndView mv = new ModelAndView();
+		
+		
+		mv.setViewName("/backstage/admin/uploadtaobaoid.jsp");
+		return mv;
+	}
+	
+	/*
+	 * 跳转到上传淘宝账号界面
+	 */
+	@RequestMapping(value="responsetaobaoid")
+	public @ResponseBody ModelAndView responsetaobaoid() throws Exception{
+		ModelAndView mv = new ModelAndView();
+		
+		
+		mv.setViewName("/backstage/admin/findtaobaoid.jsp");
+		return mv;
+	}
+	
 	
 	@RequestMapping(value="/findTbaccountBypage")
 	public @ResponseBody ModelMap findTbaccountBypage(Integer page,Integer rows,String tbaccountphoneid,String tbaccountstate) throws Exception{

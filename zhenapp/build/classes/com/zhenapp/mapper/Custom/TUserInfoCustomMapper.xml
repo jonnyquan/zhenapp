@@ -16,20 +16,66 @@
   	select * from t_user_info where userid = #{userid}
   </select>
   <select id="findUserByPage" resultType="com.zhenapp.po.Custom.TUserInfoCustom" parameterType="java.util.HashMap">
-    SELECT a.*,b.rolename,c.dicinfoname FROM t_user_info a LEFT JOIN t_role_info b ON b.roleid=a.userroleid LEFT JOIN t_data_dic_info c ON a.userstate=c.dicinfoid limit #{page},#{rows}
+    SELECT a.*,b.rolename,c.dicinfoname FROM t_user_info a LEFT JOIN t_role_info b ON b.roleid=a.userroleid 
+    LEFT JOIN t_data_dic_info c ON a.userstate=c.dicinfoid 
+    <where>
+    	<if test="usernick != null and usernick != ''">
+    		and a.usernick like '%${usernick}%'
+    	</if>
+    	<if test="userpk != null and userpk != ''">
+    		and a.userpk = #{userpk}
+    	</if>
+    	<if test="userphone != null and userphone != ''">
+    		and a.userphone like '%${userphone}%'
+    	</if>
+    </where>
+    limit #{page},#{rows}
   </select>
   <select id="findTotalUserByPage" resultType="int" parameterType="java.util.HashMap">
     SELECT count(1) FROM t_user_info a LEFT JOIN t_role_info b ON b.roleid=a.userroleid LEFT JOIN t_data_dic_info c ON a.userstate=c.dicinfoid 
+    <where>
+    	<if test="usernick != null and usernick != ''">
+    		and a.usernick like '%${usernick}%'
+    	</if>
+    	<if test="userpk != null and userpk != ''">
+    		and a.userpk = #{userpk}
+    	</if>
+    	<if test="userphone != null and userphone != ''">
+    		and a.userphone like '%${userphone}%'
+    	</if>
+    </where>
   </select>
   
   <select id="findUserByPageandRole" resultType="com.zhenapp.po.Custom.TUserInfoCustom" parameterType="java.util.HashMap">
     SELECT a.*,b.rolename,c.dicinfoname FROM t_user_info a LEFT JOIN t_role_info b ON b.roleid=a.userroleid LEFT JOIN t_data_dic_info c ON a.userstate=c.dicinfoid 
     INNER JOIN (SELECT agentid FROM t_agent_info WHERE agentuserid=#{userid}) d ON a.agentid=d.agentid 
+    <where>
+    	<if test="usernick != null and usernick != ''">
+    		and a.usernick like '%${usernick}%'
+    	</if>
+    	<if test="userpk != null and userpk != ''">
+    		and a.userpk = #{userpk}
+    	</if>
+    	<if test="userphone != null and userphone != ''">
+    		and a.userphone like '%${userphone}%'
+    	</if>
+    </where>
     limit #{page},#{rows}
   </select>
   <select id="findTotalUserByPageandRole" resultType="int" parameterType="java.util.HashMap">
     SELECT count(1) FROM t_user_info a LEFT JOIN t_role_info b ON b.roleid=a.userroleid LEFT JOIN t_data_dic_info c ON a.userstate=c.dicinfoid 
-    INNER JOIN (SELECT agentid FROM t_agent_info WHERE agentuserid=#{userid}) d ON a.agentid=d.agentid  
+    INNER JOIN (SELECT agentid FROM t_agent_info WHERE agentuserid=#{userid}) d ON a.agentid=d.agentid 
+    <where>
+    	<if test="usernick != null and usernick != ''">
+    		and a.usernick=#{usernick}
+    	</if>
+    	<if test="userpk != null and userpk != ''">
+    		and a.userpk=#{userpk}
+    	</if>
+    	<if test="usernick!=null and usernick!=''">
+    		and a.userphone=#{userphone}
+    	</if>
+    </where>
   </select>
   
    
@@ -45,7 +91,9 @@
   <delete id="deleteUserinfoBypk" parameterType="String">
  	delete from  t_user_info where userpk=#{userpk}
   </delete>
-  
+  <delete id="deleteUserByUserpkAndRole" parameterType="java.util.HashMap">
+ 	delete FROM t_user_info WHERE userpk=#{userpk} AND agentid=#{agentid}
+  </delete>
   
   <update id="updateUser" parameterType="com.zhenapp.po.Custom.TUserInfoCustom">
   	update t_user_info set username = #{username},userqq = #{userqq},updatetime = #{updatetime},updateuser = #{updateuser} where userId = #{userid}

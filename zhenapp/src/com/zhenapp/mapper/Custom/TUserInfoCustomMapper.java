@@ -85,4 +85,8 @@ public interface TUserInfoCustomMapper {
 	 * 根据用户主键查询用户信息
 	 */
 	public TUserInfoCustom findUserByuserpk(String userpk) throws Exception;
+	/*
+	 * 根据用户主键及所属代理id删除用户信息
+	 */
+	public int deleteUserByUserpkAndRole(HashMap<String,Object> hashmap) throws Exception;
 }

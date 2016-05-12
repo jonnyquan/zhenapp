@@ -33,7 +33,7 @@ public class ComboInfoController {
 	
 	private SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 	/*
-	 * 根据登录代理id查询套餐信息---代理操作
+	 * 根据登录代理id查询套餐信息-----代理
 	 */
 	@RequestMapping(value = "/findComboByagent")
 	public @ResponseBody
@@ -99,6 +99,36 @@ public class ComboInfoController {
 	}
 	
 	
+	
+	/*
+	 * 根据登录代理id查询套餐信息-----系统管理员
+	 */
+	@RequestMapping(value = "/findComboByadmin")
+	public @ResponseBody
+	ModelAndView findComboByadmin(HttpSession session,Integer page,Integer rows) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
+		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentByuserid(tUserInfoCustom.getUserid());
+		HashMap<String, Object> pagemap= new HashMap<String, Object>();
+		if (page == null || page==0) {
+			page = 1;
+		} 
+		rows = 10;
+		pagemap.put("page", (page - 1) * rows);
+		pagemap.put("rows", rows);
+		pagemap.put("agentid", tAgentInfoCustom.getAgentid());
+		/*
+		 * 根据代理id查询套餐信息
+		 */
+		List<TComboInfoCustom> tComboInfoCustomlist = comboInfoService.findAllComboByAdmin(pagemap);
+		int total = comboInfoService.findAllTotalComboByAdmin(pagemap);
+		mv.addObject("tComboInfoCustomlist", tComboInfoCustomlist);
+		mv.addObject("total",total);
+		mv.addObject("pagenum", page);
+		mv.setViewName("/backstage/admin/combo.jsp");
+		return mv;
+	}
+//===========================================================================================以上为最新
 	/*
 	 * 查询全部的套餐信息 用于套餐展现
 	 */

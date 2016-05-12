@@ -22,16 +22,37 @@
 	    </where>
   </select> 
   <select id="findPointsInfoByPageandRole" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TPointsInfoCustom">
-	  SELECT a.*,b.dicinfoname as pointstypename FROM t_points_info a
+	  SELECT c.usernick,a.*,b.dicinfoname as pointstypename FROM t_points_info a
 		LEFT JOIN t_data_dic_info b ON a.pointstype=b.dicinfoid
 		INNER JOIN (SELECT a.* FROM t_user_info a WHERE a.agentid IN (SELECT agentid FROM t_agent_info WHERE agentuserid=#{userid})) c ON a.createuser=c.userid
+		<where>
+			<if test="datefrom != null and datefrom != ''">
+				and a.createtime >= #{datefrom}
+			</if>
+			<if test="dateto != null and dateto != ''">
+				and a.createtime <![CDATA[<=]]> #{dateto}
+			</if>
+			<if test="createuser != null and createuser != ''">
+				and a.createuser = #{createuser}
+			</if>
+		</where>
 		limit #{page},#{rows}
   </select>
   <select id="findPointsCountsByPageandRole" parameterType="java.util.HashMap" resultType="int">
 	    SELECT count(1) FROM t_points_info a
 		LEFT JOIN t_data_dic_info b ON a.pointstype=b.dicinfoid
 		INNER JOIN (SELECT a.* FROM t_user_info a WHERE a.agentid IN (SELECT agentid FROM t_agent_info WHERE agentuserid=#{userid})) c ON a.createuser=c.userid
-		
+		<where>
+			<if test="datefrom != null and datefrom != ''">
+				and a.createtime >= #{datefrom}
+			</if>
+			<if test="dateto != null and dateto != ''">
+				and a.createtime <![CDATA[<=]]> #{dateto}
+			</if>
+			<if test="createuser != null and createuser != ''">
+				and a.createuser = #{createuser}
+			</if>
+		</where>
   </select>
   
   

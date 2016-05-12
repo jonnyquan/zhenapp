@@ -52,6 +52,20 @@ public class WebInfoController {
 		mv.setViewName("/backstage/agent/websetting.jsp");
 		return mv;
 	}
+	/*
+	 * 根据代理id查询web信息--系统管理员
+	 * 
+	 */
+	@RequestMapping(value="/findWebByAgentidadmin")
+	public @ResponseBody ModelAndView findWebByAgentidadmin(String agentid) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentByAgentid(agentid);
+		TWebInfoCustom tWebInfoCustom = webInfoService.findWebByAgentid(agentid);
+		mv.addObject("tWebInfoCustom",tWebInfoCustom);
+		mv.addObject("tAgentInfoCustom",tAgentInfoCustom);
+		mv.setViewName("/backstage/admin/websetting.jsp");
+		return mv;
+	}
 	
 	
 	/*

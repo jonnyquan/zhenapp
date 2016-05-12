@@ -44,4 +44,8 @@ public interface TAgentInfoCustomMapper {
 	 * 根据代理id更新代理信息
 	 */
 	public int updateAgentByid(TAgentInfoCustom tAgentInfoCustom) throws Exception;
+	/*
+	 * 根据主键修改代理状态为 30 无效
+	 */
+	public int updateagentstateByPk(String agentpk) throws Exception;
 }

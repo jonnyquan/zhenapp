@@ -1,10 +1,19 @@
 package com.zhenapp.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 
 public interface TaskDetailInfoService {
+	/*
+	 * 根据条件查询任务详情
+	 */
+	public List<TTaskDetailInfoCustom> findTaskDetailByPage(HashMap<String, Object> hashmap) throws Exception;
+	/*
+	 * 根据条件查询任务详情总数
+	 */
+	public int findTaskDetailTotalByPage(HashMap<String, Object> hashmap) throws Exception;
 	/*
 	 * 插入对于手机做任务的详细信息
 	 */

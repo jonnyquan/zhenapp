@@ -21,12 +21,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
 import com.zhenapp.po.Custom.TPriceInfoCustom;
+import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.PriceInfoService;
 import com.zhenapp.service.SysconfInfoService;
+import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.UserInfoService;
 import com.zhenapp.util.DateUtilWxf;
@@ -47,7 +49,8 @@ public class TaskInfoController {
 	private UserInfoService userInfoService;
 	@Autowired
 	private PointsInfoService pointsInfoService;
-	
+	@Autowired
+	private TaskDetailInfoService taskDetailInfoService;
 	/*
 	 * 跳转到发布任务界面
 	 */
@@ -73,7 +76,7 @@ public class TaskInfoController {
 	 * 跳转到订单查询界面--代理
 	 */
 	@RequestMapping(value="/responsetaskmanageagent")
-	public ModelAndView responsetaskmanageagent(HttpSession session,Integer page,Integer rows,String keyword,String title,String status,String datefrom,String dateto) throws Exception{
+	public ModelAndView responsetaskmanageagent(HttpSession session,Integer page,Integer rows,String datefrom,String dateto,String taskid,String usernick,String taskkeynum,String tasktype) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
@@ -84,20 +87,28 @@ public class TaskInfoController {
 		rows = 10;
 		pagemap.put("page", (page - 1) * rows);
 		pagemap.put("rows", rows);
-		if(keyword!=null){
-			pagemap.put("keyword", keyword);
-		}
-		if(title!=null){
-			pagemap.put("title", title);
-		}
-		if(status!=null){
-			pagemap.put("status", status);
-		}
 		if(datefrom!=null){
 			pagemap.put("datefrom", datefrom.replace("-", ""));
 		}
 		if(dateto!=null){
 			pagemap.put("dateto", dateto.replace("-", ""));
+		}
+		if(taskid!=null){
+			pagemap.put("taskid", taskid);
+		}
+		if(usernick!=null && !usernick.equals("")){
+			List<TUserInfoCustom> tUserInfoCustomlist = userInfoService.findUserBynick(usernick);
+			if(tUserInfoCustomlist!=null && tUserInfoCustomlist.size()>0){
+				pagemap.put("createuser", tUserInfoCustomlist.get(0).getUserid());
+			}else{
+				pagemap.put("createuser", "未查询到该用户信息!");
+			}
+		}
+		if(taskkeynum!=null){
+			pagemap.put("taskkeynum", taskkeynum);
+		}
+		if(tasktype!=null){
+			pagemap.put("tasktype", tasktype);
 		}
 		pagemap.put("userid", tUserInfoCustom.getUserid());
 		int total = 0;
@@ -185,6 +196,175 @@ public class TaskInfoController {
 		taskInfoService.deleteTaskBypk(taskpk);
 		
 		mv.setViewName("/task/responsetaskmanage");
+		return mv;
+	}
+	
+	/*
+	 * 跳转到订单查询界面-----系统管理员
+	 */
+	@RequestMapping(value="/responsetaskmanageadmin")
+	public ModelAndView responsetaskmanageadmin(HttpSession session,Integer page,Integer rows,String datefrom,String dateto,String taskid,String usernick,String taskkeynum,String tasktype) throws Exception{
+		ModelAndView mv=new ModelAndView();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
+		HashMap<String,Object> pagemap=new HashMap<String,Object>();
+		List<TTaskInfoCustom> tTaskInfoCustomlist =new ArrayList<TTaskInfoCustom>();
+		if (page == null || page==0) {
+			page = 1;
+		} 
+		rows = 10;
+		pagemap.put("page", (page - 1) * rows);
+		pagemap.put("rows", rows);
+		if(datefrom!=null){
+			pagemap.put("datefrom", datefrom.replace("-", ""));
+		}
+		if(dateto!=null){
+			pagemap.put("dateto", dateto.replace("-", ""));
+		}
+		if(taskid!=null){
+			pagemap.put("taskid", taskid);
+		}
+		if(usernick!=null && !usernick.equals("")){
+			List<TUserInfoCustom> tUserInfoCustomlist = userInfoService.findUserBynick(usernick);
+			if(tUserInfoCustomlist!=null && tUserInfoCustomlist.size()>0){
+				pagemap.put("createuser", tUserInfoCustomlist.get(0).getUserid());
+			}else{
+				pagemap.put("createuser", "未查询到该用户信息!");
+			}
+		}
+		if(taskkeynum!=null){
+			pagemap.put("taskkeynum", taskkeynum);
+		}
+		if(tasktype!=null){
+			pagemap.put("tasktype", tasktype);
+		}
+		pagemap.put("userid", tUserInfoCustom.getUserid());
+		int total = 0;
+		/*
+		* 系统管理员
+		*/
+		tTaskInfoCustomlist = taskInfoService.findTaskBypage(pagemap);
+		total = taskInfoService.findTotalTaskBypage(pagemap);
+		mv.addObject("tTaskInfoCustomlist", tTaskInfoCustomlist);
+		mv.addObject("total", total);
+		mv.addObject("pagenum", page);
+		mv.setViewName("/backstage/admin/tasklist.jsp");
+		return mv;
+	}
+	/*
+	 * 跳转到有问题任务查询界面-----系统管理员
+	 */
+	@RequestMapping(value="/findproblemtaskadmin")
+	public ModelAndView findproblemtaskadmin(HttpSession session,Integer page,Integer rows,String datefrom,String dateto,String taskid,String usernick,String taskkeynum,String tasktype) throws Exception{
+		ModelAndView mv=new ModelAndView();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
+		HashMap<String,Object> pagemap=new HashMap<String,Object>();
+		List<TTaskInfoCustom> tTaskInfoCustomlist =new ArrayList<TTaskInfoCustom>();
+		if (page == null || page==0) {
+			page = 1;
+		} 
+		rows = 10;
+		pagemap.put("page", (page - 1) * rows);
+		pagemap.put("rows", rows);
+		if(datefrom!=null){
+			pagemap.put("datefrom", datefrom.replace("-", ""));
+		}
+		if(dateto!=null){
+			pagemap.put("dateto", dateto.replace("-", ""));
+		}
+		if(taskid!=null){
+			pagemap.put("taskid", taskid);
+		}
+		
+		pagemap.put("userid", tUserInfoCustom.getUserid());
+		int total = 0;
+		/*
+		* 系统管理员
+		*/
+		tTaskInfoCustomlist = taskInfoService.findTaskBypage(pagemap);
+		total = taskInfoService.findTotalTaskBypage(pagemap);
+		
+		mv.addObject("tTaskInfoCustomlist", tTaskInfoCustomlist);
+		mv.addObject("total", total);
+		mv.addObject("pagenum", page);
+		mv.setViewName("/backstage/admin/findproblemtask.jsp");
+		return mv;
+	}
+	/*
+	 * 跳转到任务详情界面-----系统管理员
+	 */
+	@RequestMapping(value="/findtaskdetaillist")
+	public ModelAndView findtaskdetaillist(HttpSession session,Integer page,Integer rows,String phoneid,String taskkeynum,String taskid,String taskhour) throws Exception{
+		ModelAndView mv=new ModelAndView();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
+		HashMap<String,Object> pagemap=new HashMap<String,Object>();
+		if (page == null || page==0) {
+			page = 1;
+		} 
+		rows = 10;
+		pagemap.put("page", (page - 1) * rows);
+		pagemap.put("rows", rows);
+		if(phoneid !=null){
+			pagemap.put("phoneid", phoneid);
+		}
+		if(taskkeynum!=null){
+			pagemap.put("taskkeynum", taskkeynum);
+		}
+		if(taskid!=null){
+			pagemap.put("taskid", taskid);
+		}
+		if(taskhour!=null){
+			pagemap.put("taskhour", taskhour);
+		}
+		pagemap.put("userid", tUserInfoCustom.getUserid());
+		int total = 0;
+		/*
+		* 系统管理员
+		*/
+		List<TTaskDetailInfoCustom> tTaskDetailInfoCustomlist = taskDetailInfoService.findTaskDetailByPage(pagemap);
+		total = taskDetailInfoService.findTaskDetailTotalByPage(pagemap);
+		
+		mv.addObject("tTaskDetailInfoCustomlist", tTaskDetailInfoCustomlist);
+		mv.addObject("total", total);
+		mv.addObject("pagenum", page);
+		mv.setViewName("/backstage/admin/taskdetaillist.jsp");
+		return mv;
+	}
+	/*
+	 * 跳转卡机任务查询界面-----系统管理员
+	 */
+	@RequestMapping(value="/findtasklocklist")
+	public ModelAndView findtasklocklist(HttpSession session,Integer page,Integer rows,String datefrom,String dateto,String taskid,String usernick,String taskkeynum,String tasktype) throws Exception{
+		ModelAndView mv=new ModelAndView();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
+		HashMap<String,Object> pagemap=new HashMap<String,Object>();
+		List<TTaskInfoCustom> tTaskInfoCustomlist =new ArrayList<TTaskInfoCustom>();
+		if (page == null || page==0) {
+			page = 1;
+		} 
+		rows = 10;
+		pagemap.put("page", (page - 1) * rows);
+		pagemap.put("rows", rows);
+		if(datefrom!=null){
+			pagemap.put("datefrom", datefrom.replace("-", ""));
+		}
+		if(dateto!=null){
+			pagemap.put("dateto", dateto.replace("-", ""));
+		}
+		if(taskid!=null){
+			pagemap.put("taskid", taskid);
+		}
+		
+		pagemap.put("userid", tUserInfoCustom.getUserid());
+		int total = 0;
+		/*
+		* 系统管理员
+		*/
+		tTaskInfoCustomlist = taskInfoService.findTaskBypage(pagemap);
+		total = taskInfoService.findTotalTaskBypage(pagemap);
+		mv.addObject("tTaskInfoCustomlist", tTaskInfoCustomlist);
+		mv.addObject("total", total);
+		mv.addObject("pagenum", page);
+		mv.setViewName("/backstage/admin/tasklocklist.jsp");
 		return mv;
 	}
 	

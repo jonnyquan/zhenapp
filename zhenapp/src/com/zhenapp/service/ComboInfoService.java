@@ -19,6 +19,14 @@ public interface ComboInfoService {
 	 */
 	public List<TComboInfoCustom> findComboByAgentid(HashMap<String, Object> pagemap) throws Exception;
 	/*
+	 * 分页查询全部套餐信息
+	 */
+	public List<TComboInfoCustom> findAllComboByAdmin(HashMap<String, Object> pagemap) throws Exception;
+	/*
+	 * 查询全部套餐信息的总数
+	 */
+	public int findAllTotalComboByAdmin(HashMap<String, Object> pagemap) throws Exception;
+	/*
 	 * 查询全部套餐信息
 	 */
 	public List<TComboInfoCustom> findAllCombo() throws Exception;
