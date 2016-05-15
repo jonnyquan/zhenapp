@@ -26,6 +26,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	src="${pageContext.request.contextPath}/frontend/pagematter/common/js/jquery.SuperSlide.2.1.1.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/frontend/pagematter/common/js/ueditor.parse.js"></script>
 <title>服务介绍 - 真流量</title>
+
+<style type="text/css">
+.webHeader .logo a {
+	display: block;
+	width: 280px;
+	height: 80px;
+	background: url("${pageContext.request.contextPath}/frontend/pagematter/common/img/logo.png") no-repeat;
+	text-indent: -99999px;
+}
+</style>
 </head>
 
 <body>
@@ -64,47 +74,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
         $('.scl2').addClass('hover');
     </script>
-
 	<div class="warp1200 clearfix">
 		<div class="leftMenu row_l">
-
 			<div class="chennalBox mtop15">
-
 				<h3>电商干货</h3>
-
 				<ul class="titlelist">
-					<li><a href="/detail/2118" target="_blank"><i
-							class="fa fa-angle-right"></i>ROI的小心机,实操指导如何提高ROI</a></li>
-					<li><a href="/detail/2117" target="_blank"><i
-							class="fa fa-angle-right"></i>小细节,淘抢购报名通过率提高翻倍</a></li>
-					<li><a href="/detail/2115" target="_blank"><i
-							class="fa fa-angle-right"></i>标题优化技巧，淘宝无线端宝贝标题优化技巧</a></li>
-					<li><a href="/detail/2116" target="_blank"><i
-							class="fa fa-angle-right"></i>淘宝卖家常遇到的问题及解决办法</a></li>
-					<li><a href="/detail/2114" target="_blank"><i
-							class="fa fa-angle-right"></i>新品宝贝如何玩转直通车</a></li>
+					<c:forEach items="${TelectricityCustomlist}" var="list">
+						<li><a href="${pageContext.request.contextPath}/frontend/articlenewsdetail/${list.electricitypk}" target="_blank"><i class="fa fa-angle-right"></i>${list.electricityname}</a></li>
+					</c:forEach>
 				</ul>
-
 			</div>
 			<div class="chennalBox mtop15">
-
 				<h3>新手指引</h3>
-
 				<ul class="titlelist">
-					<li><a href="/detail/2010" target="_blank"><i
-							class="fa fa-angle-right"></i>淘口令在哪里？淘口令怎么打开？</a></li>
-					<li><a href="/detail/1879" target="_blank"><i
-							class="fa fa-angle-right"></i>APP流量在淘宝后台怎么看？在生意参谋中怎么看？</a></li>
-					<li><a href="/detail/1825" target="_blank"><i
-							class="fa fa-angle-right"></i>什么是真假流量？真假流量对比？教你辨别真假流量</a></li>
-					<li><a href="/detail/1814" target="_blank"><i
-							class="fa fa-angle-right"></i>发布淘宝无线端APP流量任务常见问题？</a></li>
-					<li><a href="/detail/1715" target="_blank"><i
-							class="fa fa-angle-right"></i>如何发布淘宝无线端APP流量任务？</a></li>
+					<c:forEach items="${TGuideInfoCustomlist}" var="list">
+						<li><a href="${pageContext.request.contextPath}/frontend/articleguidedetail/${list.guidepk}" target="_blank"><i class="fa fa-angle-right"></i>${list.guidename}</a></li>
+					</c:forEach>
 				</ul>
-
 			</div>
-
 		</div>
 
 		<div class="rightBox row_r">

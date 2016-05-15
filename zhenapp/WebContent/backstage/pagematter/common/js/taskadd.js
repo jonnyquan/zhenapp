@@ -85,7 +85,7 @@ var myDate = new Date();
 			missingMessage : '请输入发布购物车数',
 			invalidMessage : '发布购物车数不得为空',
 		});
-		//宝贝标题验证
+		/*宝贝标题验证
 		$('#tasktitle').validatebox({
 			required : true,
 			missingMessage : '请输入宝贝标题',
@@ -96,7 +96,7 @@ var myDate = new Date();
 			required : true,
 			missingMessage : '请输入无线端标题',
 			invalidMessage : '无线端标题不得为空',
-		});
+		});*、
 		
 		
 		/*
@@ -121,7 +121,7 @@ var myDate = new Date();
 				});
 				return false;
 			}
-			if (!$('#tasktitle').validatebox('isValid')) {
+			/*if (!$('#tasktitle').validatebox('isValid')) {
 				$.messager.alert('消息提示', '请输入标题!', 'info', function () {
 					$('#tasktitle').focus();
 				});
@@ -132,7 +132,7 @@ var myDate = new Date();
 					$('#taskwirelesstitle').focus();
 				});
 				return false;
-			}
+			}*/
 			
 			
 			if(parseInt($('#collectioncount').val())>parseInt($('#flowcount').val())){
@@ -199,8 +199,8 @@ var myDate = new Date();
 				type : "POST",
 				data : {
 					taskkeynum : $("#taskkeynum").val(),
-					tasktitle : $("#tasktitle").val(),
-					taskwirelesstitle : $("#taskwirelesstitle").val(),
+					/*tasktitle : $("#tasktitle").val(),
+					taskwirelesstitle : $("#taskwirelesstitle").val(),*/
 					taskkeywords : taskkeywords.join('===='),
 					tasktype:"33",
 					taskstartdate:$("input[name='datefrom']")[0].value,

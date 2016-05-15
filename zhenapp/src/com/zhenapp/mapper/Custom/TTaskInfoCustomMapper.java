@@ -56,4 +56,8 @@ public interface TTaskInfoCustomMapper {
 	 * 根据taskid查询任务信息
 	 */
 	public TTaskInfoCustom findTaskInfoByTaskid(String taskid) throws Exception;
+	/*
+	 * 根据状态查询任务信息
+	 */
+	public List<TTaskInfoCustom> findTaskInfoByTaskstate(HashMap<String,Object> hashmap) throws Exception;
 }

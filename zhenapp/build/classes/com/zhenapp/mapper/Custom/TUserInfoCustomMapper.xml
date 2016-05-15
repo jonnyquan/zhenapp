@@ -16,8 +16,9 @@
   	select * from t_user_info where userid = #{userid}
   </select>
   <select id="findUserByPage" resultType="com.zhenapp.po.Custom.TUserInfoCustom" parameterType="java.util.HashMap">
-    SELECT a.*,b.rolename,c.dicinfoname FROM t_user_info a LEFT JOIN t_role_info b ON b.roleid=a.userroleid 
-    LEFT JOIN t_data_dic_info c ON a.userstate=c.dicinfoid 
+    SELECT a.userpk,a.userid,a.usernick,a.userpwd,a.username,a.points,a.userqq,a.usercardnum,a.userroleid,a.userphone,a.userstate,a.regemail,a.regip,a.regdomain,a.agentid, 
+	DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime,a.createuser,DATE_FORMAT(a.updatetime,'%Y-%m-%d %H:%i:%s') AS updatetime, a.updateuser,b.rolename,c.dicinfoname as statename FROM t_user_info a LEFT JOIN t_role_info b ON b.roleid=a.userroleid 
+	LEFT JOIN t_data_dic_info c ON a.userstate=c.dicinfoid 
     <where>
     	<if test="usernick != null and usernick != ''">
     		and a.usernick like '%${usernick}%'
@@ -47,7 +48,8 @@
   </select>
   
   <select id="findUserByPageandRole" resultType="com.zhenapp.po.Custom.TUserInfoCustom" parameterType="java.util.HashMap">
-    SELECT a.*,b.rolename,c.dicinfoname FROM t_user_info a LEFT JOIN t_role_info b ON b.roleid=a.userroleid LEFT JOIN t_data_dic_info c ON a.userstate=c.dicinfoid 
+    SELECT a.userpk,a.userid,a.usernick,a.userpwd,a.username,a.points,a.userqq,a.usercardnum,a.userroleid,a.userphone,a.userstate,a.regemail,a.regip,a.regdomain,a.agentid, 
+	DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime,a.createuser,DATE_FORMAT(a.updatetime,'%Y-%m-%d %H:%i:%s') AS updatetime, a.updateuser,b.rolename,c.dicinfoname as statename FROM t_user_info a LEFT JOIN t_role_info b ON b.roleid=a.userroleid LEFT JOIN t_data_dic_info c ON a.userstate=c.dicinfoid 
     INNER JOIN (SELECT agentid FROM t_agent_info WHERE agentuserid=#{userid}) d ON a.agentid=d.agentid 
     <where>
     	<if test="usernick != null and usernick != ''">
@@ -115,7 +117,7 @@
    </update>
    
    <update id="updateUserinfoPointByUserid" parameterType="com.zhenapp.po.Custom.TUserInfoCustom">
-   	update t_user_info set points=#{points} where userId = #{userid}
+   	update t_user_info set points=#{points},updatetime=#{updatetime},updateuser=#{updateuser} where userId = #{userid}
    </update>
    
    <update id="updaterole" parameterType="String">

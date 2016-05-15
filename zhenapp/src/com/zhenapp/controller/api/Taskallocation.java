@@ -1,5 +1,4 @@
 package com.zhenapp.controller.api;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,14 +20,11 @@ import com.zhenapp.service.PriceInfoService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.UserInfoService;
-/*
- * 任务分配
- */
 
 @Controller
 @RequestMapping(value="/test")
 public class Taskallocation {
-	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 	
 	@Autowired
 	private TaskInfoService taskInfoService;
@@ -41,14 +37,20 @@ public class Taskallocation {
 	@Autowired
 	private UserInfoService userInfoService;
 	
+	/*
+	 * 任务分配
+	 */
 	@RequestMapping(value="/allocation")
 	public @ResponseBody ModelMap allocation() throws Exception{
 		ModelMap map=new ModelMap();
 		HashMap<String,Object> hashmap1=new HashMap<String,Object>();
 		hashmap1.put("taskstate", 15);
 		hashmap1.put("taskdate", sdf.format(new Date()));
-		Date date = new Date();
-		int hours = date.getHours()+1;
+		long curren = System.currentTimeMillis();
+		curren += 60 * 60 * 1000;
+		Date da = new Date(curren);
+		SimpleDateFormat dateFormat = new SimpleDateFormat( "HH");
+		int hours = Integer.parseInt(dateFormat.format(da));
 		List<TTaskInfoCustom> tTaskInfoCustomlist= taskInfoService.findTaskallocation(hashmap1);
 		
 		for (int i = 0; i < tTaskInfoCustomlist.size(); i++) {
@@ -104,6 +106,8 @@ public class Taskallocation {
 				HashMap<String,Object> hashmap3=new HashMap<String,Object>();
 				hashmap3.put("taskid", tTaskInfoCustom.getTaskid());
 				hashmap3.put("taskstate", "16");
+				hashmap3.put("updatetime", sdf.format(new Date()));
+				hashmap3.put("updateuser", "拆分任务");
 				taskInfoService.updateTaskstate(hashmap3);
 			}
 			/*
@@ -160,6 +164,8 @@ public class Taskallocation {
 					HashMap<String,Object> hashmap3=new HashMap<String,Object>();
 					hashmap3.put("taskid", tTaskInfoCustom.getTaskid());
 					hashmap3.put("taskstate", "16");
+					hashmap3.put("updatetime", sdf.format(new Date()));
+					hashmap3.put("updateuser", "拆分任务");
 					taskInfoService.updateTaskstate(hashmap3);
 			}
 			/*
@@ -216,6 +222,8 @@ public class Taskallocation {
 					HashMap<String,Object> hashmap3=new HashMap<String,Object>();
 					hashmap3.put("taskid", tTaskInfoCustom.getTaskid());
 					hashmap3.put("taskstate", "16");
+					hashmap3.put("updatetime", sdf.format(new Date()));
+					hashmap3.put("updateuser", "拆分任务");
 					taskInfoService.updateTaskstate(hashmap3);
 			}
 			/*
@@ -280,9 +288,14 @@ public class Taskallocation {
 				HashMap<String,Object> hashmap3=new HashMap<String,Object>();
 				hashmap3.put("taskid", tTaskInfoCustom.getTaskid());
 				hashmap3.put("taskstate", "16");//任务运行中
+				hashmap3.put("updatetime", sdf.format(new Date()));
+				hashmap3.put("updateuser", "拆分任务");
 				taskInfoService.updateTaskstate(hashmap3);
 			}
 		}
 		return map;
 	}
+	
+	
+	
 }

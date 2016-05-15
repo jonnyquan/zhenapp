@@ -3,8 +3,8 @@
 <mapper namespace="com.zhenapp.mapper.Custom.TPointsInfoCustomMapper" >
   
   <select id="findPointsInfoByPage" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TPointsInfoCustom">
-	  SELECT a.*,b.dicinfoname as pointstypename FROM t_points_info a
-		LEFT JOIN t_data_dic_info b ON a.pointstype=b.dicinfoid
+	  SELECT a.pointspk,a.pointsid,a.userid,a.taskid,a.pointstype,a.pointsupdate,a.points,a.pointreason,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime,a.createuser,a.updatetime,a.updateuser,b.dicinfoname AS pointstypename  
+	  FROM t_points_info a LEFT JOIN t_data_dic_info b ON a.pointstype=b.dicinfoid
 		<where>
 			<if test="createuser != null and createuser != ''">
 		    	and a.createuser = #{createuser}
@@ -22,7 +22,7 @@
 	    </where>
   </select> 
   <select id="findPointsInfoByPageandRole" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TPointsInfoCustom">
-	  SELECT c.usernick,a.*,b.dicinfoname as pointstypename FROM t_points_info a
+	  SELECT c.usernick,a.pointspk,a.pointsid,a.userid,a.taskid,a.pointstype,a.pointsupdate,a.points,a.pointreason,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime,a.createuser,a.updatetime,a.updateuser,b.dicinfoname as pointstypename FROM t_points_info a
 		LEFT JOIN t_data_dic_info b ON a.pointstype=b.dicinfoid
 		INNER JOIN (SELECT a.* FROM t_user_info a WHERE a.agentid IN (SELECT agentid FROM t_agent_info WHERE agentuserid=#{userid})) c ON a.createuser=c.userid
 		<where>

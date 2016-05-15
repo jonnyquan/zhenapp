@@ -163,6 +163,8 @@ public class RechargeInfoController {
 			 * 修改用户当前积分
 			 */
 			tUserInfoCustom.setPoints(tUserInfoCustom.getPoints()+tRechargeInfoCustom.getRechargepoints()+tRechargeInfoCustom.getRechargegivepoints());
+			tUserInfoCustom.setUpdatetime(sdf.format(new Date()));
+			tUserInfoCustom.setUpdateuser("系统确认充值成功!");
 			int ii2 = userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
 			System.out.println(ii1+"============"+ii2);
 		}

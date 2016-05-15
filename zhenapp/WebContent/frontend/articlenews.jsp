@@ -41,6 +41,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="${pageContext.request.contextPath}/bootstrap/js/jqPaginator.min.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/bootstrap/js/myPage.js" type="text/javascript"></script>
 <title>电商干货 - 真流量</title>
+
+<style type="text/css">
+.webHeader .logo a {
+	display: block;
+	width: 280px;
+	height: 80px;
+	background: url("${pageContext.request.contextPath}/frontend/pagematter/common/img/logo.png") no-repeat;
+	text-indent: -99999px;
+}
+</style>
 </head>
 
 <body>
@@ -114,34 +124,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<li><span>${list.createtime}</span><a href="${pageContext.request.contextPath}/frontend/articlenewsdetail/${list.electricitypk}" target="_blank"><i class="fa fa-angle-right"></i>${list.electricityname}</a></li>
 						</c:forEach>
 					</ul>
-
-					<!-- <div class="paging">
-						<a>上一页</a> 
-						<a class="cur">1</a>
-						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=2">2</a>
-						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=3">3</a>
-						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=4">4</a>
-						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=5">5</a>
-						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=6">6</a>
-						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=7">7</a>
-						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=8">8</a>
-						<a>...</a>
-						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=48">48</a>
-						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=49">49</a> 
-						<a href="${pageContext.request.contextPath}/frontend/articlenews/?page=2" rel="next">下一页</a>
-					</div> -->
-						<div>
-					        <ul class="pagination" id="pagination">
-					        </ul>
-					        <input type="hidden" id="PageCount" runat="server" value="${total}"/>
-					        <input type="hidden" id="PageSize" runat="server" value="15" />
-					        <input type="hidden" id="countindex" runat="server" value="10"/>
-					        <!--设置最多显示的页码数 可以手动设置 默认为7-->
-					        <input type="hidden" id="visiblePages" runat="server" value="12" />
-					    </div>
+					<div>
+				        <ul class="pagination" id="pagination">
+				        </ul>
+				        <input type="hidden" id="PageCount" runat="server" value="${total}"/>
+				        <input type="hidden" id="PageSize" runat="server" value="15" />
+				        <input type="hidden" id="countindex" runat="server" value="10"/>
+				        <!--设置最多显示的页码数 可以手动设置 默认为7-->
+				        <input type="hidden" id="visiblePages" runat="server" value="12" />
+				    </div>
 				</div>
 			</div>
-
 		</div>
 	</div>
 	
@@ -170,22 +163,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					: (myPageCount / myPageSize);
 			$("#countindex").val(countindex);
 			$.jqPaginator('#pagination',
-							{
-								totalPages : parseInt($("#countindex").val()),
-								visiblePages : parseInt($("#visiblePages").val()),
-								currentPage : index,
-								first : '<li class="first"><a href="${pageContext.request.contextPath}/frontend/articlenews?page=1">首页</a></li>',
-								prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
-								next : '<li class="next"><a href="javascript:;">下一页</a></li>',
-								last : '<li class="last"><a href="javascript:;">末页</a></li>',
-								page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-								onPageChange : function(num, type) {
-									if (type == "change") {
-										//exeData(num, type);
-										window.location.href = "${pageContext.request.contextPath}/frontend/articlenews?page=" + num;
-									}
-								}
-							});
+			{
+				totalPages : parseInt($("#countindex").val()),
+				visiblePages : parseInt($("#visiblePages").val()),
+				currentPage : index,
+				first : '<li class="first"><a href="${pageContext.request.contextPath}/frontend/articlenews?page=1">首页</a></li>',
+				prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
+				next : '<li class="next"><a href="javascript:;">下一页</a></li>',
+				last : '<li class="last"><a href="javascript:;">末页</a></li>',
+				page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+				onPageChange : function(num, type) {
+					if (type == "change") {
+						//exeData(num, type);
+						window.location.href = "${pageContext.request.contextPath}/frontend/articlenews?page=" + num;
+					}
+				}
+			});
 		}
 	</script>
 </body>

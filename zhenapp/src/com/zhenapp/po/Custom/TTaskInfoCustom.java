@@ -13,7 +13,16 @@ public class TTaskInfoCustom extends TTaskInfo{
     
     private String dicinfoname;
     private String tasktypename;
+    private String usernick;
     
+
+	public String getUsernick() {
+		return usernick;
+	}
+
+	public void setUsernick(String usernick) {
+		this.usernick = usernick;
+	}
 
 	public String getTasktypename() {
 		return tasktypename;

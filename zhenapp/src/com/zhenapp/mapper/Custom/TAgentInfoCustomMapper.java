@@ -21,10 +21,6 @@ public interface TAgentInfoCustomMapper {
 	public int findTotalAgentBypage(HashMap<String, Object> pagemap) throws Exception;
 	
 	/*
-	 * 根据主键删除代理信息
-	 */
-	public int deleteAgentByid(String ids) throws Exception;
-	/*
 	 * 根据用户id查询代理信息
 	 */
 	public TAgentInfoCustom findAgentByuserid(String userid) throws Exception;
@@ -47,5 +43,5 @@ public interface TAgentInfoCustomMapper {
 	/*
 	 * 根据主键修改代理状态为 30 无效
 	 */
-	public int updateagentstateByPk(String agentpk) throws Exception;
+	public int updateagentstateByPk(HashMap<String, Object> hashmap) throws Exception;
 }

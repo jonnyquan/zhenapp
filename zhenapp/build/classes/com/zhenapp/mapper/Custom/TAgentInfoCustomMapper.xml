@@ -17,27 +17,24 @@
 		select * from t_agent_info where agentid = #{agentid}
 	</select>
 	<select id="findAgentBywww" parameterType="String" resultType="com.zhenapp.po.Custom.TAgentInfoCustom">
-		SELECT * FROM t_agent_info WHERE agentwww=#{www} OR agenthttp=#{www}
+		SELECT * FROM t_agent_info WHERE domain=#{www} OR url=#{www}
 	</select>
 	
-	<delete id="deleteAgentByid" parameterType="String">
-		delete from t_agent_info where agentid in (#{ids}) 
-	</delete>
 	<insert id="saveAgentInfo" parameterType="com.zhenapp.po.Custom.TAgentInfoCustom" >
     insert into t_agent_info ( agentid, agentuserid, 
       agentperson, agentphone, agentname, 
-      agentwww, agenthttp, agentstate, 
+      domain, url, agentstate, 
       createtime, createuser, updatetime, 
       updateuser)
     values (#{agentid,jdbcType=VARCHAR}, #{agentuserid,jdbcType=VARCHAR}, 
       #{agentperson,jdbcType=VARCHAR}, #{agentphone,jdbcType=VARCHAR}, #{agentname,jdbcType=VARCHAR}, 
-      #{agentwww,jdbcType=VARCHAR}, #{agenthttp,jdbcType=VARCHAR}, #{agentstate,jdbcType=VARCHAR}, 
+      #{domain,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{agentstate,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
       #{updateuser,jdbcType=VARCHAR})
   </insert>
   
-  <update id="updateagentstateByPk" parameterType="String">
-  	update t_agent_info set agentstate = '30' where agentpk=#{agentpk}
+  <update id="updateagentstateByPk" parameterType="java.util.HashMap">
+  	update t_agent_info set agentstate = '30',updatetime=#{updatetime},updateuser=#{updateuser} where agentpk=#{agentpk}
   </update>
   
   <update id="updateAgentByid" parameterType="com.zhenapp.po.Custom.TAgentInfoCustom">
@@ -46,11 +43,11 @@
       agentperson = #{agentperson,jdbcType=VARCHAR},
       agentphone = #{agentphone,jdbcType=VARCHAR},
       agentname = #{agentname,jdbcType=VARCHAR},
-      agentwww = #{agentwww,jdbcType=VARCHAR},
-      agenthttp = #{agenthttp,jdbcType=VARCHAR},
+      domain = #{domain},
+      url = #{url,jdbcType=VARCHAR},
       updatetime = #{updatetime,jdbcType=VARCHAR},
       updateuser = #{updateuser,jdbcType=VARCHAR}
-    where agentid = #{agentid,jdbcType=VARCHAR},
+    where agentid = #{agentid,jdbcType=VARCHAR}
   </update>
   
 </mapper>

@@ -3,7 +3,6 @@ package com.zhenapp.controller.back;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +30,8 @@ public class SysconfInfoController {
 	@RequestMapping(value="/responsesyssetting")
 	public @ResponseBody ModelAndView responsesyssetting() throws Exception {
 		ModelAndView mv =new ModelAndView();
-		
 		TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
-		
 		mv.addObject("tSysconfInfoCustom",tSysconfInfoCustom);
-		
 		mv.setViewName("/backstage/admin/syssetting.jsp");
 		return mv;
 	}
@@ -53,32 +49,5 @@ public class SysconfInfoController {
 		map.put("ec", "0");
 		return map;
 	}
-	
-	
-	
-	@RequestMapping(value="/findAllSysconf")
-	public @ResponseBody ModelAndView findAllSysconf() throws Exception {
-		ModelAndView mv =new ModelAndView();
-		
-		TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
-		
-		mv.addObject("tSysconfInfoCustom",tSysconfInfoCustom);
-		
-		mv.setViewName("/page/main/sysmange.jsp");
-		return mv;
-	}
-	
-	
-	@RequestMapping(value="/updateSysinfo")
-	public @ResponseBody ModelAndView updateSysinfo(TSysconfInfoCustom tSysconfInfoCustom,HttpServletRequest request) throws Exception{
-		ModelAndView mv =new ModelAndView();
-		HttpSession session=request.getSession();
-		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
-		tSysconfInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
-		tSysconfInfoCustom.setUpdatetime(sdf.format(new Date()));
-		int i= sysconfInfoService.updateSysinfo(tSysconfInfoCustom);
-		System.out.println(i);
-		mv.setViewName("findAllSysconf");
-		return mv;
-	}
+
 }

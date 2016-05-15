@@ -34,7 +34,9 @@
 	
 	
 	<update id="updateCombotoByid" parameterType="com.zhenapp.po.Custom.TComboInfoCustom">
-		update t_combo_info set comboname=#{comboname},combomoney=#{combomoney},combointegral=#{combointegral},combogivemoney=#{combogivemoney},combogiveintegral=#{combogiveintegral}  where combopk=#{combopk}
+		update t_combo_info set comboname=#{comboname},combomoney=#{combomoney},combointegral=#{combointegral},combogivemoney=#{combogivemoney},
+		combogiveintegral=#{combogiveintegral},updateuser = #{updateuser},updatetime = #{updatetime}
+		where combopk=#{combopk}
 	</update>
 	
 	<insert id="insertComboto" parameterType="com.zhenapp.po.Custom.TComboInfoCustom">

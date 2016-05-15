@@ -7,8 +7,6 @@ public class TWebInfo {
 
     private String agentid;
 
-    private String webwww;
-
     private String logo;
 
     private String carousel01;
@@ -23,7 +21,7 @@ public class TWebInfo {
 
     private String wechat;
 
-    private String archival;
+    private String record;
 
     private String alipay;
 
@@ -61,14 +59,6 @@ public class TWebInfo {
 
     public void setAgentid(String agentid) {
         this.agentid = agentid == null ? null : agentid.trim();
-    }
-
-    public String getWebwww() {
-        return webwww;
-    }
-
-    public void setWebwww(String webwww) {
-        this.webwww = webwww == null ? null : webwww.trim();
     }
 
     public String getLogo() {
@@ -127,12 +117,12 @@ public class TWebInfo {
         this.wechat = wechat == null ? null : wechat.trim();
     }
 
-    public String getArchival() {
-        return archival;
+    public String getRecord() {
+        return record;
     }
 
-    public void setArchival(String archival) {
-        this.archival = archival == null ? null : archival.trim();
+    public void setRecord(String record) {
+        this.record = record == null ? null : record.trim();
     }
 
     public String getAlipay() {

@@ -13,9 +13,9 @@ public class TAgentInfo {
 
     private String agentname;
 
-    private String agentwww;
+    private String domain;
 
-    private String agenthttp;
+    private String url;
 
     private String agentstate;
 
@@ -75,20 +75,20 @@ public class TAgentInfo {
         this.agentname = agentname == null ? null : agentname.trim();
     }
 
-    public String getAgentwww() {
-        return agentwww;
+    public String getDomain() {
+        return domain;
     }
 
-    public void setAgentwww(String agentwww) {
-        this.agentwww = agentwww == null ? null : agentwww.trim();
+    public void setDomain(String domain) {
+        this.domain = domain == null ? null : domain.trim();
     }
 
-    public String getAgenthttp() {
-        return agenthttp;
+    public String getUrl() {
+        return url;
     }
 
-    public void setAgenthttp(String agenthttp) {
-        this.agenthttp = agenthttp == null ? null : agenthttp.trim();
+    public void setUrl(String url) {
+        this.url = url == null ? null : url.trim();
     }
 
     public String getAgentstate() {

@@ -23,7 +23,7 @@ import com.zhenapp.service.NoteInfoService;
 public class NoteInfoController {
 	@Autowired
 	private NoteInfoService noteService;
-	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 	/*
 	 * 公告信息列表查询
 	 */
@@ -66,18 +66,4 @@ public class NoteInfoController {
 		map.put("ec", "0");
 		return map;
 	}
-	
-	
-	
-	@RequestMapping(value="/findNoteInfo")
-	public @ResponseBody TNoteInfoCustom findNoteInfo() throws Exception{
-		List<TNoteInfoCustom> list=noteService.findAllNoteinfo();
-		if(list.size()>0){
-			return list.get(0);
-		}else{
-			return null;
-		}
-	}
-	
-	
 }

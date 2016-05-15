@@ -15,11 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zhenapp.po.TUserInfo;
 import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TGuideInfoCustom;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
@@ -55,9 +53,7 @@ public class UserInfoController {
 	private ElectrityInfoService electrityService;
 	@Autowired
 	private GuideInfoService guideService;
-	
-	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
-	
+	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 	/*
 	 * 跳转到个人中心页面
 	 */
@@ -94,7 +90,7 @@ public class UserInfoController {
 			TUserInfoCustom tUserInfoCustom = (TUserInfoCustom)session.getAttribute("tUserInfoCustom");
 			tUserInfoCustom = userInfoService.findUserByuserid(tUserInfoCustom.getUserid());
 			session.setAttribute("tUserInfoCustom", tUserInfoCustom);
-			mv.setViewName("/backstage/user/personal.jsp");
+			mv.setViewName("responseuser");
 		}
 		return mv;
 	}
@@ -110,6 +106,7 @@ public class UserInfoController {
 		mv.setViewName("/backstage/user/updatepassword.jsp");
 		return mv;
 	}
+	
 	/*
 	 * 退出系统
 	 */
@@ -120,6 +117,7 @@ public class UserInfoController {
 		mv.setViewName("/frontend/authlogin.jsp");
 		return mv;
 	}
+	
 	/*
 	 * 用于用户修改基本信息
 	 */
@@ -136,7 +134,6 @@ public class UserInfoController {
 		}
 		return mv;
 	}
-	
 	/*
 	 * 查询该用户登录密码与该帐号是否匹配
 	 */
@@ -246,8 +243,6 @@ public class UserInfoController {
 		map.put("ec", 0);
 		return map;
 	}
-	
-	
 	/*
 	 * 跳转到手工充值扣款界面 -----代理
 	 */
@@ -260,7 +255,6 @@ public class UserInfoController {
 		mv.setViewName("/backstage/agent/recharge.jsp");
 		return mv;
 	}
-	
 	/*
 	 * 对用户积分手工充值扣款-----代理 
 	 */
@@ -311,7 +305,7 @@ public class UserInfoController {
 		ModelAndView mv = new ModelAndView();
 		TUserInfoCustom tUserInfoCustom= userInfoService.findUserByuserpk(userpk);
 		if(tUserInfoCustom!=null){
-			session.removeAttribute("tUserInfoCustom");
+			session.removeAttribute("tUserInfoCustom");//
 			session.setAttribute("tUserInfoCustom", tUserInfoCustom);
 		}
 		mv.setViewName("responseuser");
@@ -325,9 +319,8 @@ public class UserInfoController {
 	 * 查询用户列表-----系统管理员
 	 */
 	@RequestMapping(value="/findUserByPageAndAdmin")
-	public @ResponseBody ModelAndView findUserByPageAndAdmin(HttpSession session,Integer page,Integer rows,String usernick,String userpk,String userphone) throws Exception{
+	public @ResponseBody ModelAndView findUserByPageAndAdmin(Integer page,Integer rows,String usernick,String userpk,String userphone) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
 			page = 1;
@@ -338,14 +331,11 @@ public class UserInfoController {
 		pagemap.put("usernick", usernick);
 		pagemap.put("userpk", userpk);
 		pagemap.put("userphone", userphone);
-		List<TUserInfoCustom> tUserInfoCustomlist=new ArrayList<TUserInfoCustom>();
-		int total=0;
 		/*
 		* 系统管理员用户
 		*/
-		pagemap.put("userid", tUserInfoCustom.getUserid());
-		tUserInfoCustomlist = userInfoService.findUserByPage(pagemap);
-		total = userInfoService.findTotalUserByPage(pagemap);
+		List<TUserInfoCustom> tUserInfoCustomlist = userInfoService.findUserByPage(pagemap);
+		int total = userInfoService.findTotalUserByPage(pagemap);
 		mv.addObject("total", total);
 		mv.addObject("pagenum", page);
 		mv.addObject("usernick", usernick);
@@ -413,7 +403,7 @@ public class UserInfoController {
 	
 	/*
 	 * 使用用户名密码登录
-	 */
+	 
 	@RequestMapping(value="/Loginrest/{username}/{password}"
 			,method={RequestMethod.POST,RequestMethod.GET})
 	public @ResponseBody TUserInfo Loginrest(HttpSession httpSession, String username,String password) throws Exception{
@@ -432,7 +422,7 @@ public class UserInfoController {
 			tUserInfo = null;
 		}
 		return tUserInfo;
-	}
+	}*/
 	/*
 	 * 查询用户列表
 	 */

@@ -3,11 +3,58 @@ package com.zhenapp.po.Custom;
 import com.zhenapp.po.TTaskDetailinfo;
 
 public class TTaskDetailInfoCustom extends TTaskDetailinfo{
+	private String isshoppingname;
+	private String iscollectionname;
+	private String visitname;
+	private String collectname;
+	private String trolleyname;
 	
+	public String getVisitname() {
+		return visitname;
+	}
+
+	public void setVisitname(String visitname) {
+		this.visitname = visitname;
+	}
+
+	public String getCollectname() {
+		return collectname;
+	}
+
+	public void setCollectname(String collectname) {
+		this.collectname = collectname;
+	}
+
+	public String getTrolleyname() {
+		return trolleyname;
+	}
+
+	public void setTrolleyname(String trolleyname) {
+		this.trolleyname = trolleyname;
+	}
+
+	public String getIsshoppingname() {
+		return isshoppingname;
+	}
+
+	public void setIsshoppingname(String isshoppingname) {
+		this.isshoppingname = isshoppingname;
+	}
+
+	public String getIscollectionname() {
+		return iscollectionname;
+	}
+
+	public void setIscollectionname(String iscollectionname) {
+		this.iscollectionname = iscollectionname;
+	}
+
+
+
 	public static StringBuffer Mosaicstr(TTaskDetailInfoCustom tTaskDetailInfoCustom) throws Exception{
 		StringBuffer sb=new StringBuffer();
 		sb.append(tTaskDetailInfoCustom.getTaskid()).append("&")
-		.append("流量id").append("&")
+		.append(tTaskDetailInfoCustom.getTaskdetailid()).append("&")
 		.append(tTaskDetailInfoCustom.getTaskkeyword()).append("&")
 		.append(tTaskDetailInfoCustom.getSearchtype()).append("&")
 		.append(tTaskDetailInfoCustom.getMinpicture()).append("&")

@@ -55,6 +55,8 @@ public class TTaskDetailinfo {
 
     private Integer subtractpoints;
 
+    private String resultstr;
+
     private String createtime;
 
     private String createuser;
@@ -277,6 +279,14 @@ public class TTaskDetailinfo {
 
     public void setSubtractpoints(Integer subtractpoints) {
         this.subtractpoints = subtractpoints;
+    }
+
+    public String getResultstr() {
+        return resultstr;
+    }
+
+    public void setResultstr(String resultstr) {
+        this.resultstr = resultstr == null ? null : resultstr.trim();
     }
 
     public String getCreatetime() {

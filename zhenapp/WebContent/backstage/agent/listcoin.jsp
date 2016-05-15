@@ -13,10 +13,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>资金记录</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/amazeui.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/admin.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/lanyunying.css" />
@@ -31,6 +29,37 @@
 <script src="${pageContext.request.contextPath}/bootstrap/js/jqPaginator.min.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/bootstrap/js/myPage.js" type="text/javascript"></script>
 </head>
+<header class="am-topbar admin-header">
+  <div class="am-topbar-brand">
+    <strong>真流量</strong> <small>后台管理系统</small>
+  </div>
+  <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+    data-am-collapse="{target: '#topbar-collapse'}">
+    <span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span>
+  </button>
+  <div class="am-collapse am-topbar-collapse" id="topbar-collapse"> 
+    <!--  <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+      <li class="am-dropdown" data-am-dropdown><a href="/admin/user/signout"><span class="am-icon-power-off"></span>
+          退出</a></li>
+      <li class="am-dropdown" data-am-dropdown><a href="/admin/user/delPhoneLog"><span class="am-icon-power-off"></span>
+          清理数据（不要点）</a></li>
+      <li class="am-dropdown" data-am-dropdown><a href="/admin/user/searchJob"><span class="am-icon-power-off"></span>
+          查询数据（不要点）</a></li>
+      <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span>
+          <span class="admin-fullText">开启全屏</span></a></li>
+    </ul>-->
+    <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+      <li class="am-dropdown" data-am-dropdown><a href="${pageContext.request.contextPath}/user/authlogout"><span class="am-icon-power-off"></span>
+          退出</a></li>
+      <li class="am-dropdown" data-am-dropdown><a href="javascript:alert('不要点我');"><span class="am-icon-power-off"></span>
+          清理数据（不要点）</a></li>
+      <li class="am-dropdown" data-am-dropdown><a href="javascript:alert('不要点我');"><span class="am-icon-power-off"></span>
+          查询数据（不要点）</a></li>
+      <li class="am-hide-sm-only"><a href="javascript:alert('不准开');;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span>
+          <span class="admin-fullText">开启全屏</span></a></li>
+    </ul>
+  </div>
+</header>
 <div class="am-cf admin-main">
       <!-- sidebar start -->
       <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
@@ -75,7 +104,7 @@
               <button type="button" class="am-btn am-btn-default am-margin-right" id="my-start">
                 <span class="am-icon-calendar"></span>开始日期
               </button>
-              <span id="my-startDate"></span>
+              <span id="my-startDate">${datefrom}</span>
             </div>
             <div class="am-u-sm-6">
               <button type="button" class="am-btn am-btn-default am-margin-right" id="my-end">
@@ -203,8 +232,10 @@ $(function() {
 							page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
 							onPageChange : function(num, type) {
 								if (type == "change") {
-									//exeData(num, type);
-									window.location.href = "${pageContext.request.contextPath}/points/responserecordspointsagent?page=" + num;
+									var startTime = $("#my-startDate").text();
+								      var entTime = $("#my-endDate").text();
+								      var nick = $("#nick").val();
+								      location.href = "${pageContext.request.contextPath}/points/responserecordspointsagent?page=" + num + "&datefrom=" + startTime + "&dateto=" + entTime + "&usernick=" + nick;
 								}
 							}
 						});

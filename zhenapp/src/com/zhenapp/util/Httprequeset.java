@@ -6,9 +6,9 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 
 public class Httprequeset {
-	private static String url2 = "http://liuliangapp.com/api/tasks/durations";
+	//private static String url2 = "http://liuliangapp.com/api/tasks/durations";
 	private static String url6 = "http://liuliangapp.com/api/url/validate";
-	private static String url8 = "http://liuliangapp.com/api/points";
+	//private static String url8 = "http://liuliangapp.com/api/points";
 	
 	
 	public String Get(String url) throws Exception{

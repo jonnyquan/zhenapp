@@ -29,7 +29,7 @@ public class PriceInfoController {
 	@Autowired
 	private AgentInfoService agentInfoService;
 	
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 	/*
 	 * 查询单价列表 --代理
 	 */
@@ -50,7 +50,7 @@ public class PriceInfoController {
 	public @ResponseBody ModelMap updatepriceByAgentid(HttpSession session,TPriceInfoCustom tPriceInfoCustom) throws Exception{
 		ModelMap map = new ModelMap();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
-		tPriceInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+		tPriceInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
 		tPriceInfoCustom.setUpdatetime(sdf.format(new Date()));
 		if(tPriceInfoCustom.getAgentid() == null || tPriceInfoCustom.getAgentid().equals("")){
 			TAgentInfoCustom tAgentInfoCustom= agentInfoService.findAgentByuserid(tUserInfoCustom.getUserid());
@@ -79,7 +79,7 @@ public class PriceInfoController {
 	public @ResponseBody ModelMap updatepriceByAgentidadmin(HttpSession session,TPriceInfoCustom tPriceInfoCustom,String agentid) throws Exception{
 		ModelMap map = new ModelMap();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
-		tPriceInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+		tPriceInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
 		tPriceInfoCustom.setUpdatetime(sdf.format(new Date()));
 		tPriceInfoCustom.setAgentid(agentid);
 		priceInfoService.updatePriceByagentid(tPriceInfoCustom);
@@ -122,7 +122,7 @@ public class PriceInfoController {
 		ModelAndView mv=new ModelAndView();
 		HttpSession session=request.getSession();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
-		tPriceInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+		tPriceInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
 		tPriceInfoCustom.setUpdatetime(sdf.format(new Date()));
 		if(tPriceInfoCustom.getAgentid() == null || tPriceInfoCustom.getAgentid().equals("")){
 			TAgentInfoCustom tAgentInfoCustom= agentInfoService.findAgentByuserid(tUserInfoCustom.getUserid());

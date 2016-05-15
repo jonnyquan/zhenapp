@@ -31,11 +31,10 @@ import com.zhenapp.service.TbaccountInfoService;
 @Controller
 @RequestMapping(value="/tbaoccount")
 public class TbaccountInfoController {
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 	private static Logger logger = Logger.getLogger(TbaccountInfoController.class);
 	@Autowired
 	private TbaccountInfoService tbaccountInfoService;
-	
 	/*
 	 * 跳转到上传淘宝账号界面
 	 */
@@ -159,10 +158,6 @@ public class TbaccountInfoController {
 		return map;
 	}
 
-	
-	
-	
-	
 	
 	@RequestMapping(value="/findTbaccountBypage")
 	public @ResponseBody ModelMap findTbaccountBypage(Integer page,Integer rows,String tbaccountphoneid,String tbaccountstate) throws Exception{

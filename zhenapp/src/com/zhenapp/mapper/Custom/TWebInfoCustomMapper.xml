@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhenapp.mapper.Custom.TWebInfoCustomMapper" >
- 
-  <select id="findWebBywebwww" resultType="com.zhenapp.po.Custom.TWebInfoCustom" parameterType="String" >
-    select * from t_web_info where webwww = #{webwww,jdbcType=VARCHAR}
-  </select>
   
   <select id="findWebByAgentid" parameterType="String" resultType="com.zhenapp.po.Custom.TWebInfoCustom">
-	select * from t_web_info where agentid = #{agentid,jdbcType=VARCHAR}
+	select * from t_web_info where agentid = #{agentid}
   </select>
-  
   
   <update id="updateWebByAgentid" parameterType="com.zhenapp.po.Custom.TWebInfoCustom">
 	update t_web_info
@@ -20,7 +15,11 @@
       Carousel03 = #{carousel03,jdbcType=VARCHAR},
       QQ = #{qq,jdbcType=VARCHAR},
       bg01 = #{bg01,jdbcType=VARCHAR},
-      bg02 = #{bg02,jdbcType=VARCHAR},
+      bg02 = #{bg02,jdbcType=VARCHAR}, 
+      qqgroup = #{qqgroup}, 
+      wechat = #{wechat}, 
+      record = #{record}, 
+      alipay = #{alipay}, 
       updateuser = #{updateuser,jdbcType=VARCHAR},
       updatetime = #{updatetime,jdbcType=VARCHAR}
     where agentid = #{agentid,jdbcType=VARCHAR}
@@ -28,13 +27,13 @@
   
   <insert id="saveWebInfo" parameterType="com.zhenapp.po.Custom.TWebInfoCustom" >
     insert into t_web_info ( webid, agentid, 
-      webwww, logo, Carousel01, 
+      logo, Carousel01, 
       Carousel02, Carousel03, QQ, 
       bg01, bg02, createuser, 
       createtime, updateuser, updatetime
       )
     values ( #{webid,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
-      #{webwww,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, #{carousel01,jdbcType=VARCHAR}, 
+       #{logo,jdbcType=VARCHAR}, #{carousel01,jdbcType=VARCHAR}, 
       #{carousel02,jdbcType=VARCHAR}, #{carousel03,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
       #{bg01,jdbcType=VARCHAR}, #{bg02,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}

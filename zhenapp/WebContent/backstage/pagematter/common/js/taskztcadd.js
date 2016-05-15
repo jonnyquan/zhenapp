@@ -91,17 +91,12 @@ var myDate = new Date();
 			invalidMessage : '直通车图片地址不得为空',
 		});
 		//宝贝标题验证
-		$('#tasktitle').validatebox({
+		$('#taskprice').validatebox({
 			required : true,
-			missingMessage : '请输入宝贝标题',
-			invalidMessage : '宝贝标题不得为空',
+			missingMessage : '请输入宝贝价格',
+			invalidMessage : '宝贝价格不得为空',
 		});
-		//无线端标题验证
-		$('#taskwirelesstitle').validatebox({
-			required : true,
-			missingMessage : '请输入无线端标题',
-			invalidMessage : '无线端标题不得为空',
-		});
+		
 		
 		/*
 		发布流量
@@ -125,18 +120,13 @@ var myDate = new Date();
 				});
 				return false;
 			}
-			if (!$('#tasktitle').validatebox('isValid')) {
-				$.messager.alert('消息提示', '请输入标题!', 'info', function () {
-					$('#tasktitle').focus();
+			if (!$('#taskprice').validatebox('isValid')) {
+				$.messager.alert('消息提示', '请输入宝贝价格!', 'info', function () {
+					$('#taskprice').focus();
 				});
 				return false;
 			}
-			if (!$('#taskwirelesstitle').validatebox('isValid')) {
-				$.messager.alert('消息提示', '请输入无线端标题!', 'info', function () {
-					$('#taskwirelesstitle').focus();
-				});
-				return false;
-			}
+			
 			if(parseInt($('#collectioncount').val())>parseInt($('#flowcount').val())){
 				$.messager.alert('消息提示', '发布的收藏数必须小于或等于流量数!', 'info', function () {
 					alert("流量数"+$('#flowcount').val());
@@ -211,8 +201,7 @@ var myDate = new Date();
 				type : "POST",
 				data : {
 					taskkeynum : $("#taskkeynum").val(),
-					tasktitle : $("#tasktitle").val(),
-					taskwirelesstitle : $("#taskwirelesstitle").val(),
+					taskprice : $("#taskprice").val(),
 					taskkeywords : taskkeywords.join('===='),
 					taskimgztc : $("#taskimgztc").val(),
 					tasktype:"33",

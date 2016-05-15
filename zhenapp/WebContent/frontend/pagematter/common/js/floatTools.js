@@ -10,6 +10,7 @@ var floatTools = '<div class="floatTools clearfix">\
 	<li><a target="_blank" href="tencent://message/?uin=5731126&Site=&Menu=yes" title="点击这里给我发消息">流量客服</a></li>\
 	<li><a target="_blank" href="tencent://message/?uin=731004&Site=&Menu=yes" title="点击这里给我发消息">技术咨询</a></li>\
 	<li><a target="_blank" href="tencent://message/?uin=46497161&Site=&Menu=yes" title="点击这里给我发消息">流量托管</a></li>\
+	<li> <a href="http://www.97zzw.com" title="微信二维码" class="wx" target="_blank">微信二维码</a></li>\
 	<li class="call"><span>服务时间: 9:00-17:00</span> </li>\
 	</ul>\
 	</div>\

@@ -83,4 +83,11 @@ public class TaskInfoServiceImp implements TaskInfoService {
 		return tTaskInfoCustomMapper.findTaskInfoByTaskid(taskid);
 	}
 
+	@Override
+	public List<TTaskInfoCustom> findTaskInfoByTaskstate(
+			HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskInfoCustomMapper.findTaskInfoByTaskstate(hashmap);
+	}
+
 }

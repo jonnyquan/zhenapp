@@ -40,7 +40,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 <script src="${pageContext.request.contextPath}/bootstrap/js/jqPaginator.min.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/bootstrap/js/myPage.js" type="text/javascript"></script>
-<title>电商干货 - 真流量</title>
+<title>电商干货 详情- 真流量</title>
+
+<style type="text/css">
+.webHeader .logo a {
+	display: block;
+	width: 280px;
+	height: 80px;
+	background: url("${pageContext.request.contextPath}/frontend/pagematter/common/img/logo.png") no-repeat;
+	text-indent: -99999px;
+}
+</style>
 </head>
 
 <body>

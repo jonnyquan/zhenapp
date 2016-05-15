@@ -59,4 +59,16 @@ public class TaskDetailInfoServiceImp implements TaskDetailInfoService {
 		// TODO Auto-generated method stub
 		return tTaskDetailinfoCustomMapper.findTaskDetailTotalByPage(hashmap);
 	}
+	@Override
+	public int updateTaskDetailstateByTaskidAndoldstate(
+			HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskDetailinfoCustomMapper.updateTaskDetailstateByTaskidAndoldstate(hashmap);
+	}
+	@Override
+	public int updateTaskDetailresultByid(HashMap<String, Object> hashmap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskDetailinfoCustomMapper.updateTaskDetailresultByid(hashmap);
+	}
 }

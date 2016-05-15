@@ -30,7 +30,7 @@ import com.zhenapp.service.UserInfoService;
 @RequestMapping(value="/points")
 public class PointsInfoController {
 	
-	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 	
 	@Autowired
 	private PointsInfoService pointsInfoService;
@@ -46,7 +46,7 @@ public class PointsInfoController {
 	@RequestMapping(value="/responsebuypoints")
 	public ModelAndView responsebuypoints() throws Exception{
 		ModelAndView mv = new ModelAndView();
-		List<TComboInfoCustom> tComboInfoCustomlist = comboInfoService .findAllCombo();
+		List<TComboInfoCustom> tComboInfoCustomlist = comboInfoService.findAllCombo();
 		mv.addObject("tComboInfoCustomlist", tComboInfoCustomlist);
 		mv.setViewName("/backstage/points/buypoints.jsp");
 		return mv;
@@ -87,7 +87,7 @@ public class PointsInfoController {
 	 * 跳转到充值记录界面--代理
 	 */
 	@RequestMapping(value="/responseconsumeagent")
-	public ModelAndView responseconsumeagent(HttpSession session,Integer page,Integer rows) throws Exception{
+	public ModelAndView responseconsumeagent(HttpSession session,Integer page,Integer rows,String datefrom,String dateto,String usernick,String rechargeid) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		HashMap<String, Object> pagemap= new HashMap<String, Object>();
@@ -97,15 +97,20 @@ public class PointsInfoController {
 		rows = 10;
 		pagemap.put("page", (page - 1) * rows);
 		pagemap.put("rows", rows);
-		List<TRechargeInfoCustom> tRechargeInfoCustomlist = new ArrayList<TRechargeInfoCustom>();
-		int total = 0;
+		if(datefrom != null && !datefrom.equals("")){
+			pagemap.put("datefrom", datefrom.replace("-", "")+"000000");
+		}
+		if(dateto != null && !dateto.equals("")){
+			pagemap.put("dateto", dateto.replace("-", "")+"000000");
+		}
+		pagemap.put("usernick", usernick);
+		pagemap.put("rechargeid", rechargeid);
 		/*
 		* 代理用户
 		*/
 		pagemap.put("userid", tUserInfoCustom.getUserid());
-		total = rechargeInfoService.findTotalRechargeinfoByUserAndpage(pagemap);
-		tRechargeInfoCustomlist = rechargeInfoService.findRechargeinfoByUserAndpage(pagemap);
-		
+		int total = rechargeInfoService.findTotalRechargeinfoByUserAndpage(pagemap);
+		List<TRechargeInfoCustom> tRechargeInfoCustomlist = rechargeInfoService.findRechargeinfoByUserAndpage(pagemap);
 		mv.addObject("total",total);
 		mv.addObject("pagenum", page);
 		mv.addObject("tRechargeInfoCustomlist",tRechargeInfoCustomlist);
@@ -126,6 +131,7 @@ public class PointsInfoController {
 		rows = 10;
 		pagemap.put("page", (page - 1) * rows);
 		pagemap.put("rows", rows);
+		
 		if(datefrom != null && !datefrom.equals("")){
 			pagemap.put("datefrom", datefrom.replace("-", ""));
 		}
@@ -140,17 +146,17 @@ public class PointsInfoController {
 				pagemap.put("createuser", "没有该用户名");
 			}
 		}
-		List<TPointsInfoCustom> tPointsInfoCustomlist = new ArrayList<TPointsInfoCustom>();
-		int total = 0;
 		/*
 		* 代理用户
 		*/
 		pagemap.put("userid", tUserInfoCustomsession.getUserid());
-		tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPageandRole(pagemap);
-		total = pointsInfoService.findPointsCountsByPageandRole(pagemap);
-		
+		List<TPointsInfoCustom> tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPageandRole(pagemap);
+		int total = pointsInfoService.findPointsCountsByPageandRole(pagemap);
 		mv.addObject("total",total);
 		mv.addObject("pagenum", page);
+		mv.addObject("datefrom",datefrom);
+		mv.addObject("dateto",dateto);
+		mv.addObject("usernick",usernick);
 		mv.addObject("tPointsInfoCustomlist",tPointsInfoCustomlist);
 		mv.setViewName("/backstage/agent/listcoin.jsp");
 		return mv;
@@ -171,30 +177,12 @@ public class PointsInfoController {
 		rows = 10;
 		pagemap.put("page", (page - 1) * rows);
 		pagemap.put("rows", rows);
-		
-		List<TPointsInfoCustom> tPointsInfoCustomlist = new ArrayList<TPointsInfoCustom>();
-		int total = 0;
-		if(tUserInfoCustom.getUserroleid()==1){
-			/*
-			 * 系统管理员
-			 */
-			tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPage(pagemap);
-			total = pointsInfoService.findPointsCountsByPage(pagemap);
-		}else if(tUserInfoCustom.getUserroleid()==2){
-			/*
-			 * 代理用户
-			 */
-			pagemap.put("userid", tUserInfoCustom.getUserid());
-			tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPageandRole(pagemap);
-			total = pointsInfoService.findPointsCountsByPageandRole(pagemap);
-		}else{
-			/*
-			 * 普通用户
-			 */
-			pagemap.put("createuser", tUserInfoCustom.getUserid());
-			tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPage(pagemap);
-			total = pointsInfoService.findPointsCountsByPage(pagemap);
-		}
+		/*
+		 * 普通用户
+		 */
+		pagemap.put("createuser", tUserInfoCustom.getUserid());
+		List<TPointsInfoCustom> tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPage(pagemap);
+		int total = pointsInfoService.findPointsCountsByPage(pagemap);
 		mv.addObject("total",total);
 		mv.addObject("pagenum", page);
 		mv.addObject("tPointsInfoCustomlist",tPointsInfoCustomlist);
@@ -223,27 +211,13 @@ public class PointsInfoController {
 		pagemap.put("page", (page - 1) * rows);
 		pagemap.put("rows", rows);
 		int total = 0;
-		if(tUserInfoCustom.getUserroleid()==1){
-			/*
-			 * 系统管理员
-			 */
-			total = rechargeInfoService.findTotalRechargeinfoByUserAndpage(pagemap);
-			tRechargeInfoCustomlist = rechargeInfoService.findRechargeinfoByUserAndpage(pagemap);
-		}else if(tUserInfoCustom.getUserroleid()==2){
-			/*
-			 * 代理用户
-			 */
-			pagemap.put("userid", tUserInfoCustom.getUserid());
-			total = rechargeInfoService.findTotalRechargeinfoByRoleAndpage(pagemap);
-			tRechargeInfoCustomlist = rechargeInfoService.findRechargeinfoByRoleAndpage(pagemap);
-		}else{
-			/*
-			 * 普通用户
-			 */
-			pagemap.put("createuser", tUserInfoCustom.getUserid());
-			total = rechargeInfoService.findTotalRechargeinfoByUserAndpage(pagemap);
-			tRechargeInfoCustomlist = rechargeInfoService.findRechargeinfoByUserAndpage(pagemap);
-		}
+		/*
+		 * 普通用户
+		 */
+		pagemap.put("createuser", tUserInfoCustom.getUserid());
+		total = rechargeInfoService.findTotalRechargeinfoByUserAndpage(pagemap);
+		tRechargeInfoCustomlist = rechargeInfoService.findRechargeinfoByUserAndpage(pagemap);
+
 		mv.addObject("total",total);
 		mv.addObject("pagenum", page);
 		mv.addObject("tRechargeInfoCustomlist", tRechargeInfoCustomlist);

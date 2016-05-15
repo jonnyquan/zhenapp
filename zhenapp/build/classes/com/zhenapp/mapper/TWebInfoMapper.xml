@@ -5,7 +5,6 @@
     <id column="webpk" property="webpk" jdbcType="INTEGER" />
     <result column="webid" property="webid" jdbcType="VARCHAR" />
     <result column="agentid" property="agentid" jdbcType="VARCHAR" />
-    <result column="webwww" property="webwww" jdbcType="VARCHAR" />
     <result column="logo" property="logo" jdbcType="VARCHAR" />
     <result column="Carousel01" property="carousel01" jdbcType="VARCHAR" />
     <result column="Carousel02" property="carousel02" jdbcType="VARCHAR" />
@@ -13,7 +12,7 @@
     <result column="QQ" property="qq" jdbcType="VARCHAR" />
     <result column="qqgroup" property="qqgroup" jdbcType="VARCHAR" />
     <result column="wechat" property="wechat" jdbcType="VARCHAR" />
-    <result column="archival" property="archival" jdbcType="VARCHAR" />
+    <result column="record" property="record" jdbcType="VARCHAR" />
     <result column="alipay" property="alipay" jdbcType="VARCHAR" />
     <result column="bg01" property="bg01" jdbcType="VARCHAR" />
     <result column="bg02" property="bg02" jdbcType="VARCHAR" />
@@ -81,8 +80,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    webpk, webid, agentid, webwww, logo, Carousel01, Carousel02, Carousel03, QQ, qqgroup, 
-    wechat, archival, alipay, bg01, bg02, createuser, createtime, updateuser, updatetime
+    webpk, webid, agentid, logo, Carousel01, Carousel02, Carousel03, QQ, qqgroup, wechat, 
+    record, alipay, bg01, bg02, createuser, createtime, updateuser, updatetime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TWebInfoExample" >
     select
@@ -116,19 +115,19 @@
   </delete>
   <insert id="insert" parameterType="com.zhenapp.po.TWebInfo" >
     insert into t_web_info (webpk, webid, agentid, 
-      webwww, logo, Carousel01, 
-      Carousel02, Carousel03, QQ, 
-      qqgroup, wechat, archival, 
-      alipay, bg01, bg02, 
-      createuser, createtime, updateuser, 
-      updatetime)
+      logo, Carousel01, Carousel02, 
+      Carousel03, QQ, qqgroup, 
+      wechat, record, alipay, 
+      bg01, bg02, createuser, 
+      createtime, updateuser, updatetime
+      )
     values (#{webpk,jdbcType=INTEGER}, #{webid,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
-      #{webwww,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, #{carousel01,jdbcType=VARCHAR}, 
-      #{carousel02,jdbcType=VARCHAR}, #{carousel03,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
-      #{qqgroup,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, #{archival,jdbcType=VARCHAR}, 
-      #{alipay,jdbcType=VARCHAR}, #{bg01,jdbcType=VARCHAR}, #{bg02,jdbcType=VARCHAR}, 
-      #{createuser,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, 
-      #{updatetime,jdbcType=VARCHAR})
+      #{logo,jdbcType=VARCHAR}, #{carousel01,jdbcType=VARCHAR}, #{carousel02,jdbcType=VARCHAR}, 
+      #{carousel03,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{qqgroup,jdbcType=VARCHAR}, 
+      #{wechat,jdbcType=VARCHAR}, #{record,jdbcType=VARCHAR}, #{alipay,jdbcType=VARCHAR}, 
+      #{bg01,jdbcType=VARCHAR}, #{bg02,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.zhenapp.po.TWebInfo" >
     insert into t_web_info
@@ -141,9 +140,6 @@
       </if>
       <if test="agentid != null" >
         agentid,
-      </if>
-      <if test="webwww != null" >
-        webwww,
       </if>
       <if test="logo != null" >
         logo,
@@ -166,8 +162,8 @@
       <if test="wechat != null" >
         wechat,
       </if>
-      <if test="archival != null" >
-        archival,
+      <if test="record != null" >
+        record,
       </if>
       <if test="alipay != null" >
         alipay,
@@ -201,9 +197,6 @@
       <if test="agentid != null" >
         #{agentid,jdbcType=VARCHAR},
       </if>
-      <if test="webwww != null" >
-        #{webwww,jdbcType=VARCHAR},
-      </if>
       <if test="logo != null" >
         #{logo,jdbcType=VARCHAR},
       </if>
@@ -225,8 +218,8 @@
       <if test="wechat != null" >
         #{wechat,jdbcType=VARCHAR},
       </if>
-      <if test="archival != null" >
-        #{archival,jdbcType=VARCHAR},
+      <if test="record != null" >
+        #{record,jdbcType=VARCHAR},
       </if>
       <if test="alipay != null" >
         #{alipay,jdbcType=VARCHAR},
@@ -269,9 +262,6 @@
       <if test="record.agentid != null" >
         agentid = #{record.agentid,jdbcType=VARCHAR},
       </if>
-      <if test="record.webwww != null" >
-        webwww = #{record.webwww,jdbcType=VARCHAR},
-      </if>
       <if test="record.logo != null" >
         logo = #{record.logo,jdbcType=VARCHAR},
       </if>
@@ -293,8 +283,8 @@
       <if test="record.wechat != null" >
         wechat = #{record.wechat,jdbcType=VARCHAR},
       </if>
-      <if test="record.archival != null" >
-        archival = #{record.archival,jdbcType=VARCHAR},
+      <if test="record.record != null" >
+        record = #{record.record,jdbcType=VARCHAR},
       </if>
       <if test="record.alipay != null" >
         alipay = #{record.alipay,jdbcType=VARCHAR},
@@ -327,7 +317,6 @@
     set webpk = #{record.webpk,jdbcType=INTEGER},
       webid = #{record.webid,jdbcType=VARCHAR},
       agentid = #{record.agentid,jdbcType=VARCHAR},
-      webwww = #{record.webwww,jdbcType=VARCHAR},
       logo = #{record.logo,jdbcType=VARCHAR},
       Carousel01 = #{record.carousel01,jdbcType=VARCHAR},
       Carousel02 = #{record.carousel02,jdbcType=VARCHAR},
@@ -335,7 +324,7 @@
       QQ = #{record.qq,jdbcType=VARCHAR},
       qqgroup = #{record.qqgroup,jdbcType=VARCHAR},
       wechat = #{record.wechat,jdbcType=VARCHAR},
-      archival = #{record.archival,jdbcType=VARCHAR},
+      record = #{record.record,jdbcType=VARCHAR},
       alipay = #{record.alipay,jdbcType=VARCHAR},
       bg01 = #{record.bg01,jdbcType=VARCHAR},
       bg02 = #{record.bg02,jdbcType=VARCHAR},
@@ -355,9 +344,6 @@
       </if>
       <if test="agentid != null" >
         agentid = #{agentid,jdbcType=VARCHAR},
-      </if>
-      <if test="webwww != null" >
-        webwww = #{webwww,jdbcType=VARCHAR},
       </if>
       <if test="logo != null" >
         logo = #{logo,jdbcType=VARCHAR},
@@ -380,8 +366,8 @@
       <if test="wechat != null" >
         wechat = #{wechat,jdbcType=VARCHAR},
       </if>
-      <if test="archival != null" >
-        archival = #{archival,jdbcType=VARCHAR},
+      <if test="record != null" >
+        record = #{record,jdbcType=VARCHAR},
       </if>
       <if test="alipay != null" >
         alipay = #{alipay,jdbcType=VARCHAR},
@@ -411,7 +397,6 @@
     update t_web_info
     set webid = #{webid,jdbcType=VARCHAR},
       agentid = #{agentid,jdbcType=VARCHAR},
-      webwww = #{webwww,jdbcType=VARCHAR},
       logo = #{logo,jdbcType=VARCHAR},
       Carousel01 = #{carousel01,jdbcType=VARCHAR},
       Carousel02 = #{carousel02,jdbcType=VARCHAR},
@@ -419,7 +404,7 @@
       QQ = #{qq,jdbcType=VARCHAR},
       qqgroup = #{qqgroup,jdbcType=VARCHAR},
       wechat = #{wechat,jdbcType=VARCHAR},
-      archival = #{archival,jdbcType=VARCHAR},
+      record = #{record,jdbcType=VARCHAR},
       alipay = #{alipay,jdbcType=VARCHAR},
       bg01 = #{bg01,jdbcType=VARCHAR},
       bg02 = #{bg02,jdbcType=VARCHAR},

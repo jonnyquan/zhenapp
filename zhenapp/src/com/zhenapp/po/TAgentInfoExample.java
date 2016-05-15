@@ -514,143 +514,143 @@ public class TAgentInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andAgentwwwIsNull() {
-            addCriterion("agentwww is null");
+        public Criteria andDomainIsNull() {
+            addCriterion("domain is null");
             return (Criteria) this;
         }
 
-        public Criteria andAgentwwwIsNotNull() {
-            addCriterion("agentwww is not null");
+        public Criteria andDomainIsNotNull() {
+            addCriterion("domain is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAgentwwwEqualTo(String value) {
-            addCriterion("agentwww =", value, "agentwww");
+        public Criteria andDomainEqualTo(String value) {
+            addCriterion("domain =", value, "domain");
             return (Criteria) this;
         }
 
-        public Criteria andAgentwwwNotEqualTo(String value) {
-            addCriterion("agentwww <>", value, "agentwww");
+        public Criteria andDomainNotEqualTo(String value) {
+            addCriterion("domain <>", value, "domain");
             return (Criteria) this;
         }
 
-        public Criteria andAgentwwwGreaterThan(String value) {
-            addCriterion("agentwww >", value, "agentwww");
+        public Criteria andDomainGreaterThan(String value) {
+            addCriterion("domain >", value, "domain");
             return (Criteria) this;
         }
 
-        public Criteria andAgentwwwGreaterThanOrEqualTo(String value) {
-            addCriterion("agentwww >=", value, "agentwww");
+        public Criteria andDomainGreaterThanOrEqualTo(String value) {
+            addCriterion("domain >=", value, "domain");
             return (Criteria) this;
         }
 
-        public Criteria andAgentwwwLessThan(String value) {
-            addCriterion("agentwww <", value, "agentwww");
+        public Criteria andDomainLessThan(String value) {
+            addCriterion("domain <", value, "domain");
             return (Criteria) this;
         }
 
-        public Criteria andAgentwwwLessThanOrEqualTo(String value) {
-            addCriterion("agentwww <=", value, "agentwww");
+        public Criteria andDomainLessThanOrEqualTo(String value) {
+            addCriterion("domain <=", value, "domain");
             return (Criteria) this;
         }
 
-        public Criteria andAgentwwwLike(String value) {
-            addCriterion("agentwww like", value, "agentwww");
+        public Criteria andDomainLike(String value) {
+            addCriterion("domain like", value, "domain");
             return (Criteria) this;
         }
 
-        public Criteria andAgentwwwNotLike(String value) {
-            addCriterion("agentwww not like", value, "agentwww");
+        public Criteria andDomainNotLike(String value) {
+            addCriterion("domain not like", value, "domain");
             return (Criteria) this;
         }
 
-        public Criteria andAgentwwwIn(List<String> values) {
-            addCriterion("agentwww in", values, "agentwww");
+        public Criteria andDomainIn(List<String> values) {
+            addCriterion("domain in", values, "domain");
             return (Criteria) this;
         }
 
-        public Criteria andAgentwwwNotIn(List<String> values) {
-            addCriterion("agentwww not in", values, "agentwww");
+        public Criteria andDomainNotIn(List<String> values) {
+            addCriterion("domain not in", values, "domain");
             return (Criteria) this;
         }
 
-        public Criteria andAgentwwwBetween(String value1, String value2) {
-            addCriterion("agentwww between", value1, value2, "agentwww");
+        public Criteria andDomainBetween(String value1, String value2) {
+            addCriterion("domain between", value1, value2, "domain");
             return (Criteria) this;
         }
 
-        public Criteria andAgentwwwNotBetween(String value1, String value2) {
-            addCriterion("agentwww not between", value1, value2, "agentwww");
+        public Criteria andDomainNotBetween(String value1, String value2) {
+            addCriterion("domain not between", value1, value2, "domain");
             return (Criteria) this;
         }
 
-        public Criteria andAgenthttpIsNull() {
-            addCriterion("agenthttp is null");
+        public Criteria andUrlIsNull() {
+            addCriterion("url is null");
             return (Criteria) this;
         }
 
-        public Criteria andAgenthttpIsNotNull() {
-            addCriterion("agenthttp is not null");
+        public Criteria andUrlIsNotNull() {
+            addCriterion("url is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAgenthttpEqualTo(String value) {
-            addCriterion("agenthttp =", value, "agenthttp");
+        public Criteria andUrlEqualTo(String value) {
+            addCriterion("url =", value, "url");
             return (Criteria) this;
         }
 
-        public Criteria andAgenthttpNotEqualTo(String value) {
-            addCriterion("agenthttp <>", value, "agenthttp");
+        public Criteria andUrlNotEqualTo(String value) {
+            addCriterion("url <>", value, "url");
             return (Criteria) this;
         }
 
-        public Criteria andAgenthttpGreaterThan(String value) {
-            addCriterion("agenthttp >", value, "agenthttp");
+        public Criteria andUrlGreaterThan(String value) {
+            addCriterion("url >", value, "url");
             return (Criteria) this;
         }
 
-        public Criteria andAgenthttpGreaterThanOrEqualTo(String value) {
-            addCriterion("agenthttp >=", value, "agenthttp");
+        public Criteria andUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("url >=", value, "url");
             return (Criteria) this;
         }
 
-        public Criteria andAgenthttpLessThan(String value) {
-            addCriterion("agenthttp <", value, "agenthttp");
+        public Criteria andUrlLessThan(String value) {
+            addCriterion("url <", value, "url");
             return (Criteria) this;
         }
 
-        public Criteria andAgenthttpLessThanOrEqualTo(String value) {
-            addCriterion("agenthttp <=", value, "agenthttp");
+        public Criteria andUrlLessThanOrEqualTo(String value) {
+            addCriterion("url <=", value, "url");
             return (Criteria) this;
         }
 
-        public Criteria andAgenthttpLike(String value) {
-            addCriterion("agenthttp like", value, "agenthttp");
+        public Criteria andUrlLike(String value) {
+            addCriterion("url like", value, "url");
             return (Criteria) this;
         }
 
-        public Criteria andAgenthttpNotLike(String value) {
-            addCriterion("agenthttp not like", value, "agenthttp");
+        public Criteria andUrlNotLike(String value) {
+            addCriterion("url not like", value, "url");
             return (Criteria) this;
         }
 
-        public Criteria andAgenthttpIn(List<String> values) {
-            addCriterion("agenthttp in", values, "agenthttp");
+        public Criteria andUrlIn(List<String> values) {
+            addCriterion("url in", values, "url");
             return (Criteria) this;
         }
 
-        public Criteria andAgenthttpNotIn(List<String> values) {
-            addCriterion("agenthttp not in", values, "agenthttp");
+        public Criteria andUrlNotIn(List<String> values) {
+            addCriterion("url not in", values, "url");
             return (Criteria) this;
         }
 
-        public Criteria andAgenthttpBetween(String value1, String value2) {
-            addCriterion("agenthttp between", value1, value2, "agenthttp");
+        public Criteria andUrlBetween(String value1, String value2) {
+            addCriterion("url between", value1, value2, "url");
             return (Criteria) this;
         }
 
-        public Criteria andAgenthttpNotBetween(String value1, String value2) {
-            addCriterion("agenthttp not between", value1, value2, "agenthttp");
+        public Criteria andUrlNotBetween(String value1, String value2) {
+            addCriterion("url not between", value1, value2, "url");
             return (Criteria) this;
         }
 

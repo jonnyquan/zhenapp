@@ -33,7 +33,7 @@ public class phoneapi {
 	private TaskDetailInfoService taskDetailInfoService;
 	@Autowired
 	private TbaccountInfoService tbaccountInfoService;
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 	/*
 	 * 手机端获取任务
 	 * http://120.24.44.130/api/phone/request/task?pid=1
@@ -55,14 +55,23 @@ public class phoneapi {
 			TTaskDetailInfoCustom tTaskDetailInfoCustom = taskDetailInfoService.requesttaskByphoneid(pid);
 			if(tTaskDetailInfoCustom!= null){
 				hashmap.put("taskdetailid", tTaskDetailInfoCustom.getTaskdetailid());
+				hashmap.put("updatetime", sdf.format(new Date()));
+				hashmap.put("updateuser", "api手机端获取");
 				int i =taskDetailInfoService.updateTaskDetailstate(hashmap);
 				if(i > 0){
 					sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustom);
+					/*
+					 * 将返回的字符串更新到数据表中
+					 */
+					hashmap.put("result", sb.toString());
+					hashmap.put("updatetime", sdf.format(new Date()));
+					hashmap.put("updateuser", "api手机端修改字符串");
+					taskDetailInfoService.updateTaskDetailresultByid(hashmap);
 				}else{
-					sb.append("未获取到符合要求的详细任务");
+					sb.append("暂时没有任务");
 				}
 			}else{
-				sb.append("未获取到符合要求的详细任务");
+				sb.append("暂时没有任务");
 			}
 		}
 		String result=sb.toString();
@@ -108,14 +117,16 @@ public class phoneapi {
 			hashmap.put("visit", visit);
 			hashmap.put("collect", collect);
 			hashmap.put("trolley", trolley);
+			hashmap.put("updatetime", sdf.format(new Date()));
+			hashmap.put("updateuser", "api手机端反馈");
 			int i = taskDetailInfoService.updateTaskDetailByPidAndState(hashmap);
 			if(i > 0){
-				map.put("反馈情况", "已更新该手机执行任务状态!");
+				map.put("反馈情况", "已更新!");
 			}else{
-				map.put("反馈情况", "更新该手机执行任务状态失败!");
+				map.put("反馈情况", "更新失败!");
 			}
 		}else{
-			map.put("反馈情况", "该手机编号当前没有正在执行的任务!");
+			map.put("反馈情况", "暂时没有任务!");
 		}
 		return map;
 	}
@@ -156,7 +167,7 @@ public class phoneapi {
 			}
 			tTbaccountInfoCustom.setTbaccounttime(tTbaccountInfoCustom.getTbaccounttime()+1);
 			tTbaccountInfoCustom.setUpdatetime(sdf.format(new Date()));
-			tTbaccountInfoCustom.setUpdateuser("api");
+			tTbaccountInfoCustom.setUpdateuser("api反馈淘宝账号信息");
 			tbaccountInfoService.updateTbaccountByid(tTbaccountInfoCustom);
 			map.put("return", "success");
 		}else{

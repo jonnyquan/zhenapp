@@ -236,6 +236,9 @@
 							<a href="${pageContext.request.contextPath}/points/responsebuypoints" id="purchase"><i class="fa fa-angle-right"></i>购买积分</a>
 						</p>
 						<p>
+							<a href="${pageContext.request.contextPath}/points/responseconsume" id="consume"><i class="fa fa-angle-right"></i>购买记录</a>
+						</p>
+						<p>
 							<a href="${pageContext.request.contextPath}/points/responserecordspoints" id="point"><i class="fa fa-angle-right"></i>积分明细</a>
 						</p>
 					</dd>

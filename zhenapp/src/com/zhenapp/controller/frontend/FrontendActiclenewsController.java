@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zhenapp.po.TElectricityInfo;
 import com.zhenapp.po.Custom.TGuideInfoCustom;
 import com.zhenapp.po.Custom.TelectricityCustom;
 import com.zhenapp.service.ElectrityInfoService;
 import com.zhenapp.service.GuideInfoService;
+import com.zhenapp.test.TextImprot;
 
 @Controller
 @RequestMapping(value="/frontend")
@@ -23,7 +25,9 @@ public class FrontendActiclenewsController {
 	@Autowired
 	private GuideInfoService guideService;
 	
-	
+	/*
+	 * 查询电商信息及新手指引信息  用于电商信息展示
+	 */
 	@RequestMapping(value="/articlenews")
 	public @ResponseBody ModelAndView articlenews(Integer page,Integer rows) throws Exception{
 		ModelAndView mv = new ModelAndView();
@@ -50,7 +54,9 @@ public class FrontendActiclenewsController {
 		return mv;
 	}
 	
-	
+	/*
+	 * 根据主键查询电商信息
+	 */
 	@RequestMapping(value="/articlenewsdetail/{electricitypk}")
 	public @ResponseBody ModelAndView articlenewsdetail(@PathVariable(value = "electricitypk") String electricitypk) throws Exception{
 		ModelAndView mv = new ModelAndView();
@@ -65,6 +71,32 @@ public class FrontendActiclenewsController {
 		mv.addObject("TGuideInfoCustomlist", TGuideInfoCustomlist);
 		mv.addObject("telectricityCustom", telectricityCustom);
 		mv.setViewName("/frontend/articlenewsdetail.jsp");
+		return mv;
+	}
+	
+	/*
+	 * 批量导入流量村的电商信息数据
+	 */
+	@RequestMapping(value = "/insertelectrity")
+	public ModelAndView insertelectrity() throws Exception {
+		ModelAndView mv = new ModelAndView();
+
+		TextImprot textImprot = new TextImprot();
+
+		List<TElectricityInfo> list = textImprot.improt();
+		for (int i = 0; i < list.size(); i++) {
+			TElectricityInfo electricityInfo = list.get(i);
+
+			int j = electrityService.insertElectrity(electricityInfo);
+
+			if (j < 1) {
+				System.out.println("=========================" + j
+						+ "=========================");
+			}
+
+		}
+
+		mv.setViewName("/page/pagestates/info.jsp");
 		return mv;
 	}
 }

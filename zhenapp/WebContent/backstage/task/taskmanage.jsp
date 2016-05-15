@@ -1,10 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -340,75 +339,118 @@ input {
 					</div>
 					<div class="umainbox">
 						<!--main-->
-						<form class="koo_fromBox" action="${pageContext.request.contextPath}/task/responsetaskmanage" method="post">
-							<div class="searchbox ">
-								<div>
-									<label class="form_label">搜索关键字:</label> 
-									<input class="form_input input120" type="text" name="keyword" id="keyword" value="" /> 
-									<label class="form_label">商品标题:</label>
+						<form id="searchform" class="koo_fromBox" action="${pageContext.request.contextPath}/task/responsetaskmanage" method="post">
+							<!--<div class="searchbox ">
+								  <div>
+									<label class="form_label">订单ID:</label>
 									<input class="form_input input120" type="text" name="title" id="title" value="" /> 
-									<label class="form_label">任务状态:</label>
-										<select name="status" id="status">
-											<option selected value="">全部状态</option>
-											<option value="15">待分配</option>
-											<option value="16">运行中</option>
-											<option value="17">已完成</option>											
-											<option value="19">已终止</option>
+									<label class="form_label">宝贝ID:</label>
+									<input class="form_input input120" type="text" name="title" id="title" value="" /> 
+									
+									<label class="form_label">搜索关键字(模糊):</label> 
+									<input class="form_input input120" type="text" name="keyword" id="keyword" value="" /> 
+									<br/>
+									<label class="form_label">任务类型:</label>
+										<select name="tasktype" id="tasktype">
+											<option selected value="">全部类型</option>
+											<option value="33">流量</option>
+											<option value="34">直通车</option>
 										</select> 
 									<label class="form_label">任务开始时间:</label> 
 									<input type="text" name="datefrom" id="datefrom" class="Wdate search_time" onClick="WdatePicker()" value="" /> 
 									<label class="form_label">至</label> 
 									<input type="text" name="dateto" id="dateto" class="Wdate search_time" onClick="WdatePicker()" value="" />
 									<button type="submit" name="submit" class="search_btn">搜索</button>
-								</div>
-							</div>
+								</div>-->
+								<table class="table table-bordered">
+									<tr>
+										<td>
+											<label class="form_label">订单ID:</label>
+											<input class="form_input input120" type="text" name="taskpk" id="taskpk" value="" /> 
+										</td>
+										<td>
+											<label class="form_label">宝贝ID:</label>
+											<input class="form_input input120" type="text" name="taskkeynum" id="taskkeynum" value="" /> 
+										</td>
+										<td>
+											<label class="form_label">搜索关键字(模糊):</label> 
+											<input class="form_input input120" type="text" name="keyword" id="keyword" value="" />
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label class="form_label">任务类型:</label>
+												<select name="tasktype" id="tasktype">
+													<option selected value="">全部类型</option>
+													<option value="33">流量</option>
+													<option value="34">直通车</option>
+												</select> 
+										</td>
+										<td colspan="2">
+											<label class="form_label">任务开始时间:</label> 
+											<input type="text" name="datefrom" id="datefrom" class="Wdate search_time" onClick="WdatePicker()" value="" /> 
+											<label class="form_label">至</label> 
+											<input type="text" name="dateto" id="dateto" class="Wdate search_time" onClick="WdatePicker()" value="" />
+										</td>
+									</tr>
+									<tr>
+										<td colspan="3">
+											<button type="button" id="search" class="btn btn-info">搜索</button>
+											<button type="button" id="delete" class="btn btn-default">删除</button>
+										</td>
+									</tr>
+								</table>
+							
 						</form>
 
 						<div class="tablebox">
-							<table class="tablelist">
+							<table class="table" style="table-layout:fixed;">
 								<thead>
-									<th width="5%">序号</th>
-									<th width="15%">关键字</th>
-									<th width="20%">宝贝标题</th>
-									<th width="10%">任务数</th>
-									<th width="12%">开始时间</th>
-									<th width="8%">状态</th>
-									<th width="15%">备注</th>
-									<th width="15%">操作</th>
+									<tr class="active">
+									  <th style="width:40px;">选择</th>
+						              <th style="width:100px;">订单ID</th>
+						              <th style="width:100px;">宝贝ID</th>
+						              <th style="width:40px;">类型</th>
+						              <th style="width:120px;">关键词</th>
+						              <th style="width:30px;">访</th>
+						              <th style="width:30px;">藏</th>
+						              <th style="width:30px;">购</th>
+						              <th style="width:40px;">完成访问</th>
+						              <th style="width:40px;">完成收藏</th>
+						              <th style="width:40px;">完成加购</th>
+						              <th style="width:40px;">失败</th>
+						              <th style="width:100px;">发布时间</th>
+						              <th style="width:60px;">任务状态</th>
+						              <th>操作</th>
+						            </tr>
 								</thead>
 								<c:if test="${tTaskInfoCustomlist == null}">
 									<tr>
-										<td colspan="8">
+										<td colspan="18">
 											<div class="no_data">暂无任务记录</div>
 										</td>
 									</tr>
 								</c:if>
 								<c:if test="${tTaskInfoCustomlist != null}">
 									<c:forEach items="${tTaskInfoCustomlist}" var="list">
-										<tr>
-											<td >
-												<div class="no_data">${list.taskpk}</div>
-											</td>
-											<td >
-												<div class="no_data">${list.taskkeyword}</div>
-											</td>
-											<td>
-												<div class="no_data">${list.taskid}</div>
-											</td>
-											<td>
-												<div class="no_data">${list.flowcount}</div>
-											</td>
-											<td>
-												<div class="no_data">${list.taskdate}</div>
-											</td>
-											<td>
-												<div class="no_data">${list.taskstate}</div>
-											</td>
-											<td>
-												<div class="no_data">${list.createtime}</div>
-											</td>
-											<td>
-												<div class="no_data">再次发布&nbsp;||&nbsp;<input type="button" class="btn btn-default"  onclick="fn_deleteTaskBypk('${list.taskpk}');" value="删除 "/></div>
+										<tr style="word-wrap:break-word;">
+											<td><input type="checkbox" name="taskpk" value="${list.taskpk}"></td>
+							                <td>${list.taskpk}</td>
+							                <td>${list.taskkeynum}</td>
+							                <td>${list.tasktypename }</td>
+							                <td>${list.taskkeyword}</td>
+							                <td>${list.flowcount }</td>
+							                <td>${list.collectioncount }</td>
+							                <td>${list.shoppingcount }</td>
+							                <td>${list.finishflowcount }</td>
+							                <td>${list.finishcollectioncount }</td>
+							                <td>${list.finishshoppingcount }</td>
+							                <td class="font-red">${list.errorcount}</td>
+							                <td >${list.createtime}</td>
+							                <td>${list.dicinfoname} </td>
+											<td > 
+											  <a onclick="againtask('${list.taskid}')" class="btn btn-success btn-xs">再次发布</a>	<br/>
+											  <a onclick="endtask('${list.taskid}')" class="btn btn-default btn-xs">终止任务</a>				
 											</td>
 										</tr>
 									</c:forEach>
@@ -447,15 +489,61 @@ input {
 			</p>
 		</div>
 	</div>
-	
-	
 <script type="text/javascript">
 ;$(function(){
 	$('#datefrom').datebox();
 	$('#dateto').datebox();
+	
+	$("#search").click(function(){
+		$("#searchform").submit();
+	});
+
+	$("#delete").click(function(){
+		$.messager.confirm('确认','您确认想要删除该条记录吗？',function(b){   
+			 if (b){
+				 var taskpkarr = $("input[name='taskpk']:checked");
+					var taskpks="";
+					for (var i = 0; i < taskpkarr.length; i++) {
+						taskpks = taskpks + taskpkarr[i].value+"==";
+					}
+					window.location.href="${pageContext.request.contextPath}/task/deletetaskByPks/"+taskpks;
+			 }
+		});
+	});
 });
 
-
+	function againtask(taskid){
+		$.ajax({
+			url : "${pageContext.request.contextPath}/task/againtaskBytaskid/"+taskid,
+			type : 'post',
+			success : function (data, response, status) {
+				if (data!=null && data.data=="success") {
+					alert("发布成功！");
+					window.location.href="${pageContext.request.contextPath}/task/responsetaskmanage";
+				} else if(data!=null && data.data=="low") {
+					alert("余额不足,发布失败！");
+				} else if(data!=null && data.data=="refuse") {
+					alert("系统维护暂停任务发布！");
+				} else{
+					alert("任务发布失败,请联系客服！");
+				}
+			}
+		});
+	}
+	function endtask(taskid){
+		$.ajax({
+			url : "${pageContext.request.contextPath}/task/endtaskBytaskid/"+taskid,
+			type : 'post',
+			success : function (data, response, status) {
+				if (data!=null && data.data=="success") {
+					alert("终止任务成功！");
+				} else{
+					alert("终止任务失败,请联系客服！");
+				}
+			}
+		});
+	}
+	
 		var index = Number("${pagenum}");
 		if (index.length < 1) {
 			index = 1;
@@ -470,22 +558,21 @@ input {
 			}
 			$("#countindex").val(countindex);
 			$.jqPaginator('#pagination',
-							{
-								totalPages : parseInt($("#countindex").val()),
-								visiblePages : parseInt($("#visiblePages").val()),
-								currentPage : index,
-								first : '<li class="first"><a href="${pageContext.request.contextPath}/task/responsetaskmanage?page=1">首页</a></li>',
-								prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
-								next : '<li class="next"><a href="javascript:;">下一页</a></li>',
-								last : '<li class="last"><a href="javascript:;">末页</a></li>',
-								page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-								onPageChange : function(num, type) {
-									if (type == "change") {
-										//exeData(num, type);
-										window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanage?page=" + num;
-									}
-								}
-							});
+			{
+				totalPages : parseInt($("#countindex").val()),
+				visiblePages : parseInt($("#visiblePages").val()),
+				currentPage : index,
+				first : '<li class="first"><a href="${pageContext.request.contextPath}/task/responsetaskmanage?page=1">首页</a></li>',
+				prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
+				next : '<li class="next"><a href="javascript:;">下一页</a></li>',
+				last : '<li class="last"><a href="javascript:;">末页</a></li>',
+				page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+				onPageChange : function(num, type) {
+					if (type == "change") {
+						window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanage?page=" + num;
+					}
+				}
+			});
 		}
 		
 		function fn_deleteTaskBypk (obj){
@@ -495,6 +582,7 @@ input {
 			    }
 			});
 		}
+		
 		
 	</script>
 </body>

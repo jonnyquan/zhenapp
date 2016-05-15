@@ -83,31 +83,45 @@
 	</div>
 
 	<div class="am-g" id="module-head" style="margin-bottom: 10px;">
-		<div class="am-u-sm-12 am-u-md-6">
+		<div class="am-u-sm-12 am-u-md-12">
 			<form class="am-form-inline" role="form">
 				<div class="am-form-group">
 					<input type="text" id="pid" class="am-form-field am-input-sm"
 						value="" placeholder="手机号">
 				</div>
-
 				<div class="am-form-group">
 					<input type="text" id="nid" class="am-form-field am-input-sm"
 						value="" placeholder="宝贝id">
 				</div>
 				<div class="am-form-group">
 					<input type="text" id="fid" class="am-form-field am-input-sm"
-						value="730276703649136640" placeholder="订单id">
+						 placeholder="订单id">
 				</div>
 				<div class="am-form-group">
 					<input type="text" id="hours" class="am-form-field am-input-sm"
 						value="" placeholder="时间">
+				</div>
+				<div class="am-form-group">
+						<select name="tasktype" id="tasktype" class="am-form-field am-input-sm">
+							<option selected value="">全部类型</option>
+							<option value="33">流量</option>
+							<option value="34">直通车</option>
+						</select> 
 				</div>
 				<button class="am-btn am-btn-default" id="search" type="button">搜索</button>
 			</form>
 		</div>
 
 	</div>
-
+	<div id="onmousediv">
+		<table class="table">
+			<tr class="info">
+				<td id="omnousetd">
+					
+				</td>
+			</tr>
+		</table>
+	</div>
 	<div class="am-g">
 		<div class="am-u-sm-12">
 			<form class="am-form">
@@ -131,16 +145,16 @@
 					<tbody>
 						<c:if test="${tTaskDetailInfoCustomlist != null }">
 							<c:forEach items="${tTaskDetailInfoCustomlist}" var="list">
-								<tr>
+								<tr onclick="onmouse('${list.resultstr}');">
 									<td>${list.phoneid}</td>
-									<td>${list.taskid}</td>
+									<td>${list.taskdetailid}</td>
 									<td>${list.taskkeynum}</td>
-									<td>${list.isshopping}</td>
-									<td>${list.iscollection}</td>
-									<td>${list.visit}</td>
+									<td>${list.isshoppingname}</td>
+									<td>${list.iscollectionname}</td>
+									<td>${list.visitname}</td>
 									<td>${list.taskhour}</td>
-									<td>${list.collect}</td>
-									<td>${list.trolley}</td>
+									<td>${list.collectname}</td>
+									<td>${list.trolleyname}</td>
 									<td>${list.createtime}</td>
 									<td>${list.updatetime}</td>
 								</tr>
@@ -176,10 +190,16 @@
 					var nid = $("#nid").val();
 					var fid = $("#fid").val();
 					var hours = $("#hours").val();
+					var tasktype= $("#tasktype").val();
+					
 					location.href = "${pageContext.request.contextPath}/task/findtaskdetaillist?phoneid=" + pid
-							+ "&&taskkeynum=" + nid+"&&taskid="+fid+"&&taskhour="+hours;
+							+ "&&taskkeynum=" + nid+"&&taskid="+fid+"&&taskhour="+hours+"&&tasktype="+tasktype;
 				});
 	});
+	
+	function onmouse(obj){
+		$("#omnousetd").html(obj);
+	}
 	
 	  var index = Number("${pagenum}");
 		if (index.length < 1) {
@@ -212,6 +232,7 @@
 								}
 							});
 		}
+		
 </script>
 
     </div>

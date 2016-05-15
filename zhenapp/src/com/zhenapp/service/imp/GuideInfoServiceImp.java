@@ -38,5 +38,11 @@ public class GuideInfoServiceImp implements GuideInfoService {
 		// TODO Auto-generated method stub
 		return tGuideInfoCustomMapper.findGuideBypage(pagemap);
 	}
+
+	@Override
+	public int findTotalGuide() throws Exception {
+		// TODO Auto-generated method stub
+		return tGuideInfoCustomMapper.findTotalGuide();
+	}
 	
 }

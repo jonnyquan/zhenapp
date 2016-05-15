@@ -1,5 +1,6 @@
 package com.zhenapp.po.Custom;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.zhenapp.po.TPointsInfo;
@@ -28,10 +29,15 @@ public class TPointsInfoCustom extends TPointsInfo{
 	
 	
 	public static int cost(TTaskInfoCustom tTaskInfoCustom,TPriceInfoCustom tPriceInfoCustom) throws Exception{
-		Date date = new Date();
-		int hours = date.getHours()+1;
+		//Date date = new Date();
+		//int hours = date.getHours()+1;
+		long curren = System.currentTimeMillis();
+		curren += 60 * 60 * 1000;
+		Date da = new Date(curren);
+		SimpleDateFormat dateFormat = new SimpleDateFormat( "HH");
+		int hours = Integer.parseInt(dateFormat.format(da));
 		int days = DateUtilWxf.getBetweenDays(tTaskInfoCustom.getTaskstartdate().replace("-", ""), tTaskInfoCustom.getTaskenddate().replace("-", ""));
-		String [] taskkeywordarr=tTaskInfoCustom.getTaskkeyword().split("====");
+		//String [] taskkeywordarr=tTaskInfoCustom.getTaskkeyword().split("====");
 		String [] hourarr = tTaskInfoCustom.getTaskhourcounts().split(",");
 		int flowcounts = 0;
 		int subflowcounts = 0;

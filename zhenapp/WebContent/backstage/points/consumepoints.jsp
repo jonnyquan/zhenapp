@@ -164,13 +164,16 @@
 							<a href="${pageContext.request.contextPath}/points/responsebuypoints" id="purchase"><i class="fa fa-angle-right"></i>购买积分</a>
 						</p>
 						<p>
+							<a href="${pageContext.request.contextPath}/points/responseconsume" id="consume"><i class="fa fa-angle-right"></i>购买记录</a>
+						</p>
+						<p>
 							<a href="${pageContext.request.contextPath}/points/responserecordspoints" id="point"><i class="fa fa-angle-right"></i>积分明细</a>
 						</p>
 					</dd>
 				</dl>
 			</div>
 			<script type="text/javascript">
-        $('#point').addClass('hover');
+        $('#consume').addClass('hover');
     </script>
 
 			<div class="rightbox row_r">
@@ -187,6 +190,7 @@
 		                    <thead>
 		                        <th width="15%">套餐名称</th>
 		                        <th width="15%">套餐价格</th>
+		                        <th width="15%">购买状态</th>
 		                        <th>备注说明</th>
 		                        <th width="20%">发生时间</th>
 	                        </thead>
@@ -205,6 +209,9 @@
 		                       			</td>
 				                        <td width="15%">
 											${list.rechargemoney}
+										</td>
+										<td width="15%">
+											${list.rechargestatename}
 										</td>
 				                        <td>
 											${list.rechargemoney}

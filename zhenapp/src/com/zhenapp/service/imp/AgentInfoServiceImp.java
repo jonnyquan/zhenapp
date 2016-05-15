@@ -29,12 +29,6 @@ public class AgentInfoServiceImp implements AgentInfoService{
 	}
 
 	@Override
-	public int deleteAgentByid(String ids) throws Exception {
-		// TODO Auto-generated method stub
-		return tAgentInfoCustomMapper.deleteAgentByid(ids);
-	}
-
-	@Override
 	public TAgentInfoCustom findAgentByuserid(String userid) throws Exception {
 		// TODO Auto-generated method stub
 		return tAgentInfoCustomMapper.findAgentByuserid(userid);
@@ -71,9 +65,9 @@ public class AgentInfoServiceImp implements AgentInfoService{
 	}
 
 	@Override
-	public int updateagentstateByPk(String agentpk) throws Exception {
+	public int updateagentstateByPk(HashMap<String, Object> hashmap) throws Exception {
 		// TODO Auto-generated method stub
-		return tAgentInfoCustomMapper.updateagentstateByPk(agentpk);
+		return tAgentInfoCustomMapper.updateagentstateByPk(hashmap);
 	}
 
 }

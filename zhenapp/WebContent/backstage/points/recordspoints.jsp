@@ -94,26 +94,13 @@
 			</div>
 			<div class="channel row_r">
 				<ul class="clearfix">
-					<li><a
-						href="${pageContext.request.contextPath}/frontend/index"
-						title="电商流量" class="scl1">网站首页</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/frontend/intro"
-						class="scl2">服务介绍</a></li>
-					<li><a href="${pageContext.request.contextPath}/frontend/anli"
-						class="scl3">成功案例</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/frontend/articlenews"
-						class="scl4" title="电商干货">电商干货</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/frontend/articleguide"
-						class="scl5">新手指引</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/frontend/authlogin"
-						class="scl6" title="真流量用户中心">用户中心</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/frontend/about"
-						class="scl7">联系我们</a></li>
+					<li><a href="${pageContext.request.contextPath}/frontend/index" title="电商流量" class="scl1">网站首页</a></li>
+					<li><a href="${pageContext.request.contextPath}/frontend/intro" class="scl2">服务介绍</a></li>
+					<li><a href="${pageContext.request.contextPath}/frontend/anli" class="scl3">成功案例</a></li>
+					<li><a href="${pageContext.request.contextPath}/frontend/articlenews" class="scl4" title="电商干货">电商干货</a></li>
+					<li><a href="${pageContext.request.contextPath}/frontend/articleguide" class="scl5">新手指引</a></li>
+					<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="真流量用户中心">用户中心</a></li>
+					<li><a href="${pageContext.request.contextPath}/frontend/about" class="scl7">联系我们</a></li>
 				</ul>
 			</div>
 		</div>
@@ -162,6 +149,9 @@
 					<dd class="acc">
 						<p>
 							<a href="${pageContext.request.contextPath}/points/responsebuypoints" id="purchase"><i class="fa fa-angle-right"></i>购买积分</a>
+						</p>
+						<p>
+							<a href="${pageContext.request.contextPath}/points/responseconsume" id="consume"><i class="fa fa-angle-right"></i>购买记录</a>
 						</p>
 						<p>
 							<a href="${pageContext.request.contextPath}/points/responserecordspoints" id="point"><i class="fa fa-angle-right"></i>积分明细</a>

@@ -8,7 +8,14 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
   </select>
   
   <select id="findTaskDetailByPage" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom" parameterType="java.util.HashMap">
-	  SELECT a.* FROM t_task_detailinfo a
+	 SELECT a.taskdetailpk, a.taskdetailid, a.taskid, a.taskkeyword, a.searchtype, a.price, a.region, a.isfreeship, 
+    a.istmall, a.iscollection,CASE WHEN a.iscollection='0' THEN '否' ELSE '是' END AS iscollectionname,a.isshopping, CASE WHEN a.isshopping='0' THEN '否' ELSE '是' END AS isshoppingname, a.taskkeynum, a.minpicture, a.maxpicture, a.tasktype, 
+    a.isflow, a.iscreativetitle, a.isshopcollect, a.taskstate, a.taskdate, a.taskhour, a.taskminute, 
+    a.visit,b.dictypename AS visitname ,a.collect,c.dictypename AS collectname, a.trolley, d.dictypename AS trolleyname, a.phoneid, a.subtractpoints, a.resultstr,a.createtime, a.createuser, a.updatetime, 
+    a.updateuser FROM t_task_detailinfo a
+	LEFT JOIN t_data_dic_info b ON a.visit=b.dicinfoid
+	LEFT JOIN t_data_dic_info c ON a.collect=c.dicinfoid
+	LEFT JOIN t_data_dic_info d ON a.trolley=d.dicinfoid
 	  <where>
 	  	<if test="taskid !=null and taskid != ''">
 	  		a.taskid = #{taskid}
@@ -20,7 +27,10 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
 	  		a.phoneid = #{phoneid}
 	  	</if>
 	  	<if test="taskhour !=null and taskhour != ''">
-	  		a.taskhour+0 >= #{taskhour}
+	  		a.taskhour = #{taskhour}
+	  	</if>
+	  	<if test="tasktype !=null and tasktype != ''">
+	  		a.tasktype = #{tasktype}
 	  	</if>
 	  </where>
 	  order by a.phoneid desc limit #{page},#{rows}
@@ -38,7 +48,10 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
 	  		a.phoneid = #{phoneid}
 	  	</if>
 	  	<if test="taskhour !=null and taskhour != ''">
-	  		a.taskhour+0 >= #{taskhour}
+	  		a.taskhour = #{taskhour}
+	  	</if>
+	  	<if test="tasktype !=null and tasktype != ''">
+	  		a.tasktype = #{tasktype}
 	  	</if>
 	  </where>
   </select>
@@ -73,12 +86,20 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
   	update t_task_detailinfo set taskstate = #{taskstate},phoneid = #{phoneid}  where taskdetailid = #{taskdetailid} and phoneid is null
   </update>
   
+  <update id="updateTaskDetailresultByid"  parameterType="java.util.HashMap" >
+  	update t_task_detailinfo set resultstr=#{result},updatetime=#{updatetime},updateuser=#{updateuser} where taskdetailid = #{taskdetailid} and phoneid is not null
+  </update>
+  
+  <update id="updateTaskDetailstateByTaskidAndoldstate" parameterType="java.util.HashMap">
+  	update t_task_detailinfo set taskstate = #{newstate},updatetime=#{updatetime},updateuser=#{updateuser} where taskid = #{taskid}  and taskstate in (${oldstate})
+  </update>
+  
   <update id="updateterminationstate" parameterType="java.util.HashMap">
   	update t_task_detailinfo set taskstate = '23'  where taskid = #{taskid} and phoneid is null and taskstate = '40'
   </update>
   
   <select id="findPointsByteterminationstate" parameterType="String" resultType="int">
-  	select sum(subtractpoints) t_task_detailinfo where taskid = #{taskid} and phoneid is null and taskstate = '23'
+  	select IFNULL(sum(subtractpoints),0) from t_task_detailinfo where taskid = #{taskid} and taskstate = '23'
   </select>
   <select id="findTaskDetailByPidAndState" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
   	select * from t_task_detailinfo where phoneid = #{phoneid} and taskstate = #{taskstate}
@@ -88,7 +109,8 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
   	UPDATE t_task_detailinfo SET visit = (SELECT dicinfoid FROM t_data_dic_info WHERE dictypecode = 'visit' AND dictypename=#{visit}),
   	collect = (SELECT dicinfoid FROM t_data_dic_info WHERE dictypecode = 'collect' AND dictypename=#{collect}),
   	trolley = (SELECT dicinfoid FROM t_data_dic_info WHERE dictypecode = 'trolley' AND dictypename=#{trolley}),
-  	taskstate = #{taskstatenew}
+  	taskstate = #{taskstatenew},
+  	updatetime=#{updatetime},updateuser=#{updateuser}
 	WHERE phoneid =#{phoneid} AND taskstate=#{taskstate}
   </update>
 </mapper>

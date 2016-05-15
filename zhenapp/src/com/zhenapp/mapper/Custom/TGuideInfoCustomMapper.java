@@ -24,4 +24,8 @@ public interface TGuideInfoCustomMapper {
 	 * 分页查询新手指引信息
 	 */
 	public List<TGuideInfoCustom> findGuideBypage(HashMap<String,Object> pagemap) throws Exception;
+	/*
+	 * 查询新手指引信息总条数
+	 */
+	public int findTotalGuide() throws Exception;
 }

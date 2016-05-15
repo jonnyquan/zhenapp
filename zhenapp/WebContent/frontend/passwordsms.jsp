@@ -80,6 +80,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	border-bottom: 1px solid #ed7200;
 	color: #d54308;
 }
+
+
+.webHeader .logo a {
+	display: block;
+	width: 280px;
+	height: 80px;
+	background: url("${pageContext.request.contextPath}/frontend/pagematter/common/img/logo.png") no-repeat;
+	text-indent: -99999px;
+}
 </style>
 
 <title>找回密码 - 真流量</title>

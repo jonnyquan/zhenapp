@@ -77,6 +77,8 @@ public class ComboInfoController {
 			tComboInfoCustom.setCreatetime(sdf.format(new Date()));
 			comboInfoService.insertComboto(tComboInfoCustom);
 		}else{
+			tComboInfoCustom.setUpdatetime(sdf.format(new Date()));
+			tComboInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
 			comboInfoService.updateCombotoByid(tComboInfoCustom);
 		}
 		map.put("ec", 0);
@@ -97,8 +99,6 @@ public class ComboInfoController {
 		map.put("ec", 0);
 		return map;
 	}
-	
-	
 	
 	/*
 	 * 根据登录代理id查询套餐信息-----系统管理员

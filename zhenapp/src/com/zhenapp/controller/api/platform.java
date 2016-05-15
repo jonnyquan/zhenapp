@@ -32,7 +32,7 @@ import com.zhenapp.util.StringUtilWxf;
 @Controller
 @RequestMapping(value="/api/platform")
 public class platform {
-	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 	@Autowired
 	private UserInfoService userInfoService;
 	@Autowired
@@ -269,6 +269,109 @@ public class platform {
 			map.put("msg", "用户名错误");
 		}
 		
+		return map;
+	}
+	
+	/*
+	 * 每10分钟执行一次判断是否有任务执行完成        修改任务状态,积分处理
+	 */
+	@RequestMapping(value="/api/cyclecheckTask")
+	public @ResponseBody ModelMap cyclecheckTask() throws Exception{
+		ModelMap map = new ModelMap();
+		/*
+		 * 任务状态为运行中 16并且详情任务中状态不等于运行中   的总数等于任务流量总数
+		 */
+		//HashMap<String, Object> hashmap=new HashMap<String, Object>();
+		//List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findTaskInfoByTaskstate(hashmap);
+		
+		
+		
+		return map;	
+	}
+		
+	
+	/*
+	 * 查询今天之前的任务      每天0点1分执行
+	 */
+	@RequestMapping(value="/api/updateTaskstateByTime")
+	public @ResponseBody ModelMap updateTaskstateByTime() throws Exception{
+		ModelMap map = new ModelMap();
+		/*
+		 * 还在执行中的任务   变成已完成
+		 * 状态为待分配（15） 和运行中（16）的任务
+		 */
+		HashMap<String, Object> hashmap=new HashMap<String, Object>();
+		hashmap.put("taskstate", "15,16");
+		List<TTaskInfoCustom> tTaskInfoCustomlistfinish = taskInfoService.findTaskInfoByTaskstate(hashmap);
+		hashmap.put("newstate", "21");
+		hashmap.put("oldstate", "20,40");
+		hashmap.put("taskstate", "17");
+		for (int i = 0; i < tTaskInfoCustomlistfinish.size(); i++) {
+			TTaskInfoCustom tTaskInfoCustom = tTaskInfoCustomlistfinish.get(i);
+			/*
+			 * 将每个任务分配好的详情任务给设置成已完成
+			 */
+			hashmap.put("taskid", tTaskInfoCustom.getTaskid());
+			hashmap.put("updatetime", sdf.format(new Date()));
+			hashmap.put("updateuser", "系统凌晨0点1分执行");
+			taskDetailInfoService.updateTaskDetailstateByTaskidAndoldstate(hashmap);//将所有带获取和执行中的详细任务设置为已完成
+			taskInfoService.updateTaskstate(hashmap);//将该任务设置为已完成
+		}
+		/*
+		 * 终止中的任务变成已终止      并且给用户返还积分
+		 * 状态为终止中（18）的任务
+		 */
+		hashmap.put("taskstate", "18");
+		List<TTaskInfoCustom> tTaskInfoCustomlistend = taskInfoService.findTaskInfoByTaskstate(hashmap);
+		hashmap.put("newstate", "23");
+		hashmap.put("oldstate", "20");
+		hashmap.put("taskstate", "18");
+		for (int i = 0; i < tTaskInfoCustomlistend.size(); i++) {
+			TTaskInfoCustom tTaskInfoCustom = tTaskInfoCustomlistfinish.get(i);
+			/*
+			 * 将状态为终止中的任务中
+			 * 详情任务状态为执行中
+			 * 修改为已终止状态
+			 * 并返还积分
+			 */
+			hashmap.put("taskid", tTaskInfoCustom.getTaskid());
+			hashmap.put("updatetime", sdf.format(new Date()));
+			hashmap.put("updateuser", "系统凌晨0点1分执行");
+			taskDetailInfoService.updateTaskDetailstateByTaskidAndoldstate(hashmap);
+			taskInfoService.updateTaskstate(hashmap);//将该任务设置为已终止
+			int points = taskDetailInfoService.findPointsByteterminationstate(tTaskInfoCustom.getTaskid());
+			List<TUserInfoCustom> tUserInfoCustomlist = userInfoService.findUserBynick(tTaskInfoCustom.getCreateuser());
+				if(tUserInfoCustomlist != null && tUserInfoCustomlist.size()==1){
+					TUserInfoCustom tUserInfoCustom = tUserInfoCustomlist.get(0);
+				/*
+				 * 插入账户明细
+				 */
+				TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
+				tPointsInfoCustom.setCreateuser("系统过凌晨处理");
+				tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
+				tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
+				tPointsInfoCustom.setUpdateuser("sys");
+				tPointsInfoCustom.setPointreason("终止任务,返回积分："+points);
+				tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
+				tPointsInfoCustom.setPoints(tUserInfoCustom.getPoints()+points);
+				tPointsInfoCustom.setPointstype("28");
+				tPointsInfoCustom.setPointsupdate(points);
+				tPointsInfoCustom.setTaskid("0");
+				tPointsInfoCustom.setUserid(tUserInfoCustom.getUserid());
+				pointsInfoService.savePoints(tPointsInfoCustom);
+				/*
+				 * 修改用户积分
+				 */
+				tUserInfoCustom.setPoints(tUserInfoCustom.getPoints()+points);
+				tUserInfoCustom.setUpdatetime(sdf.format(new Date()));
+				tUserInfoCustom.setUpdateuser("系统过凌晨处理修改用户积分");
+				userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
+				
+				map.put("state", "处理成功");
+			}else{
+				map.put("state", "处理失败,创建任务人用户名不存在或者不唯一");
+			}
+		}
 		return map;
 	}
 }

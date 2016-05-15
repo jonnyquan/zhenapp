@@ -1974,6 +1974,76 @@ public class TTaskDetailinfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andResultstrIsNull() {
+            addCriterion("resultstr is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andResultstrIsNotNull() {
+            addCriterion("resultstr is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andResultstrEqualTo(String value) {
+            addCriterion("resultstr =", value, "resultstr");
+            return (Criteria) this;
+        }
+
+        public Criteria andResultstrNotEqualTo(String value) {
+            addCriterion("resultstr <>", value, "resultstr");
+            return (Criteria) this;
+        }
+
+        public Criteria andResultstrGreaterThan(String value) {
+            addCriterion("resultstr >", value, "resultstr");
+            return (Criteria) this;
+        }
+
+        public Criteria andResultstrGreaterThanOrEqualTo(String value) {
+            addCriterion("resultstr >=", value, "resultstr");
+            return (Criteria) this;
+        }
+
+        public Criteria andResultstrLessThan(String value) {
+            addCriterion("resultstr <", value, "resultstr");
+            return (Criteria) this;
+        }
+
+        public Criteria andResultstrLessThanOrEqualTo(String value) {
+            addCriterion("resultstr <=", value, "resultstr");
+            return (Criteria) this;
+        }
+
+        public Criteria andResultstrLike(String value) {
+            addCriterion("resultstr like", value, "resultstr");
+            return (Criteria) this;
+        }
+
+        public Criteria andResultstrNotLike(String value) {
+            addCriterion("resultstr not like", value, "resultstr");
+            return (Criteria) this;
+        }
+
+        public Criteria andResultstrIn(List<String> values) {
+            addCriterion("resultstr in", values, "resultstr");
+            return (Criteria) this;
+        }
+
+        public Criteria andResultstrNotIn(List<String> values) {
+            addCriterion("resultstr not in", values, "resultstr");
+            return (Criteria) this;
+        }
+
+        public Criteria andResultstrBetween(String value1, String value2) {
+            addCriterion("resultstr between", value1, value2, "resultstr");
+            return (Criteria) this;
+        }
+
+        public Criteria andResultstrNotBetween(String value1, String value2) {
+            addCriterion("resultstr not between", value1, value2, "resultstr");
+            return (Criteria) this;
+        }
+
         public Criteria andCreatetimeIsNull() {
             addCriterion("createtime is null");
             return (Criteria) this;

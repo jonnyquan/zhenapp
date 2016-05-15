@@ -8,8 +8,8 @@
     <result column="agentperson" property="agentperson" jdbcType="VARCHAR" />
     <result column="agentphone" property="agentphone" jdbcType="VARCHAR" />
     <result column="agentname" property="agentname" jdbcType="VARCHAR" />
-    <result column="agentwww" property="agentwww" jdbcType="VARCHAR" />
-    <result column="agenthttp" property="agenthttp" jdbcType="VARCHAR" />
+    <result column="domain" property="domain" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="agentstate" property="agentstate" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="VARCHAR" />
     <result column="createuser" property="createuser" jdbcType="VARCHAR" />
@@ -75,8 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    agentpk, agentid, agentuserid, agentperson, agentphone, agentname, agentwww, agenthttp, 
-    agentstate, createtime, createuser, updatetime, updateuser
+    agentpk, agentid, agentuserid, agentperson, agentphone, agentname, domain, url, agentstate, 
+    createtime, createuser, updatetime, updateuser
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TAgentInfoExample" >
     select
@@ -111,12 +111,12 @@
   <insert id="insert" parameterType="com.zhenapp.po.TAgentInfo" >
     insert into t_agent_info (agentpk, agentid, agentuserid, 
       agentperson, agentphone, agentname, 
-      agentwww, agenthttp, agentstate, 
+      domain, url, agentstate, 
       createtime, createuser, updatetime, 
       updateuser)
     values (#{agentpk,jdbcType=INTEGER}, #{agentid,jdbcType=VARCHAR}, #{agentuserid,jdbcType=VARCHAR}, 
       #{agentperson,jdbcType=VARCHAR}, #{agentphone,jdbcType=VARCHAR}, #{agentname,jdbcType=VARCHAR}, 
-      #{agentwww,jdbcType=VARCHAR}, #{agenthttp,jdbcType=VARCHAR}, #{agentstate,jdbcType=VARCHAR}, 
+      #{domain,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{agentstate,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
       #{updateuser,jdbcType=VARCHAR})
   </insert>
@@ -141,11 +141,11 @@
       <if test="agentname != null" >
         agentname,
       </if>
-      <if test="agentwww != null" >
-        agentwww,
+      <if test="domain != null" >
+        domain,
       </if>
-      <if test="agenthttp != null" >
-        agenthttp,
+      <if test="url != null" >
+        url,
       </if>
       <if test="agentstate != null" >
         agentstate,
@@ -182,11 +182,11 @@
       <if test="agentname != null" >
         #{agentname,jdbcType=VARCHAR},
       </if>
-      <if test="agentwww != null" >
-        #{agentwww,jdbcType=VARCHAR},
+      <if test="domain != null" >
+        #{domain,jdbcType=VARCHAR},
       </if>
-      <if test="agenthttp != null" >
-        #{agenthttp,jdbcType=VARCHAR},
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
       </if>
       <if test="agentstate != null" >
         #{agentstate,jdbcType=VARCHAR},
@@ -232,11 +232,11 @@
       <if test="record.agentname != null" >
         agentname = #{record.agentname,jdbcType=VARCHAR},
       </if>
-      <if test="record.agentwww != null" >
-        agentwww = #{record.agentwww,jdbcType=VARCHAR},
+      <if test="record.domain != null" >
+        domain = #{record.domain,jdbcType=VARCHAR},
       </if>
-      <if test="record.agenthttp != null" >
-        agenthttp = #{record.agenthttp,jdbcType=VARCHAR},
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=VARCHAR},
       </if>
       <if test="record.agentstate != null" >
         agentstate = #{record.agentstate,jdbcType=VARCHAR},
@@ -266,8 +266,8 @@
       agentperson = #{record.agentperson,jdbcType=VARCHAR},
       agentphone = #{record.agentphone,jdbcType=VARCHAR},
       agentname = #{record.agentname,jdbcType=VARCHAR},
-      agentwww = #{record.agentwww,jdbcType=VARCHAR},
-      agenthttp = #{record.agenthttp,jdbcType=VARCHAR},
+      domain = #{record.domain,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
       agentstate = #{record.agentstate,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=VARCHAR},
       createuser = #{record.createuser,jdbcType=VARCHAR},
@@ -295,11 +295,11 @@
       <if test="agentname != null" >
         agentname = #{agentname,jdbcType=VARCHAR},
       </if>
-      <if test="agentwww != null" >
-        agentwww = #{agentwww,jdbcType=VARCHAR},
+      <if test="domain != null" >
+        domain = #{domain,jdbcType=VARCHAR},
       </if>
-      <if test="agenthttp != null" >
-        agenthttp = #{agenthttp,jdbcType=VARCHAR},
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
       </if>
       <if test="agentstate != null" >
         agentstate = #{agentstate,jdbcType=VARCHAR},
@@ -326,8 +326,8 @@
       agentperson = #{agentperson,jdbcType=VARCHAR},
       agentphone = #{agentphone,jdbcType=VARCHAR},
       agentname = #{agentname,jdbcType=VARCHAR},
-      agentwww = #{agentwww,jdbcType=VARCHAR},
-      agenthttp = #{agenthttp,jdbcType=VARCHAR},
+      domain = #{domain,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
       agentstate = #{agentstate,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=VARCHAR},
       createuser = #{createuser,jdbcType=VARCHAR},

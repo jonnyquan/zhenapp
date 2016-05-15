@@ -24,6 +24,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/default.css" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/backstage/agent/pagematter/kindeditor.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/backstage/agent/pagematter/zh_CN.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/easyui/themes/bootstrap/easyui.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/easyui/themes/icon.css" />
 </head>
 <div class="am-cf admin-main">
       <!-- sidebar start -->
@@ -91,7 +93,7 @@
 
         <div class="am-form-group">
           <div class="am-u-sm-9 am-u-sm-offset-3">
-            <button type="submit" class="am-btn am-btn-primary">提交</button>
+            <button type="button" id="btn_submit" class="am-btn am-btn-primary">提交</button>
           </div>
         </div>
       </form>
@@ -100,7 +102,23 @@
 </div>
 <script>
   $(function() {
-
+	  
+	$("#btn_submit").click(function(){
+		var type=$("input[name='recharge']:checked").val();
+		var updatepoints=$("#updatepoints").val();
+		var oldpoints="${points}";
+		if(type=="deduct"){
+			if(oldpoints<updatepoints){
+				$.messager.alert('消息提示', '扣款积分不能超过用户携带最大数值!', 'info', function () {
+					$("#updatepoints").focus();
+				});
+				return false;
+			}
+		}
+		$('#publisFlow').submit();
+	});
+	  
+	  
     $('#publisFlow').validate({
       rules : {
     	updatepoints : {
@@ -147,12 +165,12 @@
         });
       }
     });
-
   });
 </script>
 
     </div>
-  
+  <script type="text/javascript" src="${pageContext.request.contextPath}/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/easyui/locale/easyui-lang-zh_CN.js"></script>
   <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
     data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
   <footer>

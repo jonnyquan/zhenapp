@@ -35,8 +35,6 @@ import com.zhenapp.service.WebInfoService;
 @Controller
 @RequestMapping(value = "/util")
 public class upload {
-	
-	
 	@Autowired
 	private WebInfoService webInfoService;
 	@Autowired
@@ -44,7 +42,7 @@ public class upload {
 	@Autowired
 	private TbaccountInfoService tbaccountInfoService;
 
-	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 
 
 	/*

@@ -4,6 +4,15 @@ import com.zhenapp.po.TUserInfo;
 
 public class TUserInfoCustom extends TUserInfo {
 	private String rolename;
+	private String statename;
+	
+	public String getStatename() {
+		return statename;
+	}
+
+	public void setStatename(String statename) {
+		this.statename = statename;
+	}
 
 	public String getRolename() {
 		return rolename;

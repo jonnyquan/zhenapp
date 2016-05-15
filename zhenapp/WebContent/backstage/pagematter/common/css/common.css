@@ -20,7 +20,7 @@ a:hover img{opacity:0.8; filter:alpha(opacity=80);}
 .pageFull{width:100%;background-color:#fff;}
 .webHeader{height:80px; width:1200px; margin:0 auto;}
 .webHeader .logo{width:280px; height:80px; overflow:hidden;}
-.webHeader .logo a{ display:block; width:280px; height:80px;background:url(../img/logo.png) no-repeat; text-indent:-99999px;}
+/*.webHeader .logo a{ display:block; width:280px; height:80px;background:url(../img/logo.png) no-repeat; text-indent:-99999px;}*/
 .webHeader .channel{width:770px;}
 .webHeader .channel ul{ margin-top:17px;}
 .webHeader .channel ul li{float:left;width:80px; height:45px; line-height:45px; display:inline-block; margin-left:20px;}

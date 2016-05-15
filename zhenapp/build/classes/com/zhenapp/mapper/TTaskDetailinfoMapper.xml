@@ -29,6 +29,7 @@
     <result column="trolley" property="trolley" jdbcType="VARCHAR" />
     <result column="phoneid" property="phoneid" jdbcType="VARCHAR" />
     <result column="subtractpoints" property="subtractpoints" jdbcType="INTEGER" />
+    <result column="resultstr" property="resultstr" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="VARCHAR" />
     <result column="createuser" property="createuser" jdbcType="VARCHAR" />
     <result column="updatetime" property="updatetime" jdbcType="VARCHAR" />
@@ -96,8 +97,8 @@
     taskdetailpk, taskdetailid, taskid, taskkeyword, searchtype, price, region, isfreeship, 
     istmall, iscollection, isshopping, taskkeynum, minpicture, maxpicture, tasktype, 
     isflow, iscreativetitle, isshopcollect, taskstate, taskdate, taskhour, taskminute, 
-    visit, collect, trolley, phoneid, subtractpoints, createtime, createuser, updatetime, 
-    updateuser
+    visit, collect, trolley, phoneid, subtractpoints, resultstr, createtime, createuser, 
+    updatetime, updateuser
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TTaskDetailinfoExample" >
     select
@@ -139,8 +140,8 @@
       taskstate, taskdate, taskhour, 
       taskminute, visit, collect, 
       trolley, phoneid, subtractpoints, 
-      createtime, createuser, updatetime, 
-      updateuser)
+      resultstr, createtime, createuser, 
+      updatetime, updateuser)
     values (#{taskdetailpk,jdbcType=INTEGER}, #{taskdetailid,jdbcType=VARCHAR}, #{taskid,jdbcType=VARCHAR}, 
       #{taskkeyword,jdbcType=VARCHAR}, #{searchtype,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, 
       #{region,jdbcType=VARCHAR}, #{isfreeship,jdbcType=VARCHAR}, #{istmall,jdbcType=VARCHAR}, 
@@ -150,8 +151,8 @@
       #{taskstate,jdbcType=VARCHAR}, #{taskdate,jdbcType=VARCHAR}, #{taskhour,jdbcType=VARCHAR}, 
       #{taskminute,jdbcType=VARCHAR}, #{visit,jdbcType=VARCHAR}, #{collect,jdbcType=VARCHAR}, 
       #{trolley,jdbcType=VARCHAR}, #{phoneid,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, 
-      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
-      #{updateuser,jdbcType=VARCHAR})
+      #{resultstr,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zhenapp.po.TTaskDetailinfo" >
     insert into t_task_detailinfo
@@ -236,6 +237,9 @@
       </if>
       <if test="subtractpoints != null" >
         subtractpoints,
+      </if>
+      <if test="resultstr != null" >
+        resultstr,
       </if>
       <if test="createtime != null" >
         createtime,
@@ -331,6 +335,9 @@
       </if>
       <if test="subtractpoints != null" >
         #{subtractpoints,jdbcType=INTEGER},
+      </if>
+      <if test="resultstr != null" >
+        #{resultstr,jdbcType=VARCHAR},
       </if>
       <if test="createtime != null" >
         #{createtime,jdbcType=VARCHAR},
@@ -436,6 +443,9 @@
       <if test="record.subtractpoints != null" >
         subtractpoints = #{record.subtractpoints,jdbcType=INTEGER},
       </if>
+      <if test="record.resultstr != null" >
+        resultstr = #{record.resultstr,jdbcType=VARCHAR},
+      </if>
       <if test="record.createtime != null" >
         createtime = #{record.createtime,jdbcType=VARCHAR},
       </if>
@@ -482,6 +492,7 @@
       trolley = #{record.trolley,jdbcType=VARCHAR},
       phoneid = #{record.phoneid,jdbcType=VARCHAR},
       subtractpoints = #{record.subtractpoints,jdbcType=INTEGER},
+      resultstr = #{record.resultstr,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=VARCHAR},
       createuser = #{record.createuser,jdbcType=VARCHAR},
       updatetime = #{record.updatetime,jdbcType=VARCHAR},
@@ -571,6 +582,9 @@
       <if test="subtractpoints != null" >
         subtractpoints = #{subtractpoints,jdbcType=INTEGER},
       </if>
+      <if test="resultstr != null" >
+        resultstr = #{resultstr,jdbcType=VARCHAR},
+      </if>
       <if test="createtime != null" >
         createtime = #{createtime,jdbcType=VARCHAR},
       </if>
@@ -614,6 +628,7 @@
       trolley = #{trolley,jdbcType=VARCHAR},
       phoneid = #{phoneid,jdbcType=VARCHAR},
       subtractpoints = #{subtractpoints,jdbcType=INTEGER},
+      resultstr = #{resultstr,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=VARCHAR},
       createuser = #{createuser,jdbcType=VARCHAR},
       updatetime = #{updatetime,jdbcType=VARCHAR},

@@ -1,5 +1,7 @@
 package com.zhenapp.controller.back;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,7 +18,7 @@ import com.zhenapp.service.AgentInfoService;
 @Controller
 @RequestMapping(value="/agent")
 public class AgentInfoController {
-
+	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 	@Autowired
 	private AgentInfoService agentInfoService;
 	
@@ -48,8 +50,11 @@ public class AgentInfoController {
 	@RequestMapping(value="/updateagentstateByPk")
 	public @ResponseBody ModelAndView updateagentstateByPk(String agentpk) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		
-		agentInfoService.updateagentstateByPk(agentpk);
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("agentpk", agentpk);
+		hashmap.put("updatetime", sdf.format(new Date()));
+		hashmap.put("updateuser", "修改代理 ");
+		agentInfoService.updateagentstateByPk(hashmap);
 		
 		mv.setViewName("responseagentmanage");
 		return mv;
@@ -75,12 +80,4 @@ public class AgentInfoController {
 		return map;
 	}
 	
-	@RequestMapping(value="/deleteAgentByid")
-	public @ResponseBody ModelAndView deleteAgentBypk(String ids) throws Exception{
-		ModelAndView mv=new ModelAndView();
-		int i= agentInfoService.deleteAgentByid(ids);
-		System.out.println(i);
-		mv.setViewName("findAgentBypage");
-		return mv;
-	}
 }

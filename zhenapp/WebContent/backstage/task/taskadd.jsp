@@ -406,7 +406,7 @@
 											到：<input type="text" name="dateto" id="dateto" width="200px"  />
 										</td>
 									</tr>
-									<tr>
+									<!--  <tr>
 										<td>
 											宝贝标题
 										</td>
@@ -421,11 +421,9 @@
 										<td>
 											<input type="text" name="taskwirelesstitle" id="taskwirelesstitle" class='form-control' placeholder="请输入无线端标题"/>
 										</td>
-									</tr>
+									</tr>-->
 								</table>
-
 								<div class="box">
-
 									<div class="taxkTips box_toggle">
 										<h2>
 											<scan class="scan_icon">
@@ -550,7 +548,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="box">
+								<!--  <div class="box">
 									<div class="taxkTips box_toggle">
 										<h2>
 											<scan class="scan_icon">
@@ -889,7 +887,7 @@
 												type="checkbox" name="zhiTongChe" v-model="zhiTongChe" /><span>直通车</span></label>
 										</div>
 									</div>
-								</div>
+								</div>-->
 								<div class="taxkTips">
 									<h2>
 										<scan class="scan_icon">
@@ -1110,11 +1108,6 @@
 										placeholder="请输入购物车数"  onblur="fpgwc(this)" value="0"
 										onkeyup="this.value=this.value.replace(/\D/g,'')"
 										onafterpaste="this.value=this.value.replace(/\D/g,'')" />
-								</div>
-								<div class="form_control clearfix">
-									<label class="form_label">任务备注：</label> <input
-										class="form_input input400" type="text" name="memo" id="memo"
-										value="${tUserInfoCustom.username}&nbsp;&nbsp;&nbsp;发布任务" />
 								</div>
 								<div id="buttonSubmit" class="form_control clearfix"
 									style="margin-top:20px; border-bottom:none;">

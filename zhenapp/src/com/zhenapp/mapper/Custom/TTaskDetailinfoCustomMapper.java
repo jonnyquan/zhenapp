@@ -43,4 +43,12 @@ public interface TTaskDetailinfoCustomMapper {
 	 * 根据手机编号和详细任务状态修改反馈结果
 	 */
 	public int updateTaskDetailByPidAndState(HashMap<String, Object> hashmap) throws Exception;
+	/*
+	 * 根据任务id和新的任务详情状态修改该任务id所属任务的旧任务详情状态
+	 */
+	public int updateTaskDetailstateByTaskidAndoldstate(HashMap<String, Object> hashmap) throws Exception;
+	/*
+	 * 根据详情任务id更新返回的字符串信息
+	 */
+	public int updateTaskDetailresultByid(HashMap<String, Object> hashmap) throws Exception;
 }

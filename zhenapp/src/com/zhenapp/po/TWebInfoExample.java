@@ -304,76 +304,6 @@ public class TWebInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andWebwwwIsNull() {
-            addCriterion("webwww is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andWebwwwIsNotNull() {
-            addCriterion("webwww is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andWebwwwEqualTo(String value) {
-            addCriterion("webwww =", value, "webwww");
-            return (Criteria) this;
-        }
-
-        public Criteria andWebwwwNotEqualTo(String value) {
-            addCriterion("webwww <>", value, "webwww");
-            return (Criteria) this;
-        }
-
-        public Criteria andWebwwwGreaterThan(String value) {
-            addCriterion("webwww >", value, "webwww");
-            return (Criteria) this;
-        }
-
-        public Criteria andWebwwwGreaterThanOrEqualTo(String value) {
-            addCriterion("webwww >=", value, "webwww");
-            return (Criteria) this;
-        }
-
-        public Criteria andWebwwwLessThan(String value) {
-            addCriterion("webwww <", value, "webwww");
-            return (Criteria) this;
-        }
-
-        public Criteria andWebwwwLessThanOrEqualTo(String value) {
-            addCriterion("webwww <=", value, "webwww");
-            return (Criteria) this;
-        }
-
-        public Criteria andWebwwwLike(String value) {
-            addCriterion("webwww like", value, "webwww");
-            return (Criteria) this;
-        }
-
-        public Criteria andWebwwwNotLike(String value) {
-            addCriterion("webwww not like", value, "webwww");
-            return (Criteria) this;
-        }
-
-        public Criteria andWebwwwIn(List<String> values) {
-            addCriterion("webwww in", values, "webwww");
-            return (Criteria) this;
-        }
-
-        public Criteria andWebwwwNotIn(List<String> values) {
-            addCriterion("webwww not in", values, "webwww");
-            return (Criteria) this;
-        }
-
-        public Criteria andWebwwwBetween(String value1, String value2) {
-            addCriterion("webwww between", value1, value2, "webwww");
-            return (Criteria) this;
-        }
-
-        public Criteria andWebwwwNotBetween(String value1, String value2) {
-            addCriterion("webwww not between", value1, value2, "webwww");
-            return (Criteria) this;
-        }
-
         public Criteria andLogoIsNull() {
             addCriterion("logo is null");
             return (Criteria) this;
@@ -864,73 +794,73 @@ public class TWebInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andArchivalIsNull() {
-            addCriterion("archival is null");
+        public Criteria andRecordIsNull() {
+            addCriterion("record is null");
             return (Criteria) this;
         }
 
-        public Criteria andArchivalIsNotNull() {
-            addCriterion("archival is not null");
+        public Criteria andRecordIsNotNull() {
+            addCriterion("record is not null");
             return (Criteria) this;
         }
 
-        public Criteria andArchivalEqualTo(String value) {
-            addCriterion("archival =", value, "archival");
+        public Criteria andRecordEqualTo(String value) {
+            addCriterion("record =", value, "record");
             return (Criteria) this;
         }
 
-        public Criteria andArchivalNotEqualTo(String value) {
-            addCriterion("archival <>", value, "archival");
+        public Criteria andRecordNotEqualTo(String value) {
+            addCriterion("record <>", value, "record");
             return (Criteria) this;
         }
 
-        public Criteria andArchivalGreaterThan(String value) {
-            addCriterion("archival >", value, "archival");
+        public Criteria andRecordGreaterThan(String value) {
+            addCriterion("record >", value, "record");
             return (Criteria) this;
         }
 
-        public Criteria andArchivalGreaterThanOrEqualTo(String value) {
-            addCriterion("archival >=", value, "archival");
+        public Criteria andRecordGreaterThanOrEqualTo(String value) {
+            addCriterion("record >=", value, "record");
             return (Criteria) this;
         }
 
-        public Criteria andArchivalLessThan(String value) {
-            addCriterion("archival <", value, "archival");
+        public Criteria andRecordLessThan(String value) {
+            addCriterion("record <", value, "record");
             return (Criteria) this;
         }
 
-        public Criteria andArchivalLessThanOrEqualTo(String value) {
-            addCriterion("archival <=", value, "archival");
+        public Criteria andRecordLessThanOrEqualTo(String value) {
+            addCriterion("record <=", value, "record");
             return (Criteria) this;
         }
 
-        public Criteria andArchivalLike(String value) {
-            addCriterion("archival like", value, "archival");
+        public Criteria andRecordLike(String value) {
+            addCriterion("record like", value, "record");
             return (Criteria) this;
         }
 
-        public Criteria andArchivalNotLike(String value) {
-            addCriterion("archival not like", value, "archival");
+        public Criteria andRecordNotLike(String value) {
+            addCriterion("record not like", value, "record");
             return (Criteria) this;
         }
 
-        public Criteria andArchivalIn(List<String> values) {
-            addCriterion("archival in", values, "archival");
+        public Criteria andRecordIn(List<String> values) {
+            addCriterion("record in", values, "record");
             return (Criteria) this;
         }
 
-        public Criteria andArchivalNotIn(List<String> values) {
-            addCriterion("archival not in", values, "archival");
+        public Criteria andRecordNotIn(List<String> values) {
+            addCriterion("record not in", values, "record");
             return (Criteria) this;
         }
 
-        public Criteria andArchivalBetween(String value1, String value2) {
-            addCriterion("archival between", value1, value2, "archival");
+        public Criteria andRecordBetween(String value1, String value2) {
+            addCriterion("record between", value1, value2, "record");
             return (Criteria) this;
         }
 
-        public Criteria andArchivalNotBetween(String value1, String value2) {
-            addCriterion("archival not between", value1, value2, "archival");
+        public Criteria andRecordNotBetween(String value1, String value2) {
+            addCriterion("record not between", value1, value2, "record");
             return (Criteria) this;
         }
 

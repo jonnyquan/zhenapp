@@ -159,7 +159,7 @@
               <td>${list.points}</td>
               <td>${list.createtime}</td>
               <td>${list.updatetime}</td>
-              <td>${list.userstate}</td>
+              <td>${list.statename}</td>
 			  <td><a href="${pageContext.request.contextPath}/user/rechargeadmin?userpk=${list.userpk}" class="am-badge am-badge-primary">充值/扣款</a> 
                   <a data-id="${list.userpk}" class="am-badge am-badge-primary deleteUser">删除</a>
                   <a href="${pageContext.request.contextPath}/user/handworkLogin?userpk=${list.userpk}" data-id="3685" class="am-badge am-badge-primary">登录</a>

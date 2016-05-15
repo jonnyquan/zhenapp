@@ -11,12 +11,7 @@ public class WebInfoServiceImp implements WebInfoService {
 	
 	@Autowired
 	private TWebInfoCustomMapper tWebInfoCustomMapper;
-
-	@Override
-	public TWebInfoCustom findWebBywebwww(String webwww) throws Exception {
-		return tWebInfoCustomMapper.findWebBywebwww(webwww);
-	}
-
+	
 	@Override
 	public int updateWebByAgentid(TWebInfoCustom tWebInfoCustom) throws Exception {
 		// TODO Auto-generated method stub

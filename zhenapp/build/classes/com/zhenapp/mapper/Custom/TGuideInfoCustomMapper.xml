@@ -9,6 +9,10 @@
     select *
     from t_guide_info ORDER BY guidepk DESC
   </select>
+  <select id="findTotalGuide" resultType="int">
+  	select count(1) from t_guide_info
+  </select>
+  
   <select id="findElectrityBypk" resultType="com.zhenapp.po.Custom.TGuideInfoCustom" parameterType="String">
     select *
     from t_guide_info where guidepk =#{guidepk}

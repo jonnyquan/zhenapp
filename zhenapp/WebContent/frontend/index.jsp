@@ -11,6 +11,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="keywords" content="真流量,淘口令,刷淘宝流量,淘宝刷流量软件,淘宝流量,淘宝刷流量" />
 <meta name="description"
 	content="流量真真流量是一个快速提升淘宝手机流量、淘口令流量、淘宝无线流量、淘宝APP流量的平台,真流量优势:  百分百模拟刷淘宝手机流量、淘口令、淘宝刷流量软件、刷淘宝流量软件。" />
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/frontend/pagematter/common/img/favicon.ico" type="image/x-icon" />
+
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
@@ -25,7 +27,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	src="${pageContext.request.contextPath}/frontend/pagematter/common/js/common.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/frontend/pagematter/common/js/jquery.SuperSlide.2.1.1.js"></script>
+
 <title>真流量</title>
+
+<style type="text/css">
+.webHeader .logo a {
+	display: block;
+	width: 280px;
+	height: 80px;
+	background: url("${pageContext.request.contextPath}/webimg/${tWebInfoCustom.logo}") no-repeat;
+	text-indent: -99999px;
+}
+*{margin:0px;padding:0px;outline:none;list-style-type:none;border:none;}
+.QQbox{z-index:1000;width:410px;left:-276px;top:0;margin:149px 0 0 0;position:fixed;}
+*html,*html body{background-image:url(about:blank);background-attachment:fixed;}
+*html .QQbox{position:absolute;top:expression(eval(document.documentElement.scrollTop));}
+.QQbox .press{left:0;border:none;cursor:pointer;width:32px;height:96px;position:absolute;padding-top:140px;}
+.QQbox .Qlist{float:left;width:410px;background:url(${pageContext.request.contextPath}/webimg/${tWebInfoCustom.bg01}) no-repeat;background-position:1px 0px;height:436px;display:block;overflow:hidden;zoom:1;}
+.QQbox .Qlist .infobox{text-align:center;background-repeat:no-repeat;padding:5px;line-height:14px;color:#CCCCCC;font-weight:700;}
+.QQbox .Qlist .con{margin-top:266px;margin-left:50px;color:#32567e;font-size:14px;}
+.QQbox .Qlist .con ul li{height:31px;list-style:none;margin-left:35px;}
+.QQbox .Qlist .con ul li a{font-size:13px;margin-left:18px;text-decoration:none;}
+.OnlineLeft{float:left;display:inline;width:262px;height:439px;overflow:hidden;zoom:1;}
+.OnlineBtn{float:right;display:inline;width:127px;height:36px;background:url(${pageContext.request.contextPath}/webimg/${tWebInfoCustom.bg02}) no-repeat;margin-top:-45px;margin-left:220px;}
+</style>
 </head>
 </head>
 <body>
@@ -71,10 +96,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="bd">
 			<ul>
 				<a href="javascript:void(0);" title="淘口令流量" target="_blank">
-					<li style="background:url(${pageContext.request.contextPath}/frontend/pagematter/common/img/taokouling.jpg) #fff center top no-repeat;"></li>
+					<li style="background:url(${pageContext.request.contextPath}/webimg/${tWebInfoCustom.carousel01}) #fff center top no-repeat;"></li>
 				</a>
-				<li style="background:url(${pageContext.request.contextPath}/frontend/pagematter/common/img/1.jpg) #fff center top no-repeat;"></li>
-				<li style="background:url(${pageContext.request.contextPath}/frontend/pagematter/common/img/2.jpg) #fff center top no-repeat;"></li>
+				<li style="background:url(${pageContext.request.contextPath}/webimg/${tWebInfoCustom.carousel02}) #fff center top no-repeat;"></li>
+				<li style="background:url(${pageContext.request.contextPath}/webimg/${tWebInfoCustom.carousel03}) #fff center top no-repeat;"></li>
 			</ul>
 		</div>
 	</div>
@@ -117,7 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<div class="joinUs">
-		<a href="/auth/register" title="加入我们共享双赢网店"><span class="radius5">马上注册</span>想要快速提高宝贝的无线访问流量吗？</a>
+		<a href="${pageContext.request.contextPath}/frontend/authregister" title="加入我们共享双赢网店"><span class="radius5">马上注册</span>想要快速提高宝贝的无线访问流量吗？</a>
 	</div>
 
 	<!-- 成功案例开始 -->
@@ -181,7 +206,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<div style="height:20px;"></div>
 	<!-- 成功案例结束 -->
-
 	<div class="inAbout" id="part_4">
 		<div class="content">
 			<h3>
@@ -228,20 +252,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/frontend/pagematter/common/js/floatTools.js"></script>
-	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/frontend/pagematter/common/js/layer.min.js"></script>
-
 	<div class="copyRight">
 		<div class="warp1200 footer">
 			<p>
-				Copyright (c) 2015 <a href="${pageContext.request.contextPath}/frontend/index" title="淘宝流量">淘宝流量</a> | <a href="${pageContext.request.contextPath}/frontend/index" title="真流量">真流量</a>(www.zhenapp.cn) Inc. All Rights. 浙ICP备140452118号-5.
+				<a href="${pageContext.request.contextPath}/frontend/index" title="淘宝流量">淘宝流量</a>
+				${tWebInfoCustom.record}
+				<a href="${pageContext.request.contextPath}/frontend/index" title="真流量">真流量</a>
 			</p>
 		</div>
 	</div>
-
+<div id="divQQbox" class="QQbox">
+	<div id="divOnline" class="Qlist">
+		<div class="OnlineLeft">
+			<div class="con">
+				<ul>
+					<li>售前咨询<a target="_blank" href="tencent://message/?uin=${tWebInfoCustom.qq}&&Site=sc.chinaz.com&&Menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=1:12345678:42"></a></li>
+					<li>网站建设<a target="_blank" href="tencent://message/?uin=${tWebInfoCustom.qq}&&Site=sc.chinaz.com&&Menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=1:12345678:42"></a></li>
+					<li>网站优化<a target="_blank" href="tencent://message/?uin=${tWebInfoCustom.qq}&&Site=sc.chinaz.com&&Menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=1:12345678:42"></a></li>
+					<li>整合营销<a target="_blank" href="tencent://message/?uin=${tWebInfoCustom.qq}&&Site=sc.chinaz.com&&Menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=1:12345678:42"></a></li>
+					<li>售后服务<a target="_blank" href="tencent://message/?uin=${tWebInfoCustom.qq}&&Site=sc.chinaz.com&&Menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=1:12345678:42"></a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="OnlineBtn">
+		</div>
+	</div>
+</div>
 	<script type="text/javascript">
         $(function() {
+        	
+        	$("#divQQbox").hover(
+        			function(){
+        				$(this).stop(true,false);
+        				$(this).animate({left:0},300);	
+        			},
+        			function(){
+        				$(this).animate({left:-276},149);	
+        			}
+        		)
         	load();
         });
 
@@ -251,6 +300,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	location.hash="anli";
             }
     	}
+
     </script>
 </body>
 </html>
