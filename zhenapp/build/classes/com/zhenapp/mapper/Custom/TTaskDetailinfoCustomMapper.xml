@@ -11,26 +11,29 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
 	 SELECT a.taskdetailpk, a.taskdetailid, a.taskid, a.taskkeyword, a.searchtype, a.price, a.region, a.isfreeship, 
     a.istmall, a.iscollection,CASE WHEN a.iscollection='0' THEN '否' ELSE '是' END AS iscollectionname,a.isshopping, CASE WHEN a.isshopping='0' THEN '否' ELSE '是' END AS isshoppingname, a.taskkeynum, a.minpicture, a.maxpicture, a.tasktype, 
     a.isflow, a.iscreativetitle, a.isshopcollect, a.taskstate, a.taskdate, a.taskhour, a.taskminute, 
-    a.visit,b.dictypename AS visitname ,a.collect,c.dictypename AS collectname, a.trolley, d.dictypename AS trolleyname, a.phoneid, a.subtractpoints, a.resultstr,a.createtime, a.createuser, a.updatetime, 
+    a.visit,b.dictypename AS visitname ,a.collect,c.dictypename AS collectname, a.trolley, d.dictypename AS trolleyname, a.phoneid, a.subtractpoints, a.resultstr,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime, a.createuser, DATE_FORMAT(a.updatetime,'%Y-%m-%d %H:%i:%s') AS updatetime, 
     a.updateuser FROM t_task_detailinfo a
 	LEFT JOIN t_data_dic_info b ON a.visit=b.dicinfoid
 	LEFT JOIN t_data_dic_info c ON a.collect=c.dicinfoid
 	LEFT JOIN t_data_dic_info d ON a.trolley=d.dicinfoid
 	  <where>
 	  	<if test="taskid !=null and taskid != ''">
-	  		a.taskid = #{taskid}
+	  		and a.taskid = #{taskid}
+	  	</if>
+	  	<if test="taskdetailpk !=null and taskdetailpk != ''">
+	  		and a.taskdetailpk = #{taskdetailpk}
 	  	</if>
 	  	<if test="taskkeynum !=null and taskkeynum != ''">
-	  		a.taskkeynum = #{taskkeynum}
+	  		and a.taskkeynum = #{taskkeynum}
 	  	</if>
 	  	<if test="phoneid !=null and phoneid != ''">
-	  		a.phoneid = #{phoneid}
+	  		and a.phoneid = #{phoneid}
 	  	</if>
 	  	<if test="taskhour !=null and taskhour != ''">
-	  		a.taskhour = #{taskhour}
+	  		and a.taskhour = #{taskhour}
 	  	</if>
 	  	<if test="tasktype !=null and tasktype != ''">
-	  		a.tasktype = #{tasktype}
+	  		and a.tasktype = #{tasktype}
 	  	</if>
 	  </where>
 	  order by a.phoneid desc limit #{page},#{rows}
@@ -39,19 +42,22 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
 	  SELECT count(1) FROM t_task_detailinfo a
 	  <where>
 	  	<if test="taskid !=null and taskid != ''">
-	  		a.taskid = #{taskid}
+	  		and a.taskid = #{taskid}
+	  	</if>
+	  	<if test="taskdetailpk !=null and taskdetailpk != ''">
+	  		and a.taskdetailpk = #{taskdetailpk}
 	  	</if>
 	  	<if test="taskkeynum !=null and taskkeynum != ''">
-	  		a.taskkeynum = #{taskkeynum}
+	  		and a.taskkeynum = #{taskkeynum}
 	  	</if>
 	  	<if test="phoneid !=null and phoneid != ''">
-	  		a.phoneid = #{phoneid}
+	  		and a.phoneid = #{phoneid}
 	  	</if>
 	  	<if test="taskhour !=null and taskhour != ''">
-	  		a.taskhour = #{taskhour}
+	  		and a.taskhour = #{taskhour}
 	  	</if>
 	  	<if test="tasktype !=null and tasktype != ''">
-	  		a.tasktype = #{tasktype}
+	  		and a.tasktype = #{tasktype}
 	  	</if>
 	  </where>
   </select>

@@ -30,4 +30,8 @@ public interface TScriptInfoCustomMapper {
 	 * 根据id删除脚本信息
 	 */
 	public int deletescriptByid(String scriptid) throws Exception;
+	/*
+	 * 根据脚本文件名查询脚本文件
+	 */
+	public TScriptInfoCustom findScriptByname(String scriptname) throws Exception;
 }

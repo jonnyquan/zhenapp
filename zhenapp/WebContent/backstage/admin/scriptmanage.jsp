@@ -11,10 +11,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>真流量</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/amazeui.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/admin.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/lanyunying.css" />
@@ -77,8 +75,6 @@
               </ul></li>
             <li><a href="${pageContext.request.contextPath}/task/responsetaskmanageadmin"><span class="am-icon-pencil-square-o"></span>订单查询</a></li>
             <li><a href="${pageContext.request.contextPath}/combo/findComboByadmin"><span class="am-icon-cubes"></span> 套餐信息</a></li>
-
-            
              <li><a href="${pageContext.request.contextPath}/task/findproblemtaskadmin"><span class="am-icon-mobile"></span> 有问题任务查询</a></li>
              <li><a href="${pageContext.request.contextPath}/task/findtaskdetaillist"><span class="am-icon-mobile"></span> 任务详情</a></li> 
              <li><a href="${pageContext.request.contextPath}/task/findtasklocklist"><span class="am-icon-mobile"></span> 卡机任务查询</a></li> 
@@ -101,28 +97,22 @@
         </div>
       </div>
  <!-- sidebar end -->
-      <div id="module-head"></div>
-      
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<div id="module-head"></div>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <div class="admin-content">
-
 <div class="am-cf am-padding">
     <div class="am-fl am-cf">
       <strong class="am-text-primary am-text-lg">上传脚本</strong>
     </div>
   </div>
-  
     <div class="am-g" style="margin-bottom: 10px;">
-    <form action="/admin/taskAccount/uploadFile" method="post" enctype="Multipart/Form-data" id="taskForm">
+    <form action="${pageContext.request.contextPath}/script/uploadscript" method="post" enctype="Multipart/Form-data" id="taskForm">
     <div class="am-u-sm-12 am-u-md-6">
          <div class="am-form-group am-form-file">
         <button type="button" class="am-btn am-btn-default am-btn-sm">
             <i class="am-icon-cloud-upload"></i> 选择要上传的文件
         </button>
         <input type="file" name="file_name" id="file_id" multiple>
-
     </div>
     </div>
     <div class="am-u-sm-12 am-u-md-6">
@@ -139,7 +129,6 @@
             <th>操作</th>
         </tr>
         </thead>
-
         <tbody>
         <c:if test="${tScriptInfoCustomlist == null }">
         	<tr>
@@ -156,10 +145,10 @@
                 <td>
                     <div class="am-btn-toolbar">
                         <div class="am-btn-group am-btn-group-xs">
-                            <a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="/admin/taskAccount/down?file_path=/data/repo/default/gv3.lua"> 
+                            <a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="${pageContext.request.contextPath}/script/downloadFile/${list.scriptid}"> 
                             	<span class="am-icon-pencil-square-o"></span> 下载
                             </a> 
-                            <a class="am-btn am-btn-default am-btn-xs am-text-danger" href="/admin/taskAccount/delete?id=297"> 
+                            <a class="am-btn am-btn-default am-btn-xs am-text-danger" href="${pageContext.request.contextPath}/script/deleteScriptByid/${list.scriptid}"> 
                             	<span class="am-icon-trash-o"></span> 删除
                         	</a>
                         </div>
@@ -207,9 +196,8 @@
                         if (resp && resp.ec == 0) {
                             Message.info('上传成功：', false);
                             setTimeout(function() {
-                                window.location.href = '/admin/taskAccount/file';
+                                window.location.href = '${pageContext.request.contextPath}/script/responsescriptmanage';
                             }, 2000);
-
                         } else {
                             Message.error('上传失败：' + resp.em, false);
                         }
@@ -238,22 +226,21 @@
 		}
 		$("#countindex").val(countindex);
 		$.jqPaginator('#pagination',
-						{
-							totalPages : parseInt($("#countindex").val()),
-							visiblePages : parseInt($("#visiblePages").val()),
-							currentPage : index,
-							first : '<li class="first"><a href="${pageContext.request.contextPath}/task/responsetaskmanage?page=1">首页</a></li>',
-							prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
-							next : '<li class="next"><a href="javascript:;">下一页</a></li>',
-							last : '<li class="last"><a href="javascript:;">末页</a></li>',
-							page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-							onPageChange : function(num, type) {
-								if (type == "change") {
-									//exeData(num, type);
-									window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanage?page=" + num;
-								}
-							}
-						});
+		{totalPages : parseInt($("#countindex").val()),
+			visiblePages : parseInt($("#visiblePages").val()),
+			currentPage : index,
+			first : '<li class="first"><a href="${pageContext.request.contextPath}/script/responsescriptmanage?page=1">首页</a></li>',
+			prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
+			next : '<li class="next"><a href="javascript:;">下一页</a></li>',
+			last : '<li class="last"><a href="javascript:;">末页</a></li>',
+			page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+			onPageChange : function(num, type) {
+				if (type == "change") {
+					//exeData(num, type);
+					window.location.href = "${pageContext.request.contextPath}/script/responsescriptmanage?page=" + num;
+				}
+			}
+		});
 	}
     </script>
     </div>

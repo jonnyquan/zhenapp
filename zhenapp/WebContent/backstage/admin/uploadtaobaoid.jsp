@@ -2,9 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <!DOCTYPE HTML>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -125,7 +123,7 @@
 	</p>
 	<p class="am-text-primary">
 	<form class="am-form-inline" id="avgForm" role="form"
-		action="/admin/taskAccount/avgAccount" method="post" accept-charset="UTF-8">
+		action="${pageContext.request.contextPath}/tbaoccount/avgAccount" method="post" accept-charset="UTF-8">
 		<div class="am-form-group">
 			<input type="text" id="phoneCount" name="phoneCount"
 				class="am-form-field" placeholder="分配手机数">
@@ -182,7 +180,7 @@
 			$.ajax({
 				type : "post",
 				dataType : "json",
-				url : "/admin/taskAccount/phoneChange",
+				url : "${pageContext.request.contextPath}/tbaoccount/phoneChange",
 				data:{
 					phoneTag:$("#phoneTag").val()
 				},
@@ -238,7 +236,7 @@
 			$.ajax({
 				type : "post",
 				dataType : "json",
-				url : "/admin/taskAccount/saveAccount",
+				url : "${pageContext.request.contextPath}/tbaoccount/saveAccount",
 				success : function(resp) {
 					if (resp && resp.ec == 0) {
 						Message.info('保存成功：', false);
@@ -257,7 +255,7 @@
 			$.ajax({
 				type : "post",
 				dataType : "json",
-				url : "/admin/taskAccount/saveAccount",
+				url : "${pageContext.request.contextPath}/tbaoccount/saveAccount",
 				success : function(resp) {
 					if (resp && resp.ec == 0) {
 						Message.info('保存成功：', false);
@@ -278,13 +276,12 @@
 				alert("请输入手机号");
 				return false;
 			}
-
 			$.ajax({
 				type : "post",
 				dataType : "json",
-				url : "/admin/taskAccount/phoneAccount",
+				url : "${pageContext.request.contextPath}/tbaoccount/saveAccountByphone",
 				data : {
-					pid : phoneId
+					phoneid : phoneId
 				},
 				success : function(resp) {
 					if (resp && resp.ec == 0) {

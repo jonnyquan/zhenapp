@@ -3,21 +3,36 @@
 <mapper namespace="com.zhenapp.mapper.Custom.TPointsInfoCustomMapper" >
   
   <select id="findPointsInfoByPage" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TPointsInfoCustom">
-	  SELECT a.pointspk,a.pointsid,a.userid,a.taskid,a.pointstype,a.pointsupdate,a.points,a.pointreason,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime,a.createuser,a.updatetime,a.updateuser,b.dicinfoname AS pointstypename  
-	  FROM t_points_info a LEFT JOIN t_data_dic_info b ON a.pointstype=b.dicinfoid
+	  SELECT c.usernick,a.pointspk,a.pointsid,a.userid,a.taskid,a.pointstype,a.pointsupdate,a.points,a.pointreason,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime,a.createuser,a.updatetime,a.updateuser,b.dicinfoname AS pointstypename  
+	  FROM t_points_info a 
+	  LEFT JOIN t_data_dic_info b ON a.pointstype=b.dicinfoid
+	  LEFT JOIN t_user_info c on a.createuser = c.userid
 		<where>
-			<if test="createuser != null and createuser != ''">
-		    	and a.createuser = #{createuser}
+			<if test="datefrom != null and datefrom != ''">
+				and a.createtime >= #{datefrom}
+			</if>
+			<if test="dateto != null and dateto != ''">
+				and a.createtime <![CDATA[<=]]> #{dateto}
+			</if>
+			<if test="usernick != null and usernick != ''">
+		    	and c.usernick = #{usernick}
 		    </if>
 	    </where>
 		limit #{page},#{rows}
   </select>
-  <select id="findPointsCountsByPage" parameterType="java.util.HashMap" resultType="int">
-	   SELECT count(1) FROM t_points_info a
-		LEFT JOIN t_data_dic_info b ON a.pointstype=b.dicinfoid
+  <select id="findTotalPointsInfoByPage" parameterType="java.util.HashMap" resultType="int">
+	   SELECT count(1) FROM t_points_info a 
+	  LEFT JOIN t_data_dic_info b ON a.pointstype=b.dicinfoid
+	  LEFT JOIN t_user_info c on a.createuser = c.userid
 		<where>
-			<if test="createuser != null and createuser != ''">
-		    	and a.createuser = #{createuser}
+			<if test="datefrom != null and datefrom != ''">
+				and a.createtime >= #{datefrom}
+			</if>
+			<if test="dateto != null and dateto != ''">
+				and a.createtime <![CDATA[<=]]> #{dateto}
+			</if>
+			<if test="usernick != null and usernick != ''">
+		    	and c.usernick = #{usernick}
 		    </if>
 	    </where>
   </select> 

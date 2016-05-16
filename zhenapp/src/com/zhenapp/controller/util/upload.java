@@ -1,10 +1,7 @@
 package com.zhenapp.controller.util;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.text.SimpleDateFormat;
@@ -12,12 +9,10 @@ import java.util.Date;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -158,24 +153,19 @@ public class upload {
 		return mv;
 	}
 
-	@RequestMapping(value = "/downloadFile/{scriptid}")
+	/*@RequestMapping(value = "/downloadFile/{scriptid}")
 	public void downloadFile(@PathVariable(value="scriptid") String scriptid, HttpServletResponse response,HttpServletRequest request)  {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("multipart/form-data");
 		try {
-			
 			TScriptInfoCustom tScriptInfoCustom = scriptInfoService.findScriptByid(scriptid);
-			
 			request.setCharacterEncoding("UTF-8");  
 	        BufferedInputStream bis = null;  
 	        BufferedOutputStream bos = null;  
-	  
 	        //获取下载文件路径
 	        String downLoadPath = tScriptInfoCustom.getScriptpath();
-	  
 	        //获取文件的长度
-	        long fileLength = new File(downLoadPath).length();  
-
+	        long fileLength = new File(downLoadPath).length();
 	        //设置文件输出类型
 	        response.setContentType("application/octet-stream");  
 	        response.setHeader("Content-disposition", "attachment; filename="  
@@ -199,6 +189,6 @@ public class upload {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 }

@@ -15,7 +15,6 @@
 <title>充值记录</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/amazeui.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/admin.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/lanyunying.css" />
@@ -27,7 +26,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/default.css" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/backstage/agent/pagematter/kindeditor.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/backstage/agent/pagematter/zh_CN.js"></script>
-
 <script src="${pageContext.request.contextPath}/bootstrap/js/jqPaginator.min.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/bootstrap/js/myPage.js" type="text/javascript"></script>
 </head>
@@ -46,8 +44,6 @@
               </ul></li>
             <li><a href="${pageContext.request.contextPath}/task/responsetaskmanageadmin"><span class="am-icon-pencil-square-o"></span>订单查询</a></li>
             <li><a href="${pageContext.request.contextPath}/combo/findComboByadmin"><span class="am-icon-cubes"></span> 套餐信息</a></li>
-
-            
              <li><a href="${pageContext.request.contextPath}/task/findproblemtaskadmin"><span class="am-icon-mobile"></span> 有问题任务查询</a></li>
              <li><a href="${pageContext.request.contextPath}/task/findtaskdetaillist"><span class="am-icon-mobile"></span> 任务详情</a></li> 
              <li><a href="${pageContext.request.contextPath}/task/findtasklocklist"><span class="am-icon-mobile"></span> 卡机任务查询</a></li> 
@@ -128,7 +124,7 @@
             <c:forEach items="${tRechargeInfoCustomlist }" var="list">
             	<tr data-id="${list.rechargepk}">
                 <td>${list.rechargeid}</td>
-                <td>${list.createuser}</td>
+                <td>${list.usernick}</td>
                 <td><a href="#">${list.rechargemoney}</a></td>
                 <td>${list.createtime}</td>
                 <td>${list.rechargestate}</td>
@@ -182,9 +178,9 @@
           var startTime = $("#my-startDate").text();
           var entTime = $("#my-endDate").text();
           var nick = $("#nick").val();
-          var name = $("#rechargeId").val();
-          location.href = "${pageContext.request.contextPath}/points/responseconsumeadmin?page=1&startTime=" + startTime + "&endTime=" + entTime
-              + "&userName=" + nick + "&name=" + name;
+          var rechargeid = $("#rechargeId").val();
+          location.href = "${pageContext.request.contextPath}/points/responseconsumeadmin?page=1&datefrom=" + startTime + "&dateto=" + entTime
+              + "&usernick=" + nick + "&rechargeid=" + rechargeid;
         });
   });
   var index = Number("${pagenum}");
@@ -205,7 +201,7 @@
 							totalPages : parseInt($("#countindex").val()),
 							visiblePages : parseInt($("#visiblePages").val()),
 							currentPage : index,
-							first : '<li class="first"><a href="${pageContext.request.contextPath}/points/responserecordspointsagent?page=1">首页</a></li>',
+							first : '<li class="first"><a href="${pageContext.request.contextPath}/points/responseconsumeadmin?page=1">首页</a></li>',
 							prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
 							next : '<li class="next"><a href="javascript:;">下一页</a></li>',
 							last : '<li class="last"><a href="javascript:;">末页</a></li>',
@@ -213,7 +209,7 @@
 							onPageChange : function(num, type) {
 								if (type == "change") {
 									//exeData(num, type);
-									window.location.href = "${pageContext.request.contextPath}/points/responserecordspointsagent?page=" + num;
+									window.location.href = "${pageContext.request.contextPath}/points/responseconsumeadmin?page=" + num;
 								}
 							}
 						});

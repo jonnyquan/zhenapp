@@ -26,4 +26,9 @@ public interface PhoneInfoService {
 	 */
 	public int findPhonecountBykeynum(String keynum) throws Exception;
 	
+	/*
+	 * 查询出指定数目条数的手机信息
+	 */
+	public List<TPhoneInfoCustom> findAllPhoneBycount(int count) throws Exception;
+	
 }

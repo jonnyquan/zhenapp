@@ -34,4 +34,10 @@ public class PhoneInfoServiceImp implements PhoneInfoService{
 		return tPhoneInfoCustomMapper.findPhonecountBykeynum(keynum);
 	}
 
+	@Override
+	public List<TPhoneInfoCustom> findAllPhoneBycount(int count) throws Exception {
+		// TODO Auto-generated method stub
+		return tPhoneInfoCustomMapper.findAllPhoneBycount(count);
+	}
+
 }

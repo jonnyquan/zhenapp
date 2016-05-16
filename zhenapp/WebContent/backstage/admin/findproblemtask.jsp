@@ -116,31 +116,24 @@
 	</div>
 
 	<div class="am-g" id="module-head" style="margin-bottom: 10px;">
-		<div class="am-u-sm-12 am-u-md-6">
+		<div class="am-u-sm-12 am-u-md-12">
 			<form class="am-form-inline" role="form">
 				<div class="am-form-group">
-					<input type="text" id="pid" class="am-form-field am-input-sm"
-						value="" placeholder="手机号">
-				</div>
-
-				<div class="am-form-group">
-					<input type="text" id="nid" class="am-form-field am-input-sm"
-						value="" placeholder="宝贝id">
+					<input type="text" id="pid" class="am-form-field am-input-sm" value="${phoneid}" placeholder="手机号">
 				</div>
 				<div class="am-form-group">
-					<input type="text" id="fid" class="am-form-field am-input-sm"
-						value="" placeholder="订单id">
+					<input type="text" id="nid" class="am-form-field am-input-sm" value="${taskkeynum}" placeholder="宝贝id">
 				</div>
 				<div class="am-form-group">
-					<input type="text" id="hours" class="am-form-field am-input-sm"
-						value="" placeholder="时间">
+					<input type="text" id="fid" class="am-form-field am-input-sm" value="${taskpk}" placeholder="订单id">
+				</div>
+				<div class="am-form-group">
+					<input type="text" id="hours" class="am-form-field am-input-sm" value="${hours}" placeholder="时间">
 				</div>
 				<button class="am-btn am-btn-default" id="search" type="button">搜索</button>
 			</form>
 		</div>
-
 	</div>
-
 	<div class="am-g">
 		<div class="am-u-sm-12">
 			<form class="am-form">
@@ -162,21 +155,30 @@
 						</tr>
 					</thead>
 					<tbody>
-						
-							<tr data-id="395156">
-								<td>227</td>
-								<td>730276223724290048</td>
-								<td>526140985465</td>
-								<td>no</td>
-								<td>no</td>
-								<td></td>
-								<td>13</td>
-								<td></td>
-								<td></td>
-								<td>  2016-05-11 14:00:06</td>
-								<td>  2016-05-11 14:00:07</td>
+						<c:if test="${tTaskDetailInfoCustomlist==null }">
+							<tr>
+								<td colspan="11">
+									暂无详细数据
+								</td>
 							</tr>
-							
+						</c:if>
+						<c:if test="${tTaskDetailInfoCustomlist!=null }">
+							<c:forEach items="${tTaskDetailInfoCustomlist}" var="list">
+								<tr data-id="${list.taskdetailpk}">
+								<td>${list.phoneid}</td>
+								<td>${list.taskdetailpk}</td>
+								<td>${list.taskkeynum}</td>
+								<td>${list.isshoppingname}</td>
+								<td>${list.iscollectionname}</td>
+								<td>${list.visitname}</td>
+								<td>${list.taskhour}</td>
+								<td>${list.collectname}</td>
+								<td>${list.trolleyname}</td>
+								<td>${list.createtime}</td>
+								<td>${list.updatetime}</td>
+							</tr>
+							</c:forEach>
+						</c:if>
 					</tbody>
 				</table>
 				 <div>
@@ -194,22 +196,18 @@
 </div>
 <script>
 	$(function() {
-
-		$("#search").click(
-				function() {
-					var pid = $("#pid").val();
-					var nid = $("#nid").val();
-					var fid = $("#fid").val();
-					var hours = $("#hours").val();
-					location.href = "/admin/user/phoneLog?pid=" + pid
-							+ "&&nid=" + nid+"&&fid="+fid+"&&hours="+hours;
-				});
-
+		$("#search").click(function() {
+			btn_search(1);
+		});
 	});
-	
-	
-
-	  var index = Number("${pagenum}");
+	function btn_search(num){
+		var pid = $("#pid").val();
+		var nid = $("#nid").val();
+		var fid = $("#fid").val();
+		var hours = $("#hours").val();
+		location.href = "${pageContext.request.contextPath}/task/findproblemtaskadmin?phoneid=" + pid + "&&taskkeynum=" + nid+"&&taskpk="+fid+"&&hours="+hours;
+	}
+		var index = Number("${pagenum}");
 		if (index.length < 1) {
 			index = 1;
 		}
@@ -223,33 +221,27 @@
 			}
 			$("#countindex").val(countindex);
 			$.jqPaginator('#pagination',
-							{
-								totalPages : parseInt($("#countindex").val()),
-								visiblePages : parseInt($("#visiblePages").val()),
-								currentPage : index,
-								first : '<li class="first"><a href="${pageContext.request.contextPath}/task/responsetaskmanage?page=1">首页</a></li>',
-								prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
-								next : '<li class="next"><a href="javascript:;">下一页</a></li>',
-								last : '<li class="last"><a href="javascript:;">末页</a></li>',
-								page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-								onPageChange : function(num, type) {
-									if (type == "change") {
-										//exeData(num, type);
-										window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanage?page=" + num;
-									}
-								}
-							});
+			{totalPages : parseInt($("#countindex").val()),
+				visiblePages : parseInt($("#visiblePages").val()),
+				currentPage : index,
+				first : '<li class="first"><a onclick="btn_search(1);">首页</a></li>',
+				prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
+				next : '<li class="next"><a href="javascript:;">下一页</a></li>',
+				last : '<li class="last"><a href="javascript:;">末页</a></li>',
+				page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+				onPageChange : function(num, type) {
+					if (type == "change") {
+						btn_search(num);
+					}
+				}
+			});
 		}
 </script>
 
-    </div>
-  
-  <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
-    data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+  <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
   <footer>
     <hr>
     <p class="am-padding-left">Copyright (c) 2015 zhenapp.cn Inc. All Rights. 浙ICP备140452118号-5</p>
   </footer>
-
 </body>
 </html>

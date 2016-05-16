@@ -29,6 +29,8 @@ public class TWebInfo {
 
     private String bg02;
 
+    private String ico;
+
     private String createuser;
 
     private String createtime;
@@ -147,6 +149,14 @@ public class TWebInfo {
 
     public void setBg02(String bg02) {
         this.bg02 = bg02 == null ? null : bg02.trim();
+    }
+
+    public String getIco() {
+        return ico;
+    }
+
+    public void setIco(String ico) {
+        this.ico = ico == null ? null : ico.trim();
     }
 
     public String getCreateuser() {

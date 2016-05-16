@@ -37,6 +37,9 @@
     	<if test="keyword != null and keyword != ''">
     		and a.taskkeyword like '%${keyword}%'
     	</if>
+    	<if test="taskkeyword != null and taskkeyword != ''">
+    		and a.taskkeyword like '%${taskkeyword}%'
+    	</if>
     	<if test="tasktype != null and tasktype != ''">
     		and a.tasktype = #{tasktype}
     	</if>

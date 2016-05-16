@@ -26,4 +26,8 @@ public interface TPhoneInfoCustomMapper {
 	 * 根据宝贝id 查询当前还能做该宝贝流量的数目
 	 */
 	public int findPhonecountBykeynum(String keynum) throws Exception;
+	/*
+	 * 查询出指定数目条数的手机信息
+	 */
+	public List<TPhoneInfoCustom> findAllPhoneBycount(int count) throws Exception;
 }

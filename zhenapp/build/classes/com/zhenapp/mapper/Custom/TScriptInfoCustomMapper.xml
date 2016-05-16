@@ -16,7 +16,7 @@
   </select>
   
   <select id="findScriptByPage" resultType="com.zhenapp.po.Custom.TScriptInfoCustom" parameterType="java.util.HashMap">
-  	select * from t_script_info order by updatetime desc limit #{page},#{rows}
+  	select scriptpk,scriptid, scriptname,scriptpath, DATE_FORMAT(createtime,'%Y-%m-%d %H:%i:%s') AS createtime, createuser, DATE_FORMAT(updatetime,'%Y-%m-%d %H:%i:%s') AS updatetime, updateuser from t_script_info order by updatetime desc limit #{page},#{rows}
   </select>
   
   <select id="findTotalScriptByPage" parameterType="java.util.HashMap" resultType="int">
@@ -25,6 +25,10 @@
   
   <select id="findScriptByid" parameterType="String" resultType="com.zhenapp.po.Custom.TScriptInfoCustom">
   	select * from t_script_info where scriptid=#{scriptid} 
+  </select>
+  
+  <select id="findScriptByname" parameterType="String" resultType="com.zhenapp.po.Custom.TScriptInfoCustom">
+  	select * from t_script_info where scriptname=#{scriptname} 
   </select>
   
   <delete id="deletescriptByid" parameterType="String">

@@ -12,7 +12,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>积分明细</title>
+<title>${tAgentInfoCustom.agentname} -- 系统配置</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/amazeui.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/admin.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/lanyunying.css" />
@@ -25,6 +25,31 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/backstage/agent/pagematter/kindeditor.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/backstage/agent/pagematter/zh_CN.js"></script>
 </head>
+<header class="am-topbar admin-header">
+  <div class="am-topbar-brand">
+    <strong>${tAgentInfoCustom.agentname}</strong> <small>后台管理系统</small>
+  </div>
+  <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+    data-am-collapse="{target: '#topbar-collapse'}">
+    <span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span>
+  </button>
+  <div class="am-collapse am-topbar-collapse" id="topbar-collapse"> 
+    <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+      <li class="am-dropdown" data-am-dropdown>
+    	<a href="${pageContext.request.contextPath}/user/findUserByPageandRole">
+    		积分：${points}
+    	</a>
+      </li>  
+      <li class="am-dropdown" data-am-dropdown>
+      </li>
+      <li class="am-dropdown" data-am-dropdown>
+      	<a href="${pageContext.request.contextPath}/user/authlogout">
+      		<span class="am-icon-power-off"></span>退出
+      	</a>
+      </li>
+    </ul>
+  </div>
+</header>
 <div class="am-cf admin-main">
       <!-- sidebar start -->
       <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">

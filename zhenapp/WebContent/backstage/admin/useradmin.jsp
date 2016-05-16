@@ -2,9 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <!DOCTYPE HTML>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -79,32 +77,30 @@
               </ul></li>
             <li><a href="${pageContext.request.contextPath}/task/responsetaskmanageadmin"><span class="am-icon-pencil-square-o"></span>订单查询</a></li>
             <li><a href="${pageContext.request.contextPath}/combo/findComboByadmin"><span class="am-icon-cubes"></span> 套餐信息</a></li>
-             <li><a href="${pageContext.request.contextPath}/task/findproblemtaskadmin"><span class="am-icon-mobile"></span> 有问题任务查询</a></li>
-             <li><a href="${pageContext.request.contextPath}/task/findtaskdetaillist"><span class="am-icon-mobile"></span> 任务详情</a></li> 
-             <li><a href="${pageContext.request.contextPath}/task/findtasklocklist"><span class="am-icon-mobile"></span> 卡机任务查询</a></li> 
- 			<!--   <li><a href="/admin/phoneTask/getMessage"><span class="am-icon-mobile"></span> 淘宝ID查询</a></li>
-              <li><a href="/admin/phoneTask/problem"><span class="am-icon-mobile"></span> 手机状态信息</a></li>
-              <li><a href="/admin/findProblemAssignKeyWords"><span class="am-icon-search"></span>问题宝贝查询</a></li>
-              <li><a href="/admin/findProblemKeyWords"><span class="am-icon-search"></span>问题宝贝查询(简单)</a></li> -->
-              <li><a href="${pageContext.request.contextPath}/note/findnoticeList"><span class="am-icon-bullhorn"></span> 公告管理</a></li>
-              <li><a href="${pageContext.request.contextPath}/sysconf/responsesyssetting"><span class="am-icon-cog"></span>系统设置</a></li>
-              <li><a href="${pageContext.request.contextPath}/agent/responseagentmanage"><span class="am-icon-sitemap"></span>代理管理</a></li>
-              <li><a href="${pageContext.request.contextPath}/datacount/responsedatasumadmin"><span class="am-icon-bar-chart"></span>数据统计</a></li>
-               <li class="admin-parent"><a class="am-cf" data-am-collapse="{target: '#collapse-navo'}"><span
-                class="am-icon-sign-out"></span>其他 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-              <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-navo">
+            <li><a href="${pageContext.request.contextPath}/task/findproblemtaskadmin"><span class="am-icon-mobile"></span> 有问题任务查询</a></li>
+            <li><a href="${pageContext.request.contextPath}/task/findtaskdetaillist"><span class="am-icon-mobile"></span> 任务详情</a></li> 
+            <li><a href="${pageContext.request.contextPath}/task/findtasklocklist"><span class="am-icon-mobile"></span> 卡机任务查询</a></li> 
+ 			<li><a href="${pageContext.request.contextPath}/note/findnoticeList"><span class="am-icon-bullhorn"></span> 公告管理</a></li>
+            <li><a href="${pageContext.request.contextPath}/sysconf/responsesyssetting"><span class="am-icon-cog"></span>系统设置</a></li>
+            <li><a href="${pageContext.request.contextPath}/agent/responseagentmanage"><span class="am-icon-sitemap"></span>代理管理</a></li>
+            <li><a href="${pageContext.request.contextPath}/datacount/responsedatasumadmin"><span class="am-icon-bar-chart"></span>数据统计</a></li>
+            <li class="admin-parent">
+	           	<a class="am-cf" data-am-collapse="{target: '#collapse-navo'}">
+	           		<spanclass="am-icon-sign-out"></span>其他 
+	           		<span class="am-icon-angle-right am-fr am-margin-right"></span>
+	           	</a>
+               <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-navo">
                 <li><a href="${pageContext.request.contextPath}/script/responsescriptmanage" class="am-cf"><span class="am-icon-arrow-circle-up"></span>上传脚本</a></li>
                 <li><a href="${pageContext.request.contextPath}/tbaoccount/responsetbaoccount"><span class="am-icon-upload"></span>上传淘宝账户</a></li>
                 <li><a href="${pageContext.request.contextPath}/tbaoccount/responsetaobaoid"><span class="am-icon-eye"></span>查看淘宝账户信息</a></li>
-              </ul></li>
+               </ul>
+            </li>
           </ul>
         </div>
       </div>
       <!-- sidebar end -->
       <div id="module-head"></div>
-      
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <div class="admin-content">
   <div class="am-cf am-padding">
     <div class="am-fl am-cf">
@@ -126,7 +122,6 @@
         <button type="button" class="am-btn am-btn-default" id="search">搜索</button>
       </form>
     </div>
-
   </div>
   <div class="am-u-sm-12">
     <form class="am-form">
@@ -235,22 +230,21 @@
 		}
 		$("#countindex").val(countindex);
 		$.jqPaginator('#pagination',
-						{
-							totalPages : parseInt($("#countindex").val()),
-							visiblePages : parseInt($("#visiblePages").val()),
-							currentPage : index,
-							first : '<li class="first"><a href="${pageContext.request.contextPath}/task/responsetaskmanage?page=1">首页</a></li>',
-							prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
-							next : '<li class="next"><a href="javascript:;">下一页</a></li>',
-							last : '<li class="last"><a href="javascript:;">末页</a></li>',
-							page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-							onPageChange : function(num, type) {
-								if (type == "change") {
-									//exeData(num, type);
-									window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanage?page=" + num;
-								}
-							}
-						});
+		{
+			totalPages : parseInt($("#countindex").val()),
+			visiblePages : parseInt($("#visiblePages").val()),
+			currentPage : index,
+			first : '<li class="first"><a href="${pageContext.request.contextPath}/task/responsetaskmanage?page=1">首页</a></li>',
+			prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
+			next : '<li class="next"><a href="javascript:;">下一页</a></li>',
+			last : '<li class="last"><a href="javascript:;">末页</a></li>',
+			page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+			onPageChange : function(num, type) {
+				if (type == "change") {
+					window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanage?page=" + num;
+				}
+			}
+		});
 	}
 </script>
     </div>

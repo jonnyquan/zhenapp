@@ -22,6 +22,7 @@ import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Custom.TWebInfoCustom;
 import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.PriceInfoService;
+import com.zhenapp.service.UserInfoService;
 import com.zhenapp.service.WebInfoService;
 
 @Controller
@@ -33,6 +34,8 @@ public class WebInfoController {
 	private AgentInfoService agentInfoService;
 	@Autowired
 	private PriceInfoService priceInfoService;
+	@Autowired
+	private UserInfoService userInfoService;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 	/*
 	 * 根据代理id查询web信息--代理
@@ -43,9 +46,11 @@ public class WebInfoController {
 		ModelAndView mv = new ModelAndView();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		TAgentInfoCustom tAgentInfoCustom= agentInfoService.findAgentByuserid(tUserInfoCustom.getUserid());
+		String points= userInfoService.findpointsByUsernickAndPwd(tUserInfoCustom);
 		TWebInfoCustom tWebInfoCustom = webInfoService.findWebByAgentid(tAgentInfoCustom.getAgentid());
 		mv.addObject("tWebInfoCustom",tWebInfoCustom);
 		mv.addObject("tAgentInfoCustom",tAgentInfoCustom);
+		mv.addObject("points", points);
 		mv.setViewName("/backstage/agent/websetting.jsp");
 		return mv;
 	}

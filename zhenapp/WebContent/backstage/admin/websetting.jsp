@@ -74,147 +74,164 @@
       <strong class="am-text-primary am-text-lg">代理设置登录页面</strong>
     </div>
   </div>
-
-  <div class="am-g">
-    <form class="am-form am-form-horizontal am-padding" id="proxy-form" action="/admin/proxy/save" method="post">
-      <input type="hidden" value="" name="id" id="proxyId">
-      <div class="am-form-group">
-        <label for="user-name" class="am-u-sm-3 am-form-label">网站名称</label>
-        <div class="am-u-sm-7">
-          <input type="text" id="name" name="name" placeholder="网站名称" value="${tAgentInfoCustom.agentname }">
-        </div>
-      </div>
-      <div class="am-form-group">
-        <label for="user-name" class="am-u-sm-3 am-form-label">域名</label>
-        <div class="am-u-sm-7">
-          <input type="text" id="domain" name="domain" placeholder="域名" value="${tAgentInfoCustom.agentwww }">(如：http://www.baodu.com)
-        </div>
-      </div>
-      <div class="am-form-group">
-        <label for="user-name" class="am-u-sm-3 am-form-label">网站地址</label>
-        <div class="am-u-sm-7">
-          <input type="text" id="url" name="url" placeholder="网站地址" value="${tAgentInfoCustom.agenthttp }">(如：http://www.baodu.com)
-        </div>
-      </div>
-
-      <div class="am-form-group">
-        <label for="email" class="am-u-sm-3 am-form-label">QQ号</label>
-        <div class="am-u-sm-7">
-          <input type="text" id="qq" name="qq" placeholder="QQ" value="${tWebInfoCustom.qq }">
-        </div>
-      </div>
-
-      <div class="am-form-group">
-        <label for="user-phone" class="am-u-sm-3 am-form-label">QQ群号</label>
-        <div class="am-u-sm-7">
-          <input type="text" id="qq_group" name="qq_group" placeholder="QQ群" value="${tWebInfoCustom.qqgroup } ">
-        </div>
-      </div>
-      <div class="am-form-group">
-        <label for="user-phone" class="am-u-sm-3 am-form-label">QQ群代码</label>
-        <div class="am-u-sm-7">
-          <input type="text" id="qq_group_url" name="qq_group_url" placeholder="${tWebInfoCustom.qqgroup }">
-        </div>
-      </div>
-      <div class="am-form-group">
-        <label for="user-phone" class="am-u-sm-3 am-form-label">微信</label>
-        <div class="am-u-sm-7">
-          <input type="text" id="weixin" name="weixin" placeholder="微信" value="${tWebInfoCustom.wechat }">
-        </div>
-      </div>
-      <div class="am-form-group">
-        <label for="user-name" class="am-u-sm-3 am-form-label">网站logo</label>
-        <div class="am-u-sm-7">
-          
-            <img src="http://daibile.b0.upaiyun.com//data/repo/product/1457241117855TWVBJ.png" class="img_u" height="40%" width="100%">
-          
-          <input type="hidden" class="imgUrl" id="logo" name="logo"> <input type="file" class="fileupload"
-            name="image_file">(宽：150px x 高:45px)
+<form id="formdata" method="post">
+  <input type="hidden" name="agentid" value="${tAgentInfoCustom.agentid}" />
+  <input type="hidden" name="webid" value="${tWebInfoCustom.webid}" />
+  <table class="am-table">
+  	<tr>
+  		<td width="150px">
+  			<label>网站名称</label>
+  		</td>
+  		<td>
+  			<input type="text" name="name" id="name" placeholder="网站名称" class='form-control' value="${tAgentInfoCustom.agentname }" />
+  		</td>
+  	</tr>
+  	<tr>
+  		<td width="150px">
+  			<label>网站联系人</label>
+  		</td>
+  		<td>
+  			<input type="text" name="agentperson" id="agentperson" placeholder="网站联系人" class='form-control' value="${tAgentInfoCustom.agentperson }" />
+  		</td>
+  	</tr>
+  	<tr>
+  		<td width="150px">
+  			<label>网站联系方式</label>
+  		</td>
+  		<td>
+  			<input type="text" name="agentphone" id="agentphone" placeholder="网站联系方式" class='form-control' value="${tAgentInfoCustom.agentphone }" />
+  		</td>
+  	</tr>
+  	<tr>
+  		<td width="150px">
+  			<label>域名</label>
+  		</td>
+  		<td>
+  			<input type="text" id="domain" name="domain" placeholder="网站域名" class='form-control' value="${tAgentInfoCustom.domain }">(如：http://www.baodu.com)
+  		</td>
+  	</tr>
+  	<tr>
+  		<td width="150px">
+  			<label>网站地址</label>
+  		</td>
+  		<td>
+  			<input type="text" id="url" name="url" placeholder="网站地址" class='form-control' value="${tAgentInfoCustom.url }">(如：http://www.baodu.com)
+  		</td>
+  	</tr>
+  	<tr>
+  		<td width="150px">
+  			<label>备案信息</label>
+  		</td>
+  		<td>
+  			<input type="text" id="record" name="record" placeholder="备案信息" class='form-control' value="${tWebInfoCustom.record}">(如:Copyright (c) 2015 zhenapp.cn Inc. All Rights. 浙ICP备140452118号-5)
+  		</td>
+  	</tr>
+  	<tr>
+  		<td width="150px">
+  			<label>支付宝账号</label>
+  		</td>
+  		<td>
+  			<input type="text" id="alipay" name="alipay" placeholder="支付宝账号" class='form-control' value="${tWebInfoCustom.alipay}">(收款支付宝)
+  		</td>
+  	</tr>
+  	<tr>
+  		<td width="150px">
+  			<label>qq号</label>
+  		</td>
+  		<td>
+  			<input type="text" id="qq" name="qq" placeholder="qq号" class='form-control' value="${tWebInfoCustom.qq}">
+  		</td>
+  	</tr>
+  	<tr>
+  		<td width="150px">
+  			<label>qq群</label>
+  		</td>
+  		<td>
+  			<input type="text" id="qqgroup" name="qqgroup" placeholder="qq群" class='form-control' value="${tWebInfoCustom.qqgroup}">
+  		</td>
+  	</tr>
+  	<tr>
+  		<td width="150px">
+  			<label>微信号</label>
+  		</td>
+  		<td>
+  			<input type="text" id="wechat" name="wechat" placeholder="微信号" class='form-control' value="${tWebInfoCustom.wechat}">
+  		</td>
+  	</tr>
+  	<tr>
+  		<td width="150px">
+  			<label>网站logo(280*80)</label>
+  		</td>
+  		<td>
+  		  <img src="${pageContext.request.contextPath}/webimg/${tWebInfoCustom.logo}" class="img_u" height="80px" width="280px">
+          <input type="hidden" class="imgUrl" id="logo" name="logo" value="${tWebInfoCustom.logo}"> 
+          <input type="file" class="fileupload" name="image_file">
+          <div class="container" style="width: 280px;"></div>
+  		</td>
+  	</tr>
+  	<tr>
+  		<td width="150px">
+  			<label>客服背景图01</label>
+  		</td>
+  		<td>
+  		  <img src="${pageContext.request.contextPath}/webimg/${tWebInfoCustom.bg01}" class="img_u" height="437px" width="282px">
+          <input type="hidden" class="imgUrl" id="bg01" name="bg01" value="${tWebInfoCustom.bg01}"> 
+          <input type="file" class="fileupload" name="image_file">
+          <div class="container" style="width: 280px;"></div>
+  		</td>
+  	</tr>
+  	<tr>
+  		<td width="150px">
+  			<label>客服背景图02</label>
+  		</td>
+  		<td>
+  		  <img src="${pageContext.request.contextPath}/webimg/${tWebInfoCustom.bg02}" class="img_u" height="80px" width="280px">
+          <input type="hidden" class="imgUrl" id="bg02" name="bg02" value="${tWebInfoCustom.bg02}"> 
+          <input type="file" class="fileupload" name="image_file">
+          <div class="container" style="width: 280px;"></div>
+  		</td>
+  	</tr>
+  	
+  	<tr>
+  		<td width="150px">
+  			<label>第一张轮播图</label>
+  		</td>
+  		<td>
+  		  <img src="${pageContext.request.contextPath}/webimg/${tWebInfoCustom.carousel01}" class="img_u" height="50%" width="100%">
+          <input type="hidden" class="imgUrl" id="carousel01" name="carousel01" value="${tWebInfoCustom.carousel01}"> 
+          <input type="file" class="fileupload" name="image_file">
           <div class="container"></div>
-        </div>
-      </div>
-      <div class="am-form-group">
-        <label for="email" class="am-u-sm-3 am-form-label">顶部广告图</label>
-        <div class="am-u-sm-7">
-          
-            <img src="http://daibile.b0.upaiyun.com//data/repo/product/1456065355145HAO3R.png" class="img_u" height="40%" width="100%">
-          
-          <input type="hidden" class="imgUrl" id="ad_first" name="ad_first"> <input type="file"
-            class="fileupload" name="image_file">(宽：1350px x 高:90px)
+  		</td>
+  	</tr>
+  	<tr>
+  		<td width="150px">
+  			<label>第二张轮播图</label>
+  		</td>
+  		<td>
+  		  <img src="${pageContext.request.contextPath}/webimg/${tWebInfoCustom.carousel02}" class="img_u" height="50%" width="100%">
+          <input type="hidden" class="imgUrl" id="carousel02" name="carousel02" value="${tWebInfoCustom.carousel02}"> 
+          <input type="file" class="fileupload" name="image_file">
           <div class="container"></div>
-        </div>
-      </div>
-      <div class="am-form-group">
-        <label for="user-phone" class="am-u-sm-3 am-form-label">客服背景图</label>
-        <div class="am-u-sm-7">
-          
-            <img src="http://daibile.b0.upaiyun.com//data/repo/product/1457240199780E2EET.png"  class="img_u" style="height: 40%;">
-          
-          <input type="hidden" class="imgUrl" id="left_image" name="left_image"> <input type="file"
-            class="fileupload" name="image_file"><a target="_blank" href="http://daibile.b0.upaiyun.com//data/repo/product/1453735179431QZM7B.gif">参考</a>
+  		</td>
+  	</tr>
+  	<tr>
+  		<td width="150px">
+  			<label>第三张轮播图</label>
+  		</td>
+  		<td>
+  		  <img src="${pageContext.request.contextPath}/webimg/${tWebInfoCustom.carousel03}" class="img_u" height="50%" width="100%">
+          <input type="hidden" class="imgUrl" id="carousel03" name="carousel03" value="${tWebInfoCustom.carousel03}"> 
+          <input type="file" class="fileupload" name="image_file">
           <div class="container"></div>
-        </div>
-      </div>
-      <div class="am-form-group">
-        <label for="image" class="am-u-sm-3 am-form-label">轮播图</label>
-        <div class="am-u-sm-7">
-          <div id="image-list">
-            <div class="am-alert am-alert-secondary" data-am-alert>
-              
-                <img src="http://daibile.b0.upaiyun.com//data/repo/product/1456065374346YTURV.jpg" class="img_u" height="40%" width="100%">
-              
-              <input type="hidden" class="imgUrl" id="shuffling_first" name="shuffling_first"> <input
-                type="file" class="fileupload" name="image_file">
-              <div class="container"></div>
-            </div>
-            <div class="am-alert am-alert-secondary" data-am-alert>
-              
-                <img src="http://daibile.b0.upaiyun.com//data/repo/product/14560653808453LPOC.jpg" class="img_u" height="40%" width="100%">
-              
-              <input type="hidden" class="imgUrl" id="shuffling_sec" name="shuffling_sec"> <input type="file"
-                class="fileupload" name="image_file">
-              <div class="container"></div>
-            </div>
-            <div class="am-alert am-alert-secondary" data-am-alert>
-              
-                <img src="http://daibile.b0.upaiyun.com//data/repo/product/1456065386954S8KMJ.jpg"  class="img_u" height="40%" width="100%">
-              
-              <input type="hidden" class="imgUrl" id="shuffling_third" name="shuffling_third"> <input
-                type="file" class="fileupload" name="image_file">(宽：1749px x 高:393px)
-              <div class="container"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="am-form-group">
-        <label for="user-phone" class="am-u-sm-3 am-form-label">广告图</label>
-        <div class="am-u-sm-7">
-          <img src="http://daibile.b0.upaiyun.com//data/repo/product/1457241094225Q7BUC.jpg" height="40%" class="img_u" width="100%"> <input type="hidden"
-            class="imgUrl" id="ad_sec" name="ad_sec"> <input type="file" class="fileupload" name="image_file">(宽：1749px x 高:不限)
-          <div class="container"></div>
-        </div>
-      </div>
-      <div class="am-form-group">
-        <label for="user-phone" class="am-u-sm-3 am-form-label">备案信息</label>
-        <div class="am-u-sm-7">
-          <input type="text" id="record" name="record" placeholder="备案信息" value="Copyright (c) 2015 zhenapp.cn Inc. All Rights. 浙ICP备140452118号-5">(如:Copyright (c) 2015 zhenapp.cn Inc. All Rights. 浙ICP备140452118号-5)
-        </div>
-      </div>
-      <div class="am-form-group">
-        <label for="user-phone" class="am-u-sm-3 am-form-label">支付宝账号</label>
-        <div class="am-u-sm-7">
-          <input type="text" id="alipay" name="alipay" placeholder="支付宝账号" value="15268671339">(收款支付宝)
-        </div>
-      </div>
-      <div class="am-form-group">
-        <div class="am-u-sm-8 am-u-sm-push-3">
-          <button type="button" id="saveInfo" class="am-btn am-btn-primary">
-            <i class="am-icon-check"></i>提交
-          </button>
-        </div>
-      </div>
-    </form>
-  </div>
+  		</td>
+  	</tr>
+  	<tr>
+  		<td colspan="2" style="padding-left: 200px;">
+  			<input type="button" id="saveInfo" class="btn btn-info" value="提交" />
+  		</td>
+  	</tr>
+  </table>
+ </form>
   <script>
       $(function() {
         $("#saveInfo").click(function() {

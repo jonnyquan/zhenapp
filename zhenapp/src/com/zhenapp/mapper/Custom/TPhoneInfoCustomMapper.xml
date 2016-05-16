@@ -21,4 +21,8 @@
   <select id="findPhonecountBykeynum" parameterType="String" resultType="int">
   	SELECT COUNT(1) FROM t_phone_info WHERE phoneid NOT IN (SELECT phoneid FROM t_task_detailinfo WHERE taskkeynum=#{taskkeynum} AND taskdate=DATE_FORMAT(NOW(),'%Y%m%d')) AND phonestate='1' 
   </select>
+  
+  <select id="findAllPhoneBycount" parameterType="int" resultType="com.zhenapp.po.Custom.TPhoneInfoCustom">
+  	select * from t_phone_info limit 0,#{count}
+  </select>
 </mapper>

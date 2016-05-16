@@ -16,6 +16,7 @@
     <result column="alipay" property="alipay" jdbcType="VARCHAR" />
     <result column="bg01" property="bg01" jdbcType="VARCHAR" />
     <result column="bg02" property="bg02" jdbcType="VARCHAR" />
+    <result column="ico" property="ico" jdbcType="VARCHAR" />
     <result column="createuser" property="createuser" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="VARCHAR" />
     <result column="updateuser" property="updateuser" jdbcType="VARCHAR" />
@@ -81,7 +82,7 @@
   </sql>
   <sql id="Base_Column_List" >
     webpk, webid, agentid, logo, Carousel01, Carousel02, Carousel03, QQ, qqgroup, wechat, 
-    record, alipay, bg01, bg02, createuser, createtime, updateuser, updatetime
+    record, alipay, bg01, bg02, ico, createuser, createtime, updateuser, updatetime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TWebInfoExample" >
     select
@@ -118,14 +119,14 @@
       logo, Carousel01, Carousel02, 
       Carousel03, QQ, qqgroup, 
       wechat, record, alipay, 
-      bg01, bg02, createuser, 
+      bg01, bg02, ico, createuser, 
       createtime, updateuser, updatetime
       )
     values (#{webpk,jdbcType=INTEGER}, #{webid,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
       #{logo,jdbcType=VARCHAR}, #{carousel01,jdbcType=VARCHAR}, #{carousel02,jdbcType=VARCHAR}, 
       #{carousel03,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{qqgroup,jdbcType=VARCHAR}, 
       #{wechat,jdbcType=VARCHAR}, #{record,jdbcType=VARCHAR}, #{alipay,jdbcType=VARCHAR}, 
-      #{bg01,jdbcType=VARCHAR}, #{bg02,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
+      #{bg01,jdbcType=VARCHAR}, #{bg02,jdbcType=VARCHAR}, #{ico,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}
       )
   </insert>
@@ -173,6 +174,9 @@
       </if>
       <if test="bg02 != null" >
         bg02,
+      </if>
+      <if test="ico != null" >
+        ico,
       </if>
       <if test="createuser != null" >
         createuser,
@@ -229,6 +233,9 @@
       </if>
       <if test="bg02 != null" >
         #{bg02,jdbcType=VARCHAR},
+      </if>
+      <if test="ico != null" >
+        #{ico,jdbcType=VARCHAR},
       </if>
       <if test="createuser != null" >
         #{createuser,jdbcType=VARCHAR},
@@ -295,6 +302,9 @@
       <if test="record.bg02 != null" >
         bg02 = #{record.bg02,jdbcType=VARCHAR},
       </if>
+      <if test="record.ico != null" >
+        ico = #{record.ico,jdbcType=VARCHAR},
+      </if>
       <if test="record.createuser != null" >
         createuser = #{record.createuser,jdbcType=VARCHAR},
       </if>
@@ -328,6 +338,7 @@
       alipay = #{record.alipay,jdbcType=VARCHAR},
       bg01 = #{record.bg01,jdbcType=VARCHAR},
       bg02 = #{record.bg02,jdbcType=VARCHAR},
+      ico = #{record.ico,jdbcType=VARCHAR},
       createuser = #{record.createuser,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=VARCHAR},
       updateuser = #{record.updateuser,jdbcType=VARCHAR},
@@ -378,6 +389,9 @@
       <if test="bg02 != null" >
         bg02 = #{bg02,jdbcType=VARCHAR},
       </if>
+      <if test="ico != null" >
+        ico = #{ico,jdbcType=VARCHAR},
+      </if>
       <if test="createuser != null" >
         createuser = #{createuser,jdbcType=VARCHAR},
       </if>
@@ -408,6 +422,7 @@
       alipay = #{alipay,jdbcType=VARCHAR},
       bg01 = #{bg01,jdbcType=VARCHAR},
       bg02 = #{bg02,jdbcType=VARCHAR},
+      ico = #{ico,jdbcType=VARCHAR},
       createuser = #{createuser,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=VARCHAR},
       updateuser = #{updateuser,jdbcType=VARCHAR},

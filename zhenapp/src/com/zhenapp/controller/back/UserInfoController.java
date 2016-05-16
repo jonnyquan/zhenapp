@@ -1,7 +1,6 @@
 package com.zhenapp.controller.back;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -188,6 +187,8 @@ public class UserInfoController {
 	public @ResponseBody ModelAndView findUserByPageandRole(HttpSession session,Integer page,Integer rows,String usernick,String userpk,String userphone) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
+		String points= userInfoService.findpointsByUsernickAndPwd(tUserInfoCustom);
+		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentByuserid(tUserInfoCustom.getUserid());
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
 			page = 1;
@@ -198,20 +199,19 @@ public class UserInfoController {
 		pagemap.put("usernick", usernick);
 		pagemap.put("userpk", userpk);
 		pagemap.put("userphone", userphone);
-		
-		List<TUserInfoCustom> tUserInfoCustomlist=new ArrayList<TUserInfoCustom>();
-		int total=0;
 		/*
 		* 代理用户
 		*/
 		pagemap.put("userid", tUserInfoCustom.getUserid());
-		tUserInfoCustomlist = userInfoService.findUserByPageandRole(pagemap);
-		total = userInfoService.findTotalUserByPageandRole(pagemap);
+		List<TUserInfoCustom> tUserInfoCustomlist = userInfoService.findUserByPageandRole(pagemap);
+		int total = userInfoService.findTotalUserByPageandRole(pagemap);
 		mv.addObject("total", total);
 		mv.addObject("pagenum", page);
 		mv.addObject("usernick", usernick);
 		mv.addObject("userpk", userpk);
 		mv.addObject("userphone", userphone);
+		mv.addObject("points", points);
+		mv.addObject("tAgentInfoCustom", tAgentInfoCustom);
 		mv.addObject("tUserInfoCustomlist", tUserInfoCustomlist);
 		mv.setViewName("/backstage/agent/useragent.jsp");
 		return mv;
@@ -223,7 +223,9 @@ public class UserInfoController {
 	public @ResponseBody ModelAndView findPointsByUsernick(HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		TAgentInfoCustom tAgentInfoCustom= agentInfoService.findAgentByuserid(tUserInfoCustom.getUserid());
 		String points= userInfoService.findpointsByUsernickAndPwd(tUserInfoCustom);
+		mv.addObject("tAgentInfoCustom",tAgentInfoCustom);
 		mv.addObject("points", points);
 		mv.setViewName("/backstage/agent/points.jsp");
 		return mv;

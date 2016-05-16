@@ -96,6 +96,8 @@ public class TaskInfoController {
 	public ModelAndView responsetaskmanageagent(HttpSession session,Integer page,Integer rows,String datefrom,String dateto,String taskpk,String usernick,String taskkeynum,String taskkeyword,String tasktype) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
+		String points= userInfoService.findpointsByUsernickAndPwd(tUserInfoCustom);
+		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentByuserid(tUserInfoCustom.getUserid());
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
 			page = 1;
@@ -112,23 +114,9 @@ public class TaskInfoController {
 		if(taskpk!=null){
 			pagemap.put("taskpk", taskpk);
 		}
-		if(usernick!=null && !usernick.equals("")){
-			List<TUserInfoCustom> tUserInfoCustomlist = userInfoService.findUserBynick(usernick);
-			if(tUserInfoCustomlist!=null && tUserInfoCustomlist.size()>0){
-				pagemap.put("createuser", tUserInfoCustomlist.get(0).getUserid());
-			}else{
-				pagemap.put("createuser", "未查询到该用户信息!");
-			}
-		}
-		if(taskkeynum!=null){
-			pagemap.put("taskkeynum", taskkeynum);
-		}
-		if(taskkeyword != null){
-			pagemap.put("taskkeyword", taskkeyword);
-		}
-		if(tasktype!=null){
-			pagemap.put("tasktype", tasktype);
-		}
+		pagemap.put("taskkeynum", taskkeynum);
+		pagemap.put("taskkeyword", taskkeyword);
+		pagemap.put("tasktype", tasktype);
 		pagemap.put("userid", tUserInfoCustom.getUserid());
 		/*
 		* 代理用户
@@ -138,6 +126,8 @@ public class TaskInfoController {
 		mv.addObject("tTaskInfoCustomlist", tTaskInfoCustomlist);
 		mv.addObject("total", total);
 		mv.addObject("pagenum", page);
+		mv.addObject("points", points);
+		mv.addObject("tAgentInfoCustom", tAgentInfoCustom);
 		mv.setViewName("/backstage/agent/tasklist.jsp");
 		return mv;
 	}
@@ -156,19 +146,10 @@ public class TaskInfoController {
 		rows = 10;
 		pagemap.put("page", (page - 1) * rows);
 		pagemap.put("rows", rows);
-		if(keyword!=null){
-			pagemap.put("keyword", keyword);
-		}
-		if(taskpk!=null){
-			pagemap.put("taskpk", taskpk);
-		}
-		if(taskkeynum!=null){
-			pagemap.put("taskkeynum", taskkeynum);
-		}
-		if(tasktype!=null){
-			pagemap.put("tasktype", tasktype);
-		}
-		
+		pagemap.put("keyword", keyword);
+		pagemap.put("taskpk", taskpk);
+		pagemap.put("taskkeynum", taskkeynum);
+		pagemap.put("tasktype", tasktype);
 		if(datefrom!=null){
 			pagemap.put("datefrom", datefrom.replace("-", "")+"000000");
 		}
@@ -181,11 +162,15 @@ public class TaskInfoController {
 		pagemap.put("userid", tUserInfoCustom.getUserid());
 		List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findTaskBypage(pagemap);
 		int total = taskInfoService.findTotalTaskBypage(pagemap);
-		
-		
 		mv.addObject("tTaskInfoCustomlist", tTaskInfoCustomlist);
 		mv.addObject("total", total);
 		mv.addObject("pagenum", page);
+		mv.addObject("keyword", keyword);
+		mv.addObject("taskpk", taskpk);
+		mv.addObject("taskkeynum", taskkeynum);
+		mv.addObject("tasktype", tasktype);
+		mv.addObject("datefrom", datefrom);
+		mv.addObject("dateto", dateto);
 		mv.setViewName("/backstage/task/taskmanage.jsp");
 		return mv;
 	}
@@ -221,7 +206,7 @@ public class TaskInfoController {
 	 * 跳转到订单查询界面-----系统管理员
 	 */
 	@RequestMapping(value="/responsetaskmanageadmin")
-	public ModelAndView responsetaskmanageadmin(HttpSession session,Integer page,Integer rows,String datefrom,String dateto,String taskid,String usernick,String taskkeynum,String tasktype) throws Exception{
+	public ModelAndView responsetaskmanageadmin(HttpSession session,Integer page,Integer rows,String taskpk,String taskkeyword,String datefrom,String dateto,String taskid,String usernick,String taskkeynum,String tasktype) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
@@ -231,28 +216,15 @@ public class TaskInfoController {
 		pagemap.put("page", (page - 1) * rows);
 		pagemap.put("rows", rows);
 		if(datefrom!=null){
-			pagemap.put("datefrom", datefrom.replace("-", ""));
+			pagemap.put("datefrom", datefrom.replace("-", "")+"000000");
 		}
 		if(dateto!=null){
-			pagemap.put("dateto", dateto.replace("-", ""));
+			pagemap.put("dateto", dateto.replace("-", "")+"235959");
 		}
-		if(taskid!=null){
-			pagemap.put("taskid", taskid);
-		}
-		if(usernick!=null && !usernick.equals("")){
-			List<TUserInfoCustom> tUserInfoCustomlist = userInfoService.findUserBynick(usernick);
-			if(tUserInfoCustomlist!=null && tUserInfoCustomlist.size()>0){
-				pagemap.put("createuser", tUserInfoCustomlist.get(0).getUserid());
-			}else{
-				pagemap.put("createuser", "未查询到该用户信息!");
-			}
-		}
-		if(taskkeynum!=null){
-			pagemap.put("taskkeynum", taskkeynum);
-		}
-		if(tasktype!=null){
-			pagemap.put("tasktype", tasktype);
-		}
+		pagemap.put("taskpk", taskpk);
+		pagemap.put("taskkeynum", taskkeynum);
+		pagemap.put("taskkeyword", taskkeyword);
+		pagemap.put("tasktype", tasktype);
 		/*
 		* 系统管理员
 		*/
@@ -261,6 +233,12 @@ public class TaskInfoController {
 		mv.addObject("tTaskInfoCustomlist", tTaskInfoCustomlist);
 		mv.addObject("total", total);
 		mv.addObject("pagenum", page);
+		mv.addObject("taskpk", taskpk);
+		mv.addObject("taskkeynum", taskkeynum);
+		mv.addObject("taskkeyword", taskkeyword);
+		mv.addObject("tasktype", tasktype);
+		mv.addObject("datefrom", datefrom);
+		mv.addObject("dateto", dateto);
 		mv.setViewName("/backstage/admin/tasklist.jsp");
 		return mv;
 	}
@@ -268,7 +246,7 @@ public class TaskInfoController {
 	 * 跳转到有问题任务查询界面-----系统管理员
 	 */
 	@RequestMapping(value="/findproblemtaskadmin")
-	public ModelAndView findproblemtaskadmin(Integer page,Integer rows,String datefrom,String dateto,String taskid,String usernick,String taskkeynum,String tasktype) throws Exception{
+	public ModelAndView findproblemtaskadmin(Integer page,Integer rows,String phoneid,String taskkeynum,String taskpk,String hours) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
@@ -277,24 +255,22 @@ public class TaskInfoController {
 		rows = 10;
 		pagemap.put("page", (page - 1) * rows);
 		pagemap.put("rows", rows);
-		if(datefrom!=null){
-			pagemap.put("datefrom", datefrom.replace("-", ""));
-		}
-		if(dateto!=null){
-			pagemap.put("dateto", dateto.replace("-", ""));
-		}
-		if(taskid!=null){
-			pagemap.put("taskid", taskid);
-		}
+		pagemap.put("phoneid", phoneid);
+		pagemap.put("taskkeynum", taskkeynum);
+		pagemap.put("taskpk", taskpk);
+		pagemap.put("hours", hours);
 		/*
 		* 系统管理员
 		*/
-		List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findTaskBypage(pagemap);
-		int total = taskInfoService.findTotalTaskBypage(pagemap);
-		
-		mv.addObject("tTaskInfoCustomlist", tTaskInfoCustomlist);
+		List<TTaskDetailInfoCustom> tTaskDetailInfoCustomlist = taskDetailInfoService.findTaskDetailByPage(pagemap);
+		int total = taskDetailInfoService.findTaskDetailTotalByPage(pagemap);
+		mv.addObject("tTaskDetailInfoCustomlist", tTaskDetailInfoCustomlist);
 		mv.addObject("total", total);
 		mv.addObject("pagenum", page);
+		mv.addObject("phoneid", phoneid);
+		mv.addObject("taskkeynum", taskkeynum);
+		mv.addObject("taskpk", taskpk);
+		mv.addObject("hours", hours);
 		mv.setViewName("/backstage/admin/findproblemtask.jsp");
 		return mv;
 	}
@@ -331,7 +307,6 @@ public class TaskInfoController {
 		*/
 		List<TTaskDetailInfoCustom> tTaskDetailInfoCustomlist = taskDetailInfoService.findTaskDetailByPage(pagemap);
 		int total = taskDetailInfoService.findTaskDetailTotalByPage(pagemap);
-		
 		mv.addObject("tTaskDetailInfoCustomlist", tTaskDetailInfoCustomlist);
 		mv.addObject("total", total);
 		mv.addObject("pagenum", page);
@@ -342,7 +317,7 @@ public class TaskInfoController {
 	 * 跳转卡机任务查询界面-----系统管理员
 	 */
 	@RequestMapping(value="/findtasklocklist")
-	public ModelAndView findtasklocklist(Integer page,Integer rows,String datefrom,String dateto,String taskid,String usernick,String taskkeynum,String tasktype) throws Exception{
+	public ModelAndView findtasklocklist(Integer page,Integer rows,String taskdetailpk,String phoneid,String taskkeynum) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
@@ -351,23 +326,20 @@ public class TaskInfoController {
 		rows = 10;
 		pagemap.put("page", (page - 1) * rows);
 		pagemap.put("rows", rows);
-		if(datefrom!=null){
-			pagemap.put("datefrom", datefrom.replace("-", ""));
-		}
-		if(dateto!=null){
-			pagemap.put("dateto", dateto.replace("-", ""));
-		}
-		if(taskid!=null){
-			pagemap.put("taskid", taskid);
-		}
+		pagemap.put("phoneid", phoneid);
+		pagemap.put("taskkeynum", taskkeynum);
+		pagemap.put("taskdetailpk", taskdetailpk);
 		/*
 		* 系统管理员
 		*/
-		List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findTaskBypage(pagemap);
-		int total = taskInfoService.findTotalTaskBypage(pagemap);
-		mv.addObject("tTaskInfoCustomlist", tTaskInfoCustomlist);
+		List<TTaskDetailInfoCustom> tTaskDetailInfoCustomlist = taskDetailInfoService.findTaskDetailByPage(pagemap);
+		int total = taskDetailInfoService.findTaskDetailTotalByPage(pagemap);
+		mv.addObject("tTaskDetailInfoCustomlist", tTaskDetailInfoCustomlist);
 		mv.addObject("total", total);
 		mv.addObject("pagenum", page);
+		mv.addObject("phoneid", phoneid);
+		mv.addObject("taskkeynum", taskkeynum);
+		mv.addObject("taskdetailpk", taskdetailpk);
 		mv.setViewName("/backstage/admin/tasklocklist.jsp");
 		return mv;
 	}

@@ -21,4 +21,11 @@ public class DatacountInfoServiceImp implements DatacountInfoService{
 		return datacountInfoCustomMapper.findDataBydate(hashmap);
 	}
 
+	@Override
+	public DatacountInfoCustom findSUMDataBydate(
+			HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return datacountInfoCustomMapper.findSUMDataBydate(hashmap);
+	}
+
 }

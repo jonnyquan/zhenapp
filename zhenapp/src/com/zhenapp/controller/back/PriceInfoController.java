@@ -19,15 +19,17 @@ import com.zhenapp.po.Custom.TPriceInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.PriceInfoService;
+import com.zhenapp.service.UserInfoService;
 
 @Controller
 @RequestMapping(value="/price")
 public class PriceInfoController {
-
 	@Autowired
 	private PriceInfoService priceInfoService;
 	@Autowired
 	private AgentInfoService agentInfoService;
+	@Autowired
+	private UserInfoService userInfoService;
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 	/*
@@ -37,9 +39,12 @@ public class PriceInfoController {
 	public @ResponseBody ModelAndView findPriceByAgentid(HttpSession session) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		String points= userInfoService.findpointsByUsernickAndPwd(tUserInfoCustom);
 		TAgentInfoCustom tAgentInfoCustom= agentInfoService.findAgentByuserid(tUserInfoCustom.getUserid());
 		TPriceInfoCustom tPriceInfoCustom= priceInfoService.findPriceByAgentid(tAgentInfoCustom.getAgentid());
 		mv.addObject("tPriceInfoCustom",tPriceInfoCustom);
+		mv.addObject("points", points);
+		mv.addObject("tAgentInfoCustom", tAgentInfoCustom);
 		mv.setViewName("/backstage/agent/sysconf.jsp");
 		return mv;
 	}

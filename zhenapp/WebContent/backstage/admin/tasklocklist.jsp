@@ -86,17 +86,14 @@
 		<div class="am-u-sm-12 am-u-md-6">
 			<form class="am-form-inline" role="form">
 				<div class="am-form-group">
-					<input type="text" id="pid" class="am-form-field am-input-sm"
-						value="" placeholder="手机号">
+					<input type="text" id="pid" class="am-form-field am-input-sm" value="${phoneid}" placeholder="手机号">
 				</div>
 
 				<div class="am-form-group">
-					<input type="text" id="nid" class="am-form-field am-input-sm"
-						value="" placeholder="宝贝id">
+					<input type="text" id="nid" class="am-form-field am-input-sm" value="${taskkeynum}" placeholder="宝贝id">
 				</div>
 				<div class="am-form-group">
-					<input type="text" id="fid" class="am-form-field am-input-sm"
-						value="730204704142786560" placeholder="订单id">
+					<input type="text" id="fid" class="am-form-field am-input-sm" value="${taskdetailpk}" placeholder="订单id">
 				</div>
 				<button class="am-btn am-btn-default" id="search" type="button">搜索</button>
 			</form>
@@ -121,17 +118,26 @@
 						</tr>
 					</thead>
 					<tbody>
-						
-							<tr data-id="388370">
-								<th>217</th>
-								<td>730204704142786560</td>
-								<td>524014587196</td>
-								<td>no</td>
-								<td>no</td>
-								<td>730204704142786560&垃圾箱 户外&综合&360.0&null&null&null&否&否&524014587196&null&http://img.taobaocdn.com/bao/uploaded/i2/149610205631885604/TB2P8wZnFXXXXaxXXXXXXXXXXXX_!!0-saturn_solar.jpg_210x210.jpg&直通车&是&否&无&无&否</td>
+					<c:if test="${tTaskDetailInfoCustomlist == null}">
+						<tr>
+							<td colspan="7">
+								暂无详细数据
+							</td>
+						</tr>
+					</c:if>
+					<c:if test="${tTaskDetailInfoCustomlist != null}">
+						<c:forEach items="${tTaskDetailInfoCustomlist}" var="list">
+							<tr data-id="${list.taskdetailpk }">
+								<th>${list.phoneid }</th>
+								<td>${list.taskdetailpk }</td>
+								<td>${list.taskkeynum }</td>
+								<td>${list.isshopping }</td>
+								<td>${list.iscollection }</td>
+								<td>${list.resultstr }</td>
 								<td><a href="/admin/user/delete/phone_log?id=388370">删除</a></td>
 							</tr>
-						
+						</c:forEach>
+					</c:if>
 					</tbody>
 				</table>
 				<div>
@@ -151,20 +157,17 @@
 
 <script>
 	$(function() {
-
 		$("#search").click(
-				function() {
-					var pid = $("#pid").val();
-					var nid = $("#nid").val();
-					var fid = $("#fid").val();
-					location.href = "/admin/user/problemPhone?pid=" + pid
-							+ "&&nid=" + nid+"&&fid="+fid;
-				});
-
+		function() {
+			btn_search(1);
+		});
 	});
-	
-	
-
+	function btn_search(num){
+		var pid = $("#pid").val();
+		var nid = $("#nid").val();
+		var fid = $("#fid").val();
+		window.location.href = "${pageContext.request.contextPath}/task/findtasklocklist?page=" + num + "&&phoneid=" + pid + "&&taskkeynum=" + nid+"&&taskdetailpk="+fid;
+	}
 	  var index = Number("${pagenum}");
 		if (index.length < 1) {
 			index = 1;
@@ -179,22 +182,21 @@
 			}
 			$("#countindex").val(countindex);
 			$.jqPaginator('#pagination',
-							{
-								totalPages : parseInt($("#countindex").val()),
-								visiblePages : parseInt($("#visiblePages").val()),
-								currentPage : index,
-								first : '<li class="first"><a href="${pageContext.request.contextPath}/task/responsetaskmanage?page=1">首页</a></li>',
-								prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
-								next : '<li class="next"><a href="javascript:;">下一页</a></li>',
-								last : '<li class="last"><a href="javascript:;">末页</a></li>',
-								page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-								onPageChange : function(num, type) {
-									if (type == "change") {
-										//exeData(num, type);
-										window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanage?page=" + num;
-									}
-								}
-							});
+			{
+				totalPages : parseInt($("#countindex").val()),
+				visiblePages : parseInt($("#visiblePages").val()),
+				currentPage : index,
+				first : '<li class="first"><a onclick="btn_search(1);">首页</a></li>',
+				prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
+				next : '<li class="next"><a href="javascript:;">下一页</a></li>',
+				last : '<li class="last"><a href="javascript:;">末页</a></li>',
+				page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+				onPageChange : function(num, type) {
+					if (type == "change") {
+						btn_search(num);
+					}
+				}
+			});
 		}
 </script>
 

@@ -92,13 +92,13 @@
               <button type="button" class="am-btn am-btn-default am-margin-right" id="my-start">
                 <span class="am-icon-calendar"></span>开始日期
               </button>
-              <span id="my-startDate"></span>
+              <span id="my-startDate">${datefrom}</span>
             </div>
             <div class="am-u-sm-6">
               <button type="button" class="am-btn am-btn-default am-margin-right" id="my-end">
                 <span class="am-icon-calendar"></span>结束日期
               </button>
-              <span id="my-endDate"></span>
+              <span id="my-endDate">${dateto}</span>
             </div>
           </div>
         </div>
@@ -106,7 +106,7 @@
     </div>
     <div class="am-u-sm-5 am-u-md-3">
       <div class="am-input-group am-input-group-sm">
-        <input type="text" id="nick" value="" placeholder="用户名" class="am-form-field"> <span
+        <input type="text" id="nick" value="${usernick}" placeholder="用户名" class="am-form-field"> <span
           class="am-input-group-btn">
           <button class="am-btn am-btn-default" id="search" type="button">搜索</button>
         </span>
@@ -191,7 +191,7 @@ $(function() {
 	      var startTime = $("#my-startDate").text();
 	      var entTime = $("#my-endDate").text();
 	      var nick = $("#nick").val();
-	      location.href = "${pageContext.request.contextPath}/points/responserecordspointsagent?page=1&datefrom=" + startTime + "&dateto=" + entTime + "&usernick=" + nick;
+	      location.href = "${pageContext.request.contextPath}/points/responserecordspointsadmin?page=1&datefrom=" + startTime + "&dateto=" + entTime + "&usernick=" + nick;
 	    });
 	  });
 });
@@ -213,15 +213,17 @@ $(function() {
 							totalPages : parseInt($("#countindex").val()),
 							visiblePages : parseInt($("#visiblePages").val()),
 							currentPage : index,
-							first : '<li class="first"><a href="${pageContext.request.contextPath}/points/responserecordspointsagent?page=1">首页</a></li>',
+							first : '<li class="first"><a href="${pageContext.request.contextPath}/points/responserecordspointsadmin?page=1">首页</a></li>',
 							prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
 							next : '<li class="next"><a href="javascript:;">下一页</a></li>',
 							last : '<li class="last"><a href="javascript:;">末页</a></li>',
 							page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
 							onPageChange : function(num, type) {
 								if (type == "change") {
-									//exeData(num, type);
-									window.location.href = "${pageContext.request.contextPath}/points/responserecordspointsagent?page=" + num;
+									var startTime = $("#my-startDate").text();
+								    var entTime = $("#my-endDate").text();
+								    var nick = $("#nick").val();
+								    location.href = "${pageContext.request.contextPath}/points/responserecordspointsadmin?page=" + num + "&datefrom=" + startTime + "&dateto=" + entTime + "&usernick=" + nick;
 								}
 							}
 						});

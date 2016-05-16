@@ -42,8 +42,6 @@
               </ul></li>
             <li><a href="${pageContext.request.contextPath}/task/responsetaskmanageadmin"><span class="am-icon-pencil-square-o"></span>订单查询</a></li>
             <li><a href="${pageContext.request.contextPath}/combo/findComboByadmin"><span class="am-icon-cubes"></span> 套餐信息</a></li>
-
-            
              <li><a href="${pageContext.request.contextPath}/task/findproblemtaskadmin"><span class="am-icon-mobile"></span> 有问题任务查询</a></li>
              <li><a href="${pageContext.request.contextPath}/task/findtaskdetaillist"><span class="am-icon-mobile"></span> 任务详情</a></li> 
              <li><a href="${pageContext.request.contextPath}/task/findtasklocklist"><span class="am-icon-mobile"></span> 卡机任务查询</a></li> 
@@ -66,15 +64,10 @@
         </div>
       </div>
  <!-- sidebar end -->
-      <div id="module-head"></div>
-      
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
+<div id="module-head"></div>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="${pageContext.request.contextPath}/backstage/agent/pagematter/tableExport.js"></script>
 <script src="${pageContext.request.contextPath}/backstage/agent/pagematter/base64.js"></script>
-
-
 <div class="admin-content">
   <div class="am-alert am-alert-danger" id="my-alert" style="display: none;">
     <p>开始日期应小于结束日期！</p>
@@ -84,11 +77,9 @@
       <strong class="am-text-primary am-text-lg">数据统计</strong>
     </div>
   </div>
-
   <div class="am-g" style="margin-bottom: 10px;">
     <form class="am-form">
       <div class="am-u-md-2">
-        
       </div>
       <div class="am-u-md-2">
         <select id="flowType">
@@ -101,13 +92,13 @@
         <button type="button" class="am-btn am-btn-default" id="my-start">
           <span class="am-icon-calendar"></span>开始日期
         </button>
-        <span id="my-startDate">2016-05-11</span>
+        <span id="my-startDate">${datefrom}</span>
       </div>
       <div class="am-u-md-3">
         <button type="button" class="am-btn am-btn-default" id="my-end">
           <span class="am-icon-calendar"></span>结束日期
         </button>
-        <span id="my-endDate">2016-05-12</span>
+        <span id="my-endDate">${dateto}</span>
       </div>
       <div class="am-u-md-2">
         <button class="am-btn am-btn-default" id="search" type="button">搜索</button>
@@ -119,10 +110,9 @@
       <button class="am-btn am-btn-primary am-btn-xs" onclick="$('#taskList').tableExport({type:'excel',escape:'false'});">导出Excel</button>
       <div class="am-panel am-panel-default">
         <div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-2'}">
-          任务统计 <span class="am-icon-chevron-down am-fr"></span>
+          	任务统计 <span class="am-icon-chevron-down am-fr"></span>
         </div>
         <div id="collapse-panel-2" class="am-collapse am-in">
-
           <table class="am-table am-table-bd am-table-bdrs am-table-striped am-table-hover" id="taskList">
             <thead>
               <tr>
@@ -144,11 +134,18 @@
 	                 <td>${list.shoppingcount}</td>
 	                 <td>${list.buypoints}</td>
 	                 <td>${list.expendpoints}</td>
-	                 <td>${list.backstage}</td>
+	                 <td>${list.handworkpoints}</td>
 	              </tr>
-              
               </c:forEach>
-              <tr><td>总计</td><td>101</td><td>4</td><td>4</td></tr>
+              <tr>
+              	<td>总计</td>
+              	<td>${datacountInfoCustom.sumflowcount}</td>
+              	<td>${datacountInfoCustom.sumcollectioncount}</td>
+              	<td>${datacountInfoCustom.sumshoppingcount}</td>
+              	<td>${datacountInfoCustom.sumbuypoints}</td>
+              	<td>${datacountInfoCustom.sumexpendpoints}</td>
+              	<td>${datacountInfoCustom.sumhandworkpoints}</td>
+              </tr>
             </tbody>
           </table>
         </div>

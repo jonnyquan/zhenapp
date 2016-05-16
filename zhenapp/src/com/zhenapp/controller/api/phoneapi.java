@@ -1,9 +1,17 @@
 package com.zhenapp.controller.api;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,9 +20,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zhenapp.po.Custom.TScriptInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 import com.zhenapp.po.Custom.TTbaccountInfoCustom;
 import com.zhenapp.service.PhoneInfoService;
+import com.zhenapp.service.ScriptInfoService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.TbaccountInfoService;
@@ -33,6 +43,8 @@ public class phoneapi {
 	private TaskDetailInfoService taskDetailInfoService;
 	@Autowired
 	private TbaccountInfoService tbaccountInfoService;
+	@Autowired
+	private ScriptInfoService scriptInfoService;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 	/*
 	 * 手机端获取任务
@@ -174,5 +186,48 @@ public class phoneapi {
 			map.put("return", "为查询到该账号信息或该账号信息不唯一");
 		}
 		return map;
+	}
+	
+	
+	/*
+	 * 手机端下载脚本文件
+	 * http://120.24.44.130/api/phone/down?name=hqfh2.lua
+	 */
+	@RequestMapping(value = "/api/phone/down")
+	public void downloadFile(String name, HttpServletResponse response,HttpServletRequest request)  {
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("multipart/form-data");
+		try {
+			TScriptInfoCustom tScriptInfoCustom = scriptInfoService.findScriptByname(name);
+			request.setCharacterEncoding("UTF-8");  
+	        BufferedInputStream bis = null;  
+	        BufferedOutputStream bos = null;  
+	        //获取下载文件路径
+	        String downLoadPath = tScriptInfoCustom.getScriptpath();
+	        //获取文件的长度
+	        long fileLength = new File(downLoadPath).length();
+	        //设置文件输出类型
+	        response.setContentType("application/octet-stream");  
+	        response.setHeader("Content-disposition", "attachment; filename="  
+	                + new String(tScriptInfoCustom.getScriptname().getBytes("utf-8"), "ISO8859-1")); 
+	        //设置输出长度
+	        response.setHeader("Content-Length", String.valueOf(fileLength));  
+	        //获取输入流
+	        bis = new BufferedInputStream(new FileInputStream(downLoadPath));  
+	        //输出流
+	        bos = new BufferedOutputStream(response.getOutputStream());  
+	        byte[] buff = new byte[2048];  
+	        int bytesRead;  
+	        while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {  
+	            bos.write(buff, 0, bytesRead);  
+	        }  
+	        //关闭流
+	        bis.close();  
+	        bos.close();  
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -2,23 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhenapp.mapper.Custom.DatacountInfoCustomMapper" >
 	<select id="findDataBydate" resultType="com.zhenapp.po.Custom.DatacountInfoCustom" parameterType="java.util.HashMap">
-		SELECT A.datevalue as date,IFNULL(B.flowcount,0) as flowcount,IFNULL(B.collectioncount,0) as collectioncount,IFNULL(B.shoppingcount,0) as shoppingcount,IFNULL(C.buypoints,0) as buypoints,IFNULL(D.expendpoints,0) as expendpoints FROM 
-		(SELECT datevalue FROM t_date_info 
+		SELECT A.datevalue AS DATE,IFNULL(B.flowcount,0) AS flowcount,IFNULL(B.collectioncount,0) AS collectioncount,IFNULL(B.shoppingcount,0) AS shoppingcount,IFNULL(C.buypoints,0) AS buypoints,IFNULL(D.expendpoints,0) AS expendpoints,IFNULL(E.handworkpoints,0) AS handworkpoints 
+		FROM (SELECT datevalue FROM t_date_info ) A 
+		LEFT JOIN (SELECT taskdate,SUM(flowcount) AS flowcount,SUM(collectioncount) AS collectioncount,SUM(shoppingcount) AS shoppingcount FROM t_task_info GROUP BY taskdate) B ON A.datevalue=B.taskdate 
+		LEFT JOIN (SELECT LEFT(createtime,8)AS createtime,SUM(pointsupdate) AS buypoints FROM t_points_info WHERE pointstype='26' GROUP BY LEFT(createtime,8)) C ON A.datevalue=C.createtime
+		LEFT JOIN (SELECT LEFT(createtime,8)AS createtime,SUM(pointsupdate) AS expendpoints FROM t_points_info WHERE pointstype='27' GROUP BY LEFT(createtime,8)) D ON A.datevalue=D.createtime 
+		LEFT JOIN (SELECT LEFT(createtime,8)AS createtime,SUM(pointsupdate) AS handworkpoints FROM t_points_info WHERE pointstype='31' GROUP BY LEFT(createtime,8)) E ON A.datevalue=E.createtime
 		<where>
 			<if test="datefrom!= null and datefrom !='' ">
-				AND datevalue >= #{datefrom}
+				AND A.datevalue >= #{datefrom}
 			</if>
 			<if test="dateto != null and dateto !='' ">
-				AND datevalue <![CDATA[<=]]> #{dateto}
+				AND A.datevalue <![CDATA[<=]]> #{dateto}
 			</if>
 		</where>
-		) A
-		LEFT JOIN (SELECT createtime,COUNT(flowcount) AS flowcount,COUNT(collectioncount) AS collectioncount,COUNT(shoppingcount) AS shoppingcount FROM t_task_info GROUP BY createtime) B
-		ON A.datevalue=B.createtime
-		LEFT JOIN (SELECT createtime,COUNT(pointsupdate) AS buypoints FROM t_points_info WHERE pointstype='1' GROUP BY createtime) C
-		ON A.datevalue=C.createtime
-		LEFT JOIN (SELECT createtime,COUNT(pointsupdate) AS expendpoints FROM t_points_info WHERE pointstype='0' GROUP BY createtime) D
-		ON A.datevalue=D.createtime
-		order by A.datevalue desc
+		ORDER BY A.datevalue DESC
+	</select>
+	<select id="findSUMDataBydate" resultType="com.zhenapp.po.Custom.DatacountInfoCustom" parameterType="java.util.HashMap">
+		SELECT A.datevalue AS DATE,SUM(IFNULL(B.flowcount,0)) AS sumflowcount,SUM(IFNULL(B.collectioncount,0)) AS sumcollectioncount,SUM(IFNULL(B.shoppingcount,0)) AS sumshoppingcount,SUM(IFNULL(C.buypoints,0)) AS sumbuypoints,SUM(IFNULL(D.expendpoints,0)) AS sumexpendpoints,SUM(IFNULL(E.handworkpoints,0)) AS sumhandworkpoints  
+		FROM (SELECT datevalue FROM t_date_info ) A 
+		LEFT JOIN (SELECT taskdate,SUM(flowcount) AS flowcount,SUM(collectioncount) AS collectioncount,SUM(shoppingcount) AS shoppingcount FROM t_task_info GROUP BY taskdate) B ON A.datevalue=B.taskdate 
+		LEFT JOIN (SELECT LEFT(createtime,8)AS createtime,SUM(pointsupdate) AS buypoints FROM t_points_info WHERE pointstype='26' GROUP BY LEFT(createtime,8)) C ON A.datevalue=C.createtime
+		LEFT JOIN (SELECT LEFT(createtime,8)AS createtime,SUM(pointsupdate) AS expendpoints FROM t_points_info WHERE pointstype='27' GROUP BY LEFT(createtime,8)) D ON A.datevalue=D.createtime 
+		LEFT JOIN (SELECT LEFT(createtime,8)AS createtime,SUM(pointsupdate) AS handworkpoints FROM t_points_info WHERE pointstype='31' GROUP BY LEFT(createtime,8)) E ON A.datevalue=E.createtime
+		<where>
+			<if test="datefrom!= null and datefrom !='' ">
+				AND A.datevalue >= #{datefrom}
+			</if>
+			<if test="dateto != null and dateto !='' ">
+				AND A.datevalue <![CDATA[<=]]> #{dateto}
+			</if>
+		</where>
+		ORDER BY A.datevalue DESC
 	</select>
 </mapper>

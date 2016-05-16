@@ -23,10 +23,10 @@ public class PointsInfoServiceImp implements PointsInfoService{
 	}
 
 	@Override
-	public int findPointsCountsByPage(
+	public int findTotalPointsInfoByPage(
 			HashMap<String, Object> pagemap) throws Exception {
 		// TODO Auto-generated method stub
-		return tPointsInfoCustomMapper.findPointsCountsByPage(pagemap);
+		return tPointsInfoCustomMapper.findTotalPointsInfoByPage(pagemap);
 	}
 
 	@Override

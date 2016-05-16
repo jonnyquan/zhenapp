@@ -12,7 +12,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>真流量</title>
+<title>${tAgentInfoCustom.agentname}  -- 用户列表</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
@@ -35,32 +35,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <header class="am-topbar admin-header">
   <div class="am-topbar-brand">
-    <strong>真流量</strong> <small>后台管理系统</small>
+    <strong>${tAgentInfoCustom.agentname}</strong> <small>后台管理系统</small>
   </div>
   <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
     data-am-collapse="{target: '#topbar-collapse'}">
     <span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span>
   </button>
   <div class="am-collapse am-topbar-collapse" id="topbar-collapse"> 
-    <!--  <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
-      <li class="am-dropdown" data-am-dropdown><a href="/admin/user/signout"><span class="am-icon-power-off"></span>
-          退出</a></li>
-      <li class="am-dropdown" data-am-dropdown><a href="/admin/user/delPhoneLog"><span class="am-icon-power-off"></span>
-          清理数据（不要点）</a></li>
-      <li class="am-dropdown" data-am-dropdown><a href="/admin/user/searchJob"><span class="am-icon-power-off"></span>
-          查询数据（不要点）</a></li>
-      <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span>
-          <span class="admin-fullText">开启全屏</span></a></li>
-    </ul>-->
     <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
-      <li class="am-dropdown" data-am-dropdown><a href="${pageContext.request.contextPath}/user/authlogout"><span class="am-icon-power-off"></span>
-          退出</a></li>
-      <li class="am-dropdown" data-am-dropdown><a href="javascript:alert('不要点我');"><span class="am-icon-power-off"></span>
-          清理数据（不要点）</a></li>
-      <li class="am-dropdown" data-am-dropdown><a href="javascript:alert('不要点我');"><span class="am-icon-power-off"></span>
-          查询数据（不要点）</a></li>
-      <li class="am-hide-sm-only"><a href="javascript:alert('不准开');;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span>
-          <span class="admin-fullText">开启全屏</span></a></li>
+      <li class="am-dropdown" data-am-dropdown>
+    	<a href="${pageContext.request.contextPath}/user/findUserByPageandRole">
+    		积分：${points}
+    	</a>
+      </li>  
+      <li class="am-dropdown" data-am-dropdown>
+      </li>
+      <li class="am-dropdown" data-am-dropdown>
+      	<a href="${pageContext.request.contextPath}/user/authlogout">
+      		<span class="am-icon-power-off"></span>退出
+      	</a>
+      </li>
     </ul>
   </div>
 </header>

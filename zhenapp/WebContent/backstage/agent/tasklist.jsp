@@ -12,7 +12,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>订单查询</title>
+<title>${tAgentInfoCustom.agentname} -- 订单查询</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
@@ -38,32 +38,26 @@
 </head>
 <header class="am-topbar admin-header">
   <div class="am-topbar-brand">
-    <strong>真流量</strong> <small>后台管理系统</small>
+    <strong>${tAgentInfoCustom.agentname}</strong> <small>后台管理系统</small>
   </div>
   <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
     data-am-collapse="{target: '#topbar-collapse'}">
     <span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span>
   </button>
   <div class="am-collapse am-topbar-collapse" id="topbar-collapse"> 
-    <!--  <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
-      <li class="am-dropdown" data-am-dropdown><a href="/admin/user/signout"><span class="am-icon-power-off"></span>
-          退出</a></li>
-      <li class="am-dropdown" data-am-dropdown><a href="/admin/user/delPhoneLog"><span class="am-icon-power-off"></span>
-          清理数据（不要点）</a></li>
-      <li class="am-dropdown" data-am-dropdown><a href="/admin/user/searchJob"><span class="am-icon-power-off"></span>
-          查询数据（不要点）</a></li>
-      <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span>
-          <span class="admin-fullText">开启全屏</span></a></li>
-    </ul>-->
     <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
-      <li class="am-dropdown" data-am-dropdown><a href="${pageContext.request.contextPath}/user/authlogout"><span class="am-icon-power-off"></span>
-          退出</a></li>
-      <li class="am-dropdown" data-am-dropdown><a href="javascript:alert('不要点我');"><span class="am-icon-power-off"></span>
-          清理数据（不要点）</a></li>
-      <li class="am-dropdown" data-am-dropdown><a href="javascript:alert('不要点我');"><span class="am-icon-power-off"></span>
-          查询数据（不要点）</a></li>
-      <li class="am-hide-sm-only"><a href="javascript:alert('不准开');;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span>
-          <span class="admin-fullText">开启全屏</span></a></li>
+      <li class="am-dropdown" data-am-dropdown>
+    	<a href="${pageContext.request.contextPath}/user/findUserByPageandRole">
+    		积分：${points}
+    	</a>
+      </li>  
+      <li class="am-dropdown" data-am-dropdown>
+      </li>
+      <li class="am-dropdown" data-am-dropdown>
+      	<a href="${pageContext.request.contextPath}/user/authlogout">
+      		<span class="am-icon-power-off"></span>退出
+      	</a>
+      </li>
     </ul>
   </div>
 </header>
@@ -105,65 +99,69 @@
   </div>
 
   <form id="searchform" class="koo_fromBox" action="${pageContext.request.contextPath}/task/responsetaskmanageagent" method="post">
-							<!--<div class="searchbox ">
-								  <div>
-									<label class="form_label">订单ID:</label>
-									<input class="form_input input120" type="text" name="title" id="title" value="" /> 
-									<label class="form_label">宝贝ID:</label>
-									<input class="form_input input120" type="text" name="title" id="title" value="" /> 
-									
-									<label class="form_label">搜索关键字(模糊):</label> 
-									<input class="form_input input120" type="text" name="keyword" id="keyword" value="" /> 
-									<br/>
-									<label class="form_label">任务类型:</label>
-										<select name="tasktype" id="tasktype">
-											<option selected value="">全部类型</option>
-											<option value="33">流量</option>
-											<option value="34">直通车</option>
-										</select> 
-									<label class="form_label">任务开始时间:</label> 
-									<input type="text" name="datefrom" id="datefrom" class="Wdate search_time" onClick="WdatePicker()" value="" /> 
-									<label class="form_label">至</label> 
-									<input type="text" name="dateto" id="dateto" class="Wdate search_time" onClick="WdatePicker()" value="" />
-									<button type="submit" name="submit" class="search_btn">搜索</button>
-								</div>-->
-								<table class="table">
-									<tr>
-										<td>
-											订单ID:
-											<input class="form_input input120" type="text" name="taskpk" id="taskpk" value="" /> 
-										</td>
-										<td>
-											宝贝ID:
-											<input class="form_input input120" type="text" name="taskkeynum" id="taskkeynum" value="" /> 
-										</td>
-										<td>
-											搜索关键字(模糊):
-											<input class="form_input input120" type="text" name="taskkeyword" id="taskkeyword" value="" />
-										</td>
-									</tr>
-									<tr>
-										<td>
-											任务类型:<select name="tasktype" id="tasktype">
-													<option selected value="">全部类型</option>
-													<option value="33">流量</option>
-													<option value="34">直通车</option>
-												</select> 
-										</td>
-										<td>
-											任务开始时间: 
-											<input type="text" name="datefrom" id="datefrom" class="Wdate search_time" onClick="WdatePicker()" value="" /> 
-											至
-											<input type="text" name="dateto" id="dateto" class="Wdate search_time" onClick="WdatePicker()" value="" />
-										</td>
-										<td >
-											<button type="button" id="search" class="btn btn-info">搜索</button>
-											<button type="button" id="delete" class="btn btn-default">删除</button>
-										</td>
-									</tr>
-								</table>
-							
-						</form>
+<!--<div class="searchbox ">
+	  <div>
+		<label class="form_label">订单ID:</label>
+		<input class="form_input input120" type="text" name="title" id="title" value="" /> 
+		<label class="form_label">宝贝ID:</label>
+		<input class="form_input input120" type="text" name="title" id="title" value="" /> 
+		
+		<label class="form_label">搜索关键字(模糊):</label> 
+		<input class="form_input input120" type="text" name="keyword" id="keyword" value="" /> 
+		<br/>
+		<label class="form_label">任务类型:</label>
+			<select name="tasktype" id="tasktype">
+				<option selected value="">全部类型</option>
+				<option value="33">流量</option>
+				<option value="34">直通车</option>
+			</select> 
+		<label class="form_label">任务开始时间:</label> 
+		<input type="text" name="datefrom" id="datefrom" class="Wdate search_time" onClick="WdatePicker()" value="" /> 
+		<label class="form_label">至</label> 
+		<input type="text" name="dateto" id="dateto" class="Wdate search_time" onClick="WdatePicker()" value="" />
+		<button type="submit" name="submit" class="search_btn">搜索</button>
+	</div>-->
+	<table class="table table-bordered">
+	<tr>
+		<td>
+			<label class="form_label">订单ID:</label>
+			<input class="form_input input120" type="text" name="taskpk" id="taskpk" value="" /> 
+		</td>
+		<td>
+			<label class="form_label">宝贝ID:</label>
+			<input class="form_input input120" type="text" name="taskkeynum" id="taskkeynum" value="" /> 
+		</td>
+		<td>
+			<label class="form_label">搜索关键字(模糊):</label> 
+			<input class="form_input input120" type="text" name="taskkeyword" id="taskkeyword" value="" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<label class="form_label">任务类型:</label>
+				<select name="tasktype" id="tasktype">
+					<option selected value="">全部类型</option>
+					<option value="33">流量</option>
+					<option value="34">直通车</option>
+				</select> 
+		</td>
+		<td >
+			<label class="form_label">任务开始时间:</label> 
+			<input type="text" name="datefrom" id="datefrom" class="Wdate search_time" onClick="WdatePicker()" value="" />
+		</td>
+		<td> 
+			<label class="form_label">任务结束时间:</label> 
+			<input type="text" name="dateto" id="dateto" class="Wdate search_time" onClick="WdatePicker()" value="" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			<button type="button" id="search" class="btn btn-info">搜索</button>
+			<button type="button" id="delete" class="btn btn-default">删除</button>
+		</td>
+	</tr>
+</table>
+</form>
 
   <div class="am-g">
     <div class="am-u-sm-12">
@@ -225,9 +223,12 @@
 
 </div>
 
+<script type="text/javascript" src="${pageContext.request.contextPath}/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/easyui/locale/easyui-lang-zh_CN.js"></script>
 <script>
   $(function() {
-	  /* var startDate = new Date(2015, 12, 20);
+	  /*
+	 var startDate = new Date(2015, 12, 20);
     var endDate = new Date(2016, 11, 25);
     var $alert = $('#my-alert');
     $('#my-start').datepicker().on('changeDate.datepicker.amui', function(event) {
@@ -270,6 +271,17 @@
 		$("#searchform").submit();
 	});
   });
+  function btn_search(num){
+	  var taskpk = $("#taskpk").text();
+	  var taskkeynum = $("#taskkeynum").text();
+      var taskkeyword = $("#taskkeyword").val();
+      var tasktype = $("#tasktype").val();
+      var datefrom = $("input[name='datefrom']")[0].value;
+      var dateto = $("input[name='dateto']")[0].value;
+      window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanageagent?page=" + num + "&datefrom=" + datefrom + "&dateto=" + dateto + "&taskpk=" + taskpk
+          + "&taskkeynum=" + taskkeynum + "&taskkeyword="+taskkeyword+"&tasktype="+tasktype;
+  }
+  
 	function endtask(taskid){
 		$.ajax({
 			url : "${pageContext.request.contextPath}/task/endtaskBytaskid/"+taskid,
@@ -297,22 +309,22 @@
 		}
 		$("#countindex").val(countindex);
 		$.jqPaginator('#pagination',
-						{
-							totalPages : parseInt($("#countindex").val()),
-							visiblePages : parseInt($("#visiblePages").val()),
-							currentPage : index,
-							first : '<li class="first"><a href="${pageContext.request.contextPath}/task/responsetaskmanageagent?page=1">首页</a></li>',
-							prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
-							next : '<li class="next"><a href="javascript:;">下一页</a></li>',
-							last : '<li class="last"><a href="javascript:;">末页</a></li>',
-							page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-							onPageChange : function(num, type) {
-								if (type == "change") {
-									window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanageagent?page=" + num;
-								}
-							}
-						});
-	}
+		{
+			totalPages : parseInt($("#countindex").val()),
+			visiblePages : parseInt($("#visiblePages").val()),
+			currentPage : index,
+			first : '<li class="first"><a onclick="btn_search(1);">首页</a></li>',
+			prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
+			next : '<li class="next"><a href="javascript:;">下一页</a></li>',
+			last : '<li class="last"><a href="javascript:;">末页</a></li>',
+			page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+			onPageChange : function(num, type) {
+				if (type == "change") {
+					btn_search(num);
+				}
+			}
+		});
+}
 </script>
 
     </div>

@@ -13,7 +13,7 @@ public interface TPointsInfoCustomMapper {
 	/*
 	 * 分页查询账户明细信息总条数
 	 */
-	public int findPointsCountsByPage(HashMap<String, Object> pagemap) throws Exception;
+	public int findTotalPointsInfoByPage(HashMap<String, Object> pagemap) throws Exception;
 	/*
 	 * 根据角色为代理分页查询账户明细信息
 	 */

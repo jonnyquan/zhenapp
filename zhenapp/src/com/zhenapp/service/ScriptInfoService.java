@@ -14,9 +14,8 @@ public interface ScriptInfoService {
 	 * 查询全部脚本信息
 	 */
 	public List<TScriptInfoCustom> findAllScriptByPage(HashMap<String,Object> pagemap) throws Exception;
-	
 	/*
-	 * 查询全部脚本信息
+	 * 查询全部脚本信息总数
 	 */
 	public int findTotalScriptByPage(HashMap<String,Object> pagemap) throws Exception;
 	/*
@@ -31,4 +30,8 @@ public interface ScriptInfoService {
 	 * 根据id删除脚本信息
 	 */
 	public int deletescriptByid(String scriptid) throws Exception;
+	/*
+	 * 根据脚本文件名查询脚本文件
+	 */
+	public TScriptInfoCustom findScriptByname(String scriptname) throws Exception; 
 }

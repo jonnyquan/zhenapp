@@ -21,6 +21,7 @@ import com.zhenapp.po.Custom.TComboInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.ComboInfoService;
+import com.zhenapp.service.UserInfoService;
 
 @Controller
 @RequestMapping(value = "/combo")
@@ -29,6 +30,8 @@ public class ComboInfoController {
 	private ComboInfoService comboInfoService;
 	@Autowired
 	private AgentInfoService agentInfoService;
+	@Autowired
+	private UserInfoService userInfoService;
 	
 	
 	private SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
@@ -41,6 +44,7 @@ public class ComboInfoController {
 		ModelAndView mv = new ModelAndView();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
 		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentByuserid(tUserInfoCustom.getUserid());
+		String points= userInfoService.findpointsByUsernickAndPwd(tUserInfoCustom);
 		HashMap<String, Object> pagemap= new HashMap<String, Object>();
 		if (page == null || page==0) {
 			page = 1;
@@ -57,6 +61,8 @@ public class ComboInfoController {
 		mv.addObject("tComboInfoCustomlist", tComboInfoCustomlist);
 		mv.addObject("total",total);
 		mv.addObject("pagenum", page);
+		mv.addObject("points", points);
+		mv.addObject("tAgentInfoCustom", tAgentInfoCustom);
 		mv.setViewName("/backstage/agent/combo.jsp");
 		return mv;
 	}

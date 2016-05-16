@@ -54,4 +54,11 @@ public class ScriptInfoServiceImp implements ScriptInfoService{
 		// TODO Auto-generated method stub
 		return tScriptInfoCustomMapper.findTotalScriptByPage(pagemap);
 	}
+
+	@Override
+	public TScriptInfoCustom findScriptByname(String scriptname)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tScriptInfoCustomMapper.findScriptByname(scriptname);
+	}
 }
