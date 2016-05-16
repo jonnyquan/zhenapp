@@ -27,6 +27,27 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/backstage/agent/pagematter/kindeditor.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/backstage/agent/pagematter/zh_CN.js"></script>
 </head>
+<header class="am-topbar admin-header">
+  <div class="am-topbar-brand">
+    <strong>真流量</strong> <small>后台管理系统</small>
+  </div>
+  <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+    data-am-collapse="{target: '#topbar-collapse'}">
+    <span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span>
+  </button>
+  <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+    <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+      <li class="am-dropdown" data-am-dropdown><a href="${pageContext.request.contextPath}/user/authlogout"><span class="am-icon-power-off"></span>
+          退出</a></li>
+      <li class="am-dropdown" data-am-dropdown><a href="javascript:alert('不要点我');"><span class="am-icon-power-off"></span>
+          清理数据（不要点）</a></li>
+      <li class="am-dropdown" data-am-dropdown><a href="javascript:alert('不要点我');"><span class="am-icon-power-off"></span>
+          查询数据（不要点）</a></li>
+      <li class="am-hide-sm-only"><a href="javascript:alert('不准开');;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span>
+          <span class="admin-fullText">开启全屏</span></a></li>
+    </ul>
+  </div>
+</header>
 <div class="am-cf admin-main">
       <!-- sidebar start -->
       <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
