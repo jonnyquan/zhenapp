@@ -51,4 +51,8 @@ public interface TTaskDetailinfoCustomMapper {
 	 * 根据详情任务id更新返回的字符串信息
 	 */
 	public int updateTaskDetailresultByid(HashMap<String, Object> hashmap) throws Exception;
+	/*
+	 * 查询只有流量访问的详细任务
+	 */
+	public List<TTaskDetailInfoCustom> findTaskDetailByflow() throws Exception;
 }

@@ -15,8 +15,6 @@ public interface TElectricityInfoCustomMapper {
 	 * 查询全部电商信息  用于电商信息页面展示
 	 */
 	public List<TelectricityCustom> findAllElectrity() throws Exception;
-	
-	
 	/*
 	 * 根据主键查询电商详情
 	 */
@@ -26,5 +24,12 @@ public interface TElectricityInfoCustomMapper {
 	 * 分页查询电商信息
 	 */
 	public List<TelectricityCustom> findElectrityBypage(HashMap<String,Object> pagemap) throws Exception;
-	
+	/*
+	 * 根据id修改电商信息
+	 */
+	public int updateElectrityById(HashMap<String, Object> hashmap) throws Exception;
+	/*
+	 * 根据id删除电商信息
+	 */
+	public int deleteById(HashMap<String, Object> hashmap) throws Exception;
 }

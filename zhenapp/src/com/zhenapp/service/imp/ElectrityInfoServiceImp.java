@@ -47,4 +47,17 @@ public class ElectrityInfoServiceImp  implements ElectrityInfoService{
 		// TODO Auto-generated method stub
 		return tElectricityInfoCustomMapper.findElectrityBypage(pagemap);
 	}
+
+	@Override
+	public int updateElectrityById(HashMap<String, Object> hashmap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tElectricityInfoCustomMapper.updateElectrityById(hashmap);
+	}
+
+	@Override
+	public int deleteById(HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tElectricityInfoCustomMapper.deleteById(hashmap);
+	}
 }

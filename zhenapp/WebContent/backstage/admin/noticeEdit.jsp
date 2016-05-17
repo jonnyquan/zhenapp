@@ -21,9 +21,11 @@
 <script src="${pageContext.request.contextPath}/backstage/agent/pagematter/jquery.form.min.js"></script>
 <script src="${pageContext.request.contextPath}/backstage/agent/pagematter/amazeui.min.js"></script>
 <script src="${pageContext.request.contextPath}/backstage/agent/pagematter/lanyunying.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/default.css" />
-<script type="text/javascript" src="${pageContext.request.contextPath}/backstage/agent/pagematter/kindeditor/kindeditor-all.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/backstage/agent/pagematter/zh_CN.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/kindeditor/plugins/code/prettify.css" />
+<script charset="utf-8" src="${pageContext.request.contextPath}/kindeditor/kindeditor-all-min.js"></script>
+<script charset="utf-8" src="${pageContext.request.contextPath}/kindeditor/lang/zh-CN.js"></script>
+<script charset="utf-8" src="${pageContext.request.contextPath}/kindeditor/plugins/code/prettify.js"></script>
 </head>
 <body>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -63,9 +65,7 @@
               </ul></li>
             <li><a href="${pageContext.request.contextPath}/task/responsetaskmanageadmin"><span class="am-icon-pencil-square-o"></span>订单查询</a></li>
             <li><a href="${pageContext.request.contextPath}/combo/findComboByadmin"><span class="am-icon-cubes"></span> 套餐信息</a></li>
-
-            
-             <li><a href="${pageContext.request.contextPath}/task/findproblemtaskadmin"><span class="am-icon-mobile"></span> 有问题任务查询</a></li>
+			<li><a href="${pageContext.request.contextPath}/task/findproblemtaskadmin"><span class="am-icon-mobile"></span> 有问题任务查询</a></li>
              <li><a href="${pageContext.request.contextPath}/task/findtaskdetaillist"><span class="am-icon-mobile"></span> 任务详情</a></li> 
              <li><a href="${pageContext.request.contextPath}/task/findtasklocklist"><span class="am-icon-mobile"></span> 卡机任务查询</a></li> 
  			<!--   <li><a href="/admin/phoneTask/getMessage"><span class="am-icon-mobile"></span> 淘宝ID查询</a></li>
@@ -92,16 +92,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script type="text/javascript">
-	var editor;
+	var editor1=null;
 	KindEditor.ready(function(K) {
-		editor = K.create('textarea[name="content"]', {
-			uploadJson : '/admin/image/upload',
-			fileManagerJson : '/admin/image/manage',
+		editor1 = K.create('textarea[name="notetext"]', {
+			cssPath : '${pageContext.request.contextPath}/kindeditor/plugins/code/prettify.css',
+			uploadJson : '${pageContext.request.contextPath}/kindeditor/jsp/upload_json.jsp',
+			fileManagerJson : '${pageContext.request.contextPath}/kindeditor/jsp/file_manager_json.jsp',
 			allowFileManager : true,
-			afterChange : function() {
+			afterCreate : function() {
+				var self = this;
+				self.sync();
+			},
+			afterBlur:function(){
 				this.sync();
-			}
+			} 
 		});
+		prettyPrint();
 	});
 </script>
 <div class="admin-content">
@@ -111,13 +117,13 @@
       <strong class="am-text-primary am-text-lg">添加公告</strong>
     </div>
   </div>
-
   <div class="am-g">
     <!-- 表单 -->
     <div class="am-u-sm-10">
       <form class="am-form am-form-horizontal" id="publisFlow" action="${pageContext.request.contextPath}/note/updatenote" method="post">
         <!-- am-form-group 的基础上添加了 am-form-group-sm -->
          <input type="hidden" value="${tNoteInfoCustom.noteid}" name="noteid" id="id" class="am-form-field" >
+         <input type="hidden" value="${tNoteInfoCustom.notetype}" name="notetype" id="notetype" class="am-form-field" >
         <div class="am-form-group am-form-group-sm">
           <label for="kwd" class="am-u-sm-2 am-form-label">标题</label>
           <div class="am-u-sm-10">
@@ -127,20 +133,25 @@
         <div class="am-form-group am-form-group-sm">
           <label for="contentType"  class="am-u-sm-2 am-form-label">类型</label>
           <div class="am-u-sm-10">
+	          
+	          <c:if test="${tNoteInfoCustom.notetype=='0' }">
+		      	<span>电商信息</span>
+		      </c:if>
+		      <c:if test="${tNoteInfoCustom.notetype=='1' }">
+		      	<span>新手指引</span>
+		      </c:if> 
+	          <!-- 
 		      <select name="notetype" id="contentType">
-		       <option value="2"  >常见问题</option>
-		       <option value="3"  >新手教程</option>
-		       <option value="5"  >优势与保障</option>
-		       <option value="6"   selected="selected">关于发布流量</option>
-		       <option value="7"  >关于购买点币</option>
-		       <option value="8"  >关于账户充值</option>
-		       <option value="9"  >关于注册</option>
-		       <option value="10"  >关于登录</option>
-		       <option value="11"  >注册登录</option>
-		       <option value="12"  >发布流量</option>
-		       <option value="14"  >网站公告</option>
-		       <option value="17"  >我们的流量</option>
+			      <c:if test="${tNoteInfoCustom.notetype=='0' }">
+			      	<option value="0" selected="selected" >电商信息</option>
+			       	<option value="1"  >新手指引</option>
+			      </c:if>
+			      <c:if test="${tNoteInfoCustom.notetype=='1' }">
+			      	<option value="0" >电商信息</option>
+			       	<option value="1" selected="selected">新手指引</option>
+			      </c:if> 
 		      </select>
+		       -->
           </div>
         </div>
         <div class="am-form-group am-form-group-sm">
@@ -153,7 +164,7 @@
         </div>
         <div class="am-form-group">
           <div class="am-u-sm-10 am-u-sm-offset-2">
-            <button type="submit" class="am-btn am-btn-primary">提交</button>
+            <button type="button" id="btn-sub" class="am-btn am-btn-primary">提交</button>
           </div>
         </div>
       </form>
@@ -162,6 +173,12 @@
 </div>
 <script>
 $(function(){
+	$("#btn-sub").click(function(){
+		editor1.sync();
+		$("#publisFlow").submit();
+	});
+	
+	
     $('#publisFlow').validate({
       rules : {
     	  title : {

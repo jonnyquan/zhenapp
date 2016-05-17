@@ -11,9 +11,6 @@
     <result column="updatetime" property="updatetime" jdbcType="VARCHAR" />
     <result column="updateuser" property="updateuser" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.zhenapp.po.TNoteInfo" extends="BaseResultMap" >
-    <result column="notetext" property="notetext" jdbcType="LONGVARCHAR" />
-  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -75,25 +72,6 @@
   <sql id="Base_Column_List" >
     notepk, noteid, notetype, notename, createtime, createuser, updatetime, updateuser
   </sql>
-  <sql id="Blob_Column_List" >
-    notetext
-  </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.zhenapp.po.TNoteInfoExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from t_note_info
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TNoteInfoExample" >
     select
     <if test="distinct" >
@@ -108,11 +86,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from t_note_info
     where notepk = #{notepk,jdbcType=INTEGER}
   </select>
@@ -129,12 +105,10 @@
   <insert id="insert" parameterType="com.zhenapp.po.TNoteInfo" >
     insert into t_note_info (notepk, noteid, notetype, 
       notename, createtime, createuser, 
-      updatetime, updateuser, notetext
-      )
+      updatetime, updateuser)
     values (#{notepk,jdbcType=INTEGER}, #{noteid,jdbcType=INTEGER}, #{notetype,jdbcType=VARCHAR}, 
       #{notename,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
-      #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, #{notetext,jdbcType=LONGVARCHAR}
-      )
+      #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zhenapp.po.TNoteInfo" >
     insert into t_note_info
@@ -163,9 +137,6 @@
       <if test="updateuser != null" >
         updateuser,
       </if>
-      <if test="notetext != null" >
-        notetext,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="notepk != null" >
@@ -191,9 +162,6 @@
       </if>
       <if test="updateuser != null" >
         #{updateuser,jdbcType=VARCHAR},
-      </if>
-      <if test="notetext != null" >
-        #{notetext,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -230,25 +198,7 @@
       <if test="record.updateuser != null" >
         updateuser = #{record.updateuser,jdbcType=VARCHAR},
       </if>
-      <if test="record.notetext != null" >
-        notetext = #{record.notetext,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update t_note_info
-    set notepk = #{record.notepk,jdbcType=INTEGER},
-      noteid = #{record.noteid,jdbcType=INTEGER},
-      notetype = #{record.notetype,jdbcType=VARCHAR},
-      notename = #{record.notename,jdbcType=VARCHAR},
-      createtime = #{record.createtime,jdbcType=VARCHAR},
-      createuser = #{record.createuser,jdbcType=VARCHAR},
-      updatetime = #{record.updatetime,jdbcType=VARCHAR},
-      updateuser = #{record.updateuser,jdbcType=VARCHAR},
-      notetext = #{record.notetext,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -291,22 +241,7 @@
       <if test="updateuser != null" >
         updateuser = #{updateuser,jdbcType=VARCHAR},
       </if>
-      <if test="notetext != null" >
-        notetext = #{notetext,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    where notepk = #{notepk,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zhenapp.po.TNoteInfo" >
-    update t_note_info
-    set noteid = #{noteid,jdbcType=INTEGER},
-      notetype = #{notetype,jdbcType=VARCHAR},
-      notename = #{notename,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR},
-      createuser = #{createuser,jdbcType=VARCHAR},
-      updatetime = #{updatetime,jdbcType=VARCHAR},
-      updateuser = #{updateuser,jdbcType=VARCHAR},
-      notetext = #{notetext,jdbcType=LONGVARCHAR}
     where notepk = #{notepk,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zhenapp.po.TNoteInfo" >

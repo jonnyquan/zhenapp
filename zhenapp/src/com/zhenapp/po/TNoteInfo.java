@@ -17,8 +17,6 @@ public class TNoteInfo {
 
     private String updateuser;
 
-    private String notetext;
-
     public Integer getNotepk() {
         return notepk;
     }
@@ -81,13 +79,5 @@ public class TNoteInfo {
 
     public void setUpdateuser(String updateuser) {
         this.updateuser = updateuser == null ? null : updateuser.trim();
-    }
-
-    public String getNotetext() {
-        return notetext;
-    }
-
-    public void setNotetext(String notetext) {
-        this.notetext = notetext == null ? null : notetext.trim();
     }
 }

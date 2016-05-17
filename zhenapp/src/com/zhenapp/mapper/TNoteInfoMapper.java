@@ -16,21 +16,15 @@ public interface TNoteInfoMapper {
 
     int insertSelective(TNoteInfo record);
 
-    List<TNoteInfo> selectByExampleWithBLOBs(TNoteInfoExample example);
-
     List<TNoteInfo> selectByExample(TNoteInfoExample example);
 
     TNoteInfo selectByPrimaryKey(Integer notepk);
 
     int updateByExampleSelective(@Param("record") TNoteInfo record, @Param("example") TNoteInfoExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") TNoteInfo record, @Param("example") TNoteInfoExample example);
-
     int updateByExample(@Param("record") TNoteInfo record, @Param("example") TNoteInfoExample example);
 
     int updateByPrimaryKeySelective(TNoteInfo record);
-
-    int updateByPrimaryKeyWithBLOBs(TNoteInfo record);
 
     int updateByPrimaryKey(TNoteInfo record);
 }

@@ -17,5 +17,12 @@
   <select id="findElectrityBypage" resultType="com.zhenapp.po.Custom.TelectricityCustom" parameterType="java.util.HashMap">
     select * from t_electricity_info ORDER BY electricitypk DESC LIMIT #{page},#{rows}
   </select>
+  <delete id="deleteById" parameterType="java.util.HashMap">
+  	delete from t_electricity_info where electricityid=#{noteid}
+  </delete>
   
+  <update id="updateElectrityById" parameterType="java.util.HashMap">
+  	update t_electricity_info set electricitytext=#{notetext},electricityname=#{notename},updatetime=#{updatetime},updateuser=#{updateuser}
+  	where electricityid=#{noteid}
+  </update>
 </mapper>

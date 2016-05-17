@@ -142,10 +142,10 @@
 								<td>
 									<div class="am-btn-toolbar">
 										<div class="am-btn-group am-btn-group-xs">
-											<a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="${pageContext.request.contextPath}/note/responsenoticeEdit?noteid=${list.noteid}"> 
+											<a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="${pageContext.request.contextPath}/note/responsenoticeEdit/${list.noteid}/${list.notetype}"> 
 												<span class="am-icon-pencil-square-o"></span> 编辑
 											</a> 
-											<a class="am-btn am-btn-default am-btn-xs am-text-danger" href="/admin/notice/delete?id=2"> 
+											<a class="am-btn am-btn-default am-btn-xs am-text-danger" href="${pageContext.request.contextPath}/note/DeleteNoteAndinfo/${list.noteid}/${list.notetype}"> 
 												<span class="am-icon-trash-o"></span> 删除
 											</a>
 										</div>
@@ -168,9 +168,7 @@
 			</form>
 		</div>
 	</div>
-
 </div>
-
 <script>
 var index = Number("${pagenum}");
 if (index.length < 1) {
@@ -186,33 +184,29 @@ function loadpage() {
 	}
 	$("#countindex").val(countindex);
 	$.jqPaginator('#pagination',
-					{
-						totalPages : parseInt($("#countindex").val()),
-						visiblePages : parseInt($("#visiblePages").val()),
-						currentPage : index,
-						first : '<li class="first"><a href="${pageContext.request.contextPath}/task/responsetaskmanage?page=1">首页</a></li>',
-						prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
-						next : '<li class="next"><a href="javascript:;">下一页</a></li>',
-						last : '<li class="last"><a href="javascript:;">末页</a></li>',
-						page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-						onPageChange : function(num, type) {
-							if (type == "change") {
-								//exeData(num, type);
-								window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanage?page=" + num;
-							}
-						}
-					});
+	{
+		totalPages : parseInt($("#countindex").val()),
+		visiblePages : parseInt($("#visiblePages").val()),
+		currentPage : index,
+		first : '<li class="first"><a href="${pageContext.request.contextPath}/note/findnoticeList?page=1">首页</a></li>',
+		prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
+		next : '<li class="next"><a href="javascript:;">下一页</a></li>',
+		last : '<li class="last"><a href="javascript:;">末页</a></li>',
+		page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+		onPageChange : function(num, type) {
+			if (type == "change") {
+				//exeData(num, type);
+				window.location.href = "${pageContext.request.contextPath}/note/findnoticeList?page=" + num;
+			}
+		}
+	});
 }
 </script>
-
-    </div>
-  
   <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
     data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
   <footer>
     <hr>
     <p class="am-padding-left">Copyright (c) 2015 zhenapp.cn Inc. All Rights. 浙ICP备140452118号-5</p>
   </footer>
-
 </body>
 </html>

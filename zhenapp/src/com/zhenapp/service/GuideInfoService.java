@@ -26,5 +26,13 @@ public interface GuideInfoService {
 	 * 查询新手指引信息总条数
 	 */
 	public int findTotalGuide() throws Exception;
-	
+	/*
+	 * 根据id更新新手指引信息
+	 */
+	public int updateGuideById(HashMap<String, Object> hashmap) throws Exception;
+	/*
+	 * 根据id删除新手指引信息
+	 */
+	public int deleteById(HashMap<String, Object> hashmap) throws Exception;
+	 
 }

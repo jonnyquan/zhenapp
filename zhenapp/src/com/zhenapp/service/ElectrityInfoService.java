@@ -31,5 +31,12 @@ public interface ElectrityInfoService {
 	 * 分页查询电商信息
 	 */
 	public List<TelectricityCustom> findElectrityBypage(HashMap<String,Object> pagemap) throws Exception;
-	
+	/*
+	 * 根据id修改电商信息
+	 */
+	public int updateElectrityById(HashMap<String, Object> hashmap) throws Exception;
+	/*
+	 * 根据id删除电商信息
+	 */
+	public int deleteById(HashMap<String, Object> hashmap) throws Exception;
 }

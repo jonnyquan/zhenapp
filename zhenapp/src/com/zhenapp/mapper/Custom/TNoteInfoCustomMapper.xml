@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhenapp.mapper.Custom.TNoteInfoCustomMapper" >
-  <select id="findAllNoteinfo" resultType="com.zhenapp.po.Custom.TNoteInfoCustom">
-  	select * from t_note_info
+  <select id="findTotalNoteinfoByPage" resultType="int">
+  	select count(1) from t_note_info
   </select>
   
-  <select id="findNoteinfoById" resultType="com.zhenapp.po.Custom.TNoteInfoCustom" parameterType="java.util.HashMap">
-  	select * from t_note_info where noteid=#{noteid}
+  <select id="findNoteinfoByPage" resultType="com.zhenapp.po.Custom.TNoteInfoCustom">
+  	select * from t_note_info limit #{page},#{rows}
+  </select>
+  
+  <select id="findNoteinfoByIdAndType" resultType="com.zhenapp.po.Custom.TNoteInfoCustom" parameterType="java.util.HashMap">
+  	SELECT a.noteid,a.notetype,a.notename,CASE WHEN a.notetype='0' THEN b.electricitytext ELSE c.guidetext END AS notetext FROM t_note_info a
+	LEFT JOIN (SELECT electricityid,electricitytext,'0' AS notetype FROM t_electricity_info) b ON a.noteid = b.electricityid  AND a.notetype=b.notetype
+	LEFT JOIN (SELECT guideid,guidetext,'1' AS notetype FROM t_guide_info) c ON a.noteid = c.guideid AND a.notetype=c.notetype
+	WHERE a.noteid=#{noteid} AND a.notetype=#{notetype} 
   </select>
   
   <update id="updatenoteByid"  parameterType="com.zhenapp.po.Custom.TNoteInfoCustom" >
-  	update t_note_info
-      notetype = #{notetype,jdbcType=VARCHAR},
+  	update t_note_info set 
       notename = #{notename,jdbcType=VARCHAR},
-      notetext = #{notetext},
       updatetime = #{updatetime,jdbcType=VARCHAR},
       updateuser = #{updateuser,jdbcType=VARCHAR}
     where noteid = #{noteid,jdbcType=INTEGER}
   </update>
+  <delete id="deleteByIdAndType" parameterType="java.util.HashMap">
+  	delete from t_note_info where noteid=#{noteid} and notetype=#{notetype}
+  </delete>
     
   <update id="updateByPrimaryKey" parameterType="com.zhenapp.po.Custom.TNoteInfoCustom" >
     update t_note_info

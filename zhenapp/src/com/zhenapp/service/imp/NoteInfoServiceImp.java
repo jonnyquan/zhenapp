@@ -14,21 +14,34 @@ public class NoteInfoServiceImp implements NoteInfoService {
 	@Autowired
 	private TNoteInfoCustomMapper tNoteInfoCustomMapper;
 	
-	public List<TNoteInfoCustom> findAllNoteinfo() throws Exception{
+	public int findTotalNoteinfoByPage() throws Exception{
 		
-		return tNoteInfoCustomMapper.findAllNoteinfo();
+		return tNoteInfoCustomMapper.findTotalNoteinfoByPage();
 	}
 
 	@Override
-	public TNoteInfoCustom findNoteinfoById(HashMap<String, Object> hashmap)
+	public TNoteInfoCustom findNoteinfoByIdAndType(HashMap<String, Object> hashmap)
 			throws Exception {
 		// TODO Auto-generated method stub
-		return tNoteInfoCustomMapper.findNoteinfoById(hashmap);
+		return tNoteInfoCustomMapper.findNoteinfoByIdAndType(hashmap);
 	}
 
 	@Override
 	public int updatenoteByid(TNoteInfoCustom tNoteInfoCustom) throws Exception {
 		// TODO Auto-generated method stub
 		return tNoteInfoCustomMapper.updatenoteByid(tNoteInfoCustom);
+	}
+
+	@Override
+	public List<TNoteInfoCustom> findNoteinfoByPage(
+			HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tNoteInfoCustomMapper.findNoteinfoByPage(hashmap);
+	}
+
+	@Override
+	public int deleteByIdAndType(HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tNoteInfoCustomMapper.deleteByIdAndType(hashmap);
 	};
 }

@@ -18,9 +18,16 @@
     from t_guide_info where guidepk =#{guidepk}
   </select>
   <select id="findGuideBypage" resultType="com.zhenapp.po.Custom.TGuideInfoCustom" parameterType="java.util.HashMap">
-    select *
-    from t_guide_info order by guidepk desc LIMIT #{page},#{rows}
+    select * from t_guide_info order by guidepk desc LIMIT #{page},#{rows}
   </select>
   
+  <delete id="deleteById" parameterType="java.util.HashMap">
+  	delete from t_guide_info where guideid=#{noteid}
+  </delete>
+
+  <update id="updateGuideById" parameterType="java.util.HashMap">
+	  update t_guide_info set guidename=#{notename},guidetext=#{notetext},updatetime=#{updatetime},updateuser=#{updateuser}
+	  where guideid=#{noteid}
+  </update>
   
 </mapper>

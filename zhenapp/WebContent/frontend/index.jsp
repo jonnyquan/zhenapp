@@ -7,6 +7,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
+
+<!–[if lt IE8]> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/test/html5.js"></script>
+<![endif]–>
+
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="真流量,淘口令,刷淘宝流量,淘宝刷流量软件,淘宝流量,淘宝刷流量" />
 <meta name="description"
@@ -31,6 +37,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>真流量</title>
 
 <style type="text/css">
+/*html5*/
+article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
+
 .webHeader .logo a {
 	display: block;
 	width: 280px;
@@ -219,7 +228,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 	</div>
-
+<!-- 
 	<div class="pageFull">
 		<div class="Links">
 			<span>友情链接：</span> <a href="http://www.hainingzaixian.com"
@@ -249,7 +258,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				href="http://www.hz-lailai.com" target=_blank>来涞科技</a>| <a
 				href="http://yangsheng.120ask.com" target=_blank>养生保健</a>|
 		</div>
-	</div>
+	</div> -->
 
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/frontend/pagematter/common/js/layer.min.js"></script>
@@ -267,11 +276,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="OnlineLeft">
 			<div class="con">
 				<ul>
-					<li>售前咨询<a target="_blank" href="tencent://message/?uin=${tWebInfoCustom.qq}&&Site=sc.chinaz.com&&Menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=1:12345678:42"></a></li>
-					<li>网站建设<a target="_blank" href="tencent://message/?uin=${tWebInfoCustom.qq}&&Site=sc.chinaz.com&&Menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=1:12345678:42"></a></li>
-					<li>网站优化<a target="_blank" href="tencent://message/?uin=${tWebInfoCustom.qq}&&Site=sc.chinaz.com&&Menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=1:12345678:42"></a></li>
+					<li>技术咨询<a target="_blank" href="tencent://message/?uin=${tWebInfoCustom.qq}&&Site=sc.chinaz.com&&Menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=1:12345678:42"></a></li>
+					<li>流量托管<a target="_blank" href="tencent://message/?uin=${tWebInfoCustom.qq}&&Site=sc.chinaz.com&&Menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=1:12345678:42"></a></li>
+				<!--  	<li>网站优化<a target="_blank" href="tencent://message/?uin=${tWebInfoCustom.qq}&&Site=sc.chinaz.com&&Menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=1:12345678:42"></a></li>
 					<li>整合营销<a target="_blank" href="tencent://message/?uin=${tWebInfoCustom.qq}&&Site=sc.chinaz.com&&Menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=1:12345678:42"></a></li>
 					<li>售后服务<a target="_blank" href="tencent://message/?uin=${tWebInfoCustom.qq}&&Site=sc.chinaz.com&&Menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=1:12345678:42"></a></li>
+				-->
 				</ul>
 			</div>
 		</div>

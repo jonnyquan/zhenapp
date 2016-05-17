@@ -260,13 +260,9 @@ public class PointsInfoController {
 		pagemap.put("rows", rows);
 		if(datefrom !=null){
 			pagemap.put("datefrom", datefrom.replace("-", ""));
-		}else{
-			pagemap.put("datefrom", yyyyMMdd.format(new Date())+"000000");
 		}
 		if(dateto !=null){
 			pagemap.put("dateto", dateto.replace("-", ""));
-		}else{
-			pagemap.put("dateto", yyyyMMdd.format(new Date())+"235959");
 		}
 		pagemap.put("usernick", usernick);
 		pagemap.put("rechargeid", rechargeid);
