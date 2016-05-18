@@ -2,9 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -232,29 +230,20 @@
             </div>
         </div>
     </div>
-				<script type="text/javascript"
-					src="${pageContext.request.contextPath}/backstage/pagematter/common/js/scroll.js"></script>
-				<script type="text/javascript"
-					src="${pageContext.request.contextPath}/backstage/pagematter/common/js/Validform_v5.3.2.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/backstage/pagematter/common/js/scroll.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/backstage/pagematter/common/js/Validform_v5.3.2.js"></script>
 	</div>
 	</div>
-
-		<div class="copyRight">
-			<div class="warp1200 footer">
-				<p>
-					Copyright<span>&copy;</span>2010-2015<span><a
-						href="${pageContext.request.contextPath}/frontend/index"
-						title="淘宝流量">淘宝流量</a> | <a
-						href="${pageContext.request.contextPath}/frontend/index"
-						title="真流量">真流量</a>(LiuLiangCun.COM).</span>All Rights Reserved.
-				</p>
-			</div>
-		</div>
-		<script type="text/javascript">
-		$(function(){
-			//var msg = "${msg}";
-			//alert(msg);
-		});
-	</script>
+<div class="copyRight">
+	<div class="warp1200 footer">
+		<p>
+			Copyright<span>&copy;</span>2010-2015<span><a
+				href="${pageContext.request.contextPath}/frontend/index"
+				title="淘宝流量">淘宝流量</a> | <a
+				href="${pageContext.request.contextPath}/frontend/index"
+				title="真流量">真流量</a>(LiuLiangCun.COM).</span>All Rights Reserved.
+		</p>
+	</div>
+</div>
 </body>
 </html>

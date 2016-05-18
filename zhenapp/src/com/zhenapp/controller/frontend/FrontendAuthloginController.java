@@ -2,6 +2,7 @@ package com.zhenapp.controller.frontend;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
+import com.zhenapp.po.Custom.TWebInfoCustom;
+import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.UserInfoService;
+import com.zhenapp.service.WebInfoService;
 import com.zhenapp.util.MD5Util;
 
 @Controller
@@ -19,13 +24,21 @@ import com.zhenapp.util.MD5Util;
 public class FrontendAuthloginController {
 	@Autowired
 	private UserInfoService userInfoService;
+	@Autowired
+	private WebInfoService webInfoService;
+	@Autowired
+	private AgentInfoService agentInfoService;
+	
 	/*
 	 * 跳转到登录页面
 	 */
 	@RequestMapping(value="/authlogin")
-	public @ResponseBody ModelAndView authlogin(HttpSession session) throws Exception{
+	public @ResponseBody ModelAndView authlogin(HttpServletRequest request,HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		
+		String webwww=request.getServerName();
+		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
+		TWebInfoCustom tWebInfoCustom=webInfoService.findWebByAgentid(tAgentInfoCustom.getAgentid());
+		mv.addObject("tWebInfoCustom",tWebInfoCustom);
 		
 		if(session.getAttribute("tUserInfoCustom") != null){
 			mv.setViewName("/user/responseuser");

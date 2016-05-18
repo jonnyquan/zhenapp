@@ -17,9 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
+import com.zhenapp.po.Custom.TWebInfoCustom;
 import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.UserInfoService;
+import com.zhenapp.service.WebInfoService;
 import com.zhenapp.util.MD5Util;
 
 @Controller
@@ -32,11 +34,17 @@ public class FrontendAuthregisterController {
 	private UserInfoService userInfoService;
 	@Autowired
 	private AgentInfoService agentInfoService;
+	@Autowired
+	private WebInfoService webInfoService;
+	
 	
 	@RequestMapping(value="/authregister")
-	public @ResponseBody ModelAndView authlogin() throws Exception{
+	public @ResponseBody ModelAndView authlogin(HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		
+		String webwww=request.getServerName();
+		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
+		TWebInfoCustom tWebInfoCustom=webInfoService.findWebByAgentid(tAgentInfoCustom.getAgentid());
+		mv.addObject("tWebInfoCustom",tWebInfoCustom);
 		mv.setViewName("/frontend/authregister.jsp");
 		return mv;
 	}

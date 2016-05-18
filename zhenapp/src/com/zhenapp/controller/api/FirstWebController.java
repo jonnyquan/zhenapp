@@ -28,6 +28,9 @@ public class FirstWebController {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
 	private static Logger logger = Logger.getLogger(FirstWebController.class);
+	//private final String secrettest="bLT?lAgO?zx=mNTJb85ryzRM<]s^wpxQ?_x0NLRMu2:Hosxp2ne^cIXjF`G9Ez9K";
+	private final String secret= "Ko;l47q6P`KZo:=xTc]39CJ`JPwGJ=fss8n:MaxR[YjPVN/2DI6`>5g3KdfMKpS9";
+	
 	@Autowired
 	private TaskDetailInfoService taskDetailInfoService;
 	@Autowired
@@ -60,7 +63,7 @@ public class FirstWebController {
 	        postMethod.addParameter("gprs_pct", "30");
 	        postMethod.addParameter("tmall_app_pct", "100");
 	        postMethod.addParameter("deep_click_pct", "0");
-	        postMethod.setRequestHeader("secret", "bLT?lAgO?zx=mNTJb85ryzRM<]s^wpxQ?_x0NLRMu2:Hosxp2ne^cIXjF`G9Ez9K");
+	        postMethod.setRequestHeader("secret", secret);
 	        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
 	        int statusCode =  httpClient.executeMethod(postMethod);
 	        if(statusCode == 200) {
@@ -86,7 +89,7 @@ public class FirstWebController {
 		HttpClient httpClient = new HttpClient();
 		String result="";
         GetMethod getMethod = new GetMethod(url);
-        getMethod.setRequestHeader("secret", "bLT?lAgO?zx=mNTJb85ryzRM<]s^wpxQ?_x0NLRMu2:Hosxp2ne^cIXjF`G9Ez9K");
+        getMethod.setRequestHeader("secret", secret);
         int statusCode =  httpClient.executeMethod(getMethod);
         if(statusCode == 200) {
             System.out.println("调用成功");
@@ -128,7 +131,7 @@ public class FirstWebController {
 	        postMethod.addParameter("gprs_pct", "30");
 	        postMethod.addParameter("tmall_app_pct", "100");
 	        postMethod.addParameter("deep_click_pct", "0");
-	        postMethod.setRequestHeader("secret", "bLT?lAgO?zx=mNTJb85ryzRM<]s^wpxQ?_x0NLRMu2:Hosxp2ne^cIXjF`G9Ez9K");
+	        postMethod.setRequestHeader("secret", secret);
 	        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
 	        int statusCode =  httpClient.executeMethod(postMethod);
 	        if(statusCode == 200) {
@@ -154,7 +157,7 @@ public class FirstWebController {
 		HttpClient httpClient = new HttpClient();
 		String result="";
         PostMethod postMethod = new PostMethod(url);
-        postMethod.setRequestHeader("secret", "bLT?lAgO?zx=mNTJb85ryzRM<]s^wpxQ?_x0NLRMu2:Hosxp2ne^cIXjF`G9Ez9K");
+        postMethod.setRequestHeader("secret", secret);
         int statusCode =  httpClient.executeMethod(postMethod);
         if(statusCode == 200) {
             System.out.println("调用成功");
@@ -179,7 +182,7 @@ public class FirstWebController {
 		HttpClient httpClient = new HttpClient();
 		String result="";
         GetMethod getMethod = new GetMethod(url);
-        getMethod.setRequestHeader("secret", "bLT?lAgO?zx=mNTJb85ryzRM<]s^wpxQ?_x0NLRMu2:Hosxp2ne^cIXjF`G9Ez9K");
+        getMethod.setRequestHeader("secret", secret);
         int statusCode =  httpClient.executeMethod(getMethod);
         if(statusCode == 200) {
             System.out.println("调用成功");
@@ -206,7 +209,7 @@ public class FirstWebController {
         //postMethod.setParameter("url", "https://item.taobao.com/item.htm?id=531027639098");
         postMethod.setParameter("url", param);
         postMethod.setParameter("cache", "true");
-        postMethod.setRequestHeader("secret", "bLT?lAgO?zx=mNTJb85ryzRM<]s^wpxQ?_x0NLRMu2:Hosxp2ne^cIXjF`G9Ez9K");
+        postMethod.setRequestHeader("secret", secret);
         postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
         int statusCode =  httpClient.executeMethod(postMethod);
         if(statusCode == 200) {
@@ -244,7 +247,7 @@ public class FirstWebController {
 		HttpClient httpClient = new HttpClient();
 		String result="";
         PostMethod postMethod = new PostMethod(url);
-        postMethod.setRequestHeader("secret", "bLT?lAgO?zx=mNTJb85ryzRM<]s^wpxQ?_x0NLRMu2:Hosxp2ne^cIXjF`G9Ez9K");
+        postMethod.setRequestHeader("secret", secret);
         postMethod.setParameter("keywords", "夏装");
         postMethod.setParameter("product_id", "531027639098");
         postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
@@ -271,7 +274,7 @@ public class FirstWebController {
 		HttpClient httpClient = new HttpClient();
 		String result="";
         GetMethod getMethod = new GetMethod(url);
-        getMethod.setRequestHeader("secret", "bLT?lAgO?zx=mNTJb85ryzRM<]s^wpxQ?_x0NLRMu2:Hosxp2ne^cIXjF`G9Ez9K");
+        getMethod.setRequestHeader("secret", secret);
         int statusCode =  httpClient.executeMethod(getMethod);
         if(statusCode == 200) {
             System.out.println("调用成功");

@@ -1,41 +1,29 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+  <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
 
-
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/global.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/common.css">
-
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/frontend/pagematter/common/js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/frontend/pagematter/common/js/common.js"></script>
-
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/validform.style.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/layer_user.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/user.css"
-	type="text/css">
-
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/frontend/pagematter/common/js/common.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/frontend/pagematter/common/js/jquery.laravel-sms.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/frontend/pagematter/common/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/frontend/pagematter/common/css/global.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/frontend/pagematter/common/css/common.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/frontend/pagematter/common/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/frontend/pagematter/common/js/common.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/frontend/pagematter/common/css/validform.style.css" >
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/frontend/pagematter/common/css/layer_user.css" >
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/frontend/pagematter/common/css/user.css" >
+<script type="text/javascript" src="${pageContext.request.contextPath}/frontend/pagematter/common/js/common.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/frontend/pagematter/common/js/jquery.laravel-sms.js"></script>
 
 <style type="text/css">
 .login_box {

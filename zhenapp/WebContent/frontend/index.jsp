@@ -7,32 +7,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-
-<!–[if lt IE8]> 
-<script type="text/javascript" src="${pageContext.request.contextPath}/test/html5.js"></script>
-<![endif]–>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+  <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="真流量,淘口令,刷淘宝流量,淘宝刷流量软件,淘宝流量,淘宝刷流量" />
-<meta name="description"
-	content="流量真真流量是一个快速提升淘宝手机流量、淘口令流量、淘宝无线流量、淘宝APP流量的平台,真流量优势:  百分百模拟刷淘宝手机流量、淘口令、淘宝刷流量软件、刷淘宝流量软件。" />
+<meta name="description" content="流量真真流量是一个快速提升淘宝手机流量、淘口令流量、淘宝无线流量、淘宝APP流量的平台,真流量优势:  百分百模拟刷淘宝手机流量、淘口令、淘宝刷流量软件、刷淘宝流量软件。" />
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/frontend/pagematter/common/img/favicon.ico" type="image/x-icon" />
 
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/global.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/common.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/index.css">
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/frontend/pagematter/common/js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/frontend/pagematter/common/js/common.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/frontend/pagematter/common/js/jquery.SuperSlide.2.1.1.js"></script>
+
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/frontend/pagematter/common/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/frontend/pagematter/common/css/global.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/frontend/pagematter/common/css/common.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/frontend/pagematter/common/css/index.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/frontend/pagematter/common/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/frontend/pagematter/common/js/common.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/frontend/pagematter/common/js/jquery.SuperSlide.2.1.1.js"></script>
 
 <title>真流量</title>
 
@@ -60,7 +55,6 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 .OnlineLeft{float:left;display:inline;width:262px;height:439px;overflow:hidden;zoom:1;}
 .OnlineBtn{float:right;display:inline;width:127px;height:36px;background:url(${pageContext.request.contextPath}/webimg/${tWebInfoCustom.bg02}) no-repeat;margin-top:-45px;margin-left:220px;}
 </style>
-</head>
 </head>
 <body>
 	<div class="topbar">
@@ -300,10 +294,12 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
         			function(){
         				$(this).animate({left:-276},149);	
         			}
-        		)
+        		);
         	load();
         });
-
+        window.onresize=function(){  
+        	 window.location.reload();
+       }  
     	function load(){
             var anli = "${anli}";
             if(anli.length > 0){

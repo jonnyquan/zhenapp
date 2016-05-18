@@ -9,31 +9,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+  <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css"
-		href="${pageContext.request.contextPath}/frontend/pagematter/common/css/global.css">
-		<link rel="stylesheet" type="text/css"
-			href="${pageContext.request.contextPath}/frontend/pagematter/common/css/common.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/global.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/common.css">
 
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/frontend/pagematter/common/js/jquery-1.11.1.min.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/frontend/pagematter/common/js/common.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/frontend/pagematter/common/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/frontend/pagematter/common/js/common.js"></script>
 
-			<link rel="stylesheet"
-				href="${pageContext.request.contextPath}/frontend/pagematter/common/css/layer_user.css"
-				type="text/css">
-				<link rel="stylesheet"
-					href="${pageContext.request.contextPath}/frontend/pagematter/common/css/user.css"
-					type="text/css">
-					<link rel="stylesheet"
-						href="${pageContext.request.contextPath}/frontend/pagematter/common/css/validform.style.css"
-						type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/layer_user.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/user.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/validform.style.css"
+	type="text/css">
 
-						<style type="text/css">
+<style type="text/css">
 
 /*header*/
 .pageFull {
@@ -56,13 +61,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	overflow: hidden;
 }
 
+/*html5*/
+article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
+
 .webHeader .logo a {
 	display: block;
 	width: 280px;
 	height: 80px;
-	background: url("${pageContext.request.contextPath}/frontend/pagematter/common/img/logo.png") no-repeat;
+	background: url("${pageContext.request.contextPath}/webimg/${tWebInfoCustom.logo}") no-repeat;
 	text-indent: -99999px;
 }
+*{margin:0px;padding:0px;outline:none;list-style-type:none;border:none;}
+.QQbox{z-index:1000;width:410px;left:-276px;top:0;margin:149px 0 0 0;position:fixed;}
+*html,*html body{background-image:url(about:blank);background-attachment:fixed;}
+*html .QQbox{position:absolute;top:expression(eval(document.documentElement.scrollTop));}
+.QQbox .press{left:0;border:none;cursor:pointer;width:32px;height:96px;position:absolute;padding-top:140px;}
+.QQbox .Qlist{float:left;width:410px;background:url(${pageContext.request.contextPath}/webimg/${tWebInfoCustom.bg01}) no-repeat;background-position:1px 0px;height:436px;display:block;overflow:hidden;zoom:1;}
+.QQbox .Qlist .infobox{text-align:center;background-repeat:no-repeat;padding:5px;line-height:14px;color:#CCCCCC;font-weight:700;}
+.QQbox .Qlist .con{margin-top:266px;margin-left:50px;color:#32567e;font-size:14px;}
+.QQbox .Qlist .con ul li{height:31px;list-style:none;margin-left:35px;}
+.QQbox .Qlist .con ul li a{font-size:13px;margin-left:18px;text-decoration:none;}
+.OnlineLeft{float:left;display:inline;width:262px;height:439px;overflow:hidden;zoom:1;}
+.OnlineBtn{float:right;display:inline;width:127px;height:36px;background:url(${pageContext.request.contextPath}/webimg/${tWebInfoCustom.bg02}) no-repeat;margin-top:-45px;margin-left:220px;}
+
 
 .webHeader .channel {
 	width: 770px;
@@ -223,7 +244,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	color: red;
 }
 </style>
-						<title>会员登录 - 真流量</title>
+<title>会员登录 - 真流量</title>
 </head>
 
 <body>
@@ -375,8 +396,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</p>
 		</div>
 	</div>
+<div id="divQQbox" class="QQbox">
+<div id="divOnline" class="Qlist">
+	<div class="OnlineLeft">
+		<div class="con">
+			<ul>
+				<li>技术咨询<a target="_blank" href="tencent://message/?uin=${tWebInfoCustom.qq}&&Site=sc.chinaz.com&&Menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=1:12345678:42"></a></li>
+				<li>流量托管<a target="_blank" href="tencent://message/?uin=${tWebInfoCustom.qq}&&Site=sc.chinaz.com&&Menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=1:12345678:42"></a></li>
+			<!--  	<li>网站优化<a target="_blank" href="tencent://message/?uin=${tWebInfoCustom.qq}&&Site=sc.chinaz.com&&Menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=1:12345678:42"></a></li>
+				<li>整合营销<a target="_blank" href="tencent://message/?uin=${tWebInfoCustom.qq}&&Site=sc.chinaz.com&&Menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=1:12345678:42"></a></li>
+				<li>售后服务<a target="_blank" href="tencent://message/?uin=${tWebInfoCustom.qq}&&Site=sc.chinaz.com&&Menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=1:12345678:42"></a></li>
+			-->
+				</ul>
+			</div>
+		</div>
+		<div class="OnlineBtn">
+		</div>
+	</div>
+</div>
 	<script type="text/javascript">
 		$(function(){
+			
+			$("#divQQbox").hover(
+       			function(){
+       				$(this).stop(true,false);
+       				$(this).animate({left:0},300);	
+       			},
+       			function(){
+       				$(this).animate({left:-276},149);	
+       			}
+       		);
+        		
 			 var msg = "${msg}";
 		     if(msg.length > 0){
 		     	alert(msg);

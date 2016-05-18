@@ -9,31 +9,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+  <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
 
 
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/global.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/common.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/frontend/pagematter/common/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/frontend/pagematter/common/css/global.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/frontend/pagematter/common/css/common.css">
 
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/frontend/pagematter/common/js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/frontend/pagematter/common/js/common.js"></script>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/validform.style.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/layer_user.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/frontend/pagematter/common/css/user.css"
-	type="text/css">
-
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/frontend/pagematter/common/js/common.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/frontend/pagematter/common/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/frontend/pagematter/common/js/common.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/frontend/pagematter/common/css/validform.style.css" >
+<link rel="stylesheet" href="${pageContext.request.contextPath}/frontend/pagematter/common/css/layer_user.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/frontend/pagematter/common/css/user.css" type="text/css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/frontend/pagematter/common/js/common.js"></script>
 
 <style type="text/css">
 .login_box {
@@ -64,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	display: block;
 	width: 280px;
 	height: 80px;
-	background: url("${pageContext.request.contextPath}/frontend/pagematter/common/img/logo.png") no-repeat;
+	background: url("${pageContext.request.contextPath}/webimg/${tWebInfoCustom.logo}") no-repeat;
 	text-indent: -99999px;
 }
 
@@ -250,20 +243,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		src="${pageContext.request.contextPath}/frontend/pagematter/common/js/Validform_v5.3.2.js"></script>
 
 
-	<div class="copyRight">
-		<div class="warp1200 footer">
-			<p>
-				Copyright (c) 2015 <a href="${pageContext.request.contextPath}/frontend/index" title="淘宝流量">淘宝流量</a> | <a href="${pageContext.request.contextPath}/frontend/index" title="真流量">真流量</a>(www.zhenapp.cn) Inc. All Rights. 浙ICP备140452118号-5.
-			</p>
-		</div>
+<div class="copyRight">
+	<div class="warp1200 footer">
+		<p>
+			Copyright (c) 2015 <a href="${pageContext.request.contextPath}/frontend/index" title="淘宝流量">淘宝流量</a> | <a href="${pageContext.request.contextPath}/frontend/index" title="真流量">真流量</a>(www.zhenapp.cn) Inc. All Rights. 浙ICP备140452118号-5.
+		</p>
 	</div>
-<script type="text/javascript">
-	$(function(){
-		var msg = ${msg};
-		if(msg.length >0){
-			alert(msg);
-		}
-	});
-</script>
+</div>
 </body>
 </html>
