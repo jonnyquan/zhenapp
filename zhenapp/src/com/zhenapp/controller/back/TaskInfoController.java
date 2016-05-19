@@ -111,9 +111,7 @@ public class TaskInfoController {
 		if(dateto!=null){
 			pagemap.put("dateto", dateto.replace("-", ""));
 		}
-		if(taskpk!=null){
-			pagemap.put("taskpk", taskpk);
-		}
+		pagemap.put("taskpk", taskpk);
 		pagemap.put("taskkeynum", taskkeynum);
 		pagemap.put("taskkeyword", taskkeyword);
 		pagemap.put("tasktype", tasktype);
@@ -127,6 +125,12 @@ public class TaskInfoController {
 		mv.addObject("total", total);
 		mv.addObject("pagenum", page);
 		mv.addObject("points", points);
+		
+		mv.addObject("taskpk", taskpk);
+		mv.addObject("taskkeynum", taskkeynum);
+		mv.addObject("taskkeyword", taskkeyword);
+		mv.addObject("tasktype", tasktype);
+		
 		mv.addObject("tAgentInfoCustom", tAgentInfoCustom);
 		mv.setViewName("/backstage/agent/tasklist.jsp");
 		return mv;

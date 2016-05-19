@@ -3,7 +3,7 @@ package com.zhenapp.po;
 public class TGuideInfo {
     private Integer guidepk;
 
-    private Integer guideid;
+    private String guideid;
 
     private String guidename;
 
@@ -25,12 +25,12 @@ public class TGuideInfo {
         this.guidepk = guidepk;
     }
 
-    public Integer getGuideid() {
+    public String getGuideid() {
         return guideid;
     }
 
-    public void setGuideid(Integer guideid) {
-        this.guideid = guideid;
+    public void setGuideid(String guideid) {
+        this.guideid = guideid == null ? null : guideid.trim();
     }
 
     public String getGuidename() {

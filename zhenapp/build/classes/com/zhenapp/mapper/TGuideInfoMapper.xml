@@ -3,7 +3,7 @@
 <mapper namespace="com.zhenapp.mapper.TGuideInfoMapper" >
   <resultMap id="BaseResultMap" type="com.zhenapp.po.TGuideInfo" >
     <id column="guidepk" property="guidepk" jdbcType="INTEGER" />
-    <result column="guideid" property="guideid" jdbcType="INTEGER" />
+    <result column="guideid" property="guideid" jdbcType="VARCHAR" />
     <result column="guidename" property="guidename" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="VARCHAR" />
     <result column="createuser" property="createuser" jdbcType="VARCHAR" />
@@ -129,7 +129,7 @@
     insert into t_guide_info (guidepk, guideid, guidename, 
       createtime, createuser, updatetime, 
       updateuser, guidetext)
-    values (#{guidepk,jdbcType=INTEGER}, #{guideid,jdbcType=INTEGER}, #{guidename,jdbcType=VARCHAR}, 
+    values (#{guidepk,jdbcType=INTEGER}, #{guideid,jdbcType=VARCHAR}, #{guidename,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
       #{updateuser,jdbcType=VARCHAR}, #{guidetext,jdbcType=LONGVARCHAR})
   </insert>
@@ -166,7 +166,7 @@
         #{guidepk,jdbcType=INTEGER},
       </if>
       <if test="guideid != null" >
-        #{guideid,jdbcType=INTEGER},
+        #{guideid,jdbcType=VARCHAR},
       </if>
       <if test="guidename != null" >
         #{guidename,jdbcType=VARCHAR},
@@ -201,7 +201,7 @@
         guidepk = #{record.guidepk,jdbcType=INTEGER},
       </if>
       <if test="record.guideid != null" >
-        guideid = #{record.guideid,jdbcType=INTEGER},
+        guideid = #{record.guideid,jdbcType=VARCHAR},
       </if>
       <if test="record.guidename != null" >
         guidename = #{record.guidename,jdbcType=VARCHAR},
@@ -229,7 +229,7 @@
   <update id="updateByExampleWithBLOBs" parameterType="map" >
     update t_guide_info
     set guidepk = #{record.guidepk,jdbcType=INTEGER},
-      guideid = #{record.guideid,jdbcType=INTEGER},
+      guideid = #{record.guideid,jdbcType=VARCHAR},
       guidename = #{record.guidename,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=VARCHAR},
       createuser = #{record.createuser,jdbcType=VARCHAR},
@@ -243,7 +243,7 @@
   <update id="updateByExample" parameterType="map" >
     update t_guide_info
     set guidepk = #{record.guidepk,jdbcType=INTEGER},
-      guideid = #{record.guideid,jdbcType=INTEGER},
+      guideid = #{record.guideid,jdbcType=VARCHAR},
       guidename = #{record.guidename,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=VARCHAR},
       createuser = #{record.createuser,jdbcType=VARCHAR},
@@ -257,7 +257,7 @@
     update t_guide_info
     <set >
       <if test="guideid != null" >
-        guideid = #{guideid,jdbcType=INTEGER},
+        guideid = #{guideid,jdbcType=VARCHAR},
       </if>
       <if test="guidename != null" >
         guidename = #{guidename,jdbcType=VARCHAR},
@@ -282,7 +282,7 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zhenapp.po.TGuideInfo" >
     update t_guide_info
-    set guideid = #{guideid,jdbcType=INTEGER},
+    set guideid = #{guideid,jdbcType=VARCHAR},
       guidename = #{guidename,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=VARCHAR},
       createuser = #{createuser,jdbcType=VARCHAR},
@@ -293,7 +293,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zhenapp.po.TGuideInfo" >
     update t_guide_info
-    set guideid = #{guideid,jdbcType=INTEGER},
+    set guideid = #{guideid,jdbcType=VARCHAR},
       guidename = #{guidename,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=VARCHAR},
       createuser = #{createuser,jdbcType=VARCHAR},

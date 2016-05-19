@@ -39,7 +39,7 @@ public class TextImprot {
                                 
                                 System.out.println(str.trim());
                                 TElectricityInfo tElectricityInfo=new TElectricityInfo();
-                                tElectricityInfo.setElectricityid(i);
+                                tElectricityInfo.setElectricityid(i+"");
                                 tElectricityInfo.setElectricityname(readfile.getName().replace(".txt", ""));
                                 tElectricityInfo.setElectricitytext(str.trim());
                                 listTElectricityInfo.add(tElectricityInfo);

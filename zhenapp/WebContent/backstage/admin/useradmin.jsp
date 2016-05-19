@@ -148,6 +148,7 @@
 			  <td><a href="${pageContext.request.contextPath}/user/rechargeadmin?userpk=${list.userpk}" class="am-badge am-badge-primary">充值/扣款</a> 
                   <a data-id="${list.userpk}" class="am-badge am-badge-primary deleteUser">删除</a>
                   <a href="${pageContext.request.contextPath}/user/handworkLogin?userpk=${list.userpk}" data-id="3685" class="am-badge am-badge-primary">登录</a>
+                  <a href="${pageContext.request.contextPath}/user/setAgent/${list.userpk}" class="am-badge am-badge-primary">设为代理</a>
               </td>
             </tr>
           </c:forEach>
@@ -177,7 +178,7 @@
 
 	  $(document).on("click", ".deleteUser", function() {
 	      if (confirm("你确定要删除吗？")) {
-	        $.getJSON('${pageContext.request.contextPath}/user/deleteUserByUserpkAndRole', {
+	        $.getJSON('${pageContext.request.contextPath}/user/deleteUserByUserpkAndAdmin', {
 	          userpk : $(this).attr("data-id")
 	        }, function(resp) {
 	          if (resp && resp.ec == 0) {
@@ -189,6 +190,7 @@
 	      }
 	    });
 
+/* 
     $(".setproxy").click(function() {
       if (confirm("你确定要将此用户设为代理吗？")) {
         $.getJSON('/admin/user/proxy', {
@@ -201,11 +203,15 @@
           }
         });
       }
-    });
-
+    }); */
   });
   
-  
+  function btn_search(num){
+      var name = $("#userName").val();
+      var id = $("#userId").val();
+      var mobile = $("#mobile").val();
+      location.href = "${pageContext.request.contextPath}/user/findUserByPageAndAdmin?page=" + num + "&usernick=" + name + "&userpk=" + id + "&userphone=" + mobile;
+  }
   var index = Number("${pagenum}");
 	if (index.length < 1) {
 		index = 1;
@@ -220,18 +226,17 @@
 		}
 		$("#countindex").val(countindex);
 		$.jqPaginator('#pagination',
-		{
-			totalPages : parseInt($("#countindex").val()),
+		{totalPages : parseInt($("#countindex").val()),
 			visiblePages : parseInt($("#visiblePages").val()),
 			currentPage : index,
-			first : '<li class="first"><a href="${pageContext.request.contextPath}/task/responsetaskmanage?page=1">首页</a></li>',
+			first : '<li class="first"><a onclick="btn_search(1);">首页</a></li>',
 			prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
 			next : '<li class="next"><a href="javascript:;">下一页</a></li>',
 			last : '<li class="last"><a href="javascript:;">末页</a></li>',
 			page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
 			onPageChange : function(num, type) {
 				if (type == "change") {
-					window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanage?page=" + num;
+					btn_search(num);
 				}
 			}
 		});

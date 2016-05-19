@@ -63,6 +63,7 @@ public class DatacountInfoController {
 			hashmap.put("dateto", dateto.replace("-", ""));
 		}
 		hashmap.put("tasktype", tasktype);
+		hashmap.put("agentid", "2");
 		List<DatacountInfoCustom> datacountInfoCustomlist=datacountInfoService.findDataBydate(hashmap);
 		DatacountInfoCustom datacountInfoCustom=datacountInfoService.findSUMDataBydate(hashmap);
 		/*TFilepathInfoCustom tFilepathInfoCustom= filepathInfoService.findFilepathByid("1");

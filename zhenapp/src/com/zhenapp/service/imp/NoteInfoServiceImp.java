@@ -43,5 +43,11 @@ public class NoteInfoServiceImp implements NoteInfoService {
 	public int deleteByIdAndType(HashMap<String, Object> hashmap) throws Exception {
 		// TODO Auto-generated method stub
 		return tNoteInfoCustomMapper.deleteByIdAndType(hashmap);
+	}
+
+	@Override
+	public int savenote(TNoteInfoCustom tNoteInfoCustom) throws Exception {
+		// TODO Auto-generated method stub
+		return tNoteInfoCustomMapper.savenote(tNoteInfoCustom);
 	};
 }

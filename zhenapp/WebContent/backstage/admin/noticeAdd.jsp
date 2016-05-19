@@ -12,11 +12,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>有问题任务查询</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
+<title>公告管理</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/amazeui.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/admin.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/lanyunying.css" />
@@ -25,11 +21,11 @@
 <script src="${pageContext.request.contextPath}/backstage/agent/pagematter/jquery.form.min.js"></script>
 <script src="${pageContext.request.contextPath}/backstage/agent/pagematter/amazeui.min.js"></script>
 <script src="${pageContext.request.contextPath}/backstage/agent/pagematter/lanyunying.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/default.css" />
-<script type="text/javascript" src="${pageContext.request.contextPath}/backstage/agent/pagematter/kindeditor.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/backstage/agent/pagematter/zh_CN.js"></script>
-<script src="${pageContext.request.contextPath}/bootstrap/js/jqPaginator.min.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/bootstrap/js/myPage.js" type="text/javascript"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/kindeditor/plugins/code/prettify.css" />
+<script charset="utf-8" src="${pageContext.request.contextPath}/kindeditor/kindeditor-all-min.js"></script>
+<script charset="utf-8" src="${pageContext.request.contextPath}/kindeditor/lang/zh-CN.js"></script>
+<script charset="utf-8" src="${pageContext.request.contextPath}/kindeditor/plugins/code/prettify.js"></script>
 </head>
 <body>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -69,9 +65,7 @@
               </ul></li>
             <li><a href="${pageContext.request.contextPath}/task/responsetaskmanageadmin"><span class="am-icon-pencil-square-o"></span>订单查询</a></li>
             <li><a href="${pageContext.request.contextPath}/combo/findComboByadmin"><span class="am-icon-cubes"></span> 套餐信息</a></li>
-
-            
-             <li><a href="${pageContext.request.contextPath}/task/findproblemtaskadmin"><span class="am-icon-mobile"></span> 有问题任务查询</a></li>
+			<li><a href="${pageContext.request.contextPath}/task/findproblemtaskadmin"><span class="am-icon-mobile"></span> 有问题任务查询</a></li>
              <li><a href="${pageContext.request.contextPath}/task/findtaskdetaillist"><span class="am-icon-mobile"></span> 任务详情</a></li> 
              <li><a href="${pageContext.request.contextPath}/task/findtasklocklist"><span class="am-icon-mobile"></span> 卡机任务查询</a></li> 
  			<!--   <li><a href="/admin/phoneTask/getMessage"><span class="am-icon-mobile"></span> 淘宝ID查询</a></li>
@@ -97,141 +91,129 @@
       
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<script type="text/javascript">
+	var editor1=null;
+	KindEditor.ready(function(K) {
+		editor1 = K.create('textarea[name="notetext"]', {
+			cssPath : '${pageContext.request.contextPath}/kindeditor/plugins/code/prettify.css',
+			uploadJson : '${pageContext.request.contextPath}/kindeditor/jsp/upload_json.jsp',
+			fileManagerJson : '${pageContext.request.contextPath}/kindeditor/jsp/file_manager_json.jsp',
+			allowFileManager : true,
+			afterCreate : function() {
+				var self = this;
+				self.sync();
+			},
+			afterBlur:function(){
+				this.sync();
+			} 
+		});
+		prettyPrint();
+	});
+</script>
 <div class="admin-content">
 
-	<div class="am-cf am-padding">
-		<div class="am-fl am-cf">
-			<strong class="am-text-primary am-text-lg">手机任务 </strong>
-		</div>
-	</div>
-
-	<div class="am-g" id="module-head" style="margin-bottom: 10px;">
-		<div class="am-u-sm-12 am-u-md-12">
-			<form class="am-form-inline" role="form">
-				<div class="am-form-group">
-					<input type="text" id="pid" class="am-form-field am-input-sm" value="${phoneid}" placeholder="手机号">
-				</div>
-				<div class="am-form-group">
-					<input type="text" id="nid" class="am-form-field am-input-sm" value="${taskkeynum}" placeholder="宝贝id">
-				</div>
-				<div class="am-form-group">
-					<input type="text" id="fid" class="am-form-field am-input-sm" value="${taskpk}" placeholder="订单id">
-				</div>
-				<div class="am-form-group">
-					<input type="text" id="hours" class="am-form-field am-input-sm" value="${hours}" placeholder="时间">
-				</div>
-				<button class="am-btn am-btn-default" id="search" type="button">搜索</button>
-			</form>
-		</div>
-	</div>
-	<div class="am-g">
-		<div class="am-u-sm-12">
-			<form class="am-form">
-				<table class="am-table am-table-striped am-table-hover"
-					style="font-size: 1.4rem;">
-					<thead>
-						<tr class="am-success">
-							<th>手机号</th>
-							<th>订单ID</th>
-							<th>宝贝ID</th>
-							<th>是否加购物车</th>
-							<th>是否收藏</th>
-							<th>返回状态</th>
-							<th>执行时间(点)</th>
-							<th>完成收藏</th>
-							<th>完成加购</th>
-							<th>创建时间</th>
-							<th>更新时间</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:if test="${tTaskDetailInfoCustomlist==null }">
-							<tr>
-								<td colspan="11">
-									暂无详细数据
-								</td>
-							</tr>
-						</c:if>
-						<c:if test="${tTaskDetailInfoCustomlist!=null }">
-							<c:forEach items="${tTaskDetailInfoCustomlist}" var="list">
-								<tr data-id="${list.taskdetailpk}">
-								<td>${list.phoneid}</td>
-								<td>${list.taskdetailpk}</td>
-								<td>${list.taskkeynum}</td>
-								<td>${list.isshoppingname}</td>
-								<td>${list.iscollectionname}</td>
-								<td>${list.visitname}</td>
-								<td>${list.taskhour}</td>
-								<td>${list.collectname}</td>
-								<td>${list.trolleyname}</td>
-								<td>${list.createtime}</td>
-								<td>${list.updatetime}</td>
-							</tr>
-							</c:forEach>
-						</c:if>
-					</tbody>
-				</table>
-				 <div>
-					<ul class="pagination" id="pagination">
-					</ul>
-					<input type="hidden" id="PageCount" runat="server" value="${total}"/>
-					<input type="hidden" id="PageSize" runat="server" value="10" />
-					<input type="hidden" id="countindex" runat="server" value="10"/>
-					<!--设置最多显示的页码数 可以手动设置 默认为7-->
-					<input type="hidden" id="visiblePages" runat="server" value="12" />
-				  </div>
-			</form>
-		</div>
-	</div>
+  <div class="am-cf am-padding">
+    <div class="am-fl am-cf">
+      <strong class="am-text-primary am-text-lg">添加公告</strong>
+    </div>
+  </div>
+  <div class="am-g">
+    <!-- 表单 -->
+    <div class="am-u-sm-10">
+      <form class="am-form am-form-horizontal" id="publisFlow" action="${pageContext.request.contextPath}/note/Addnote" method="post">
+        <!-- am-form-group 的基础上添加了 am-form-group-sm -->
+        <div class="am-form-group am-form-group-sm">
+          <label for="kwd" class="am-u-sm-2 am-form-label">标题</label>
+          <div class="am-u-sm-10">
+            <input type="text" name="notename" value="" id="title" class="am-form-field" placeholder="输入你的标题">
+          </div>
+        </div>
+        <div class="am-form-group am-form-group-sm">
+          <label for="contentType"  class="am-u-sm-2 am-form-label">类型</label>
+          <div class="am-u-sm-10">
+		      <select name="notetype" id="contentType">
+			      	<option value="0" selected="selected" >电商信息</option>
+			       	<option value="1"  >新手指引</option>
+		      </select>
+          </div>
+        </div>
+        <div class="am-form-group am-form-group-sm">
+          <label for="totalTask" class="am-u-sm-2 am-form-label">内容</label>
+          <div class="am-u-sm-10">
+           <textarea rows="15" cols="60" name="notetext" id="content">
+           
+		   </textarea>
+          </div>
+        </div>
+        <div class="am-form-group">
+          <div class="am-u-sm-10 am-u-sm-offset-2">
+            <button type="button" id="btn-sub" class="am-btn am-btn-primary">提交</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 <script>
-	$(function() {
-		$("#search").click(function() {
-			btn_search(1);
-		});
+$(function(){
+	$("#btn-sub").click(function(){
+		editor1.sync();
+		$("#publisFlow").submit();
 	});
-	function btn_search(num){
-		var pid = $("#pid").val();
-		var nid = $("#nid").val();
-		var fid = $("#fid").val();
-		var hours = $("#hours").val();
-		location.href = "${pageContext.request.contextPath}/task/findproblemtaskadmin?page=" + num + "&&phoneid=" + pid + "&&taskkeynum=" + nid+"&&taskpk="+fid+"&&hours="+hours;
-	}
-		var index = Number("${pagenum}");
-		if (index.length < 1) {
-			index = 1;
-		}
-		function loadpage() {
-			var myPageCount = parseInt($("#PageCount").val());
-			var myPageSize = parseInt($("#PageSize").val());
-			var countindex = myPageCount % myPageSize > 0 ? (myPageCount / myPageSize) + 1
-					: (myPageCount / myPageSize);
-			if(countindex==0){
-				countindex=1;
-			}
-			$("#countindex").val(countindex);
-			$.jqPaginator('#pagination',
-			{totalPages : parseInt($("#countindex").val()),
-				visiblePages : parseInt($("#visiblePages").val()),
-				currentPage : index,
-				first : '<li class="first"><a onclick="btn_search(1);">首页</a></li>',
-				prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
-				next : '<li class="next"><a href="javascript:;">下一页</a></li>',
-				last : '<li class="last"><a href="javascript:;">末页</a></li>',
-				page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-				onPageChange : function(num, type) {
-					if (type == "change") {
-						btn_search(num);
-					}
-				}
-			});
-		}
+	
+	
+    $('#publisFlow').validate({
+      rules : {
+    	  title : {
+          required : true
+        },
+        typeId : {
+          required : true
+        }
+      },
+      messages : {
+    	  title : {
+          required : '不能为空。'
+        },
+        typeId : {
+          required : '请输入搜索关键词'
+        }
+      },
+      submitHandler : function(form) {
+        if (!$(form).valid()) {
+          $('.error').eq(0).focus();
+          return false;
+        }
+        $(form).ajaxSubmit({
+          success : function(resp) {
+            if (resp && resp.ec == 0) {
+              Message.info('发布成功：', false);
+              setTimeout(function() {
+                window.location.href = '${pageContext.request.contextPath}/note/findnoticeList';
+              }, 2000);
+
+            } else {
+              Message.error('发布失败：' + resp.em, false);
+            }
+          },
+          error : function() {
+            Message.error('发布失败！', false);
+          }
+        });
+      }
+    });
+
+  });
 </script>
 
-  <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+    </div>
+  
+  <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
+    data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
   <footer>
     <hr>
     <p class="am-padding-left">Copyright (c) 2015 zhenapp.cn Inc. All Rights. 浙ICP备140452118号-5</p>
   </footer>
+
 </body>
 </html>

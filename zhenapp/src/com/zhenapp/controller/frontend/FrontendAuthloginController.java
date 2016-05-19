@@ -52,9 +52,13 @@ public class FrontendAuthloginController {
 	 * 登录操作
 	 */
 	@RequestMapping(value="/login")
-	public @ResponseBody ModelAndView login(HttpSession httpSession, String username,String password) throws Exception{
+	public @ResponseBody ModelAndView login(HttpSession httpSession, HttpServletRequest request,String username,String password) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		List<TUserInfoCustom> list=userInfoService.findUserBynick(username);
+		String webwww=request.getServerName();
+		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
+		TWebInfoCustom tWebInfoCustom=webInfoService.findWebByAgentid(tAgentInfoCustom.getAgentid());
+		mv.addObject("tWebInfoCustom",tWebInfoCustom);
 		if (list.size()>0) {
 			TUserInfoCustom tUserInfoCustom=list.get(0);
 			if(tUserInfoCustom.getUserpwd().equals(MD5Util.string2MD5(password))){

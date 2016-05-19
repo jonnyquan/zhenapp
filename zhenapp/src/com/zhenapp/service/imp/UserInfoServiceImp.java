@@ -108,4 +108,16 @@ public class UserInfoServiceImp implements UserInfoService {
 		// TODO Auto-generated method stub
 		return tUserInfoCustomMapper.deleteUserByUserpkAndRole(hashmap);
 	}
+	@Override
+	public int deleteUserByUserpkAndAdmin(HashMap<String, Object> hashmap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tUserInfoCustomMapper.deleteUserByUserpkAndAdmin(hashmap);
+	}
+	@Override
+	public int updateroleAndagent(HashMap<String, Object> hashmap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tUserInfoCustomMapper.updateroleAndagent(hashmap);
+	}
 }

@@ -68,14 +68,18 @@ public class LoginInterceptor implements HandlerInterceptor {
 		 }
 		// 判断url是否是公开 地址（实际使用时将公开 地址配置配置文件中）
 		// 这里公开地址是登陆提交的地址
-		if (url.indexOf("user/Loginrest") >= 0 || url.indexOf("user/register") >= 0 || url.indexOf("user/findUserByNick") >=0 ) {
-			// 如果进行登陆提交，放行
-			return true;
-		}
+		 if (url.indexOf("user/Loginrest") >= 0 || url.indexOf("user/register") >= 0 || url.indexOf("user/findUserByNick") >=0 ) {
+				// 如果进行登陆提交，放行
+				return true;
+			}
+		 if (url.indexOf("/user/authlogout") >= 0) {
+				// 如果进行登陆提交，放行
+				return true;
+			}
 		
 		
 		// 执行这里表示用户身份需要认证，跳转登陆页面
-		request.getRequestDispatcher("/frontend/authlogin.jsp").forward(request,
+		request.getRequestDispatcher("/user/authlogout").forward(request,
 				response);
 
 		// return false表示拦截，不向下执行

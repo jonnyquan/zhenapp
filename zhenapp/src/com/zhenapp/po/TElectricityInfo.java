@@ -3,7 +3,7 @@ package com.zhenapp.po;
 public class TElectricityInfo {
     private Integer electricitypk;
 
-    private Integer electricityid;
+    private String electricityid;
 
     private String electricityname;
 
@@ -25,12 +25,12 @@ public class TElectricityInfo {
         this.electricitypk = electricitypk;
     }
 
-    public Integer getElectricityid() {
+    public String getElectricityid() {
         return electricityid;
     }
 
-    public void setElectricityid(Integer electricityid) {
-        this.electricityid = electricityid;
+    public void setElectricityid(String electricityid) {
+        this.electricityid = electricityid == null ? null : electricityid.trim();
     }
 
     public String getElectricityname() {

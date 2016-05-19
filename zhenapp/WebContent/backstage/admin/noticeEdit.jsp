@@ -114,7 +114,7 @@
 
   <div class="am-cf am-padding">
     <div class="am-fl am-cf">
-      <strong class="am-text-primary am-text-lg">添加公告</strong>
+      <strong class="am-text-primary am-text-lg">编辑公告</strong>
     </div>
   </div>
   <div class="am-g">

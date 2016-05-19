@@ -122,17 +122,17 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 					<div class="newsContent">
 						<div class="content">
 							<p>
-								流量客服：QQ5761126 
-								<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=5731126&site=qq&menu=yes">
+								流量客服：QQ${tWebInfoCustom.qq} 
+								<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=${tWebInfoCustom.qq}&site=qq&menu=yes">
 								<img border="0" src="http://wpa.qq.com/pa?p=2:731004:4" alt="点击这里给我发消息" title="点击这里给我发消息" /></a>
 							</p>
 							<p>
-								技术咨询：QQ731004 <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=731004&site=qq&menu=yes">
+								技术咨询：QQ${tWebInfoCustom.qq} <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=${tWebInfoCustom.qq}&site=qq&menu=yes">
 								<img border="0" src="http://wpa.qq.com/pa?p=2:731004:4" alt="点击这里给我发消息" title="点击这里给我发消息" /></a>
 							</p>
 							<p>
-								流量托管：QQ46497161 
-								<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=46497161&site=qq&menu=yes">
+								流量托管：QQ${tWebInfoCustom.qq} 
+								<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=${tWebInfoCustom.qq}&site=qq&menu=yes">
 								<img border="0" src="http://wpa.qq.com/pa?p=2:731004:4" alt="点击这里给我发消息" title="点击这里给我发消息" /></a>
 							</p>
 							<br />

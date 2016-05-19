@@ -29,5 +29,13 @@
 	  update t_guide_info set guidename=#{notename},guidetext=#{notetext},updatetime=#{updatetime},updateuser=#{updateuser}
 	  where guideid=#{noteid}
   </update>
-  
+
+  <insert id="insertGuideInfo" parameterType="com.zhenapp.po.Custom.TGuideInfoCustom">
+  	insert into t_guide_info (guideid, guidename, 
+      createtime, createuser, updatetime, 
+      updateuser, guidetext)
+    values (#{guideid,jdbcType=INTEGER}, #{guidename,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{updateuser,jdbcType=VARCHAR}, #{guidetext,jdbcType=LONGVARCHAR})
+  </insert>
 </mapper>

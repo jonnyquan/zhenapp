@@ -174,52 +174,62 @@ public class TNoteInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andNoteidEqualTo(Integer value) {
+        public Criteria andNoteidEqualTo(String value) {
             addCriterion("noteid =", value, "noteid");
             return (Criteria) this;
         }
 
-        public Criteria andNoteidNotEqualTo(Integer value) {
+        public Criteria andNoteidNotEqualTo(String value) {
             addCriterion("noteid <>", value, "noteid");
             return (Criteria) this;
         }
 
-        public Criteria andNoteidGreaterThan(Integer value) {
+        public Criteria andNoteidGreaterThan(String value) {
             addCriterion("noteid >", value, "noteid");
             return (Criteria) this;
         }
 
-        public Criteria andNoteidGreaterThanOrEqualTo(Integer value) {
+        public Criteria andNoteidGreaterThanOrEqualTo(String value) {
             addCriterion("noteid >=", value, "noteid");
             return (Criteria) this;
         }
 
-        public Criteria andNoteidLessThan(Integer value) {
+        public Criteria andNoteidLessThan(String value) {
             addCriterion("noteid <", value, "noteid");
             return (Criteria) this;
         }
 
-        public Criteria andNoteidLessThanOrEqualTo(Integer value) {
+        public Criteria andNoteidLessThanOrEqualTo(String value) {
             addCriterion("noteid <=", value, "noteid");
             return (Criteria) this;
         }
 
-        public Criteria andNoteidIn(List<Integer> values) {
+        public Criteria andNoteidLike(String value) {
+            addCriterion("noteid like", value, "noteid");
+            return (Criteria) this;
+        }
+
+        public Criteria andNoteidNotLike(String value) {
+            addCriterion("noteid not like", value, "noteid");
+            return (Criteria) this;
+        }
+
+        public Criteria andNoteidIn(List<String> values) {
             addCriterion("noteid in", values, "noteid");
             return (Criteria) this;
         }
 
-        public Criteria andNoteidNotIn(List<Integer> values) {
+        public Criteria andNoteidNotIn(List<String> values) {
             addCriterion("noteid not in", values, "noteid");
             return (Criteria) this;
         }
 
-        public Criteria andNoteidBetween(Integer value1, Integer value2) {
+        public Criteria andNoteidBetween(String value1, String value2) {
             addCriterion("noteid between", value1, value2, "noteid");
             return (Criteria) this;
         }
 
-        public Criteria andNoteidNotBetween(Integer value1, Integer value2) {
+        public Criteria andNoteidNotBetween(String value1, String value2) {
             addCriterion("noteid not between", value1, value2, "noteid");
             return (Criteria) this;
         }

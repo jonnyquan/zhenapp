@@ -89,4 +89,12 @@ public interface TUserInfoCustomMapper {
 	 * 根据用户主键及所属代理id删除用户信息
 	 */
 	public int deleteUserByUserpkAndRole(HashMap<String,Object> hashmap) throws Exception;
+	/*
+	 * 根据主键删除用户信息
+	 */
+	public int deleteUserByUserpkAndAdmin(HashMap<String,Object> hashmap) throws Exception;
+	/*
+	 * 根据用户主键信息设置为代理信息
+	 */
+	public int updateroleAndagent(HashMap<String,Object> hashmap) throws Exception;
 }

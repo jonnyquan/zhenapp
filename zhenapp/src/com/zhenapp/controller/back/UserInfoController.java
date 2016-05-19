@@ -110,8 +110,12 @@ public class UserInfoController {
 	 * 退出系统
 	 */
 	@RequestMapping(value="/authlogout")
-	public ModelAndView authlogout(HttpSession session){
+	public ModelAndView authlogout(HttpSession session,HttpServletRequest request) throws Exception{
 		ModelAndView mv=new ModelAndView();
+		String webwww=request.getServerName();
+		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
+		TWebInfoCustom tWebInfoCustom=webInfoService.findWebByAgentid(tAgentInfoCustom.getAgentid());
+		mv.addObject("tWebInfoCustom",tWebInfoCustom);
 		session.removeAttribute("tUserInfoCustom");
 		mv.setViewName("/frontend/authlogin.jsp");
 		return mv;
@@ -246,6 +250,19 @@ public class UserInfoController {
 		return map;
 	}
 	/*
+	 * 删除用户信息  ------系统管理员
+	 */
+	@RequestMapping(value="/deleteUserByUserpkAdmin")
+	public @ResponseBody ModelMap deleteUserByUserpkAdmin(String userpk) throws Exception{
+		ModelMap map = new ModelMap();
+		HashMap<String,Object> hashmap=new HashMap<String,Object>();
+		hashmap.put("userpk", userpk);
+		userInfoService.deleteUserByUserpkAndAdmin(hashmap);
+		map.put("ec", 0);
+		return map;
+	}
+	
+	/*
 	 * 跳转到手工充值扣款界面 -----代理
 	 */
 	@RequestMapping(value="/recharge")
@@ -310,13 +327,9 @@ public class UserInfoController {
 			session.removeAttribute("tUserInfoCustom");//
 			session.setAttribute("tUserInfoCustom", tUserInfoCustom);
 		}
-		mv.setViewName("responseuser");
+		mv.setViewName("/user/responseuser");
 		return mv;
 	}
-	
-	/*
-	 * 
-	 */
 	/*
 	 * 查询用户列表-----系统管理员
 	 */
@@ -333,6 +346,7 @@ public class UserInfoController {
 		pagemap.put("usernick", usernick);
 		pagemap.put("userpk", userpk);
 		pagemap.put("userphone", userphone);
+		pagemap.put("userstate", 29);
 		/*
 		* 系统管理员用户
 		*/
@@ -400,6 +414,73 @@ public class UserInfoController {
 		map.put("ec", "0");
 		return map;
 	}
+	
+	
+	/*
+	 * 设为代理----系统管理员
+	 */
+	@RequestMapping(value="/setAgent/{userpk}")
+	public @ResponseBody ModelAndView setAgent(@PathVariable(value="userpk") String userpk,HttpSession session)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		TUserInfoCustom tUserInfoCustomsession=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		//查询出系统管理员的web信息
+		TWebInfoCustom tWebInfoCustomadmin = webInfoService.findWebByAgentid("0");
+		TUserInfoCustom TUserInfoCustom = userInfoService.findUserByuserpk(userpk);
+		/*
+		 * 修改角色为代理   useroleid=2   代理上级变为0 即系统管理员
+		 */
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("userpk", userpk);
+		hashmap.put("oldroleid", "3");
+		hashmap.put("newroleid", "2");
+		hashmap.put("agentid", "0");
+		hashmap.put("updatetime", sdf.format(new Date()));
+		hashmap.put("updateuser", tUserInfoCustomsession.getUserid());
+		userInfoService.updateroleAndagent(hashmap);
+		/*
+		 * 插入代理信息及对应的web信息    基本信息默认保持与系统管理员一致
+		 */
+		TAgentInfoCustom tAgentInfoCustom = new TAgentInfoCustom();
+		tAgentInfoCustom.setAgentid(UUID.randomUUID().toString().replace("-", ""));
+		tAgentInfoCustom.setAgentuserid(TUserInfoCustom.getUserid());
+		tAgentInfoCustom.setAgentperson(TUserInfoCustom.getUsernick());
+		tAgentInfoCustom.setAgentphone(TUserInfoCustom.getUserphone());
+		tAgentInfoCustom.setAgentname("网站名称，请尽快修改...");
+		tAgentInfoCustom.setDomain(UUID.randomUUID().toString().replace("-", ""));
+		tAgentInfoCustom.setAgentname(UUID.randomUUID().toString().replace("-", ""));
+		tAgentInfoCustom.setAgentstate("29");
+		tAgentInfoCustom.setCreatetime(sdf.format(new Date()));
+		tAgentInfoCustom.setCreateuser(tUserInfoCustomsession.getUserid());
+		tAgentInfoCustom.setUpdatetime(sdf.format(new Date()));
+		tAgentInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
+		agentInfoService.saveAgentInfo(tAgentInfoCustom);
+		
+		TWebInfoCustom tWebInfoCustom = new TWebInfoCustom();
+		tWebInfoCustom.setWebid(UUID.randomUUID().toString().replace("-", ""));
+		tWebInfoCustom.setAgentid(tAgentInfoCustom.getAgentid());
+		tWebInfoCustom.setLogo(tWebInfoCustomadmin.getLogo());
+		tWebInfoCustom.setCarousel01(tWebInfoCustomadmin.getCarousel01());
+		tWebInfoCustom.setCarousel02(tWebInfoCustomadmin.getCarousel02());
+		tWebInfoCustom.setCarousel03(tWebInfoCustomadmin.getCarousel03());
+		tWebInfoCustom.setQq(tWebInfoCustomadmin.getQq());
+		tWebInfoCustom.setQqgroup(tWebInfoCustom.getQqgroup());
+		tWebInfoCustom.setWechat(tWebInfoCustomadmin.getWechat());
+		tWebInfoCustom.setRecord(tWebInfoCustomadmin.getRecord());
+		tWebInfoCustom.setAlipay(tWebInfoCustomadmin.getAlipay());
+		tWebInfoCustom.setBg01(tWebInfoCustomadmin.getBg01());
+		tWebInfoCustom.setBg02(tWebInfoCustomadmin.getBg02());
+		tWebInfoCustom.setIco(tWebInfoCustomadmin.getIco());
+		tWebInfoCustom.setCreatetime(sdf.format(new Date()));
+		tWebInfoCustom.setCreateuser(tUserInfoCustomsession.getUserid());
+		tWebInfoCustom.setUpdatetime(sdf.format(new Date()));
+		tWebInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
+		webInfoService.saveWebInfo(tWebInfoCustom);
+		
+		mv.setViewName("/user/findUserByPageAndAdmin");
+		return mv;
+	}
+	
+	
 	
 	//===============================================================================以上为新
 	

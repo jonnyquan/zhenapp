@@ -21,6 +21,17 @@
   	delete from t_electricity_info where electricityid=#{noteid}
   </delete>
   
+  
+  <insert id="saveElectrity" parameterType="com.zhenapp.po.Custom.TelectricityCustom">
+  	insert into t_electricity_info (electricityid, electricityname, 
+      createtime, createuser, updatetime, 
+      updateuser, electricitytext)
+    values ( #{electricityid,jdbcType=INTEGER}, #{electricityname,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{updateuser,jdbcType=VARCHAR}, #{electricitytext,jdbcType=LONGVARCHAR})
+  </insert>
+  
+  
   <update id="updateElectrityById" parameterType="java.util.HashMap">
   	update t_electricity_info set electricitytext=#{notetext},electricityname=#{notename},updatetime=#{updatetime},updateuser=#{updateuser}
   	where electricityid=#{noteid}

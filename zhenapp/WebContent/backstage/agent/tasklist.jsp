@@ -125,33 +125,45 @@
 	<tr>
 		<td>
 			<label class="form_label">订单ID:</label>
-			<input class="form_input input120" type="text" name="taskpk" id="taskpk" value="" /> 
+			<input class="form_input input120" type="text" name="taskpk" id="taskpk" value="${taskpk}" /> 
 		</td>
 		<td>
 			<label class="form_label">宝贝ID:</label>
-			<input class="form_input input120" type="text" name="taskkeynum" id="taskkeynum" value="" /> 
+			<input class="form_input input120" type="text" name="taskkeynum" id="taskkeynum" value="${taskkeynum }" /> 
 		</td>
 		<td>
 			<label class="form_label">搜索关键字(模糊):</label> 
-			<input class="form_input input120" type="text" name="taskkeyword" id="taskkeyword" value="" />
+			<input class="form_input input120" type="text" name="taskkeyword" id="taskkeyword" value="${taskkeyword }" />
 		</td>
 	</tr>
 	<tr>
 		<td>
 			<label class="form_label">任务类型:</label>
 				<select name="tasktype" id="tasktype">
-					<option selected value="">全部类型</option>
-					<option value="33">流量</option>
-					<option value="34">直通车</option>
+					<c:if test="${tasktype=='33'}">
+						<option value="">全部类型</option>
+						<option selected value="33">流量</option>
+						<option value="34">直通车</option>
+					</c:if>
+					<c:if test="${tasktype=='34'}">
+						<option value="">全部类型</option>
+						<option value="33">流量</option>
+						<option selected value="34">直通车</option>
+					</c:if>
+					<c:if test="${tasktype == null || tasktype==''}">
+						<option selected value="">全部类型</option>
+						<option value="33">流量</option>
+						<option value="34">直通车</option>
+					</c:if>
 				</select> 
 		</td>
 		<td >
 			<label class="form_label">任务开始时间:</label> 
-			<input type="text" name="datefrom" id="datefrom" class="Wdate search_time" onClick="WdatePicker()" value="" />
+			<input type="text" name="datefrom" id="datefrom" class="Wdate search_time" onClick="WdatePicker()" value="${datefrom}" />
 		</td>
 		<td> 
 			<label class="form_label">任务结束时间:</label> 
-			<input type="text" name="dateto" id="dateto" class="Wdate search_time" onClick="WdatePicker()" value="" />
+			<input type="text" name="dateto" id="dateto" class="Wdate search_time" onClick="WdatePicker()" value="${dateto}" />
 		</td>
 	</tr>
 	<tr>

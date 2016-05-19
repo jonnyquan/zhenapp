@@ -169,7 +169,6 @@
 
   });
   
-  
 
   var index = Number("${pagenum}");
 	if (index.length < 1) {

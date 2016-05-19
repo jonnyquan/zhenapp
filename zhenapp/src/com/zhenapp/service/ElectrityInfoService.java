@@ -39,4 +39,8 @@ public interface ElectrityInfoService {
 	 * 根据id删除电商信息
 	 */
 	public int deleteById(HashMap<String, Object> hashmap) throws Exception;
+	/*
+	 * 保存电商信息
+	 */
+	public int saveElectrity(TelectricityCustom telectricityCustom)throws Exception; 
 }

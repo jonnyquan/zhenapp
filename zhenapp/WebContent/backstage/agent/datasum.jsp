@@ -197,10 +197,6 @@
       var entTime = $("#my-endDate").text();
       var type = $("#flowType").val(); 
       var url = "${pageContext.request.contextPath}/datacount/findDataByDateAndTasktype?&datefrom=" + startTime + "&dateto=" + entTime + "&tasktype=" + type;
-      if($("#proxyList").length>0){
-        var userId = $("#proxyList").val();
-        url += "&userId=" + userId;
-      }
       location.href = url;
     });
   });

@@ -174,52 +174,62 @@ public class TGuideInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andGuideidEqualTo(Integer value) {
+        public Criteria andGuideidEqualTo(String value) {
             addCriterion("guideid =", value, "guideid");
             return (Criteria) this;
         }
 
-        public Criteria andGuideidNotEqualTo(Integer value) {
+        public Criteria andGuideidNotEqualTo(String value) {
             addCriterion("guideid <>", value, "guideid");
             return (Criteria) this;
         }
 
-        public Criteria andGuideidGreaterThan(Integer value) {
+        public Criteria andGuideidGreaterThan(String value) {
             addCriterion("guideid >", value, "guideid");
             return (Criteria) this;
         }
 
-        public Criteria andGuideidGreaterThanOrEqualTo(Integer value) {
+        public Criteria andGuideidGreaterThanOrEqualTo(String value) {
             addCriterion("guideid >=", value, "guideid");
             return (Criteria) this;
         }
 
-        public Criteria andGuideidLessThan(Integer value) {
+        public Criteria andGuideidLessThan(String value) {
             addCriterion("guideid <", value, "guideid");
             return (Criteria) this;
         }
 
-        public Criteria andGuideidLessThanOrEqualTo(Integer value) {
+        public Criteria andGuideidLessThanOrEqualTo(String value) {
             addCriterion("guideid <=", value, "guideid");
             return (Criteria) this;
         }
 
-        public Criteria andGuideidIn(List<Integer> values) {
+        public Criteria andGuideidLike(String value) {
+            addCriterion("guideid like", value, "guideid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGuideidNotLike(String value) {
+            addCriterion("guideid not like", value, "guideid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGuideidIn(List<String> values) {
             addCriterion("guideid in", values, "guideid");
             return (Criteria) this;
         }
 
-        public Criteria andGuideidNotIn(List<Integer> values) {
+        public Criteria andGuideidNotIn(List<String> values) {
             addCriterion("guideid not in", values, "guideid");
             return (Criteria) this;
         }
 
-        public Criteria andGuideidBetween(Integer value1, Integer value2) {
+        public Criteria andGuideidBetween(String value1, String value2) {
             addCriterion("guideid between", value1, value2, "guideid");
             return (Criteria) this;
         }
 
-        public Criteria andGuideidNotBetween(Integer value1, Integer value2) {
+        public Criteria andGuideidNotBetween(String value1, String value2) {
             addCriterion("guideid not between", value1, value2, "guideid");
             return (Criteria) this;
         }

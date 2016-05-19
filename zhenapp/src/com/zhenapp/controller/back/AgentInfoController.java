@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.service.AgentInfoService;
+import com.zhenapp.service.UserInfoService;
 
 @Controller
 @RequestMapping(value="/agent")
@@ -21,6 +22,8 @@ public class AgentInfoController {
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 	@Autowired
 	private AgentInfoService agentInfoService;
+	@Autowired
+	private UserInfoService userInfoService;
 	
 	/*
 	 * 跳转到代理管理界面-----系统管理员
@@ -35,6 +38,7 @@ public class AgentInfoController {
 		rows = 10;
 		pagemap.put("page", (page - 1) * rows);
 		pagemap.put("rows", rows);
+		pagemap.put("agentstate", 29);
 		List<TAgentInfoCustom> tAgentInfoCustomlist= agentInfoService.findAgentBypage(pagemap);
 		int total= agentInfoService.findTotalAgentBypage(pagemap);
 		mv.addObject("total", total);
@@ -55,8 +59,7 @@ public class AgentInfoController {
 		hashmap.put("updatetime", sdf.format(new Date()));
 		hashmap.put("updateuser", "修改代理 ");
 		agentInfoService.updateagentstateByPk(hashmap);
-		
-		mv.setViewName("responseagentmanage");
+		mv.setViewName("/agent/responseagentmanage");
 		return mv;
 	}
 	

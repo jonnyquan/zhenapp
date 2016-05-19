@@ -3,7 +3,7 @@ package com.zhenapp.po;
 public class TNoteInfo {
     private Integer notepk;
 
-    private Integer noteid;
+    private String noteid;
 
     private String notetype;
 
@@ -25,12 +25,12 @@ public class TNoteInfo {
         this.notepk = notepk;
     }
 
-    public Integer getNoteid() {
+    public String getNoteid() {
         return noteid;
     }
 
-    public void setNoteid(Integer noteid) {
-        this.noteid = noteid;
+    public void setNoteid(String noteid) {
+        this.noteid = noteid == null ? null : noteid.trim();
     }
 
     public String getNotetype() {

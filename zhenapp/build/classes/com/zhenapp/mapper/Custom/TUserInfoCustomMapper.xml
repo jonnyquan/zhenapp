@@ -29,6 +29,10 @@
     	<if test="userphone != null and userphone != ''">
     		and a.userphone like '%${userphone}%'
     	</if>
+    	<if test="userstate != null and userstate != ''">
+    		and userstate = #{userstate}
+    	</if>
+    	
     </where>
     limit #{page},#{rows}
   </select>
@@ -61,6 +65,7 @@
     	<if test="userphone != null and userphone != ''">
     		and a.userphone like '%${userphone}%'
     	</if>
+    	and userroleid = '3' 
     </where>
     limit #{page},#{rows}
   </select>
@@ -96,6 +101,9 @@
   <delete id="deleteUserByUserpkAndRole" parameterType="java.util.HashMap">
  	delete FROM t_user_info WHERE userpk=#{userpk} AND agentid=#{agentid}
   </delete>
+  <delete id="deleteUserByUserpkAndAdmin" parameterType="java.util.HashMap">
+ 	delete FROM t_user_info WHERE userpk=#{userpk} 
+  </delete>
   
   <update id="updateUser" parameterType="com.zhenapp.po.Custom.TUserInfoCustom">
   	update t_user_info set username = #{username},userqq = #{userqq},updatetime = #{updatetime},updateuser = #{updateuser} where userId = #{userid}
@@ -122,6 +130,10 @@
    
    <update id="updaterole" parameterType="String">
    	UPDATE t_user_info SET userroleid='2' WHERE userpk=#{userpk} AND userstate='1' AND userroleid='3'
+   </update>
+   
+   <update id="updateroleAndagent" parameterType="java.util.HashMap">
+   	UPDATE t_user_info SET userroleid=#{newroleid},agentid=#{agentid} WHERE userpk=#{userpk} AND userroleid=#{oldroleid}
    </update>
    
    <insert id="saveUser" parameterType="com.zhenapp.po.Custom.TUserInfoCustom">

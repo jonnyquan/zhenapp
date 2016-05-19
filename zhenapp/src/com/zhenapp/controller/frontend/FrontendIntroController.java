@@ -31,9 +31,6 @@ public class FrontendIntroController {
 	@Autowired
 	private WebInfoService webInfoService;
 	
-	
-	
-
 	@RequestMapping(value="/intro")
 	public @ResponseBody ModelAndView intro(HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView();

@@ -60,4 +60,11 @@ public class ElectrityInfoServiceImp  implements ElectrityInfoService{
 		// TODO Auto-generated method stub
 		return tElectricityInfoCustomMapper.deleteById(hashmap);
 	}
+
+	@Override
+	public int saveElectrity(TelectricityCustom telectricityCustom)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tElectricityInfoCustomMapper.saveElectrity(telectricityCustom);
+	}
 }

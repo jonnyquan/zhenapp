@@ -2,7 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhenapp.mapper.Custom.TAgentInfoCustomMapper" >
 	<select id="findAgentBypage" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TAgentInfoCustom">
-		select * from t_agent_info limit #{page},#{rows}
+		select * from t_agent_info 
+		<where>
+			<if test="agentstate != null and agentstate !='' ">
+				and agentstate=#{agentstate}
+			</if>
+		</where> 
+		limit #{page},#{rows}
 	</select>
 	<select id="findAllAgentBypage" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TAgentInfoCustom">
 		select * from t_agent_info

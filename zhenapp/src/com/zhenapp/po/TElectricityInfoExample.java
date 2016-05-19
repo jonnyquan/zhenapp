@@ -174,52 +174,62 @@ public class TElectricityInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andElectricityidEqualTo(Integer value) {
+        public Criteria andElectricityidEqualTo(String value) {
             addCriterion("electricityid =", value, "electricityid");
             return (Criteria) this;
         }
 
-        public Criteria andElectricityidNotEqualTo(Integer value) {
+        public Criteria andElectricityidNotEqualTo(String value) {
             addCriterion("electricityid <>", value, "electricityid");
             return (Criteria) this;
         }
 
-        public Criteria andElectricityidGreaterThan(Integer value) {
+        public Criteria andElectricityidGreaterThan(String value) {
             addCriterion("electricityid >", value, "electricityid");
             return (Criteria) this;
         }
 
-        public Criteria andElectricityidGreaterThanOrEqualTo(Integer value) {
+        public Criteria andElectricityidGreaterThanOrEqualTo(String value) {
             addCriterion("electricityid >=", value, "electricityid");
             return (Criteria) this;
         }
 
-        public Criteria andElectricityidLessThan(Integer value) {
+        public Criteria andElectricityidLessThan(String value) {
             addCriterion("electricityid <", value, "electricityid");
             return (Criteria) this;
         }
 
-        public Criteria andElectricityidLessThanOrEqualTo(Integer value) {
+        public Criteria andElectricityidLessThanOrEqualTo(String value) {
             addCriterion("electricityid <=", value, "electricityid");
             return (Criteria) this;
         }
 
-        public Criteria andElectricityidIn(List<Integer> values) {
+        public Criteria andElectricityidLike(String value) {
+            addCriterion("electricityid like", value, "electricityid");
+            return (Criteria) this;
+        }
+
+        public Criteria andElectricityidNotLike(String value) {
+            addCriterion("electricityid not like", value, "electricityid");
+            return (Criteria) this;
+        }
+
+        public Criteria andElectricityidIn(List<String> values) {
             addCriterion("electricityid in", values, "electricityid");
             return (Criteria) this;
         }
 
-        public Criteria andElectricityidNotIn(List<Integer> values) {
+        public Criteria andElectricityidNotIn(List<String> values) {
             addCriterion("electricityid not in", values, "electricityid");
             return (Criteria) this;
         }
 
-        public Criteria andElectricityidBetween(Integer value1, Integer value2) {
+        public Criteria andElectricityidBetween(String value1, String value2) {
             addCriterion("electricityid between", value1, value2, "electricityid");
             return (Criteria) this;
         }
 
-        public Criteria andElectricityidNotBetween(Integer value1, Integer value2) {
+        public Criteria andElectricityidNotBetween(String value1, String value2) {
             addCriterion("electricityid not between", value1, value2, "electricityid");
             return (Criteria) this;
         }

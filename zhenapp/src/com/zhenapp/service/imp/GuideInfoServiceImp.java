@@ -57,5 +57,12 @@ public class GuideInfoServiceImp implements GuideInfoService {
 		// TODO Auto-generated method stub
 		return tGuideInfoCustomMapper.deleteById(hashmap);
 	}
+
+	@Override
+	public int insertGuideInfo(TGuideInfoCustom tGuideInfoCustom)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tGuideInfoCustomMapper.insertGuideInfo(tGuideInfoCustom);
+	}
 	
 }

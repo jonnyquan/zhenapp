@@ -36,4 +36,8 @@ public interface TGuideInfoCustomMapper {
 	 * 根据id删除新手指引信息
 	 */
 	public int deleteById(HashMap<String, Object> hashmap) throws Exception;
+	/*
+	 * 保存新手指引信息
+	 */
+	public int insertGuideInfo(TGuideInfoCustom tGuideInfoCustom) throws Exception;
 }

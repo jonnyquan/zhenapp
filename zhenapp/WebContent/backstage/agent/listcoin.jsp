@@ -2,9 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <!DOCTYPE HTML>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -104,7 +102,7 @@
               <button type="button" class="am-btn am-btn-default am-margin-right" id="my-end">
                 <span class="am-icon-calendar"></span>结束日期
               </button>
-              <span id="my-endDate"></span>
+              <span id="my-endDate">${dateto}</span>
             </div>
           </div>
         </div>
@@ -112,7 +110,7 @@
     </div>
     <div class="am-u-sm-5 am-u-md-3">
       <div class="am-input-group am-input-group-sm">
-        <input type="text" id="nick" value="" placeholder="用户名" class="am-form-field"> <span
+        <input type="text" id="nick" value="${usernick}" placeholder="用户名" class="am-form-field"> <span
           class="am-input-group-btn">
           <button class="am-btn am-btn-default" id="search" type="button">搜索</button>
         </span>

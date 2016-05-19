@@ -207,11 +207,7 @@
       var startTime = $("#my-startDate").text();
       var entTime = $("#my-endDate").text();
       var type = $("#flowType").val(); 
-      var url = "/admin/stat?&startTime=" + startTime + "&endTime=" + entTime + "&type=" + type;
-      if($("#proxyList").length>0){
-        var userId = $("#proxyList").val();
-        url += "&userId=" + userId;
-      }
+      var url = "${pageContext.request.contextPath}/datacount/responsedatasumadmin?&datefrom=" + startTime + "&dateto=" + entTime + "&tasktype=" + type;
       location.href = url;
     });
   });

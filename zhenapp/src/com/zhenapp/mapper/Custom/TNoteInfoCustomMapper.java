@@ -27,4 +27,8 @@ public interface TNoteInfoCustomMapper {
 	 * 根据id和类型删除公告信息
 	 */
 	public int deleteByIdAndType(HashMap<String, Object> hashmap) throws Exception;
+	/*
+	 * 保存公告信息
+	 */
+	public int savenote(TNoteInfoCustom tNoteInfoCustom) throws Exception;
 }
