@@ -202,7 +202,7 @@ public class TaskInfoController {
 		}
 		pk= pk.substring(0, pk.length()-1);
 		taskInfoService.deleteTaskBypk(pk);
-		mv.setViewName("responsetaskmanage");
+		mv.setViewName("/task/responsetaskmanage");
 		return mv;
 	}
 	

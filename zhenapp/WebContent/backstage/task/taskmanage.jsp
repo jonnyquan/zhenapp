@@ -407,18 +407,18 @@ input {
 							<table class="table" style="table-layout:fixed;">
 								<thead>
 									<tr class="active">
-									  <th style="width:40px;">选择</th>
+									  <th style="width:30px;">选择</th>
 						              <th style="width:100px;">订单ID</th>
 						              <th style="width:100px;">宝贝ID</th>
 						              <th style="width:40px;">类型</th>
 						              <th style="width:120px;">关键词</th>
-						              <th style="width:30px;">访</th>
-						              <th style="width:30px;">藏</th>
-						              <th style="width:30px;">购</th>
-						              <th style="width:40px;">完成访问</th>
-						              <th style="width:40px;">完成收藏</th>
-						              <th style="width:40px;">完成加购</th>
-						              <th style="width:40px;">失败</th>
+						              <th style="width:45px;">访</th>
+						              <th style="width:45px;">藏</th>
+						              <th style="width:45px;">购</th>
+						              <th style="width:45px;">完成访问</th>
+						              <th style="width:45px;">完成收藏</th>
+						              <th style="width:45px;">完成加购</th>
+						              <th style="width:45px;">失败</th>
 						              <th style="width:100px;">发布时间</th>
 						              <th style="width:60px;">任务状态</th>
 						              <th>操作</th>
