@@ -133,7 +133,7 @@ public class RechargeInfoController {
 	/*
 	 * 确认充值
 	 */
-	@RequestMapping(value="updateRechargestate/{verificationcode}")
+	@RequestMapping(value="/updateRechargestate/{verificationcode}")
 	public @ResponseBody ModelMap updateRechargestate(@PathVariable(value="verificationcode")String verificationcode) throws Exception{
 		ModelMap map = new ModelMap();
 		/*
@@ -168,6 +168,7 @@ public class RechargeInfoController {
 			int ii2 = userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
 			System.out.println(ii1+"============"+ii2);
 		}
+		map.put("data", "success");
 		return map;
 	}
 }

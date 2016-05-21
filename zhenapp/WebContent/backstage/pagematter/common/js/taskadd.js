@@ -360,7 +360,7 @@ var myDate = new Date();
 			llmax=1000;
 		}else{
 			$.ajax({
-				url : uri+"/phone/findAllPhoneInfoBykeynum/"+obj.value,
+				url : uri+"/task/findAllPhoneInfoBykeynum/"+obj.value,
 				type : "POST",
 				success:function(data,state){
 					llmax=data.count;

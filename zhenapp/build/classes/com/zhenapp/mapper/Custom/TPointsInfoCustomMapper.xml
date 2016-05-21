@@ -50,6 +50,9 @@
 			<if test="createuser != null and createuser != ''">
 				and a.createuser = #{createuser}
 			</if>
+			<if test="usernick != null and usernick != ''">
+				and c.usernick = #{usernick}
+			</if>
 		</where>
 		limit #{page},#{rows}
   </select>

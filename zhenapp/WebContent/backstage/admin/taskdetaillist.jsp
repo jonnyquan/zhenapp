@@ -66,10 +66,8 @@
                 <li><a href="${pageContext.request.contextPath}/points/responserecordspointsadmin"><span class="am-icon-money"></span>资金记录</a></li>
               </ul></li>
             <li><a href="${pageContext.request.contextPath}/task/responsetaskmanageadmin"><span class="am-icon-pencil-square-o"></span>订单查询</a></li>
-            <li><a href="${pageContext.request.contextPath}/combo/findComboByadmin"><span class="am-icon-cubes"></span> 套餐信息</a></li>
-
-            
-             <li><a href="${pageContext.request.contextPath}/task/findproblemtaskadmin"><span class="am-icon-mobile"></span> 有问题任务查询</a></li>
+            <!--  <li><a href="${pageContext.request.contextPath}/combo/findComboByadmin"><span class="am-icon-cubes"></span> 套餐信息</a></li>-->
+             <!--  <li><a href="${pageContext.request.contextPath}/task/findproblemtaskadmin"><span class="am-icon-mobile"></span> 有问题任务查询</a></li>-->
              <li><a href="${pageContext.request.contextPath}/task/findtaskdetaillist"><span class="am-icon-mobile"></span> 任务详情</a></li> 
              <li><a href="${pageContext.request.contextPath}/task/findtasklocklist"><span class="am-icon-mobile"></span> 卡机任务查询</a></li> 
  			<!--   <li><a href="/admin/phoneTask/getMessage"><span class="am-icon-mobile"></span> 淘宝ID查询</a></li>
@@ -107,27 +105,23 @@
 		<div class="am-u-sm-12 am-u-md-12">
 			<form class="am-form-inline" role="form">
 				<div class="am-form-group">
-					<input type="text" id="pid" class="am-form-field am-input-sm"
-						value="" placeholder="手机号">
+					<input type="text" id="pid" class="am-form-field am-input-sm" value="" placeholder="手机号">
 				</div>
 				<div class="am-form-group">
-					<input type="text" id="nid" class="am-form-field am-input-sm"
-						value="" placeholder="宝贝id">
+					<input type="text" id="nid" class="am-form-field am-input-sm" value="" placeholder="宝贝id">
 				</div>
 				<div class="am-form-group">
-					<input type="text" id="fid" class="am-form-field am-input-sm"
-						 placeholder="订单id">
+					<input type="text" id="fid" class="am-form-field am-input-sm" placeholder="订单id">
 				</div>
 				<div class="am-form-group">
-					<input type="text" id="hours" class="am-form-field am-input-sm"
-						value="" placeholder="时间">
+					<input type="text" id="hours" class="am-form-field am-input-sm" value="" placeholder="时间">
 				</div>
 				<div class="am-form-group">
-						<select name="tasktype" id="tasktype" class="am-form-field am-input-sm">
-							<option selected value="">全部类型</option>
-							<option value="33">流量</option>
-							<option value="34">直通车</option>
-						</select> 
+					<select name="tasktype" id="tasktype" class="am-form-field am-input-sm">
+						<option selected value="">全部类型</option>
+						<option value="33">流量</option>
+						<option value="34">直通车</option>
+					</select> 
 				</div>
 				<button class="am-btn am-btn-default" id="search" type="button">搜索</button>
 			</form>
@@ -153,6 +147,7 @@
 							<th>手机号</th>
 							<th>订单ID</th>
 							<th>宝贝ID</th>
+							<th>类型</th>
 							<th>是否加购物车</th>
 							<th>是否收藏</th>
 							<th>返回状态</th>
@@ -166,10 +161,11 @@
 					<tbody>
 						<c:if test="${tTaskDetailInfoCustomlist != null }">
 							<c:forEach items="${tTaskDetailInfoCustomlist}" var="list">
-								<tr onclick="onmouse('${list.resultstr}');">
+								<tr onclick="onmouse('${list.taskdetailpk}');">
 									<td>${list.phoneid}</td>
 									<td>${list.taskdetailid}</td>
 									<td>${list.taskkeynum}</td>
+									<td>${list.tasktypename}</td>
 									<td>${list.isshoppingname}</td>
 									<td>${list.iscollectionname}</td>
 									<td>${list.visitname}</td>
@@ -206,24 +202,28 @@
 <script>
 	$(function() {
 		$("#search").click(
-				function() {
-					var pid = $("#pid").val();
-					var nid = $("#nid").val();
-					var fid = $("#fid").val();
-					var hours = $("#hours").val();
-					var tasktype= $("#tasktype").val();
-					
-					location.href = "${pageContext.request.contextPath}/task/findtaskdetaillist?phoneid=" + pid
-							+ "&&taskkeynum=" + nid+"&&taskid="+fid+"&&taskhour="+hours+"&&tasktype="+tasktype;
-				});
+		function() {
+			var pid = $("#pid").val();
+			var nid = $("#nid").val();
+			var fid = $("#fid").val();
+			var hours = $("#hours").val();
+			var tasktype= $("#tasktype").val();
+			location.href = "${pageContext.request.contextPath}/task/findtaskdetaillist?phoneid=" + pid
+					+ "&&taskkeynum=" + nid+"&&taskid="+fid+"&&taskhour="+hours+"&&tasktype="+tasktype;
+		});
 	});
 	
-	function onmouse(obj){
-		if(obj.length<1){
-			$("#omnousetd").html("暂无返回值!");	
-		}else{
-			$("#omnousetd").html(obj);
-		}
+	function onmouse(taskdetailpk){
+		$.ajax({
+			type : "post",
+			url : "${pageContext.request.contextPath}/task/requesttaskstr/"+ taskdetailpk,
+			success : function(data) {
+				$("#omnousetd").html(data.res);
+			},
+			error : function() {
+				Message.error(data.em, true);
+			}
+		});
 	}
 	  var index = Number("${pagenum}");
 		if (index.length < 1) {

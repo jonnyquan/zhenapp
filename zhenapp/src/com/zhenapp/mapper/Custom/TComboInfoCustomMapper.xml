@@ -21,7 +21,13 @@
 		SELECT * FROM t_combo_info WHERE comboid=#{comboid}
 	</select>
 	<select id="findComboByAgentid" resultType="com.zhenapp.po.Custom.TComboInfoCustom" parameterType="java.util.HashMap">
-		SELECT * FROM t_combo_info WHERE agentid=#{agentid} order by combopk limit #{page},#{rows}
+		SELECT * FROM t_combo_info 
+		<where>
+			<if test="agentid != null and agentid != '' ">
+				and agentid=#{agentid}
+			</if>
+		</where>
+		order by combopk limit #{page},#{rows}
 	</select>
 	<select id="findTotalComboByAgentid" resultType="int" parameterType="java.util.HashMap">
 		SELECT count(1) FROM t_combo_info WHERE agentid=#{agentid}

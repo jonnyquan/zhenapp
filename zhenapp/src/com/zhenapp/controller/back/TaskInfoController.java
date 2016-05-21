@@ -20,10 +20,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
 import com.zhenapp.po.Custom.TPriceInfoCustom;
+import com.zhenapp.po.Custom.TSysconfInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.AgentInfoService;
+import com.zhenapp.service.PhoneInfoService;
 import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.PriceInfoService;
 import com.zhenapp.service.SysconfInfoService;
@@ -51,6 +53,11 @@ public class TaskInfoController {
 	private PointsInfoService pointsInfoService;
 	@Autowired
 	private TaskDetailInfoService taskDetailInfoService;
+	@Autowired
+	private PhoneInfoService phoneInfoService;
+	
+	
+	
 	/*
 	 * 跳转到发布任务界面
 	 */
@@ -248,7 +255,7 @@ public class TaskInfoController {
 	}
 	/*
 	 * 跳转到有问题任务查询界面-----系统管理员
-	 */
+	 
 	@RequestMapping(value="/findproblemtaskadmin")
 	public ModelAndView findproblemtaskadmin(Integer page,Integer rows,String phoneid,String taskkeynum,String taskpk,String hours) throws Exception{
 		ModelAndView mv=new ModelAndView();
@@ -263,9 +270,6 @@ public class TaskInfoController {
 		pagemap.put("taskkeynum", taskkeynum);
 		pagemap.put("taskpk", taskpk);
 		pagemap.put("hours", hours);
-		/*
-		* 系统管理员
-		*/
 		List<TTaskDetailInfoCustom> tTaskDetailInfoCustomlist = taskDetailInfoService.findTaskDetailByPage(pagemap);
 		int total = taskDetailInfoService.findTaskDetailTotalByPage(pagemap);
 		mv.addObject("tTaskDetailInfoCustomlist", tTaskDetailInfoCustomlist);
@@ -277,7 +281,7 @@ public class TaskInfoController {
 		mv.addObject("hours", hours);
 		mv.setViewName("/backstage/admin/findproblemtask.jsp");
 		return mv;
-	}
+	}*/
 	/*
 	 * 跳转到任务详情界面-----系统管理员
 	 */
@@ -291,21 +295,11 @@ public class TaskInfoController {
 		rows = 10;
 		pagemap.put("page", (page - 1) * rows);
 		pagemap.put("rows", rows);
-		if(phoneid !=null){
-			pagemap.put("phoneid", phoneid);
-		}
-		if(taskkeynum!=null){
-			pagemap.put("taskkeynum", taskkeynum);
-		}
-		if(taskid!=null){
-			pagemap.put("taskid", taskid);
-		}
-		if(taskhour!=null){
-			pagemap.put("taskhour", taskhour);
-		}
-		if(tasktype != null){
-			pagemap.put("tasktype", tasktype);
-		}
+		pagemap.put("phoneid", phoneid);
+		pagemap.put("taskkeynum", taskkeynum);
+		pagemap.put("taskid", taskid);
+		pagemap.put("taskhour", taskhour);
+		pagemap.put("tasktype", tasktype);
 		/*
 		* 系统管理员
 		*/
@@ -358,6 +352,7 @@ public class TaskInfoController {
 		hashmap.put("taskid", taskid);
 		hashmap.put("taskstate", 18);
 		taskInfoService.updateTaskstate(hashmap);
+		TTaskInfoCustom tTaskInfoCustom = taskInfoService.findTaskInfoByTaskid(taskid);
 		taskDetailInfoService.updateterminationstate(hashmap);
 		int points = taskDetailInfoService.findPointsByteterminationstate(taskid);
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
@@ -376,7 +371,7 @@ public class TaskInfoController {
 		tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
 		tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
 		tPointsInfoCustom.setUpdateuser("sys");
-		tPointsInfoCustom.setPointreason("终止任务返回积分"+points);
+		tPointsInfoCustom.setPointreason("终止任务" + tTaskInfoCustom.getTaskpk() + "返回积分"+points);
 		tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
 		tPointsInfoCustom.setPoints(tUserInfoCustom.getPoints());
 		tPointsInfoCustom.setPointstype("28");
@@ -468,7 +463,7 @@ public class TaskInfoController {
 		tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
 		tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
 		tPointsInfoCustom.setUpdateuser("sys");
-		tPointsInfoCustom.setPointreason("发布任务消耗积分"+subtractpoints);
+		tPointsInfoCustom.setPointreason("发布任务" + tTaskInfoCustom.getTaskpk() + "消耗积分"+subtractpoints);
 		tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
 		tPointsInfoCustom.setPoints(tUserInfoCustom.getPoints());
 		tPointsInfoCustom.setPointstype("27");
@@ -481,6 +476,19 @@ public class TaskInfoController {
 		map.put("data", "success");
 		return map;
 	}
+	
+	/*
+	 * 
+	 */
+	@RequestMapping(value="/requesttaskstr/{taskdetailpk}")
+	public @ResponseBody ModelMap requesttaskstr(@PathVariable(value="taskdetailpk")String taskdetailpk) throws Exception{
+		ModelMap map = new ModelMap();
+		TTaskDetailInfoCustom tTaskDetailInfoCustom = taskDetailInfoService.findTaskDetailBypk(taskdetailpk);
+		StringBuffer sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustom);
+		map.put("res", sb.toString());
+		return map;
+	}
+	
 //=================================================================================================================
 	/*
 	 * 发布任务 新增订单信息
@@ -569,7 +577,7 @@ public class TaskInfoController {
 		tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
 		tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
 		tPointsInfoCustom.setUpdateuser("sys");
-		tPointsInfoCustom.setPointreason("发布任务消耗积分"+subtractpoints);
+		tPointsInfoCustom.setPointreason("发布任务" + tTaskInfoCustom.getTaskpk() + "消耗积分"+subtractpoints);
 		tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
 		tPointsInfoCustom.setPoints(tUserInfoCustom.getPoints());
 		tPointsInfoCustom.setPointstype("27");
@@ -580,7 +588,18 @@ public class TaskInfoController {
 		return map;
 	}
 	
-
+	/*
+	 * 查询可以做该宝贝id的有多少部手机
+	 */
+	@RequestMapping(value="/findAllPhoneInfoBykeynum/{taskkeynum}")
+	public @ResponseBody ModelMap findIsFirst(@PathVariable(value="taskkeynum") String taskkeynum) throws Exception{
+		ModelMap map=new ModelMap();
+		TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
+		map.put("count", tSysconfInfoCustom.getSysconfvalue1());
+		return map;
+	}
+	
+	
 	/*
 	 * 发布任务 新增订单信息
 	 */
@@ -666,7 +685,7 @@ public class TaskInfoController {
 			tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
 			tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
 			tPointsInfoCustom.setUpdateuser("sys");
-			tPointsInfoCustom.setPointreason("发布任务消耗积分"+subtractpoints);
+			tPointsInfoCustom.setPointreason("发布任务" + tTaskInfoCustom.getTaskpk() + "消耗积分"+subtractpoints);
 			tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
 			tPointsInfoCustom.setPoints(tUserInfoCustom.getPoints());
 			tPointsInfoCustom.setPointstype("27");

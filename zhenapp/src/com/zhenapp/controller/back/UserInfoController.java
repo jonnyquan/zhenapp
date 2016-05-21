@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.TAgentInfoCustom;
+import com.zhenapp.po.Custom.TComboInfoCustom;
 import com.zhenapp.po.Custom.TGuideInfoCustom;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
 import com.zhenapp.po.Custom.TPriceInfoCustom;
@@ -26,6 +27,7 @@ import com.zhenapp.po.Custom.TWebInfoCustom;
 import com.zhenapp.po.Custom.TelectricityCustom;
 import com.zhenapp.po.Vo.TUserinfoVo;
 import com.zhenapp.service.AgentInfoService;
+import com.zhenapp.service.ComboInfoService;
 import com.zhenapp.service.ElectrityInfoService;
 import com.zhenapp.service.GuideInfoService;
 import com.zhenapp.service.PointsInfoService;
@@ -52,6 +54,8 @@ public class UserInfoController {
 	private ElectrityInfoService electrityService;
 	@Autowired
 	private GuideInfoService guideService;
+	@Autowired
+	private ComboInfoService comboInfoService;
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 	/*
 	 * 跳转到个人中心页面
@@ -692,6 +696,26 @@ public class UserInfoController {
 		tWebInfoCustom.setUpdatetime(sdf.format(new Date()));
 		tWebInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
 		webInfoService.saveWebInfo(tWebInfoCustom);
+		/*
+		 * 插入代理套餐信息默认与系统管理员一致
+		 */
+		HashMap<String, Object> hashmap= new HashMap<String, Object>();
+		hashmap.put("agentid", "0");
+		hashmap.put("page", 0);
+		hashmap.put("rows", 100);
+		List<TComboInfoCustom> tComboInfoCustomlist = comboInfoService.findComboByAgentid(hashmap);
+		for (int j = 0; j < tComboInfoCustomlist.size(); j++) {
+			TComboInfoCustom tComboInfoCustom = tComboInfoCustomlist.get(j);
+			tComboInfoCustom.setComboid(UUID.randomUUID().toString().replace("-", ""));
+			tComboInfoCustom.setAgentid(tAgentInfoCustom.getAgentid());
+			tComboInfoCustom.setCombodesc("初始化套餐信息");
+			tComboInfoCustom.setCreatetime(sdf.format(new Date()));
+			tComboInfoCustom.setCreateuser(tUserInfoCustomsession.getUserid());
+			tComboInfoCustom.setUpdatetime(sdf.format(new Date()));
+			tComboInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
+			comboInfoService.insertComboto(tComboInfoCustom);
+		}
+		
 		map.put("data", i);
 		return map;
 	}

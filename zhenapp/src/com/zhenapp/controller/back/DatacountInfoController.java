@@ -92,7 +92,7 @@ public class DatacountInfoController {
 	 * 根据日期和任务类型查询统计 -----系统管理员
 	 */
 	@RequestMapping(value="/responsedatasumadmin")
-	public @ResponseBody ModelAndView responsedatasumadmin(String tasktype,String datefrom,String dateto) throws Exception{
+	public @ResponseBody ModelAndView responsedatasumadmin(String tasktype,String datefrom,String dateto,String agentpk) throws Exception{
 		ModelAndView mv= new ModelAndView();
 		HashMap<String, Object> hashmap=new HashMap<String, Object>();
 		if(datefrom!=null){
@@ -102,8 +102,17 @@ public class DatacountInfoController {
 			hashmap.put("dateto", dateto.replace("-", ""));
 		}
 		hashmap.put("tasktype", tasktype);
+		hashmap.put("agentpk", agentpk);
 		List<DatacountInfoCustom> datacountInfoCustomlist=datacountInfoService.findDataBydate(hashmap);
 		DatacountInfoCustom datacountInfoCustom=datacountInfoService.findSUMDataBydate(hashmap);
+		
+		/*
+		 * 查询所有代理信息
+		 */
+		
+		List<TAgentInfoCustom> tAgentInfoCustomlist = agentInfoService.findAllAgentBypage(hashmap);
+		
+		
 		/*TFilepathInfoCustom tFilepathInfoCustom= filepathInfoService.findFilepathByid("1");
 		File file =new File(tFilepathInfoCustom.getFilepath()+datefrom+""+dateto);
 		//如果文件夹不存在则创建    
@@ -118,8 +127,10 @@ public class DatacountInfoController {
 		ExportExcle exportExcle = new ExportExcle();
 		exportExcle.ExprotExcle(datacountInfoCustomlist,tFilepathInfoCustom.getFilepath()+datefrom+""+dateto);*/
 		mv.addObject("total", datacountInfoCustomlist.size());
+		mv.addObject("agentpk", agentpk);
 		mv.addObject("datacountInfoCustomlist", datacountInfoCustomlist);
 		mv.addObject("datacountInfoCustom", datacountInfoCustom);
+		mv.addObject("tAgentInfoCustomlist", tAgentInfoCustomlist);
 		mv.setViewName("/backstage/admin/datasum.jsp");
 		return mv;
 	}

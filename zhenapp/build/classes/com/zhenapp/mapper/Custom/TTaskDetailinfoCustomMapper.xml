@@ -8,7 +8,7 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
   </select>
   
   <select id="findTaskDetailByPage" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom" parameterType="java.util.HashMap">
-	 SELECT a.taskdetailpk, a.taskdetailid, a.taskid, a.taskkeyword, a.searchtype, a.price, a.region, a.isfreeship, 
+	SELECT a.taskdetailpk, a.taskdetailid, a.taskid, a.taskkeyword, a.searchtype,e.dicinfoname AS tasktypename, a.price, a.region, a.isfreeship, 
     a.istmall, a.iscollection,CASE WHEN a.iscollection='0' THEN '否' ELSE '是' END AS iscollectionname,a.isshopping, CASE WHEN a.isshopping='0' THEN '否' ELSE '是' END AS isshoppingname, a.taskkeynum, a.minpicture, a.maxpicture, a.tasktype, 
     a.isflow, a.iscreativetitle, a.isshopcollect, a.taskstate, a.taskdate, a.taskhour, a.taskminute, 
     a.visit,b.dictypename AS visitname ,a.collect,c.dictypename AS collectname, a.trolley, d.dictypename AS trolleyname, a.phoneid, a.subtractpoints, a.resultstr,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime, a.createuser, DATE_FORMAT(a.updatetime,'%Y-%m-%d %H:%i:%s') AS updatetime, 
@@ -16,6 +16,7 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
 	LEFT JOIN t_data_dic_info b ON a.visit=b.dicinfoid
 	LEFT JOIN t_data_dic_info c ON a.collect=c.dicinfoid
 	LEFT JOIN t_data_dic_info d ON a.trolley=d.dicinfoid
+	LEFT JOIN t_data_dic_info e ON a.tasktype=e.dicinfoid
 	  <where>
 	  	<if test="taskid !=null and taskid != ''">
 	  		and a.taskid = #{taskid}
@@ -107,8 +108,21 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
   <select id="findPointsByteterminationstate" parameterType="String" resultType="int">
   	select IFNULL(sum(subtractpoints),0) from t_task_detailinfo where taskid = #{taskid} and taskstate = '23'
   </select>
+  
+  <select id="findTaskDetailBypk" parameterType="String" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
+  	select * from t_task_detailinfo where taskdetailpk=#{taskdetailpk}
+  </select>
+  
   <select id="findTaskDetailByPidAndState" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
-  	select * from t_task_detailinfo where phoneid = #{phoneid} and taskstate = #{taskstate}
+  	select * from t_task_detailinfo 
+  	<where>
+  		<if test="phoneid != null and phoneid != '' ">
+  			and phoneid = #{phoneid}
+  		</if>
+  		<if test="taskstate != null and taskstate != '' ">
+  			and taskstate = #{taskstate}
+  		</if>
+  	</where>
   </select>
   
   <update id="updateTaskDetailByPidAndState" parameterType="java.util.HashMap" >

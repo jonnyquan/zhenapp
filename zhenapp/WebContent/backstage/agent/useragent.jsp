@@ -202,22 +202,21 @@
 		}
 		$("#countindex").val(countindex);
 		$.jqPaginator('#pagination',
-						{
-							totalPages : parseInt($("#countindex").val()),
-							visiblePages : parseInt($("#visiblePages").val()),
-							currentPage : index,
-							first : '<li class="first"><a href="${pageContext.request.contextPath}/task/responsetaskmanage?page=1">首页</a></li>',
-							prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
-							next : '<li class="next"><a href="javascript:;">下一页</a></li>',
-							last : '<li class="last"><a href="javascript:;">末页</a></li>',
-							page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-							onPageChange : function(num, type) {
-								if (type == "change") {
-									//exeData(num, type);
-									window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanage?page=" + num;
-								}
-							}
-						});
+		{totalPages : parseInt($("#countindex").val()),
+			visiblePages : parseInt($("#visiblePages").val()),
+			currentPage : index,
+			first : '<li class="first"><a href="${pageContext.request.contextPath}/task/responsetaskmanage?page=1">首页</a></li>',
+			prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
+			next : '<li class="next"><a href="javascript:;">下一页</a></li>',
+			last : '<li class="last"><a href="javascript:;">末页</a></li>',
+			page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+			onPageChange : function(num, type) {
+				if (type == "change") {
+					//exeData(num, type);
+					window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanage?page=" + num;
+				}
+			}
+		});
 	}
 </script>
 

@@ -239,7 +239,7 @@ public class platform {
 						tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
 						tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
 						tPointsInfoCustom.setUpdateuser("sys");
-						tPointsInfoCustom.setPointreason("终止任务,返回积分："+points);
+						tPointsInfoCustom.setPointreason("终止任务" + tTaskInfoCustom.getTaskpk() + "返回积分："+points);
 						tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
 						tPointsInfoCustom.setPoints(tUserInfoCustom.getPoints()+points);
 						tPointsInfoCustom.setPointstype("28");
@@ -351,7 +351,7 @@ public class platform {
 				tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
 				tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
 				tPointsInfoCustom.setUpdateuser("sys");
-				tPointsInfoCustom.setPointreason("终止任务,返回积分："+points);
+				tPointsInfoCustom.setPointreason("终止任务" + tTaskInfoCustom.getTaskpk() + "返回积分："+points);
 				tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
 				tPointsInfoCustom.setPoints(tUserInfoCustom.getPoints()+points);
 				tPointsInfoCustom.setPointstype("28");

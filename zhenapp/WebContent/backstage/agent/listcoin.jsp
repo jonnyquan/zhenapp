@@ -128,7 +128,6 @@
               <th>时间</th>
               <th>任务ID</th>
               <th>操作类型</th>
-              <th>收入/支出</th>
               <th>积分</th>
               <th>结余</th>
               <th>备注</th>
@@ -140,8 +139,7 @@
 	                <td>${list.usernick}</td>
 	                <td>${list.createtime}</td>
 	                <td>${list.taskid }</td>
-	                <td>${list.pointstype}</td>
-	                <td>${list.pointstype}</td>
+	                <td>${list.pointstypename}</td>
 	                <td>${list.pointsupdate}</td>
 	                <td>${list.points}</td>
 	                <td>${list.pointreason}</td>

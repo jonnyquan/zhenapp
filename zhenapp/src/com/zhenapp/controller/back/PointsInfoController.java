@@ -49,9 +49,14 @@ public class PointsInfoController {
 	 * 跳转到购买积分界面
 	 */
 	@RequestMapping(value="/responsebuypoints")
-	public ModelAndView responsebuypoints() throws Exception{
+	public ModelAndView responsebuypoints(HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		List<TComboInfoCustom> tComboInfoCustomlist = comboInfoService.findAllCombo();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		HashMap<String, Object> hashmap=new HashMap<String, Object>();
+		hashmap.put("agentid", tUserInfoCustom.getAgentid());
+		hashmap.put("page", 0);
+		hashmap.put("rows", 1000);
+		List<TComboInfoCustom> tComboInfoCustomlist = comboInfoService.findComboByAgentid(hashmap);
 		mv.addObject("tComboInfoCustomlist", tComboInfoCustomlist);
 		mv.setViewName("/backstage/points/buypoints.jsp");
 		return mv;
@@ -152,14 +157,7 @@ public class PointsInfoController {
 		if(dateto != null && !dateto.equals("")){
 			pagemap.put("dateto", dateto.replace("-", ""));
 		}
-		if(usernick != null && !usernick.equals("")){
-			List<TUserInfoCustom> TUserInfoCustomlist = userInfoService.findUserBynick(usernick);
-			if(TUserInfoCustomlist !=null && TUserInfoCustomlist.size()>0){
-				pagemap.put("createuser", TUserInfoCustomlist.get(0).getUserid());
-			}else{
-				pagemap.put("createuser", "没有该用户名");
-			}
-		}
+		pagemap.put("usernick", usernick);
 		/*
 		* 代理用户
 		*/

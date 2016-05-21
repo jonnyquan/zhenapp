@@ -5,7 +5,7 @@
 		SELECT aaa.datevalue as date,SUM(IFNULL(aaa.flowcount,0)) AS flowcount,SUM(IFNULL(aaa.collectioncount,0)) AS collectioncount,SUM(IFNULL(aaa.shoppingcount,0)) AS shoppingcount,SUM(IFNULL(aaa.buypoints,0)) AS buypoints,SUM(IFNULL(aaa.expendpoints,0)) AS expendpoints,SUM(IFNULL(aaa.handworkpoints,0)) AS handworkpoints
 		FROM (
 		SELECT AA.*,B.flowcount,B.collectioncount,B.shoppingcount,C.buypoints,D.expendpoints,E.handworkpoints FROM 
-		(SELECT A.datevalue,A.userid,B.agentid,b.agentuserid FROM (SELECT a.datevalue,b.userid,b.agentid FROM t_date_info a,t_user_info b) A LEFT JOIN t_agent_info B ON A.AGENTID=B.AGENTID) AA
+		(SELECT A.datevalue,A.userid,B.agentpk,B.agentid,b.agentuserid FROM (SELECT a.datevalue,b.userid,b.agentid FROM t_date_info a,t_user_info b) A LEFT JOIN t_agent_info B ON A.AGENTID=B.AGENTID) AA
 		LEFT JOIN (SELECT taskdate,createuser,SUM(flowcount) AS flowcount,SUM(collectioncount) AS collectioncount,SUM(shoppingcount) AS shoppingcount FROM t_task_info 
 		<where>
 			<if test="tasktype != null and tasktype != '' ">
@@ -19,6 +19,9 @@
 		<where>
 			<if test="agentid != null and agentid !='' ">
 				and AA.agentid= #{agentid}
+			</if>
+			<if test="agentpk != null and agentpk !='' ">
+				and AA.agentpk= #{agentpk}
 			</if>
 			<if test="datefrom!= null and datefrom !='' ">
 				AND AA.datevalue >= #{datefrom}
@@ -34,7 +37,7 @@
 		SELECT SUM(IFNULL(aaa.flowcount,0)) AS sumflowcount,SUM(IFNULL(aaa.collectioncount,0)) AS sumcollectioncount,SUM(IFNULL(aaa.shoppingcount,0)) AS sumshoppingcount,SUM(IFNULL(aaa.buypoints,0)) AS sumbuypoints,SUM(IFNULL(aaa.expendpoints,0)) AS sumexpendpoints,SUM(IFNULL(aaa.handworkpoints,0)) AS sumhandworkpoints
 		FROM (
 		SELECT AA.*,B.flowcount,B.collectioncount,B.shoppingcount,C.buypoints,D.expendpoints,E.handworkpoints FROM 
-		(SELECT A.datevalue,A.userid,B.agentid,b.agentuserid FROM (SELECT a.datevalue,b.userid,b.agentid FROM t_date_info a,t_user_info b) A LEFT JOIN t_agent_info B ON A.AGENTID=B.AGENTID) AA
+		(SELECT A.datevalue,A.userid,B.agentpk,B.agentid,b.agentuserid FROM (SELECT a.datevalue,b.userid,b.agentid FROM t_date_info a,t_user_info b) A LEFT JOIN t_agent_info B ON A.AGENTID=B.AGENTID) AA
 		LEFT JOIN (SELECT taskdate,createuser,SUM(flowcount) AS flowcount,SUM(collectioncount) AS collectioncount,SUM(shoppingcount) AS shoppingcount FROM t_task_info 
 		<where>
 			<if test="tasktype != null and tasktype != '' ">
@@ -48,6 +51,9 @@
 		<where>
 			<if test="agentid != null and agentid !='' ">
 				and AA.agentid= #{agentid}
+			</if>
+			<if test="agentpk != null and agentpk !='' ">
+				and AA.agentpk= #{agentpk}
 			</if>
 			<if test="datefrom!= null and datefrom !='' ">
 				AND AA.datevalue >= #{datefrom}

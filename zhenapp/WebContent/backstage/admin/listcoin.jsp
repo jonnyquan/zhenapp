@@ -66,10 +66,8 @@
                 <li><a href="${pageContext.request.contextPath}/points/responserecordspointsadmin"><span class="am-icon-money"></span>资金记录</a></li>
               </ul></li>
             <li><a href="${pageContext.request.contextPath}/task/responsetaskmanageadmin"><span class="am-icon-pencil-square-o"></span>订单查询</a></li>
-            <li><a href="${pageContext.request.contextPath}/combo/findComboByadmin"><span class="am-icon-cubes"></span> 套餐信息</a></li>
-
-            
-             <li><a href="${pageContext.request.contextPath}/task/findproblemtaskadmin"><span class="am-icon-mobile"></span> 有问题任务查询</a></li>
+            <!--  <li><a href="${pageContext.request.contextPath}/combo/findComboByadmin"><span class="am-icon-cubes"></span> 套餐信息</a></li>
+             <li><a href="${pageContext.request.contextPath}/task/findproblemtaskadmin"><span class="am-icon-mobile"></span> 有问题任务查询</a></li>-->
              <li><a href="${pageContext.request.contextPath}/task/findtaskdetaillist"><span class="am-icon-mobile"></span> 任务详情</a></li> 
              <li><a href="${pageContext.request.contextPath}/task/findtasklocklist"><span class="am-icon-mobile"></span> 卡机任务查询</a></li> 
  			<!--   <li><a href="/admin/phoneTask/getMessage"><span class="am-icon-mobile"></span> 淘宝ID查询</a></li>
@@ -145,7 +143,6 @@
               <th>时间</th>
               <th>任务ID</th>
               <th>操作类型</th>
-              <th>收入/支出</th>
               <th>积分</th>
               <th>结余</th>
               <th>备注</th>
@@ -157,8 +154,7 @@
 	                <td>${list.usernick}</td>
 	                <td>${list.createtime}</td>
 	                <td>${list.taskid }</td>
-	                <td>${list.pointstype}</td>
-	                <td>${list.pointstype}</td>
+	                <td>${list.pointstypename}</td>
 	                <td>${list.pointsupdate}</td>
 	                <td>${list.points}</td>
 	                <td>${list.pointreason}</td>

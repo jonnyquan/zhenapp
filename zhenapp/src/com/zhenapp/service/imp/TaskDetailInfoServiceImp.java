@@ -76,4 +76,10 @@ public class TaskDetailInfoServiceImp implements TaskDetailInfoService {
 		// TODO Auto-generated method stub
 		return tTaskDetailinfoCustomMapper.findTaskDetailByflow();
 	}
+	@Override
+	public TTaskDetailInfoCustom findTaskDetailBypk(String taskdetailpk)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskDetailinfoCustomMapper.findTaskDetailBypk(taskdetailpk);
+	}
 }

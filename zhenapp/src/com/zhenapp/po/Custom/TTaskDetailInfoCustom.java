@@ -8,7 +8,18 @@ public class TTaskDetailInfoCustom extends TTaskDetailinfo{
 	private String visitname;
 	private String collectname;
 	private String trolleyname;
+	private String tasktypename;
 	
+	
+	
+	public String getTasktypename() {
+		return tasktypename;
+	}
+
+	public void setTasktypename(String tasktypename) {
+		this.tasktypename = tasktypename;
+	}
+
 	public String getVisitname() {
 		return visitname;
 	}

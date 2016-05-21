@@ -2,9 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <!DOCTYPE HTML>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,8 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>数据统计</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/amazeui.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/admin.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/lanyunying.css" />
@@ -62,8 +59,8 @@
                 <li><a href="${pageContext.request.contextPath}/points/responserecordspointsadmin"><span class="am-icon-money"></span>资金记录</a></li>
               </ul></li>
             <li><a href="${pageContext.request.contextPath}/task/responsetaskmanageadmin"><span class="am-icon-pencil-square-o"></span>订单查询</a></li>
-            <li><a href="${pageContext.request.contextPath}/combo/findComboByadmin"><span class="am-icon-cubes"></span> 套餐信息</a></li>
-             <li><a href="${pageContext.request.contextPath}/task/findproblemtaskadmin"><span class="am-icon-mobile"></span> 有问题任务查询</a></li>
+            <!--  <li><a href="${pageContext.request.contextPath}/combo/findComboByadmin"><span class="am-icon-cubes"></span> 套餐信息</a></li>
+             <li><a href="${pageContext.request.contextPath}/task/findproblemtaskadmin"><span class="am-icon-mobile"></span> 有问题任务查询</a></li>-->
              <li><a href="${pageContext.request.contextPath}/task/findtaskdetaillist"><span class="am-icon-mobile"></span> 任务详情</a></li> 
              <li><a href="${pageContext.request.contextPath}/task/findtasklocklist"><span class="am-icon-mobile"></span> 卡机任务查询</a></li> 
  			<!--   <li><a href="/admin/phoneTask/getMessage"><span class="am-icon-mobile"></span> 淘宝ID查询</a></li>
@@ -101,6 +98,14 @@
   <div class="am-g" style="margin-bottom: 10px;">
     <form class="am-form">
       <div class="am-u-md-2">
+      	<select id="agentpk">
+          <option value="">代理名称</option>
+          <c:if test="${tAgentInfoCustomlist !=null }">
+          	<c:forEach items="${tAgentInfoCustomlist}" var="list">
+          		<option  <c:if test="${list.agentpk == agentpk }">selected="selected"</c:if> value="${list.agentpk}">${list.agentname}</option>
+          	</c:forEach>
+          </c:if>
+        </select>
       </div>
       <div class="am-u-md-2">
         <select id="flowType">
@@ -204,10 +209,11 @@
     });
 
     $("#search").click(function() {
+      var agentpk = $("#agentpk").val();
       var startTime = $("#my-startDate").text();
       var entTime = $("#my-endDate").text();
       var type = $("#flowType").val(); 
-      var url = "${pageContext.request.contextPath}/datacount/responsedatasumadmin?&datefrom=" + startTime + "&dateto=" + entTime + "&tasktype=" + type;
+      var url = "${pageContext.request.contextPath}/datacount/responsedatasumadmin?&datefrom=" + startTime + "&dateto=" + entTime + "&tasktype=" + type + "&agentpk=" + agentpk;
       location.href = url;
     });
   });

@@ -2,9 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <!DOCTYPE HTML>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,10 +11,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>订单查询</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/amazeui.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/admin.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/lanyunying.css" />
@@ -30,10 +26,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/backstage/agent/pagematter/zh_CN.js"></script>
 <script src="${pageContext.request.contextPath}/bootstrap/js/jqPaginator.min.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/bootstrap/js/myPage.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/easyui/themes/bootstrap/easyui.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/easyui/themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/easyui/themes/bootstrap/easyui.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/easyui/themes/icon.css" />
 </head>
 <header class="am-topbar admin-header">
   <div class="am-topbar-brand">
@@ -70,10 +64,8 @@
                 <li><a href="${pageContext.request.contextPath}/points/responserecordspointsadmin"><span class="am-icon-money"></span>资金记录</a></li>
               </ul></li>
             <li><a href="${pageContext.request.contextPath}/task/responsetaskmanageadmin"><span class="am-icon-pencil-square-o"></span>订单查询</a></li>
-            <li><a href="${pageContext.request.contextPath}/combo/findComboByadmin"><span class="am-icon-cubes"></span> 套餐信息</a></li>
-
-            
-             <li><a href="${pageContext.request.contextPath}/task/findproblemtaskadmin"><span class="am-icon-mobile"></span> 有问题任务查询</a></li>
+            <!--  <li><a href="${pageContext.request.contextPath}/combo/findComboByadmin"><span class="am-icon-cubes"></span> 套餐信息</a></li>-->
+             <!--  <li><a href="${pageContext.request.contextPath}/task/findproblemtaskadmin"><span class="am-icon-mobile"></span> 有问题任务查询</a></li>-->
              <li><a href="${pageContext.request.contextPath}/task/findtaskdetaillist"><span class="am-icon-mobile"></span> 任务详情</a></li> 
              <li><a href="${pageContext.request.contextPath}/task/findtasklocklist"><span class="am-icon-mobile"></span> 卡机任务查询</a></li> 
  			<!--   <li><a href="/admin/phoneTask/getMessage"><span class="am-icon-mobile"></span> 淘宝ID查询</a></li>
@@ -209,23 +201,24 @@
           </thead>
           <tbody>
             <c:forEach items="${tTaskInfoCustomlist}" var="list">
-            	<td>${list.taskpk}</td>
-                <td>${list.taskkeynum}</td>
-                <td>${list.tasktypename }</td>
-                <td>${list.taskkeyword}</td>
-                <td>${list.flowcount }</td>
-                <td>${list.collectioncount }</td>
-                <td>${list.shoppingcount }</td>
-                <td>${list.finishflowcount }</td>
-                <td>${list.finishcollectioncount }</td>
-                <td>${list.finishshoppingcount }</td>
-                <td class="font-red">${list.errorcount}</td>
-                <td>${list.createtime }</td>
-                <td>${list.dicinfoname} </td>
-				<td > 
-				  <a onclick="endtask('${list.taskid}')" class="btn btn-default btn-xs">终止任务</a>				
-				</td>
-              </tr>
+            	<tr>
+	            	<td>${list.taskpk}</td>
+	                <td>${list.taskkeynum}</td>
+	                <td>${list.tasktypename }</td>
+	                <td>${list.taskkeyword}</td>
+	                <td>${list.flowcount }</td>
+	                <td>${list.collectioncount }</td>
+	                <td>${list.shoppingcount }</td>
+	                <td>${list.finishflowcount }</td>
+	                <td>${list.finishcollectioncount }</td>
+	                <td>${list.finishshoppingcount }</td>
+	                <td class="font-red">${list.errorcount}</td>
+	                <td>${list.createtime }</td>
+	                <td>${list.dicinfoname} </td>
+					<td > 
+					  <a onclick="endtask('${list.taskid}');" class="btn btn-default btn-xs">终止任务</a>				
+					</td>
+	            </tr>
             </c:forEach>
           </tbody>
         </table>

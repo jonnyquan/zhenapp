@@ -137,8 +137,12 @@
                 <td>${list.usernick}</td>
                 <td><a href="#">${list.rechargemoney}</a></td>
                 <td>${list.createtime}</td>
-                <td>${list.rechargestate}</td>
-                <td></td>
+                <td>${list.rechargestatename}</td>
+                <td>
+                	<c:if test="${list.rechargestate != 25 }">
+                		<a class="btn btn-info btn-xs" onclick="updateRechargestate('${list.rechargeverification}');">确认充值</a>
+                	</c:if>
+                </td>
               </tr>
             </c:forEach>
           </tbody>
@@ -157,7 +161,22 @@
   </div>
 </div>
 <script>
+function updateRechargestate(rechargeverification){
+	$.ajax({
+		url : "${pageContext.request.contextPath}/recharge/updateRechargestate/"+rechargeverification,
+		type : 'post',
+		success : function (data, response, status) {
+			if (data!=null && data.data=="success") {
+				window.location.href="${pageContext.request.contextPath}/points/responseconsumeagent";
+			} else{
+				alert("确认失败!");
+			}
+		}
+	});
+}
+
   $(function() {
+	  
     var startDate = new Date(2015, 12, 20);
     var endDate = new Date(2016, 11, 25);
     var $alert = $('#my-alert');
@@ -207,25 +226,24 @@
 		}
 		$("#countindex").val(countindex);
 		$.jqPaginator('#pagination',
-						{
-							totalPages : parseInt($("#countindex").val()),
-							visiblePages : parseInt($("#visiblePages").val()),
-							currentPage : index,
-							first : '<li class="first"><a href="${pageContext.request.contextPath}/points/responseconsumeagent?page=1">首页</a></li>',
-							prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
-							next : '<li class="next"><a href="javascript:;">下一页</a></li>',
-							last : '<li class="last"><a href="javascript:;">末页</a></li>',
-							page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-							onPageChange : function(num, type) {
-								if (type == "change") {
-									var startTime = $("#my-startDate").text();
-							          var entTime = $("#my-endDate").text();
-							          var nick = $("#nick").val();
-							          var rechargeid = $("#rechargeId").val();
-							          location.href = "${pageContext.request.contextPath}/points/responseconsumeagent?page=" + num + "&datefrom=" + startTime + "&dateto=" + entTime + "&usernick=" + nick + "&rechargeid=" + rechargeid;
-								}
-							}
-						});
+		{totalPages : parseInt($("#countindex").val()),
+			visiblePages : parseInt($("#visiblePages").val()),
+			currentPage : index,
+			first : '<li class="first"><a href="${pageContext.request.contextPath}/points/responseconsumeagent?page=1">首页</a></li>',
+			prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
+			next : '<li class="next"><a href="javascript:;">下一页</a></li>',
+			last : '<li class="last"><a href="javascript:;">末页</a></li>',
+			page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+			onPageChange : function(num, type) {
+				if (type == "change") {
+					var startTime = $("#my-startDate").text();
+			          var entTime = $("#my-endDate").text();
+			          var nick = $("#nick").val();
+			          var rechargeid = $("#rechargeId").val();
+			          location.href = "${pageContext.request.contextPath}/points/responseconsumeagent?page=" + num + "&datefrom=" + startTime + "&dateto=" + entTime + "&usernick=" + nick + "&rechargeid=" + rechargeid;
+				}
+			}
+		});
 	}
 </script>
 </div>

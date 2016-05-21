@@ -7,6 +7,10 @@ import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 
 public interface TaskDetailInfoService {
 	/*
+	 * 根据主键查询任务详情信息
+	 */
+	public TTaskDetailInfoCustom findTaskDetailBypk(String taskdetailpk) throws Exception;
+	/*
 	 * 根据条件查询任务详情
 	 */
 	public List<TTaskDetailInfoCustom> findTaskDetailByPage(HashMap<String, Object> hashmap) throws Exception;
