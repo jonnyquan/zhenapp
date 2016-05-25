@@ -7,6 +7,8 @@ import com.zhenapp.po.Custom.TTaskInfoCustom;
 
 
 public interface TTaskInfoCustomMapper {
+	//查询多个主键的订单信息
+		public List<TTaskInfoCustom> findTaskInfoBypks(String pks)throws Exception;
 	/*
 	 * 保存任务信息(订单)
 	 */

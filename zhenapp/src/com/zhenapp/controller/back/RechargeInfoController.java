@@ -156,7 +156,7 @@ public class RechargeInfoController {
 			tPointsInfoCustom.setPoints(tUserInfoCustom.getPoints()+tRechargeInfoCustom.getRechargepoints()+tRechargeInfoCustom.getRechargegivepoints());
 			tPointsInfoCustom.setPointstype("26");
 			tPointsInfoCustom.setPointsupdate(tRechargeInfoCustom.getRechargepoints()+tRechargeInfoCustom.getRechargegivepoints());
-			tPointsInfoCustom.setTaskid("0");
+			tPointsInfoCustom.setTaskpk(0);
 			tPointsInfoCustom.setUserid(tUserInfoCustom.getUserid());
 			int ii1 = pointsInfoService.savePoints(tPointsInfoCustom);
 			/*

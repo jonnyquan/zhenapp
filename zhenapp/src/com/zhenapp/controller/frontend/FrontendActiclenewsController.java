@@ -41,20 +41,23 @@ public class FrontendActiclenewsController {
 	@RequestMapping(value="/articlenews")
 	public @ResponseBody ModelAndView articlenews(HttpServletRequest request,Integer page,Integer rows) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		List<TelectricityCustom> TelectricityCustomlist = electrityService.findElectrity_10();
-		List<TGuideInfoCustom> TGuideInfoCustomlist = guideService.findGuide_10();
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
+		String webwww=request.getServerName();
+		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
+		TWebInfoCustom tWebInfoCustom=webInfoService.findWebByAgentid(tAgentInfoCustom.getAgentid());
+		pagemap.put("agentid", tAgentInfoCustom.getAgentid());
+		List<TelectricityCustom> TelectricityCustomlist = electrityService.findElectrity_10(pagemap);
+		List<TGuideInfoCustom> TGuideInfoCustomlist = guideService.findGuide_10(pagemap);
+		
 		if (page == null || page==0) {
 			page = 1;
 		} 
 		rows = 15;
 		pagemap.put("page", (page - 1) * rows);
 		pagemap.put("rows", rows);
-		List<TelectricityCustom> telectricityCustomcountlist = electrityService.findAllElectrity();
+		pagemap.put("agentid", tAgentInfoCustom.getAgentid());
+		List<TelectricityCustom> telectricityCustomcountlist = electrityService.findAllElectrity(pagemap);
 		List<TelectricityCustom> TelectricityCustomAlllist = electrityService.findElectrityBypage(pagemap);
-		String webwww=request.getServerName();
-		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
-		TWebInfoCustom tWebInfoCustom=webInfoService.findWebByAgentid(tAgentInfoCustom.getAgentid());
 		mv.addObject("tWebInfoCustom",tWebInfoCustom);
 		mv.addObject("total", telectricityCustomcountlist.size());
 		mv.addObject("pagenum", page);
@@ -71,15 +74,14 @@ public class FrontendActiclenewsController {
 	@RequestMapping(value="/articlenewsdetail/{electricitypk}")
 	public @ResponseBody ModelAndView articlenewsdetail(HttpServletRequest request,@PathVariable(value = "electricitypk") String electricitypk) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		List<TelectricityCustom> TelectricityCustomlist = electrityService
-				.findElectrity_10();
-		List<TGuideInfoCustom> TGuideInfoCustomlist = guideService
-				.findGuide_10();
-		TelectricityCustom telectricityCustom = electrityService
-				.findElectrityBypk(electricitypk);
 		String webwww=request.getServerName();
 		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
 		TWebInfoCustom tWebInfoCustom=webInfoService.findWebByAgentid(tAgentInfoCustom.getAgentid());
+		HashMap<String, Object> pagemap = new HashMap<String, Object>();
+		pagemap.put("agentid", tAgentInfoCustom.getAgentid());
+		List<TelectricityCustom> TelectricityCustomlist = electrityService.findElectrity_10(pagemap);
+		List<TGuideInfoCustom> TGuideInfoCustomlist = guideService.findGuide_10(pagemap);
+		TelectricityCustom telectricityCustom = electrityService.findElectrityBypk(electricitypk);
 		mv.addObject("tWebInfoCustom",tWebInfoCustom);
 		mv.addObject("TelectricityCustomlist", TelectricityCustomlist);
 		mv.addObject("TGuideInfoCustomlist", TGuideInfoCustomlist);
@@ -94,22 +96,15 @@ public class FrontendActiclenewsController {
 	@RequestMapping(value = "/insertelectrity")
 	public ModelAndView insertelectrity() throws Exception {
 		ModelAndView mv = new ModelAndView();
-
 		TextImprot textImprot = new TextImprot();
-
 		List<TElectricityInfo> list = textImprot.improt();
 		for (int i = 0; i < list.size(); i++) {
 			TElectricityInfo electricityInfo = list.get(i);
-
 			int j = electrityService.insertElectrity(electricityInfo);
-
 			if (j < 1) {
-				System.out.println("=========================" + j
-						+ "=========================");
+				System.out.println("=========================" + j + "=========================");
 			}
-
 		}
-
 		mv.setViewName("/page/pagestates/info.jsp");
 		return mv;
 	}

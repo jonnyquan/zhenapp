@@ -10,7 +10,7 @@
   </select>
   
   <insert id="insertTbaccount">
-	  insert into t_tbaccount_info ( tbaccountid, tbaccountname, 
+	  insert into t_tbaccount_info_temp ( tbaccountid, tbaccountname, 
       tbaccountpwd, tbaccounttime, tbaccountphoneid, 
       tbaccountstate, createtime, createuser, 
       updatetime, updateuser)

@@ -69,4 +69,37 @@ public class TbaccountInfoServiceImp implements TbaccountInfoService{
 		return tTbaccountInfoCustomMapper.updateTbaccountByid(tTbaccountInfoCustom);
 	}
 
+	@Override
+	public int deleteAccount(HashMap<String, Object> pagemap) throws Exception {
+		// TODO Auto-generated method stub
+		return tTbaccountInfoCustomMapper.deleteAccount(pagemap);
+	}
+
+	@Override
+	public List<TTbaccountInfoCustom> findTbaccountByphoneidisnull()
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tTbaccountInfoCustomMapper.findTbaccountByphoneidisnull();
+	}
+
+	@Override
+	public List<TTbaccountInfoCustom> findTbaccountByPhoneidandtag(
+			HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tTbaccountInfoCustomMapper.findTbaccountByPhoneidandtag(hashmap);
+	}
+
+	@Override
+	public int updateTbaccountTag(HashMap<String, Object> hashmap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tTbaccountInfoCustomMapper.updateTbaccountTag(hashmap);
+	}
+
+	@Override
+	public int updateTbaccountstate() throws Exception {
+		// TODO Auto-generated method stub
+		return tTbaccountInfoCustomMapper.updateTbaccountstate();
+	}
+
 }

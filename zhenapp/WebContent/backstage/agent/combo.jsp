@@ -57,7 +57,8 @@
   </div>
 </header>
 <div class="am-cf admin-main">
-      <!-- sidebar start -->
+     <div id="menu" class="admin-sidebar am-offcanvas"></div>
+      <!-- sidebar start 
       <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
         <div class=" admin-offcanvas-bar">
           <ul class="am-list admin-sidebar-list">
@@ -76,20 +77,15 @@
             <li><a href="${pageContext.request.contextPath}/datacount/findDataByDateAndTasktype"><span class="am-icon-bar-chart"></span>数据统计</a></li>
           </ul>
         </div>
-      </div>
-<!-- sidebar end -->
+      </div>-->
       <div id="module-head"></div>
-      
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <div class="admin-content">
-
   <div class="am-cf am-padding">
     <div class="am-fl am-cf">
       <strong class="am-text-primary am-text-lg">套餐信息</strong>
     </div>
   </div>
-         
   <div class="am-g" id="module-head" style="margin-bottom: 10px;">
     <div class="am-u-sm-12 am-u-md-9">
       <div class="am-btn-toolbar">
@@ -101,7 +97,6 @@
       </div>
     </div>
   </div>
-
   <div class="am-g">
     <div class="am-u-sm-12">
       <form class="am-form">
@@ -127,19 +122,19 @@
 			     <td>${list.combogivemoney}</td>
 				 <td>${list.combogiveintegral}</td>
 				 <td>
-									<div class="am-btn-toolbar">
-										<div class="am-btn-group am-btn-group-xs">
-											<a class="am-btn am-btn-default am-btn-xs am-text-secondary"
-												onclick="edit('${list.combopk}');"> <span
-												class="am-icon-pencil-square-o"></span> 编辑
-											</a> <a
-												class="am-btn am-btn-default am-btn-xs am-text-danger"
-												onclick="del('${list.combopk}')"> <span
-												class="am-icon-trash-o"></span> 删除
-											</a>
-										</div>
-									</div>
-								</td>
+					<div class="am-btn-toolbar">
+						<div class="am-btn-group am-btn-group-xs">
+							<a class="am-btn am-btn-default am-btn-xs am-text-secondary"
+								onclick="edit('${list.combopk}');"> <span
+								class="am-icon-pencil-square-o"></span> 编辑
+							</a> <a
+								class="am-btn am-btn-default am-btn-xs am-text-danger"
+								onclick="del('${list.combopk}')"> <span
+								class="am-icon-trash-o"></span> 删除
+							</a>
+						</div>
+					</div>
+				</td>
 				</tr>
             </c:forEach>
           </tbody>
@@ -157,10 +152,8 @@
         <p>说明：套餐信息列表，对套餐信息进行增加、删除、修改、查询操作。</p>
       </form>
     </div>
-
   </div>
 </div>
-
 <div class="am-popup" id="add-combo">
   <div class="am-popup-inner">
     <div class="am-popup-hd">
@@ -183,21 +176,18 @@
           <input type="text" id="price" name="combomoney" placeholder="原价格">
         </div>
       </div>
-
       <div class="am-form-group">
         <label for="cion" class="am-u-sm-3 am-form-label">价格积分</label>
         <div class="am-u-sm-7">
           <input type="text" id="cion" name="combointegral" placeholder="价格积分">
         </div>
       </div>
-
       <div class="am-form-group">
         <label for="presentPrice" class="am-u-sm-3 am-form-label">赠送价格</label>
         <div class="am-u-sm-7">
           <input type="text" id="presentPrice" name="combogivemoney" placeholder="赠送价格">
         </div>
       </div>
-
       <div class="am-form-group">
         <label for="presentCoin" class="am-u-sm-3 am-form-label">赠送积分</label>
         <div class="am-u-sm-7">
@@ -215,7 +205,6 @@
     </div>
   </div>
 </div>
-
 <script>
   function edit(id) {
     $("#combopk").val(id);
@@ -242,7 +231,8 @@
   }
 
   ;$(function() {
-    
+	  $("#menu").load("${pageContext.request.contextPath}/backstage/agent/menu.jsp");
+	  
     $("#addBtn").click(function(){
       $('input').val("");
       $("#add-combo").modal('open');

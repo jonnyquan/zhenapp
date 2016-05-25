@@ -2,11 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -18,7 +15,6 @@
 	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
-
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
@@ -27,14 +23,12 @@
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/common.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/sweetalert.css">
-
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/backstage/pagematter/common/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/backstage/pagematter/common/js/common.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/backstage/pagematter/common/js/sweetalert-dev.js"></script>
-
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/layer_user.css"
 	type="text/css">
@@ -66,9 +60,7 @@
 </style>
 <title>积分明细</title>
 </head>
-
 <body>
-
 	<div id="topbar">
 		<div class="warp1200">
 			<div class="clearfix">
@@ -85,12 +77,10 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="pageFull">
 		<div class="webHeader clearfix">
 			<div class="logo row_l">
-				<a href="${pageContext.request.contextPath}/frontend/index"
-					title="电商流量">真流量</a>
+				<a href="${pageContext.request.contextPath}/frontend/index" title="电商流量">真流量</a>
 			</div>
 			<div class="channel row_r">
 				<ul class="clearfix">
@@ -105,64 +95,18 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
+<script type="text/javascript">
     $('.scl6').addClass('hover');
 </script>
-
 	<div class="uc_warp">
 		<div class="userbody clearfix">
 			<div class="leftmenu row_l">
-				<dl>
-					<dt>
-						<a href="${pageContext.request.contextPath}/user/responseuser">个人中心</a>
-					</dt>
-					<dd>
-						<p>
-							<a href="${pageContext.request.contextPath}/user/responsepersonal" id="info"><i class="fa fa-angle-right"></i>基本信息</a>
-						</p>
-						<p>
-							<!-- <a href="/user/broker" id="account"><i class="fa fa-angle-right"></i>我的推广</a> -->
-							<a href="javascript:void(0);" id="account"><i class="fa fa-angle-right"></i>我的推广</a>
-						</p>
-					</dd>
-				</dl>
-				<dl>
-					<dt>
-						<a href="javascript:void(0);">流量任务管理</a>
-					</dt>
-					<dd>
-						<p>
-							<a href="${pageContext.request.contextPath}/task/responsetaskadd" id="addtask"><i class="fa fa-angle-right"></i>发布任务</a>
-						</p>
-						<p>
-							<a href="${pageContext.request.contextPath}/task/responsetaskztcadd" id="addtask"><i class="fa fa-angle-right"></i>发布直通车任务</a>
-						</p>
-						<p>
-							<a href="${pageContext.request.contextPath}/task/responsetaskmanage" id="managetask"><i class="fa fa-angle-right"></i>任务管理</a>
-						</p>
-					</dd>
-				</dl>
-				<dl>
-					<dt>
-						<a href="javascript:void(0);">财务中心</a>
-					</dt>
-					<dd class="acc">
-						<p>
-							<a href="${pageContext.request.contextPath}/points/responsebuypoints" id="purchase"><i class="fa fa-angle-right"></i>购买积分</a>
-						</p>
-						<p>
-							<a href="${pageContext.request.contextPath}/points/responseconsume" id="consume"><i class="fa fa-angle-right"></i>购买记录</a>
-						</p>
-						<p>
-							<a href="${pageContext.request.contextPath}/points/responserecordspoints" id="point"><i class="fa fa-angle-right"></i>积分明细</a>
-						</p>
-					</dd>
-				</dl>
+				
 			</div>
 			<script type="text/javascript">
         $('#point').addClass('hover');
     </script>
-
+			
 			<div class="rightbox row_r">
 				<div class="u_outbox">
 					<div class="tabtitle clearfix">
@@ -172,13 +116,31 @@
 					</div>
 					<div class="umainbox">
 						<!--main-->
+						<form id="searchform" class="koo_fromBox" action="${pageContext.request.contextPath}/points/responserecordspoints" method="post">
+							<table class="table table-bordered">
+								<tr>
+									<td>
+										<label class="form_label">订单ID:</label>
+										<input class="form_input" style="width:200px;" type="text" name="taskpk" id="taskpk" value="${taskpk}" /> 
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<button type="button" id="search" class="btn btn-info">搜索</button>
+									</td>
+								</tr>
+							</table>
+							
+						</form>
 						<div class="tablebox">
 							<table class="tablelist">
 								<thead>
-									<th width="15%">积分变更</th>
-									<th width="15%">实时积分</th>
+									<th width="20%">订单号</th>
+									<th width="8%">积分变更</th>
+									<th width="8%">实时积分</th>
+									<th width="8%">类型</th>
 									<th>备注说明</th>
-									<th width="20%">发生时间</th>
+									<th width="15%">发生时间</th>
 								</thead>
 							<c:if test="${tPointsInfoCustomlist==null}">
 		                        <tr>
@@ -190,16 +152,22 @@
 	                        <c:if test="${tPointsInfoCustomlist!=null}">
 		                       <c:forEach items="${tPointsInfoCustomlist}" var="list">
 		                       		<tr>
-		                       			<td width="15%">
+		                       			<td>
+		                       				${list.taskpk}
+		                       			</td>
+		                       			<td>
 		                       				${list.pointsupdate}
 		                       			</td>
-				                        <td width="15%">
+				                        <td>
 											${list.points}
+										</td>
+										<td>
+											${list.pointstypename}
 										</td>
 				                        <td>
 											${list.pointreason}
 										</td>
-				                        <td width="20%">
+				                        <td>
 				                        	${list.createtime}
 				                        </td>
 		                       		</tr>
@@ -211,14 +179,14 @@
 					</div>
 				</div>
 				<div>
-						<ul class="pagination" id="pagination">
-						</ul>
-						<input type="hidden" id="PageCount" runat="server" value="${total}"/>
-						<input type="hidden" id="PageSize" runat="server" value="10" />
-						<input type="hidden" id="countindex" runat="server" value="10"/>
-						<!--设置最多显示的页码数 可以手动设置 默认为7-->
-						<input type="hidden" id="visiblePages" runat="server" value="12" />
-					</div>
+					<ul class="pagination" id="pagination">
+					</ul>
+					<input type="hidden" id="PageCount" runat="server" value="${total}"/>
+					<input type="hidden" id="PageSize" runat="server" value="10" />
+					<input type="hidden" id="countindex" runat="server" value="10"/>
+					<!--设置最多显示的页码数 可以手动设置 默认为7-->
+					<input type="hidden" id="visiblePages" runat="server" value="12" />
+				</div>
 			</div>
 			<script type="text/javascript"
 				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/layer_user.js"></script>
@@ -235,6 +203,14 @@
 	</div>
 
 <script type="text/javascript">
+;$(function(){
+	$(".leftmenu").load("${pageContext.request.contextPath}/backstage/user/menu.jsp");
+	
+	$("#search").click(function(){
+		$("#searchform").submit();
+	});
+});
+
 var index = Number("${pagenum}");
 		if (index.length < 1) {
 			index = 1;
@@ -249,22 +225,21 @@ var index = Number("${pagenum}");
 			}
 			$("#countindex").val(countindex);
 			$.jqPaginator('#pagination',
-							{
-								totalPages : parseInt($("#countindex").val()),
-								visiblePages : parseInt($("#visiblePages").val()),
-								currentPage : index,
-								first : '<li class="first"><a href="${pageContext.request.contextPath}/points/responserecordspoints?page=1">首页</a></li>',
-								prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
-								next : '<li class="next"><a href="javascript:;">下一页</a></li>',
-								last : '<li class="last"><a href="javascript:;">末页</a></li>',
-								page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-								onPageChange : function(num, type) {
-									if (type == "change") {
-										//exeData(num, type);
-										window.location.href = "${pageContext.request.contextPath}/points/responserecordspoints?page=" + num;
-									}
-								}
-							});
+			{totalPages : parseInt($("#countindex").val()),
+				visiblePages : parseInt($("#visiblePages").val()),
+				currentPage : index,
+				first : '<li class="first"><a href="${pageContext.request.contextPath}/points/responserecordspoints?page=1">首页</a></li>',
+				prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
+				next : '<li class="next"><a href="javascript:;">下一页</a></li>',
+				last : '<li class="last"><a href="javascript:;">末页</a></li>',
+				page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+				onPageChange : function(num, type) {
+					if (type == "change") {
+						//exeData(num, type);
+						window.location.href = "${pageContext.request.contextPath}/points/responserecordspoints?page=" + num;
+					}
+				}
+			});
 		}
 </script>
 </body>

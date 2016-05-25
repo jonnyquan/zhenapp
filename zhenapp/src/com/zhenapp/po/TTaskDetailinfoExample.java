@@ -1504,62 +1504,52 @@ public class TTaskDetailinfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andTaskhourEqualTo(String value) {
+        public Criteria andTaskhourEqualTo(Integer value) {
             addCriterion("taskhour =", value, "taskhour");
             return (Criteria) this;
         }
 
-        public Criteria andTaskhourNotEqualTo(String value) {
+        public Criteria andTaskhourNotEqualTo(Integer value) {
             addCriterion("taskhour <>", value, "taskhour");
             return (Criteria) this;
         }
 
-        public Criteria andTaskhourGreaterThan(String value) {
+        public Criteria andTaskhourGreaterThan(Integer value) {
             addCriterion("taskhour >", value, "taskhour");
             return (Criteria) this;
         }
 
-        public Criteria andTaskhourGreaterThanOrEqualTo(String value) {
+        public Criteria andTaskhourGreaterThanOrEqualTo(Integer value) {
             addCriterion("taskhour >=", value, "taskhour");
             return (Criteria) this;
         }
 
-        public Criteria andTaskhourLessThan(String value) {
+        public Criteria andTaskhourLessThan(Integer value) {
             addCriterion("taskhour <", value, "taskhour");
             return (Criteria) this;
         }
 
-        public Criteria andTaskhourLessThanOrEqualTo(String value) {
+        public Criteria andTaskhourLessThanOrEqualTo(Integer value) {
             addCriterion("taskhour <=", value, "taskhour");
             return (Criteria) this;
         }
 
-        public Criteria andTaskhourLike(String value) {
-            addCriterion("taskhour like", value, "taskhour");
-            return (Criteria) this;
-        }
-
-        public Criteria andTaskhourNotLike(String value) {
-            addCriterion("taskhour not like", value, "taskhour");
-            return (Criteria) this;
-        }
-
-        public Criteria andTaskhourIn(List<String> values) {
+        public Criteria andTaskhourIn(List<Integer> values) {
             addCriterion("taskhour in", values, "taskhour");
             return (Criteria) this;
         }
 
-        public Criteria andTaskhourNotIn(List<String> values) {
+        public Criteria andTaskhourNotIn(List<Integer> values) {
             addCriterion("taskhour not in", values, "taskhour");
             return (Criteria) this;
         }
 
-        public Criteria andTaskhourBetween(String value1, String value2) {
+        public Criteria andTaskhourBetween(Integer value1, Integer value2) {
             addCriterion("taskhour between", value1, value2, "taskhour");
             return (Criteria) this;
         }
 
-        public Criteria andTaskhourNotBetween(String value1, String value2) {
+        public Criteria andTaskhourNotBetween(Integer value1, Integer value2) {
             addCriterion("taskhour not between", value1, value2, "taskhour");
             return (Criteria) this;
         }
@@ -1574,62 +1564,52 @@ public class TTaskDetailinfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andTaskminuteEqualTo(String value) {
+        public Criteria andTaskminuteEqualTo(Integer value) {
             addCriterion("taskminute =", value, "taskminute");
             return (Criteria) this;
         }
 
-        public Criteria andTaskminuteNotEqualTo(String value) {
+        public Criteria andTaskminuteNotEqualTo(Integer value) {
             addCriterion("taskminute <>", value, "taskminute");
             return (Criteria) this;
         }
 
-        public Criteria andTaskminuteGreaterThan(String value) {
+        public Criteria andTaskminuteGreaterThan(Integer value) {
             addCriterion("taskminute >", value, "taskminute");
             return (Criteria) this;
         }
 
-        public Criteria andTaskminuteGreaterThanOrEqualTo(String value) {
+        public Criteria andTaskminuteGreaterThanOrEqualTo(Integer value) {
             addCriterion("taskminute >=", value, "taskminute");
             return (Criteria) this;
         }
 
-        public Criteria andTaskminuteLessThan(String value) {
+        public Criteria andTaskminuteLessThan(Integer value) {
             addCriterion("taskminute <", value, "taskminute");
             return (Criteria) this;
         }
 
-        public Criteria andTaskminuteLessThanOrEqualTo(String value) {
+        public Criteria andTaskminuteLessThanOrEqualTo(Integer value) {
             addCriterion("taskminute <=", value, "taskminute");
             return (Criteria) this;
         }
 
-        public Criteria andTaskminuteLike(String value) {
-            addCriterion("taskminute like", value, "taskminute");
-            return (Criteria) this;
-        }
-
-        public Criteria andTaskminuteNotLike(String value) {
-            addCriterion("taskminute not like", value, "taskminute");
-            return (Criteria) this;
-        }
-
-        public Criteria andTaskminuteIn(List<String> values) {
+        public Criteria andTaskminuteIn(List<Integer> values) {
             addCriterion("taskminute in", values, "taskminute");
             return (Criteria) this;
         }
 
-        public Criteria andTaskminuteNotIn(List<String> values) {
+        public Criteria andTaskminuteNotIn(List<Integer> values) {
             addCriterion("taskminute not in", values, "taskminute");
             return (Criteria) this;
         }
 
-        public Criteria andTaskminuteBetween(String value1, String value2) {
+        public Criteria andTaskminuteBetween(Integer value1, Integer value2) {
             addCriterion("taskminute between", value1, value2, "taskminute");
             return (Criteria) this;
         }
 
-        public Criteria andTaskminuteNotBetween(String value1, String value2) {
+        public Criteria andTaskminuteNotBetween(Integer value1, Integer value2) {
             addCriterion("taskminute not between", value1, value2, "taskminute");
             return (Criteria) this;
         }

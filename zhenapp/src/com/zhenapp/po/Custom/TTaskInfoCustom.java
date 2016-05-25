@@ -14,7 +14,16 @@ public class TTaskInfoCustom extends TTaskInfo{
     private String dicinfoname;
     private String tasktypename;
     private String usernick;
+    private String taskdaterange;
     
+
+	public String getTaskdaterange() {
+		return taskdaterange;
+	}
+
+	public void setTaskdaterange(String taskdaterange) {
+		this.taskdaterange = taskdaterange;
+	}
 
 	public String getUsernick() {
 		return usernick;

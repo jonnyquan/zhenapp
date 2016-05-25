@@ -36,7 +36,6 @@ public class TextImprot {
                                     }
                                 }
                                 reader.close();
-                                
                                 System.out.println(str.trim());
                                 TElectricityInfo tElectricityInfo=new TElectricityInfo();
                                 tElectricityInfo.setElectricityid(i+"");

@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TGuideInfoCustom;
 import com.zhenapp.po.Custom.TNoteInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Custom.TelectricityCustom;
+import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.ElectrityInfoService;
 import com.zhenapp.service.GuideInfoService;
 import com.zhenapp.service.NoteInfoService;
@@ -33,13 +35,15 @@ public class NoteInfoController {
 	private ElectrityInfoService electrityInfoService;
 	@Autowired
 	private GuideInfoService guideInfoService;
+	@Autowired
+	private AgentInfoService agentInfoService;
 	
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 	/*
-	 * 公告信息列表查询
+	 * 公告信息列表查询-----系统管理员
 	 */
 	@RequestMapping(value="/findnoticeList")
-	public @ResponseBody ModelAndView findnoticeList(HttpSession session,Integer page,Integer rows)throws Exception{
+	public @ResponseBody ModelAndView findnoticeList(Integer page,Integer rows)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
@@ -49,26 +53,69 @@ public class NoteInfoController {
 		pagemap.put("page", (page - 1) * rows);
 		pagemap.put("rows", rows);
 		List<TNoteInfoCustom> tNoteInfoCustomlist=noteService.findNoteinfoByPage(pagemap);
-		int total = noteService.findTotalNoteinfoByPage();
+		int total = noteService.findTotalNoteinfoByPage(pagemap);
 		mv.addObject("tNoteInfoCustomlist",tNoteInfoCustomlist);
 		mv.addObject("total",total);
 		mv.addObject("pagenum",page);
 		mv.setViewName("/backstage/admin/noticeList.jsp");
 		return mv;
 	}
-	
+	/*
+	 * 查询公告信息列表-----代理
+	 */
+	@RequestMapping(value="/findnoticeListByAgent")
+	public @ResponseBody ModelAndView findnoticeListByAgent(HttpSession session,Integer page,Integer rows)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		HashMap<String,Object> pagemap=new HashMap<String,Object>();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
+		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentByuserid(tUserInfoCustom.getUserid());
+		if (page == null || page==0) {
+			page = 1;
+		} 
+		rows = 10;
+		pagemap.put("page", (page - 1) * rows);
+		pagemap.put("rows", rows);
+		pagemap.put("agentid", tAgentInfoCustom.getAgentid());
+		List<TNoteInfoCustom> tNoteInfoCustomlist=noteService.findNoteinfoByPage(pagemap);
+		int total = noteService.findTotalNoteinfoByPage(pagemap);
+		mv.addObject("tNoteInfoCustomlist",tNoteInfoCustomlist);
+		mv.addObject("total",total);
+		mv.addObject("pagenum",page);
+		mv.setViewName("/backstage/agent/noticeList.jsp");
+		return mv;
+	}
+		
 	/*
 	 * 跳转到公告编辑界面
 	 */
 	@RequestMapping(value="/responsenoticeEdit/{noteid}/{notetype}")
-	public @ResponseBody ModelAndView responsenoticeEdit(@PathVariable(value="noteid")String noteid,@PathVariable(value="notetype")String notetype)throws Exception{
+	public @ResponseBody ModelAndView responsenoticeEdit(HttpSession session,@PathVariable(value="noteid")String noteid,@PathVariable(value="notetype")String notetype)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
 		hashmap.put("noteid", noteid);
 		hashmap.put("notetype", notetype);
+		hashmap.put("updatetime", sdf.format(new Date()));
+		hashmap.put("updateuser", tUserInfoCustom.getUserid());
 		TNoteInfoCustom tNoteInfoCustom=noteService.findNoteinfoByIdAndType(hashmap);
 		mv.addObject("tNoteInfoCustom",tNoteInfoCustom);
 		mv.setViewName("/backstage/admin/noticeEdit.jsp");
+		return mv;
+	}
+	/*
+	 * 审核通过,修改公告状态
+	 */
+	@RequestMapping(value="/updatenotestate/{noteid}/{notetype}")
+	public @ResponseBody ModelAndView updatenotestate(HttpSession session,@PathVariable(value="noteid")String noteid,@PathVariable(value="notetype")String notetype)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
+		hashmap.put("noteid", noteid);
+		hashmap.put("notetype", notetype);
+		hashmap.put("updatetime", sdf.format(new Date()));
+		hashmap.put("updateuser", tUserInfoCustom.getUserid());
+		noteService.updatenotestateByidandtype(hashmap);
+		mv.setViewName("/note/findnoticeList");
 		return mv;
 	}
 	
@@ -122,7 +169,6 @@ public class NoteInfoController {
 	@RequestMapping(value="/responseNoteadd")
 	public @ResponseBody ModelAndView responseNoteadd() throws Exception{
 		ModelAndView mv = new ModelAndView();
-		
 		mv.setViewName("/backstage/admin/noticeAdd.jsp");
 		return mv;
 	}
@@ -134,8 +180,11 @@ public class NoteInfoController {
 	public @ResponseBody ModelMap Addnote(HttpSession session,TNoteInfoCustom tNoteInfoCustom) throws Exception{
 		ModelMap map = new ModelMap();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
+		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentByuserid(tUserInfoCustom.getUserid());
 		String id=UUID.randomUUID().toString().replace("-", "");
 		tNoteInfoCustom.setNoteid(id);
+		tNoteInfoCustom.setAgentid(tAgentInfoCustom.getAgentid());
+		tNoteInfoCustom.setNotestate("66");
 		tNoteInfoCustom.setCreatetime(sdf.format(new Date()));
 		tNoteInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
 		tNoteInfoCustom.setUpdatetime(sdf.format(new Date()));

@@ -9,7 +9,7 @@ public interface NoteInfoService {
 	/*
 	 * 查询全部公告信息条数
 	 */
-	public int findTotalNoteinfoByPage() throws Exception;
+	public int findTotalNoteinfoByPage(HashMap<String, Object> hashmap) throws Exception;
 	/*
 	 * 根据id查询公告信息
 	 */
@@ -31,6 +31,9 @@ public interface NoteInfoService {
 	 * 保存公告信息
 	 */
 	public int savenote(TNoteInfoCustom tNoteInfoCustom) throws Exception;
-	
+	/*
+	 * 根据id和类型修改公告状态为审核通过
+	 */
+	public int updatenotestateByidandtype(HashMap<String, Object> hashmap) throws Exception;
 }
 

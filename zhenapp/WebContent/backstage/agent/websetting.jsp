@@ -53,27 +53,8 @@
   </div>
 </header>
 <div class="am-cf admin-main">
-      <!-- sidebar start -->
-      <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
-        <div class=" admin-offcanvas-bar">
-          <ul class="am-list admin-sidebar-list">
-            <li class="admin-parent"><a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span
-                class="am-icon-user"></span>用户管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-              <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
-                <li><a href="${pageContext.request.contextPath}/user/findUserByPageandRole" class="am-cf"><span class="am-icon-list"></span>用户列表</a></li>
-                <li><a href="${pageContext.request.contextPath}/points/responseconsumeagent"><span class="am-icon-usd"></span>充值记录</a></li>
-                <li><a href="${pageContext.request.contextPath}/points/responserecordspointsagent"><span class="am-icon-money"></span>资金记录</a></li>
-              </ul></li>
-            <li><a href="${pageContext.request.contextPath}/task/responsetaskmanageagent"><span class="am-icon-pencil-square-o"></span>订单查询</a></li>
-            <li><a href="${pageContext.request.contextPath}/combo/findComboByagent"><span class="am-icon-cubes"></span> 套餐信息</a></li>
-            <li><a href="${pageContext.request.contextPath}/price/findPriceByAgentid"><span class="am-icon-puzzle-piece"></span>系统配置</a></li>
-            <li><a href="${pageContext.request.contextPath}/web/findWebByAgentid"><span class="am-icon-puzzle-piece"></span>设置登录页面</a></li>
-            <li><a href="${pageContext.request.contextPath}/user/findPointsByUsernick"><span class="am-icon-heart"></span>剩余积分</a></li>
-            <li><a href="${pageContext.request.contextPath}/datacount/findDataByDateAndTasktype"><span class="am-icon-bar-chart"></span>数据统计</a></li>
-          </ul>
-        </div>
-      </div>
-<!-- sidebar end -->
+      <div id="menu" class="admin-sidebar am-offcanvas"></div>
+      
       <div id="module-head"></div>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="${pageContext.request.contextPath}/backstage/agent/pagematter/jquery.ui.widget.js"></script>
@@ -95,7 +76,7 @@
   			<label>网站名称</label>
   		</td>
   		<td>
-  			<input type="text" name="name" id="name" placeholder="网站名称" class='form-control' value="${tAgentInfoCustom.agentname }" />
+  			<input type="text" name="agentname" id="agentname" placeholder="网站名称" class='form-control' value="${tAgentInfoCustom.agentname }" />
   		</td>
   	</tr>
   	<tr>
@@ -246,6 +227,8 @@
  </form>
   <script>
       $(function() {
+    	  $("#menu").load("${pageContext.request.contextPath}/backstage/agent/menu.jsp");
+    	  
         $("#saveInfo").click(function() {
           $.ajax({
             type : "post",

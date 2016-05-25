@@ -139,7 +139,7 @@ public class PointsInfoController {
 	 * 跳转到积分记录界面--代理
 	 */
 	@RequestMapping(value="/responserecordspointsagent")
-	public ModelAndView responserecordspointsagent(HttpSession session,Integer page,Integer rows,String datefrom ,String dateto,String usernick) throws Exception{
+	public ModelAndView responserecordspointsagent(HttpSession session,Integer page,Integer rows,String datefrom ,String dateto,String usernick,String taskpk) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		TUserInfoCustom tUserInfoCustomsession=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		String points= userInfoService.findpointsByUsernickAndPwd(tUserInfoCustomsession);
@@ -158,6 +158,7 @@ public class PointsInfoController {
 			pagemap.put("dateto", dateto.replace("-", ""));
 		}
 		pagemap.put("usernick", usernick);
+		pagemap.put("taskpk", taskpk);
 		/*
 		* 代理用户
 		*/
@@ -170,6 +171,7 @@ public class PointsInfoController {
 		mv.addObject("dateto",dateto);
 		mv.addObject("usernick",usernick);
 		mv.addObject("points", points);
+		mv.addObject("taskpk", taskpk);
 		mv.addObject("tAgentInfoCustom", tAgentInfoCustom);
 		mv.addObject("tPointsInfoCustomlist",tPointsInfoCustomlist);
 		mv.setViewName("/backstage/agent/listcoin.jsp");
@@ -181,7 +183,7 @@ public class PointsInfoController {
 	 * 跳转到积分明细界面--用户
 	 */
 	@RequestMapping(value="/responserecordspoints")
-	public ModelAndView responserecordspoints(HttpSession session,Integer page,Integer rows) throws Exception{
+	public ModelAndView responserecordspoints(HttpSession session,Integer page,Integer rows,String taskpk) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		HashMap<String, Object> pagemap= new HashMap<String, Object>();
@@ -191,6 +193,7 @@ public class PointsInfoController {
 		rows = 10;
 		pagemap.put("page", (page - 1) * rows);
 		pagemap.put("rows", rows);
+		pagemap.put("taskpk", taskpk);
 		/*
 		 * 普通用户
 		 */
@@ -199,6 +202,7 @@ public class PointsInfoController {
 		int total = pointsInfoService.findTotalPointsInfoByPage(pagemap);
 		mv.addObject("total",total);
 		mv.addObject("pagenum", page);
+		mv.addObject("taskpk", taskpk);
 		mv.addObject("tPointsInfoCustomlist",tPointsInfoCustomlist);
 		mv.setViewName("/backstage/points/recordspoints.jsp");
 		return mv;
@@ -281,7 +285,7 @@ public class PointsInfoController {
 	 * 跳转到积分记录界面--系统管理员
 	 */
 	@RequestMapping(value="/responserecordspointsadmin")
-	public ModelAndView responserecordspointsadmin(HttpSession session,Integer page,Integer rows,String datefrom ,String dateto,String usernick) throws Exception{
+	public ModelAndView responserecordspointsadmin(HttpSession session,Integer page,Integer rows,String datefrom ,String dateto,String usernick,String taskpk) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		//TUserInfoCustom tUserInfoCustomsession=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		HashMap<String, Object> pagemap= new HashMap<String, Object>();
@@ -298,6 +302,7 @@ public class PointsInfoController {
 			pagemap.put("dateto", dateto.replace("-", "") + "235959");
 		}
 		pagemap.put("usernick", usernick);
+		pagemap.put("taskpk", taskpk);
 		/*
 		* 系统管理员
 		*/
@@ -309,6 +314,7 @@ public class PointsInfoController {
 		mv.addObject("datefrom", datefrom);
 		mv.addObject("dateto", dateto);
 		mv.addObject("usernick", usernick);
+		mv.addObject("taskpk", taskpk);
 		mv.addObject("tPointsInfoCustomlist",tPointsInfoCustomlist);
 		mv.setViewName("/backstage/admin/listcoin.jsp");
 		return mv;

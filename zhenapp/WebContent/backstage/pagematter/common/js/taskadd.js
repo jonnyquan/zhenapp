@@ -1,13 +1,16 @@
 var myDate = new Date();
-	var hour = myDate.getHours();
-	var llmax = 1000;//最大流量数
-	var gwcmax = 0;//最大购物车数
-	var scmax = 0;//最大收藏数量
-	var keywords=1;//关键词数量
-	var days=1;//天数
-	var subtractll = 0;//统计消耗积分时要去掉的当天不发布的流量数
-	
+var hour = myDate.getHours();
+var llmax = 1000;//最大流量数
+var gwcmax = 0;//最大购物车数
+var scmax = 0;//最大收藏数量
+var keywords=1;//关键词数量
+var days=1;//天数
+var subtractll = 0;//统计消耗积分时要去掉的当天不发布的流量数
+var istaskword="";
+
 	;$(function() {
+		$("#taskkeynum").focus();
+		
 		fpll($("#flowcount")[0]);//默认加载一次分配流量数
 		$('#datefrom').datebox({
 			onSelect : function(date){
@@ -85,24 +88,21 @@ var myDate = new Date();
 			missingMessage : '请输入发布购物车数',
 			invalidMessage : '发布购物车数不得为空',
 		});
-		/*宝贝标题验证
-		$('#tasktitle').validatebox({
-			required : true,
-			missingMessage : '请输入宝贝标题',
-			invalidMessage : '宝贝标题不得为空',
-		});
-		//无线端标题验证
-		$('#taskwirelesstitle').validatebox({
-			required : true,
-			missingMessage : '请输入无线端标题',
-			invalidMessage : '无线端标题不得为空',
-		});*、
-		
-		
 		/*
 		发布流量
 		*/
 		$("#subbtn").click(function () {
+			if(istaskword!=""){
+				var inputtaskkeywords = $("input[name='taskkeywords']");
+				for(var i=0;i<inputtaskkeywords.length;i++){
+					if(inputtaskkeywords[i].value==istaskword){
+						$.messager.alert('消息提示', '关键词验证不通过!', 'info', function () {
+							$("input[name='taskkeywords']")[i].focus();
+						});
+						return false;
+					}
+				}
+			}
 			if (!$('#taskkeynum').validatebox('isValid')) {
 				$.messager.alert('消息提示', '请输入宝贝id!', 'info', function () {
 					$('#taskkeynum').focus();
@@ -121,23 +121,8 @@ var myDate = new Date();
 				});
 				return false;
 			}
-			/*if (!$('#tasktitle').validatebox('isValid')) {
-				$.messager.alert('消息提示', '请输入标题!', 'info', function () {
-					$('#tasktitle').focus();
-				});
-				return false;
-			}
-			if (!$('#taskwirelesstitle').validatebox('isValid')) {
-				$.messager.alert('消息提示', '请输入无线端标题!', 'info', function () {
-					$('#taskwirelesstitle').focus();
-				});
-				return false;
-			}*/
-			
-			
 			if(parseInt($('#collectioncount').val())>parseInt($('#flowcount').val())){
 				$.messager.alert('消息提示', '发布的收藏数必须小于或等于流量数!', 'info', function () {
-					alert("流量数"+$('#flowcount').val());
 					$('#collectioncount').focus();
 				});
 				return false;
@@ -166,8 +151,6 @@ var myDate = new Date();
 				});
 				return false;
 			}
-			
-			
 			
 			var taskkeywords = [];
 			var inputtaskkeywords = $("input[name='taskkeywords']");
@@ -199,8 +182,6 @@ var myDate = new Date();
 				type : "POST",
 				data : {
 					taskkeynum : $("#taskkeynum").val(),
-					/*tasktitle : $("#tasktitle").val(),
-					taskwirelesstitle : $("#taskwirelesstitle").val(),*/
 					taskkeywords : taskkeywords.join('===='),
 					tasktype:"33",
 					taskstartdate:$("input[name='datefrom']")[0].value,
@@ -236,14 +217,12 @@ var myDate = new Date();
 			});
 		});
 	});
-	
 	function subtract(){
 		subtractll=0;
 		for (var i = 0; i <= hour; i++) {
 			subtractll = parseInt(subtractll) + parseInt($("#hour_" + i).val());
 		}
 	}
-	
 	function totalsum(){
 		var temp1 = $("#flowcount")[0].value;
 		if(temp1.length<1){
@@ -263,19 +242,22 @@ var myDate = new Date();
 		}
 		$("#gwcs_1").html(temp3);
 		$("#gwcs_3").html(parseInt($('#gwcs_2').text())*temp3);
-		
-		if(parseInt(temp1) < parseInt(temp2) || parseInt(temp1) < parseInt(temp3)){
-			$.messager.alert('消息提示', '发布流量数不得小于收藏数和加购物车数!', 'info');
+		if(parseInt(temp1) < parseInt(temp2)){
+			$.messager.alert('消息提示', '发布流量数不得小于收藏数!', 'info',function () {
+				$("#collectioncount").focus();
+				return false;
+			});
 		}
-		
+		if(parseInt(temp1) < parseInt(temp3)){
+			$.messager.alert('消息提示', '发布流量数不得小于加购物车数!', 'info',function () {
+				$("#shoppingcount").focus();
+				return false;
+			});
+		}
 		$("#sum").html(parseInt($("#lls_3").text())+parseInt($("#scs_3").text())+parseInt($("#gwcs_3").text()));
 		$("#sum").html(parseInt($("#sum").text())*keywords*days);
 		//subtract();
-		//$("#sum").html(parseInt($("#sum").text())-(parseInt(subtractll)*parseInt($("#scs_2").text())));
-		subtract();
-		//alert(parseInt(subtractll));
-		//alert($("#sum").text()+"-"+(parseInt(subtractll)*parseInt($("#lls_2").text()))+"==="+(parseInt($("#sum").text())-(parseInt(subtractll)*parseInt($("#lls_2").text()))));
-		$("#sum").html(parseInt($("#sum").text())-(parseInt(subtractll)*parseInt($("#lls_2").text()) * keywords));
+		//$("#sum").html(parseInt($("#sum").text())-(parseInt(subtractll)*parseInt($("#lls_2").text()) * keywords));
 	}
 	
 	
@@ -308,9 +290,10 @@ var myDate = new Date();
 	function fpll(obj) {
 		var number = /^\d+$/;
 		var temp = obj.value;
-		if(temp>llmax){
+		if(parseInt(temp) > parseInt(llmax)){
 			$.messager.alert('消息提示', '该宝贝id发布流量数不能大于允许发布的最大流量数!', 'info', function () {
 				$("#flowcount").val(llmax);
+				fpll($("#flowcount")[0]);
 				return false;
 			});
 		}
@@ -333,9 +316,16 @@ var myDate = new Date();
 	function fpsc(obj) {
 		var number = /^\d+$/;
 		var temp = obj.value;
+		
 		if(temp.length<1){
 			$('#collectioncount').val("0");
 			temp=0;
+		}
+		if(parseInt(temp) > parseInt(scmax)){
+			$.messager.alert('消息提示', '该宝贝id发布收藏数不能大于允许发布的最大收藏数!', 'info', function () {
+				$("#collectioncount").val(scmax);
+				return false;
+			});
 		}
 		if (number.test(temp)) {
 			totalsum();
@@ -348,6 +338,12 @@ var myDate = new Date();
 			$('#shoppingcount').val("0");
 			temp=0;
 		}
+		if(parseInt(temp) > parseInt(gwcmax)){
+			$.messager.alert('消息提示', '该宝贝id发布加购数不能大于允许发布的最大加购数!', 'info', function () {
+				$("#shoppingcount").val(gwcmax);
+				return false;
+			});
+		}
 		if (number.test(temp)) {
 			totalsum();
 		}
@@ -358,23 +354,35 @@ var myDate = new Date();
 	function checkkeynum(obj){
 		if(obj.value.length<1){
 			llmax=1000;
+			$("#span").html("最多可发布流量数:"+llmax);
 		}else{
 			$.ajax({
 				url : uri+"/task/findAllPhoneInfoBykeynum/"+obj.value,
 				type : "POST",
 				success:function(data,state){
 					llmax=data.count;
+					scmax=data.collectiontaskcount;
+					gwcmax=data.shoppingtaskcount;
+					$("#span").html("最多可发布流量数:"+llmax+"  最多可发布购物车数:"+gwcmax+"  最多可发布收藏数："+scmax);
 					if($("#flowcount").val()>llmax){
 						$.messager.alert('消息提示', '该宝贝id发布流量数不能大于允许发布的最大流量数!', 'info', function () {
 							$("#flowcount").val(llmax);
 							fpll($("#flowcount")[0]);
 						});
 					}
-					
+					if($("#collectioncount").val()>scmax){
+						$.messager.alert('消息提示', '该宝贝id发布收藏数不能大于允许发布的最大收藏数!', 'info', function () {
+							$("#collectioncount").val(scmax);
+						});
+					}
+					if($("#shoppingcount").val()>gwcmax){
+						$.messager.alert('消息提示', '该宝贝id发布加购数不能大于允许发布的最大加购数!', 'info', function () {
+							$("#shoppingcount").val(gwcmax);
+						});
+					}
 				}
 			});
 		}
-		$("#span").html("最多可发布流量数:"+llmax);
 	}
 	
 	/*
@@ -384,7 +392,7 @@ var myDate = new Date();
 		var trNumber=document.getElementById("tab_keyword").rows.length; 
 		if(trNumber<4){
 			var newTr=document.getElementById("tab_keyword").insertRow(trNumber); 
-			newTr.insertCell(0).innerHTML="<input type='text' name='taskkeywords' class='form-control' placeholder='请输入关键词' />"; 
+			newTr.insertCell(0).innerHTML="<input type='text' name='taskkeywords' class='form-control' placeholder='请输入关键词' onchange='checkword(this);'/>"; 
 			newTr.insertCell(1).innerHTML='<input type="button" class="easyui-linkbutton" iconCls="icon-remove" onclick="delRow(this)" value="&nbsp;&nbsp;删&nbsp;除 &nbsp;&nbsp;" />';
 		}
 		keywords = $("input[name='taskkeywords']").length;
@@ -397,4 +405,31 @@ var myDate = new Date();
 		document.getElementById("tab_keyword").deleteRow(r.parentNode.parentNode.rowIndex);
 		keywords = $("input[name='taskkeywords']").length;
 		totalsum();
+	}
+	
+	/*
+	 *验证关键词
+	 */
+	function checkword(obj){
+		var taskkeynum = $("#taskkeynum").val();
+		if(taskkeynum.length>1){
+			$.ajax({
+				url : uri+"/api/keywords/validate/"+obj.value+"/"+taskkeynum,
+				type : "POST",
+				success:function(data,state){
+					if(data.msg == 0){
+						$.messager.alert('消息提示', '关键词与该宝贝无法匹配!', 'info', function () {
+							obj.focus();
+						});
+						istaskword=obj.value;
+					}else{
+						istaskword="";
+					}
+				}
+			});
+		}else{
+			$.messager.alert('消息提示', '请输入宝贝id', 'info', function () {
+				$("#taskkeynum").focus();
+			});
+		}
 	}

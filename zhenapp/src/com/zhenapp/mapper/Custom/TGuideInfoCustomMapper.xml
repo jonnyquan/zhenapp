@@ -1,24 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhenapp.mapper.Custom.TGuideInfoCustomMapper" >
-  <select id="findGuide_10" resultType="com.zhenapp.po.Custom.TGuideInfoCustom" >
-    select *
-    from t_guide_info ORDER BY guidepk DESC LIMIT 0,10
+  <select id="findGuide_10" resultType="com.zhenapp.po.Custom.TGuideInfoCustom" parameterType="java.util.HashMap">
+	SELECT a.* FROM t_guide_info a
+	INNER JOIN t_note_info b ON b.noteid=a.guideid
+	<where>
+		<if test="agentid != null and agentid != '' ">
+			and b.agentid = #{agentid}
+		</if>
+		and b.notetype='1' AND b.notestate='67' 
+	</where>
+	ORDER BY a.guidepk DESC LIMIT 0,10
   </select>
-  <select id="findAllGuide" resultType="com.zhenapp.po.Custom.TGuideInfoCustom" >
-    select *
-    from t_guide_info ORDER BY guidepk DESC
+  <select id="findAllGuide" resultType="com.zhenapp.po.Custom.TGuideInfoCustom" parameterType="java.util.HashMap">
+	SELECT a.* FROM t_guide_info a
+	INNER JOIN t_note_info b ON b.noteid=a.guideid
+	<where>
+		<if test="agentid != null and agentid != '' ">
+			and b.agentid = #{agentid}
+		</if>
+		and b.notetype='1' AND b.notestate='67' 
+	</where>
+	ORDER BY a.guidepk DESC 
   </select>
-  <select id="findTotalGuide" resultType="int">
-  	select count(1) from t_guide_info
+  <select id="findTotalGuide" resultType="int" parameterType="java.util.HashMap">
+  	SELECT count(1) FROM t_guide_info a
+	INNER JOIN t_note_info b ON b.noteid=a.guideid
+	<where>
+		<if test="agentid != null and agentid != '' ">
+			and b.agentid = #{agentid}
+		</if>
+		and b.notetype='1' AND b.notestate='67' 
+	</where>
   </select>
   
   <select id="findElectrityBypk" resultType="com.zhenapp.po.Custom.TGuideInfoCustom" parameterType="String">
-    select *
-    from t_guide_info where guidepk =#{guidepk}
+    select * from t_guide_info where guidepk =#{guidepk}
   </select>
   <select id="findGuideBypage" resultType="com.zhenapp.po.Custom.TGuideInfoCustom" parameterType="java.util.HashMap">
-    select * from t_guide_info order by guidepk desc LIMIT #{page},#{rows}
+    SELECT a.* FROM t_guide_info a
+	INNER JOIN t_note_info b ON b.noteid=a.guideid
+	WHERE b.notetype='1' AND b.notestate='67'
+	ORDER BY a.guidepk DESC  LIMIT #{page},#{rows}
   </select>
   
   <delete id="deleteById" parameterType="java.util.HashMap">

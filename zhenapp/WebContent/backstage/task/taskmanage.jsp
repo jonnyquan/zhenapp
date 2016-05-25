@@ -5,7 +5,6 @@
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -13,40 +12,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="真流量,无线流量,无限流量代运营,无线刷流量 " />
 <meta name="description" content="真流量,无线流量,无限流量代运营,无线刷流量 " />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
-
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/global.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/common.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/sweetalert.css">
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/backstage/pagematter/common/js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/backstage/pagematter/common/js/common.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/backstage/pagematter/common/js/sweetalert-dev.js"></script>
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/layer_user.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/user.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/validform.style.css"
-	type="text/css">
-	
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/easyui/themes/bootstrap/easyui.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/easyui/themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/backstage/pagematter/common/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/backstage/pagematter/common/css/global.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/backstage/pagematter/common/css/common.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/backstage/pagematter/common/css/sweetalert.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/backstage/pagematter/common/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/backstage/pagematter/common/js/common.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/backstage/pagematter/common/js/sweetalert-dev.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/pagematter/common/css/layer_user.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/pagematter/common/css/user.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/pagematter/common/css/validform.style.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/easyui/themes/bootstrap/easyui.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/easyui/themes/icon.css" />
 <script src="${pageContext.request.contextPath}/bootstrap/js/jqPaginator.min.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/bootstrap/js/myPage.js" type="text/javascript"></script>
 <style type="text/css">
@@ -237,9 +216,7 @@ input {
 </style>
 <title>会员中心 - 真流量</title>
 </head>
-
 <body>
-
 	<div id="topbar">
 		<div class="warp1200">
 			<div class="clearfix">
@@ -256,12 +233,10 @@ input {
 			</div>
 		</div>
 	</div>
-
 	<div class="pageFull">
 		<div class="webHeader clearfix">
 			<div class="logo row_l">
-				<a href="${pageContext.request.contextPath}/frontend/index"
-					title="电商流量">真流量</a>
+				<a href="${pageContext.request.contextPath}/frontend/index" title="电商流量">真流量</a>
 			</div>
 			<div class="channel row_r">
 				<ul class="clearfix">
@@ -279,207 +254,155 @@ input {
 	<script type="text/javascript">
     $('.scl6').addClass('hover');
 </script>
-
-	<div class="uc_warp">
-		<div class="userbody clearfix">
-			<div class="leftmenu row_l">
-				<dl>
-					<dt>
-						<a href="${pageContext.request.contextPath}/user/responseuser">个人中心</a>
-					</dt>
-					<dd>
-						<p>
-							<a href="${pageContext.request.contextPath}/user/responsepersonal" id="info"><i class="fa fa-angle-right"></i>基本信息</a>
-						</p>
-						<p>
-							<!-- <a href="/user/broker" id="account"><i class="fa fa-angle-right"></i>我的推广</a> -->
-							<a href="javascript:void(0);" id="account"><i class="fa fa-angle-right"></i>我的推广</a>
-						</p>
-					</dd>
-				</dl>
-				<dl>
-					<dt>
-						<a href="javascript:void(0);">流量任务管理</a>
-					</dt>
-					<dd>
-						<p>
-							<a href="${pageContext.request.contextPath}/task/responsetaskadd" id="addtask"><i class="fa fa-angle-right"></i>发布任务</a>
-						</p>
-						<p>
-							<a href="${pageContext.request.contextPath}/task/responsetaskztcadd" id="addtask"><i class="fa fa-angle-right"></i>发布直通车任务</a>
-						</p>
-						<p>
-							<a href="${pageContext.request.contextPath}/task/responsetaskmanage" id="managetask"><i class="fa fa-angle-right"></i>任务管理</a>
-						</p>
-					</dd>
-				</dl>
-				<dl>
-					<dt>
-						<a href="javascript:void(0);">财务中心</a>
-					</dt>
-					<dd class="acc">
-						<p>
-							<a href="${pageContext.request.contextPath}/points/responsebuypoints" id="purchase"><i class="fa fa-angle-right"></i>购买积分</a>
-						</p>
-						<p>
-							<a href="${pageContext.request.contextPath}/points/responserecordspoints" id="point"><i class="fa fa-angle-right"></i>积分明细</a>
-						</p>
-					</dd>
-				</dl>
+<div class="uc_warp">
+	<div class="userbody clearfix">
+		<div class="leftmenu row_l">
+		
+		</div>
+<script type="text/javascript">
+    $('#managetask').addClass('hover');
+</script>
+	<div class="rightbox row_r">
+		<div class="u_outbox">
+			<div class="tabtitle clearfix">
+				<a href="${pageContext.request.contextPath}/task/responsetaskmanage" class="row_l hover">流量任务管理</a>
+				<a href="${pageContext.request.contextPath}/user/responseuser" class="row_l back">返回个人中心</a>
 			</div>
-			<script type="text/javascript">
-        $('#managetask').addClass('hover');
-    </script>
+			<div class="umainbox">
+				<!--main-->
+				<form id="searchform" class="koo_fromBox" action="${pageContext.request.contextPath}/task/responsetaskmanage" method="post">
+				<table class="table table-bordered">
+						<tr>
+							<td>
+								<label class="form_label">订单ID:</label>
+								<input class="form_input input120" type="text" name="taskpk" id="taskpk" value="" /> 
+							</td>
+							<td>
+								<label class="form_label">宝贝ID:</label>
+								<input class="form_input input120" type="text" name="taskkeynum" id="taskkeynum" value="" /> 
+							</td>
+							<td>
+								<label class="form_label">搜索关键字(模糊):</label> 
+								<input class="form_input input120" type="text" name="keyword" id="keyword" value="" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label class="form_label">任务类型:</label>
+									<select name="tasktype" id="tasktype">
+										<option selected value="">全部类型</option>
+										<option value="33">流量</option>
+										<option value="34">直通车</option>
+									</select> 
+							</td>
+							<td >
+								<label class="form_label">任务开始时间:</label> 
+								<input type="text" name="datefrom" id="datefrom" class="Wdate search_time" onClick="WdatePicker()" value="" /> 
+								<label class="form_label">至</label> 
+								<input type="text" name="dateto" id="dateto" class="Wdate search_time" onClick="WdatePicker()" value="" />
+							</td>
+							<td >
+								<label class="form_label">任务当前状态:</label> 
+								<select name="taskstate" id="taskstate">
+									<option <c:if test="${taskstate==''}">selected</c:if> value="">全部类型</option>
+									<option <c:if test="${taskstate==15}">selected</c:if> value="15">待分配</option>
+									<option <c:if test="${taskstate==16}">selected</c:if> value="16">运行中</option>
+									<option <c:if test="${taskstate==17}">selected</c:if> value="17">已完成</option>
+									<option <c:if test="${taskstate==18}">selected</c:if> value="18">终止中</option>
+									<option <c:if test="${taskstate==19}">selected</c:if> value="19">已终止</option>
+								</select> 
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3">
+								<button type="button" id="search" class="btn btn-info">搜索</button>
+								<button type="button" id="delete" class="btn btn-default">删除</button>
+							</td>
+						</tr>
+					</table>
+					
+				</form>
 
-			<div class="rightbox row_r">
-				<div class="u_outbox">
-					<div class="tabtitle clearfix">
-						<a href="${pageContext.request.contextPath}/task/responsetaskmanage" class="row_l hover">流量任务管理</a>
-						<a href="${pageContext.request.contextPath}/user/responseuser" class="row_l back">返回个人中心</a>
-					</div>
-					<div class="umainbox">
-						<!--main-->
-						<form id="searchform" class="koo_fromBox" action="${pageContext.request.contextPath}/task/responsetaskmanage" method="post">
-							<!--<div class="searchbox ">
-								  <div>
-									<label class="form_label">订单ID:</label>
-									<input class="form_input input120" type="text" name="title" id="title" value="" /> 
-									<label class="form_label">宝贝ID:</label>
-									<input class="form_input input120" type="text" name="title" id="title" value="" /> 
-									
-									<label class="form_label">搜索关键字(模糊):</label> 
-									<input class="form_input input120" type="text" name="keyword" id="keyword" value="" /> 
-									<br/>
-									<label class="form_label">任务类型:</label>
-										<select name="tasktype" id="tasktype">
-											<option selected value="">全部类型</option>
-											<option value="33">流量</option>
-											<option value="34">直通车</option>
-										</select> 
-									<label class="form_label">任务开始时间:</label> 
-									<input type="text" name="datefrom" id="datefrom" class="Wdate search_time" onClick="WdatePicker()" value="" /> 
-									<label class="form_label">至</label> 
-									<input type="text" name="dateto" id="dateto" class="Wdate search_time" onClick="WdatePicker()" value="" />
-									<button type="submit" name="submit" class="search_btn">搜索</button>
-								</div>-->
-								<table class="table table-bordered">
-									<tr>
-										<td>
-											<label class="form_label">订单ID:</label>
-											<input class="form_input input120" type="text" name="taskpk" id="taskpk" value="" /> 
-										</td>
-										<td>
-											<label class="form_label">宝贝ID:</label>
-											<input class="form_input input120" type="text" name="taskkeynum" id="taskkeynum" value="" /> 
-										</td>
-										<td>
-											<label class="form_label">搜索关键字(模糊):</label> 
-											<input class="form_input input120" type="text" name="keyword" id="keyword" value="" />
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<label class="form_label">任务类型:</label>
-												<select name="tasktype" id="tasktype">
-													<option selected value="">全部类型</option>
-													<option value="33">流量</option>
-													<option value="34">直通车</option>
-												</select> 
-										</td>
-										<td colspan="2">
-											<label class="form_label">任务开始时间:</label> 
-											<input type="text" name="datefrom" id="datefrom" class="Wdate search_time" onClick="WdatePicker()" value="" /> 
-											<label class="form_label">至</label> 
-											<input type="text" name="dateto" id="dateto" class="Wdate search_time" onClick="WdatePicker()" value="" />
-										</td>
-									</tr>
-									<tr>
-										<td colspan="3">
-											<button type="button" id="search" class="btn btn-info">搜索</button>
-											<button type="button" id="delete" class="btn btn-default">删除</button>
-										</td>
-									</tr>
-								</table>
-							
-						</form>
-
-						<div class="tablebox">
-							<table class="table" style="table-layout:fixed;">
-								<thead>
-									<tr class="active">
-									  <th style="width:30px;">选择</th>
-						              <th style="width:100px;">订单ID</th>
-						              <th style="width:100px;">宝贝ID</th>
-						              <th style="width:40px;">类型</th>
-						              <th style="width:120px;">关键词</th>
-						              <th style="width:45px;">访</th>
-						              <th style="width:45px;">藏</th>
-						              <th style="width:45px;">购</th>
-						              <th style="width:45px;">完成访问</th>
-						              <th style="width:45px;">完成收藏</th>
-						              <th style="width:45px;">完成加购</th>
-						              <th style="width:45px;">失败</th>
-						              <th style="width:100px;">发布时间</th>
-						              <th style="width:60px;">任务状态</th>
-						              <th>操作</th>
-						            </tr>
-								</thead>
-								<c:if test="${tTaskInfoCustomlist == null}">
-									<tr>
-										<td colspan="18">
-											<div class="no_data">暂无任务记录</div>
-										</td>
-									</tr>
-								</c:if>
-								<c:if test="${tTaskInfoCustomlist != null}">
-									<c:forEach items="${tTaskInfoCustomlist}" var="list">
-										<tr style="word-wrap:break-word;">
-											<td><input type="checkbox" name="taskpk" value="${list.taskpk}"></td>
-							                <td>${list.taskpk}</td>
-							                <td>${list.taskkeynum}</td>
-							                <td>${list.tasktypename }</td>
-							                <td>${list.taskkeyword}</td>
-							                <td>${list.flowcount }</td>
-							                <td>${list.collectioncount }</td>
-							                <td>${list.shoppingcount }</td>
-							                <td>${list.finishflowcount }</td>
-							                <td>${list.finishcollectioncount }</td>
-							                <td>${list.finishshoppingcount }</td>
-							                <td class="font-red">${list.errorcount}</td>
-							                <td >${list.createtime}</td>
-							                <td>${list.dicinfoname} </td>
-											<td > 
-											  <a onclick="againtask('${list.taskid}')" class="btn btn-success btn-xs">再次发布</a>	<br/>
-											  <a onclick="endtask('${list.taskid}')" class="btn btn-default btn-xs">终止任务</a>				
-											</td>
-										</tr>
-									</c:forEach>
-								</c:if>
-							</table>
-							
-						</div>
-						
-					</div>
-					<div>
-						<ul class="pagination" id="pagination">
-						</ul>
-						<input type="hidden" id="PageCount" runat="server" value="${total}"/>
-						<input type="hidden" id="PageSize" runat="server" value="10" />
-						<input type="hidden" id="countindex" runat="server" value="10"/>
-						<!--设置最多显示的页码数 可以手动设置 默认为7-->
-						<input type="hidden" id="visiblePages" runat="server" value="12" />
-					</div>
+				<div class="tablebox">
+					<table class="table" style="table-layout:fixed;">
+						<thead>
+							<tr class="active">
+							  <th style="width:30px;">选择</th>
+				              <th style="width:90px;">订单ID</th>
+				              <th style="width:100px;">宝贝ID</th>
+				              <th style="width:40px;">类型</th>
+				              <th style="width:110px;">关键词</th>
+				              <th style="width:45px;">访</th>
+				              <th style="width:45px;">藏</th>
+				              <th style="width:45px;">购</th>
+				              <th style="width:45px;">完成访问</th>
+				              <th style="width:45px;">完成收藏</th>
+				              <th style="width:45px;">完成加购</th>
+				              <th style="width:45px;">失败</th>
+				              <th style="width:60px;">任务日期</th>
+				              <th style="width:80px;">发布时间</th>
+				              <th style="width:50px;">任务状态</th>
+				              <th>操作</th>
+				            </tr>
+						</thead>
+						<c:if test="${tTaskInfoCustomlist == null}">
+							<tr>
+								<td colspan="18">
+									<div class="no_data">暂无任务记录</div>
+								</td>
+							</tr>
+						</c:if>
+						<c:if test="${tTaskInfoCustomlist != null}">
+							<c:forEach items="${tTaskInfoCustomlist}" var="list">
+								<tr style="word-wrap:break-word;">
+									<td><input type="checkbox" name="taskpk" value="${list.taskpk}"><input type="hidden" name="taskstate" value="${list.taskstate}"></td>
+					                <td>${list.taskpk}</td>
+					                <td>${list.taskkeynum}</td>
+					                <td>${list.tasktypename }</td>
+					                <td>${list.taskkeyword}</td>
+					                <td>${list.flowcount }</td>
+					                <td>${list.collectioncount }</td>
+					                <td>${list.shoppingcount }</td>
+					                <td>${list.finishflowcount }</td>
+					                <td>${list.finishcollectioncount }</td>
+					                <td>${list.finishshoppingcount }</td>
+					                <td class="font-red">${list.errorcount}</td>
+					                <td >${list.taskdaterange}</td>
+					                <td >${list.createtime}</td>
+					                <td>${list.dicinfoname} </td>
+									<td > 
+									  <!--  <a onclick="againtask('${list.taskid}')" class="btn btn-success btn-xs">再次发布</a>	<br/>-->
+									  <a onclick="againtask('${list.taskid}')" class="btn btn-success btn-xs">再次发布</a>	<br/>
+									  <a onclick="endtask('${list.taskid}')" class="btn btn-default btn-xs">终止任务</a>				
+									</td>
+								</tr>
+							</c:forEach>
+						</c:if>
+					</table>
+					
 				</div>
+				
 			</div>
+			<div>
+				<ul class="pagination" id="pagination">
+				</ul>
+				<input type="hidden" id="PageCount" runat="server" value="${total}"/>
+				<input type="hidden" id="PageSize" runat="server" value="10" />
+				<input type="hidden" id="countindex" runat="server" value="10"/>
+				<!--设置最多显示的页码数 可以手动设置 默认为7-->
+				<input type="hidden" id="visiblePages" runat="server" value="12" />
+			</div>
+		</div>
+	</div>
 			
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/layer_user.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/Validform_v5.3.2.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/WdatePicker.js "></script>
-			<script type="text/javascript" src="${pageContext.request.contextPath}/easyui/jquery.easyui.min.js"></script>
-			<script type="text/javascript" src="${pageContext.request.contextPath}/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/backstage/pagematter/common/js/layer_user.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/backstage/pagematter/common/js/Validform_v5.3.2.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/backstage/pagematter/common/js/WdatePicker.js "></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/easyui/locale/easyui-lang-zh_CN.js"></script>
 		</div>
 	</div>
 	<div class="copyRight">
@@ -491,6 +414,8 @@ input {
 	</div>
 <script type="text/javascript">
 ;$(function(){
+	$(".leftmenu").load("${pageContext.request.contextPath}/backstage/user/menu.jsp");
+	
 	$('#datefrom').datebox();
 	$('#dateto').datebox();
 	
@@ -499,89 +424,107 @@ input {
 	});
 
 	$("#delete").click(function(){
+		var taskpkarr = $("input[name='taskpk']:checked");
+		var taskpks="";
+		for (var i = 0; i < taskpkarr.length; i++) {
+			taskpks = taskpks + taskpkarr[i].value+"==";
+		}
 		$.messager.confirm('确认','您确认想要删除该条记录吗？',function(b){   
 			 if (b){
-				 var taskpkarr = $("input[name='taskpk']:checked");
-					var taskpks="";
-					for (var i = 0; i < taskpkarr.length; i++) {
-						taskpks = taskpks + taskpkarr[i].value+"==";
-					}
-					window.location.href="${pageContext.request.contextPath}/task/deletetaskByPks/"+taskpks;
+				 $.ajax({
+						url : "${pageContext.request.contextPath}/task/deletetaskByPks/"+taskpks,
+						type : 'post',
+						success : function (data, response, status) {
+							if (data!=null && data.data=="success") {
+								alert("删除任务成功！");
+								window.location.href="${pageContext.request.contextPath}/task/responsetaskmanage";
+							}else if(data!=null && data.data=="stateexc"){
+								alert("删除任务失败,待分配任务不允许删除！");
+							} else{
+								alert("删除任务失败,请联系客服！");
+							}
+						}
+					});
 			 }
 		});
 	});
 });
+/*
+function againtask(taskid){
+	$.ajax({
+		url : "${pageContext.request.contextPath}/task/againtaskBytaskid/"+taskid,
+		type : 'post',
+		success : function (data, response, status) {
+			if (data!=null && data.data=="success") {
+				alert("发布成功！");
+				window.location.href="${pageContext.request.contextPath}/task/responsetaskmanage";
+			} else if(data!=null && data.data=="low") {
+				alert("余额不足,发布失败！");
+			} else if(data!=null && data.data=="refuse") {
+				alert("系统维护暂停任务发布！");
+			} else{
+				alert("任务发布失败,请联系客服！");
+			}
+		}
+	});
+}*/
+function againtask(taskid){
+	window.location.href="${pageContext.request.contextPath}/task/againtaskBytaskid/"+taskid;
+}
 
-	function againtask(taskid){
-		$.ajax({
-			url : "${pageContext.request.contextPath}/task/againtaskBytaskid/"+taskid,
-			type : 'post',
-			success : function (data, response, status) {
-				if (data!=null && data.data=="success") {
-					alert("发布成功！");
-					window.location.href="${pageContext.request.contextPath}/task/responsetaskmanage";
-				} else if(data!=null && data.data=="low") {
-					alert("余额不足,发布失败！");
-				} else if(data!=null && data.data=="refuse") {
-					alert("系统维护暂停任务发布！");
-				} else{
-					alert("任务发布失败,请联系客服！");
-				}
+function endtask(taskid){
+	$.ajax({
+		url : "${pageContext.request.contextPath}/task/endtaskBytaskid/"+taskid,
+		type : 'post',
+		success : function (data, response, status) {
+			if (data!=null && data.data=="success") {
+				alert("终止任务成功！");
+				window.location.href="${pageContext.request.contextPath}/task/responsetaskmanage";
+			} else{
+				alert("终止任务失败,请联系客服！");
 			}
-		});
-	}
-	function endtask(taskid){
-		$.ajax({
-			url : "${pageContext.request.contextPath}/task/endtaskBytaskid/"+taskid,
-			type : 'post',
-			success : function (data, response, status) {
-				if (data!=null && data.data=="success") {
-					alert("终止任务成功！");
-				} else{
-					alert("终止任务失败,请联系客服！");
-				}
-			}
-		});
-	}
+		}
+	});
+}
 	
-		var index = Number("${pagenum}");
-		if (index.length < 1) {
-			index = 1;
-		}
-		function loadpage() {
-			var myPageCount = parseInt($("#PageCount").val());
-			var myPageSize = parseInt($("#PageSize").val());
-			var countindex = myPageCount % myPageSize > 0 ? (myPageCount / myPageSize) + 1
-					: (myPageCount / myPageSize);
-			if(countindex==0){
-				countindex=1;
+var index = Number("${pagenum}");
+if (index.length < 1) {
+	index = 1;
+}
+function loadpage() {
+	var myPageCount = parseInt($("#PageCount").val());
+	var myPageSize = parseInt($("#PageSize").val());
+	var countindex = myPageCount % myPageSize > 0 ? (myPageCount / myPageSize) + 1
+			: (myPageCount / myPageSize);
+	if(countindex==0){
+		countindex=1;
+	}
+	$("#countindex").val(countindex);
+	$.jqPaginator('#pagination',
+	{
+		totalPages : parseInt($("#countindex").val()),
+		visiblePages : parseInt($("#visiblePages").val()),
+		currentPage : index,
+		first : '<li class="first"><a href="${pageContext.request.contextPath}/task/responsetaskmanage?page=1">首页</a></li>',
+		prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
+		next : '<li class="next"><a href="javascript:;">下一页</a></li>',
+		last : '<li class="last"><a href="javascript:;">末页</a></li>',
+		page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+		onPageChange : function(num, type) {
+			if (type == "change") {
+				window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanage?page=" + num;
 			}
-			$("#countindex").val(countindex);
-			$.jqPaginator('#pagination',
-			{
-				totalPages : parseInt($("#countindex").val()),
-				visiblePages : parseInt($("#visiblePages").val()),
-				currentPage : index,
-				first : '<li class="first"><a href="${pageContext.request.contextPath}/task/responsetaskmanage?page=1">首页</a></li>',
-				prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
-				next : '<li class="next"><a href="javascript:;">下一页</a></li>',
-				last : '<li class="last"><a href="javascript:;">末页</a></li>',
-				page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-				onPageChange : function(num, type) {
-					if (type == "change") {
-						window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanage?page=" + num;
-					}
-				}
-			});
 		}
-		
-		function fn_deleteTaskBypk (obj){
-			$.messager.confirm('确认','您确认想要删除该条记录吗？',function(b){    
-			    if (b){
-			    	window.location.href="${pageContext.request.contextPath}/task/deleteTaskBypk/"+obj;
-			    }
-			});
-		}
+	});
+}
+
+function fn_deleteTaskBypk (obj){
+	$.messager.confirm('确认','您确认想要删除该条记录吗？',function(b){    
+	    if (b){
+	    	window.location.href="${pageContext.request.contextPath}/task/deleteTaskBypk/"+obj;
+	    }
+	});
+}
 		
 		
 	</script>

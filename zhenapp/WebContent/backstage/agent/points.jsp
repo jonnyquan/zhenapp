@@ -53,7 +53,8 @@
   </div>
 </header>
 <div class="am-cf admin-main">
-      <!-- sidebar start -->
+      <div id="menu" class="admin-sidebar am-offcanvas"></div>
+      <!-- sidebar start 
       <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
         <div class=" admin-offcanvas-bar">
           <ul class="am-list admin-sidebar-list">
@@ -72,8 +73,7 @@
             <li><a href="${pageContext.request.contextPath}/datacount/findDataByDateAndTasktype"><span class="am-icon-bar-chart"></span>数据统计</a></li>
           </ul>
         </div>
-      </div>
-<!-- sidebar end -->
+      </div>-->
       <div id="module-head"></div>
       
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -98,4 +98,11 @@
   </footer>
 
 </body>
+<script type="text/javascript">
+	$(function(){
+		
+		$("#menu").load("${pageContext.request.contextPath}/backstage/agent/menu.jsp");
+	});
+</script>
+
 </html>

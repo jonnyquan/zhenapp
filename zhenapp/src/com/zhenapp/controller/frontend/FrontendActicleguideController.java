@@ -39,9 +39,14 @@ public class FrontendActicleguideController {
 	@RequestMapping(value="/articleguide")
 	public @ResponseBody ModelAndView articleguide(HttpServletRequest request, Integer page,Integer rows) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		List<TelectricityCustom> TelectricityCustomlist = electrityService.findElectrity_10();
-		List<TGuideInfoCustom> TGuideInfoCustomlist = guideService.findGuide_10();
+		String webwww=request.getServerName();
+		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
+		TWebInfoCustom tWebInfoCustom=webInfoService.findWebByAgentid(tAgentInfoCustom.getAgentid());
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
+		pagemap.put("agentid", tAgentInfoCustom.getAgentid());
+		List<TelectricityCustom> TelectricityCustomlist = electrityService.findElectrity_10(pagemap);
+		List<TGuideInfoCustom> TGuideInfoCustomlist = guideService.findGuide_10(pagemap);
+		
 		if (page == null || page==0) {
 			page = 1;
 		} 
@@ -50,9 +55,6 @@ public class FrontendActicleguideController {
 		pagemap.put("rows", rows);
 		int total = guideService.findTotalGuide();
 		List<TGuideInfoCustom> tGuideInfoCustomAlllist = guideService.findGuideBypage(pagemap);
-		String webwww=request.getServerName();
-		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
-		TWebInfoCustom tWebInfoCustom=webInfoService.findWebByAgentid(tAgentInfoCustom.getAgentid());
 		mv.addObject("tWebInfoCustom",tWebInfoCustom);
 		mv.addObject("total", total);
 		mv.addObject("pagenum", page);
@@ -69,12 +71,14 @@ public class FrontendActicleguideController {
 	@RequestMapping(value="/articleguidedetail/{guidepk}")
 	public @ResponseBody ModelAndView articlenewsdetail(HttpServletRequest request,@PathVariable(value = "guidepk") String guidepk) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		List<TelectricityCustom> TelectricityCustomlist = electrityService.findElectrity_10();
-		List<TGuideInfoCustom> TGuideInfoCustomlist = guideService.findGuide_10();
-		TGuideInfoCustom tGuideInfoCustom=guideService.findElectrityBypk(guidepk);
 		String webwww=request.getServerName();
 		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
 		TWebInfoCustom tWebInfoCustom=webInfoService.findWebByAgentid(tAgentInfoCustom.getAgentid());
+		HashMap<String,Object> pagemap = new HashMap<String,Object>();
+		pagemap.put("agentid", tAgentInfoCustom.getAgentid());
+		List<TelectricityCustom> TelectricityCustomlist = electrityService.findElectrity_10(pagemap);
+		List<TGuideInfoCustom> TGuideInfoCustomlist = guideService.findGuide_10(pagemap);
+		TGuideInfoCustom tGuideInfoCustom=guideService.findElectrityBypk(guidepk);
 		mv.addObject("tWebInfoCustom",tWebInfoCustom);
 		mv.addObject("TelectricityCustomlist", TelectricityCustomlist);
 		mv.addObject("TGuideInfoCustomlist", TGuideInfoCustomlist);

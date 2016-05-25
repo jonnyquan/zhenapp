@@ -9,7 +9,7 @@ public interface TGuideInfoCustomMapper {
 	/*
 	 * 查询前10条新手指引信息  用于侧边栏展示 按时间倒序排列
 	 */
-	public List<TGuideInfoCustom> findGuide_10() throws Exception;
+	public List<TGuideInfoCustom> findGuide_10(HashMap<String,Object> pagemap) throws Exception;
 	
 	/*
 	 * 查询全部新手指引信息  用于新手指引信息页面展示

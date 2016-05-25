@@ -61,12 +61,14 @@ public class UserInfoController {
 	 * 跳转到个人中心页面
 	 */
 	@RequestMapping(value="/responseuser")
-	public ModelAndView responseuser(HttpSession session) throws Exception{
+	public ModelAndView responseuser(HttpSession session,HttpServletRequest request) throws Exception{
 		ModelAndView mv=new ModelAndView();
-		List<TelectricityCustom> TelectricityCustomlist = electrityService
-				.findElectrity_10();
-		List<TGuideInfoCustom> TGuideInfoCustomlist = guideService
-				.findGuide_10();
+		String webwww=request.getServerName();
+		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
+		HashMap<String, Object> pagemap= new HashMap<String, Object>();
+		pagemap.put("agentid", tAgentInfoCustom.getAgentid());
+		List<TelectricityCustom> TelectricityCustomlist = electrityService.findElectrity_10(pagemap);
+		List<TGuideInfoCustom> TGuideInfoCustomlist = guideService.findGuide_10(pagemap);
 		mv.addObject("TelectricityCustomlist", TelectricityCustomlist);
 		mv.addObject("TGuideInfoCustomlist", TGuideInfoCustomlist);
 		TUserInfoCustom tUserInfoCustom = (TUserInfoCustom)session.getAttribute("tUserInfoCustom");
@@ -308,7 +310,7 @@ public class UserInfoController {
 		tPointsInfoCustom.setPoints(newpoints);
 		tPointsInfoCustom.setPointstype(Pointstype);
 		tPointsInfoCustom.setPointsupdate(Integer.parseInt(updatepoints));
-		tPointsInfoCustom.setTaskid("0");
+		tPointsInfoCustom.setTaskpk(0);
 		tPointsInfoCustom.setUserid(tUserInfoCustomsession.getUserid());
 		pointsInfoService.savePoints(tPointsInfoCustom);
 		/*
@@ -407,7 +409,7 @@ public class UserInfoController {
 		tPointsInfoCustom.setPoints(newpoints);
 		tPointsInfoCustom.setPointstype(Pointstype);
 		tPointsInfoCustom.setPointsupdate(Integer.parseInt(updatepoints));
-		tPointsInfoCustom.setTaskid("0");
+		tPointsInfoCustom.setTaskpk(0);
 		tPointsInfoCustom.setUserid(tUserInfoCustomsession.getUserid());
 		pointsInfoService.savePoints(tPointsInfoCustom);
 		/*
@@ -775,7 +777,7 @@ public class UserInfoController {
 		tPointsInfoCustom.setPoints(newpoints);
 		tPointsInfoCustom.setPointstype(Pointstype);
 		tPointsInfoCustom.setPointsupdate(Integer.parseInt(updatepoints));
-		tPointsInfoCustom.setTaskid("0");
+		tPointsInfoCustom.setTaskpk(0);
 		tPointsInfoCustom.setUserid(tUserInfoCustomsession.getUserid());
 		pointsInfoService.savePoints(tPointsInfoCustom);
 		/*

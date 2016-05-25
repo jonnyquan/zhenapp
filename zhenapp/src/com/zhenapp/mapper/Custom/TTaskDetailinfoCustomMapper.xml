@@ -7,8 +7,39 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
 ) and phoneid is null and taskstate = '40' ORDER BY taskhour,taskminute LIMIT 0,1
   </select>
   
+  <select id="findTaskDetailByProblemAndPage" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom"  parameterType="java.util.HashMap">
+  		select * from t_task_detailinfo 
+  		<where>
+  			and phoneid IS NOT NULL AND visit IS NULL AND collect IS NULL AND trolley IS NULL AND TIMESTAMPDIFF(MINUTE ,DATE_FORMAT(createtime,'%Y%m%d%H%i%s'),DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'))>5
+  			<if test="phoneid !=null and phoneid != ''">
+		  		and phoneid = #{phoneid}
+		  	</if>
+	  		<if test="taskdetailpk !=null and taskdetailpk != ''">
+		  		and taskdetailpk = #{taskdetailpk}
+		  	</if>
+		  	<if test="taskkeynum !=null and taskkeynum != ''">
+		  		and taskkeynum = #{taskkeynum}
+		  	</if>
+  		</where>
+  </select>
+  <select id="findTotalTaskDetailByProblemAndPage" resultType="int" parameterType="java.util.HashMap">
+  		select count(1) from t_task_detailinfo 
+  		<where>
+  			and phoneid IS NOT NULL AND visit IS NULL AND collect IS NULL AND trolley IS NULL AND TIMESTAMPDIFF(MINUTE ,DATE_FORMAT(createtime,'%Y%m%d%H%i%s'),DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'))>5
+  			<if test="phoneid !=null and phoneid != ''">
+		  		and phoneid = #{phoneid}
+		  	</if>
+	  		<if test="taskdetailpk !=null and taskdetailpk != ''">
+		  		and taskdetailpk = #{taskdetailpk}
+		  	</if>
+		  	<if test="taskkeynum !=null and taskkeynum != ''">
+		  		and taskkeynum = #{taskkeynum}
+		  	</if>
+  		</where>
+  </select>
+  
   <select id="findTaskDetailByPage" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom" parameterType="java.util.HashMap">
-	SELECT a.taskdetailpk, a.taskdetailid, a.taskid, a.taskkeyword, a.searchtype,e.dicinfoname AS tasktypename, a.price, a.region, a.isfreeship, 
+	SELECT f.taskpk,a.taskdetailpk, a.taskdetailid, a.taskid, a.taskkeyword, a.searchtype,e.dicinfoname AS tasktypename, a.price, a.region, a.isfreeship, 
     a.istmall, a.iscollection,CASE WHEN a.iscollection='0' THEN '否' ELSE '是' END AS iscollectionname,a.isshopping, CASE WHEN a.isshopping='0' THEN '否' ELSE '是' END AS isshoppingname, a.taskkeynum, a.minpicture, a.maxpicture, a.tasktype, 
     a.isflow, a.iscreativetitle, a.isshopcollect, a.taskstate, a.taskdate, a.taskhour, a.taskminute, 
     a.visit,b.dictypename AS visitname ,a.collect,c.dictypename AS collectname, a.trolley, d.dictypename AS trolleyname, a.phoneid, a.subtractpoints, a.resultstr,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime, a.createuser, DATE_FORMAT(a.updatetime,'%Y-%m-%d %H:%i:%s') AS updatetime, 
@@ -17,9 +48,16 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
 	LEFT JOIN t_data_dic_info c ON a.collect=c.dicinfoid
 	LEFT JOIN t_data_dic_info d ON a.trolley=d.dicinfoid
 	LEFT JOIN t_data_dic_info e ON a.tasktype=e.dicinfoid
+	LEFT JOIN t_task_info f on a.taskid = f.taskid
 	  <where>
 	  	<if test="taskid !=null and taskid != ''">
 	  		and a.taskid = #{taskid}
+	  	</if>
+	  	<if test="taskpk !=null and taskpk != ''">
+	  		and f.taskpk = #{taskpk}
+	  	</if>
+	  	<if test="detaid !=null and detaid != ''">
+	  		and a.taskdetailid = #{detaid}
 	  	</if>
 	  	<if test="taskdetailpk !=null and taskdetailpk != ''">
 	  		and a.taskdetailpk = #{taskdetailpk}
@@ -62,7 +100,23 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
 	  	</if>
 	  </where>
   </select>
-  
+  <select id="findTaskDetailByIdAndtask" parameterType="java.util.HashMap" resultType="int">
+  	SELECT COUNT(1) FROM t_task_detailinfo
+  	<where>
+  		<if test="taskdate != null and taskdate != '' ">
+  			and taskdate = #{taskdate}
+  		</if>
+  		<if test="taskkeynum != null and taskkeynum != '' ">
+  			and taskkeynum = #{taskkeynum}
+  		</if>
+  		<if test="iscollection != null and iscollection != '' ">
+  			and iscollection = #{iscollection}
+  		</if>
+  		<if test="isshopping != null and isshopping != '' ">
+  			and isshopping = #{isshopping}
+  		</if>
+  	</where>
+  </select>
   
   <insert id="insertDetailinfo" parameterType="com.zhenapp.po.Custom.TTaskDetailInfoCustom" >
      insert into t_task_detailinfo (taskdetailid, taskid, 
@@ -109,6 +163,18 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
   	select IFNULL(sum(subtractpoints),0) from t_task_detailinfo where taskid = #{taskid} and taskstate = '23'
   </select>
   
+  <select id="findTaskDetailInfoByIdAndTaskstate" parameterType="java.util.HashMap" resultType="int">
+  	select count(1) from t_task_detailinfo 
+  	<where>
+  		<if test="taskstate !=null and taskstate != '' ">
+  			and taskstate = #{taskstate}
+  		</if>
+  		<if test="taskid !=null and taskid != '' ">
+  			and taskid = #{taskid}
+  		</if>
+  	</where>
+  </select>
+  
   <select id="findTaskDetailBypk" parameterType="String" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
   	select * from t_task_detailinfo where taskdetailpk=#{taskdetailpk}
   </select>
@@ -130,7 +196,22 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
   	collect = (SELECT dicinfoid FROM t_data_dic_info WHERE dictypecode = 'collect' AND dictypename=#{collect}),
   	trolley = (SELECT dicinfoid FROM t_data_dic_info WHERE dictypecode = 'trolley' AND dictypename=#{trolley}),
   	taskstate = #{taskstatenew},
+  	isflow=#{isflow},
+  	iscreativetitle=#{iscreativetitle},
+  	isshopcollect=#{isshopcollect},
   	updatetime=#{updatetime},updateuser=#{updateuser}
 	WHERE phoneid =#{phoneid} AND taskstate=#{taskstate}
   </update>
+  
+  <delete id="deleteTaskBystate" parameterType="java.util.HashMap">
+	  delete from t_task_detailinfo 
+	  <where>
+	  	<if test="taskstate != null and taskstate != '' ">
+	  		and taskstate = #{taskstate}
+	  	</if>
+	  	<if test="taskid != null and taskid != '' ">
+	  		and taskid = #{taskid}
+	  	</if>
+	  </where>
+  </delete>
 </mapper>

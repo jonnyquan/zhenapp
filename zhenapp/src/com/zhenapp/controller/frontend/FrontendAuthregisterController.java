@@ -79,7 +79,7 @@ public class FrontendAuthregisterController {
 			tPointsInfoCustom.setPoints(0);
 			tPointsInfoCustom.setPointstype("27");
 			tPointsInfoCustom.setPointsupdate(0);
-			tPointsInfoCustom.setTaskid("0");
+			tPointsInfoCustom.setTaskpk(0);
 			tPointsInfoCustom.setUserid(tUserInfoCustom.getUserid());
 			pointsInfoService.savePoints(tPointsInfoCustom);
 			mv.addObject("msg","注册成功..");

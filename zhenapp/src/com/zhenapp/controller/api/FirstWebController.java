@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhenapp.mapper.Custom.FirstWebInfoCustom;
+import com.zhenapp.po.Custom.ApireturnCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskInfoService;
@@ -207,6 +208,7 @@ public class FirstWebController {
 		String result="";
         PostMethod postMethod = new PostMethod(url);
         //postMethod.setParameter("url", "https://item.taobao.com/item.htm?id=531027639098");
+        //https://detail.tmall.com/item.htm?id=531027639098
         postMethod.setParameter("url", param);
         postMethod.setParameter("cache", "true");
         postMethod.setRequestHeader("secret", secret);
@@ -248,18 +250,24 @@ public class FirstWebController {
 		String result="";
         PostMethod postMethod = new PostMethod(url);
         postMethod.setRequestHeader("secret", secret);
-        postMethod.setParameter("keywords", "夏装");
-        postMethod.setParameter("product_id", "531027639098");
+        postMethod.setParameter("keywords", keywords);
+        postMethod.setParameter("product_id", product_id);
         postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
         int statusCode =  httpClient.executeMethod(postMethod);
         if(statusCode == 200) {
             System.out.println("调用成功");
             result = postMethod.getResponseBodyAsString();
-            map.put("msg", result);
+            ObjectMapper obj = new ObjectMapper();
+    		ApireturnCustom apireturnCustom = obj.readValue(result, ApireturnCustom.class);
+    		if(apireturnCustom.getSuccess().equals("false")){
+    			map.put("msg", "0");
+    		}else{
+    			map.put("msg", "1");
+    		}
         }
         else {
-            System.out.println("调用失败" + statusCode);
-            map.put("msg", "失败错误码" + statusCode);
+            logger.error("调用失败,失败错误码:" + statusCode);
+            map.put("msg", "0");
         }
 		return map;
 	}
@@ -287,4 +295,8 @@ public class FirstWebController {
         }
 		return map;
 	}
+	
+	
+	
+	//================================================================================
 }

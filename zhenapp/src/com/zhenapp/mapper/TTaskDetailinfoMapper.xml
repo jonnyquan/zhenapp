@@ -22,8 +22,8 @@
     <result column="isshopcollect" property="isshopcollect" jdbcType="VARCHAR" />
     <result column="taskstate" property="taskstate" jdbcType="VARCHAR" />
     <result column="taskdate" property="taskdate" jdbcType="VARCHAR" />
-    <result column="taskhour" property="taskhour" jdbcType="VARCHAR" />
-    <result column="taskminute" property="taskminute" jdbcType="VARCHAR" />
+    <result column="taskhour" property="taskhour" jdbcType="INTEGER" />
+    <result column="taskminute" property="taskminute" jdbcType="INTEGER" />
     <result column="visit" property="visit" jdbcType="VARCHAR" />
     <result column="collect" property="collect" jdbcType="VARCHAR" />
     <result column="trolley" property="trolley" jdbcType="VARCHAR" />
@@ -148,8 +148,8 @@
       #{iscollection,jdbcType=VARCHAR}, #{isshopping,jdbcType=VARCHAR}, #{taskkeynum,jdbcType=VARCHAR}, 
       #{minpicture,jdbcType=VARCHAR}, #{maxpicture,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
       #{isflow,jdbcType=VARCHAR}, #{iscreativetitle,jdbcType=VARCHAR}, #{isshopcollect,jdbcType=VARCHAR}, 
-      #{taskstate,jdbcType=VARCHAR}, #{taskdate,jdbcType=VARCHAR}, #{taskhour,jdbcType=VARCHAR}, 
-      #{taskminute,jdbcType=VARCHAR}, #{visit,jdbcType=VARCHAR}, #{collect,jdbcType=VARCHAR}, 
+      #{taskstate,jdbcType=VARCHAR}, #{taskdate,jdbcType=VARCHAR}, #{taskhour,jdbcType=INTEGER}, 
+      #{taskminute,jdbcType=INTEGER}, #{visit,jdbcType=VARCHAR}, #{collect,jdbcType=VARCHAR}, 
       #{trolley,jdbcType=VARCHAR}, #{phoneid,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, 
       #{resultstr,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
       #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR})
@@ -316,10 +316,10 @@
         #{taskdate,jdbcType=VARCHAR},
       </if>
       <if test="taskhour != null" >
-        #{taskhour,jdbcType=VARCHAR},
+        #{taskhour,jdbcType=INTEGER},
       </if>
       <if test="taskminute != null" >
-        #{taskminute,jdbcType=VARCHAR},
+        #{taskminute,jdbcType=INTEGER},
       </if>
       <if test="visit != null" >
         #{visit,jdbcType=VARCHAR},
@@ -423,10 +423,10 @@
         taskdate = #{record.taskdate,jdbcType=VARCHAR},
       </if>
       <if test="record.taskhour != null" >
-        taskhour = #{record.taskhour,jdbcType=VARCHAR},
+        taskhour = #{record.taskhour,jdbcType=INTEGER},
       </if>
       <if test="record.taskminute != null" >
-        taskminute = #{record.taskminute,jdbcType=VARCHAR},
+        taskminute = #{record.taskminute,jdbcType=INTEGER},
       </if>
       <if test="record.visit != null" >
         visit = #{record.visit,jdbcType=VARCHAR},
@@ -485,8 +485,8 @@
       isshopcollect = #{record.isshopcollect,jdbcType=VARCHAR},
       taskstate = #{record.taskstate,jdbcType=VARCHAR},
       taskdate = #{record.taskdate,jdbcType=VARCHAR},
-      taskhour = #{record.taskhour,jdbcType=VARCHAR},
-      taskminute = #{record.taskminute,jdbcType=VARCHAR},
+      taskhour = #{record.taskhour,jdbcType=INTEGER},
+      taskminute = #{record.taskminute,jdbcType=INTEGER},
       visit = #{record.visit,jdbcType=VARCHAR},
       collect = #{record.collect,jdbcType=VARCHAR},
       trolley = #{record.trolley,jdbcType=VARCHAR},
@@ -562,10 +562,10 @@
         taskdate = #{taskdate,jdbcType=VARCHAR},
       </if>
       <if test="taskhour != null" >
-        taskhour = #{taskhour,jdbcType=VARCHAR},
+        taskhour = #{taskhour,jdbcType=INTEGER},
       </if>
       <if test="taskminute != null" >
-        taskminute = #{taskminute,jdbcType=VARCHAR},
+        taskminute = #{taskminute,jdbcType=INTEGER},
       </if>
       <if test="visit != null" >
         visit = #{visit,jdbcType=VARCHAR},
@@ -621,8 +621,8 @@
       isshopcollect = #{isshopcollect,jdbcType=VARCHAR},
       taskstate = #{taskstate,jdbcType=VARCHAR},
       taskdate = #{taskdate,jdbcType=VARCHAR},
-      taskhour = #{taskhour,jdbcType=VARCHAR},
-      taskminute = #{taskminute,jdbcType=VARCHAR},
+      taskhour = #{taskhour,jdbcType=INTEGER},
+      taskminute = #{taskminute,jdbcType=INTEGER},
       visit = #{visit,jdbcType=VARCHAR},
       collect = #{collect,jdbcType=VARCHAR},
       trolley = #{trolley,jdbcType=VARCHAR},

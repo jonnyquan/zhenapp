@@ -434,6 +434,76 @@ public class TTbaccountInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andTbaccounttagIsNull() {
+            addCriterion("tbaccounttag is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbaccounttagIsNotNull() {
+            addCriterion("tbaccounttag is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbaccounttagEqualTo(String value) {
+            addCriterion("tbaccounttag =", value, "tbaccounttag");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbaccounttagNotEqualTo(String value) {
+            addCriterion("tbaccounttag <>", value, "tbaccounttag");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbaccounttagGreaterThan(String value) {
+            addCriterion("tbaccounttag >", value, "tbaccounttag");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbaccounttagGreaterThanOrEqualTo(String value) {
+            addCriterion("tbaccounttag >=", value, "tbaccounttag");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbaccounttagLessThan(String value) {
+            addCriterion("tbaccounttag <", value, "tbaccounttag");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbaccounttagLessThanOrEqualTo(String value) {
+            addCriterion("tbaccounttag <=", value, "tbaccounttag");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbaccounttagLike(String value) {
+            addCriterion("tbaccounttag like", value, "tbaccounttag");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbaccounttagNotLike(String value) {
+            addCriterion("tbaccounttag not like", value, "tbaccounttag");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbaccounttagIn(List<String> values) {
+            addCriterion("tbaccounttag in", values, "tbaccounttag");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbaccounttagNotIn(List<String> values) {
+            addCriterion("tbaccounttag not in", values, "tbaccounttag");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbaccounttagBetween(String value1, String value2) {
+            addCriterion("tbaccounttag between", value1, value2, "tbaccounttag");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbaccounttagNotBetween(String value1, String value2) {
+            addCriterion("tbaccounttag not between", value1, value2, "tbaccounttag");
+            return (Criteria) this;
+        }
+
         public Criteria andTbaccountphoneidIsNull() {
             addCriterion("tbaccountphoneid is null");
             return (Criteria) this;

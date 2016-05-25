@@ -2,11 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -14,7 +11,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="真流量,无线流量,无限流量代运营,无线刷流量 " />
 <meta name="description" content="真流量,无线流量,无限流量代运营,无线刷流量 " />
-
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css"
@@ -23,7 +19,6 @@
 	href="${pageContext.request.contextPath}/easyui/themes/bootstrap/easyui.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/easyui/themes/icon.css" />
-	
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
@@ -299,57 +294,10 @@
 	<div class="uc_warp">
 		<div class="userbody clearfix">
 			<div class="leftmenu row_l">
-				<dl>
-					<dt>
-						<a href="${pageContext.request.contextPath}/user/responseuser">个人中心</a>
-					</dt>
-					<dd>
-						<p>
-							<a
-								href="${pageContext.request.contextPath}/user/responsepersonal"
-								id="info"><i class="fa fa-angle-right"></i>基本信息</a>
-						</p>
-						<p>
-							<!-- <a href="/user/broker" id="account"><i class="fa fa-angle-right"></i>我的推广</a> -->
-							<a href="javascript:void(0);" id="account"><i
-								class="fa fa-angle-right"></i>我的推广</a>
-						</p>
-					</dd>
-				</dl>
-				<dl>
-					<dt>
-						<a href="javascript:void(0);">流量任务管理</a>
-					</dt>
-					<dd>
-						<p>
-							<a href="${pageContext.request.contextPath}/task/responsetaskadd" id="addtask"><i class="fa fa-angle-right"></i>发布任务</a>
-						</p>
-						<p>
-							<a href="${pageContext.request.contextPath}/task/responsetaskztcadd" id="addtask"><i class="fa fa-angle-right"></i>发布直通车任务</a>
-						</p>
-						<p>
-							<a href="${pageContext.request.contextPath}/task/responsetaskmanage" id="managetask"><i class="fa fa-angle-right"></i>任务管理</a>
-						</p>
-					</dd>
-				</dl>
-				<dl>
-					<dt>
-						<a href="javascript:void(0);">财务中心</a>
-					</dt>
-					<dd class="acc">
-						<p>
-							<a href="${pageContext.request.contextPath}/points/responsebuypoints" id="purchase"><i class="fa fa-angle-right"></i>购买积分</a>
-						</p>
-						<p>
-							<a href="${pageContext.request.contextPath}/points/responserecordspoints" id="point"><i class="fa fa-angle-right"></i>积分明细</a>
-						</p>
-					</dd>
-				</dl>
 			</div>
-			<script type="text/javascript">
-        $('#addtask').addClass('hover');
-    </script>
-
+<script type="text/javascript">
+   $('#addtask').addClass('hover');
+</script>
 			<div class="rightbox row_r">
 				<div class="u_outbox">
 					<div class="tabtitle clearfix">
@@ -374,8 +322,8 @@
 											宝贝id
 										</td>
 										<td>
-											<input type="text" name="taskkeynum" id="taskkeynum"
-												placeholder="请输入宝贝id" class='form-control'  onblur="checkkeynum(this);" />
+											<input type="text" name="taskkeynum" id="taskkeynum" value="${tTaskInfoCustom.taskkeynum}"
+												placeholder="请输入宝贝id" class='form-control'  onchange="checkkeynum(this);" />
 											<span id="span" style="color:#aaa;"></span>
 										</td>
 									</tr>
@@ -386,12 +334,22 @@
 										<td>
 											<table id="tab_keyword">
 												<tr>
-													<td>
-														<input type="text" name="taskkeywords" class='form-control' style="width:600px;" placeholder="请输入关键词" />		
-													</td>
-													<td>
-														<input type="button" class="easyui-linkbutton" iconCls="icon-add" onclick="addinput();" value="&nbsp;&nbsp;添 &nbsp;加 &nbsp;&nbsp;" />
-													</td>
+													<c:if test="${tTaskInfoCustom!=null}">
+														<td>
+															<input type="text" name="taskkeywords" class='form-control' style="width:600px;" value="${tTaskInfoCustom.taskkeyword}" placeholder="请输入关键词" onchange="checkword(this);" />		
+														</td>
+														<td>
+															<input type="button" class="easyui-linkbutton" iconCls="icon-add" onclick="addinput();" value="&nbsp;&nbsp;添 &nbsp;加 &nbsp;&nbsp;" />
+														</td>
+													</c:if>
+													<c:if test="${tTaskInfoCustom==null}">
+														<td>
+															<input type="text" name="taskkeywords" class='form-control' style="width:600px;" placeholder="请输入关键词" onchange="checkword(this);" />		
+														</td>
+														<td>
+															<input type="button" class="easyui-linkbutton" iconCls="icon-add" onclick="addinput();" value="&nbsp;&nbsp;添 &nbsp;加 &nbsp;&nbsp;" />
+														</td>
+													</c:if>
 												</tr>
 											</table>
 										</td>
@@ -402,26 +360,10 @@
 										</td>
 										<td>
 											<lable style="padding:0 10px 0 10px;">从:</lable>
-											<input type="text" name="datefrom" id="datefrom" width="200px"  />
-											到：<input type="text" name="dateto" id="dateto" width="200px"  />
+											<input type="text" name="datefrom" id="datefrom" width="200px"/>
+											到：<input type="text" name="dateto" id="dateto" width="200px"/>
 										</td>
 									</tr>
-									<!--  <tr>
-										<td>
-											宝贝标题
-										</td>
-										<td>
-											<input type="text" name="tasktitle" id="tasktitle" class='form-control' placeholder="请输入宝贝标题"/>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											无线端标题
-										</td>
-										<td>
-											<input type="text" name="taskwirelesstitle" id="taskwirelesstitle" class='form-control' placeholder="请输入无线端标题"/>
-										</td>
-									</tr>-->
 								</table>
 								<div class="box">
 									<div class="taxkTips box_toggle">
@@ -548,346 +490,6 @@
 										</div>
 									</div>
 								</div>
-								<!--  <div class="box">
-									<div class="taxkTips box_toggle">
-										<h2>
-											<scan class="scan_icon">
-											<a><i class="fa fa-chevron-circle-right fa-lg"></i></a></scan>
-											任务可选信息区（点击显示更多可选项，以更好的提升宝贝流量）建议保持默认不做更改!!
-										</h2>
-									</div>
-									<div class="toggle_wrapper">
-										<div class="form_control clearfix">
-											<label class="form_label">主宝贝浏览时间：</label> 
-											<select name="searchGoodsBrowseMinTime" id="searchGoodsBrowseMinTime" class="form_select select_small">
-												<option value="5">5</option>
-												<option value="10">10</option>
-												<option value="15">15</option>
-												<option value="20">20</option>
-												<option value="25">25</option>
-												<option value="30">30</option>
-												<option value="35">35</option>
-												<option value="40">40</option>
-												<option value="45">45</option>
-												<option value="50">50</option>
-												<option value="55">55</option>
-												<option value="60">60</option>
-												<option value="65">65</option>
-												<option value="70">70</option>
-												<option value="75">75</option>
-												<option value="80">80</option>
-												<option value="85">85</option>
-												<option value="90">90</option>
-												<option value="95">95</option>
-												<option value="100">100</option>
-												<option value="105">105</option>
-												<option value="110">110</option>
-												<option value="115">115</option>
-												<option selected value="120">120</option>
-												<option value="125">125</option>
-												<option value="130">130</option>
-												<option value="135">135</option>
-												<option value="140">140</option>
-												<option value="145">145</option>
-												<option value="150">150</option>
-											</select> 
-											<span class="Validform_checktip scan_break">--</span> 
-											<select name="searchGoodsBrowseMaxTime" id="searchGoodsBrowseMaxTime" class="form_select select_small">
-												<option value="5">5</option>
-												<option value="10">10</option>
-												<option value="15">15</option>
-												<option value="20">20</option>
-												<option value="25">25</option>
-												<option value="30">30</option>
-												<option value="35">35</option>
-												<option value="40">40</option>
-												<option value="45">45</option>
-												<option value="50">50</option>
-												<option value="55">55</option>
-												<option value="60">60</option>
-												<option value="65">65</option>
-												<option value="70">70</option>
-												<option value="75">75</option>
-												<option value="80">80</option>
-												<option value="85">85</option>
-												<option value="90">90</option>
-												<option value="95">95</option>
-												<option value="100">100</option>
-												<option value="105">105</option>
-												<option value="110">110</option>
-												<option value="115">115</option>
-												<option value="120">120</option>
-												<option value="125">125</option>
-												<option value="130">130</option>
-												<option value="135">135</option>
-												<option value="140">140</option>
-												<option value="145">145</option>
-												<option selected value="150">150</option>
-											</select> <span class="Validform_checktip"> 秒 </span>
-										</div>
-										<div class="form_control clearfix">
-											<label class="form_label">副宝贝浏览数量：</label> 
-											<select name="otherGoodsBrowseMinCount" id="otherGoodsBrowseMinCount" class="form_select select_small" 
-											v-model="otherGoodsBrowseMinCountSelected" options="otherGoodsBrowseMinCountOptions"> 
-												{{ otherGoodsBrowseMinCountSelected }}
-											</select> 
-											<span class="Validform_checktip scan_break">--</span> 
-											<select
-												name="otherGoodsBrowseMaxCount"
-												id="otherGoodsBrowseMaxCount"
-												class="form_select select_small"
-												v-model="otherGoodsBrowseMaxCountSelected"
-												options="otherGoodsBrowseMaxCountOptions"> {{
-												otherGoodsBrowseMaxCountSelected }}
-											</select> <span class="Validform_checktip"> 个 </span> <label
-												class="form_label">副宝贝浏览时间：</label> <select
-												name="otherGoodsBrowseMinTime" id="otherGoodsBrowseMinTime"
-												class="form_select select_small">
-												<option value="5">5</option>
-												<option value="10">10</option>
-												<option value="15">15</option>
-												<option value="20">20</option>
-												<option value="25">25</option>
-												<option selected value="30">30</option>
-												<option value="35">35</option>
-												<option value="40">40</option>
-												<option value="45">45</option>
-												<option value="50">50</option>
-												<option value="55">55</option>
-												<option value="60">60</option>
-												<option value="65">65</option>
-												<option value="70">70</option>
-												<option value="75">75</option>
-												<option value="80">80</option>
-												<option value="85">85</option>
-												<option value="90">90</option>
-												<option value="95">95</option>
-												<option value="100">100</option>
-												<option value="105">105</option>
-												<option value="110">110</option>
-												<option value="115">115</option>
-												<option value="120">120</option>
-											</select> <span class="Validform_checktip scan_break">--</span> <select
-												name="otherGoodsBrowseMaxTime" id="otherGoodsBrowseMaxTime"
-												class="form_select select_small">
-												<option value="5">5</option>
-												<option value="10">10</option>
-												<option value="15">15</option>
-												<option value="20">20</option>
-												<option value="25">25</option>
-												<option value="30">30</option>
-												<option value="35">35</option>
-												<option selected value="40">40</option>
-												<option value="45">45</option>
-												<option value="50">50</option>
-												<option value="55">55</option>
-												<option value="60">60</option>
-												<option value="65">65</option>
-												<option value="70">70</option>
-												<option value="75">75</option>
-												<option value="80">80</option>
-												<option value="85">85</option>
-												<option value="90">90</option>
-												<option value="95">95</option>
-												<option value="100">100</option>
-												<option value="105">105</option>
-												<option value="110">110</option>
-												<option value="115">115</option>
-												<option value="120">120</option>
-											</select> <span class="Validform_checktip"> 秒 </span>
-										</div>
-										<div class="form_control clearfix">
-											<label class="form_label">货比：</label> <select
-												name="accessOtherShopMinCount" id="accessOtherShopMinCount"
-												class="form_select select_small"
-												v-model="accessOtherShopMinCountSelected"
-												options="accessOtherShopMinCountOptions"> {{
-												accessOtherShopMinCountSelected }}
-											</select> <span class="Validform_checktip scan_break">--</span> <select
-												name="accessOtherShopMaxCount" id="accessOtherShopMaxCount"
-												class="form_select select_small"
-												v-model="accessOtherShopMaxCountSelected"
-												options="accessOtherShopMaxCountOptions"> {{
-												accessOtherShopMinCountSelected }}
-											</select> <span class="Validform_checktip"> 家 </span> <label
-												class="form_label">其它店铺浏览时间：</label> <select
-												name="accessOtherShopMinTime" id="accessOtherShopMinTime"
-												class="form_select select_small">
-												<option value="5">5</option>
-												<option value="10">10</option>
-												<option value="15">15</option>
-												<option selected value="20">20</option>
-												<option value="25">25</option>
-												<option value="30">30</option>
-												<option value="35">35</option>
-												<option value="40">40</option>
-											</select> <span class="Validform_checktip scan_break">--</span> <select
-												name="accessOtherShopMaxTime" id="accessOtherShopMaxTime"
-												class="form_select select_small">
-												<option value="5">5</option>
-												<option value="10">10</option>
-												<option value="15">15</option>
-												<option value="20">20</option>
-												<option value="25">25</option>
-												<option value="30">30</option>
-												<option value="35">35</option>
-												<option selected value="40">40</option>
-											</select> <span class="Validform_checktip"> 秒 </span>
-										</div>
-										<div class="form_control clearfix">
-											<label class="form_label">跳失率：</label> <select
-												name="goodsJumpLoseRate" id="goodsJumpLoseRate"
-												class="form_select select_small">
-												<option value="0">0</option>
-												<option value="5">5</option>
-												<option value="10">10</option>
-												<option value="15">15</option>
-												<option value="20">20</option>
-												<option value="25">25</option>
-												<option value="30">30</option>
-												<option value="35">35</option>
-												<option value="40">40</option>
-												<option value="45">45</option>
-												<option selected value="50">50</option>
-												<option value="55">55</option>
-												<option value="60">60</option>
-												<option value="65">65</option>
-												<option value="70">70</option>
-												<option value="75">75</option>
-												<option value="80">80</option>
-												<option value="85">85</option>
-												<option value="90">90</option>
-												<option value="95">95</option>
-												<option value="100">100</option>
-											</select> <span class="Validform_checktip"> % </span> <label
-												class="form_label_rate">浏览店铺首页率：</label> <select
-												name="clickShopMainPageRate" id="clickShopMainPageRate"
-												class="form_select select_small">
-												<option value="0">0</option>
-												<option value="5">5</option>
-												<option value="10">10</option>
-												<option value="15">15</option>
-												<option value="20">20</option>
-												<option value="25">25</option>
-												<option value="30">30</option>
-												<option value="35">35</option>
-												<option value="40">40</option>
-												<option value="45">45</option>
-												<option selected value="50">50</option>
-												<option value="55">55</option>
-												<option value="60">60</option>
-												<option value="65">65</option>
-												<option value="70">70</option>
-												<option value="75">75</option>
-												<option value="80">80</option>
-												<option value="85">85</option>
-												<option value="90">90</option>
-												<option value="95">95</option>
-												<option value="100">100</option>
-											</select> <span class="Validform_checktip"> % </span> <label
-												class="form_label_rate">查看产品参数率：</label> <select
-												name="clickGoodsParamRate" id="clickGoodsParamRate"
-												class="form_select select_small">
-												<option value="0">0</option>
-												<option value="5">5</option>
-												<option value="10">10</option>
-												<option value="15">15</option>
-												<option value="20">20</option>
-												<option value="25">25</option>
-												<option value="30">30</option>
-												<option value="35">35</option>
-												<option value="40">40</option>
-												<option value="45">45</option>
-												<option selected value="50">50</option>
-												<option value="55">55</option>
-												<option value="60">60</option>
-												<option value="65">65</option>
-												<option value="70">70</option>
-												<option value="75">75</option>
-												<option value="80">80</option>
-												<option value="85">85</option>
-												<option value="90">90</option>
-												<option value="95">95</option>
-												<option value="100">100</option>
-											</select> <span class="Validform_checktip"> % </span> <label
-												class="form_label_rate">浏览评价记录率：</label> <select
-												name="clickShopCommentRecordRate"
-												id="clickShopCommentRecordRate"
-												class="form_select select_small">
-												<option value="0">0</option>
-												<option value="5">5</option>
-												<option value="10">10</option>
-												<option value="15">15</option>
-												<option value="20">20</option>
-												<option value="25">25</option>
-												<option value="30">30</option>
-												<option value="35">35</option>
-												<option value="40">40</option>
-												<option value="45">45</option>
-												<option selected value="50">50</option>
-												<option value="55">55</option>
-												<option value="60">60</option>
-												<option value="65">65</option>
-												<option value="70">70</option>
-												<option value="75">75</option>
-												<option value="80">80</option>
-												<option value="85">85</option>
-												<option value="90">90</option>
-												<option value="95">95</option>
-												<option value="100">100</option>
-											</select> <span class="Validform_checktip"> % </span>
-										</div>
-										<div class="form_control clearfix">
-											<label class="form_label">收藏率：</label> <select
-												name="collectRate" id="collectRate"
-												class="form_select select_small" v-model="collectRate">
-												<option value="0">0</option>
-												<option value="5">5</option>
-												<option value="10">10</option>
-												<option value="15">15</option>
-												<option value="20">20</option>
-												<option value="25">25</option>
-												<option value="30">30</option>
-												<option value="35">35</option>
-												<option value="40">40</option>
-												<option value="45">45</option>
-												<option value="50">50</option>
-												<option value="55">55</option>
-												<option value="60">60</option>
-												<option value="65">65</option>
-												<option value="70">70</option>
-												<option value="75">75</option>
-												<option value="80">80</option>
-											</select> <span class="Validform_checktip"> % </span> <label
-												class="form_label_rate">加购率：</label> <select
-												name="addShopcartRate" id="addShopcartRate"
-												class="form_select select_small" v-model="addShopcartRate">
-												<option value="0">0</option>
-												<option value="5">5</option>
-												<option value="10">10</option>
-												<option value="15">15</option>
-												<option value="20">20</option>
-												<option value="25">25</option>
-												<option value="30">30</option>
-												<option value="35">35</option>
-												<option value="40">40</option>
-												<option value="45">45</option>
-												<option value="50">50</option>
-												<option value="55">55</option>
-												<option value="60">60</option>
-												<option value="65">65</option>
-												<option value="70">70</option>
-												<option value="75">75</option>
-												<option value="80">80</option>
-											</select> <span class="Validform_checktip"> % </span> <span
-												class="Validform_checktip scan_break"></span> <label
-												class="form_radio" style="display: none"><input
-												type="checkbox" name="onlyShow" v-model="onlyShow" /><span>展现宝贝</span></label>
-											<label class="form_radio" style="display: none"><input
-												type="checkbox" name="zhiTongChe" v-model="zhiTongChe" /><span>直通车</span></label>
-										</div>
-									</div>
-								</div>-->
 								<div class="taxkTips">
 									<h2>
 										<scan class="scan_icon">
@@ -911,9 +513,9 @@
 								</table>
 								<div class="form_control clearfix">
 									<label class="form_label">任务数量：</label> 
-									<input type="text" name="flowcount" id="flowcount"
+									<input type="text" name="flowcount" id="flowcount" <c:if test="${tTaskInfoCustom.flowcount!=null }">value="${tTaskInfoCustom.flowcount}"</c:if>
+									<c:if test="${tTaskInfoCustom.flowcount==null }">value="1"</c:if>
 										placeholder="请输入需要的流量数" onblur="fpll(this)"
-										onchange="fpll(this)" value="1"
 										onkeyup="this.value=this.value.replace(/\D/g,'')"
 										onafterpaste="this.value=this.value.replace(/\D/g,'')" />
 								</div>
@@ -1098,14 +700,18 @@
 								<div class="form_control clearfix">
 									<label class="form_label">收藏数量：</label> 
 									<input name="collectioncount" id="collectioncount"
-										placeholder="请输入收藏数" onblur="fpsc(this)" value="0"
+										placeholder="请输入收藏数" onchange="fpsc(this)" 
+										<c:if test="${tTaskInfoCustom.collectioncount!=null }">value="${tTaskInfoCustom.flowcount}"</c:if>
+										<c:if test="${tTaskInfoCustom.collectioncount==null }">value="0"</c:if>
 										onkeyup="this.value=this.value.replace(/\D/g,'')"
 										onafterpaste="this.value=this.value.replace(/\D/g,'')"/> 
 								</div>
 								<div class="form_control clearfix">
 									<label class="form_label">加购物车数量：</label> 
 									<input type="text" name="shoppingcount" id="shoppingcount"
-										placeholder="请输入购物车数"  onblur="fpgwc(this)" value="0"
+										placeholder="请输入购物车数"  onchange="fpgwc(this)" 
+										<c:if test="${tTaskInfoCustom.shoppingcount!=null }">value="${tTaskInfoCustom.shoppingcount}"</c:if>
+										<c:if test="${tTaskInfoCustom.shoppingcount==null }">value="0"</c:if>
 										onkeyup="this.value=this.value.replace(/\D/g,'')"
 										onafterpaste="this.value=this.value.replace(/\D/g,'')" />
 								</div>
@@ -1130,6 +736,8 @@
 			</div>
 			<script type="text/javascript">
         $(function () {
+        	$(".leftmenu").load("${pageContext.request.contextPath}/backstage/user/menu.jsp");
+        	
             $(".koo_fromBox").Validform({
                 tiptype: 3,
             });
@@ -1143,17 +751,16 @@
         });
         var uri = "${pageContext.request.contextPath}";
     </script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/vue.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/addtask-v3.26.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/layer_user.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/taskadd.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/Validform_v5.3.2.js"></script>
-				
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/vue.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/addtask-v3.26.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/layer_user.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/taskadd.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/Validform_v5.3.2.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/easyui/locale/easyui-lang-zh_CN.js"></script>
 		</div>

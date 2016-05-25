@@ -5,7 +5,7 @@
     <id column="pointspk" property="pointspk" jdbcType="INTEGER" />
     <result column="pointsid" property="pointsid" jdbcType="VARCHAR" />
     <result column="userid" property="userid" jdbcType="VARCHAR" />
-    <result column="taskid" property="taskid" jdbcType="VARCHAR" />
+    <result column="taskpk" property="taskpk" jdbcType="INTEGER" />
     <result column="pointstype" property="pointstype" jdbcType="VARCHAR" />
     <result column="pointsupdate" property="pointsupdate" jdbcType="INTEGER" />
     <result column="points" property="points" jdbcType="INTEGER" />
@@ -74,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    pointspk, pointsid, userid, taskid, pointstype, pointsupdate, points, pointreason, 
+    pointspk, pointsid, userid, taskpk, pointstype, pointsupdate, points, pointreason, 
     createtime, createuser, updatetime, updateuser
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TPointsInfoExample" >
@@ -109,12 +109,12 @@
   </delete>
   <insert id="insert" parameterType="com.zhenapp.po.TPointsInfo" >
     insert into t_points_info (pointspk, pointsid, userid, 
-      taskid, pointstype, pointsupdate, 
+      taskpk, pointstype, pointsupdate, 
       points, pointreason, createtime, 
       createuser, updatetime, updateuser
       )
     values (#{pointspk,jdbcType=INTEGER}, #{pointsid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
-      #{taskid,jdbcType=VARCHAR}, #{pointstype,jdbcType=VARCHAR}, #{pointsupdate,jdbcType=INTEGER}, 
+      #{taskpk,jdbcType=INTEGER}, #{pointstype,jdbcType=VARCHAR}, #{pointsupdate,jdbcType=INTEGER}, 
       #{points,jdbcType=INTEGER}, #{pointreason,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
       #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}
       )
@@ -131,8 +131,8 @@
       <if test="userid != null" >
         userid,
       </if>
-      <if test="taskid != null" >
-        taskid,
+      <if test="taskpk != null" >
+        taskpk,
       </if>
       <if test="pointstype != null" >
         pointstype,
@@ -169,8 +169,8 @@
       <if test="userid != null" >
         #{userid,jdbcType=VARCHAR},
       </if>
-      <if test="taskid != null" >
-        #{taskid,jdbcType=VARCHAR},
+      <if test="taskpk != null" >
+        #{taskpk,jdbcType=INTEGER},
       </if>
       <if test="pointstype != null" >
         #{pointstype,jdbcType=VARCHAR},
@@ -216,8 +216,8 @@
       <if test="record.userid != null" >
         userid = #{record.userid,jdbcType=VARCHAR},
       </if>
-      <if test="record.taskid != null" >
-        taskid = #{record.taskid,jdbcType=VARCHAR},
+      <if test="record.taskpk != null" >
+        taskpk = #{record.taskpk,jdbcType=INTEGER},
       </if>
       <if test="record.pointstype != null" >
         pointstype = #{record.pointstype,jdbcType=VARCHAR},
@@ -253,7 +253,7 @@
     set pointspk = #{record.pointspk,jdbcType=INTEGER},
       pointsid = #{record.pointsid,jdbcType=VARCHAR},
       userid = #{record.userid,jdbcType=VARCHAR},
-      taskid = #{record.taskid,jdbcType=VARCHAR},
+      taskpk = #{record.taskpk,jdbcType=INTEGER},
       pointstype = #{record.pointstype,jdbcType=VARCHAR},
       pointsupdate = #{record.pointsupdate,jdbcType=INTEGER},
       points = #{record.points,jdbcType=INTEGER},
@@ -275,8 +275,8 @@
       <if test="userid != null" >
         userid = #{userid,jdbcType=VARCHAR},
       </if>
-      <if test="taskid != null" >
-        taskid = #{taskid,jdbcType=VARCHAR},
+      <if test="taskpk != null" >
+        taskpk = #{taskpk,jdbcType=INTEGER},
       </if>
       <if test="pointstype != null" >
         pointstype = #{pointstype,jdbcType=VARCHAR},
@@ -309,7 +309,7 @@
     update t_points_info
     set pointsid = #{pointsid,jdbcType=VARCHAR},
       userid = #{userid,jdbcType=VARCHAR},
-      taskid = #{taskid,jdbcType=VARCHAR},
+      taskpk = #{taskpk,jdbcType=INTEGER},
       pointstype = #{pointstype,jdbcType=VARCHAR},
       pointsupdate = #{pointsupdate,jdbcType=INTEGER},
       points = #{points,jdbcType=INTEGER},

@@ -2,9 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <!DOCTYPE HTML>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,7 +26,8 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/easyui/themes/icon.css" />
 </head>
 <div class="am-cf admin-main">
-      <!-- sidebar start -->
+     <div id="menu" class="admin-sidebar am-offcanvas"></div>
+      <!-- sidebar start 
       <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
         <div class=" admin-offcanvas-bar">
           <ul class="am-list admin-sidebar-list">
@@ -47,8 +46,7 @@
             <li><a href="${pageContext.request.contextPath}/datacount/findDataByDateAndTasktype"><span class="am-icon-bar-chart"></span>数据统计</a></li>
           </ul>
         </div>
-      </div>
-<!-- sidebar end -->
+      </div>-->
       <div id="module-head"></div>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <div class="admin-content">
@@ -102,7 +100,7 @@
 </div>
 <script>
   $(function() {
-	  
+  $("#menu").load("${pageContext.request.contextPath}/backstage/agent/menu.jsp");
 	$("#btn_submit").click(function(){
 		var type=$("input[name='recharge']:checked").val();
 		var updatepoints=$("#updatepoints").val();

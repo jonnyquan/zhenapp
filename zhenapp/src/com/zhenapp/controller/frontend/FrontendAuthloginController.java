@@ -67,10 +67,12 @@ public class FrontendAuthloginController {
 				mv.setViewName("/user/responseuser");
 			}else{
 				mv.addObject("msg","密码不正确");
+				mv.addObject("username",username);
 				mv.setViewName("/frontend/authlogin.jsp");
 			}
 		}else{
 			mv.addObject("msg","用户名不存在");
+			mv.addObject("username",username);
 			mv.setViewName("/frontend/authlogin.jsp");
 		}
 		return mv;

@@ -7,7 +7,7 @@ public class TPointsInfo {
 
     private String userid;
 
-    private String taskid;
+    private Integer taskpk;
 
     private String pointstype;
 
@@ -49,12 +49,12 @@ public class TPointsInfo {
         this.userid = userid == null ? null : userid.trim();
     }
 
-    public String getTaskid() {
-        return taskid;
+    public Integer getTaskpk() {
+        return taskpk;
     }
 
-    public void setTaskid(String taskid) {
-        this.taskid = taskid == null ? null : taskid.trim();
+    public void setTaskpk(Integer taskpk) {
+        this.taskpk = taskpk;
     }
 
     public String getPointstype() {

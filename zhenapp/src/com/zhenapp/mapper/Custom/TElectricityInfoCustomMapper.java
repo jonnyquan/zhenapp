@@ -9,12 +9,12 @@ public interface TElectricityInfoCustomMapper {
 	/*
 	 * 查询前10条电商信息  用于侧边栏展示 按时间倒序排列
 	 */
-	public List<TelectricityCustom> findElectrity_10() throws Exception;
+	public List<TelectricityCustom> findElectrity_10(HashMap<String,Object> pagemap) throws Exception;
 	
 	/*
 	 * 查询全部电商信息  用于电商信息页面展示
 	 */
-	public List<TelectricityCustom> findAllElectrity() throws Exception;
+	public List<TelectricityCustom> findAllElectrity(HashMap<String,Object> pagemap) throws Exception;
 	/*
 	 * 根据主键查询电商详情
 	 */

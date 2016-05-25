@@ -234,6 +234,76 @@ public class TNoteInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andAgentidIsNull() {
+            addCriterion("agentid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidIsNotNull() {
+            addCriterion("agentid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidEqualTo(String value) {
+            addCriterion("agentid =", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidNotEqualTo(String value) {
+            addCriterion("agentid <>", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidGreaterThan(String value) {
+            addCriterion("agentid >", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidGreaterThanOrEqualTo(String value) {
+            addCriterion("agentid >=", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidLessThan(String value) {
+            addCriterion("agentid <", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidLessThanOrEqualTo(String value) {
+            addCriterion("agentid <=", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidLike(String value) {
+            addCriterion("agentid like", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidNotLike(String value) {
+            addCriterion("agentid not like", value, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidIn(List<String> values) {
+            addCriterion("agentid in", values, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidNotIn(List<String> values) {
+            addCriterion("agentid not in", values, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidBetween(String value1, String value2) {
+            addCriterion("agentid between", value1, value2, "agentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgentidNotBetween(String value1, String value2) {
+            addCriterion("agentid not between", value1, value2, "agentid");
+            return (Criteria) this;
+        }
+
         public Criteria andNotetypeIsNull() {
             addCriterion("notetype is null");
             return (Criteria) this;
@@ -371,6 +441,76 @@ public class TNoteInfoExample {
 
         public Criteria andNotenameNotBetween(String value1, String value2) {
             addCriterion("notename not between", value1, value2, "notename");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotestateIsNull() {
+            addCriterion("notestate is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotestateIsNotNull() {
+            addCriterion("notestate is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotestateEqualTo(String value) {
+            addCriterion("notestate =", value, "notestate");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotestateNotEqualTo(String value) {
+            addCriterion("notestate <>", value, "notestate");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotestateGreaterThan(String value) {
+            addCriterion("notestate >", value, "notestate");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotestateGreaterThanOrEqualTo(String value) {
+            addCriterion("notestate >=", value, "notestate");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotestateLessThan(String value) {
+            addCriterion("notestate <", value, "notestate");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotestateLessThanOrEqualTo(String value) {
+            addCriterion("notestate <=", value, "notestate");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotestateLike(String value) {
+            addCriterion("notestate like", value, "notestate");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotestateNotLike(String value) {
+            addCriterion("notestate not like", value, "notestate");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotestateIn(List<String> values) {
+            addCriterion("notestate in", values, "notestate");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotestateNotIn(List<String> values) {
+            addCriterion("notestate not in", values, "notestate");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotestateBetween(String value1, String value2) {
+            addCriterion("notestate between", value1, value2, "notestate");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotestateNotBetween(String value1, String value2) {
+            addCriterion("notestate not between", value1, value2, "notestate");
             return (Criteria) this;
         }
 

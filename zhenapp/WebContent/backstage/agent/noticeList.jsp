@@ -10,11 +10,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>上传淘宝账号</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
+<title>公告管理</title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/amazeui.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/admin.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/lanyunying.css" />
@@ -53,13 +51,27 @@
   </div>
 </header>
     <div class="am-cf admin-main">
-      <!-- sidebar start -->
+      <div id="menu" class="admin-sidebar am-offcanvas"></div>
+      <!-- sidebar start 
       <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
         <div class=" admin-offcanvas-bar">
-           
+          <ul class="am-list admin-sidebar-list">
+            <li class="admin-parent"><a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span
+                class="am-icon-user"></span>用户管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+              <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
+                <li><a href="${pageContext.request.contextPath}/user/findUserByPageandRole" class="am-cf"><span class="am-icon-list"></span>用户列表</a></li>
+                <li><a href="${pageContext.request.contextPath}/points/responseconsumeagent"><span class="am-icon-usd"></span>充值记录</a></li>
+                <li><a href="${pageContext.request.contextPath}/points/responserecordspointsagent"><span class="am-icon-money"></span>资金记录</a></li>
+              </ul></li>
+            <li><a href="${pageContext.request.contextPath}/task/responsetaskmanageagent"><span class="am-icon-pencil-square-o"></span>订单查询</a></li>
+            <li><a href="${pageContext.request.contextPath}/combo/findComboByagent"><span class="am-icon-cubes"></span> 套餐信息</a></li>
+            <li><a href="${pageContext.request.contextPath}/price/findPriceByAgentid"><span class="am-icon-puzzle-piece"></span>系统配置</a></li>
+            <li><a href="${pageContext.request.contextPath}/web/findWebByAgentid"><span class="am-icon-puzzle-piece"></span>设置登录页面</a></li>
+            <li><a href="${pageContext.request.contextPath}/user/findPointsByUsernick"><span class="am-icon-heart"></span>剩余积分</a></li>
+            <li><a href="${pageContext.request.contextPath}/datacount/findDataByDateAndTasktype"><span class="am-icon-bar-chart"></span>数据统计</a></li>
+          </ul>
         </div>
-      </div>
-<!-- sidebar end -->
+      </div>-->
       <div id="module-head"></div>
       
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -68,32 +80,15 @@
 
 	<div class="am-cf am-padding">
 		<div class="am-fl am-cf">
-			<strong class="am-text-primary am-text-lg">淘宝账户信息 </strong>
+			<strong class="am-text-primary am-text-lg">公告管理 </strong>
 		</div>
-	</div>
-	<div class="am-u-sm-12 am-u-md-3" >
-		<input type="text" id="pid" class="am-form-field" value="${tbaccountphoneid}" placeholder="手机号">
 	</div>
 
-	<div class="am-u-sm-12 am-u-md-3">
-		<div class="am-form-group am-form-select">
-			<select  name="problem" id="problem" class="am-form-field">
-				<option <c:if test="${tbaccountstate == ''}" >selected</c:if> value="">所有</option>
-				<option <c:if test="${tbaccountstate == '60'}" >selected</c:if> value="60" >未测试</option>
-				<option <c:if test="${tbaccountstate == '61'}" >selected</c:if> value="61" >可用</option>
-				<option <c:if test="${tbaccountstate == '62'}" >selected</c:if> value="62" >不可用</option>
-				<option <c:if test="${tbaccountstate == '63'}" >selected</c:if> value="63" >购物车满</option>
-				<option <c:if test="${tbaccountstate == '64'}" >selected</c:if> value="64" >未被分配，剩余的</option>
-			</select>
+	<div class="am-g" id="module-head" style="margin-bottom: 10px;">
+		<div class="am-u-sm-12 am-u-md-6">
+		<a class="am-btn am-btn-secondary" href="${pageContext.request.contextPath}/note/responseNoteadd">添加</a>
 		</div>
 	</div>
-	<div class="am-u-sm-12 am-u-md-2">
-		<button class="am-btn am-btn-default" id="search" type="button">搜索</button>
-	</div>
-  <div class="am-u-sm-12 am-u-md-2">
-		<a class="am-btn am-btn-default" id="deleteAcc" >删除</a>
-	</div>
-  
 	<div class="am-g">
 		<div class="am-u-sm-12">
 			<form class="am-form">
@@ -101,44 +96,45 @@
 					style="font-size: 1.4rem;">
 					<thead>
 						<tr class="am-success">
-							<th>账户序号</th>
-							<th>账号名</th>
-							<th>账号密码</th>
-							<th>使用次数</th>
-							<th>手机号</th>
-							<th>账号状态</th>
+							<th>ID</th>
+							<th>类型</th>
+							<th>标题</th>
+							<th>状态</th>
+							<th>创建时间</th>
 							<th>操作</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:if test="${tTbaccountInfoCustomlist == null }">
-							<tr>
-								<td colspan="7">
-									暂无详细数据
+					<c:if test="${tNoteInfoCustomlist == null }">
+						<tr>
+							<td colspan="5">
+								暂无详细信息
+							</td>
+						</tr>
+					</c:if>
+					<c:if test="${tNoteInfoCustomlist != null }">
+						<c:forEach items="${tNoteInfoCustomlist}" var="list">
+							<tr data-id="${list.notepk }">
+								<td>${list.notepk}</td>
+								<td>${list.notetype}</td>
+								<td>${list.notename}</td>
+								<td>${list.notestatename}</td>
+								<td>${list.createtime}</td>
+								<td>
+									<div class="am-btn-toolbar">
+										<div class="am-btn-group am-btn-group-xs">
+											<a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="${pageContext.request.contextPath}/note/responsenoticeEdit/${list.noteid}/${list.notetype}"> 
+												<span class="am-icon-pencil-square-o"></span> 编辑
+											</a>
+											<a class="am-btn am-btn-default am-btn-xs am-text-danger" href="${pageContext.request.contextPath}/note/DeleteNoteAndinfo/${list.noteid}/${list.notetype}"> 
+												<span class="am-icon-trash-o"></span> 删除
+											</a>											
+										</div>
+									</div>
 								</td>
 							</tr>
-						</c:if>
-						<c:if test="${tTbaccountInfoCustomlist != null }">
-							<c:forEach items="${tTbaccountInfoCustomlist}" var="list">
-								<tr data-id="${list.tbaccountpk }">
-									<td>${list.tbaccountpk }</td>
-									<td>${list.tbaccountname }</td>
-									<td>${list.tbaccountpwd }</td>
-									<td>${list.tbaccounttime }</td>
-									<td>${list.tbaccountphoneid }</td>
-									<td>${list.tbaccountstate }</td>
-									<td>
-										<div class="am-btn-toolbar">
-											<div class="am-btn-group am-btn-group-xs">
-												<a class="am-btn am-btn-default am-btn-xs am-text-danger" href="${pageContext.request.contextPath}/tbaoccount/deletetaobaoidBypk?tbaccountid=${list.tbaccountid}"> 
-													<span class="am-icon-trash-o"></span> 删除
-												</a>
-											</div>
-										</div>
-									</td>
-								</tr>
-							</c:forEach>
-						</c:if>
+						</c:forEach>
+					</c:if>					
 					</tbody>
 				</table>
 				<div>
@@ -156,72 +152,41 @@
 </div>
 <script>
 $(function(){
-	$(".admin-offcanvas-bar").load("${pageContext.request.contextPath}/backstage/admin/adminmenu.jsp");
-	
-	
-	$("#search").click(function(){
-		var pid=$("#pid").val();
-		var problem=$("#problem").val();
-		location.href="${pageContext.request.contextPath}/tbaoccount/responsetaobaoid?tbaccountphoneid="+pid+"&tbaccountstate="+problem;
-	});
-	
-	$("#deleteAcc").click(function(){
-		var problem=$("#problem").val();
-		var pid=$("#pid").val();
-		$.ajax({
-			type : "post",
-			url : "${pageContext.request.contextPath}/tbaoccount/deleteAccount",
-			data : {
-				problem : problem,
-				pid : pid,
-			},
-			success : function(data) {
-				if (data && data.ec == 0) {
-					Message.info('删除成功：', false);
-					setTimeout( function() { window.location.href = "${pageContext.request.contextPath}/tbaoccount/responsetaobaoid"; }, 2000);
-				}
-			},
-			error : function() {
-				Message.error(data.em, true);
-			}
-		});
-	
-	});
+	$("#menu").load("${pageContext.request.contextPath}/backstage/agent/menu.jsp");
 });
 
-
 var index = Number("${pagenum}");
-	if (index.length < 1) {
-		index = 1;
+if (index.length < 1) {
+	index = 1;
+}
+function loadpage() {
+	var myPageCount = parseInt($("#PageCount").val());
+	var myPageSize = parseInt($("#PageSize").val());
+	var countindex = myPageCount % myPageSize > 0 ? (myPageCount / myPageSize) + 1
+			: (myPageCount / myPageSize);
+	if(countindex==0){
+		countindex=1;
 	}
-	function loadpage() {
-		var myPageCount = parseInt($("#PageCount").val());
-		var myPageSize = parseInt($("#PageSize").val());
-		var countindex = myPageCount % myPageSize > 0 ? (myPageCount / myPageSize) + 1
-				: (myPageCount / myPageSize);
-		if(countindex==0){
-			countindex=1;
-		}
-		$("#countindex").val(countindex);
-		$.jqPaginator('#pagination',
-		{totalPages : parseInt($("#countindex").val()),
-			visiblePages : parseInt($("#visiblePages").val()),
-			currentPage : index,
-			first : '<li class="first"><a href="${pageContext.request.contextPath}/tbaoccount/responsetaobaoid?page=1">首页</a></li>',
-			prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
-			next : '<li class="next"><a href="javascript:;">下一页</a></li>',
-			last : '<li class="last"><a href="javascript:;">末页</a></li>',
-			page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-			onPageChange : function(num, type) {
-				if (type == "change") {
-					//exeData(num, type);
-					window.location.href = "${pageContext.request.contextPath}/tbaoccount/responsetaobaoid?page=" + num;
-				}
+	$("#countindex").val(countindex);
+	$.jqPaginator('#pagination',
+	{
+		totalPages : parseInt($("#countindex").val()),
+		visiblePages : parseInt($("#visiblePages").val()),
+		currentPage : index,
+		first : '<li class="first"><a href="${pageContext.request.contextPath}/note/findnoticeListByAgent?page=1">首页</a></li>',
+		prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
+		next : '<li class="next"><a href="javascript:;">下一页</a></li>',
+		last : '<li class="last"><a href="javascript:;">末页</a></li>',
+		page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+		onPageChange : function(num, type) {
+			if (type == "change") {
+				//exeData(num, type);
+				window.location.href = "${pageContext.request.contextPath}/note/findnoticeListByAgent?page=" + num;
 			}
-		});
-	}
+		}
+	});
+}
 </script>
-    </div>
   <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
     data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
   <footer>

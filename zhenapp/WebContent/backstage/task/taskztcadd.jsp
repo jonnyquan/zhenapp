@@ -2,11 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -14,7 +11,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="真流量,无线流量,无限流量代运营,无线刷流量 " />
 <meta name="description" content="真流量,无线流量,无限流量代运营,无线刷流量 " />
-
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css"
@@ -23,7 +19,6 @@
 	href="${pageContext.request.contextPath}/easyui/themes/bootstrap/easyui.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/easyui/themes/icon.css" />
-	
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
@@ -295,61 +290,14 @@
 	<script type="text/javascript">
     $('.scl6').addClass('hover');
 </script>
-
 	<div class="uc_warp">
 		<div class="userbody clearfix">
 			<div class="leftmenu row_l">
-				<dl>
-					<dt>
-						<a href="${pageContext.request.contextPath}/user/responseuser">个人中心</a>
-					</dt>
-					<dd>
-						<p>
-							<a
-								href="${pageContext.request.contextPath}/user/responsepersonal"
-								id="info"><i class="fa fa-angle-right"></i>基本信息</a>
-						</p>
-						<p>
-							<!-- <a href="/user/broker" id="account"><i class="fa fa-angle-right"></i>我的推广</a> -->
-							<a href="javascript:void(0);" id="account"><i
-								class="fa fa-angle-right"></i>我的推广</a>
-						</p>
-					</dd>
-				</dl>
-				<dl>
-					<dt>
-						<a href="javascript:void(0);">流量任务管理</a>
-					</dt>
-					<dd>
-						<p>
-							<a href="${pageContext.request.contextPath}/task/responsetaskadd" id="addtask"><i class="fa fa-angle-right"></i>发布任务</a>
-						</p>
-						<p>
-							<a href="${pageContext.request.contextPath}/task/responsetaskztcadd" id="addztctask"><i class="fa fa-angle-right"></i>发布直通车任务</a>
-						</p>
-						<p>
-							<a href="${pageContext.request.contextPath}/task/responsetaskmanage" id="managetask"><i class="fa fa-angle-right"></i>任务管理</a>
-						</p>
-					</dd>
-				</dl>
-				<dl>
-					<dt>
-						<a href="javascript:void(0);">财务中心</a>
-					</dt>
-					<dd class="acc">
-						<p>
-							<a href="${pageContext.request.contextPath}/points/responsebuypoints" id="purchase"><i class="fa fa-angle-right"></i>购买积分</a>
-						</p>
-						<p>
-							<a href="${pageContext.request.contextPath}/points/responserecordspoints" id="point"><i class="fa fa-angle-right"></i>积分明细</a>
-						</p>
-					</dd>
-				</dl>
+				
 			</div>
 			<script type="text/javascript">
         $('#addztctask').addClass('hover');
     </script>
-
 			<div class="rightbox row_r">
 				<div class="u_outbox">
 					<div class="tabtitle clearfix">
@@ -802,6 +750,9 @@
 			</div>
 			<script type="text/javascript">
         $(function () {
+        	
+        	$(".leftmenu").load("${pageContext.request.contextPath}/backstage/user/menu.jsp");
+        	
             $(".koo_fromBox").Validform({
                 tiptype: 3,
             });

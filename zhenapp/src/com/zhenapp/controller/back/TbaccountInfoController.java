@@ -73,6 +73,8 @@ public class TbaccountInfoController {
 		List<TTbaccountInfoCustom> tTbaccountInfoCustomlist = tbaccountInfoService.findTbaccountBypage(pagemap);
 		int total = tbaccountInfoService.findTotalTbaccountBypage(pagemap);
 		mv.addObject("tTbaccountInfoCustomlist",tTbaccountInfoCustomlist);
+		mv.addObject("tbaccountphoneid",tbaccountphoneid);
+		mv.addObject("tbaccountstate",tbaccountstate);
 		mv.addObject("total",total);
 		mv.addObject("pagenum",page);
 		mv.setViewName("/backstage/admin/findtaobaoid.jsp");
@@ -134,13 +136,16 @@ public class TbaccountInfoController {
 			reader.close();
 			String[] strarr = str.split("\n");
 			jsonem = strarr;
+			tbaccountInfoTempService.deleteAll();
 			for (int i = 0; i < strarr.length; i++) {
 				String[] tbaccount = strarr[i].split("\\|");
 				TTbaccountInfoTempCustom tTbaccountInfoTempCustom = new TTbaccountInfoTempCustom();
 				tTbaccountInfoTempCustom.setTbaccountid(UUID.randomUUID().toString().replace("-", ""));
 				tTbaccountInfoTempCustom.setTbaccountname(tbaccount[0]);
 				tTbaccountInfoTempCustom.setTbaccountpwd(tbaccount[1]);
-				tTbaccountInfoTempCustom.setTbaccountphoneid(tbaccount[2].trim());
+				if(tbaccount.length>2){
+					tTbaccountInfoTempCustom.setTbaccountphoneid(tbaccount[2].trim());
+				}
 				tTbaccountInfoTempCustom.setCreatetime(time);
 				tTbaccountInfoTempCustom.setCreateuser(tUserInfoCustom.getUserid());
 				tTbaccountInfoTempCustom.setUpdatetime(time);
@@ -171,6 +176,7 @@ public class TbaccountInfoController {
 			if (tTbaccountInfoTempCustom.getTbaccountphoneid()!=null) {
 				tTbaccountInfoCustom.setTbaccountphoneid(tTbaccountInfoTempCustom.getTbaccountphoneid());
 			}
+			tTbaccountInfoCustom.setTbaccountstate("60");
 			tTbaccountInfoCustom.setCreatetime(sdf.format(new Date()));
 			tTbaccountInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
 			tTbaccountInfoCustom.setUpdatetime(sdf.format(new Date()));
@@ -185,7 +191,7 @@ public class TbaccountInfoController {
 	 * 按手机号分配
 	 */
 	@RequestMapping(value = "/saveAccountByphone", method = { RequestMethod.POST,RequestMethod.GET })
-	public @ResponseBody ModelMap saveAccountByphone(HttpSession session, String phonid) throws Exception {
+	public @ResponseBody ModelMap saveAccountByphone(HttpSession session, String phoneid) throws Exception {
 		ModelMap map = new ModelMap();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		List<TTbaccountInfoTempCustom> tTbaccountInfoTempCustomlist = tbaccountInfoTempService.findAllTTbaccountInfoTemp();
@@ -195,7 +201,8 @@ public class TbaccountInfoController {
 			tTbaccountInfoCustom.setTbaccountid(UUID.randomUUID().toString().replace("-", ""));
 			tTbaccountInfoCustom.setTbaccountname(tTbaccountInfoTempCustom.getTbaccountname());
 			tTbaccountInfoCustom.setTbaccountpwd(tTbaccountInfoTempCustom.getTbaccountpwd());
-			tTbaccountInfoCustom.setTbaccountphoneid(phonid);
+			tTbaccountInfoCustom.setTbaccountphoneid(phoneid);
+			tTbaccountInfoCustom.setTbaccountstate("60");
 			tTbaccountInfoCustom.setCreatetime(sdf.format(new Date()));
 			tTbaccountInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
 			tTbaccountInfoCustom.setUpdatetime(sdf.format(new Date()));
@@ -244,15 +251,16 @@ public class TbaccountInfoController {
 	public @ResponseBody ModelMap phoneChange(HttpSession session,String phoneTag) throws Exception{
 		ModelMap map = new ModelMap();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
-		List<TTbaccountInfoCustom> tTbaccountInfoCustomlist = tbaccountInfoService.findTbaccountByPhoneid(phoneTag);
-		if(tTbaccountInfoCustomlist!=null){
-			TTbaccountInfoCustom tTbaccountInfoCustom = tTbaccountInfoCustomlist.get(0);
-			tTbaccountInfoCustom.setTbaccountstate("nochange");
-			tTbaccountInfoCustom.setUpdatetime(sdf.format(new Date()));
-			tTbaccountInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
-			tbaccountInfoService.updateTbaccountByid(tTbaccountInfoCustom);
-		}
-		logger.info("一键换号成功!");
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("tbaccounttag", phoneTag);
+		hashmap.put("updatetime",sdf.format(new Date()));
+		hashmap.put("updateuser",tUserInfoCustom.getUserid());
+		int i= tbaccountInfoService.updateTbaccountTag(hashmap);
+		
+		//将状为nochange的账号信息状态修改为未测试 60
+		tbaccountInfoService.updateTbaccountstate();
+		
+		logger.info("修改淘宝账号手机标记信息"+i+"条成功!");
 		map.put("ec", "0");
 		return map;
 	}
@@ -287,6 +295,20 @@ public class TbaccountInfoController {
 		
 		return map;
 	}*/
+	/*
+	 * 按条件删除淘宝账号
+	 */
+	@RequestMapping(value="/deleteAccount")
+	public @ResponseBody ModelMap deleteAccount(String problem,String pid) throws Exception{
+		ModelMap map = new ModelMap();
+		HashMap<String, Object> pagemap = new HashMap<String, Object>();
+		pagemap.put("tbaccountphoneid", pid);
+		pagemap.put("tbaccountstate", problem);
+		tbaccountInfoService.deleteAccount(pagemap);
+		map.put("ec", "0");
+		return map;
+	}
+	
 	@RequestMapping(value="/deleteTbaccountByid")
 	public @ResponseBody ModelMap deleteTbaccountByid(String tbaccountids) throws Exception{
 		ModelMap map=new ModelMap();

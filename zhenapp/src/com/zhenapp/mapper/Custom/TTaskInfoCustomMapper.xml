@@ -2,9 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhenapp.mapper.Custom.TTaskInfoCustomMapper" >
   
-  
+  <select id="findTaskInfoBypks" parameterType="String">
+  	select * from t_task_info where taskpk in (${pks})
+  </select>
   <select id="findTaskBypage" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap" >
-    SELECT a.taskpk,a.taskid, a.tasktype, 
+    SELECT CONCAT(DATE_FORMAT(a.taskstartdate,'%m.%d'),'-',DATE_FORMAT(a.taskenddate,'%m.%d')) AS taskdaterange,a.taskpk,a.taskid, a.tasktype, 
      a.taskkeynum, a.tasktitle, a.taskwirelesstitle, 
      a.taskstartdate,a.taskenddate,a.taskdate, 
      a.taskreleasekeyword,a.taskkeyword,a.taskhourcounts, 
@@ -43,8 +45,8 @@
     	<if test="tasktype != null and tasktype != ''">
     		and a.tasktype = #{tasktype}
     	</if>
-    	<if test="state != null and state != ''">
-    		and a.taskstate = #{state}
+    	<if test="taskstate != null and taskstate != ''">
+    		and a.taskstate = #{taskstate}
     	</if>
     	<if test="taskkeynum != null and taskkeynum != ''">
     		and a.taskkeynum = #{taskkeynum}
@@ -53,18 +55,18 @@
     		and a.taskid = #{taskid}
     	</if>
     </where>
-     ORDER BY a.taskpk DESC LIMIT #{page},#{rows}
+     ORDER BY a.taskpk+0 DESC LIMIT #{page},#{rows}
   </select>
   
   <select id="findTaskBypageAndrole" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap" >
-    SELECT f.usernick,a.taskpk,a.taskid,a.tasktype,a.taskkeynum,a.tasktitle,a.taskwirelesstitle,a.taskstartdate,a.taskenddate,a.taskdate,a.taskreleasekeyword,a.taskkeyword,a.taskhourcounts,
+    SELECT CONCAT(DATE_FORMAT(a.taskstartdate,'%m.%d'),'-',DATE_FORMAT(a.taskenddate,'%m.%d')) AS taskdaterange,f.usernick,a.taskpk,a.taskid,a.tasktype,a.taskkeynum,a.tasktitle,a.taskwirelesstitle,a.taskstartdate,a.taskenddate,a.taskdate,a.taskreleasekeyword,a.taskkeyword,a.taskhourcounts,
      a.taskminprice,a.taskmaxprice,a.tasksearchType,a.taskimgztc,a.taskimgpt,a.flowcount,a.Collectioncount,a.Shoppingcount,a.tasktmallapppct,a.taskgprspct,a.taskPlus,a.taskduration, 
      a.subtractpoints,a.taskstate,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime,a.updatetime,a.updateuser,b.dicinfoname,IFNULL(c.finishflowcount,0) AS finishflowcount,IFNULL(c.finishcollectioncount,0) AS finishcollectioncount,IFNULL(c.finishshoppingcount,0) AS finishshoppingcount,IFNULL(d.errorcount,0) AS errorcount,e.dicinfoname AS tasktypename FROM t_task_info a
 	LEFT JOIN (SELECT dicinfoid,dicinfoname FROM t_data_dic_info WHERE dictypecode='runstate') b ON a.taskstate=b.dicinfoid
 	LEFT JOIN t_data_dic_info e ON a.tasktype=e.dicinfoid
 	LEFT JOIN (SELECT taskid,COUNT(isflow) AS finishflowcount,COUNT(iscreativetitle) AS finishcollectioncount,COUNT(isshopcollect) AS finishshoppingcount FROM t_task_detailinfo WHERE taskstate='21' GROUP BY taskid) c ON a.taskid=c.taskid
 	LEFT JOIN (SELECT taskid,COUNT(isflow) AS errorcount FROM t_task_detailinfo WHERE taskstate='22' GROUP BY taskid) d ON a.taskid=d.taskid
-	INNER JOIN (SELECT a.* FROM t_user_info a WHERE a.agentid IN (SELECT agentid FROM t_agent_info WHERE agentuserid='1000024')) f ON a.createuser=f.userid<where>
+	INNER JOIN (SELECT a.* FROM t_user_info a WHERE a.agentid IN (SELECT agentid FROM t_agent_info WHERE agentuserid=#{userid})) f ON a.createuser=f.userid<where>
     	<if test="taskid !=null and taskid != ''">
     		and a.taskid like '%${taskid}%'
     	</if>
@@ -90,7 +92,7 @@
     		and a.createuser = #{createuser}
     	</if>
     </where>
-     ORDER BY a.taskpk DESC LIMIT #{page},#{rows}
+     ORDER BY a.taskpk+0 DESC LIMIT #{page},#{rows}
   </select>
   
     <select id="findTotalTaskBypageAndrole" resultType="int" parameterType="java.util.HashMap" >
@@ -177,7 +179,7 @@
     		and createtime <![CDATA[<=]]> #{dateto}
     	</if>
     </where>
-    order by taskpk desc
+    order by taskpk+0 desc
   </select>
   
   <select id="findTaskallocation" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap" >
@@ -190,7 +192,7 @@
     		AND taskdate = #{taskdate} 
     	</if>
     </where>
-    order by taskpk desc
+    order by taskpk+0 desc
   </select>
   
   <select id="findTaskInfoByTaskid" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="String" >
@@ -208,6 +210,9 @@
   
   
   <insert id="insertTaskInfo" parameterType="com.zhenapp.po.Custom.TTaskInfoCustom" >
+  	<selectKey keyProperty="taskpk" order="AFTER" resultType="int">
+  		select LAST_INSERT_ID()
+  	</selectKey>
       insert into t_task_info (taskid, tasktype, 
       taskkeynum, tasktitle, taskwirelesstitle, 
       taskstartdate, taskenddate, taskdate, 

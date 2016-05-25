@@ -11,6 +11,8 @@ public class TTbaccountInfo {
 
     private Integer tbaccounttime;
 
+    private String tbaccounttag;
+
     private String tbaccountphoneid;
 
     private String tbaccountstate;
@@ -61,6 +63,14 @@ public class TTbaccountInfo {
 
     public void setTbaccounttime(Integer tbaccounttime) {
         this.tbaccounttime = tbaccounttime;
+    }
+
+    public String getTbaccounttag() {
+        return tbaccounttag;
+    }
+
+    public void setTbaccounttag(String tbaccounttag) {
+        this.tbaccounttag = tbaccounttag == null ? null : tbaccounttag.trim();
     }
 
     public String getTbaccountphoneid() {

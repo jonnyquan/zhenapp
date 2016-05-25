@@ -6,6 +6,8 @@ import java.util.List;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 
 public interface TaskInfoService {
+	//查询多个主键的订单信息
+	public List<TTaskInfoCustom> findTaskInfoBypks(String pks)throws Exception;
 	/*
 	 * 保存任务信息(订单)
 	 */
@@ -55,4 +57,5 @@ public interface TaskInfoService {
 	 * 根据状态查询任务信息
 	 */
 	public List<TTaskInfoCustom> findTaskInfoByTaskstate(HashMap<String,Object> hashmap) throws Exception;
+	
 }

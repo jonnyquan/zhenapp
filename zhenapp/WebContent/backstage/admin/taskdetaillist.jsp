@@ -2,9 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <!DOCTYPE HTML>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -56,36 +54,7 @@
       <!-- sidebar start -->
       <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
         <div class=" admin-offcanvas-bar">
-           <ul class="am-list admin-sidebar-list">
-            <!--  <li><a href="/admin"><span class="am-icon-home"></span> 首页</a></li>-->
-            <li class="admin-parent"><a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span
-                class="am-icon-user"></span>用户管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-              <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
-                <li><a href="${pageContext.request.contextPath}/user/findUserByPageAndAdmin" class="am-cf"><span class="am-icon-list"></span>用户列表</a></li>
-                <li><a href="${pageContext.request.contextPath}/points/responseconsumeadmin"><span class="am-icon-usd"></span>充值记录</a></li>
-                <li><a href="${pageContext.request.contextPath}/points/responserecordspointsadmin"><span class="am-icon-money"></span>资金记录</a></li>
-              </ul></li>
-            <li><a href="${pageContext.request.contextPath}/task/responsetaskmanageadmin"><span class="am-icon-pencil-square-o"></span>订单查询</a></li>
-            <!--  <li><a href="${pageContext.request.contextPath}/combo/findComboByadmin"><span class="am-icon-cubes"></span> 套餐信息</a></li>-->
-             <!--  <li><a href="${pageContext.request.contextPath}/task/findproblemtaskadmin"><span class="am-icon-mobile"></span> 有问题任务查询</a></li>-->
-             <li><a href="${pageContext.request.contextPath}/task/findtaskdetaillist"><span class="am-icon-mobile"></span> 任务详情</a></li> 
-             <li><a href="${pageContext.request.contextPath}/task/findtasklocklist"><span class="am-icon-mobile"></span> 卡机任务查询</a></li> 
- 			<!--   <li><a href="/admin/phoneTask/getMessage"><span class="am-icon-mobile"></span> 淘宝ID查询</a></li>
-              <li><a href="/admin/phoneTask/problem"><span class="am-icon-mobile"></span> 手机状态信息</a></li>
-              <li><a href="/admin/findProblemAssignKeyWords"><span class="am-icon-search"></span>问题宝贝查询</a></li>
-              <li><a href="/admin/findProblemKeyWords"><span class="am-icon-search"></span>问题宝贝查询(简单)</a></li> -->
-              <li><a href="${pageContext.request.contextPath}/note/findnoticeList"><span class="am-icon-bullhorn"></span> 公告管理</a></li>
-              <li><a href="${pageContext.request.contextPath}/sysconf/responsesyssetting"><span class="am-icon-cog"></span>系统设置</a></li>
-              <li><a href="${pageContext.request.contextPath}/agent/responseagentmanage"><span class="am-icon-sitemap"></span>代理管理</a></li>
-              <li><a href="${pageContext.request.contextPath}/datacount/responsedatasumadmin"><span class="am-icon-bar-chart"></span>数据统计</a></li>
-               <li class="admin-parent"><a class="am-cf" data-am-collapse="{target: '#collapse-navo'}"><span
-                class="am-icon-sign-out"></span>其他 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-              <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-navo">
-                <li><a href="${pageContext.request.contextPath}/script/responsescriptmanage" class="am-cf"><span class="am-icon-arrow-circle-up"></span>上传脚本</a></li>
-                <li><a href="${pageContext.request.contextPath}/tbaoccount/responsetbaoccount"><span class="am-icon-upload"></span>上传淘宝账户</a></li>
-                <li><a href="${pageContext.request.contextPath}/tbaoccount/responsetaobaoid"><span class="am-icon-eye"></span>查看淘宝账户信息</a></li>
-              </ul></li>
-          </ul>
+           
         </div>
       </div>
  <!-- sidebar end -->
@@ -112,6 +81,9 @@
 				</div>
 				<div class="am-form-group">
 					<input type="text" id="fid" class="am-form-field am-input-sm" placeholder="订单id">
+				</div>
+				<div class="am-form-group">
+					<input type="text" id="detaid" class="am-form-field am-input-sm" placeholder="流量id">
 				</div>
 				<div class="am-form-group">
 					<input type="text" id="hours" class="am-form-field am-input-sm" value="" placeholder="时间">
@@ -146,6 +118,7 @@
 						<tr class="am-success">
 							<th>手机号</th>
 							<th>订单ID</th>
+							<th>流量ID</th>
 							<th>宝贝ID</th>
 							<th>类型</th>
 							<th>是否加购物车</th>
@@ -163,6 +136,7 @@
 							<c:forEach items="${tTaskDetailInfoCustomlist}" var="list">
 								<tr onclick="onmouse('${list.taskdetailpk}');">
 									<td>${list.phoneid}</td>
+									<td>${list.taskpk}</td>
 									<td>${list.taskdetailid}</td>
 									<td>${list.taskkeynum}</td>
 									<td>${list.tasktypename}</td>
@@ -201,17 +175,24 @@
 </div>
 <script>
 	$(function() {
+		$(".admin-offcanvas-bar").load("${pageContext.request.contextPath}/backstage/admin/adminmenu.jsp");
+		
 		$("#search").click(
-		function() {
-			var pid = $("#pid").val();
-			var nid = $("#nid").val();
-			var fid = $("#fid").val();
-			var hours = $("#hours").val();
-			var tasktype= $("#tasktype").val();
-			location.href = "${pageContext.request.contextPath}/task/findtaskdetaillist?phoneid=" + pid
-					+ "&&taskkeynum=" + nid+"&&taskid="+fid+"&&taskhour="+hours+"&&tasktype="+tasktype;
-		});
+			function() {
+				btn_search(1);
+			});
 	});
+	function btn_search(num){
+		var pid = $("#pid").val();
+		var nid = $("#nid").val();
+		var fid = $("#fid").val();
+		var hours = $("#hours").val();
+		var tasktype= $("#tasktype").val();
+		var detaid= $("#detaid").val();
+		location.href = "${pageContext.request.contextPath}/task/findtaskdetaillist?page="+num+"&&phoneid=" + pid
+				+ "&&taskkeynum=" + nid+"&&taskpk="+fid+"&&taskhour="+hours+"&&tasktype="+tasktype +"&&detaid="+detaid;
+	}
+	
 	
 	function onmouse(taskdetailpk){
 		$.ajax({
@@ -242,15 +223,14 @@
 			{totalPages : parseInt($("#countindex").val()),
 				visiblePages : parseInt($("#visiblePages").val()),
 				currentPage : index,
-				first : '<li class="first"><a href="${pageContext.request.contextPath}/task/findtaskdetaillist?page=1">首页</a></li>',
+				first : '<li class="first"><a onclick="btn_search(1);">首页</a></li>',
 				prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
 				next : '<li class="next"><a href="javascript:;">下一页</a></li>',
 				last : '<li class="last"><a href="javascript:;">末页</a></li>',
 				page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
 				onPageChange : function(num, type) {
 					if (type == "change") {
-						//exeData(num, type);
-						window.location.href = "${pageContext.request.contextPath}/task/findtaskdetaillist?page=" + num;
+						btn_search(num);
 					}
 				}
 			});

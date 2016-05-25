@@ -13,6 +13,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -46,6 +47,8 @@ public class phoneapi {
 	@Autowired
 	private ScriptInfoService scriptInfoService;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+	
+	private static Logger logger = Logger.getLogger(phoneapi.class);
 	/*
 	 * 手机端获取任务
 	 * http://120.24.44.130/api/phone/request/task?pid=1
@@ -131,6 +134,15 @@ public class phoneapi {
 			hashmap.put("trolley", trolley);
 			hashmap.put("updatetime", sdf.format(new Date()));
 			hashmap.put("updateuser", "api手机端反馈");
+			if(visit.equals("yes")){
+				hashmap.put("isflow", "1");
+			}
+			if(collect.equals("yes")){
+				hashmap.put("iscreativetitle", "1");
+			}
+			if(trolley.equals("yes")){
+				hashmap.put("isshopcollect", "1");
+			}
 			int i = taskDetailInfoService.updateTaskDetailByPidAndState(hashmap);
 			if(i > 0){
 				map.put("反馈情况", "已更新!");
@@ -151,14 +163,26 @@ public class phoneapi {
 	@RequestMapping(value="/api/phone/requestAccount/task")
 	public @ResponseBody String requestAccounttask(String pid)throws Exception{
 		StringBuffer sb=new StringBuffer();
+		//查询指定手机编号下的淘宝账号
 		List<TTbaccountInfoCustom> tTbaccountInfoCustomlist = tbaccountInfoService.findTbaccountByPhoneid(pid);
-		if(tTbaccountInfoCustomlist!=null ){
+		if(tTbaccountInfoCustomlist!=null && tTbaccountInfoCustomlist.size()>0){
 			TTbaccountInfoCustom tTbaccountInfoCustom = tTbaccountInfoCustomlist.get(0);
 			//淘宝帐号|淘宝密码 |帐号序号|附加标记
 			sb.append(tTbaccountInfoCustom.getTbaccountname()).append("|")
 				.append(tTbaccountInfoCustom.getTbaccountpwd()).append("|")
-				.append(tTbaccountInfoCustom.getTbaccountpk()).append("|")
-				.append("-1");
+				.append(tTbaccountInfoCustom.getTbaccountpk());
+		}else{
+			//当手机小号库没有符合要求的账号时，到大号库获取一个账号并修改手机编号属性
+			List<TTbaccountInfoCustom> tTbaccountInfoCustomlistnull = tbaccountInfoService.findTbaccountByphoneidisnull();
+			if(tTbaccountInfoCustomlistnull != null && tTbaccountInfoCustomlistnull.size()>0){
+				TTbaccountInfoCustom tTbaccountInfoCustom = tTbaccountInfoCustomlistnull.get(0);
+				//淘宝帐号|淘宝密码 |帐号序号|附加标记
+				sb.append(tTbaccountInfoCustom.getTbaccountname()).append("|")
+					.append(tTbaccountInfoCustom.getTbaccountpwd()).append("|")
+					.append(tTbaccountInfoCustom.getTbaccountpk());
+			}else{
+				sb.append("未获取到淘宝账号信息");
+			}
 		}
 		return sb.toString();
 	}
@@ -187,7 +211,39 @@ public class phoneapi {
 		}
 		return map;
 	}
-	
+	/*
+	 * 设置一键换号
+	 */
+	@RequestMapping(value="/api/phone/requestAccountByInternalTime/task")
+	public @ResponseBody String phoneChange(String pid) throws Exception{
+		StringBuffer sb=new StringBuffer();
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("tbaccountstate", "nochange");
+		//查询是否存在状态为nochange的淘宝账号
+		List<TTbaccountInfoCustom> tTbaccountInfoCustomlisttemp = tbaccountInfoService.findAllTbaccountBypage(hashmap);
+		if(tTbaccountInfoCustomlisttemp!=null && tTbaccountInfoCustomlisttemp.size()>0){
+			return "nochange";
+		}
+		hashmap.clear();
+		hashmap.put("tbaccountphoneid", pid);
+		List<TTbaccountInfoCustom> tTbaccountInfoCustomlist = tbaccountInfoService.findTbaccountByPhoneidandtag(hashmap);
+		if(tTbaccountInfoCustomlist!=null && tTbaccountInfoCustomlist.size()>0){
+			TTbaccountInfoCustom tTbaccountInfoCustom = tTbaccountInfoCustomlist.get(0);
+			tTbaccountInfoCustom.setTbaccountstate("nochange");
+			tTbaccountInfoCustom.setUpdatetime(sdf.format(new Date()));
+			tTbaccountInfoCustom.setUpdateuser("sys");
+			tbaccountInfoService.updateTbaccountByid(tTbaccountInfoCustom);
+			sb.append(tTbaccountInfoCustom.getTbaccountname()).append("|")
+			.append(tTbaccountInfoCustom.getTbaccountpwd()).append("|")
+			.append(tTbaccountInfoCustom.getTbaccountpk()).append("|")
+			.append(tTbaccountInfoCustom.getTbaccounttag());
+			logger.info("一键换号成功!");
+			return sb.toString();
+		}else{
+			return "nochange";
+		}
+		
+	}
 	
 	/*
 	 * 手机端下载脚本文件
@@ -198,6 +254,9 @@ public class phoneapi {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("multipart/form-data");
 		try {
+			byte bb[];
+	        bb = name.getBytes("ISO-8859-1"); //以"ISO-8859-1"方式解析name字符串
+	        name= new String(bb, "UTF-8"); //再用"utf-8"格式表示name
 			TScriptInfoCustom tScriptInfoCustom = scriptInfoService.findScriptByname(name);
 			request.setCharacterEncoding("UTF-8");  
 	        BufferedInputStream bis = null;  

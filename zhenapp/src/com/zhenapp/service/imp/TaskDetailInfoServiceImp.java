@@ -37,49 +37,62 @@ public class TaskDetailInfoServiceImp implements TaskDetailInfoService {
 		return tTaskDetailinfoCustomMapper.findPointsByteterminationstate(taskid);
 	}
 	@Override
-	public TTaskDetailInfoCustom findTaskDetailByPidAndState(
-			HashMap<String, Object> hashmap) throws Exception {
+	public TTaskDetailInfoCustom findTaskDetailByPidAndState( HashMap<String, Object> hashmap) throws Exception {
 		return tTaskDetailinfoCustomMapper.findTaskDetailByPidAndState(hashmap);
 	}
 	@Override
 	public int updateTaskDetailByPidAndState(HashMap<String, Object> hashmap)
 			throws Exception {
-		// TODO Auto-generated method stub
 		return tTaskDetailinfoCustomMapper.updateTaskDetailByPidAndState(hashmap);
 	}
 	@Override
-	public List<TTaskDetailInfoCustom> findTaskDetailByPage(
-			HashMap<String, Object> hashmap) throws Exception {
-		// TODO Auto-generated method stub
+	public List<TTaskDetailInfoCustom> findTaskDetailByPage( HashMap<String, Object> hashmap) throws Exception {
 		return tTaskDetailinfoCustomMapper.findTaskDetailByPage(hashmap);
 	}
 	@Override
-	public int findTaskDetailTotalByPage(
-			HashMap<String, Object> hashmap) throws Exception {
-		// TODO Auto-generated method stub
+	public int findTaskDetailTotalByPage( HashMap<String, Object> hashmap) throws Exception {
 		return tTaskDetailinfoCustomMapper.findTaskDetailTotalByPage(hashmap);
 	}
 	@Override
 	public int updateTaskDetailstateByTaskidAndoldstate(
 			HashMap<String, Object> hashmap) throws Exception {
-		// TODO Auto-generated method stub
 		return tTaskDetailinfoCustomMapper.updateTaskDetailstateByTaskidAndoldstate(hashmap);
 	}
 	@Override
 	public int updateTaskDetailresultByid(HashMap<String, Object> hashmap)
 			throws Exception {
-		// TODO Auto-generated method stub
 		return tTaskDetailinfoCustomMapper.updateTaskDetailresultByid(hashmap);
 	}
 	@Override
 	public List<TTaskDetailInfoCustom> findTaskDetailByflow() throws Exception {
-		// TODO Auto-generated method stub
 		return tTaskDetailinfoCustomMapper.findTaskDetailByflow();
 	}
 	@Override
-	public TTaskDetailInfoCustom findTaskDetailBypk(String taskdetailpk)
-			throws Exception {
-		// TODO Auto-generated method stub
+	public TTaskDetailInfoCustom findTaskDetailBypk(String taskdetailpk) throws Exception {
 		return tTaskDetailinfoCustomMapper.findTaskDetailBypk(taskdetailpk);
+	}
+	@Override
+	public int findTaskDetailByIdAndtask(HashMap<String, Object> hashmap) throws Exception {
+		return tTaskDetailinfoCustomMapper.findTaskDetailByIdAndtask(hashmap);
+	}
+	@Override
+	public int findTaskDetailInfoByIdAndTaskstate(HashMap<String, Object> hashmap) throws Exception {
+		return tTaskDetailinfoCustomMapper.findTaskDetailInfoByIdAndTaskstate(hashmap);
+	}
+	@Override
+	public int deleteTaskBystate(HashMap<String, Object> hashmap) throws Exception {
+		return tTaskDetailinfoCustomMapper.deleteTaskBystate(hashmap);
+	}
+	@Override
+	public List<TTaskDetailInfoCustom> findTaskDetailByProblemAndPage(
+			HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskDetailinfoCustomMapper.findTaskDetailByProblemAndPage(hashmap);
+	}
+	@Override
+	public int findTotalTaskDetailByProblemAndPage(
+			HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskDetailinfoCustomMapper.findTotalTaskDetailByProblemAndPage(hashmap);
 	}
 }

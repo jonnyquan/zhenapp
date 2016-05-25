@@ -14,9 +14,9 @@ public class NoteInfoServiceImp implements NoteInfoService {
 	@Autowired
 	private TNoteInfoCustomMapper tNoteInfoCustomMapper;
 	
-	public int findTotalNoteinfoByPage() throws Exception{
+	public int findTotalNoteinfoByPage(HashMap<String, Object> hashmap) throws Exception{
 		
-		return tNoteInfoCustomMapper.findTotalNoteinfoByPage();
+		return tNoteInfoCustomMapper.findTotalNoteinfoByPage(hashmap);
 	}
 
 	@Override
@@ -49,5 +49,12 @@ public class NoteInfoServiceImp implements NoteInfoService {
 	public int savenote(TNoteInfoCustom tNoteInfoCustom) throws Exception {
 		// TODO Auto-generated method stub
 		return tNoteInfoCustomMapper.savenote(tNoteInfoCustom);
+	}
+
+	@Override
+	public int updatenotestateByidandtype(HashMap<String, Object> hashmap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tNoteInfoCustomMapper.updatenotestateByidandtype(hashmap);
 	};
 }

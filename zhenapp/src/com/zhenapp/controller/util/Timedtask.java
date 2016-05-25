@@ -7,6 +7,7 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -14,10 +15,26 @@ import org.springframework.stereotype.Component;
 public class Timedtask {
 	private static Logger logger = Logger.getLogger(Timedtask.class);
 	
+	@Value("${host}")
+	private String host;
 	
 	@Scheduled(cron = "0 */1 * * * ?")//每隔1分钟执行一次
 	public void job1() throws HttpException, IOException {
-		logger.info("任务进行中....每隔1分钟执行一次");
+		logger.info("任务执行开始....每分钟执行一次");
+		HttpClient httpClient = new HttpClient();
+		String result="";
+		String url = host+"/api/platform/updateTaskstateByTiming";
+        PostMethod postMethod = new PostMethod(url);
+        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+        int statusCode =  httpClient.executeMethod(postMethod);
+        if(statusCode == 200) {
+            System.out.println("调用成功");
+            result = postMethod.getResponseBodyAsString();
+            System.out.println(result);
+        }else {
+            System.out.println("调用失败" + statusCode);
+        }
+        logger.info("任务执行结束....每分钟执行一次");
 	}
 	
 	
@@ -27,15 +44,14 @@ public class Timedtask {
 		logger.info("任务执行开始....每天0点1分执行一次");
 		HttpClient httpClient = new HttpClient();
 		String result="";
-        PostMethod postMethod = new PostMethod("http://localhost:8080/zhenapp/api/updateTaskstateByTime");
+        PostMethod postMethod = new PostMethod(host+"/api/platform/updateTaskstateByTime");
         postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
         int statusCode =  httpClient.executeMethod(postMethod);
         if(statusCode == 200) {
             System.out.println("调用成功");
             result = postMethod.getResponseBodyAsString();
             System.out.println(result);
-        }
-        else {
+        }else {
             System.out.println("调用失败" + statusCode);
         }
 		logger.info("任务执行完成....每天0点1分执行一次");

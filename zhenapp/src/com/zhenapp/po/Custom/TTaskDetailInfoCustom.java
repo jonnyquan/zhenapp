@@ -9,9 +9,16 @@ public class TTaskDetailInfoCustom extends TTaskDetailinfo{
 	private String collectname;
 	private String trolleyname;
 	private String tasktypename;
+	private String taskpk;
 	
-	
-	
+	public String getTaskpk() {
+		return taskpk;
+	}
+
+	public void setTaskpk(String taskpk) {
+		this.taskpk = taskpk;
+	}
+
 	public String getTasktypename() {
 		return tasktypename;
 	}

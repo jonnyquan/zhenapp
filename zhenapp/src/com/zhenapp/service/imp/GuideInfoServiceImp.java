@@ -17,8 +17,8 @@ public class GuideInfoServiceImp implements GuideInfoService {
 	
 	
 	@Override
-	public List<TGuideInfoCustom> findGuide_10() throws Exception {
-		return tGuideInfoCustomMapper.findGuide_10();
+	public List<TGuideInfoCustom> findGuide_10(HashMap<String,Object> pagemap) throws Exception {
+		return tGuideInfoCustomMapper.findGuide_10(pagemap);
 	}
 
 	@Override

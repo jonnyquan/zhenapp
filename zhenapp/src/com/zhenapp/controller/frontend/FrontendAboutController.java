@@ -1,5 +1,6 @@
 package com.zhenapp.controller.frontend;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,11 +35,13 @@ public class FrontendAboutController {
 	@RequestMapping(value="/about")
 	public @ResponseBody ModelAndView about(HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		List<TelectricityCustom> TelectricityCustomlist = electrityService.findElectrity_10();
-		List<TGuideInfoCustom> TGuideInfoCustomlist = guideService .findGuide_10();
 		String webwww=request.getServerName();
 		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
 		TWebInfoCustom tWebInfoCustom=webInfoService.findWebByAgentid(tAgentInfoCustom.getAgentid());
+		HashMap<String, Object> pagemap = new HashMap<String, Object>();
+		pagemap.put("agentid", tAgentInfoCustom.getAgentid());
+		List<TelectricityCustom> TelectricityCustomlist = electrityService.findElectrity_10(pagemap);
+		List<TGuideInfoCustom> TGuideInfoCustomlist = guideService .findGuide_10(pagemap);
 		mv.addObject("tWebInfoCustom",tWebInfoCustom);
 		mv.addObject("TelectricityCustomlist", TelectricityCustomlist);
 		mv.addObject("TGuideInfoCustomlist", TGuideInfoCustomlist);

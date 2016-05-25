@@ -244,7 +244,7 @@ public class platform {
 						tPointsInfoCustom.setPoints(tUserInfoCustom.getPoints()+points);
 						tPointsInfoCustom.setPointstype("28");
 						tPointsInfoCustom.setPointsupdate(points);
-						tPointsInfoCustom.setTaskid("0");
+						tPointsInfoCustom.setTaskpk(0);
 						tPointsInfoCustom.setUserid(tUserInfoCustom.getUserid());
 						pointsInfoService.savePoints(tPointsInfoCustom);
 						/*
@@ -271,11 +271,68 @@ public class platform {
 		
 		return map;
 	}
+	/*
+	 * 每一分钟执行一次 查询任务状态为终止中的任务,检查是否所有详情任务都已返回，如果都已处理修改为已终止，结束任务，返回积分
+	 */
+	@RequestMapping("/updateTaskstateByTiming")
+	public @ResponseBody ModelMap updateTaskstateByTiming() throws Exception{
+		ModelMap map = new ModelMap();
+		//查询任务状态为终止中的任务
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("taskstate", "18");
+		List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findTaskInfoByTaskstate(hashmap);
+		
+		for (int i = 0; i < tTaskInfoCustomlist.size(); i++) {
+			TTaskInfoCustom tTaskInfoCustom = tTaskInfoCustomlist.get(i);
+			TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserid(tTaskInfoCustom.getCreateuser());
+			hashmap.put("taskid", tTaskInfoCustom.getTaskid());
+			taskDetailInfoService.updateterminationstate(hashmap);
+			int points = taskDetailInfoService.findPointsByteterminationstate(tTaskInfoCustom.getTaskid());
+			/*
+			 * 添加终止任务所返回的积分
+			 */
+			tUserInfoCustom.setPoints(tUserInfoCustom.getPoints() + points);
+			tUserInfoCustom.setUpdatetime(sdf.format(new Date()));
+			tUserInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
+			userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
+			/*
+			 * 添加积分明细记录
+			 */
+			TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
+			tPointsInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+			tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
+			tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
+			tPointsInfoCustom.setUpdateuser("sys");
+			tPointsInfoCustom.setPointreason("终止任务" + tTaskInfoCustom.getTaskpk() + "返回积分"+points);
+			tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
+			tPointsInfoCustom.setPoints(tUserInfoCustom.getPoints());
+			tPointsInfoCustom.setPointstype("28");
+			tPointsInfoCustom.setPointsupdate(points);
+			tPointsInfoCustom.setTaskpk(tTaskInfoCustom.getTaskpk());
+			tPointsInfoCustom.setUserid(tUserInfoCustom.getUserid());
+			pointsInfoService.savePoints(tPointsInfoCustom);
+			//查询该任务 执行中的详情任务条数
+			hashmap.put("taskstate", "20");
+			int tempcount = taskDetailInfoService.findTaskDetailInfoByIdAndTaskstate(hashmap);
+			hashmap.clear();
+			hashmap.put("taskid", tTaskInfoCustom.getTaskid());
+			hashmap.put("taskstate", 19);
+			hashmap.put("updatetime", sdf.format(new Date()));
+			hashmap.put("updateuser", "sys");
+			if(tempcount==0){
+				taskInfoService.updateTaskstate(hashmap);
+				hashmap.put("taskstate", "23");
+				taskDetailInfoService.deleteTaskBystate(hashmap);
+			}
+		}
+		map.put("data", "success");
+		return map;
+	}
 	
 	/*
 	 * 每10分钟执行一次判断是否有任务执行完成        修改任务状态,积分处理
 	 */
-	@RequestMapping(value="/api/cyclecheckTask")
+	@RequestMapping(value="/cyclecheckTask")
 	public @ResponseBody ModelMap cyclecheckTask() throws Exception{
 		ModelMap map = new ModelMap();
 		/*
@@ -293,7 +350,7 @@ public class platform {
 	/*
 	 * 查询今天之前的任务      每天0点1分执行
 	 */
-	@RequestMapping(value="/api/updateTaskstateByTime")
+	@RequestMapping(value="/updateTaskstateByTime")
 	public @ResponseBody ModelMap updateTaskstateByTime() throws Exception{
 		ModelMap map = new ModelMap();
 		/*
@@ -356,7 +413,7 @@ public class platform {
 				tPointsInfoCustom.setPoints(tUserInfoCustom.getPoints()+points);
 				tPointsInfoCustom.setPointstype("28");
 				tPointsInfoCustom.setPointsupdate(points);
-				tPointsInfoCustom.setTaskid("0");
+				tPointsInfoCustom.setTaskpk(0);
 				tPointsInfoCustom.setUserid(tUserInfoCustom.getUserid());
 				pointsInfoService.savePoints(tPointsInfoCustom);
 				/*

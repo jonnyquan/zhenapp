@@ -5,9 +5,13 @@ public class TNoteInfo {
 
     private String noteid;
 
+    private String agentid;
+
     private String notetype;
 
     private String notename;
+
+    private String notestate;
 
     private String createtime;
 
@@ -33,6 +37,14 @@ public class TNoteInfo {
         this.noteid = noteid == null ? null : noteid.trim();
     }
 
+    public String getAgentid() {
+        return agentid;
+    }
+
+    public void setAgentid(String agentid) {
+        this.agentid = agentid == null ? null : agentid.trim();
+    }
+
     public String getNotetype() {
         return notetype;
     }
@@ -47,6 +59,14 @@ public class TNoteInfo {
 
     public void setNotename(String notename) {
         this.notename = notename == null ? null : notename.trim();
+    }
+
+    public String getNotestate() {
+        return notestate;
+    }
+
+    public void setNotestate(String notestate) {
+        this.notestate = notestate == null ? null : notestate.trim();
     }
 
     public String getCreatetime() {

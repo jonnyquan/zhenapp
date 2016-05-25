@@ -3,14 +3,18 @@
 <mapper namespace="com.zhenapp.mapper.Custom.TTbaccountInfoCustomMapper" >
 	<insert id="insertTbaccount">
 	  insert into t_tbaccount_info ( tbaccountid, tbaccountname, 
-      tbaccountpwd, tbaccounttime, tbaccountphoneid, 
+      tbaccountpwd, tbaccounttime, tbaccountphoneid, tbaccounttag,
       tbaccountstate, createtime, createuser, 
       updatetime, updateuser)
     values ( #{tbaccountid,jdbcType=VARCHAR}, #{tbaccountname,jdbcType=VARCHAR}, 
-      #{tbaccountpwd,jdbcType=VARCHAR}, #{tbaccounttime,jdbcType=INTEGER}, #{tbaccountphoneid,jdbcType=VARCHAR}, 
+      #{tbaccountpwd,jdbcType=VARCHAR}, #{tbaccounttime,jdbcType=INTEGER}, #{tbaccountphoneid,jdbcType=VARCHAR}, #{tbaccounttag},
       #{tbaccountstate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
       #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR})
 	</insert>
+	
+	<update id="updateTbaccountTag" parameterType="java.util.HashMap">
+		update t_tbaccount_info set tbaccounttag=#{tbaccounttag},updatetime=#{updatetime},updateuser=#{updateuser}
+	</update>
 	
 	
 	<select id="findTbaccountBypage" resultType="com.zhenapp.po.Custom.TTbaccountInfoCustom" parameterType="java.util.HashMap">
@@ -57,9 +61,23 @@
 		order by tbaccountid desc 
 	</select>
 	
+	<select id="findTbaccountByphoneidisnull" resultType="com.zhenapp.po.Custom.TTbaccountInfoCustom">
+		select * from t_tbaccount_info where tbaccountphoneid is null order by tbaccountpk+0
+	</select>
 	
 	<select id="findTbaccountByPhoneid" parameterType="String" resultType="com.zhenapp.po.Custom.TTbaccountInfoCustom">
-		select * from t_tbaccount_info where tbaccountphoneid=#{tbaccountphoneid} and (tbaccountstate ='60' or tbaccountstate='61')
+		select * from t_tbaccount_info where tbaccountphoneid=#{tbaccountphoneid} and (tbaccountstate ='60' or tbaccountstate='61') order by tbaccountpk+0
+	</select>
+	
+	<select id="findTbaccountByPhoneidandtag" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTbaccountInfoCustom">
+		select * from t_tbaccount_info 
+		<where>
+			<if test="tbaccountphoneid != null and tbaccountphoneid != '' ">
+				and tbaccountphoneid= #{tbaccountphoneid}
+			</if>
+			and tbaccounttag IS NOT NULL  order by tbaccountpk+0
+		</where>
+
 	</select>
 	
 	<select id="findTbaccountByAccountname" parameterType="String" resultType="com.zhenapp.po.Custom.TTbaccountInfoCustom">
@@ -70,7 +88,23 @@
 		update t_tbaccount_info set tbaccountstate=#{tbaccountstate},tbaccounttime=#{tbaccounttime},updatetime=#{updatetime},updateuser=#{updateuser}
 		where tbaccountid=#{tbaccountid} and tbaccountname=#{tbaccountname}
 	</update>
-
+	
+	<update id="updateTbaccountstate">
+		update t_tbaccount_info set tbaccountstate='60' where tbaccountstate='nochange'
+	</update>
+	
+	<delete id="deleteAccount" parameterType="java.util.HashMap">
+		delete from t_tbaccount_info 
+		<where>
+			<if test="tbaccountphoneid != null and tbaccountphoneid !='' ">
+				and tbaccountphoneid = #{tbaccountphoneid}
+			</if>
+			<if test="tbaccountstate != null and tbaccountstate !='' ">
+				and tbaccountstate = #{tbaccountstate}
+			</if>
+		</where>
+	</delete>
+	
 	<delete id="deleteTbaccountByid" parameterType="String">
 		update t_tbaccount_info set tbaccountstate = '65' where tbaccountid in (#{tbaccountids})
 	</delete>

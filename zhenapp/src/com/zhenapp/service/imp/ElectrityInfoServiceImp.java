@@ -24,15 +24,14 @@ public class ElectrityInfoServiceImp  implements ElectrityInfoService{
 	}
 
 	@Override
-	public List<TelectricityCustom> findElectrity_10() throws Exception {
-		
-		return tElectricityInfoCustomMapper.findElectrity_10();
+	public List<TelectricityCustom> findElectrity_10(HashMap<String,Object> pagemap) throws Exception {
+		return tElectricityInfoCustomMapper.findElectrity_10(pagemap);
 	}
 
 	@Override
-	public List<TelectricityCustom> findAllElectrity() throws Exception {
+	public List<TelectricityCustom> findAllElectrity(HashMap<String,Object> pagemap) throws Exception {
 		// TODO Auto-generated method stub
-		return tElectricityInfoCustomMapper.findAllElectrity();
+		return tElectricityInfoCustomMapper.findAllElectrity(pagemap);
 	}
 
 	@Override

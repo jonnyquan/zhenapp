@@ -41,9 +41,9 @@ public class TTaskDetailinfo {
 
     private String taskdate;
 
-    private String taskhour;
+    private Integer taskhour;
 
-    private String taskminute;
+    private Integer taskminute;
 
     private String visit;
 
@@ -225,20 +225,20 @@ public class TTaskDetailinfo {
         this.taskdate = taskdate == null ? null : taskdate.trim();
     }
 
-    public String getTaskhour() {
+    public Integer getTaskhour() {
         return taskhour;
     }
 
-    public void setTaskhour(String taskhour) {
-        this.taskhour = taskhour == null ? null : taskhour.trim();
+    public void setTaskhour(Integer taskhour) {
+        this.taskhour = taskhour;
     }
 
-    public String getTaskminute() {
+    public Integer getTaskminute() {
         return taskminute;
     }
 
-    public void setTaskminute(String taskminute) {
-        this.taskminute = taskminute == null ? null : taskminute.trim();
+    public void setTaskminute(Integer taskminute) {
+        this.taskminute = taskminute;
     }
 
     public String getVisit() {

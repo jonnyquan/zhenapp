@@ -53,30 +53,10 @@
   </div>
 </header>
 <div class="am-cf admin-main">
-      <!-- sidebar start -->
-      <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
-        <div class=" admin-offcanvas-bar">
-          <ul class="am-list admin-sidebar-list">
-            <li class="admin-parent"><a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span
-                class="am-icon-user"></span>用户管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-              <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
-                <li><a href="${pageContext.request.contextPath}/user/findUserByPageandRole" class="am-cf"><span class="am-icon-list"></span>用户列表</a></li>
-                <li><a href="${pageContext.request.contextPath}/points/responseconsumeagent"><span class="am-icon-usd"></span>充值记录</a></li>
-                <li><a href="${pageContext.request.contextPath}/points/responserecordspointsagent"><span class="am-icon-money"></span>资金记录</a></li>
-              </ul></li>
-            <li><a href="${pageContext.request.contextPath}/task/responsetaskmanageagent"><span class="am-icon-pencil-square-o"></span>订单查询</a></li>
-            <li><a href="${pageContext.request.contextPath}/combo/findComboByagent"><span class="am-icon-cubes"></span> 套餐信息</a></li>
-            <li><a href="${pageContext.request.contextPath}/price/findPriceByAgentid"><span class="am-icon-puzzle-piece"></span>系统配置</a></li>
-            <li><a href="${pageContext.request.contextPath}/web/findWebByAgentid"><span class="am-icon-puzzle-piece"></span>设置登录页面</a></li>
-            <li><a href="${pageContext.request.contextPath}/user/findPointsByUsernick"><span class="am-icon-heart"></span>剩余积分</a></li>
-            <li><a href="${pageContext.request.contextPath}/datacount/findDataByDateAndTasktype"><span class="am-icon-bar-chart"></span>数据统计</a></li>
-          </ul>
-        </div>
-      </div>
-      <!-- sidebar end -->
-      <div id="module-head"></div>
+<div id="menu" class="admin-sidebar am-offcanvas"></div>
       
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<div id="module-head"></div>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <div class="admin-content">
   <div class="am-alert am-alert-danger" id="my-alert" style="display: none">
@@ -88,7 +68,7 @@
     </div>
   </div>
   <div class="am-g" id="module-head" style="margin-bottom: 10px;">
-    <div class="am-u-sm-5 am-u-md-8">
+    <div class="am-u-sm-5 am-u-md-6">
       <div class="am-btn-toolbar">
         <div class="am-btn-group am-btn-group-xs">
           <div class="am-g" style="width: 600px;">
@@ -108,10 +88,15 @@
         </div>
       </div>
     </div>
+    <div class="am-u-sm-2 am-u-md-2">
+      <div class="am-input-group am-input-group-sm">
+        <input type="text" id=taskpk value="${taskpk}" placeholder="订单号" class="am-form-field">
+      </div>
+    </div>
     <div class="am-u-sm-5 am-u-md-3">
       <div class="am-input-group am-input-group-sm">
-        <input type="text" id="nick" value="${usernick}" placeholder="用户名" class="am-form-field"> <span
-          class="am-input-group-btn">
+        <input type="text" id="nick" value="${usernick}" placeholder="用户名" class="am-form-field"> 
+        <span class="am-input-group-btn">
           <button class="am-btn am-btn-default" id="search" type="button">搜索</button>
         </span>
       </div>
@@ -138,7 +123,7 @@
 	            <tr data-id="${list.pointspk}">
 	                <td>${list.usernick}</td>
 	                <td>${list.createtime}</td>
-	                <td>${list.taskid }</td>
+	                <td>${list.taskpk }</td>
 	                <td>${list.pointstypename}</td>
 	                <td>${list.pointsupdate}</td>
 	                <td>${list.points}</td>
@@ -160,43 +145,43 @@
     </div>
   </div>
 </div>
-<script>  
+<script type="text/javascript">  
 $(function() {
+	$("#menu").load("${pageContext.request.contextPath}/backstage/agent/menu.jsp");
+	
+    var startDate = new Date(2015, 12, 20);
+    var endDate = new Date(2016, 11, 25);
+    var $alert = $('#my-alert');
+    $('#my-start').datepicker().on('changeDate.datepicker.amui', function(event) {
+      if (event.date.valueOf() > endDate.valueOf()) {
+        $alert.find('p').text('开始日期应小于结束日期！').end().show();
+      } else {
+        $alert.hide();
+        startDate = new Date(event.date);
+        $('#my-startDate').text($('#my-start').data('date'));
+      }
+      $(this).datepicker('close');
+    });
 
-	$(function() {
-	    var startDate = new Date(2015, 12, 20);
-	    var endDate = new Date(2016, 11, 25);
-	    var $alert = $('#my-alert');
-	    $('#my-start').datepicker().on('changeDate.datepicker.amui', function(event) {
-	      if (event.date.valueOf() > endDate.valueOf()) {
-	        $alert.find('p').text('开始日期应小于结束日期！').end().show();
-	      } else {
-	        $alert.hide();
-	        startDate = new Date(event.date);
-	        $('#my-startDate').text($('#my-start').data('date'));
-	      }
-	      $(this).datepicker('close');
-	    });
+    $('#my-end').datepicker().on('changeDate.datepicker.amui', function(event) {
+      if (event.date.valueOf() < startDate.valueOf()) {
+        $alert.find('p').text('结束日期应大于开始日期！').end().show();
+      } else {
+        $alert.hide();
+        endDate = new Date(event.date);
+        $('#my-endDate').text($('#my-end').data('date'));
+      }
+      $(this).datepicker('close');
+    });
 
-	    $('#my-end').datepicker().on('changeDate.datepicker.amui', function(event) {
-	      if (event.date.valueOf() < startDate.valueOf()) {
-	        $alert.find('p').text('结束日期应大于开始日期！').end().show();
-	      } else {
-	        $alert.hide();
-	        endDate = new Date(event.date);
-	        $('#my-endDate').text($('#my-end').data('date'));
-	      }
-	      $(this).datepicker('close');
-	    });
-
-	    $("#search").click(function() {
-	      var startTime = $("#my-startDate").text();
-	      var entTime = $("#my-endDate").text();
-	      var nick = $("#nick").val();
-	      location.href = "${pageContext.request.contextPath}/points/responserecordspointsagent?page=1&datefrom=" + startTime + "&dateto=" + entTime + "&usernick=" + nick;
-	    });
-	  });
-});
+    $("#search").click(function() {
+      var startTime = $("#my-startDate").text();
+      var entTime = $("#my-endDate").text();
+      var nick = $("#nick").val();
+      var taskpk = $("#taskpk").val();
+      location.href = "${pageContext.request.contextPath}/points/responserecordspointsagent?page=1&datefrom=" + startTime + "&dateto=" + entTime + "&usernick=" + nick + "&taskpk=" + taskpk;
+    });
+  });
   var index = Number("${pagenum}");
 	if (index.length < 1) {
 		index = 1;
@@ -211,24 +196,23 @@ $(function() {
 		}
 		$("#countindex").val(countindex);
 		$.jqPaginator('#pagination',
-						{
-							totalPages : parseInt($("#countindex").val()),
-							visiblePages : parseInt($("#visiblePages").val()),
-							currentPage : index,
-							first : '<li class="first"><a href="${pageContext.request.contextPath}/points/responserecordspointsagent?page=1">首页</a></li>',
-							prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
-							next : '<li class="next"><a href="javascript:;">下一页</a></li>',
-							last : '<li class="last"><a href="javascript:;">末页</a></li>',
-							page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-							onPageChange : function(num, type) {
-								if (type == "change") {
-									var startTime = $("#my-startDate").text();
-								      var entTime = $("#my-endDate").text();
-								      var nick = $("#nick").val();
-								      location.href = "${pageContext.request.contextPath}/points/responserecordspointsagent?page=" + num + "&datefrom=" + startTime + "&dateto=" + entTime + "&usernick=" + nick;
-								}
-							}
-						});
+		{totalPages : parseInt($("#countindex").val()),
+			visiblePages : parseInt($("#visiblePages").val()),
+			currentPage : index,
+			first : '<li class="first"><a href="${pageContext.request.contextPath}/points/responserecordspointsagent?page=1">首页</a></li>',
+			prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
+			next : '<li class="next"><a href="javascript:;">下一页</a></li>',
+			last : '<li class="last"><a href="javascript:;">末页</a></li>',
+			page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+			onPageChange : function(num, type) {
+				if (type == "change") {
+					var startTime = $("#my-startDate").text();
+				      var entTime = $("#my-endDate").text();
+				      var nick = $("#nick").val();
+				      location.href = "${pageContext.request.contextPath}/points/responserecordspointsagent?page=" + num + "&datefrom=" + startTime + "&dateto=" + entTime + "&usernick=" + nick;
+				}
+			}
+		});
 	}
 </script>
 

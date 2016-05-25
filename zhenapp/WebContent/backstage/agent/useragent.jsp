@@ -2,15 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
@@ -20,10 +17,8 @@
   <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 <title>${tAgentInfoCustom.agentname}  -- 用户列表</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/amazeui.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/admin.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/lanyunying.css" />
@@ -66,7 +61,8 @@
   </div>
 </header>
     <div class="am-cf admin-main">
-      <!-- sidebar start -->
+	    <div id="menu" class="admin-sidebar am-offcanvas"></div>
+      <!-- sidebar start 
       <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
         <div class=" admin-offcanvas-bar">
           <ul class="am-list admin-sidebar-list">
@@ -85,7 +81,7 @@
             <li><a href="${pageContext.request.contextPath}/datacount/findDataByDateAndTasktype"><span class="am-icon-bar-chart"></span>数据统计</a></li>
           </ul>
         </div>
-      </div>
+      </div>-->
       <div id="module-head"></div>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <div class="admin-content">
@@ -109,7 +105,6 @@
         <button type="button" class="am-btn am-btn-default" id="search">搜索</button>
       </form>
     </div>
-
   </div>
   <div class="am-u-sm-12">
     <form class="am-form">
@@ -166,6 +161,10 @@
 
 <script>
   $(function() {
+	$("#menu").load("${pageContext.request.contextPath}/backstage/agent/menu.jsp");
+	  
+	  
+	  
     $("#search").click(function() {
       var name = $("#userName").val();
       var id = $("#userId").val();
@@ -219,15 +218,10 @@
 		});
 	}
 </script>
-
-    </div>
-  
-  <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
-    data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+  <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
   <footer>
     <hr>
     <p class="am-padding-left">Copyright (c) 2015 zhenapp.cn Inc. All Rights. 浙ICP备140452118号-5</p>
   </footer>
-
 </body>
 </html>

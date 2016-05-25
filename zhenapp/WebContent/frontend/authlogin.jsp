@@ -303,7 +303,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 							<div class="form_control clearfix">
 
 								<input class="form_input input240" type="text" name="username"
-									id="username" placeholder="用户名：" value="" />
+									id="username" placeholder="用户名：" value="${username}" />
 
 							</div>
 
@@ -318,8 +318,10 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 								<div class="botton">
 									<button type="submit" name="submit" class="form_btn">登 录</button>
 								</div>
-
+								
 							</div>
+							<span id="spanmsg" style="color:red;"></span>
+							
 					</form>
 
 					<div class="tipwz"></div>
@@ -411,6 +413,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 			</div>
 		</div>
 		<div class="OnlineBtn">
+		
 		</div>
 	</div>
 </div>
@@ -429,7 +432,9 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
         		
 			 var msg = "${msg}";
 		     if(msg.length > 0){
-		     	alert(msg);
+		     	$("#spanmsg").html(msg);
+		     	$("#spanmsg").show();
+		     	$("#spanmsg").fadeOut(4000);
 		     }
 		});
 	</script>

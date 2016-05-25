@@ -7,6 +7,10 @@ import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 
 
 public interface TTaskDetailinfoCustomMapper {
+	//查询卡机任务（手机获取5分钟后没有反馈的任务信息）
+	public List<TTaskDetailInfoCustom> findTaskDetailByProblemAndPage(HashMap<String, Object> hashmap) throws Exception;
+	//查询卡机任务（手机获取5分钟后没有反馈的任务信息）的总条数
+	public int findTotalTaskDetailByProblemAndPage(HashMap<String, Object> hashmap) throws Exception;
 	/*
 	 * 根据主键查询任务详情信息
 	 */
@@ -59,4 +63,14 @@ public interface TTaskDetailinfoCustomMapper {
 	 * 查询只有流量访问的详细任务
 	 */
 	public List<TTaskDetailInfoCustom> findTaskDetailByflow() throws Exception;
+	/*
+	 * 查询某个宝贝id 做收藏或加购  或者收藏和加购的数目
+	 */
+	public int findTaskDetailByIdAndtask(HashMap<String, Object> hashmap) throws Exception;
+	/*
+	 * 根据任务状态及任务id查询任务条数
+	 */
+	public int findTaskDetailInfoByIdAndTaskstate(HashMap<String, Object> hashmap) throws Exception;
+	//根据任务id和详情任务状态删除详情任务信息
+	public int deleteTaskBystate(HashMap<String, Object> hashmap) throws Exception;
 }
