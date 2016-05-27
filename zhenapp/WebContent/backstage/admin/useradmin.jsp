@@ -151,11 +151,11 @@
 	      if (confirm("你确定要删除吗？")) {
 	        $.getJSON('${pageContext.request.contextPath}/user/deleteUserByUserpkAndAdmin', {
 	          userpk : $(this).attr("data-id")
-	        }, function(resp) {
-	          if (resp && resp.ec == 0) {
+	        }, function(data) {
+	          if (data && data.ec == 0) {
 	            location.href = '${pageContext.request.contextPath}/user/findUserByPageAndAdmin';
 	          } else {
-	            Message.error('删除失败!', true);
+	            alert('删除失败!');
 	          }
 	        });
 	      }

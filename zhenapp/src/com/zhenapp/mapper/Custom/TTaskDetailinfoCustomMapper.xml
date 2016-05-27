@@ -7,6 +7,42 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
 ) and phoneid is null and taskstate = '40' ORDER BY taskhour,taskminute LIMIT 0,1
   </select>
   
+  <select id="findCounts" resultType="int" parameterType="java.util.HashMap">
+  	select count(1) from t_task_detailinfo 
+  	<where>
+  		<if test="taskid != null and taskid != '' ">
+  			and taskid = #{taskid}
+  		</if>
+  		<if test="taskstate != null and taskstate != '' ">
+  			and taskstate in (${taskstate})
+  		</if>
+  	</where>
+  </select>
+  <select id="findcollectioncount" resultType="int" parameterType="java.util.HashMap">
+  	select count(1) from t_task_detailinfo
+  	<where>
+  		<if test="taskid != null and taskid != '' ">
+  			and taskid = #{taskid}
+  		</if>
+  		<if test="taskstate != null and taskstate != '' ">
+  			and taskstate in (${taskstate})
+  		</if>
+  		and iscollection = '1' and isshopping = '0'
+  	</where>
+  </select>
+  <select id="findshoppingcount" resultType="int" parameterType="java.util.HashMap">
+  	select count(1) from t_task_detailinfo
+  	<where>
+  		<if test="taskid != null and taskid != '' ">
+  			and taskid = #{taskid}
+  		</if>
+  		<if test="taskstate != null and taskstate != '' ">
+  			and taskstate in (${taskstate})
+  		</if>
+  		and iscollection = '0' and isshopping = '1'
+  	</where>
+  </select>
+  
   <select id="findTaskDetailByProblemAndPage" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom"  parameterType="java.util.HashMap">
   		select * from t_task_detailinfo 
   		<where>
@@ -22,6 +58,8 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
 		  	</if>
   		</where>
   </select>
+  
+  
   <select id="findTotalTaskDetailByProblemAndPage" resultType="int" parameterType="java.util.HashMap">
   		select count(1) from t_task_detailinfo 
   		<where>

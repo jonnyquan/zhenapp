@@ -15,7 +15,8 @@
     <result column="userstate" property="userstate" jdbcType="VARCHAR" />
     <result column="regemail" property="regemail" jdbcType="VARCHAR" />
     <result column="regip" property="regip" jdbcType="VARCHAR" />
-    <result column="regdomain" property="regdomain" jdbcType="VARCHAR" />
+    <result column="regurl" property="regurl" jdbcType="VARCHAR" />
+    <result column="regvalidcode" property="regvalidcode" jdbcType="VARCHAR" />
     <result column="agentid" property="agentid" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="VARCHAR" />
     <result column="createuser" property="createuser" jdbcType="VARCHAR" />
@@ -82,8 +83,8 @@
   </sql>
   <sql id="Base_Column_List" >
     userpk, userid, usernick, userpwd, username, points, userqq, usercardnum, userroleid, 
-    userphone, userstate, regemail, regip, regdomain, agentid, createtime, createuser, 
-    updatetime, updateuser
+    userphone, userstate, regemail, regip, regurl, regvalidcode, agentid, createtime, 
+    createuser, updatetime, updateuser
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TUserInfoExample" >
     select
@@ -120,16 +121,16 @@
       userpwd, username, points, 
       userqq, usercardnum, userroleid, 
       userphone, userstate, regemail, 
-      regip, regdomain, agentid, 
-      createtime, createuser, updatetime, 
-      updateuser)
+      regip, regurl, regvalidcode, 
+      agentid, createtime, createuser, 
+      updatetime, updateuser)
     values (#{userpk,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{usernick,jdbcType=VARCHAR}, 
       #{userpwd,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{points,jdbcType=INTEGER}, 
       #{userqq,jdbcType=VARCHAR}, #{usercardnum,jdbcType=VARCHAR}, #{userroleid,jdbcType=INTEGER}, 
       #{userphone,jdbcType=VARCHAR}, #{userstate,jdbcType=VARCHAR}, #{regemail,jdbcType=VARCHAR}, 
-      #{regip,jdbcType=VARCHAR}, #{regdomain,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
-      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
-      #{updateuser,jdbcType=VARCHAR})
+      #{regip,jdbcType=VARCHAR}, #{regurl,jdbcType=VARCHAR}, #{regvalidcode,jdbcType=VARCHAR}, 
+      #{agentid,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zhenapp.po.TUserInfo" >
     insert into t_user_info
@@ -173,8 +174,11 @@
       <if test="regip != null" >
         regip,
       </if>
-      <if test="regdomain != null" >
-        regdomain,
+      <if test="regurl != null" >
+        regurl,
+      </if>
+      <if test="regvalidcode != null" >
+        regvalidcode,
       </if>
       <if test="agentid != null" >
         agentid,
@@ -232,8 +236,11 @@
       <if test="regip != null" >
         #{regip,jdbcType=VARCHAR},
       </if>
-      <if test="regdomain != null" >
-        #{regdomain,jdbcType=VARCHAR},
+      <if test="regurl != null" >
+        #{regurl,jdbcType=VARCHAR},
+      </if>
+      <if test="regvalidcode != null" >
+        #{regvalidcode,jdbcType=VARCHAR},
       </if>
       <if test="agentid != null" >
         #{agentid,jdbcType=VARCHAR},
@@ -300,8 +307,11 @@
       <if test="record.regip != null" >
         regip = #{record.regip,jdbcType=VARCHAR},
       </if>
-      <if test="record.regdomain != null" >
-        regdomain = #{record.regdomain,jdbcType=VARCHAR},
+      <if test="record.regurl != null" >
+        regurl = #{record.regurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regvalidcode != null" >
+        regvalidcode = #{record.regvalidcode,jdbcType=VARCHAR},
       </if>
       <if test="record.agentid != null" >
         agentid = #{record.agentid,jdbcType=VARCHAR},
@@ -338,7 +348,8 @@
       userstate = #{record.userstate,jdbcType=VARCHAR},
       regemail = #{record.regemail,jdbcType=VARCHAR},
       regip = #{record.regip,jdbcType=VARCHAR},
-      regdomain = #{record.regdomain,jdbcType=VARCHAR},
+      regurl = #{record.regurl,jdbcType=VARCHAR},
+      regvalidcode = #{record.regvalidcode,jdbcType=VARCHAR},
       agentid = #{record.agentid,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=VARCHAR},
       createuser = #{record.createuser,jdbcType=VARCHAR},
@@ -387,8 +398,11 @@
       <if test="regip != null" >
         regip = #{regip,jdbcType=VARCHAR},
       </if>
-      <if test="regdomain != null" >
-        regdomain = #{regdomain,jdbcType=VARCHAR},
+      <if test="regurl != null" >
+        regurl = #{regurl,jdbcType=VARCHAR},
+      </if>
+      <if test="regvalidcode != null" >
+        regvalidcode = #{regvalidcode,jdbcType=VARCHAR},
       </if>
       <if test="agentid != null" >
         agentid = #{agentid,jdbcType=VARCHAR},
@@ -422,7 +436,8 @@
       userstate = #{userstate,jdbcType=VARCHAR},
       regemail = #{regemail,jdbcType=VARCHAR},
       regip = #{regip,jdbcType=VARCHAR},
-      regdomain = #{regdomain,jdbcType=VARCHAR},
+      regurl = #{regurl,jdbcType=VARCHAR},
+      regvalidcode = #{regvalidcode,jdbcType=VARCHAR},
       agentid = #{agentid,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=VARCHAR},
       createuser = #{createuser,jdbcType=VARCHAR},

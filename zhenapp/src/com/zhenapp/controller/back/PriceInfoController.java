@@ -96,7 +96,7 @@ public class PriceInfoController {
 	
 	/*
 	 * 查询单价列表
-	 */
+	 
 	@RequestMapping(value="/findPrice")
 	public ModelAndView findPrice(HttpServletRequest request) throws Exception{
 		ModelAndView mv=new ModelAndView();
@@ -107,10 +107,10 @@ public class PriceInfoController {
 		mv.addObject("tPriceInfoCustom",tPriceInfoCustom);
 		mv.setViewName("/page/main/pricemange.jsp");
 		return mv;
-	}
+	}*/
 	/*
 	 * 管理用户查询代理单价列表
-	 */
+	 
 	@RequestMapping(value="/findPriceByAgentid/{agentid}")
 	public ModelAndView findPriceByAgentid(@PathVariable(value="agentid")String agentid) throws Exception{
 		ModelAndView mv=new ModelAndView();
@@ -118,7 +118,7 @@ public class PriceInfoController {
 		mv.addObject("tPriceInfoCustom",tPriceInfoCustom);
 		mv.setViewName("/page/main/pricemange.jsp");
 		return mv;
-	}
+	}*/
 	/*
 	 * 修改单价信息
 	 */

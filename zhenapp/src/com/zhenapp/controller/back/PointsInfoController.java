@@ -121,6 +121,7 @@ public class PointsInfoController {
 		* 代理用户
 		*/
 		pagemap.put("userid", tUserInfoCustom.getUserid());
+		pagemap.put("agentid", tAgentInfoCustom.getAgentid());
 		int total = rechargeInfoService.findTotalRechargeinfoByUserAndpage(pagemap);
 		List<TRechargeInfoCustom> tRechargeInfoCustomlist = rechargeInfoService.findRechargeinfoByUserAndpage(pagemap);
 		mv.addObject("total",total);

@@ -319,11 +319,11 @@
 								<table class="table">
 									<tr>
 										<td>
-											宝贝id
+											宝贝url
 										</td>
 										<td>
-											<input type="text" name="taskkeynum" id="taskkeynum" value="${tTaskInfoCustom.taskkeynum}"
-												placeholder="请输入宝贝id" class='form-control'  onchange="checkkeynum(this);" />
+											<input type="text" name="taskurl" id="taskurl" value="${tTaskInfoCustom.taskurl}"
+												placeholder="请输入宝贝url,例如:https://item.taobao.com/item.htm?id=531027639098" class='form-control'  onchange="checkurl(this);" />
 											<span id="span" style="color:#aaa;"></span>
 										</td>
 									</tr>
@@ -364,8 +364,25 @@
 											到：<input type="text" name="dateto" id="dateto" width="200px"/>
 										</td>
 									</tr>
+									<tr>
+										<td>
+											深入点击
+										</td>
+										<td>
+											<div class="input-group">
+												<input type="text" name="deepclick" id="deepclick" class='form-control' maxlength="3"
+													onkeyup="this.value=this.value.replace(/\D/g,'')"
+													onafterpaste="this.value=this.value.replace(/\D/g,'')"
+													<c:if test="${tTaskInfoCustom.shoppingcount!=null }">value="${tTaskInfoCustom.shoppingcount}"</c:if>
+													<c:if test="${tTaskInfoCustom.shoppingcount==null }">value="0"</c:if>
+													 style="width:500px;" />
+													 <apan style="font-size:20px;">%</apan>
+												（百分比，0到100整数，浏览店铺其它宝贝比例）
+											</div>
+										</td>
+									</tr>
 								</table>
-								<div class="box">
+								<div class="box" style="padding:0px 0px;">
 									<div class="taxkTips box_toggle">
 										<h2>
 											<scan class="scan_icon">

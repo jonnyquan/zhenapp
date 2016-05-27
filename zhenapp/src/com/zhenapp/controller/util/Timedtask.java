@@ -37,6 +37,24 @@ public class Timedtask {
         logger.info("任务执行结束....每分钟执行一次");
 	}
 	
+	@Scheduled(cron = "0 */10 * * * ?")//每隔10分钟执行一次
+	public void job2() throws HttpException, IOException {
+		logger.info("任务执行开始....每10分钟执行一次检查任务是否执行完成");
+		HttpClient httpClient = new HttpClient();
+		String result="";
+		String url = host+"/api/platform/cyclecheckTask";
+        PostMethod postMethod = new PostMethod(url);
+        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+        int statusCode =  httpClient.executeMethod(postMethod);
+        if(statusCode == 200) {
+            System.out.println("调用成功");
+            result = postMethod.getResponseBodyAsString();
+            System.out.println(result);
+        }else {
+            System.out.println("调用失败" + statusCode);
+        }
+        logger.info("任务执行结束....每10分钟执行一次检查任务是否执行完成");
+	}
 	
 	
 	@Scheduled(cron = "0 1 0 * * ?")//每天0点1分执行一次

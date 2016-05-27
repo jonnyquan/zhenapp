@@ -137,7 +137,7 @@ public class ComboInfoController {
 //===========================================================================================以上为最新
 	/*
 	 * 查询全部的套餐信息 用于套餐展现
-	 */
+	
 	@RequestMapping(value = "/findAllCombo")
 	public @ResponseBody
 	ModelAndView findAllCombo() throws Exception {
@@ -147,11 +147,11 @@ public class ComboInfoController {
 		mv.addObject("tComboInfoCustomlist", tComboInfoCustomlist);
 		mv.setViewName("/page/records/recordsdeposit.jsp");
 		return mv;
-	}
+	} */
 	
 	/*
 	 * 查询全部的套餐信息 用于套餐信息管理
-	 */
+	 
 	@RequestMapping(value = "/findAllCombotoEdit")
 	public @ResponseBody
 	ModelAndView findAllCombotoEdit() throws Exception {
@@ -162,7 +162,7 @@ public class ComboInfoController {
 		mv.setViewName("/page/combo/combomange.jsp");
 		return mv;
 	}
-	
+	*/
 	
 	/*
 	 * 保存套餐信息

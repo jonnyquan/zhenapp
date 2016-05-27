@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhenapp.mapper.Custom.TUserInfoCustomMapper" >
-
+	<update id="updateValidByemailandusernick" parameterType="java.util.HashMap">
+		update t_user_info set regvalidcode =#{regvalidcode} where regemail=#{regemail} and usernick=#{usernick}
+	</update>
+	<update id="passwordreset" parameterType="com.zhenapp.po.Custom.TUserInfoCustom">
+		update t_user_info set userpwd =#{userpwd} where regemail=#{regemail} and usernick=#{usernick} and regvalidcode =#{regvalidcode}
+	</update>
 
   <select id="checkMobileUnique" resultType="int" parameterType="String" >
-    select count(1) from t_user_info where userphone = #{userphone}
+    select count(1) from t_user_info where userphone = #{userphone} and userstate ='29'
   </select>
   <select id="checkEmailUnique" resultType="int" parameterType="String" >
-    select count(1) from t_user_info where regemail = #{regemail}
+    select count(1) from t_user_info where regemail = #{regemail} and userstate ='29'
   </select>
   <select id="findUserBynick" resultType="com.zhenapp.po.Custom.TUserInfoCustom" parameterType="String" >
-    select * from t_user_info where userNick = #{usernick}
+    select * from t_user_info where userNick = #{usernick} and userstate ='29'
   </select>
   <select id="findUserByuserid" parameterType="String" resultType="com.zhenapp.po.Custom.TUserInfoCustom">
-  	select * from t_user_info where userid = #{userid}
+  	select * from t_user_info where userid = #{userid} and userstate ='29'
   </select>
   <select id="findUserByPage" resultType="com.zhenapp.po.Custom.TUserInfoCustom" parameterType="java.util.HashMap">
-    SELECT a.userpk,a.userid,a.usernick,a.userpwd,a.username,a.points,a.userqq,a.usercardnum,a.userroleid,a.userphone,a.userstate,a.regemail,a.regip,a.regdomain,a.agentid, 
+    SELECT a.userpk,a.userid,a.usernick,a.userpwd,a.username,a.points,a.userqq,a.usercardnum,a.userroleid,a.userphone,a.userstate,a.regemail,a.regip,a.regurl,a.agentid, 
 	DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime,a.createuser,DATE_FORMAT(a.updatetime,'%Y-%m-%d %H:%i:%s') AS updatetime, a.updateuser,b.rolename,c.dicinfoname as statename FROM t_user_info a LEFT JOIN t_role_info b ON b.roleid=a.userroleid 
 	LEFT JOIN t_data_dic_info c ON a.userstate=c.dicinfoid 
     <where>
@@ -30,9 +35,8 @@
     		and a.userphone like '%${userphone}%'
     	</if>
     	<if test="userstate != null and userstate != ''">
-    		and userstate = #{userstate}
+    		and a.userstate = #{userstate}
     	</if>
-    	
     </where>
     limit #{page},#{rows}
   </select>
@@ -48,11 +52,14 @@
     	<if test="userphone != null and userphone != ''">
     		and a.userphone like '%${userphone}%'
     	</if>
+    	<if test="userstate != null and userstate != ''">
+    		and a.userstate = #{userstate}
+    	</if>
     </where>
   </select>
   
   <select id="findUserByPageandRole" resultType="com.zhenapp.po.Custom.TUserInfoCustom" parameterType="java.util.HashMap">
-    SELECT a.userpk,a.userid,a.usernick,a.userpwd,a.username,a.points,a.userqq,a.usercardnum,a.userroleid,a.userphone,a.userstate,a.regemail,a.regip,a.regdomain,a.agentid, 
+    SELECT a.userpk,a.userid,a.usernick,a.userpwd,a.username,a.points,a.userqq,a.usercardnum,a.userroleid,a.userphone,a.userstate,a.regemail,a.regip,a.regurl,a.agentid, 
 	DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime,a.createuser,DATE_FORMAT(a.updatetime,'%Y-%m-%d %H:%i:%s') AS updatetime, a.updateuser,b.rolename,c.dicinfoname as statename FROM t_user_info a LEFT JOIN t_role_info b ON b.roleid=a.userroleid LEFT JOIN t_data_dic_info c ON a.userstate=c.dicinfoid 
     INNER JOIN (SELECT agentid FROM t_agent_info WHERE agentuserid=#{userid}) d ON a.agentid=d.agentid 
     <where>
@@ -64,6 +71,9 @@
     	</if>
     	<if test="userphone != null and userphone != ''">
     		and a.userphone like '%${userphone}%'
+    	</if>
+    	<if test="userstate != null and userstate != ''">
+    		and a.userstate = #{userstate}
     	</if>
     	and userroleid = '3' 
     </where>
@@ -82,37 +92,37 @@
     	<if test="usernick!=null and usernick!=''">
     		and a.userphone=#{userphone}
     	</if>
+    	<if test="userstate != null and userstate != ''">
+    		and a.userstate = #{userstate}
+    	</if>
+    	and userroleid = '3' 
     </where>
   </select>
   
-   
   <select id="findpointsByUsernickAndPwd" resultType="String" parameterType="com.zhenapp.po.Custom.TUserInfoCustom">
-    SELECT points FROM t_user_info WHERE usernick=#{usernick} AND userpwd=#{userpwd}
+    SELECT points FROM t_user_info WHERE usernick=#{usernick} AND userpwd=#{userpwd} and userstate='29'
   </select>
   <select id="findPasswordByemail" parameterType="com.zhenapp.po.Vo.TUserinfoVo" resultType="com.zhenapp.po.Custom.TUserInfoCustom">
-  	SELECT * FROM t_user_info WHERE userNick=#{tUserinfoCustom.usernick} AND regEmail=#{tUserinfoCustom.regemail} limit 0,1
+  	SELECT * FROM t_user_info WHERE userNick=#{tUserinfoCustom.usernick} AND regEmail=#{tUserinfoCustom.regemail} and userstate='29' limit 0,1
   </select>
   <select id="findUserByuserpk" parameterType="String" resultType="com.zhenapp.po.Custom.TUserInfoCustom">
-  	SELECT * FROM t_user_info where userpk=#{userpk}
+  	SELECT * FROM t_user_info where userpk=#{userpk} and userstate='29'
   </select>
   <delete id="deleteUserinfoBypk" parameterType="String">
- 	delete from  t_user_info where userpk=#{userpk}
+ 	delete from t_user_info where userpk=#{userpk} and userstate='29'
   </delete>
   <delete id="deleteUserByUserpkAndRole" parameterType="java.util.HashMap">
- 	delete FROM t_user_info WHERE userpk=#{userpk} AND agentid=#{agentid}
+ 	delete FROM t_user_info WHERE userpk=#{userpk} AND agentid=#{agentid} and userstate='29'
   </delete>
   <delete id="deleteUserByUserpkAndAdmin" parameterType="java.util.HashMap">
- 	delete FROM t_user_info WHERE userpk=#{userpk} 
+ 	delete FROM t_user_info WHERE userpk=#{userpk} and userstate='29'
   </delete>
-  
   <update id="updateUser" parameterType="com.zhenapp.po.Custom.TUserInfoCustom">
   	update t_user_info set username = #{username},userqq = #{userqq},updatetime = #{updatetime},updateuser = #{updateuser} where userId = #{userid}
-   </update>
-   
-   <update id="updateUserpwdByuserid" parameterType="com.zhenapp.po.Custom.TUserInfoCustom">
+  </update>
+  <update id="updateUserpwdByuserid" parameterType="com.zhenapp.po.Custom.TUserInfoCustom">
   	update t_user_info set userpwd = #{userpwd},updatetime = #{updatetime},updateuser = #{updateuser} where userId = #{userid}
-   </update>
-  
+  </update>
   <update id="updateUserinfo" parameterType="com.zhenapp.po.Vo.TUserinfoVo">
   	update t_user_info
     set
@@ -136,19 +146,31 @@
    	UPDATE t_user_info SET userroleid=#{newroleid},agentid=#{agentid} WHERE userpk=#{userpk} AND userroleid=#{oldroleid}
    </update>
    
+   <update id="updateUserState" parameterType="java.util.HashMap">
+   		UPDATE t_user_info SET userstate='30', updatetime=#{updatetime},updateuser=#{updateuser}
+   		<where>
+   			<if test="userpk != null and userpk != '' ">
+   				and userpk=#{userpk}
+   			</if>
+   			<if test="agentid != null and agentid != '' ">
+   				and agentid=#{agentid}
+   			</if>
+   		</where>
+   </update>
+   
    <insert id="saveUser" parameterType="com.zhenapp.po.Custom.TUserInfoCustom">
 	   insert into t_user_info ( userid, usernick, 
       userpwd, username, points, 
       userqq, usercardnum, userroleid, 
       userphone, userstate, regemail, 
-      regip, regdomain, agentid, 
+      regip, regurl, agentid, 
       createtime, createuser, updatetime, 
       updateuser)
     values ( #{userid,jdbcType=VARCHAR}, #{usernick,jdbcType=VARCHAR}, 
       #{userpwd,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{points,jdbcType=INTEGER}, 
       #{userqq,jdbcType=VARCHAR}, #{usercardnum,jdbcType=VARCHAR}, #{userroleid,jdbcType=INTEGER}, 
       #{userphone,jdbcType=VARCHAR}, #{userstate,jdbcType=VARCHAR}, #{regemail,jdbcType=VARCHAR}, 
-      #{regip,jdbcType=VARCHAR}, #{regdomain,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
+      #{regip,jdbcType=VARCHAR}, #{regurl,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
       #{updateuser,jdbcType=VARCHAR})
    </insert>

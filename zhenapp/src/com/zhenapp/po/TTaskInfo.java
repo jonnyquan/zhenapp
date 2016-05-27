@@ -9,6 +9,8 @@ public class TTaskInfo {
 
     private String taskkeynum;
 
+    private String taskurl;
+
     private String tasktitle;
 
     private String taskwirelesstitle;
@@ -40,6 +42,8 @@ public class TTaskInfo {
     private Integer collectioncount;
 
     private Integer shoppingcount;
+
+    private String deepclick;
 
     private String tasktmallapppct;
 
@@ -91,6 +95,14 @@ public class TTaskInfo {
 
     public void setTaskkeynum(String taskkeynum) {
         this.taskkeynum = taskkeynum == null ? null : taskkeynum.trim();
+    }
+
+    public String getTaskurl() {
+        return taskurl;
+    }
+
+    public void setTaskurl(String taskurl) {
+        this.taskurl = taskurl == null ? null : taskurl.trim();
     }
 
     public String getTasktitle() {
@@ -219,6 +231,14 @@ public class TTaskInfo {
 
     public void setShoppingcount(Integer shoppingcount) {
         this.shoppingcount = shoppingcount;
+    }
+
+    public String getDeepclick() {
+        return deepclick;
+    }
+
+    public void setDeepclick(String deepclick) {
+        this.deepclick = deepclick == null ? null : deepclick.trim();
     }
 
     public String getTasktmallapppct() {

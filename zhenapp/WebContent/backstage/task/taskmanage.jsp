@@ -266,6 +266,7 @@ input {
 		<div class="u_outbox">
 			<div class="tabtitle clearfix">
 				<a href="${pageContext.request.contextPath}/task/responsetaskmanage" class="row_l hover">流量任务管理</a>
+				<a href="${pageContext.request.contextPath}/task/responsetaskmanagebefore" class="row_l ">历史任务管理</a>
 				<a href="${pageContext.request.contextPath}/user/responseuser" class="row_l back">返回个人中心</a>
 			</div>
 			<div class="umainbox">
@@ -372,16 +373,16 @@ input {
 					                <td>${list.dicinfoname} </td>
 									<td > 
 									  <!--  <a onclick="againtask('${list.taskid}')" class="btn btn-success btn-xs">再次发布</a>	<br/>-->
-									  <a onclick="againtask('${list.taskid}')" class="btn btn-success btn-xs">再次发布</a>	<br/>
-									  <a onclick="endtask('${list.taskid}')" class="btn btn-default btn-xs">终止任务</a>				
+									  <a onclick="againtask('${list.taskid}');" class="btn btn-success btn-xs">再次发布</a>	<br/>
+									  <c:if test="${list.taskstate==16}">
+									  	<a onclick="endtask('${list.taskid}');" class="btn btn-default btn-xs">终止任务</a>
+									  </c:if>				
 									</td>
 								</tr>
 							</c:forEach>
 						</c:if>
 					</table>
-					
 				</div>
-				
 			</div>
 			<div>
 				<ul class="pagination" id="pagination">
@@ -480,7 +481,9 @@ function endtask(taskid){
 			if (data!=null && data.data=="success") {
 				alert("终止任务成功！");
 				window.location.href="${pageContext.request.contextPath}/task/responsetaskmanage";
-			} else{
+			} else if(data!=null && data.data=="stateerror"){
+				alert("终止任务失败,只允许终止运行中的任务！");
+			}else{
 				alert("终止任务失败,请联系客服！");
 			}
 		}

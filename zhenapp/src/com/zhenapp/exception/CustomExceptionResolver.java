@@ -61,7 +61,7 @@ public class CustomExceptionResolver implements HandlerExceptionResolver {
 		modelAndView.addObject("msg", message);
 		
 		//指向错误页面
-		modelAndView.setViewName("/page/pagestates/info.jsp");
+		modelAndView.setViewName("/info.jsp");
 
 		
 		return modelAndView;

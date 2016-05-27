@@ -16,6 +16,5 @@ String msg=request.getParameter("msg");
 			${msg}
 		</h3>
 	</div>
-	
 </body>
 </html>

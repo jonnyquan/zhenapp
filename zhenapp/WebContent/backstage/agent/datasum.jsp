@@ -93,22 +93,22 @@
       </div>
       <div class="am-u-md-2">
         <select id="flowType">
-          <option value="">任务流量类型</option>
-          <option value="34" >直通车</option>
-          <option value="33" >流量</option>
+          <option <c:if test="${tasktype=='' }">selected</c:if> value="">任务流量类型</option>
+          <option <c:if test="${tasktype=='34' }">selected</c:if> value="34">直通车</option>
+          <option <c:if test="${tasktype=='33' }">selected</c:if> value="33">流量</option>
         </select>
       </div>
       <div class="am-u-md-3">
         <button type="button" class="am-btn am-btn-default" id="my-start">
           <span class="am-icon-calendar"></span>开始日期
         </button>
-        <span id="my-startDate"></span>
+        <span id="my-startDate">${datefrom}</span>
       </div>
       <div class="am-u-md-3">
         <button type="button" class="am-btn am-btn-default" id="my-end">
           <span class="am-icon-calendar"></span>结束日期
         </button>
-        <span id="my-endDate"></span>
+        <span id="my-endDate">${dateto}</span>
       </div>
       <div class="am-u-md-2">
         <button class="am-btn am-btn-default" id="search" type="button">搜索</button>
@@ -137,26 +137,33 @@
               </tr>
               </thead>
               <tbody>
-              <c:forEach items="${datacountInfoCustomlist }" var="list">
+              <c:if test="${datacountInfoCustomlist == null}">
+              	<tr>
+	              	<td colspan="7">暂无详细数据</td>
+	            </tr>
+              </c:if>
+              <c:if test="${datacountInfoCustomlist != null}">
+	              <c:forEach items="${datacountInfoCustomlist }" var="list">
+		              <tr>
+		                 <td>${list.date}</td>
+		                 <td>${list.flowcount}</td>
+		                 <td>${list.collectioncount}</td>
+		                 <td>${list.shoppingcount}</td>
+		                 <td>${list.buypoints}</td>
+		                 <td>${list.expendpoints}</td>
+		                 <td>${list.handworkpoints}</td>
+		              </tr>
+	              </c:forEach>
 	              <tr>
-	                 <td>${list.date}</td>
-	                 <td>${list.flowcount}</td>
-	                 <td>${list.collectioncount}</td>
-	                 <td>${list.shoppingcount}</td>
-	                 <td>${list.buypoints}</td>
-	                 <td>${list.expendpoints}</td>
-	                 <td>${list.handworkpoints}</td>
+	              	<td>总计</td>
+	              	<td>${datacountInfoCustom.sumflowcount}</td>
+	              	<td>${datacountInfoCustom.sumcollectioncount}</td>
+	              	<td>${datacountInfoCustom.sumshoppingcount}</td>
+	              	<td>${datacountInfoCustom.sumbuypoints}</td>
+	              	<td>${datacountInfoCustom.sumexpendpoints}</td>
+	              	<td>${datacountInfoCustom.sumhandworkpoints}</td>
 	              </tr>
-              </c:forEach>
-              <tr>
-              	<td>总计</td>
-              	<td>${datacountInfoCustom.sumflowcount}</td>
-              	<td>${datacountInfoCustom.sumcollectioncount}</td>
-              	<td>${datacountInfoCustom.sumshoppingcount}</td>
-              	<td>${datacountInfoCustom.sumbuypoints}</td>
-              	<td>${datacountInfoCustom.sumexpendpoints}</td>
-              	<td>${datacountInfoCustom.sumhandworkpoints}</td>
-              </tr>
+              </c:if>
             </tbody>
           </table>
         </div>
@@ -197,7 +204,15 @@
     $("#search").click(function() {
       var startTime = $("#my-startDate").text();
       var entTime = $("#my-endDate").text();
-      var type = $("#flowType").val(); 
+      var type = $("#flowType").val();
+      if(startTime.length<1){
+    	  $alert.find('p').text('开始日期不能为空！').end().show();
+    	  return false;
+      }
+      if(entTime.length<1){
+    	  $alert.find('p').text('结束日期不能为空！').end().show();
+    	  return false;
+      }
       var url = "${pageContext.request.contextPath}/datacount/findDataByDateAndTasktype?&datefrom=" + startTime + "&dateto=" + entTime + "&tasktype=" + type;
       location.href = url;
     });

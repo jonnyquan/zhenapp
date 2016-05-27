@@ -27,7 +27,7 @@
 
 <bean id="taskInfoService" class="com.zhenapp.service.imp.TaskInfoServiceImp"/>
 --> 
-<context:component-scan base-package="com.zhenapp.service.imp"></context:component-scan>
+<context:component-scan base-package="com.zhenapp.service"></context:component-scan>
 <!-- 测试类 -->
 <bean id="test" class="com.zhenapp.test.TextImprot"/>
 

@@ -278,9 +278,9 @@
 						</div>
 
 						<div class="sysMsg clearfix">
-							<a href="${pageContext.request.contextPath}/task/responsetaskmanage">已完成任务<span>(0)</span></a> <a
-								href="${pageContext.request.contextPath}/task/responsetaskmanage">待完成任务<span>(0)</span></a> <a
-								href="${pageContext.request.contextPath}/task/responsetaskmanage">购买记录<span>(0)</span></a>
+							<a href="${pageContext.request.contextPath}/task/responsetaskmanage">已完成任务<span></span></a> 
+							<a href="${pageContext.request.contextPath}/task/responsetaskmanage">待完成任务<span></span></a> 
+							<a href="${pageContext.request.contextPath}/points/responseconsume">购买记录<span></span></a>
 						</div>
 						<div class="news clearfix">
 							<div class="articlebox row_l">

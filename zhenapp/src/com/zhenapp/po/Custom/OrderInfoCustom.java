@@ -15,8 +15,6 @@ public class OrderInfoCustom {
 	private String timecontrol;
 	private String image;
 	
-	
-	
 	public String getMinPrice() {
 		return minPrice;
 	}

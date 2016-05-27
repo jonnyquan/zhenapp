@@ -56,7 +56,7 @@ public class FrontendAuthregisterController {
 		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
 		String time = sdf.format(new Date());
 		tUserInfoCustom.setUserroleid(3);//默认初始化角色id
-		tUserInfoCustom.setRegdomain(webwww);
+		tUserInfoCustom.setRegurl(webwww);
 		tUserInfoCustom.setPoints(0);//默认用户注册积分为0 并插入积分明细记录
 		tUserInfoCustom.setRegip(webwww);
 		tUserInfoCustom.setUserstate("29");//默认初始化用户状态
@@ -103,6 +103,19 @@ public class FrontendAuthregisterController {
 		return map;
 	}
 	
+	@RequestMapping(value="/ajax/checkUserNameexist")
+	public @ResponseBody ModelMap checkUserNameexist(String param) throws Exception{
+		List<TUserInfoCustom> list=userInfoService.findUserBynick(param);
+		ModelMap map= new ModelMap();
+		if(list.size()>0){
+			map.put("status", "y");
+		}else{
+			map.put("status", "n");
+			map.put("info", "用户名不存在");
+		}
+		return map;
+	}
+	
 	@RequestMapping(value="/ajax/checkEmailUnique")
 	public @ResponseBody ModelMap checkEmailUnique(String param) throws Exception{
 		int i= userInfoService.checkEmailUnique(param);
@@ -128,6 +141,5 @@ public class FrontendAuthregisterController {
 		}
 		return map;
 	}
-	
 	
 }

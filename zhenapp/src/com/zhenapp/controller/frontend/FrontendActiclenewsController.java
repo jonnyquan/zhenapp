@@ -92,7 +92,7 @@ public class FrontendActiclenewsController {
 	
 	/*
 	 * 批量导入流量村的电商信息数据
-	 */
+	 
 	@RequestMapping(value = "/insertelectrity")
 	public ModelAndView insertelectrity() throws Exception {
 		ModelAndView mv = new ModelAndView();
@@ -107,5 +107,5 @@ public class FrontendActiclenewsController {
 		}
 		mv.setViewName("/page/pagestates/info.jsp");
 		return mv;
-	}
+	}*/
 }

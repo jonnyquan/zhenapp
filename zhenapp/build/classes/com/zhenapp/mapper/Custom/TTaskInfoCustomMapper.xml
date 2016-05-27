@@ -6,7 +6,7 @@
   	select * from t_task_info where taskpk in (${pks})
   </select>
   <select id="findTaskBypage" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap" >
-    SELECT CONCAT(DATE_FORMAT(a.taskstartdate,'%m.%d'),'-',DATE_FORMAT(a.taskenddate,'%m.%d')) AS taskdaterange,a.taskpk,a.taskid, a.tasktype, 
+  SELECT DATE_FORMAT(a.taskdate,'%Y-%m-%d') AS taskdaterange,a.taskpk,a.taskid, a.tasktype, 
      a.taskkeynum, a.tasktitle, a.taskwirelesstitle, 
      a.taskstartdate,a.taskenddate,a.taskdate, 
      a.taskreleasekeyword,a.taskkeyword,a.taskhourcounts, 
@@ -15,13 +15,27 @@
      a.Collectioncount,a.Shoppingcount,a.tasktmallapppct, 
      a.taskgprspct,a.taskPlus,a.taskduration, 
      a.subtractpoints,a.taskstate,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime, 
-     a.createuser,a.updatetime,a.updateuser,b.dicinfoname,IFNULL(c.finishflowcount,0) AS finishflowcount,IFNULL(c.finishcollectioncount,0) AS finishcollectioncount,IFNULL(c.finishshoppingcount,0) AS finishshoppingcount,IFNULL(d.errorcount,0) AS errorcount,e.dicinfoname AS tasktypename FROM t_task_info a
-	LEFT JOIN (select dicinfoid,dicinfoname from t_data_dic_info WHERE dictypecode='runstate') b ON a.taskstate=b.dicinfoid
-	left join t_data_dic_info e ON a.tasktype=e.dicinfoid
-	LEFT JOIN (SELECT taskid,COUNT(isflow) AS finishflowcount,COUNT(iscreativetitle) AS finishcollectioncount,COUNT(isshopcollect) AS finishshoppingcount FROM t_task_detailinfo where taskstate='21' GROUP BY taskid) c ON a.taskid=c.taskid
-	LEFT JOIN (SELECT taskid,COUNT(isflow) AS errorcount FROM t_task_detailinfo WHERE taskstate='22' GROUP BY taskid) d ON a.taskid=d.taskid
+     a.createuser,a.updatetime,a.updateuser,b.dicinfoname,
+     CASE WHEN IFNULL(f.finishcount,0)>=IFNULL(c.finishcollectioncount,0) and IFNULL(f.finishcount,0)>=IFNULL(c.finishshoppingcount,0) THEN IFNULL(f.finishcount,0)
+     WHEN IFNULL(f.finishcount,0)>=IFNULL(c.finishcollectioncount,0) and IFNULL(f.finishcount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishshoppingcount,0)
+     WHEN IFNULL(f.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) and IFNULL(f.finishcount,0)>=IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishcollectioncount,0)
+     WHEN IFNULL(f.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) and IFNULL(f.finishcount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) and IFNULL(c.finishcollectioncount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishshoppingcount,0)
+     ELSE IFNULL(c.finishcollectioncount,0) END finishflowcount,
+     IFNULL(c.finishcollectioncount,0) AS finishcollectioncount,IFNULL(c.finishshoppingcount,0) AS finishshoppingcount,IFNULL(d.errorcount,0) AS errorcount,e.dicinfoname AS tasktypename 
+     FROM t_task_info a
+	LEFT JOIN (SELECT dicinfoid,dicinfoname FROM t_data_dic_info WHERE dictypecode='runstate') b ON a.taskstate=b.dicinfoid
+	LEFT JOIN t_data_dic_info e ON a.tasktype=e.dicinfoid
+	LEFT JOIN t_task_detailinfo_flow f ON a.taskid = f.taskid
+	LEFT JOIN (SELECT taskid,SUM(iscollection) AS finishcollectioncount,SUM(isshopping) AS finishshoppingcount FROM t_task_detailinfo WHERE taskstate='21' GROUP BY taskid) c ON a.taskid=c.taskid
+	LEFT JOIN (SELECT taskid,(SUM(iscollection)+SUM(isshopping)) AS errorcount FROM t_task_detailinfo WHERE taskstate='22' GROUP BY taskid) d ON a.taskid=d.taskid
 	<where>
-    	<if test="taskid !=null and taskid!=''">
+		<if test="today != null and today != '' ">
+			and a.taskdate+0 <![CDATA[>=]]> #{today}
+		</if>
+		<if test="before != null and before != '' ">
+			and a.taskdate+0 <![CDATA[<]]> #{before}
+		</if>
+    	<if test="taskid !=null and taskid !='' ">
     		and a.taskid like '%${taskid}%'
     	</if>
     	<if test="taskpk !=null and taskpk != ''">
@@ -59,13 +73,28 @@
   </select>
   
   <select id="findTaskBypageAndrole" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap" >
-    SELECT CONCAT(DATE_FORMAT(a.taskstartdate,'%m.%d'),'-',DATE_FORMAT(a.taskenddate,'%m.%d')) AS taskdaterange,f.usernick,a.taskpk,a.taskid,a.tasktype,a.taskkeynum,a.tasktitle,a.taskwirelesstitle,a.taskstartdate,a.taskenddate,a.taskdate,a.taskreleasekeyword,a.taskkeyword,a.taskhourcounts,
-     a.taskminprice,a.taskmaxprice,a.tasksearchType,a.taskimgztc,a.taskimgpt,a.flowcount,a.Collectioncount,a.Shoppingcount,a.tasktmallapppct,a.taskgprspct,a.taskPlus,a.taskduration, 
-     a.subtractpoints,a.taskstate,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime,a.updatetime,a.updateuser,b.dicinfoname,IFNULL(c.finishflowcount,0) AS finishflowcount,IFNULL(c.finishcollectioncount,0) AS finishcollectioncount,IFNULL(c.finishshoppingcount,0) AS finishshoppingcount,IFNULL(d.errorcount,0) AS errorcount,e.dicinfoname AS tasktypename FROM t_task_info a
-	LEFT JOIN (SELECT dicinfoid,dicinfoname FROM t_data_dic_info WHERE dictypecode='runstate') b ON a.taskstate=b.dicinfoid
+     SELECT DATE_FORMAT(a.taskdate,'%Y-%m-%d') AS taskdaterange,a.taskpk,a.taskid, a.tasktype, 
+     a.taskkeynum, a.tasktitle, a.taskwirelesstitle, 
+     a.taskstartdate,a.taskenddate,a.taskdate, 
+     a.taskreleasekeyword,a.taskkeyword,a.taskhourcounts, 
+     a.taskminprice,a.taskmaxprice,a.tasksearchType, 
+     a.taskimgztc,a.taskimgpt,a.flowcount, 
+     a.Collectioncount,a.Shoppingcount,a.tasktmallapppct, 
+     a.taskgprspct,a.taskPlus,a.taskduration, 
+     a.subtractpoints,a.taskstate,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime, 
+     a.createuser,a.updatetime,a.updateuser,b.dicinfoname,
+     CASE WHEN IFNULL(h.finishcount,0)>=IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0)>=IFNULL(c.finishshoppingcount,0) THEN IFNULL(h.finishcount,0)
+     WHEN IFNULL(h.finishcount,0)>=IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishshoppingcount,0)
+     WHEN IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0)>=IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishcollectioncount,0)
+     WHEN IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) and IFNULL(c.finishcollectioncount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishshoppingcount,0)
+     ELSE IFNULL(c.finishcollectioncount,0) END finishflowcount,
+     IFNULL(c.finishcollectioncount,0) AS finishcollectioncount,IFNULL(c.finishshoppingcount,0) AS finishshoppingcount,IFNULL(d.errorcount,0) AS errorcount,e.dicinfoname AS tasktypename 
+     FROM t_task_info a
+     LEFT JOIN (SELECT dicinfoid,dicinfoname FROM t_data_dic_info WHERE dictypecode='runstate') b ON a.taskstate=b.dicinfoid
 	LEFT JOIN t_data_dic_info e ON a.tasktype=e.dicinfoid
-	LEFT JOIN (SELECT taskid,COUNT(isflow) AS finishflowcount,COUNT(iscreativetitle) AS finishcollectioncount,COUNT(isshopcollect) AS finishshoppingcount FROM t_task_detailinfo WHERE taskstate='21' GROUP BY taskid) c ON a.taskid=c.taskid
-	LEFT JOIN (SELECT taskid,COUNT(isflow) AS errorcount FROM t_task_detailinfo WHERE taskstate='22' GROUP BY taskid) d ON a.taskid=d.taskid
+	LEFT JOIN t_task_detailinfo_flow h ON a.taskid = h.taskid
+	LEFT JOIN (SELECT taskid,SUM(iscollection) AS finishcollectioncount,SUM(isshopping) AS finishshoppingcount FROM t_task_detailinfo WHERE taskstate='21' GROUP BY taskid) c ON a.taskid=c.taskid
+	LEFT JOIN (SELECT taskid,(SUM(iscollection)+SUM(isshopping)) AS errorcount FROM t_task_detailinfo WHERE taskstate='22' GROUP BY taskid) d ON a.taskid=d.taskid
 	INNER JOIN (SELECT a.* FROM t_user_info a WHERE a.agentid IN (SELECT agentid FROM t_agent_info WHERE agentuserid=#{userid})) f ON a.createuser=f.userid<where>
     	<if test="taskid !=null and taskid != ''">
     		and a.taskid like '%${taskid}%'
@@ -133,6 +162,12 @@
   <select id="findTotalTaskBypage" resultType="int" parameterType="java.util.HashMap" >
     select count(1) from t_task_info
     <where>
+    	<if test="today != null and today != '' ">
+			and taskdate+0 <![CDATA[>=]]> #{today}
+		</if>
+		<if test="before != null and before != '' ">
+			and taskdate+0 <![CDATA[<]]> #{before}
+		</if>
     	<if test="taskid !=null and taskid != ''">
     		and taskid like '%${taskid}%'
     	</if>
@@ -238,10 +273,13 @@
   </insert>
   
   <update id="updateTaskstate" parameterType="java.util.HashMap">
-  	update t_task_info set taskstate=#{taskstate},updatetime=#{updatetime},updateuser=#{updateuser} where taskid=#{taskid} 
+  	update t_task_info set taskstate=#{taskstate},updatetime=#{updatetime},updateuser=#{updateuser} 
   	<where>
   		<if test="userid != null and userid != ''">
   			and createuser=#{userid}	
+  		</if>
+  		<if test="taskid != null and taskid != ''">
+  			and taskid=#{taskid}
   		</if>
   	</where>
   </update>

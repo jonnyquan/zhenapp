@@ -1,6 +1,7 @@
 package com.zhenapp.controller.api;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,9 +21,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhenapp.mapper.Custom.FirstWebInfoCustom;
 import com.zhenapp.po.Custom.ApireturnCustom;
+import com.zhenapp.po.Custom.MsgInfoCustom;
+import com.zhenapp.po.Custom.TSysconfInfoCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
+import com.zhenapp.service.SysconfInfoService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskInfoService;
+import com.zhenapp.util.StringUtilWxf;
 
 
 @Controller
@@ -29,13 +35,16 @@ public class FirstWebController {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
 	private static Logger logger = Logger.getLogger(FirstWebController.class);
-	//private final String secrettest="bLT?lAgO?zx=mNTJb85ryzRM<]s^wpxQ?_x0NLRMu2:Hosxp2ne^cIXjF`G9Ez9K";
-	private final String secret= "Ko;l47q6P`KZo:=xTc]39CJ`JPwGJ=fss8n:MaxR[YjPVN/2DI6`>5g3KdfMKpS9";
-	
+	//private final String secrettest="bLT?lAgO?zx=mNTJb85ryzRM<]s^wpxQ?_x0NLRMu2:Hosxp2ne^cIXjF`G9Ez9K";//测试
+	//private final String secret= "Ko;l47q6P`KZo:=xTc]39CJ`JPwGJ=fss8n:MaxR[YjPVN/2DI6`>5g3KdfMKpS9";//正式
+	@Autowired
+	private SysconfInfoService sysconfInfoService;
 	@Autowired
 	private TaskDetailInfoService taskDetailInfoService;
 	@Autowired
 	private TaskInfoService taskInfoService;
+	@Value("${secret}")
+	private String secret;
 	/*
 	 * 发布任务接口
 	 */
@@ -50,14 +59,14 @@ public class FirstWebController {
 			HttpClient httpClient = new HttpClient();
 			String result="";
 	        PostMethod postMethod = new PostMethod(url);
-	        postMethod.addParameter("name", "任务"+tTaskInfoCustom.getTaskpk());
+	        postMethod.addParameter("name", "任务");
 	        //postMethod.addParameter("keywords", tTaskInfoCustom.getTaskkeyword());
-	        postMethod.addParameter("keywords", "背心");
+	        postMethod.addParameter("keywords", "沙滩中裤男");
 	        postMethod.addParameter("product_url", "https://detail.tmall.com/item.htm?id="+tTaskInfoCustom.getTaskkeynum());
 	        //postMethod.addParameter("start_date", sdf.format(yyyyMMdd.parse(tTaskInfoCustom.getTaskdate())));
 	        //postMethod.addParameter("end_date", sdf.format(yyyyMMdd.parse(tTaskInfoCustom.getTaskdate())));
-	        postMethod.addParameter("start_date", "2016-05-17");
-	        postMethod.addParameter("end_date", "2016-05-17");
+	        postMethod.addParameter("start_date", sdf.format(yyyyMMdd.parse(tTaskInfoCustom.getTaskstartdate())));
+	        postMethod.addParameter("end_date", sdf.format(yyyyMMdd.parse(tTaskInfoCustom.getTaskenddate())));
 	        postMethod.addParameter("hour_counts", "["+tTaskInfoCustom.getTaskhourcounts()+"]");
 	        postMethod.addParameter("duration", "1");
 	        postMethod.addParameter("plus", "true");
@@ -70,6 +79,13 @@ public class FirstWebController {
 	        if(statusCode == 200) {
 	            System.out.println("调用成功");
 	            result = postMethod.getResponseBodyAsString();
+	            if(result.indexOf("id")==-1){
+	            	result = StringUtilWxf.translat(result);
+	            }else{
+	            	ObjectMapper obj = new ObjectMapper();
+	 	    		MsgInfoCustom msgInfoCustom = obj.readValue(result, MsgInfoCustom.class);
+	 	    		result=msgInfoCustom.getId()+"";
+	            }
 	            map.put("msg", result);
 	        }
 	        else {
@@ -178,11 +194,10 @@ public class FirstWebController {
 	 */
 	@RequestMapping(value="/api/tasks/{id}/total")
 	public @ResponseBody ModelMap apitaskstotal(@PathVariable(value="id") String id) throws Exception{
-		String url="http://liuliangapp.com/api/tasks/"+id+"/total";
 		ModelMap map = new ModelMap();
 		HttpClient httpClient = new HttpClient();
 		String result="";
-        GetMethod getMethod = new GetMethod(url);
+        GetMethod getMethod = new GetMethod("http://liuliangapp.com/api/tasks/"+id+"/total");
         getMethod.setRequestHeader("secret", secret);
         int statusCode =  httpClient.executeMethod(getMethod);
         if(statusCode == 200) {
@@ -201,7 +216,7 @@ public class FirstWebController {
 	 * http://liuliangapp.com/api/url/validate
 	 */
 	@RequestMapping(value="/api/url/validate")
-	public @ResponseBody ModelMap apiurlvalidate(String param) throws Exception{
+	public @ResponseBody ModelMap apiurlvalidate(String param,String taskkeynum) throws Exception{
 		String url="http://liuliangapp.com/api/url/validate";
 		ModelMap map = new ModelMap();
 		HttpClient httpClient = new HttpClient();
@@ -224,6 +239,24 @@ public class FirstWebController {
     			map.put("status", "y");
     			map.put("info", "验证成功");
     			logger.info("验证成功");
+    			TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
+    			//做过该宝贝id的收藏任务数
+    			HashMap<String, Object> hashmap = new HashMap<String, Object>();
+    			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
+    			hashmap.put("taskkeynum", taskkeynum);
+    			hashmap.put("iscollection", "1");
+    			int collectiontaskcount = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
+    			hashmap.clear();
+    			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
+    			hashmap.put("taskkeynum", taskkeynum);
+    			hashmap.put("isshopping", "1");
+    			int shoppingtaskcount = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
+    			
+    			map.put("count", tSysconfInfoCustom.getSysconfvalue1());
+    			map.put("collectiontaskcount", Integer.parseInt(tSysconfInfoCustom.getSysconfvalue1()) - collectiontaskcount);
+    			map.put("shoppingtaskcount", Integer.parseInt(tSysconfInfoCustom.getSysconfvalue1()) - shoppingtaskcount);
+    			
+    			
     		}else{
     			map.put("status", "n");
 				map.put("info", "验证失败");

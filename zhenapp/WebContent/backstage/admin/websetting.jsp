@@ -65,8 +65,8 @@
     </div>
   </div>
 <form id="formdata" method="post">
-  <input type="hidden" name="agentid" value="${tAgentInfoCustom.agentid}" />
-  <input type="hidden" name="webid" value="${tWebInfoCustom.webid}" />
+  <input type="hidden" name="agentid" id="agentid" value="${tAgentInfoCustom.agentid}" />
+  <input type="hidden" name="webid" id="webid" value="${tWebInfoCustom.webid}" />
   <table class="am-table">
   	<tr>
   		<td width="150px">
@@ -90,14 +90,6 @@
   		</td>
   		<td>
   			<input type="text" name="agentphone" id="agentphone" placeholder="网站联系方式" class='form-control' value="${tAgentInfoCustom.agentphone }" />
-  		</td>
-  	</tr>
-  	<tr>
-  		<td width="150px">
-  			<label>域名</label>
-  		</td>
-  		<td>
-  			<input type="text" id="domain" name="domain" placeholder="网站域名" class='form-control' value="${tAgentInfoCustom.domain }">(如：http://www.baodu.com)
   		</td>
   	</tr>
   	<tr>
@@ -230,25 +222,25 @@
           $.ajax({
             type : "post",
             dataType : "json",
-            url : "/admin/proxy/save",
+            url : "${pageContext.request.contextPath}/web/agentAndwebSave",
             data : {
-              id : $("#proxyId").val(),
-              name : $("#name").val(),
-              domain : $("#domain").val(),
-              url : $("#url").val(),
-              qq : $("#qq").val(),
-              qq_group : $("#qq_group").val(),
-              qq_group_url : $("#qq_group_url").val(),
-              weixin : $("#weixin").val(),
-              logo : $("#logo").val(),
-              record : $("#record").val(),
-              alipay : $("#alipay").val(),
-              ad_first : $("#ad_first").val(),
-              left_image : $("#left_image").val(),
-              ad_sec : $("#ad_sec").val(),
-              shuffling_first : $("#shuffling_first").val(),
-              shuffling_sec : $("#shuffling_sec").val(),
-              shuffling_third : $("#shuffling_third").val()
+            	agentid : $("#agentid").val(),
+            	webid : $("#webid").val(),
+            	agentname : $("#agentname").val(),
+            	agentperson : $("#agentperson").val(),
+            	agentphone : $("#agentphone").val(),
+            	url : $("#url").val(),
+            	record : $("#record").val(),
+            	alipay : $("#alipay").val(),
+            	qq : $("#qq").val(),
+            	qqgroup : $("#qqgroup").val(),
+            	wechat : $("#wechat").val(),
+            	logo : $("#logo").val(),
+            	bg01 : $("#bg01").val(),
+            	bg02 : $("#bg02").val(),
+            	carousel01 : $("#carousel01").val(),
+            	carousel02 : $("#carousel02").val(),
+            	carousel03 : $("#carousel03").val()
             },
             success : function(resp) {
               if (resp && resp.ec == 0) {

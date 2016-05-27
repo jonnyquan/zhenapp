@@ -7,6 +7,12 @@ import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Vo.TUserinfoVo;
 
 public interface UserInfoService {
+	//根据用户名，邮箱，临时验证码修改密码，并清空临时验证码
+	public int passwordreset(TUserInfoCustom tUserInfoCustom) throws Exception;
+	//根据邮箱和用户名修改临时验证码
+	public int updateValidByemailandusernick(HashMap<String, Object> pagemap) throws Exception;
+	//根据条件修改用户状态
+	public int updateUserState(HashMap<String, Object> pagemap) throws Exception;
 	/*
 	 * 根据用户id修改用户密码
 	 */

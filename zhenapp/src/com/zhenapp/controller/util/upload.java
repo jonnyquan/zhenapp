@@ -1,28 +1,9 @@
 package com.zhenapp.controller.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.zhenapp.po.Custom.TScriptInfoCustom;
-import com.zhenapp.po.Custom.TTbaccountInfoCustom;
-import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.ScriptInfoService;
 import com.zhenapp.service.TbaccountInfoService;
 import com.zhenapp.service.WebInfoService;
@@ -36,13 +17,11 @@ public class upload {
 	private ScriptInfoService scriptInfoService;
 	@Autowired
 	private TbaccountInfoService tbaccountInfoService;
-
-	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-
+	//private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 
 	/*
 	 * 上传脚本信息
-	 */
+	 
 	@RequestMapping(value = "/uploadscript")
 	public @ResponseBody
 	ModelAndView uploadscript(HttpServletRequest request,
@@ -50,7 +29,6 @@ public class upload {
 		TScriptInfoCustom tScriptInfoCustom = new TScriptInfoCustom();
 		HttpSession session = request.getSession();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
-
 		String time = sdf.format(new Date());
 		ModelAndView mv = new ModelAndView();
 		// 原始名称
@@ -64,9 +42,7 @@ public class upload {
 			// "page/other/scriptfile/";
 			String pic_path = "C:/webfile/scriptfile/";
 			// 新的图片名称
-			String newFileName = UUID.randomUUID().toString().replace("-", "")
-					+ originalFilename.substring(originalFilename
-							.lastIndexOf("."));
+			String newFileName = UUID.randomUUID().toString().replace("-", "") + originalFilename.substring(originalFilename.lastIndexOf("."));
 			// 新图片
 			File newFile = new File(pic_path + newFileName);
 			// 将内存中的数据写入磁盘
@@ -82,16 +58,15 @@ public class upload {
 		}
 		mv.setViewName("/page/other/uploadscript.jsp");
 		return mv;
-	}
+	}*/
 
 	/*
 	 * 上传淘宝账号信息
-	 */
+	 
 	@RequestMapping(value = "/uploadTbaccount", method = { RequestMethod.POST,
 			RequestMethod.GET })
 	public @ResponseBody
-	ModelAndView uploadTbaccount(HttpServletRequest request,
-			@RequestParam("file") MultipartFile file) throws Exception {
+	ModelAndView uploadTbaccount(HttpServletRequest request,@RequestParam("file") MultipartFile file) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		String time = sdf.format(new Date());
 		HttpSession session = request.getSession();
@@ -151,7 +126,7 @@ public class upload {
 		}
 		mv.setViewName("/page/pagestates/info.jsp");
 		return mv;
-	}
+	}*/
 
 	/*@RequestMapping(value = "/downloadFile/{scriptid}")
 	public void downloadFile(@PathVariable(value="scriptid") String scriptid, HttpServletResponse response,HttpServletRequest request)  {

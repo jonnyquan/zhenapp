@@ -29,10 +29,8 @@ public class Mail {
 		Message msg=new MimeMessage(session);
 		msg.setFrom(new InternetAddress("qq319809430@sina.com"));//发件人
 		msg.setSubject("密码找回");
-		msg.setRecipients(RecipientType.TO, 
-						InternetAddress.parse("319809430@qq.com"));//收件人
+		msg.setRecipients(RecipientType.TO,  InternetAddress.parse("319809430@qq.com"));//收件人
 		msg.setContent("<span style='color:red'>您的密码为"+password+"</span>", "text/html;charset=UTF-8");
-		
 		Transport.send(msg);
 	}
 }

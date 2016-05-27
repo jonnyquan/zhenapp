@@ -13,8 +13,6 @@ public class TAgentInfo {
 
     private String agentname;
 
-    private String domain;
-
     private String url;
 
     private String agentstate;
@@ -73,14 +71,6 @@ public class TAgentInfo {
 
     public void setAgentname(String agentname) {
         this.agentname = agentname == null ? null : agentname.trim();
-    }
-
-    public String getDomain() {
-        return domain;
-    }
-
-    public void setDomain(String domain) {
-        this.domain = domain == null ? null : domain.trim();
     }
 
     public String getUrl() {

@@ -120,4 +120,21 @@ public class UserInfoServiceImp implements UserInfoService {
 		// TODO Auto-generated method stub
 		return tUserInfoCustomMapper.updateroleAndagent(hashmap);
 	}
+	@Override
+	public int updateUserState(HashMap<String, Object> pagemap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tUserInfoCustomMapper.updateUserState(pagemap);
+	}
+	@Override
+	public int updateValidByemailandusernick(HashMap<String, Object> pagemap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tUserInfoCustomMapper.updateValidByemailandusernick(pagemap);
+	}
+	@Override
+	public int passwordreset(TUserInfoCustom tUserInfoCustom) throws Exception {
+		// TODO Auto-generated method stub
+		return tUserInfoCustomMapper.passwordreset(tUserInfoCustom);
+	}
 }

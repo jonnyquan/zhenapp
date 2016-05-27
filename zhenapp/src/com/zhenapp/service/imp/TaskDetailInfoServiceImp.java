@@ -95,4 +95,21 @@ public class TaskDetailInfoServiceImp implements TaskDetailInfoService {
 		// TODO Auto-generated method stub
 		return tTaskDetailinfoCustomMapper.findTotalTaskDetailByProblemAndPage(hashmap);
 	}
+	@Override
+	public int findCounts(HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskDetailinfoCustomMapper.findCounts(hashmap);
+	}
+	@Override
+	public int findshoppingcount(HashMap<String, Object> hashmap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskDetailinfoCustomMapper.findshoppingcount(hashmap);
+	}
+	@Override
+	public int findcollectioncount(HashMap<String, Object> hashmap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskDetailinfoCustomMapper.findcollectioncount(hashmap);
+	}
 }

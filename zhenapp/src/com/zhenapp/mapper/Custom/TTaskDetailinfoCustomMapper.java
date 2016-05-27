@@ -7,6 +7,12 @@ import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 
 
 public interface TTaskDetailinfoCustomMapper {
+	//根据id和状态查询加购的记录数
+	public int findshoppingcount(HashMap<String, Object> hashmap) throws Exception;
+	//根据id和状态查询收藏的记录数
+	public int findcollectioncount(HashMap<String, Object> hashmap) throws Exception;
+	//根据任务id和状态查询记录数
+	public int findCounts(HashMap<String, Object> hashmap) throws Exception;
 	//查询卡机任务（手机获取5分钟后没有反馈的任务信息）
 	public List<TTaskDetailInfoCustom> findTaskDetailByProblemAndPage(HashMap<String, Object> hashmap) throws Exception;
 	//查询卡机任务（手机获取5分钟后没有反馈的任务信息）的总条数

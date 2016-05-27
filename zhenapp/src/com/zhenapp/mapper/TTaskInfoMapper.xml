@@ -6,6 +6,7 @@
     <result column="taskid" property="taskid" jdbcType="VARCHAR" />
     <result column="tasktype" property="tasktype" jdbcType="VARCHAR" />
     <result column="taskkeynum" property="taskkeynum" jdbcType="VARCHAR" />
+    <result column="taskurl" property="taskurl" jdbcType="VARCHAR" />
     <result column="tasktitle" property="tasktitle" jdbcType="VARCHAR" />
     <result column="taskwirelesstitle" property="taskwirelesstitle" jdbcType="VARCHAR" />
     <result column="taskstartdate" property="taskstartdate" jdbcType="VARCHAR" />
@@ -22,6 +23,7 @@
     <result column="flowcount" property="flowcount" jdbcType="INTEGER" />
     <result column="Collectioncount" property="collectioncount" jdbcType="INTEGER" />
     <result column="Shoppingcount" property="shoppingcount" jdbcType="INTEGER" />
+    <result column="deepclick" property="deepclick" jdbcType="VARCHAR" />
     <result column="tasktmallapppct" property="tasktmallapppct" jdbcType="VARCHAR" />
     <result column="taskgprspct" property="taskgprspct" jdbcType="VARCHAR" />
     <result column="taskPlus" property="taskplus" jdbcType="VARCHAR" />
@@ -92,10 +94,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    taskpk, taskid, tasktype, taskkeynum, tasktitle, taskwirelesstitle, taskstartdate, 
+    taskpk, taskid, tasktype, taskkeynum, taskurl, tasktitle, taskwirelesstitle, taskstartdate, 
     taskenddate, taskdate, taskreleasekeyword, taskkeyword, taskhourcounts, taskminprice, 
     taskmaxprice, tasksearchType, taskimgztc, taskimgpt, flowcount, Collectioncount, 
-    Shoppingcount, tasktmallapppct, taskgprspct, taskPlus, taskduration, subtractpoints, 
+    Shoppingcount, deepclick, tasktmallapppct, taskgprspct, taskPlus, taskduration, subtractpoints, 
     taskstate, createtime, createuser, updatetime, updateuser
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TTaskInfoExample" >
@@ -130,27 +132,27 @@
   </delete>
   <insert id="insert" parameterType="com.zhenapp.po.TTaskInfo" >
     insert into t_task_info (taskpk, taskid, tasktype, 
-      taskkeynum, tasktitle, taskwirelesstitle, 
-      taskstartdate, taskenddate, taskdate, 
-      taskreleasekeyword, taskkeyword, taskhourcounts, 
-      taskminprice, taskmaxprice, tasksearchType, 
-      taskimgztc, taskimgpt, flowcount, 
-      Collectioncount, Shoppingcount, tasktmallapppct, 
-      taskgprspct, taskPlus, taskduration, 
-      subtractpoints, taskstate, createtime, 
-      createuser, updatetime, updateuser
-      )
+      taskkeynum, taskurl, tasktitle, 
+      taskwirelesstitle, taskstartdate, taskenddate, 
+      taskdate, taskreleasekeyword, taskkeyword, 
+      taskhourcounts, taskminprice, taskmaxprice, 
+      tasksearchType, taskimgztc, taskimgpt, 
+      flowcount, Collectioncount, Shoppingcount, 
+      deepclick, tasktmallapppct, taskgprspct, 
+      taskPlus, taskduration, subtractpoints, 
+      taskstate, createtime, createuser, 
+      updatetime, updateuser)
     values (#{taskpk,jdbcType=INTEGER}, #{taskid,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
-      #{taskkeynum,jdbcType=VARCHAR}, #{tasktitle,jdbcType=VARCHAR}, #{taskwirelesstitle,jdbcType=VARCHAR}, 
-      #{taskstartdate,jdbcType=VARCHAR}, #{taskenddate,jdbcType=VARCHAR}, #{taskdate,jdbcType=VARCHAR}, 
-      #{taskreleasekeyword,jdbcType=VARCHAR}, #{taskkeyword,jdbcType=VARCHAR}, #{taskhourcounts,jdbcType=VARCHAR}, 
-      #{taskminprice,jdbcType=VARCHAR}, #{taskmaxprice,jdbcType=VARCHAR}, #{tasksearchtype,jdbcType=VARCHAR}, 
-      #{taskimgztc,jdbcType=VARCHAR}, #{taskimgpt,jdbcType=VARCHAR}, #{flowcount,jdbcType=INTEGER}, 
-      #{collectioncount,jdbcType=INTEGER}, #{shoppingcount,jdbcType=INTEGER}, #{tasktmallapppct,jdbcType=VARCHAR}, 
-      #{taskgprspct,jdbcType=VARCHAR}, #{taskplus,jdbcType=VARCHAR}, #{taskduration,jdbcType=VARCHAR}, 
-      #{subtractpoints,jdbcType=INTEGER}, #{taskstate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
-      #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}
-      )
+      #{taskkeynum,jdbcType=VARCHAR}, #{taskurl,jdbcType=VARCHAR}, #{tasktitle,jdbcType=VARCHAR}, 
+      #{taskwirelesstitle,jdbcType=VARCHAR}, #{taskstartdate,jdbcType=VARCHAR}, #{taskenddate,jdbcType=VARCHAR}, 
+      #{taskdate,jdbcType=VARCHAR}, #{taskreleasekeyword,jdbcType=VARCHAR}, #{taskkeyword,jdbcType=VARCHAR}, 
+      #{taskhourcounts,jdbcType=VARCHAR}, #{taskminprice,jdbcType=VARCHAR}, #{taskmaxprice,jdbcType=VARCHAR}, 
+      #{tasksearchtype,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR}, #{taskimgpt,jdbcType=VARCHAR}, 
+      #{flowcount,jdbcType=INTEGER}, #{collectioncount,jdbcType=INTEGER}, #{shoppingcount,jdbcType=INTEGER}, 
+      #{deepclick,jdbcType=VARCHAR}, #{tasktmallapppct,jdbcType=VARCHAR}, #{taskgprspct,jdbcType=VARCHAR}, 
+      #{taskplus,jdbcType=VARCHAR}, #{taskduration,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, 
+      #{taskstate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zhenapp.po.TTaskInfo" >
     insert into t_task_info
@@ -166,6 +168,9 @@
       </if>
       <if test="taskkeynum != null" >
         taskkeynum,
+      </if>
+      <if test="taskurl != null" >
+        taskurl,
       </if>
       <if test="tasktitle != null" >
         tasktitle,
@@ -215,6 +220,9 @@
       <if test="shoppingcount != null" >
         Shoppingcount,
       </if>
+      <if test="deepclick != null" >
+        deepclick,
+      </if>
       <if test="tasktmallapppct != null" >
         tasktmallapppct,
       </if>
@@ -258,6 +266,9 @@
       </if>
       <if test="taskkeynum != null" >
         #{taskkeynum,jdbcType=VARCHAR},
+      </if>
+      <if test="taskurl != null" >
+        #{taskurl,jdbcType=VARCHAR},
       </if>
       <if test="tasktitle != null" >
         #{tasktitle,jdbcType=VARCHAR},
@@ -306,6 +317,9 @@
       </if>
       <if test="shoppingcount != null" >
         #{shoppingcount,jdbcType=INTEGER},
+      </if>
+      <if test="deepclick != null" >
+        #{deepclick,jdbcType=VARCHAR},
       </if>
       <if test="tasktmallapppct != null" >
         #{tasktmallapppct,jdbcType=VARCHAR},
@@ -360,6 +374,9 @@
       <if test="record.taskkeynum != null" >
         taskkeynum = #{record.taskkeynum,jdbcType=VARCHAR},
       </if>
+      <if test="record.taskurl != null" >
+        taskurl = #{record.taskurl,jdbcType=VARCHAR},
+      </if>
       <if test="record.tasktitle != null" >
         tasktitle = #{record.tasktitle,jdbcType=VARCHAR},
       </if>
@@ -408,6 +425,9 @@
       <if test="record.shoppingcount != null" >
         Shoppingcount = #{record.shoppingcount,jdbcType=INTEGER},
       </if>
+      <if test="record.deepclick != null" >
+        deepclick = #{record.deepclick,jdbcType=VARCHAR},
+      </if>
       <if test="record.tasktmallapppct != null" >
         tasktmallapppct = #{record.tasktmallapppct,jdbcType=VARCHAR},
       </if>
@@ -449,6 +469,7 @@
       taskid = #{record.taskid,jdbcType=VARCHAR},
       tasktype = #{record.tasktype,jdbcType=VARCHAR},
       taskkeynum = #{record.taskkeynum,jdbcType=VARCHAR},
+      taskurl = #{record.taskurl,jdbcType=VARCHAR},
       tasktitle = #{record.tasktitle,jdbcType=VARCHAR},
       taskwirelesstitle = #{record.taskwirelesstitle,jdbcType=VARCHAR},
       taskstartdate = #{record.taskstartdate,jdbcType=VARCHAR},
@@ -465,6 +486,7 @@
       flowcount = #{record.flowcount,jdbcType=INTEGER},
       Collectioncount = #{record.collectioncount,jdbcType=INTEGER},
       Shoppingcount = #{record.shoppingcount,jdbcType=INTEGER},
+      deepclick = #{record.deepclick,jdbcType=VARCHAR},
       tasktmallapppct = #{record.tasktmallapppct,jdbcType=VARCHAR},
       taskgprspct = #{record.taskgprspct,jdbcType=VARCHAR},
       taskPlus = #{record.taskplus,jdbcType=VARCHAR},
@@ -490,6 +512,9 @@
       </if>
       <if test="taskkeynum != null" >
         taskkeynum = #{taskkeynum,jdbcType=VARCHAR},
+      </if>
+      <if test="taskurl != null" >
+        taskurl = #{taskurl,jdbcType=VARCHAR},
       </if>
       <if test="tasktitle != null" >
         tasktitle = #{tasktitle,jdbcType=VARCHAR},
@@ -539,6 +564,9 @@
       <if test="shoppingcount != null" >
         Shoppingcount = #{shoppingcount,jdbcType=INTEGER},
       </if>
+      <if test="deepclick != null" >
+        deepclick = #{deepclick,jdbcType=VARCHAR},
+      </if>
       <if test="tasktmallapppct != null" >
         tasktmallapppct = #{tasktmallapppct,jdbcType=VARCHAR},
       </if>
@@ -577,6 +605,7 @@
     set taskid = #{taskid,jdbcType=VARCHAR},
       tasktype = #{tasktype,jdbcType=VARCHAR},
       taskkeynum = #{taskkeynum,jdbcType=VARCHAR},
+      taskurl = #{taskurl,jdbcType=VARCHAR},
       tasktitle = #{tasktitle,jdbcType=VARCHAR},
       taskwirelesstitle = #{taskwirelesstitle,jdbcType=VARCHAR},
       taskstartdate = #{taskstartdate,jdbcType=VARCHAR},
@@ -593,6 +622,7 @@
       flowcount = #{flowcount,jdbcType=INTEGER},
       Collectioncount = #{collectioncount,jdbcType=INTEGER},
       Shoppingcount = #{shoppingcount,jdbcType=INTEGER},
+      deepclick = #{deepclick,jdbcType=VARCHAR},
       tasktmallapppct = #{tasktmallapppct,jdbcType=VARCHAR},
       taskgprspct = #{taskgprspct,jdbcType=VARCHAR},
       taskPlus = #{taskplus,jdbcType=VARCHAR},

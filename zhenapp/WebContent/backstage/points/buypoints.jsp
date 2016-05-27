@@ -213,11 +213,11 @@
 							<div class="taxkTips">
 								<h2>可选套餐</h2>
 							</div>
-							<c:forEach items="${tComboInfoCustomlist}" var="list" >
+							<c:forEach items="${tComboInfoCustomlist}" var="list" varStatus="status">
 								<div class="form_control clearfix">
 									<label class="form_label">${list.comboname}</label> 
 									<label class="form_radio"> 
-										<input type="radio" name="id" value="${list.comboid }"> 
+										<input type="radio" name="id" value="${list.comboid }" <c:if test="${status.index == 0}"> checked</c:if>  > 
 										<span>价格：${list.combomoney} 元</span>  <span>积分数量：${list.combointegral}</span> <span>赠送积分：${list.combogiveintegral}</span> 
 									</label>
 								</div>

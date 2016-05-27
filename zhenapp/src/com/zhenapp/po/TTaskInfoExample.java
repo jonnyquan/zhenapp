@@ -374,6 +374,76 @@ public class TTaskInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andTaskurlIsNull() {
+            addCriterion("taskurl is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskurlIsNotNull() {
+            addCriterion("taskurl is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskurlEqualTo(String value) {
+            addCriterion("taskurl =", value, "taskurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskurlNotEqualTo(String value) {
+            addCriterion("taskurl <>", value, "taskurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskurlGreaterThan(String value) {
+            addCriterion("taskurl >", value, "taskurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskurlGreaterThanOrEqualTo(String value) {
+            addCriterion("taskurl >=", value, "taskurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskurlLessThan(String value) {
+            addCriterion("taskurl <", value, "taskurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskurlLessThanOrEqualTo(String value) {
+            addCriterion("taskurl <=", value, "taskurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskurlLike(String value) {
+            addCriterion("taskurl like", value, "taskurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskurlNotLike(String value) {
+            addCriterion("taskurl not like", value, "taskurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskurlIn(List<String> values) {
+            addCriterion("taskurl in", values, "taskurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskurlNotIn(List<String> values) {
+            addCriterion("taskurl not in", values, "taskurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskurlBetween(String value1, String value2) {
+            addCriterion("taskurl between", value1, value2, "taskurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskurlNotBetween(String value1, String value2) {
+            addCriterion("taskurl not between", value1, value2, "taskurl");
+            return (Criteria) this;
+        }
+
         public Criteria andTasktitleIsNull() {
             addCriterion("tasktitle is null");
             return (Criteria) this;
@@ -1461,6 +1531,76 @@ public class TTaskInfoExample {
 
         public Criteria andShoppingcountNotBetween(Integer value1, Integer value2) {
             addCriterion("Shoppingcount not between", value1, value2, "shoppingcount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepclickIsNull() {
+            addCriterion("deepclick is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepclickIsNotNull() {
+            addCriterion("deepclick is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepclickEqualTo(String value) {
+            addCriterion("deepclick =", value, "deepclick");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepclickNotEqualTo(String value) {
+            addCriterion("deepclick <>", value, "deepclick");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepclickGreaterThan(String value) {
+            addCriterion("deepclick >", value, "deepclick");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepclickGreaterThanOrEqualTo(String value) {
+            addCriterion("deepclick >=", value, "deepclick");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepclickLessThan(String value) {
+            addCriterion("deepclick <", value, "deepclick");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepclickLessThanOrEqualTo(String value) {
+            addCriterion("deepclick <=", value, "deepclick");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepclickLike(String value) {
+            addCriterion("deepclick like", value, "deepclick");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepclickNotLike(String value) {
+            addCriterion("deepclick not like", value, "deepclick");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepclickIn(List<String> values) {
+            addCriterion("deepclick in", values, "deepclick");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepclickNotIn(List<String> values) {
+            addCriterion("deepclick not in", values, "deepclick");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepclickBetween(String value1, String value2) {
+            addCriterion("deepclick between", value1, value2, "deepclick");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeepclickNotBetween(String value1, String value2) {
+            addCriterion("deepclick not between", value1, value2, "deepclick");
             return (Criteria) this;
         }
 

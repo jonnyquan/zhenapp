@@ -984,73 +984,143 @@ public class TUserInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andRegdomainIsNull() {
-            addCriterion("regdomain is null");
+        public Criteria andRegurlIsNull() {
+            addCriterion("regurl is null");
             return (Criteria) this;
         }
 
-        public Criteria andRegdomainIsNotNull() {
-            addCriterion("regdomain is not null");
+        public Criteria andRegurlIsNotNull() {
+            addCriterion("regurl is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRegdomainEqualTo(String value) {
-            addCriterion("regdomain =", value, "regdomain");
+        public Criteria andRegurlEqualTo(String value) {
+            addCriterion("regurl =", value, "regurl");
             return (Criteria) this;
         }
 
-        public Criteria andRegdomainNotEqualTo(String value) {
-            addCriterion("regdomain <>", value, "regdomain");
+        public Criteria andRegurlNotEqualTo(String value) {
+            addCriterion("regurl <>", value, "regurl");
             return (Criteria) this;
         }
 
-        public Criteria andRegdomainGreaterThan(String value) {
-            addCriterion("regdomain >", value, "regdomain");
+        public Criteria andRegurlGreaterThan(String value) {
+            addCriterion("regurl >", value, "regurl");
             return (Criteria) this;
         }
 
-        public Criteria andRegdomainGreaterThanOrEqualTo(String value) {
-            addCriterion("regdomain >=", value, "regdomain");
+        public Criteria andRegurlGreaterThanOrEqualTo(String value) {
+            addCriterion("regurl >=", value, "regurl");
             return (Criteria) this;
         }
 
-        public Criteria andRegdomainLessThan(String value) {
-            addCriterion("regdomain <", value, "regdomain");
+        public Criteria andRegurlLessThan(String value) {
+            addCriterion("regurl <", value, "regurl");
             return (Criteria) this;
         }
 
-        public Criteria andRegdomainLessThanOrEqualTo(String value) {
-            addCriterion("regdomain <=", value, "regdomain");
+        public Criteria andRegurlLessThanOrEqualTo(String value) {
+            addCriterion("regurl <=", value, "regurl");
             return (Criteria) this;
         }
 
-        public Criteria andRegdomainLike(String value) {
-            addCriterion("regdomain like", value, "regdomain");
+        public Criteria andRegurlLike(String value) {
+            addCriterion("regurl like", value, "regurl");
             return (Criteria) this;
         }
 
-        public Criteria andRegdomainNotLike(String value) {
-            addCriterion("regdomain not like", value, "regdomain");
+        public Criteria andRegurlNotLike(String value) {
+            addCriterion("regurl not like", value, "regurl");
             return (Criteria) this;
         }
 
-        public Criteria andRegdomainIn(List<String> values) {
-            addCriterion("regdomain in", values, "regdomain");
+        public Criteria andRegurlIn(List<String> values) {
+            addCriterion("regurl in", values, "regurl");
             return (Criteria) this;
         }
 
-        public Criteria andRegdomainNotIn(List<String> values) {
-            addCriterion("regdomain not in", values, "regdomain");
+        public Criteria andRegurlNotIn(List<String> values) {
+            addCriterion("regurl not in", values, "regurl");
             return (Criteria) this;
         }
 
-        public Criteria andRegdomainBetween(String value1, String value2) {
-            addCriterion("regdomain between", value1, value2, "regdomain");
+        public Criteria andRegurlBetween(String value1, String value2) {
+            addCriterion("regurl between", value1, value2, "regurl");
             return (Criteria) this;
         }
 
-        public Criteria andRegdomainNotBetween(String value1, String value2) {
-            addCriterion("regdomain not between", value1, value2, "regdomain");
+        public Criteria andRegurlNotBetween(String value1, String value2) {
+            addCriterion("regurl not between", value1, value2, "regurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegvalidcodeIsNull() {
+            addCriterion("regvalidcode is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegvalidcodeIsNotNull() {
+            addCriterion("regvalidcode is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegvalidcodeEqualTo(String value) {
+            addCriterion("regvalidcode =", value, "regvalidcode");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegvalidcodeNotEqualTo(String value) {
+            addCriterion("regvalidcode <>", value, "regvalidcode");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegvalidcodeGreaterThan(String value) {
+            addCriterion("regvalidcode >", value, "regvalidcode");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegvalidcodeGreaterThanOrEqualTo(String value) {
+            addCriterion("regvalidcode >=", value, "regvalidcode");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegvalidcodeLessThan(String value) {
+            addCriterion("regvalidcode <", value, "regvalidcode");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegvalidcodeLessThanOrEqualTo(String value) {
+            addCriterion("regvalidcode <=", value, "regvalidcode");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegvalidcodeLike(String value) {
+            addCriterion("regvalidcode like", value, "regvalidcode");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegvalidcodeNotLike(String value) {
+            addCriterion("regvalidcode not like", value, "regvalidcode");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegvalidcodeIn(List<String> values) {
+            addCriterion("regvalidcode in", values, "regvalidcode");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegvalidcodeNotIn(List<String> values) {
+            addCriterion("regvalidcode not in", values, "regvalidcode");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegvalidcodeBetween(String value1, String value2) {
+            addCriterion("regvalidcode between", value1, value2, "regvalidcode");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegvalidcodeNotBetween(String value1, String value2) {
+            addCriterion("regvalidcode not between", value1, value2, "regvalidcode");
             return (Criteria) this;
         }
 

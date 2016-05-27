@@ -74,7 +74,6 @@
             <th>代理人</th>
             <th>手机号</th>
             <th>网站名称</th>
-            <th>域名</th>
             <th>网址</th>
             <th>创建时间</th>
             <th>更新时间</th>
@@ -96,7 +95,6 @@
 	              <td>${list.agentperson }</td>
 	              <td>${list.agentphone }</td>
 	              <td>${list.agentname }</td>
-	              <td>${list.domain }</td>
 	              <td>${list.url }</td>
 	              <td>${list.createtime }</td>
 	              <td>${list.updatetime }</td>

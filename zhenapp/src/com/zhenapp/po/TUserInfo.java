@@ -27,7 +27,9 @@ public class TUserInfo {
 
     private String regip;
 
-    private String regdomain;
+    private String regurl;
+
+    private String regvalidcode;
 
     private String agentid;
 
@@ -143,12 +145,20 @@ public class TUserInfo {
         this.regip = regip == null ? null : regip.trim();
     }
 
-    public String getRegdomain() {
-        return regdomain;
+    public String getRegurl() {
+        return regurl;
     }
 
-    public void setRegdomain(String regdomain) {
-        this.regdomain = regdomain == null ? null : regdomain.trim();
+    public void setRegurl(String regurl) {
+        this.regurl = regurl == null ? null : regurl.trim();
+    }
+
+    public String getRegvalidcode() {
+        return regvalidcode;
+    }
+
+    public void setRegvalidcode(String regvalidcode) {
+        this.regvalidcode = regvalidcode == null ? null : regvalidcode.trim();
     }
 
     public String getAgentid() {

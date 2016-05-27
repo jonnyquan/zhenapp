@@ -23,18 +23,18 @@
 		select * from t_agent_info where agentid = #{agentid}
 	</select>
 	<select id="findAgentBywww" parameterType="String" resultType="com.zhenapp.po.Custom.TAgentInfoCustom">
-		SELECT * FROM t_agent_info WHERE domain=#{www} OR url=#{www}
+		SELECT * FROM t_agent_info WHERE url like '%${value}%'
 	</select>
 	
 	<insert id="saveAgentInfo" parameterType="com.zhenapp.po.Custom.TAgentInfoCustom" >
     insert into t_agent_info ( agentid, agentuserid, 
       agentperson, agentphone, agentname, 
-      domain, url, agentstate, 
+      url, agentstate, 
       createtime, createuser, updatetime, 
       updateuser)
     values (#{agentid,jdbcType=VARCHAR}, #{agentuserid,jdbcType=VARCHAR}, 
       #{agentperson,jdbcType=VARCHAR}, #{agentphone,jdbcType=VARCHAR}, #{agentname,jdbcType=VARCHAR}, 
-      #{domain,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{agentstate,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{agentstate,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
       #{updateuser,jdbcType=VARCHAR})
   </insert>
@@ -49,7 +49,6 @@
       agentperson = #{agentperson,jdbcType=VARCHAR},
       agentphone = #{agentphone,jdbcType=VARCHAR},
       agentname = #{agentname,jdbcType=VARCHAR},
-      domain = #{domain},
       url = #{url,jdbcType=VARCHAR},
       updatetime = #{updatetime,jdbcType=VARCHAR},
       updateuser = #{updateuser,jdbcType=VARCHAR}

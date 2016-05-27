@@ -87,7 +87,6 @@ public class WebInfoController {
 	/*
 	 * 根据代理id查询web信息
 	 * 
-	 
 	@RequestMapping(value="/findWebByAgentid/{agentid}")
 	public @ResponseBody ModelAndView findWebByAgentid_rest(@PathVariable(value="agentid")String agentid, HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView();
@@ -138,7 +137,6 @@ public class WebInfoController {
 	
 	/*
 	 * 修改web页面图片信息
-	 
 	@RequestMapping(value = "/updatewebinfo")
 	public @ResponseBody ModelAndView uploadwebinfo(HttpServletRequest request,TAgentInfoCustom tAgentInfoCustom,TWebInfoCustom tWebInfoCustom, @RequestParam("files") MultipartFile[] files) throws Exception {
 		ModelAndView mv = new ModelAndView();

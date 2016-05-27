@@ -120,10 +120,16 @@ public class UserInfoController {
 		ModelAndView mv=new ModelAndView();
 		String webwww=request.getServerName();
 		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
-		TWebInfoCustom tWebInfoCustom=webInfoService.findWebByAgentid(tAgentInfoCustom.getAgentid());
-		mv.addObject("tWebInfoCustom",tWebInfoCustom);
-		session.removeAttribute("tUserInfoCustom");
-		mv.setViewName("/frontend/authlogin.jsp");
+		if (tAgentInfoCustom !=null) {
+			TWebInfoCustom tWebInfoCustom=webInfoService.findWebByAgentid(tAgentInfoCustom.getAgentid());
+			mv.addObject("tWebInfoCustom",tWebInfoCustom);
+			session.removeAttribute("tUserInfoCustom");
+			mv.setViewName("/frontend/authlogin.jsp");
+		}else{
+			session.removeAttribute("tUserInfoCustom");
+			mv.addObject("msg","您访问的网址查询不到对应的代理!");
+			mv.setViewName("/agenterror.jsp");
+		}
 		return mv;
 	}
 	
@@ -251,19 +257,27 @@ public class UserInfoController {
 		HashMap<String,Object> hashmap=new HashMap<String,Object>();
 		hashmap.put("userpk", userpk);
 		hashmap.put("agentid", tAgentInfoCustom.getAgentid());
-		userInfoService.deleteUserByUserpkAndRole(hashmap);
+		hashmap.put("updateuser", tUserInfoCustom.getUserid());
+		hashmap.put("updatetime", sdf.format(new Date()));
+		//根据要删除的用户主键及登录人的代理id修改需要删除的用户的状态为30
+		userInfoService.updateUserState(hashmap);
+		//userInfoService.deleteUserByUserpkAndRole(hashmap);
 		map.put("ec", 0);
 		return map;
 	}
 	/*
 	 * 删除用户信息  ------系统管理员
 	 */
-	@RequestMapping(value="/deleteUserByUserpkAdmin")
-	public @ResponseBody ModelMap deleteUserByUserpkAdmin(String userpk) throws Exception{
+	@RequestMapping(value="/deleteUserByUserpkAndAdmin")
+	public @ResponseBody ModelMap deleteUserByUserpkAdmin(HttpSession session,String userpk) throws Exception{
 		ModelMap map = new ModelMap();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		HashMap<String,Object> hashmap=new HashMap<String,Object>();
 		hashmap.put("userpk", userpk);
-		userInfoService.deleteUserByUserpkAndAdmin(hashmap);
+		hashmap.put("updateuser", tUserInfoCustom.getUserid());
+		hashmap.put("updatetime", sdf.format(new Date()));
+		//根据要删除的用户主键及登录人的代理id修改需要删除的用户的状态为30
+		userInfoService.updateUserState(hashmap);
 		map.put("ec", 0);
 		return map;
 	}
@@ -451,9 +465,7 @@ public class UserInfoController {
 		tAgentInfoCustom.setAgentuserid(TUserInfoCustom.getUserid());
 		tAgentInfoCustom.setAgentperson(TUserInfoCustom.getUsernick());
 		tAgentInfoCustom.setAgentphone(TUserInfoCustom.getUserphone());
-		tAgentInfoCustom.setAgentname("网站名称，请尽快修改...");
-		tAgentInfoCustom.setDomain(UUID.randomUUID().toString().replace("-", ""));
-		tAgentInfoCustom.setAgentname(UUID.randomUUID().toString().replace("-", ""));
+		tAgentInfoCustom.setAgentname(UUID.randomUUID().toString().replace("-", ""));//网站名称，请尽快修改...
 		tAgentInfoCustom.setAgentstate("29");
 		tAgentInfoCustom.setCreatetime(sdf.format(new Date()));
 		tAgentInfoCustom.setCreateuser(tUserInfoCustomsession.getUserid());
@@ -514,7 +526,7 @@ public class UserInfoController {
 	}*/
 	/*
 	 * 查询用户列表
-	 */
+	 
 	@RequestMapping(value="/findUserByPage")
 	public @ResponseBody ModelMap findUserByPage(Integer page,Integer rows,HttpServletRequest request) throws Exception{
 		ModelMap map=new ModelMap();
@@ -528,18 +540,17 @@ public class UserInfoController {
 			pagemap.put("page", page-1);
 			pagemap.put("rows", rows);
 		}
+		pagemap.put("userstate", 29);
 		List<TUserInfoCustom> tUserInfoCustomlist=userInfoService.findUserByPage(pagemap);
 		int total=0;
 		if(tUserInfoCustom.getUserroleid()==1){
-			/*
-			 * 系统管理员
-			 */
+			//系统管理员
+			 
 			tUserInfoCustomlist = userInfoService.findUserByPage(pagemap);
 			total = userInfoService.findTotalUserByPage(pagemap);
 		}else if(tUserInfoCustom.getUserroleid()==2){
-			/*
-			 * 代理用户
-			 */
+			//代理用户
+			 
 			pagemap.put("userid", tUserInfoCustom.getUserid());
 			tUserInfoCustomlist = userInfoService.findUserByPageandRole(pagemap);
 			total = userInfoService.findTotalUserByPageandRole(pagemap);
@@ -547,23 +558,12 @@ public class UserInfoController {
 		map.put("total", total);
 		map.put("rows", tUserInfoCustomlist);
 		return map;
-	}
+	}*/
 	
-	/*
-	 * 退出系统
-	 */
-	@RequestMapping(value="/Logout")
-	public ModelAndView Logout(HttpServletRequest request){
-		ModelAndView mv=new ModelAndView();
-		HttpSession session=request.getSession();
-		session.removeAttribute("tUserInfoCustom");
-		mv.setViewName("/page/main/login.jsp");
-		return mv;
-	}
 	
 	/*
 	 * 基本信息页面数据显示
-	 */
+	 
 	@RequestMapping(value="/findUserinfoByusernick")
 	public ModelAndView findUserinfoByusernick(HttpServletRequest request) throws Exception{
 		ModelAndView mv=new ModelAndView();
@@ -577,10 +577,10 @@ public class UserInfoController {
 		mv.addObject("tUserinfoCustom",tUserinfoCustom);
 		mv.setViewName("/page/personalcenter/personaldetails.jsp");
 		return mv;
-	}
+	}*/
 	/*
 	 * 重置密码页面数据显示
-	 */
+	
 	@RequestMapping(value="/findUserinfoByusernicktopassword")
 	public ModelAndView findUserinfoByusernicktopassword(HttpServletRequest request) throws Exception{
 		ModelAndView mv=new ModelAndView();
@@ -594,11 +594,11 @@ public class UserInfoController {
 		mv.addObject("tUserinfoCustom",tUserinfoCustom);
 		mv.setViewName("/page/personalcenter/personalPassword.jsp");
 		return mv;
-	}
+	} */
 	
 	/*
 	 * 使用邮件找回密码
-	 */
+	 
 	@RequestMapping(value="/findPasswordByemail")
 	public @ResponseBody ModelAndView findPasswordByemail(TUserinfoVo tUserinfoVo) throws Exception{
 		ModelAndView mv =new ModelAndView();
@@ -615,7 +615,7 @@ public class UserInfoController {
 		}
 		mv.setViewName("/page/pagestates/info.jsp");
 		return mv;
-	}
+	}*/
 	/*
 	 * 用于用户修改基本信息
 	 */
@@ -630,7 +630,7 @@ public class UserInfoController {
 	}
 	/*
 	 * 删除用户信息
-	 */
+	
 	@RequestMapping(value="/deleteUserinfoBypk/{userpk}")
 	public @ResponseBody ModelMap deleteUserinfoBypk(@PathVariable(value="userpk")String userpk) throws Exception{
 		ModelMap map= new ModelMap();
@@ -638,7 +638,7 @@ public class UserInfoController {
 		map.put("data", i);
 		return map;
 	}
-	
+	 */
 	/*
 	 * 根据用户信息查询余额
 	 */
@@ -737,7 +737,7 @@ public class UserInfoController {
 	}
 	/*
 	 * 代理根据用户主键给用户充值扣款
-	 */
+	 
 	@RequestMapping(value="/findPointsByuserpk/{userpk}")
 	public @ResponseBody ModelAndView findPointsByuserpk(@PathVariable(value="userpk")String userpk) throws Exception{
 		ModelAndView mv = new ModelAndView();
@@ -745,10 +745,10 @@ public class UserInfoController {
 		mv.addObject("tUserInfoCustom",tUserInfoCustom);
 		mv.setViewName("/page/user/updateUserpoints.jsp");
 		return mv;
-	}
+	}*/
 	/*
 	 * 代理根据用户主键给用户充值扣款
-	 */
+	 
 	@RequestMapping(value="/updatepoints")
 	public @ResponseBody ModelAndView updatepoints(HttpServletRequest request,String userpk,String caozo,String updatepoints,String desc) throws Exception{
 		ModelAndView mv = new ModelAndView();
@@ -764,9 +764,8 @@ public class UserInfoController {
 			newpoints=tUserInfoCustom.getPoints() - Integer.parseInt(updatepoints);
 			Pointstype = "32";
 		}
-		/*
-		 * 插入账户明细
-		 */
+		//插入账户明细
+		 
 		TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
 		tPointsInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
 		tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
@@ -780,13 +779,12 @@ public class UserInfoController {
 		tPointsInfoCustom.setTaskpk(0);
 		tPointsInfoCustom.setUserid(tUserInfoCustomsession.getUserid());
 		pointsInfoService.savePoints(tPointsInfoCustom);
-		/*
-		 * 修改用户积分
-		 */
+		//修改用户积分
+		 
 		tUserInfoCustom.setPoints(newpoints);
 		userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
 		
 		mv.setViewName("/page/user/userList.jsp");
 		return mv;
-	}
+	}*/
 }

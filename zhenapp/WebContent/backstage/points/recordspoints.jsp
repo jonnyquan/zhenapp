@@ -11,33 +11,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="真流量,无线流量,无限流量代运营,无线刷流量 " />
 <meta name="description" content="真流量,无线流量,无限流量代运营,无线刷流量 " />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/global.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/common.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/sweetalert.css">
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/backstage/pagematter/common/js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/backstage/pagematter/common/js/common.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/backstage/pagematter/common/js/sweetalert-dev.js"></script>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/layer_user.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/user.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/validform.style.css"
-	type="text/css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/backstage/pagematter/common/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/backstage/pagematter/common/css/global.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/backstage/pagematter/common/css/common.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/backstage/pagematter/common/css/sweetalert.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/backstage/pagematter/common/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/backstage/pagematter/common/js/common.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/backstage/pagematter/common/js/sweetalert-dev.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/pagematter/common/css/layer_user.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/pagematter/common/css/user.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/pagematter/common/css/validform.style.css" type="text/css">
 <script src="${pageContext.request.contextPath}/bootstrap/js/jqPaginator.min.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/bootstrap/js/myPage.js" type="text/javascript"></script>
 <style type="text/css">
@@ -95,18 +80,16 @@
 			</div>
 		</div>
 	</div>
-<script type="text/javascript">
-    $('.scl6').addClass('hover');
-</script>
+	<script type="text/javascript">
+	    $('.scl6').addClass('hover');
+	</script>
 	<div class="uc_warp">
 		<div class="userbody clearfix">
 			<div class="leftmenu row_l">
-				
 			</div>
 			<script type="text/javascript">
-        $('#point').addClass('hover');
-    </script>
-			
+		        $('#point').addClass('hover');
+		    </script>
 			<div class="rightbox row_r">
 				<div class="u_outbox">
 					<div class="tabtitle clearfix">

@@ -42,8 +42,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		if (tUserInfoCustom != null) {
 			// 身份存在，放行
 			return true;
-		}
-				
+		}	
 		/*
 		 * 静态资源全部放行
 		 */
@@ -68,16 +67,14 @@ public class LoginInterceptor implements HandlerInterceptor {
 		 }
 		// 判断url是否是公开 地址（实际使用时将公开 地址配置配置文件中）
 		// 这里公开地址是登陆提交的地址
-		 if (url.indexOf("user/Loginrest") >= 0 || url.indexOf("user/register") >= 0 || url.indexOf("user/findUserByNick") >=0 ) {
+		if (url.indexOf("user/Loginrest") >= 0 || url.indexOf("user/register") >= 0 || url.indexOf("user/findUserByNick") >=0 ) {
 				// 如果进行登陆提交，放行
 				return true;
 			}
-		 if (url.indexOf("/user/authlogout") >= 0) {
+		if (url.indexOf("/user/authlogout") >= 0) {
 				// 如果进行登陆提交，放行
 				return true;
 			}
-		
-		
 		// 执行这里表示用户身份需要认证，跳转登陆页面
 		request.getRequestDispatcher("/user/authlogout").forward(request,
 				response);
@@ -106,7 +103,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 			throws Exception {
 		if (ex != null) {
 			System.out.println("存在异常信息,转发到状态页面！");
-			request.getRequestDispatcher("/page/pagestates/error.jsp").forward(
+			request.getRequestDispatcher("/info.jsp").forward(
 					request, response);
 		}
 		//System.out.println("LoginInterceptor...afterCompletion");

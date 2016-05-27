@@ -1,10 +1,7 @@
 package com.zhenapp.controller.back;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,7 +41,7 @@ public class RechargeInfoController {
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 	/*
 	 * 插入充值记录
-	 */
+	 
 	@RequestMapping(value="/insertRechargeinfo/{id}")
 	public ModelAndView insertRechargeinfo(@PathVariable(value="id")String id,TRechargeInfoVo tRechargeInfoVo,HttpServletRequest request) throws Exception{
 		ModelAndView mv=new ModelAndView();
@@ -71,11 +68,11 @@ public class RechargeInfoController {
 			mv.setViewName("/page/records/recordsdepositverification.jsp");
 		}
 		return mv;
-	}
+	}*/
 	
 	/*
 	 * 查询充值记录
-	 */
+	 
 	@RequestMapping(value="/findRechargeinfoByUserAndpage")
 	public @ResponseBody ModelMap findRechargeinfoByUserAndpage(String datefrom,String dateto,Integer page,Integer rows,HttpServletRequest request) throws Exception{
 		ModelMap map=new ModelMap();
@@ -96,22 +93,16 @@ public class RechargeInfoController {
 		List<TRechargeInfoCustom> tRechargeInfoCustomlist = new ArrayList<TRechargeInfoCustom>();
 		int total = 0;
 		if(tUserInfoCustom.getUserroleid()==1){
-			/*
-			 * 系统管理员
-			 */
+			//系统管理员
 			total = rechargeInfoService.findTotalRechargeinfoByUserAndpage(pagemap);
 			tRechargeInfoCustomlist = rechargeInfoService.findRechargeinfoByUserAndpage(pagemap);
 		}else if(tUserInfoCustom.getUserroleid()==2){
-			/*
-			 * 代理用户
-			 */
+			//代理用户
 			pagemap.put("userid", tUserInfoCustom.getUserid());
 			total = rechargeInfoService.findTotalRechargeinfoByRoleAndpage(pagemap);
 			tRechargeInfoCustomlist = rechargeInfoService.findRechargeinfoByRoleAndpage(pagemap);
 		}else{
-			/*
-			 * 普通用户
-			 */
+			//普通用户
 			pagemap.put("createuser", tUserInfoCustom.getUserid());
 			total = rechargeInfoService.findTotalRechargeinfoByUserAndpage(pagemap);
 			tRechargeInfoCustomlist = rechargeInfoService.findRechargeinfoByUserAndpage(pagemap);
@@ -119,7 +110,7 @@ public class RechargeInfoController {
 		map.put("total",total);
 		map.put("rows", tRechargeInfoCustomlist);
 		return map;
-	}
+	}*/
 	
 	/*
 	 *删除充值记录
@@ -134,17 +125,14 @@ public class RechargeInfoController {
 	 * 确认充值
 	 */
 	@RequestMapping(value="/updateRechargestate/{verificationcode}")
-	public @ResponseBody ModelMap updateRechargestate(@PathVariable(value="verificationcode")String verificationcode) throws Exception{
+	public @ResponseBody ModelMap updateRechargestate(HttpSession session,@PathVariable(value="verificationcode")String verificationcode) throws Exception{
 		ModelMap map = new ModelMap();
-		/*
-		 * 修改充值记录状态为已确认
-		 */
+		TUserInfoCustom tUserInfoCustomsession = (TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		//修改充值记录状态为已确认
 		int i= rechargeInfoService.updateRechargestate(verificationcode);
 		if(i>0){
 			TRechargeInfoCustom tRechargeInfoCustom=rechargeInfoService.findRechargeBycode(verificationcode);
-			/*
-			 * 插入账户明细
-			 */
+			//插入账户明细
 			TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserid(tRechargeInfoCustom.getCreateuser());
 			TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
 			tPointsInfoCustom.setCreateuser(tRechargeInfoCustom.getCreateuser());
@@ -159,12 +147,10 @@ public class RechargeInfoController {
 			tPointsInfoCustom.setTaskpk(0);
 			tPointsInfoCustom.setUserid(tUserInfoCustom.getUserid());
 			int ii1 = pointsInfoService.savePoints(tPointsInfoCustom);
-			/*
-			 * 修改用户当前积分
-			 */
+			//修改用户当前积分
 			tUserInfoCustom.setPoints(tUserInfoCustom.getPoints()+tRechargeInfoCustom.getRechargepoints()+tRechargeInfoCustom.getRechargegivepoints());
 			tUserInfoCustom.setUpdatetime(sdf.format(new Date()));
-			tUserInfoCustom.setUpdateuser("系统确认充值成功!");
+			tUserInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
 			int ii2 = userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
 			System.out.println(ii1+"============"+ii2);
 		}

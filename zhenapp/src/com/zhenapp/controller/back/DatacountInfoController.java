@@ -1,36 +1,25 @@
 package com.zhenapp.controller.back;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.DatacountInfoCustom;
 import com.zhenapp.po.Custom.TAgentInfoCustom;
-import com.zhenapp.po.Custom.TFilepathInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.DatacountInfoService;
-import com.zhenapp.service.FilepathInfoService;
 import com.zhenapp.service.UserInfoService;
-import com.zhenapp.util.ExportExcle;
 
 @Controller
 @RequestMapping(value="/datacount")
@@ -40,8 +29,6 @@ public class DatacountInfoController {
 	SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
 	@Autowired
 	private DatacountInfoService datacountInfoService;
-	@Autowired
-	private FilepathInfoService filepathInfoService;
 	@Autowired
 	private AgentInfoService agentInfoService;
 	@Autowired
@@ -62,27 +49,21 @@ public class DatacountInfoController {
 		if(dateto!=null){
 			hashmap.put("dateto", dateto.replace("-", ""));
 		}
+		if(datefrom == null && dateto == null){
+			hashmap.put("datefrom", yyyyMMdd.format(new Date()));
+			hashmap.put("dateto", yyyyMMdd.format(new Date()));
+		}
 		hashmap.put("tasktype", tasktype);
-		hashmap.put("agentid", "2");
+		hashmap.put("agentid", tAgentInfoCustom.getAgentid());
 		List<DatacountInfoCustom> datacountInfoCustomlist=datacountInfoService.findDataBydate(hashmap);
 		DatacountInfoCustom datacountInfoCustom=datacountInfoService.findSUMDataBydate(hashmap);
-		/*TFilepathInfoCustom tFilepathInfoCustom= filepathInfoService.findFilepathByid("1");
-		File file =new File(tFilepathInfoCustom.getFilepath()+datefrom+""+dateto);
-		//如果文件夹不存在则创建    
-		if  (!file .exists()  && !file .isDirectory())      
-		{       
-			logger.info("指定导出Excle目录不存在,创建目录"); 
-		    file.mkdir();    
-		} else   
-		{  
-			logger.info("指定导出Excle目录已存在"); 
-		}  
-		ExportExcle exportExcle = new ExportExcle();
-		exportExcle.ExprotExcle(datacountInfoCustomlist,tFilepathInfoCustom.getFilepath()+datefrom+""+dateto);
-		mv.addObject("total", datacountInfoCustomlist.size());*/
+		logger.info("代理"+tAgentInfoCustom.getAgentid()+"查询数据统计");
 		mv.addObject("datacountInfoCustomlist", datacountInfoCustomlist);
 		mv.addObject("datacountInfoCustom", datacountInfoCustom);
 		mv.addObject("tAgentInfoCustom",tAgentInfoCustom);
+		mv.addObject("datefrom",datefrom);
+		mv.addObject("dateto",dateto);
+		mv.addObject("tasktype",tasktype);
 		mv.addObject("points", points);
 		mv.setViewName("/backstage/agent/datasum.jsp");
 		return mv;
@@ -101,31 +82,16 @@ public class DatacountInfoController {
 		if(datefrom!=null){
 			hashmap.put("dateto", dateto.replace("-", ""));
 		}
+		if(datefrom == null && dateto == null){
+			hashmap.put("datefrom", yyyyMMdd.format(new Date()));
+			hashmap.put("dateto", yyyyMMdd.format(new Date()));
+		}
 		hashmap.put("tasktype", tasktype);
 		hashmap.put("agentpk", agentpk);
 		List<DatacountInfoCustom> datacountInfoCustomlist=datacountInfoService.findDataBydate(hashmap);
 		DatacountInfoCustom datacountInfoCustom=datacountInfoService.findSUMDataBydate(hashmap);
-		
-		/*
-		 * 查询所有代理信息
-		 */
-		
+		//查询所有代理信息
 		List<TAgentInfoCustom> tAgentInfoCustomlist = agentInfoService.findAllAgentBypage(hashmap);
-		
-		
-		/*TFilepathInfoCustom tFilepathInfoCustom= filepathInfoService.findFilepathByid("1");
-		File file =new File(tFilepathInfoCustom.getFilepath()+datefrom+""+dateto);
-		//如果文件夹不存在则创建    
-		if  (!file .exists()  && !file .isDirectory())      
-		{       
-			logger.info("指定导出Excle目录不存在,创建目录"); 
-		    file.mkdir();    
-		} else   
-		{  
-			logger.info("指定导出Excle目录已存在"); 
-		}  
-		ExportExcle exportExcle = new ExportExcle();
-		exportExcle.ExprotExcle(datacountInfoCustomlist,tFilepathInfoCustom.getFilepath()+datefrom+""+dateto);*/
 		mv.addObject("total", datacountInfoCustomlist.size());
 		mv.addObject("agentpk", agentpk);
 		mv.addObject("datacountInfoCustomlist", datacountInfoCustomlist);
@@ -135,9 +101,7 @@ public class DatacountInfoController {
 		return mv;
 	}
 	
-	
-	
-	
+	/*
 	@RequestMapping(value="/findDataBydate")
 	public @ResponseBody ModelMap findDataBydate(String datefrom,String dateto) throws Exception{
 		ModelMap map= new ModelMap();
@@ -165,11 +129,11 @@ public class DatacountInfoController {
 		map.put("total", datacountInfoCustomlist.size());
 		map.put("rows", datacountInfoCustomlist);
 		return map;
-	}
+	}*/
 	
 	/*
 	 * 导出数据为Excle文件
-	 */
+	 
 	@RequestMapping(value="/ExportFile/{datepath}")
 	public void ExportFile(@PathVariable(value="datepath")String datepath,HttpServletResponse response,HttpServletRequest request) throws Exception{
 		TFilepathInfoCustom tFilepathInfoCustom= filepathInfoService.findFilepathByid("1");
@@ -210,10 +174,10 @@ public class DatacountInfoController {
 			e.printStackTrace();
 		}
 	}
-	
+	*/
 	/*
 	 * 先查出数据生成根目录 再转发到数据统计页面
-	 */
+	 
 	@RequestMapping(value="/findFilepathTodatacount")
 	public @ResponseBody ModelAndView findFilepathTodatacount() throws Exception{
 		ModelAndView mv= new ModelAndView();
@@ -231,5 +195,5 @@ public class DatacountInfoController {
 		mv.addObject("filepath",tFilepathInfoCustom.getFilepath());
 		mv.setViewName("/page/main/datacount.jsp");
 		return mv;
-	}
+	}*/
 }

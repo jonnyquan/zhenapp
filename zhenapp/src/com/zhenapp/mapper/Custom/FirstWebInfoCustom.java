@@ -4,6 +4,7 @@ public class FirstWebInfoCustom {
 	private boolean success;
 	private long product_id;
 	private int error;
+	
 	public boolean isSuccess() {
 		return success;
 	}

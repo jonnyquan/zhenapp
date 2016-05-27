@@ -34,6 +34,9 @@
 	    	<if test="rechargeid != null and rechargeid != ''">
 	    		and a.rechargeid = #{rechargeid}
 	    	</if>
+	    	<if test="agentid != null and agentid != ''">
+	    		and c.agentid = #{agentid}
+	    	</if>
 		</where>
 		order by a.createtime desc LIMIT #{page},#{rows}
 	</select>
@@ -55,6 +58,9 @@
 	    	</if>
 	    	<if test="rechargeid != null and rechargeid != ''">
 	    		and a.rechargeid = #{rechargeid}
+	    	</if>
+	    	<if test="agentid != null and agentid != ''">
+	    		and c.agentid = #{agentid}
 	    	</if>
 		</where>
 	</select>

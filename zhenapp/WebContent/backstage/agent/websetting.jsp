@@ -97,14 +97,6 @@
   	</tr>
   	<tr>
   		<td width="150px">
-  			<label>域名</label>
-  		</td>
-  		<td>
-  			<input type="text" id="domain" name="domain" placeholder="网站域名" class='form-control' value="${tAgentInfoCustom.domain }">(如：http://www.baodu.com)
-  		</td>
-  	</tr>
-  	<tr>
-  		<td width="150px">
   			<label>网站地址</label>
   		</td>
   		<td>
@@ -227,7 +219,7 @@
  </form>
   <script>
       $(function() {
-    	  $("#menu").load("${pageContext.request.contextPath}/backstage/agent/menu.jsp");
+    	$("#menu").load("${pageContext.request.contextPath}/backstage/agent/menu.jsp");
     	  
         $("#saveInfo").click(function() {
           $.ajax({
