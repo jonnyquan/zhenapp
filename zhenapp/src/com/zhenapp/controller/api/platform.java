@@ -46,7 +46,6 @@ import com.zhenapp.util.MD5Util;
 import com.zhenapp.util.StringUtilWxf;
 
 @Controller
-@RequestMapping(value="/api/platform")
 public class platform {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 	SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
@@ -78,7 +77,7 @@ public class platform {
 	/*
 	 * API接口中 获取余额  restful风格
 	 */
-	@RequestMapping(value="/searchBalance/{partnerId}/{password}")
+	@RequestMapping(value="/api/platform/searchBalance/{partnerId}/{password}")
 	public @ResponseBody ModelMap searchBalance(@PathVariable(value="partnerId") String partnerId,@PathVariable(value="password") String password) throws Exception{
 		ModelMap map=new ModelMap();
 		TUserInfoCustom tUserInfoCustom=new TUserInfoCustom();
@@ -92,7 +91,7 @@ public class platform {
 	/*
 	 * API接口中 获取余额  表单提交方式
 	 */
-	@RequestMapping(value="/searchBalance")
+	@RequestMapping(value="/api/platform/searchBalance")
 	public @ResponseBody ModelMap searchBalance_2(String partnerId,String password) throws Exception{
 		ModelMap map=new ModelMap();
 		TUserInfoCustom tUserInfoCustom=new TUserInfoCustom();
@@ -108,7 +107,7 @@ public class platform {
 	 * 递交订单方式 表单提交
 	 * 
 	 */
-	@RequestMapping(value="/flow/save")
+	@RequestMapping(value="/api/platform/flow/save")
 	public @ResponseBody ModelMap flowsave(String partnerId,String data,String validation) throws Exception{
 		ModelMap map=new ModelMap();
 		List<OrderReturnInfoCustom> orderReturnInfoCustomlist = new ArrayList<OrderReturnInfoCustom>();
@@ -380,7 +379,7 @@ public class platform {
 	/*
 	 * 查询订单  partnerId 用户名		password 密码 	 fid 订单号
 	 */
-	@RequestMapping(value="/search/flow")
+	@RequestMapping(value="/api/platform/search/flow")
 	public @ResponseBody ModelMap searchflow(String partnerId,String password,String fid) throws Exception{
 		ModelMap map=new ModelMap();
 		List<TUserInfoCustom> tUserInfoCustomlist = userInfoService.findUserBynick(partnerId);
@@ -418,7 +417,7 @@ public class platform {
 	/*
 	 * 终止订单
 	 */
-	@RequestMapping(value="/shutdown")
+	@RequestMapping(value="/api/platform/shutdown")
 	public @ResponseBody ModelMap shutdown(String partnerId,String password,String fid) throws Exception{
 		ModelMap map = new ModelMap();
 		//首先确保该用户能终止该订单
@@ -475,7 +474,7 @@ public class platform {
 	/*
 	 * 每一分钟执行一次 查询任务状态为终止中的任务,检查是否所有详情任务都已返回，如果都已处理修改为已终止，结束任务，返回积分
 	 */
-	@RequestMapping("/updateTaskstateByTiming")
+	@RequestMapping("/api/platform/updateTaskstateByTiming")
 	public @ResponseBody ModelMap updateTaskstateByTiming() throws Exception{
 		ModelMap map = new ModelMap();
 		//查询任务状态为终止中的任务
@@ -556,7 +555,7 @@ public class platform {
 	/*
 	 * 每10分钟执行一次判断是否有任务执行完成        修改任务状态,积分处理
 	 */
-	@RequestMapping(value="/cyclecheckTask")
+	@RequestMapping(value="/api/platform/cyclecheckTask")
 	public @ResponseBody ModelMap cyclecheckTask() throws Exception{
 		ModelMap map = new ModelMap();
 		//首先判断收藏和加购是否完成
@@ -619,7 +618,7 @@ public class platform {
 	        	int pointsflow= (tTaskInfoCustom.getFlowcount()-TTaskDetailInfoFlowCustombefore.getFinishcount())*Integer.parseInt(tPriceInfoCustom.getPricecounts1());
 	        	//加购失败
 	        	hashmap.put("taskid", tTaskInfoCustom.getTaskid());
-				hashmap.put("state", "22");
+				hashmap.put("taskstate", "22");
 				int collectcount = taskDetailInfoService.findcollectioncount(hashmap);
 				int shoppingcount = taskDetailInfoService.findshoppingcount(hashmap);
 				int pointscollect = collectcount*Integer.parseInt(tPriceInfoCustom.getPricecounts2());
@@ -651,7 +650,7 @@ public class platform {
 	/*
 	 * 查询今天之前的任务      每天0点1分执行
 	 */
-	@RequestMapping(value="/updateTaskstateByTime")
+	@RequestMapping(value="/api/platform/updateTaskstateByTime")
 	public @ResponseBody ModelMap updateTaskstateByTime() throws Exception{
 		ModelMap map = new ModelMap();
 		//还在执行中的任务   变成已完成	状态为待分配（15） 和运行中（16）的任务
@@ -718,7 +717,7 @@ public class platform {
 	/*
 	 * 通过接口调用		确认充值
 	 */
-	@RequestMapping(value="/updateRechargestate/{verificationcode}")
+	@RequestMapping(value="/api/platform/updateRechargestate/{verificationcode}")
 	public @ResponseBody ModelMap updateRechargestate(@PathVariable(value="verificationcode")String verificationcode) throws Exception{
 		ModelMap map = new ModelMap();
 		//修改充值记录状态为已确认
@@ -751,7 +750,7 @@ public class platform {
 		return map;
 	}
 	
-	@RequestMapping(value="/insertDate")
+	@RequestMapping(value="/api/platform/insertDate")
 	public @ResponseBody ModelMap insertDate() throws Exception{
 		ModelMap map = new ModelMap();
 		dateService.insertDate();

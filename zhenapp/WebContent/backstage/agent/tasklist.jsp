@@ -70,36 +70,30 @@
   <div class="am-alert am-alert-danger" id="my-alert" style="display: none">
     <p>开始日期应小于结束日期！</p>
   </div>
-
+<!-- 
   <div class="am-cf am-padding">
     <div class="am-fl am-cf">
       <strong class="am-text-primary am-text-lg">订单查询 </strong>
-    </div>
+	</div>
   </div>
+ -->
+  <div style="height:10px;">
+  </div>
+  <table>
+  	<tr>
+  		<td style="width:30px;">
+  			<a class="am-btn am-btn-secondary" href="${pageContext.request.contextPath}/task/responsetaskmanageagent">当前订单查询</a>
+  		</td>
+  		<td style="width:10px;">
+  		</td>
+  		<td style="width:30px;">
+  			<a class="am-btn am-btn-secondary" href="${pageContext.request.contextPath}/task/responsetaskmanageagentbefore">历史订单查询</a>
+  		</td>
+  	</tr>
+  </table>
+  
 
   <form id="searchform" class="koo_fromBox" action="${pageContext.request.contextPath}/task/responsetaskmanageagent" method="post">
-<!--<div class="searchbox ">
-	  <div>
-		<label class="form_label">订单ID:</label>
-		<input class="form_input input120" type="text" name="title" id="title" value="" /> 
-		<label class="form_label">宝贝ID:</label>
-		<input class="form_input input120" type="text" name="title" id="title" value="" /> 
-		
-		<label class="form_label">搜索关键字(模糊):</label> 
-		<input class="form_input input120" type="text" name="keyword" id="keyword" value="" /> 
-		<br/>
-		<label class="form_label">任务类型:</label>
-			<select name="tasktype" id="tasktype">
-				<option selected value="">全部类型</option>
-				<option value="33">流量</option>
-				<option value="34">直通车</option>
-			</select> 
-		<label class="form_label">任务开始时间:</label> 
-		<input type="text" name="datefrom" id="datefrom" class="Wdate search_time" onClick="WdatePicker()" value="" /> 
-		<label class="form_label">至</label> 
-		<input type="text" name="dateto" id="dateto" class="Wdate search_time" onClick="WdatePicker()" value="" />
-		<button type="submit" name="submit" class="search_btn">搜索</button>
-	</div>-->
 	<table class="table table-bordered">
 	<tr>
 		<td>

@@ -10,9 +10,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>订单查询</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
+<title>${tAgentInfoCustom.agentname} -- 订单查询</title>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/amazeui.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/admin.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/lanyunying.css" />
@@ -26,65 +28,72 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/backstage/agent/pagematter/zh_CN.js"></script>
 <script src="${pageContext.request.contextPath}/bootstrap/js/jqPaginator.min.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/bootstrap/js/myPage.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/easyui/themes/bootstrap/easyui.css" />
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/easyui/themes/icon.css" />
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/easyui/themes/bootstrap/easyui.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/easyui/themes/icon.css" />
 </head>
 <header class="am-topbar admin-header">
   <div class="am-topbar-brand">
-    <strong>真流量</strong> <small>后台管理系统</small>
+    <strong>${tAgentInfoCustom.agentname}</strong> <small>后台管理系统</small>
   </div>
   <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
     data-am-collapse="{target: '#topbar-collapse'}">
     <span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span>
   </button>
-  <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+  <div class="am-collapse am-topbar-collapse" id="topbar-collapse"> 
     <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
-      <li class="am-dropdown" data-am-dropdown><a href="${pageContext.request.contextPath}/user/authlogout"><span class="am-icon-power-off"></span>
-          退出</a></li>
-      <li class="am-dropdown" data-am-dropdown><a href="javascript:alert('不要点我');"><span class="am-icon-power-off"></span>
-          清理数据（不要点）</a></li>
-      <li class="am-dropdown" data-am-dropdown><a href="javascript:alert('不要点我');"><span class="am-icon-power-off"></span>
-          查询数据（不要点）</a></li>
-      <li class="am-hide-sm-only"><a href="javascript:alert('不准开');;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span>
-          <span class="admin-fullText">开启全屏</span></a></li>
+      <li class="am-dropdown" data-am-dropdown>
+    	<a href="${pageContext.request.contextPath}/user/findUserByPageandRole">
+    		积分：${points}
+    	</a>
+      </li>  
+      <li class="am-dropdown" data-am-dropdown>
+      </li>
+      <li class="am-dropdown" data-am-dropdown>
+      	<a href="${pageContext.request.contextPath}/user/authlogout">
+      		<span class="am-icon-power-off"></span>退出
+      	</a>
+      </li>
     </ul>
   </div>
 </header>
 <div class="am-cf admin-main">
-      <!-- sidebar start -->
-      <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
-        <div class=" admin-offcanvas-bar">
-          
-        </div>
-      </div>
- <!-- sidebar end -->
+     <div id="menu" class="admin-sidebar am-offcanvas"></div>
+      
       <div id="module-head"></div>
+      
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <div class="admin-content">
   <div class="am-alert am-alert-danger" id="my-alert" style="display: none">
     <p>开始日期应小于结束日期！</p>
   </div>
-  <!--  <div class="am-cf am-padding">
+<!-- 
+  <div class="am-cf am-padding">
     <div class="am-fl am-cf">
-      <strong class="am-text-primary am-text-lg">我的订单 </strong>
-    </div>
+      <strong class="am-text-primary am-text-lg">订单查询 </strong>
+	</div>
   </div>
-  -->
+ -->
   <div style="height:10px;">
   </div>
   <table>
   	<tr>
   		<td style="width:30px;">
-  			<a class="am-btn am-btn-secondary" href="${pageContext.request.contextPath}/task/responsetaskmanageadmin">当前订单查询</a>
+  			<a class="am-btn am-btn-secondary" href="${pageContext.request.contextPath}/task/responsetaskmanageagent">当前订单查询</a>
   		</td>
   		<td style="width:10px;">
   		</td>
   		<td style="width:30px;">
-  			<a class="am-btn am-btn-secondary" href="${pageContext.request.contextPath}/task/responsetaskmanageadminbefore">历史订单查询</a>
+  			<a class="am-btn am-btn-secondary" href="${pageContext.request.contextPath}/task/responsetaskmanageagentbefore">历史订单查询</a>
   		</td>
   	</tr>
   </table>
-  <form id="searchform" class="koo_fromBox" action="${pageContext.request.contextPath}/task/responsetaskmanageadmin" method="post">
+  
+
+  <form id="searchform" class="koo_fromBox" action="${pageContext.request.contextPath}/task/responsetaskmanageagentbefore" method="post">
 	<table class="table table-bordered">
 	<tr>
 		<td>
@@ -93,34 +102,32 @@
 		</td>
 		<td>
 			<label class="form_label">宝贝ID:</label>
-			<input class="form_input input120" type="text" name="taskkeynum" id="taskkeynum" value="${taskkeynum}" /> 
+			<input class="form_input input120" type="text" name="taskkeynum" id="taskkeynum" value="${taskkeynum }" /> 
 		</td>
 		<td>
 			<label class="form_label">搜索关键字(模糊):</label> 
-			<input class="form_input input120" type="text" name="taskkeyword" id="taskkeyword" value="${taskkeyword}" />
+			<input class="form_input input120" type="text" name="taskkeyword" id="taskkeyword" value="${taskkeyword }" />
 		</td>
 	</tr>
 	<tr>
 		<td>
 			<label class="form_label">任务类型:</label>
 				<select name="tasktype" id="tasktype">
-					
-					<c:if test="${tasktype==33}">
+					<c:if test="${tasktype=='33'}">
 						<option value="">全部类型</option>
 						<option selected value="33">流量</option>
 						<option value="34">直通车</option>
 					</c:if>
-					<c:if test="${tasktype==34}">
+					<c:if test="${tasktype=='34'}">
 						<option value="">全部类型</option>
 						<option value="33">流量</option>
 						<option selected value="34">直通车</option>
 					</c:if>
-					<c:if test="${tasktype==null || tasktype==''}">
+					<c:if test="${tasktype == null || tasktype==''}">
 						<option selected value="">全部类型</option>
 						<option value="33">流量</option>
 						<option value="34">直通车</option>
 					</c:if>
-					
 				</select> 
 		</td>
 		<td >
@@ -165,25 +172,25 @@
           </thead>
           <tbody>
             <c:forEach items="${tTaskInfoCustomlist}" var="list">
-            	<tr>
-	            	<td>${list.taskpk}</td>
-	                <td>${list.taskkeynum}</td>
-	                <td>${list.tasktypename }</td>
-	                <td>${list.taskkeyword}</td>
-	                <td>${list.flowcount }</td>
-	                <td>${list.collectioncount }</td>
-	                <td>${list.shoppingcount }</td>
-	                <td>${list.finishflowcount }</td>
-	                <td>${list.finishcollectioncount }</td>
-	                <td>${list.finishshoppingcount }</td>
-	                <td class="font-red">${list.errorcount}</td>
-	                <td>${list.createtime }</td>
-	                <td>${list.dicinfoname} </td>
-					<td > 
-					  <a onclick="endtask('${list.taskid}');" class="btn btn-default btn-xs">终止任务</a>				
-					</td>
-	            </tr>
+            	<td>${list.taskpk}</td>
+                <td>${list.taskkeynum}</td>
+                <td>${list.tasktypename }</td>
+                <td>${list.taskkeyword}</td>
+                <td>${list.flowcount }</td>
+                <td>${list.collectioncount }</td>
+                <td>${list.shoppingcount }</td>
+                <td>${list.finishflowcount }</td>
+                <td>${list.finishcollectioncount }</td>
+                <td>${list.finishshoppingcount }</td>
+                <td class="font-red">${list.errorcount}</td>
+                <td>${list.createtime }</td>
+                <td>${list.dicinfoname} </td>
+				<td > 
+				  <a onclick="endtask('${list.taskid}')" class="btn btn-default btn-xs">终止任务</a>				
+				</td>
+              </tr>
             </c:forEach>
+              
           </tbody>
         </table>
         <div>
@@ -192,36 +199,22 @@
 			<input type="hidden" id="PageCount" runat="server" value="${total}"/>
 			<input type="hidden" id="PageSize" runat="server" value="10" />
 			<input type="hidden" id="countindex" runat="server" value="10"/>
-			<!--设置最多显示的页码数 可以手动设置-->
+			<!--设置最多显示的页码数 可以手动设置 默认为7-->
 			<input type="hidden" id="visiblePages" runat="server" value="12" />
 		  </div>
       </form>
     </div>
   </div>
+
 </div>
+
 <script type="text/javascript" src="${pageContext.request.contextPath}/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/easyui/locale/easyui-lang-zh_CN.js"></script>
 <script>
-
-function endtask(taskid){
-	$.ajax({
-		url : "${pageContext.request.contextPath}/task/endtaskBytaskid/"+taskid,
-		type : 'post',
-		success : function (data, response, status) {
-			if (data!=null && data.data=="success") {
-				alert("终止任务成功！");
-				window.location.href="${pageContext.request.contextPath}/task/responsetaskmanageadmin";
-			} else{
-				alert("终止任务失败,请联系客服！");
-			}
-		}
-	});
-}
   $(function() {
-		$(".admin-offcanvas-bar").load("${pageContext.request.contextPath}/backstage/admin/adminmenu.jsp");
-	  
+	  $("#menu").load("${pageContext.request.contextPath}/backstage/agent/menu.jsp");
 	  /*
-    var startDate = new Date(2015, 12, 20);
+	 var startDate = new Date(2015, 12, 20);
     var endDate = new Date(2016, 11, 25);
     var $alert = $('#my-alert');
     $('#my-start').datepicker().on('changeDate.datepicker.amui', function(event) {
@@ -245,48 +238,49 @@ function endtask(taskid){
       }
       $(this).datepicker('close');
     });
-*/
-$('#datefrom').datebox();
-$('#dateto').datebox();
+
     $("#search").click(
         function() {
-        	btn_search(1);
+          var startTime = $("#my-startDate").text();
+          var entTime = $("#my-endDate").text();
+          var fid = $("#fid").val();
+          var nid = $("#nid").val();
+          location.href = "${pageContext.request.contextPath}/task/responsetaskmanageagent?page=1&datefrom=" + startTime + "&dateto=" + entTime + "&taskid=" + fid
+              + "&usernick=" + $("#nick").val()+"&taskkeynum="+nid+"&tasktype="+$("#ktype").val();
         });
+  */  
     
-    $(document).on("click",".shutdownTaks", function() {
-		if (confirm("您确定要终止该订单吗？")) {
-			$.ajax({
-				type : "post",
-				url : "/admin/user/terminateTask",
-				data : {id : $(this).attr("data-id")},
-				success : function(resp) {
-					if (resp && resp.ec == 0) {
-						Message.info('终止成功：',false);
-						setTimeout(
-								function() {
-									window.location.href = '/admin/user/taskList?page=1';
-								}, 2000);
-					} else {
-						Message.error(resp.em,true);
-					}
-				},
-				error : function() {
-					Message.error(resp.em, true);
-				}
-			});
-		}
+    $('#datefrom').datebox();
+	$('#dateto').datebox();
+	
+	$("#search").click(function(){
+		$("#searchform").submit();
 	});
   });
   function btn_search(num){
-	  var taskpk = $("#taskpk").val();
-	  var taskkeynum = $("#taskkeynum").val();
+	  var taskpk = $("#taskpk").text();
+	  var taskkeynum = $("#taskkeynum").text();
       var taskkeyword = $("#taskkeyword").val();
       var tasktype = $("#tasktype").val();
       var datefrom = $("input[name='datefrom']")[0].value;
       var dateto = $("input[name='dateto']")[0].value;
-      window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanageadmin?page=" + num + "&datefrom=" + datefrom + "&dateto=" + dateto + "&taskpk=" + taskpk
+      window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanageagent?page=" + num + "&datefrom=" + datefrom + "&dateto=" + dateto + "&taskpk=" + taskpk
           + "&taskkeynum=" + taskkeynum + "&taskkeyword="+taskkeyword+"&tasktype="+tasktype;
   }
+  
+	function endtask(taskid){
+		$.ajax({
+			url : "${pageContext.request.contextPath}/task/endtaskBytaskid/"+taskid,
+			type : 'post',
+			success : function (data, response, status) {
+				if (data!=null && data.data=="success") {
+					alert("终止任务成功！");
+				} else{
+					alert("终止任务失败,请联系客服！");
+				}
+			}
+		});
+	}
   var index = Number("${pagenum}");
 	if (index.length < 1) {
 		index = 1;
@@ -305,7 +299,7 @@ $('#dateto').datebox();
 			totalPages : parseInt($("#countindex").val()),
 			visiblePages : parseInt($("#visiblePages").val()),
 			currentPage : index,
-			first : '<li class="first"><a onclick="num(1);">首页</a></li>',
+			first : '<li class="first"><a onclick="btn_search(1);">首页</a></li>',
 			prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
 			next : '<li class="next"><a href="javascript:;">下一页</a></li>',
 			last : '<li class="last"><a href="javascript:;">末页</a></li>',
@@ -316,13 +310,16 @@ $('#dateto').datebox();
 				}
 			}
 		});
-	}
+}
 </script>
 
     </div>
   
   <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
     data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+    
+	<script type="text/javascript" src="${pageContext.request.contextPath}/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/easyui/locale/easyui-lang-zh_CN.js"></script>
   <footer>
     <hr>
     <p class="am-padding-left">Copyright (c) 2015 zhenapp.cn Inc. All Rights. 浙ICP备140452118号-5</p>

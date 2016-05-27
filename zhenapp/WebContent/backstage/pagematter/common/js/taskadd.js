@@ -7,6 +7,7 @@ var keywords=1;//关键词数量
 var days=1;//天数
 var subtractll = 0;//统计消耗积分时要去掉的当天不发布的流量数
 var istaskword="";
+var taskkeynumval="";
 
 	;$(function() {
 		$("#taskurl").focus();
@@ -197,7 +198,7 @@ var istaskword="";
 				data : {
 					taskurl : $("#taskurl").val(),
 					deepclick : $("#deepclick").val(),
-					taskkeynum : $("#taskurl").val().split("id=")[1],
+					taskkeynum : taskkeynumval,
 					taskkeywords : taskkeywords.join('===='),
 					tasktype:"33",
 					taskstartdate:$("input[name='datefrom']")[0].value,
@@ -368,21 +369,32 @@ var istaskword="";
 	检查宝贝id当天可以发布多少流量数
 	*/
 	function checkurl(obj){
-		 var taskkeynum = "";
-		 if(!isNaN(obj.value.split("id=")[1])){
-			 taskkeynum = obj.value.split("id=")[1];
-		 }else{
-			 alert("url不合法!");
-			 $("taskurl").focus();
-			 return false;
-		 }
+		var url=obj.value.split("&");
+		for(var i =0;i<url.length;i++){
+			if(url[i].indexOf("id=")!=-1){
+				if(!isNaN(url[i].split("=")[1])){
+					taskkeynumval = url[i].split("id=")[1];
+					 break;
+				 }else{
+					 alert("url不合法!");
+					 $("taskurl").focus();
+					 return false;
+				 }
+			}
+		}
+		var param="";
+		if(obj.value.indexOf("taobao.com")!=-1){
+			param = "https://item.taobao.com/item.htm?id="+taskkeynumval;
+		}else{
+			param = "https://detail.tmall.com/item.htm?id="+taskkeynumval;
+		}
 		
-		if(taskkeynum.length<1){
+		if(taskkeynumval.length<1){
 			llmax=1000;
 			$("#span").html("最多可发布流量数:"+llmax);
 		}else{
 			$.ajax({
-				url : uri+"/api/url/validate?param="+obj.value +"&&taskkeynum=" + taskkeynum,
+				url : uri+"/api/url/validate?param="+param +"&&taskkeynum=" + taskkeynumval,
 				type : "POST",
 				success:function(data,state){
 					if(data!=null && data.status=='y'){
@@ -443,17 +455,29 @@ var istaskword="";
 	 */
 	function checkword(obj){
 		var taskurl = $("#taskurl").val();
-		var taskkeynum = "";
-		 if(!isNaN(taskurl.split("id=")[1])){
-			 taskkeynum = taskurl.split("id=")[1];
-		 }else{
-			 alert("url不合法!");
-			 $("taskurl").focus();
-			 return false;
-		 }
-		if(taskkeynum.length>1){
+		var url=taskurl.split("&");
+		for(var i =0;i<url.length;i++){
+			if(url[i].indexOf("id=")!=-1){
+				if(!isNaN(url[i].split("=")[1])){
+					taskkeynumval = url[i].split("=")[1];
+					 break;
+				 }else{
+					 alert("url不合法!");
+					 $("taskurl").focus();
+					 return false;
+				 }
+			}
+		}
+		var param="";
+		if(taskurl.indexOf("taobao.com")!=-1){
+			param = "https://item.taobao.com/item.htm?id="+taskkeynumval;
+		}else{
+			param = "https://detail.tmall.com/item.htm?id="+taskkeynumval;
+		}
+		
+		if(taskkeynumval.length>1){
 			$.ajax({
-				url : uri+"/api/keywords/validate/"+obj.value+"/"+taskkeynum,
+				url : uri+"/api/keywords/validate/"+obj.value+"/"+taskkeynumval,
 				type : "POST",
 				success:function(data,state){
 					if(data.msg == 0){

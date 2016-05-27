@@ -153,6 +153,9 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
   		<if test="isshopping != null and isshopping != '' ">
   			and isshopping = #{isshopping}
   		</if>
+  		<if test="taskstate != null and taskstate != '' ">
+  			and taskstate in (${taskstate})
+  		</if>
   	</where>
   </select>
   

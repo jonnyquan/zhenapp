@@ -322,8 +322,9 @@
 											宝贝url
 										</td>
 										<td>
-											<input type="text" name="taskurl" id="taskurl" value="${tTaskInfoCustom.taskurl}"
-												placeholder="请输入宝贝url,例如:https://item.taobao.com/item.htm?id=531027639098" class='form-control'  onchange="checkurl(this);" />
+											<input type="text" name="taskurl" id="taskurl" value="${tTaskInfoCustom.taskurl}" maxlength="1000"
+												placeholder="请输入宝贝url,例如:https://item.taobao.com/item.htm?id=531027639098" class='form-control'  
+												onchange="checkurl(this);" />
 											<span id="span" style="color:#aaa;"></span>
 										</td>
 									</tr>

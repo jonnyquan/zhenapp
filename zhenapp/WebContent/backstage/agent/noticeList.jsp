@@ -62,7 +62,7 @@
 	</div>
 	<div class="am-g" id="module-head" style="margin-bottom: 10px;">
 		<div class="am-u-sm-12 am-u-md-6">
-		<a class="am-btn am-btn-secondary" href="${pageContext.request.contextPath}/note/responseNoteaddagent">添加</a>
+			<a class="am-btn am-btn-secondary" href="${pageContext.request.contextPath}/note/responseNoteaddagent">添加</a>
 		</div>
 	</div>
 	<div class="am-g">

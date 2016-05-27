@@ -84,7 +84,7 @@
   		</td>
   	</tr>
   </table>
-  <form id="searchform" class="koo_fromBox" action="${pageContext.request.contextPath}/task/responsetaskmanageadmin" method="post">
+  <form id="searchform" class="koo_fromBox" action="${pageContext.request.contextPath}/task/responsetaskmanageadminbefore" method="post">
 	<table class="table table-bordered">
 	<tr>
 		<td>
@@ -210,7 +210,7 @@ function endtask(taskid){
 		success : function (data, response, status) {
 			if (data!=null && data.data=="success") {
 				alert("终止任务成功！");
-				window.location.href="${pageContext.request.contextPath}/task/responsetaskmanageadmin";
+				window.location.href="${pageContext.request.contextPath}/task/responsetaskmanageadminbefore";
 			} else{
 				alert("终止任务失败,请联系客服！");
 			}
@@ -219,7 +219,6 @@ function endtask(taskid){
 }
   $(function() {
 		$(".admin-offcanvas-bar").load("${pageContext.request.contextPath}/backstage/admin/adminmenu.jsp");
-	  
 	  /*
     var startDate = new Date(2015, 12, 20);
     var endDate = new Date(2016, 11, 25);
@@ -284,7 +283,7 @@ $('#dateto').datebox();
       var tasktype = $("#tasktype").val();
       var datefrom = $("input[name='datefrom']")[0].value;
       var dateto = $("input[name='dateto']")[0].value;
-      window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanageadmin?page=" + num + "&datefrom=" + datefrom + "&dateto=" + dateto + "&taskpk=" + taskpk
+      window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanageadminbefore?page=" + num + "&datefrom=" + datefrom + "&dateto=" + dateto + "&taskpk=" + taskpk
           + "&taskkeynum=" + taskkeynum + "&taskkeyword="+taskkeyword+"&tasktype="+tasktype;
   }
   var index = Number("${pagenum}");
@@ -301,11 +300,10 @@ $('#dateto').datebox();
 		}
 		$("#countindex").val(countindex);
 		$.jqPaginator('#pagination',
-		{
-			totalPages : parseInt($("#countindex").val()),
+		{totalPages : parseInt($("#countindex").val()),
 			visiblePages : parseInt($("#visiblePages").val()),
 			currentPage : index,
-			first : '<li class="first"><a onclick="num(1);">首页</a></li>',
+			first : '<li class="first"><a onclick="btn_search(1);">首页</a></li>',
 			prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
 			next : '<li class="next"><a href="javascript:;">下一页</a></li>',
 			last : '<li class="last"><a href="javascript:;">末页</a></li>',

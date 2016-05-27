@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhenapp.mapper.Custom.TTaskInfoCustomMapper" >
   
-  <select id="findTaskInfoBypks" parameterType="String">
-  	select * from t_task_info where taskpk in (${pks})
+  <select id="findTaskInfoBypks" parameterType="String" resultType="com.zhenapp.po.Custom.TTaskInfoCustom">
+  	select * from t_task_info where taskpk in (${value})
   </select>
   <select id="findTaskBypage" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap" >
   SELECT DATE_FORMAT(a.taskdate,'%Y-%m-%d') AS taskdaterange,a.taskpk,a.taskid, a.tasktype, 
@@ -101,6 +101,9 @@
     	</if>
     	<if test="taskpk !=null and taskpk != ''">
     		and a.taskpk = #{taskpk}
+    	</if>
+    	<if test="today !=null and today != ''">
+    		and a.today = #{today}
     	</if>
     	<if test="datefrom != null and datefrom != ''">
     		and a.createtime <![CDATA[>=]]> #{datefrom}

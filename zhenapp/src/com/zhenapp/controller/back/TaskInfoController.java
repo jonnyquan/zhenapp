@@ -109,10 +109,10 @@ public class TaskInfoController {
 		return mv;
 	}
 	/*
-	 * 跳转到订单查询界面--代理
+	 * 跳转到订单查询界面--代理  当前订单管理
 	 */
 	@RequestMapping(value="/responsetaskmanageagent")
-	public ModelAndView responsetaskmanageagent(HttpSession session,Integer page,Integer rows,String datefrom,String dateto,String taskpk,String usernick,String taskkeynum,String taskkeyword,String tasktype) throws Exception{
+	public @ResponseBody ModelAndView responsetaskmanageagent(HttpSession session,Integer page,Integer rows,String datefrom,String dateto,String taskpk,String usernick,String taskkeynum,String taskkeyword,String tasktype) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
 		String points= userInfoService.findpointsByUsernickAndPwd(tUserInfoCustom);
@@ -135,9 +135,8 @@ public class TaskInfoController {
 		pagemap.put("taskkeyword", taskkeyword);
 		pagemap.put("tasktype", tasktype);
 		pagemap.put("userid", tUserInfoCustom.getUserid());
-		/*
-		* 代理用户
-		*/
+		pagemap.put("today", yyyyMMdd.format(new Date()));
+		//代理用户
 		List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findTaskBypageAndrole(pagemap);
 		int total = taskInfoService.findTotalTaskBypageAndrole(pagemap);
 		mv.addObject("tTaskInfoCustomlist", tTaskInfoCustomlist);
@@ -150,6 +149,48 @@ public class TaskInfoController {
 		mv.addObject("tasktype", tasktype);
 		mv.addObject("tAgentInfoCustom", tAgentInfoCustom);
 		mv.setViewName("/backstage/agent/tasklist.jsp");
+		return mv;
+	}
+	/*
+	 * 跳转到订单查询界面--代理  历史订单管理
+	 */
+	@RequestMapping(value="/responsetaskmanageagentbefore")
+	public @ResponseBody ModelAndView responsetaskmanageagentbefore(HttpSession session,Integer page,Integer rows,String datefrom,String dateto,String taskpk,String usernick,String taskkeynum,String taskkeyword,String tasktype) throws Exception{
+		ModelAndView mv=new ModelAndView();
+		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
+		String points= userInfoService.findpointsByUsernickAndPwd(tUserInfoCustom);
+		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentByuserid(tUserInfoCustom.getUserid());
+		HashMap<String,Object> pagemap=new HashMap<String,Object>();
+		if (page == null || page==0) {
+			page = 1;
+		} 
+		rows = 10;
+		pagemap.put("page", (page - 1) * rows);
+		pagemap.put("rows", rows);
+		if(datefrom!=null){
+			pagemap.put("datefrom", datefrom.replace("-", ""));
+		}
+		if(dateto!=null){
+			pagemap.put("dateto", dateto.replace("-", ""));
+		}
+		pagemap.put("taskpk", taskpk);
+		pagemap.put("taskkeynum", taskkeynum);
+		pagemap.put("taskkeyword", taskkeyword);
+		pagemap.put("tasktype", tasktype);
+		pagemap.put("userid", tUserInfoCustom.getUserid());
+		//代理用户
+		List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findTaskBypageAndrole(pagemap);
+		int total = taskInfoService.findTotalTaskBypageAndrole(pagemap);
+		mv.addObject("tTaskInfoCustomlist", tTaskInfoCustomlist);
+		mv.addObject("total", total);
+		mv.addObject("pagenum", page);
+		mv.addObject("points", points);
+		mv.addObject("taskpk", taskpk);
+		mv.addObject("taskkeynum", taskkeynum);
+		mv.addObject("taskkeyword", taskkeyword);
+		mv.addObject("tasktype", tasktype);
+		mv.addObject("tAgentInfoCustom", tAgentInfoCustom);
+		mv.setViewName("/backstage/agent/tasklistbefore.jsp");
 		return mv;
 	}
 	
@@ -287,7 +328,7 @@ public class TaskInfoController {
 	}
 	
 	/*
-	 * 跳转到订单查询界面-----系统管理员
+	 * 跳转到订单查询界面-----系统管理员		当前订单管理
 	 */
 	@RequestMapping(value="/responsetaskmanageadmin")
 	public ModelAndView responsetaskmanageadmin(HttpSession session,Integer page,Integer rows,String taskpk,String taskkeyword,String datefrom,String dateto,String taskid,String usernick,String taskkeynum,String tasktype) throws Exception{
@@ -309,9 +350,8 @@ public class TaskInfoController {
 		pagemap.put("taskkeynum", taskkeynum);
 		pagemap.put("taskkeyword", taskkeyword);
 		pagemap.put("tasktype", tasktype);
-		/*
-		* 系统管理员
-		*/
+		pagemap.put("today", yyyyMMdd.format(new Date()));
+		//系统管理员
 		List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findTaskBypage(pagemap);
 		int total = taskInfoService.findTotalTaskBypage(pagemap);
 		mv.addObject("tTaskInfoCustomlist", tTaskInfoCustomlist);
@@ -324,6 +364,44 @@ public class TaskInfoController {
 		mv.addObject("datefrom", datefrom);
 		mv.addObject("dateto", dateto);
 		mv.setViewName("/backstage/admin/tasklist.jsp");
+		return mv;
+	}
+	/*
+	 * 跳转到订单查询界面-----系统管理员		当前订单管理
+	 */
+	@RequestMapping(value="/responsetaskmanageadminbefore")
+	public ModelAndView responsetaskmanageadminbefore(HttpSession session,Integer page,Integer rows,String taskpk,String taskkeyword,String datefrom,String dateto,String taskid,String usernick,String taskkeynum,String tasktype) throws Exception{
+		ModelAndView mv=new ModelAndView();
+		HashMap<String,Object> pagemap=new HashMap<String,Object>();
+		if (page == null || page==0) {
+			page = 1;
+		} 
+		rows = 10;
+		pagemap.put("page", (page - 1) * rows);
+		pagemap.put("rows", rows);
+		if(datefrom!=null){
+			pagemap.put("datefrom", datefrom.replace("-", "")+"000000");
+		}
+		if(dateto!=null){
+			pagemap.put("dateto", dateto.replace("-", "")+"235959");
+		}
+		pagemap.put("taskpk", taskpk);
+		pagemap.put("taskkeynum", taskkeynum);
+		pagemap.put("taskkeyword", taskkeyword);
+		pagemap.put("tasktype", tasktype);
+		//系统管理员
+		List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findTaskBypage(pagemap);
+		int total = taskInfoService.findTotalTaskBypage(pagemap);
+		mv.addObject("tTaskInfoCustomlist", tTaskInfoCustomlist);
+		mv.addObject("total", total);
+		mv.addObject("pagenum", page);
+		mv.addObject("taskpk", taskpk);
+		mv.addObject("taskkeynum", taskkeynum);
+		mv.addObject("taskkeyword", taskkeyword);
+		mv.addObject("tasktype", tasktype);
+		mv.addObject("datefrom", datefrom);
+		mv.addObject("dateto", dateto);
+		mv.setViewName("/backstage/admin/tasklistbefore.jsp");
 		return mv;
 	}
 	/*
