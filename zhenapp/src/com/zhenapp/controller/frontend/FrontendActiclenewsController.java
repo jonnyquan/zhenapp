@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zhenapp.po.TElectricityInfo;
 import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TGuideInfoCustom;
 import com.zhenapp.po.Custom.TWebInfoCustom;
@@ -21,7 +20,6 @@ import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.ElectrityInfoService;
 import com.zhenapp.service.GuideInfoService;
 import com.zhenapp.service.WebInfoService;
-import com.zhenapp.test.TextImprot;
 
 @Controller
 @RequestMapping(value="/frontend")

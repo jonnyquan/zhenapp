@@ -560,7 +560,7 @@ public class platform {
 		ModelMap map = new ModelMap();
 		//首先判断收藏和加购是否完成
 		HashMap<String, Object> hashmap=new HashMap<String, Object>();
-		hashmap.put("state", "16");
+		hashmap.put("taskstate", "16");
 		List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findTaskInfoByTaskstate(hashmap);
 		for (int i = 0; i < tTaskInfoCustomlist.size(); i++) {
 			boolean isfinish = false;
@@ -569,7 +569,7 @@ public class platform {
 			TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserid(tTaskInfoCustom.getCreateuser());
 			TPriceInfoCustom tPriceInfoCustom = priceInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
 			hashmap.put("taskid", tTaskInfoCustom.getTaskid());
-			hashmap.put("state", "21,22,23");
+			hashmap.put("taskstate", "21,22,23");
 			int counts = taskDetailInfoService.findCounts(hashmap);
 			int checkcount=tTaskInfoCustom.getCollectioncount()+tTaskInfoCustom.getShoppingcount();
 			if(counts==checkcount){
@@ -750,6 +750,9 @@ public class platform {
 		return map;
 	}
 	
+	/*
+	 * 初始化日期信息
+	 */
 	@RequestMapping(value="/api/platform/insertDate")
 	public @ResponseBody ModelMap insertDate() throws Exception{
 		ModelMap map = new ModelMap();

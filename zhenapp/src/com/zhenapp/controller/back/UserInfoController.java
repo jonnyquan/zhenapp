@@ -9,6 +9,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -35,7 +36,6 @@ import com.zhenapp.service.PriceInfoService;
 import com.zhenapp.service.UserInfoService;
 import com.zhenapp.service.WebInfoService;
 import com.zhenapp.util.MD5Util;
-import com.zhenapp.util.Mail;
 
 @Controller
 @RequestMapping(value="/user")
@@ -57,6 +57,7 @@ public class UserInfoController {
 	@Autowired
 	private ComboInfoService comboInfoService;
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
+	private static Logger logger = Logger.getLogger(UserInfoController.class);
 	/*
 	 * 跳转到个人中心页面
 	 */
@@ -95,7 +96,8 @@ public class UserInfoController {
 			TUserInfoCustom tUserInfoCustom = (TUserInfoCustom)session.getAttribute("tUserInfoCustom");
 			tUserInfoCustom = userInfoService.findUserByuserid(tUserInfoCustom.getUserid());
 			session.setAttribute("tUserInfoCustom", tUserInfoCustom);
-			mv.setViewName("responseuser");
+			//mv.setViewName("responseuser");
+			mv.setViewName("/backstage/user/personal.jsp");
 		}
 		return mv;
 	}
@@ -301,19 +303,60 @@ public class UserInfoController {
 	public @ResponseBody ModelMap handworkrecharge(HttpSession session,String userpk,String updatepoints,String recharge,String memo) throws Exception{
 		ModelMap map = new ModelMap();
 		TUserInfoCustom tUserInfoCustomsession=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		TUserInfoCustom tUserInfoCustomagent = userInfoService.findUserByuserpk(tUserInfoCustomsession.getUserpk()+"");
 		TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserpk(userpk);
 		Integer newpoints = 0;
+		Integer newpointsagent = 0;
 		String Pointstype = "";
+		String Pointstypeagent = "";
 		if(recharge.equals("recharge")){
 			newpoints=tUserInfoCustom.getPoints() + Integer.parseInt(updatepoints);
+			newpointsagent = tUserInfoCustomagent.getPoints() - Integer.parseInt(updatepoints);
+			if(newpointsagent<0){
+				map.put("msg", "充值积分超出代理最大积分数");
+				logger.error("充值积分超出代理最大积分数,代理：" + tUserInfoCustomsession.getUserid() + " 用户："+ tUserInfoCustom.getUserid());
+				return map;
+			}
 			Pointstype = "31";//充值
+			Pointstypeagent = "32";//扣款
 		}else{
 			newpoints=tUserInfoCustom.getPoints() - Integer.parseInt(updatepoints);
+			if(newpoints<0){
+				map.put("msg", "扣除积分超出用户最大积分数");
+				logger.error("扣除积分超出用户最大积分数,代理：" + tUserInfoCustomsession.getUserid() + " 用户："+ tUserInfoCustom.getUserid());
+				return map;
+			}
+			newpointsagent = tUserInfoCustomagent.getPoints() + Integer.parseInt(updatepoints);
 			Pointstype = "32";//扣款
+			Pointstypeagent = "31";//充值
 		}
-		/*
-		 * 插入账户明细
-		 */
+		//修改代理积分
+		tUserInfoCustomagent.setPoints(newpointsagent);
+		tUserInfoCustomagent.setUpdatetime(sdf.format(new Date()));
+		tUserInfoCustomagent.setUpdateuser(tUserInfoCustomsession.getUserid());
+		userInfoService.updateUserinfoPointByUserid(tUserInfoCustomagent);
+		
+		//插入账户明细
+		TPointsInfoCustom tPointsInfoCustomagent =new TPointsInfoCustom();
+		tPointsInfoCustomagent.setCreateuser(tUserInfoCustomagent.getUserid());
+		tPointsInfoCustomagent.setCreatetime(sdf.format(new Date()));
+		tPointsInfoCustomagent.setUpdatetime(sdf.format(new Date()));
+		tPointsInfoCustomagent.setUpdateuser("sys");
+		tPointsInfoCustomagent.setPointreason(memo);
+		tPointsInfoCustomagent.setPointsid(UUID.randomUUID().toString().replace("-", ""));
+		tPointsInfoCustomagent.setPoints(newpointsagent);
+		tPointsInfoCustomagent.setPointstype(Pointstypeagent);
+		tPointsInfoCustomagent.setPointsupdate(Integer.parseInt(updatepoints));
+		tPointsInfoCustomagent.setTaskpk(0);
+		tPointsInfoCustomagent.setUserid(tUserInfoCustomsession.getUserid());
+		pointsInfoService.savePoints(tPointsInfoCustomagent);
+		
+		//修改用户积分
+		tUserInfoCustom.setPoints(newpoints);
+		tUserInfoCustom.setUpdatetime(sdf.format(new Date()));
+		tUserInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
+		userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
+		//插入账户明细
 		TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
 		tPointsInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
 		tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
@@ -327,11 +370,6 @@ public class UserInfoController {
 		tPointsInfoCustom.setTaskpk(0);
 		tPointsInfoCustom.setUserid(tUserInfoCustomsession.getUserid());
 		pointsInfoService.savePoints(tPointsInfoCustom);
-		/*
-		 * 修改用户积分
-		 */
-		tUserInfoCustom.setPoints(newpoints);
-		userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
 		map.put("ec", "0");
 		return map;
 	}

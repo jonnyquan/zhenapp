@@ -182,7 +182,7 @@
   			<label>第一张轮播图</label>
   		</td>
   		<td>
-  		  <img src="${pageContext.request.contextPath}/webimg/${tWebInfoCustom.carousel01}" class="img_u" height="50%" width="100%">
+  		  <img src="${pageContext.request.contextPath}/webimg/${tWebInfoCustom.carousel01}" class="img_u" height="40%" width="100%">
           <input type="hidden" class="imgUrl" id="carousel01" name="carousel01" value="${tWebInfoCustom.carousel01}"> 
           <input type="file" class="fileupload" name="image_file">
           <div class="container"></div>
@@ -193,7 +193,7 @@
   			<label>第二张轮播图</label>
   		</td>
   		<td>
-  		  <img src="${pageContext.request.contextPath}/webimg/${tWebInfoCustom.carousel02}" class="img_u" height="50%" width="100%">
+  		  <img src="${pageContext.request.contextPath}/webimg/${tWebInfoCustom.carousel02}" class="img_u" height="40%" width="100%">
           <input type="hidden" class="imgUrl" id="carousel02" name="carousel02" value="${tWebInfoCustom.carousel02}"> 
           <input type="file" class="fileupload" name="image_file">
           <div class="container"></div>
@@ -204,7 +204,7 @@
   			<label>第三张轮播图</label>
   		</td>
   		<td>
-  		  <img src="${pageContext.request.contextPath}/webimg/${tWebInfoCustom.carousel03}" class="img_u" height="50%" width="100%">
+  		  <img src="${pageContext.request.contextPath}/webimg/${tWebInfoCustom.carousel03}" class="img_u" height="40%" width="100%">
           <input type="hidden" class="imgUrl" id="carousel03" name="carousel03" value="${tWebInfoCustom.carousel03}"> 
           <input type="file" class="fileupload" name="image_file">
           <div class="container"></div>

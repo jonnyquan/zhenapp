@@ -123,12 +123,12 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 				<dd>符合淘宝个性化搜索规则</dd>
 				<dd>精准匹配卖家宝贝属性</dd>
 			</dl>
-			<dl class="dl_3">
+			<!-- <dl class="dl_3">
 				<dt>淘口令流量</dt>
 				<dd>无线流量新玩法</dd>
 				<dd>抢占无线市场份额</dd>
 				<dd>抢夺店铺新商机</dd>
-			</dl>
+			</dl> -->
 			<dl class="dl_4">
 				<dt>全能规避</dt>
 				<dd>独创分布式随机算法</dd>

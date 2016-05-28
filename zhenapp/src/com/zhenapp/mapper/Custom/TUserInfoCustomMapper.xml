@@ -135,7 +135,23 @@
    </update>
    
    <update id="updateUserinfoPointByUserid" parameterType="com.zhenapp.po.Custom.TUserInfoCustom">
-   	update t_user_info set points=#{points},updatetime=#{updatetime},updateuser=#{updateuser} where userId = #{userid}
+   	update t_user_info 
+   	<set>
+   		<if test="points != null and points != ''">
+   			points=#{points},
+   		</if>
+   		<if test="updatetime != null and updatetime != ''">
+   			updatetime=#{updatetime},
+   		</if>
+   		<if test="updateuser != null and updateuser != ''">
+   			updateuser=#{updateuser},
+   		</if>
+   	</set>
+	<where>
+		<if test="userId != null and userId != ''">
+   			and userId = #{userId}
+   		</if>
+	</where>
    </update>
    
    <update id="updaterole" parameterType="String">

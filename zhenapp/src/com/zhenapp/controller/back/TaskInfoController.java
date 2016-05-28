@@ -178,6 +178,7 @@ public class TaskInfoController {
 		pagemap.put("taskkeyword", taskkeyword);
 		pagemap.put("tasktype", tasktype);
 		pagemap.put("userid", tUserInfoCustom.getUserid());
+		pagemap.put("before", yyyyMMdd.format(new Date()));
 		//代理用户
 		List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findTaskBypageAndrole(pagemap);
 		int total = taskInfoService.findTotalTaskBypageAndrole(pagemap);
@@ -389,6 +390,7 @@ public class TaskInfoController {
 		pagemap.put("taskkeynum", taskkeynum);
 		pagemap.put("taskkeyword", taskkeyword);
 		pagemap.put("tasktype", tasktype);
+		pagemap.put("before", yyyyMMdd.format(new Date()));
 		//系统管理员
 		List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findTaskBypage(pagemap);
 		int total = taskInfoService.findTotalTaskBypage(pagemap);
@@ -720,7 +722,8 @@ public class TaskInfoController {
 		            	result = StringUtilWxf.translat(result);
 		            	logger.info("调用发布任务接口失败，错误信息:" + result);
 		            	map.put("msg", "调用发布任务接口失败，错误信息:" + result);
-		            	return map;
+		            	throw new RuntimeException();
+		            	//return map;
 		            }else{
 		            	ObjectMapper obj = new ObjectMapper();
 		 	    		MsgInfoCustom msgInfoCustom = obj.readValue(result, MsgInfoCustom.class);
@@ -738,7 +741,8 @@ public class TaskInfoController {
 		            }
 			    }else {
 			        map.put("msg", "失败错误码" + statusCode);
-			        return map;
+			        throw new RuntimeException();
+			        //return map;
 			    }
 				//2.再分配收藏和加购
 				int count=0;

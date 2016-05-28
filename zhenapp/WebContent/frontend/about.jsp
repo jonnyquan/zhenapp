@@ -136,7 +136,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 								<img border="0" src="http://wpa.qq.com/pa?p=2:731004:4" alt="点击这里给我发消息" title="点击这里给我发消息" /></a>
 							</p>
 							<br />
-							<p>承接托管业务：淘宝端APP无线流量、聚划算开团提醒、加购、收藏、领券；</p>
+							<p>承接托管业务：淘宝端APP无线流量、加购、收藏；</p>
 							<p>请咨询坐席客服，我们将竭诚为您服务!</p>
 						</div>
 					</div>

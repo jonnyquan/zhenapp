@@ -12,7 +12,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>${tAgentInfoCustom.agentname} -- 系统配置</title>
+<title>${tAgentInfoCustom.agentname} -- 价格维护</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/amazeui.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/admin.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/lanyunying.css" />
@@ -52,35 +52,14 @@
 </header>
 <div class="am-cf admin-main">
      <div id="menu" class="admin-sidebar am-offcanvas"></div>
-      <!-- sidebar start 
-      <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
-        <div class=" admin-offcanvas-bar">
-          <ul class="am-list admin-sidebar-list">
-            <li class="admin-parent"><a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span
-                class="am-icon-user"></span>用户管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-              <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
-                <li><a href="${pageContext.request.contextPath}/user/findUserByPageandRole" class="am-cf"><span class="am-icon-list"></span>用户列表</a></li>
-                <li><a href="${pageContext.request.contextPath}/points/responseconsumeagent"><span class="am-icon-usd"></span>充值记录</a></li>
-                <li><a href="${pageContext.request.contextPath}/points/responserecordspointsagent"><span class="am-icon-money"></span>资金记录</a></li>
-              </ul></li>
-            <li><a href="${pageContext.request.contextPath}/task/responsetaskmanageagent"><span class="am-icon-pencil-square-o"></span>订单查询</a></li>
-            <li><a href="${pageContext.request.contextPath}/combo/findComboByagent"><span class="am-icon-cubes"></span> 套餐信息</a></li>
-            <li><a href="${pageContext.request.contextPath}/price/findPriceByAgentid"><span class="am-icon-puzzle-piece"></span>系统配置</a></li>
-            <li><a href="${pageContext.request.contextPath}/web/findWebByAgentid"><span class="am-icon-puzzle-piece"></span>设置登录页面</a></li>
-            <li><a href="${pageContext.request.contextPath}/user/findPointsByUsernick"><span class="am-icon-heart"></span>剩余积分</a></li>
-            <li><a href="${pageContext.request.contextPath}/datacount/findDataByDateAndTasktype"><span class="am-icon-bar-chart"></span>数据统计</a></li>
-          </ul>
-        </div>
-      </div>-->
-      <div id="module-head"></div>
-      
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
+      <div id="module-head"></div>      
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <div class="admin-content">
 
   <div class="am-cf am-padding">
     <div class="am-fl am-cf">
-      <strong class="am-text-primary am-text-lg">系统配置</strong>
+      <strong class="am-text-primary am-text-lg">价格维护</strong>
     </div>
   </div>
   <form class="am-form am-form-horizontal am-padding" id="syssconf-form" action="${pageContext.request.contextPath}/price/updatePriceByAgentid" method="post">

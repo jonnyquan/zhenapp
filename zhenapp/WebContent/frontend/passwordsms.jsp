@@ -218,12 +218,14 @@
             }
             
             $("#sendvalidcode").click(function(){
+            	
             	var email = $("#email").val();
             	var usernick = $("#usernick").val();
             	if(email.length<1 || usernick.length <1){
             		alert("请输入用户名及邮箱地址！");
             		return false;
             	}
+            	$("#sendvalidcode").attr("disabled","true");
             	$.ajax({
     				url : "${pageContext.request.contextPath}/frontend/sendvalidcode/"+email+"/"+usernick,
     				type : "POST",

@@ -102,9 +102,12 @@
     	<if test="taskpk !=null and taskpk != ''">
     		and a.taskpk = #{taskpk}
     	</if>
-    	<if test="today !=null and today != ''">
-    		and a.today = #{today}
-    	</if>
+    	<if test="today != null and today != '' ">
+			and a.taskdate+0 <![CDATA[>=]]> #{today}
+		</if>
+		<if test="before != null and before != '' ">
+			and a.taskdate+0 <![CDATA[<]]> #{before}
+		</if>
     	<if test="datefrom != null and datefrom != ''">
     		and a.createtime <![CDATA[>=]]> #{datefrom}
     	</if>
@@ -141,6 +144,12 @@
     	<if test="taskpk !=null and taskpk != ''">
     		and a.taskpk = #{taskpk}
     	</if>
+    	<if test="today != null and today != '' ">
+			and a.taskdate+0 <![CDATA[>=]]> #{today}
+		</if>
+		<if test="before != null and before != '' ">
+			and a.taskdate+0 <![CDATA[<]]> #{before}
+		</if>
     	<if test="datefrom != null and datefrom != ''">
     		and a.createtime <![CDATA[>=]]> #{datefrom}
     	</if>
@@ -237,7 +246,7 @@
     select * from t_task_info WHERE taskid=#{taskid}
   </select>
   
-  <select id="findTaskInfoByTaskstate" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="String" >
+  <select id="findTaskInfoByTaskstate" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap" >
     select * from t_task_info WHERE taskstate in (${taskstate})
   </select>
   
@@ -251,7 +260,7 @@
   	<selectKey keyProperty="taskpk" order="AFTER" resultType="int">
   		select LAST_INSERT_ID()
   	</selectKey>
-      insert into t_task_info (taskid, tasktype, 
+      insert into t_task_info (taskid, tasktype, taskurl,
       taskkeynum, tasktitle, taskwirelesstitle, 
       taskstartdate, taskenddate, taskdate, 
       taskreleasekeyword, taskkeyword, taskhourcounts, 
@@ -262,7 +271,7 @@
       subtractpoints, taskstate, createtime, 
       createuser, updatetime, updateuser
       )
-    values (#{taskid,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
+    values (#{taskid,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, #{taskurl},
       #{taskkeynum,jdbcType=VARCHAR}, #{tasktitle,jdbcType=VARCHAR}, #{taskwirelesstitle,jdbcType=VARCHAR}, 
       #{taskstartdate,jdbcType=VARCHAR}, #{taskenddate,jdbcType=VARCHAR}, #{taskdate,jdbcType=VARCHAR}, 
       #{taskreleasekeyword,jdbcType=VARCHAR}, #{taskkeyword,jdbcType=VARCHAR}, #{taskhourcounts,jdbcType=VARCHAR}, 

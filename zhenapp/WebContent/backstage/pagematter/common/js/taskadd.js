@@ -1,6 +1,6 @@
 var myDate = new Date();
 var hour = myDate.getHours();
-var llmax = 1000;//最大流量数
+var llmax = 10000;//最大流量数
 var gwcmax = 0;//最大购物车数
 var scmax = 0;//最大收藏数量
 var keywords=1;//关键词数量
@@ -8,6 +8,7 @@ var days=1;//天数
 var subtractll = 0;//统计消耗积分时要去掉的当天不发布的流量数
 var istaskword="";
 var taskkeynumval="";
+var isurl=false;
 
 	;$(function() {
 		$("#taskurl").focus();
@@ -111,6 +112,13 @@ var taskkeynumval="";
 						return false;
 					}
 				}
+			}
+			if(isurl == false){
+				$("#taskurl").focus();
+				
+				$.messager.alert('消息提示', '请检查宝贝url!', 'info', function () {
+				});
+				return false;
 			}
 			if (!$('#taskurl').validatebox('isValid')) {
 				$.messager.alert('消息提示', '请输入宝贝url!', 'info', function () {
@@ -365,20 +373,31 @@ var taskkeynumval="";
 			totalsum();
 		}
 	}
+
+
 	/*
 	检查宝贝id当天可以发布多少流量数
 	*/
 	function checkurl(obj){
+		isurl=false;
+		taskkeynumval="";
+		//清空关键词
+		var inputtaskkeywords = $("input[name='taskkeywords']");
+		for(var i=0;i<inputtaskkeywords.length;i++){
+			inputtaskkeywords[i].value="";
+		}
 		var url=obj.value.split("&");
 		for(var i =0;i<url.length;i++){
 			if(url[i].indexOf("id=")!=-1){
 				if(!isNaN(url[i].split("=")[1])){
 					taskkeynumval = url[i].split("id=")[1];
-					 break;
+					isurl=true;
+					break;
 				 }else{
-					 alert("url不合法!");
-					 $("taskurl").focus();
-					 return false;
+					 $.messager.alert('消息提示', '请重新输入宝贝url!', 'info', function () {
+						 $("#taskurl").focus();
+						 return false;
+						});
 				 }
 			}
 		}
@@ -390,8 +409,11 @@ var taskkeynumval="";
 		}
 		
 		if(taskkeynumval.length<1){
-			llmax=1000;
-			$("#span").html("最多可发布流量数:"+llmax);
+			 $.messager.alert('消息提示', '请输入宝贝url!', 'info', function () {
+				 $("#taskurl").focus();
+				 return false;
+				});
+			llmax=10000;
 		}else{
 			$.ajax({
 				url : uri+"/api/url/validate?param="+param +"&&taskkeynum=" + taskkeynumval,
@@ -401,26 +423,32 @@ var taskkeynumval="";
 						llmax=data.count;
 						scmax=data.collectiontaskcount;
 						gwcmax=data.shoppingtaskcount;
-						$("#span").html("最多可发布流量数:"+llmax+"  最多可发布购物车数:"+gwcmax+"  最多可发布收藏数："+scmax);
-						if($("#flowcount").val()>llmax){
+						//$("#span").html("  最多可发布购物车数:"+gwcmax+"  最多可发布收藏数："+scmax);
+						$("#collection_span").html("  最多可发布购物车数:"+gwcmax);
+						$("#shopping_span").html("  最多可发布收藏数："+scmax);
+						
+						if(parseInt($("#flowcount").val()) > parseInt(llmax)){
 							$.messager.alert('消息提示', '该宝贝发布流量数不能大于允许发布的最大流量数!', 'info', function () {
 								$("#flowcount").val(llmax);
 								fpll($("#flowcount")[0]);
 							});
 						}
-						if($("#collectioncount").val()>scmax){
+						if(parseInt($("#collectioncount").val()) > parseInt(scmax)){
 							$.messager.alert('消息提示', '该宝贝发布收藏数不能大于允许发布的最大收藏数!', 'info', function () {
 								$("#collectioncount").val(scmax);
 							});
 						}
-						if($("#shoppingcount").val()>gwcmax){
+						if(parseInt($("#shoppingcount").val()) > parseInt(gwcmax)){
 							$.messager.alert('消息提示', '该宝贝发布加购数不能大于允许发布的最大加购数!', 'info', function () {
 								$("#shoppingcount").val(gwcmax);
 							});
 						}
 					}else{
+						$("#collection_span").html("  最多可发布购物车数:0");
+						$("#shopping_span").html("  最多可发布收藏数：0");
 						$.messager.alert('消息提示', '宝贝url不合法!', 'info', function () {
-							$("#taskurl").focus();
+							 $("#taskurl").focus();
+							 return false;
 						});
 					}
 				}
@@ -454,17 +482,20 @@ var taskkeynumval="";
 	 *验证关键词
 	 */
 	function checkword(obj){
+		isurl=false;
 		var taskurl = $("#taskurl").val();
 		var url=taskurl.split("&");
 		for(var i =0;i<url.length;i++){
 			if(url[i].indexOf("id=")!=-1){
 				if(!isNaN(url[i].split("=")[1])){
-					taskkeynumval = url[i].split("=")[1];
-					 break;
+					taskkeynumval = url[i].split("id=")[1];
+					isurl=true;
+					break;
 				 }else{
-					 alert("url不合法!");
-					 $("taskurl").focus();
-					 return false;
+					 $.messager.alert('消息提示', '请重新输入宝贝url!', 'info', function () {
+						 $("#taskurl").focus();
+						 return false;
+						});
 				 }
 			}
 		}
@@ -474,7 +505,6 @@ var taskkeynumval="";
 		}else{
 			param = "https://detail.tmall.com/item.htm?id="+taskkeynumval;
 		}
-		
 		if(taskkeynumval.length>1){
 			$.ajax({
 				url : uri+"/api/keywords/validate/"+obj.value+"/"+taskkeynumval,
@@ -483,6 +513,7 @@ var taskkeynumval="";
 					if(data.msg == 0){
 						$.messager.alert('消息提示', '关键词与该宝贝无法匹配!', 'info', function () {
 							obj.focus();
+							return false;
 						});
 						istaskword=obj.value;
 					}else{
@@ -491,8 +522,24 @@ var taskkeynumval="";
 				}
 			});
 		}else{
-			$.messager.alert('消息提示', '请输入宝贝url', 'info', function () {
+			$.messager.alert('消息提示', '请检查宝贝url', 'info', function () {
 				$("#taskurl").focus();
+				return false;
 			});
 		}
 	}
+	
+	/*
+	验证深入点击比例不超过100
+	*/
+	function checkdeep(){
+		var deep = $('#deepclick').val();
+		var   type="^[0-9]*[1-9][0-9]*$"; 
+        var   re   =   new   RegExp(type); 
+        if(deep.match(re)==null) {
+			$.messager.alert('消息提示', '深入点击比例为0到100的正整数,请重新输入深入点击比例!', 'info', function () {
+				$('#deepclick').focus();
+			});
+		}
+	}
+	

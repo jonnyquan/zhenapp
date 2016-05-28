@@ -60,7 +60,7 @@
 
   <div class="am-cf am-padding">
     <div class="am-fl am-cf">
-      <strong class="am-text-primary am-text-lg">系统配置</strong>
+      <strong class="am-text-primary am-text-lg">价格维护</strong>
     </div>
   </div>
   <form class="am-form am-form-horizontal am-padding" id="syssconf-form" action="${pageContext.request.contextPath}/price/updatePriceByAgentidadmin" method="post">

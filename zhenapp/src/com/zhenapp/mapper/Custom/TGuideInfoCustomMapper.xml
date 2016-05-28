@@ -40,7 +40,12 @@
   <select id="findGuideBypage" resultType="com.zhenapp.po.Custom.TGuideInfoCustom" parameterType="java.util.HashMap">
     SELECT a.* FROM t_guide_info a
 	INNER JOIN t_note_info b ON b.noteid=a.guideid
-	WHERE b.notetype='1' AND b.notestate='67'
+	<where>
+		<if test="agentid != null and agentid != '' ">
+			and b.agentid = #{agentid}
+		</if>
+		and b.notetype='1' AND b.notestate='67' 
+	</where>
 	ORDER BY a.guidepk DESC  LIMIT #{page},#{rows}
   </select>
   

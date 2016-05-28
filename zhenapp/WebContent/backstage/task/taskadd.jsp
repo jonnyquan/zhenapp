@@ -9,6 +9,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+  <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
 <meta name="keywords" content="真流量,无线流量,无限流量代运营,无线刷流量 " />
 <meta name="description" content="真流量,无线流量,无限流量代运营,无线刷流量 " />
 <link rel="stylesheet" type="text/css"
@@ -318,13 +324,13 @@
 								</div>
 								<table class="table">
 									<tr>
-										<td>
+										<td >
 											宝贝url
 										</td>
-										<td>
-											<input type="text" name="taskurl" id="taskurl" value="${tTaskInfoCustom.taskurl}" maxlength="1000"
-												placeholder="请输入宝贝url,例如:https://item.taobao.com/item.htm?id=531027639098" class='form-control'  
-												onchange="checkurl(this);" />
+										<td >
+											<input type="text" name="taskurl" placeholder="请输入宝贝url" class='form-control' id="taskurl" value="${tTaskInfoCustom.taskurl}" maxlength="1000" 
+												
+												onchange="checkurl(this);" /><!-- 例如:https://item.taobao.com/item.htm?id=531027639098 --><br/>
 											<span id="span" style="color:#aaa;"></span>
 										</td>
 									</tr>
@@ -333,11 +339,11 @@
 											关键词
 										</td>
 										<td>
-											<table id="tab_keyword">
+											<table id="tab_keyword" >
 												<tr>
 													<c:if test="${tTaskInfoCustom!=null}">
 														<td>
-															<input type="text" name="taskkeywords" class='form-control' style="width:600px;" value="${tTaskInfoCustom.taskkeyword}" placeholder="请输入关键词" onchange="checkword(this);" />		
+															<input type="text" name="taskkeywords" class='form-control'  style="width:600px;" value="${tTaskInfoCustom.taskkeyword}" placeholder="请输入关键词" onchange="checkword(this);" />		
 														</td>
 														<td>
 															<input type="button" class="easyui-linkbutton" iconCls="icon-add" onclick="addinput();" value="&nbsp;&nbsp;添 &nbsp;加 &nbsp;&nbsp;" />
@@ -345,7 +351,7 @@
 													</c:if>
 													<c:if test="${tTaskInfoCustom==null}">
 														<td>
-															<input type="text" name="taskkeywords" class='form-control' style="width:600px;" placeholder="请输入关键词" onchange="checkword(this);" />		
+															<input type="text" name="taskkeywords" class='form-control' style="width:600px;"  onchange="checkword(this);" />		
 														</td>
 														<td>
 															<input type="button" class="easyui-linkbutton" iconCls="icon-add" onclick="addinput();" value="&nbsp;&nbsp;添 &nbsp;加 &nbsp;&nbsp;" />
@@ -363,23 +369,6 @@
 											<lable style="padding:0 10px 0 10px;">从:</lable>
 											<input type="text" name="datefrom" id="datefrom" width="200px"/>
 											到：<input type="text" name="dateto" id="dateto" width="200px"/>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											深入点击
-										</td>
-										<td>
-											<div class="input-group">
-												<input type="text" name="deepclick" id="deepclick" class='form-control' maxlength="3"
-													onkeyup="this.value=this.value.replace(/\D/g,'')"
-													onafterpaste="this.value=this.value.replace(/\D/g,'')"
-													<c:if test="${tTaskInfoCustom.shoppingcount!=null }">value="${tTaskInfoCustom.shoppingcount}"</c:if>
-													<c:if test="${tTaskInfoCustom.shoppingcount==null }">value="0"</c:if>
-													 style="width:500px;" />
-													 <apan style="font-size:20px;">%</apan>
-												（百分比，0到100整数，浏览店铺其它宝贝比例）
-											</div>
 										</td>
 									</tr>
 								</table>
@@ -537,6 +526,7 @@
 										onkeyup="this.value=this.value.replace(/\D/g,'')"
 										onafterpaste="this.value=this.value.replace(/\D/g,'')" />
 								</div>
+								
 								<div class="form_control form_control_dist clearfix">
 									<label class="form_label">任务分布：</label>
 									<div class="hourCounts clearfix">
@@ -716,13 +706,24 @@
 									</div>
 								</div>
 								<div class="form_control clearfix">
+									<label class="form_label">深入点击比例：</label> 
+									<input type="text" name="deepclick" id="deepclick" maxlength="3" onblur="checkdeep();"
+													onkeyup="this.value=this.value.replace(/\D/g,'')"
+													onafterpaste="this.value=this.value.replace(/\D/g,'')"
+													<c:if test="${tTaskInfoCustom.shoppingcount!=null }">value="${tTaskInfoCustom.shoppingcount}"</c:if>
+													<c:if test="${tTaskInfoCustom.shoppingcount==null }">value="0"</c:if>
+													 />
+													 <apan style="font-size:20px;">%</apan>
+												（百分比，0到100整数，浏览店铺其它宝贝比例）
+								</div>
+								<div class="form_control clearfix">
 									<label class="form_label">收藏数量：</label> 
 									<input name="collectioncount" id="collectioncount"
 										placeholder="请输入收藏数" onchange="fpsc(this)" 
 										<c:if test="${tTaskInfoCustom.collectioncount!=null }">value="${tTaskInfoCustom.flowcount}"</c:if>
 										<c:if test="${tTaskInfoCustom.collectioncount==null }">value="0"</c:if>
 										onkeyup="this.value=this.value.replace(/\D/g,'')"
-										onafterpaste="this.value=this.value.replace(/\D/g,'')"/> 
+										onafterpaste="this.value=this.value.replace(/\D/g,'')"/> <span id="collection_span"></span>
 								</div>
 								<div class="form_control clearfix">
 									<label class="form_label">加购物车数量：</label> 
@@ -731,7 +732,7 @@
 										<c:if test="${tTaskInfoCustom.shoppingcount!=null }">value="${tTaskInfoCustom.shoppingcount}"</c:if>
 										<c:if test="${tTaskInfoCustom.shoppingcount==null }">value="0"</c:if>
 										onkeyup="this.value=this.value.replace(/\D/g,'')"
-										onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+										onafterpaste="this.value=this.value.replace(/\D/g,'')" /><span id="shopping_span"></span>
 								</div>
 								<div id="buttonSubmit" class="form_control clearfix"
 									style="margin-top:20px; border-bottom:none;">
