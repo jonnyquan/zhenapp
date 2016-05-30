@@ -322,7 +322,63 @@
 										任务基本信息区
 									</h2>
 								</div>
-								<table class="table">
+								<div class="form_control clearfix">
+									<label class="form_label">宝贝url：</label> 
+									<input type="text" name="taskurl" placeholder="请输入宝贝url" id="taskurl" style="width:350px;"
+									<c:if test="${tTaskInfoCustom.taskurl!=null }">value="${tTaskInfoCustom.taskurl}"</c:if>
+									<c:if test="${tTaskInfoCustom.taskurl==null }">value=" "</c:if>
+									maxlength="1000" onchange="checkurl(this);" />&nbsp;&nbsp;&nbsp;&nbsp;
+									<span id="span_taskurl"></span>
+									<!-- 例如:https://item.taobao.com/item.htm?id=531027639098 --><br/>
+								</div>
+								<label class="form_label"></label>
+								<table id="tab_keyword" style="padding: 0px;">
+										<tr>
+											<c:if test="${tTaskInfoCustom!=null}">
+												<td style="width:170px;" align="right">
+													<label class="form_label">关键词：</label>
+												</td>
+												<td style="width:10px;">
+												</td>
+												<td>
+													<input type="text" name="taskkeywords" style="width:200px;" value="${tTaskInfoCustom.taskkeyword}" placeholder="请输入关键词" onchange="checkword(this);" />		
+												</td>
+												<td style="width:5px;">
+												</td>
+												<td>
+													<input type="button" class="easyui-linkbutton" iconCls="icon-add" onclick="addinput();" value="&nbsp;&nbsp;添 &nbsp;加 &nbsp;&nbsp;" />
+												</td>
+												<td style="width:10px;">
+												</td>
+												<td>
+													
+												</td>
+											</c:if>
+											<c:if test="${tTaskInfoCustom==null}">
+												<td style="width:170px;" align="right">
+													<label class="form_label">关键词：</label>
+												</td>
+												<td style="width:10px;">
+												</td>
+												<td>
+													<input type="text" name="taskkeywords"  style="width:200px;" onchange="checkword(this);" />		
+												</td>
+												<td style="width:5px;">
+												</td>
+												<td>
+													<input type="button" class="easyui-linkbutton" iconCls="icon-add" onclick="addinput();" value="&nbsp;&nbsp;添 &nbsp;加 &nbsp;&nbsp;" />
+												</td>
+												<td style="width:10px;">
+												</td>
+												<td>
+												</td>
+											</c:if>
+										</tr>
+								</table>
+								<div class="form_control clearfix" style="height:0px;">
+								</div>
+								
+								<!--  <table class="table">
 									<tr>
 										<td >
 											宝贝url
@@ -330,7 +386,7 @@
 										<td >
 											<input type="text" name="taskurl" placeholder="请输入宝贝url" class='form-control' id="taskurl" value="${tTaskInfoCustom.taskurl}" maxlength="1000" 
 												
-												onchange="checkurl(this);" /><!-- 例如:https://item.taobao.com/item.htm?id=531027639098 --><br/>
+												onchange="checkurl(this);" /><!-- 例如:https://item.taobao.com/item.htm?id=531027639098 --<br/>
 											<span id="span" style="color:#aaa;"></span>
 										</td>
 									</tr>
@@ -371,7 +427,7 @@
 											到：<input type="text" name="dateto" id="dateto" width="200px"/>
 										</td>
 									</tr>
-								</table>
+								</table>-->
 								<div class="box" style="padding:0px 0px;">
 									<div class="taxkTips box_toggle">
 										<h2>
@@ -519,12 +575,17 @@
 									</tr>
 								</table>
 								<div class="form_control clearfix">
+									<label class="form_label">发布时间：</label> 
+									<lable style="padding:0px;"></lable>
+									<input type="text" name="datefrom" id="datefrom" width="200px"/>--<input type="text" name="dateto" id="dateto" width="200px"/>
+								</div>
+								<div class="form_control clearfix">
 									<label class="form_label">任务数量：</label> 
 									<input type="text" name="flowcount" id="flowcount" <c:if test="${tTaskInfoCustom.flowcount!=null }">value="${tTaskInfoCustom.flowcount}"</c:if>
 									<c:if test="${tTaskInfoCustom.flowcount==null }">value="1"</c:if>
 										placeholder="请输入需要的流量数" onblur="fpll(this)"
 										onkeyup="this.value=this.value.replace(/\D/g,'')"
-										onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+										onafterpaste="this.value=this.value.replace(/\D/g,'')" />&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_flowcount"></span>
 								</div>
 								
 								<div class="form_control form_control_dist clearfix">
@@ -714,7 +775,7 @@
 													<c:if test="${tTaskInfoCustom.shoppingcount==null }">value="0"</c:if>
 													 />
 													 <apan style="font-size:20px;">%</apan>
-												（百分比，0到100整数，浏览店铺其它宝贝比例）
+												（百分比，0到100整数，浏览店铺其它宝贝比例）&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_deepclick"></span>
 								</div>
 								<div class="form_control clearfix">
 									<label class="form_label">收藏数量：</label> 
@@ -723,7 +784,7 @@
 										<c:if test="${tTaskInfoCustom.collectioncount!=null }">value="${tTaskInfoCustom.flowcount}"</c:if>
 										<c:if test="${tTaskInfoCustom.collectioncount==null }">value="0"</c:if>
 										onkeyup="this.value=this.value.replace(/\D/g,'')"
-										onafterpaste="this.value=this.value.replace(/\D/g,'')"/> <span id="collection_span"></span>
+										onafterpaste="this.value=this.value.replace(/\D/g,'')"/>&nbsp;&nbsp;<span id="span_collection_text"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_collection"></span>
 								</div>
 								<div class="form_control clearfix">
 									<label class="form_label">加购物车数量：</label> 
@@ -732,15 +793,12 @@
 										<c:if test="${tTaskInfoCustom.shoppingcount!=null }">value="${tTaskInfoCustom.shoppingcount}"</c:if>
 										<c:if test="${tTaskInfoCustom.shoppingcount==null }">value="0"</c:if>
 										onkeyup="this.value=this.value.replace(/\D/g,'')"
-										onafterpaste="this.value=this.value.replace(/\D/g,'')" /><span id="shopping_span"></span>
+										onafterpaste="this.value=this.value.replace(/\D/g,'')" />&nbsp;&nbsp;<span id="span_shopping_text"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_shopping"></span>
 								</div>
 								<div id="buttonSubmit" class="form_control clearfix"
 									style="margin-top:20px; border-bottom:none;">
 									<div class="botton" style="margin-left:40px;">
 										<input type="button" class="btn btn-info" id="subbtn" value="发布任务" />
-										<!--  <button id="orderCheck" type="button" name="orderCheck"
-											 v-on="click: searchOrder">排名检查</button>
-										&nbsp;&nbsp;<font color="#FF0000">*发布任务前务必先进行“排名检查”</font>-->
 									</div>
 								</div>
 								<div id="searchOrderWrapper" class="form_control clearfix"

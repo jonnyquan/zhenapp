@@ -148,8 +148,8 @@
    		</if>
    	</set>
 	<where>
-		<if test="userId != null and userId != ''">
-   			and userId = #{userId}
+		<if test="userid != null and userid != ''">
+   			and userid = #{userid}
    		</if>
 	</where>
    </update>

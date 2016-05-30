@@ -319,11 +319,19 @@ public class platform {
 							tTaskDetailInfoCustom.setIsshopping("0");
 							tTaskDetailInfoCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
 							tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
-							tTaskDetailInfoCustom.setTaskstate("40");
+							
 							tTaskDetailInfoCustom.setSubtractpoints(Integer.parseInt(tPriceInfoCustom.getPricecounts2()));
 							tTaskDetailInfoCustom.setTaskdate(yyyyMMdd.format(date));
 							tTaskDetailInfoCustom.setTaskhour(j);
 							tTaskDetailInfoCustom.setTaskminute(collectionminute[i]);
+							SimpleDateFormat hh = new SimpleDateFormat("HH");
+							SimpleDateFormat mm = new SimpleDateFormat("mm");
+							if(Integer.parseInt(yyyyMMdd.format(date))<=Integer.parseInt(yyyyMMdd.format(new Date()))
+								&& j<= Integer.parseInt(hh.format(new Date())) && collectionminute[i] <= Integer.parseInt(mm.format(new Date()))){
+								tTaskDetailInfoCustom.setTaskstate("23");
+							}else{
+								tTaskDetailInfoCustom.setTaskstate("40");
+							}
 							tTaskDetailInfoCustom.setCreatetime(sdf.format(new Date()));
 							tTaskDetailInfoCustom.setCreateuser("sys");
 							tTaskDetailInfoCustom.setUpdatetime(sdf.format(new Date()));
@@ -344,11 +352,19 @@ public class platform {
 							tTaskDetailInfoCustom.setIsshopping("1");
 							tTaskDetailInfoCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
 							tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
-							tTaskDetailInfoCustom.setTaskstate("40");
+							
 							tTaskDetailInfoCustom.setSubtractpoints(Integer.parseInt(tPriceInfoCustom.getPricecounts3()));
 							tTaskDetailInfoCustom.setTaskdate(yyyyMMdd.format(date));
 							tTaskDetailInfoCustom.setTaskhour(j);
 							tTaskDetailInfoCustom.setTaskminute(shoppingminute[j2]);
+							SimpleDateFormat hh = new SimpleDateFormat("HH");
+							SimpleDateFormat mm = new SimpleDateFormat("mm");
+							if(Integer.parseInt(yyyyMMdd.format(date))<=Integer.parseInt(yyyyMMdd.format(new Date()))
+								&& j<= Integer.parseInt(hh.format(new Date())) && collectionminute[j2] <= Integer.parseInt(mm.format(new Date()))){
+								tTaskDetailInfoCustom.setTaskstate("23");
+							}else{
+								tTaskDetailInfoCustom.setTaskstate("40");
+							}
 							tTaskDetailInfoCustom.setCreatetime(sdf.format(new Date()));
 							tTaskDetailInfoCustom.setCreateuser("sys");
 							tTaskDetailInfoCustom.setUpdatetime(sdf.format(new Date()));
@@ -485,70 +501,114 @@ public class platform {
 			TTaskInfoCustom tTaskInfoCustom = tTaskInfoCustomlist.get(i);
 			TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserid(tTaskInfoCustom.getCreateuser());
 			TPriceInfoCustom tPriceInfoCustom = priceInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
-			hashmap.put("taskid", tTaskInfoCustom.getTaskid());
-			int points = taskDetailInfoService.findPointsByteterminationstate(tTaskInfoCustom.getTaskid());
-			//查询完成了多少个流量任务
-			int flowpoints=0;
-			TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);//根据任务id查询出流量详情信息
-			HttpClient httpClient = new HttpClient();
-			String result="";
-	        GetMethod getMethod = new GetMethod("http://liuliangapp.com/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/total");
-	        getMethod.setRequestHeader("secret", secret);
-	        int statusCode =  httpClient.executeMethod(getMethod);
-	        if(statusCode == 200) {
-	            System.out.println("调用成功");
-	            result = getMethod.getResponseBodyAsString();
-	            if(result.indexOf("total")==-1){
-	            	result = StringUtilWxf.translat(result);
-	            }else{
-	            	ObjectMapper obj = new ObjectMapper();
-	 	    		MsgInfoCustom msgInfoCustom = obj.readValue(result, MsgInfoCustom.class);
-	 	    		result=msgInfoCustom.getTotal()+"";
-	 	    		//更新完成数
-	 	    		hashmap.put("finishcount", msgInfoCustom.getTotal());
-	 	    		taskDetailInfoFlowService.updatefinishcount(hashmap);
-	 	    		flowpoints =(tTaskInfoCustom.getFlowcount() - Integer.parseInt(msgInfoCustom.getTotal()))* Integer.parseInt(tPriceInfoCustom.getPricecounts1());
-	            }
-	            map.put("msg", result);
-	        }
-	        else {
-	            System.out.println("调用失败" + statusCode);
-	            map.put("msg", "失败错误码" + statusCode);
-	        }
-			//添加终止任务所返回的积分
-			tUserInfoCustom.setPoints(tUserInfoCustom.getPoints() + points + flowpoints);
-			tUserInfoCustom.setUpdatetime(sdf.format(new Date()));
-			tUserInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
-			userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
-			//添加积分明细记录
-			TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
-			tPointsInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
-			tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
-			tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
-			tPointsInfoCustom.setUpdateuser("sys");
-			tPointsInfoCustom.setPointreason("终止任务" + tTaskInfoCustom.getTaskpk() + "返回积分"+(points+flowpoints));
-			tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
-			tPointsInfoCustom.setPoints(tUserInfoCustom.getPoints());
-			tPointsInfoCustom.setPointstype("28");
-			tPointsInfoCustom.setPointsupdate((points+flowpoints));
-			tPointsInfoCustom.setTaskpk(tTaskInfoCustom.getTaskpk());
-			tPointsInfoCustom.setUserid(tUserInfoCustom.getUserid());
-			pointsInfoService.savePoints(tPointsInfoCustom);
 			//查询该任务 执行中的详情任务条数
 			hashmap.put("taskstate", "20");
-			int tempcount = taskDetailInfoService.findTaskDetailInfoByIdAndTaskstate(hashmap);
-			hashmap.clear();
 			hashmap.put("taskid", tTaskInfoCustom.getTaskid());
-			hashmap.put("taskstate", 19);
-			hashmap.put("updatetime", sdf.format(new Date()));
-			hashmap.put("updateuser", "sys");
+			int tempcount = taskDetailInfoService.findTaskDetailInfoByIdAndTaskstate(hashmap);
 			if(tempcount==0){
+				hashmap.clear();
+				hashmap.put("taskid", tTaskInfoCustom.getTaskid());
+				hashmap.put("taskstate", 19);
+				hashmap.put("updatetime", sdf.format(new Date()));
+				hashmap.put("updateuser", "sys");
 				taskInfoService.updateTaskstate(hashmap);
-				hashmap.put("taskstate", "23");
-				taskDetailInfoService.deleteTaskBystate(hashmap);
+				//hashmap.put("taskstate", "23");
+				//taskDetailInfoService.deleteTaskBystate(hashmap);
+				
+				hashmap.clear();
+				hashmap.put("taskid", tTaskInfoCustom.getTaskid());
+				int points = taskDetailInfoService.findPointsByteterminationstate(tTaskInfoCustom.getTaskid());
+				
+				//收藏，加购失败需要返回的积分
+	        	hashmap.put("taskid", tTaskInfoCustom.getTaskid());
+				hashmap.put("taskstate", "22");
+				int collectcount = taskDetailInfoService.findcollectioncount(hashmap);
+				int shoppingcount = taskDetailInfoService.findshoppingcount(hashmap);
+				int pointscollect = collectcount*Integer.parseInt(tPriceInfoCustom.getPricecounts2());
+				int pointsshopping = shoppingcount*Integer.parseInt(tPriceInfoCustom.getPricecounts3());
+				int pointserror=pointscollect+pointsshopping;
+				hashmap.put("taskid", tTaskInfoCustom.getTaskid());
+				hashmap.put("taskstate", "21");
+				int tempcollectcount = taskDetailInfoService.findcollectioncount(hashmap);
+				int tempshoppingcount = taskDetailInfoService.findshoppingcount(hashmap);
+				int maxcount=tempcollectcount;
+				if(maxcount < tempshoppingcount){
+					maxcount = tempshoppingcount;
+				}
+				//查询完成了多少个流量任务
+				int flowpoints=0;
+				TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);//根据任务id查询出流量详情信息
+				HttpClient httpClient = new HttpClient();
+				String result="";
+		        GetMethod getMethod = new GetMethod("http://liuliangapp.com/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/total");
+		        getMethod.setRequestHeader("secret", secret);
+		        int statusCode =  httpClient.executeMethod(getMethod);
+		        if(statusCode == 200) {
+		            System.out.println("调用成功");
+		            result = getMethod.getResponseBodyAsString();
+		            if(result.indexOf("total")==-1){
+		            	result = StringUtilWxf.translat(result);
+		            }else{
+		            	ObjectMapper obj = new ObjectMapper();
+		 	    		MsgInfoCustom msgInfoCustom = obj.readValue(result, MsgInfoCustom.class);
+		 	    		result=msgInfoCustom.getTotal()+"";
+		 	    		//更新完成数
+		 	    		hashmap.put("finishcount", msgInfoCustom.getTotal());
+		 	    		taskDetailInfoFlowService.updatefinishcount(hashmap);
+		 	    		if(maxcount < Integer.parseInt(msgInfoCustom.getTotal())){
+		 	    			maxcount = Integer.parseInt(msgInfoCustom.getTotal());
+		 	    		}
+		 	    		flowpoints =(tTaskInfoCustom.getFlowcount() - maxcount) * Integer.parseInt(tPriceInfoCustom.getPricecounts1());
+		            }
+		            map.put("msg", result);
+		        }
+		        else {
+		            System.out.println("调用失败" + statusCode);
+		            map.put("msg", "失败错误码" + statusCode);
+		        }
+		        
+				//添加终止任务所返回的积分
+				tUserInfoCustom.setPoints(tUserInfoCustom.getPoints() + points + flowpoints + pointserror);
+				tUserInfoCustom.setUpdatetime(sdf.format(new Date()));
+				tUserInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
+				userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
+				//添加积分明细记录
+				TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
+				tPointsInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+				tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
+				tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
+				tPointsInfoCustom.setUpdateuser("sys");
+				tPointsInfoCustom.setPointreason("终止任务" + tTaskInfoCustom.getTaskpk() + "返回积分"+(points+flowpoints+pointserror));
+				tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
+				tPointsInfoCustom.setPoints(tUserInfoCustom.getPoints());
+				tPointsInfoCustom.setPointstype("28");
+				tPointsInfoCustom.setPointsupdate((points+flowpoints+pointserror));
+				tPointsInfoCustom.setTaskpk(tTaskInfoCustom.getTaskpk());
+				tPointsInfoCustom.setUserid(tUserInfoCustom.getUserid());
+				pointsInfoService.savePoints(tPointsInfoCustom);
 			}
 		}
 		map.put("data", "success");
+		return map;
+	}
+	
+	/*
+	 * 每隔1分钟执行一次     将任务为已终止的订单   详情任务状态为执行终止	的详情任务删除
+	 */
+	@RequestMapping(value="/api/platform/deleteTaskstate")
+	public @ResponseBody ModelMap deleteTaskstate() throws Exception{
+		ModelMap map = new ModelMap();
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("taskstate", "19");
+		List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findTaskInfoByTaskstate(hashmap);
+		if(tTaskInfoCustomlist!=null && tTaskInfoCustomlist.size()>0){
+			for (int i = 0; i < tTaskInfoCustomlist.size(); i++) {
+				hashmap.put("taskstate", "23");
+				hashmap.put("taskid", tTaskInfoCustomlist.get(i).getTaskid());
+				taskDetailInfoService.deleteTaskBystate(hashmap);
+				logger.info("删除订单号为:"+ tTaskInfoCustomlist.get(i).getTaskpk()+"的所有已终止订单!");
+			}
+		}
 		return map;
 	}
 	

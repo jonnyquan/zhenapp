@@ -66,7 +66,7 @@
 
 	<div class="am-cf am-padding">
 		<div class="am-fl am-cf">
-			<strong class="am-text-primary am-text-lg">手机任务 </strong>
+			<strong class="am-text-primary am-text-lg">卡机任务 </strong>
 		</div>
 	</div>
 
@@ -122,7 +122,7 @@
 								<td>${list.isshopping }</td>
 								<td>${list.iscollection }</td>
 								<td>${list.resultstr }</td>
-								<td><a href="/admin/user/delete/phone_log?id=388370">删除</a></td>
+								<td><a href="${pageContext.request.contextPath}/task/deletetasklockBypk?pk=${list.taskdetailpk }">删除</a></td>
 							</tr>
 						</c:forEach>
 					</c:if>

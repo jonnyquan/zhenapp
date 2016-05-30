@@ -20,10 +20,11 @@ public class TaskDetailInfoServiceImp implements TaskDetailInfoService {
 		return tTaskDetailinfoCustomMapper.insertDetailinfo(tTaskDetailInfoCustom);
 	}
 	@Override
-	public TTaskDetailInfoCustom requesttaskByphoneid(String phoneid)
+	public TTaskDetailInfoCustom requesttaskByphoneid(HashMap<String, Object> hashmap)
 			throws Exception {
-		return tTaskDetailinfoCustomMapper.requesttaskByphoneid(phoneid);
+		return tTaskDetailinfoCustomMapper.requesttaskByphoneid(hashmap);
 	}
+	
 	@Override
 	public int updateTaskDetailstate(HashMap<String, Object> hashmap) throws Exception {
 		return tTaskDetailinfoCustomMapper.updateTaskDetailstate(hashmap);
@@ -58,11 +59,7 @@ public class TaskDetailInfoServiceImp implements TaskDetailInfoService {
 			HashMap<String, Object> hashmap) throws Exception {
 		return tTaskDetailinfoCustomMapper.updateTaskDetailstateByTaskidAndoldstate(hashmap);
 	}
-	@Override
-	public int updateTaskDetailresultByid(HashMap<String, Object> hashmap)
-			throws Exception {
-		return tTaskDetailinfoCustomMapper.updateTaskDetailresultByid(hashmap);
-	}
+
 	@Override
 	public List<TTaskDetailInfoCustom> findTaskDetailByflow() throws Exception {
 		return tTaskDetailinfoCustomMapper.findTaskDetailByflow();
@@ -111,5 +108,17 @@ public class TaskDetailInfoServiceImp implements TaskDetailInfoService {
 			throws Exception {
 		// TODO Auto-generated method stub
 		return tTaskDetailinfoCustomMapper.findcollectioncount(hashmap);
+	}
+	@Override
+	public int updateTaskDetail(HashMap<String, Object> hashmap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskDetailinfoCustomMapper.updateTaskDetail(hashmap);
+	}
+	@Override
+	public int updateTaskDetailresultByid(HashMap<String, Object> hashmap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskDetailinfoCustomMapper.updateTaskDetailresultByid(hashmap);
 	}
 }

@@ -87,23 +87,4 @@ public class FrontendActiclenewsController {
 		mv.setViewName("/frontend/articlenewsdetail.jsp");
 		return mv;
 	}
-	
-	/*
-	 * 批量导入流量村的电商信息数据
-	 
-	@RequestMapping(value = "/insertelectrity")
-	public ModelAndView insertelectrity() throws Exception {
-		ModelAndView mv = new ModelAndView();
-		TextImprot textImprot = new TextImprot();
-		List<TElectricityInfo> list = textImprot.improt();
-		for (int i = 0; i < list.size(); i++) {
-			TElectricityInfo electricityInfo = list.get(i);
-			int j = electrityService.insertElectrity(electricityInfo);
-			if (j < 1) {
-				System.out.println("=========================" + j + "=========================");
-			}
-		}
-		mv.setViewName("/page/pagestates/info.jsp");
-		return mv;
-	}*/
 }

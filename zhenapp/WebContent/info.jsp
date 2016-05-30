@@ -10,11 +10,37 @@ String msg=request.getParameter("msg");
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<style type="text/css">
+<!-- 
+* {margin:0;padding:0}
+div {
+  width:500px;
+  height:300px;
+  border:0px solid #666;
+  overflow:hidden;
+  position:relative;
+  text-align:center;
+}
+div p {
+  position:static;
+  +position:absolute;
+  top:50%;
+  vertical-align:middle
+}
+img {
+  position:static;
+  +position:relative;
+  top:-50%;left:-50%;
+  vertical-align:middle
+}
+-->
+</style>
 <body>
-	<div style="margin: auto;padding: 50px 0 0 200px;color:red;">
-		<h3>
-			${msg}
-		</h3>
+	<div style="margin:0px auto;">
+		<p><img src="${pageContext.request.contextPath}/webimg/404.jpg"/></p>
+	</div>
+	<div style="margin:0px auto;color:red;">
+		${msg}<a target="_blank" href="tencent://message/?uin=319809430&&Site=sc.chinaz.com&&Menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=1:12345678:42"></a>
 	</div>
 </body>
 </html>

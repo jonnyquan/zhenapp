@@ -18,7 +18,7 @@ public class Timedtask {
 	@Value("${host}")
 	private String host;
 	
-	@Scheduled(cron = "0 */1 * * * ?")//每隔1分钟执行一次
+	@Scheduled(cron = "0 */1 * * * ?")//每隔1分钟执行一次 判断终止中的任务是否已终止
 	public void job1() throws HttpException, IOException {
 		logger.info("任务执行开始....每分钟执行一次");
 		HttpClient httpClient = new HttpClient();
@@ -37,8 +37,27 @@ public class Timedtask {
         logger.info("任务执行结束....每分钟执行一次");
 	}
 	
-	@Scheduled(cron = "0 */10 * * * ?")//每隔10分钟执行一次
+	@Scheduled(cron = "0 */1 * * * ?")//每隔1分钟执行一次 将执行终止状态的详情任务删除
 	public void job2() throws HttpException, IOException {
+		logger.info("任务执行开始....每分钟执行一次");
+		HttpClient httpClient = new HttpClient();
+		String result="";
+		String url = host+"/api/platform/deleteTaskstate";
+        PostMethod postMethod = new PostMethod(url);
+        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+        int statusCode =  httpClient.executeMethod(postMethod);
+        if(statusCode == 200) {
+            System.out.println("调用成功");
+            result = postMethod.getResponseBodyAsString();
+            System.out.println(result);
+        }else {
+            System.out.println("调用失败" + statusCode);
+        }
+        logger.info("任务执行结束....每分钟执行一次");
+	}
+	
+	@Scheduled(cron = "0 */10 * * * ?")//每隔10分钟执行一次 判断任务是否已完成
+	public void job3() throws HttpException, IOException {
 		logger.info("任务执行开始....每10分钟执行一次检查任务是否执行完成");
 		HttpClient httpClient = new HttpClient();
 		String result="";

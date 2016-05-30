@@ -64,35 +64,51 @@
 
 <div class="admin-content">
 
-	<div class="am-cf am-padding">
+	<!--  <div class="am-cf am-padding">
 		<div class="am-fl am-cf">
-			<strong class="am-text-primary am-text-lg">手机任务 </strong>
+			<strong class="am-text-primary am-text-lg">任务详情 </strong>
 		</div>
-	</div>
-
+	</div>-->
+  <div style="height:10px;">
+  </div>
+  <table>
+  	<tr>
+  		<td style="width:30px;">
+  			<a class="am-btn am-btn-secondary" href="${pageContext.request.contextPath}/task/findtaskdetaillist">当前详情查询</a>
+  		</td>
+  		<td style="width:10px;">
+  		</td>
+  		<td style="width:30px;">
+  			<a class="am-btn am-btn-secondary" href="${pageContext.request.contextPath}/task/findtaskdetaillistbefore">历史详情查询</a>
+  		</td>
+  	</tr>
+  </table>
+  <div style="height:10px;">
+  </div>
+  
 	<div class="am-g" id="module-head" style="margin-bottom: 10px;">
 		<div class="am-u-sm-12 am-u-md-12">
 			<form class="am-form-inline" role="form">
 				<div class="am-form-group">
-					<input type="text" id="pid" class="am-form-field am-input-sm" value="" placeholder="手机号">
+					<input type="text" id="pid" class="am-form-field am-input-sm" value="${phoneid}" placeholder="手机号">
 				</div>
 				<div class="am-form-group">
-					<input type="text" id="nid" class="am-form-field am-input-sm" value="" placeholder="宝贝id">
+					<input type="text" id="nid" class="am-form-field am-input-sm" value="${taskkeynum}" placeholder="宝贝id">
 				</div>
 				<div class="am-form-group">
-					<input type="text" id="fid" class="am-form-field am-input-sm" placeholder="订单id">
+					<input type="text" id="fid" class="am-form-field am-input-sm" value="${taskpk}" placeholder="订单id">
 				</div>
 				<div class="am-form-group">
-					<input type="text" id="detaid" class="am-form-field am-input-sm" placeholder="流量id">
+					<input type="text" id="detaid" class="am-form-field am-input-sm" value="${detaid}" placeholder="流量id">
 				</div>
 				<div class="am-form-group">
-					<input type="text" id="hours" class="am-form-field am-input-sm" value="" placeholder="时间">
+					<input type="text" id="hours" class="am-form-field am-input-sm" value="${taskhour}" placeholder="时间">
 				</div>
 				<div class="am-form-group">
 					<select name="tasktype" id="tasktype" class="am-form-field am-input-sm">
-						<option selected value="">全部类型</option>
-						<option value="33">流量</option>
-						<option value="34">直通车</option>
+						<option <c:if test="${tasktype==''}">selected</c:if> value="">全部类型</option>
+						<option <c:if test="${tasktype=='33'}">selected</c:if> value="33">流量</option>
+						<option <c:if test="${tasktype=='34'}">selected</c:if> value="34">直通车</option>
 					</select> 
 				</div>
 				<button class="am-btn am-btn-default" id="search" type="button">搜索</button>
@@ -192,8 +208,6 @@
 		location.href = "${pageContext.request.contextPath}/task/findtaskdetaillist?page="+num+"&&phoneid=" + pid
 				+ "&&taskkeynum=" + nid+"&&taskpk="+fid+"&&taskhour="+hours+"&&tasktype="+tasktype +"&&detaid="+detaid;
 	}
-	
-	
 	function onmouse(taskdetailpk){
 		$.ajax({
 			type : "post",

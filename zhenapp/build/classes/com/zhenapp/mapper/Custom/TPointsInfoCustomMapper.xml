@@ -20,8 +20,11 @@
 			<if test="usernick != null and usernick != ''">
 		    	and c.usernick = #{usernick}
 		    </if>
+		    <if test="createuser != null and createuser != ''">
+				and a.createuser = #{createuser}
+			</if>
 	    </where>
-		order by a.pointspk+0,a.createtime+0 desc limit #{page},#{rows}
+		order by a.pointspk+0 desc limit #{page},#{rows}
   </select>
   <select id="findTotalPointsInfoByPage" parameterType="java.util.HashMap" resultType="int">
 	   SELECT count(1) FROM t_points_info a 
@@ -40,6 +43,9 @@
 			<if test="usernick != null and usernick != ''">
 		    	and c.usernick = #{usernick}
 		    </if>
+		    <if test="createuser != null and createuser != ''">
+				and a.createuser = #{createuser}
+			</if>
 	    </where>
   </select> 
   <select id="findPointsInfoByPageandRole" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TPointsInfoCustom">
@@ -63,7 +69,7 @@
 				and c.usernick = #{usernick}
 			</if>
 		</where>
-		order by a.pointspk+0,a.createtime+0 desc limit #{page},#{rows}
+		order by a.pointspk+0 desc limit #{page},#{rows}
   </select>
   <select id="findPointsCountsByPageandRole" parameterType="java.util.HashMap" resultType="int">
 	    SELECT count(1) FROM t_points_info a

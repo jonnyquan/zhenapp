@@ -7,6 +7,10 @@ import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 
 
 public interface TTaskDetailinfoCustomMapper {
+	//根据id更新反馈给手机的字符串
+	public int updateTaskDetailresultByid(HashMap<String, Object> hashmap) throws Exception;
+	//修改任务详情信息
+	public int updateTaskDetail(HashMap<String, Object> hashmap) throws Exception;
 	//根据id和状态查询加购的记录数
 	public int findshoppingcount(HashMap<String, Object> hashmap) throws Exception;
 	//根据id和状态查询收藏的记录数
@@ -36,7 +40,7 @@ public interface TTaskDetailinfoCustomMapper {
 	/*
 	 * 根据手机id获取符合规则的任务详情
 	 */
-	public TTaskDetailInfoCustom requesttaskByphoneid(String phoneid) throws Exception;
+	public TTaskDetailInfoCustom requesttaskByphoneid(HashMap<String, Object> hashmap) throws Exception;
 	/*
 	 * 根据任务详情id修改该任务详情状态
 	 */
@@ -61,10 +65,7 @@ public interface TTaskDetailinfoCustomMapper {
 	 * 根据任务id和新的任务详情状态修改该任务id所属任务的旧任务详情状态
 	 */
 	public int updateTaskDetailstateByTaskidAndoldstate(HashMap<String, Object> hashmap) throws Exception;
-	/*
-	 * 根据详情任务id更新返回的字符串信息
-	 */
-	public int updateTaskDetailresultByid(HashMap<String, Object> hashmap) throws Exception;
+	
 	/*
 	 * 查询只有流量访问的详细任务
 	 */

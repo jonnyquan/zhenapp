@@ -63,11 +63,39 @@ public class phoneapi {
 		HashMap<String, Object> hashmap = new HashMap<String,Object>();
 		hashmap.put("phoneid", pid);
 		hashmap.put("taskstate", 20);
+		//查询该手机是否有执行中未返回的任务
 		TTaskDetailInfoCustom tTaskDetailInfoCustoming = taskDetailInfoService.findTaskDetailByPidAndState(hashmap);
 		if(tTaskDetailInfoCustoming!=null){
 			sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustoming);
 		}else{
-			TTaskDetailInfoCustom tTaskDetailInfoCustom = taskDetailInfoService.requesttaskByphoneid(pid);
+			HashMap<String, Object> hashmap2 = new HashMap<String, Object>();
+			hashmap2.put("phoneid", pid);
+			hashmap2.put("type", "1");
+			//查询有没有当前小时之前的待执行的任务
+			TTaskDetailInfoCustom tTaskDetailInfoCustomtype1 = taskDetailInfoService.requesttaskByphoneid(hashmap2);
+			if(tTaskDetailInfoCustomtype1!=null){
+				hashmap.put("taskdetailid", tTaskDetailInfoCustomtype1.getTaskdetailid());
+				hashmap.put("updatetime", sdf.format(new Date()));
+				hashmap.put("updateuser", "api手机端获取");
+				int i =taskDetailInfoService.updateTaskDetailstate(hashmap);
+				if(i > 0){
+					sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustomtype1);
+					//将返回的字符串更新到数据表中
+					hashmap.put("result", sb.toString());
+					hashmap.put("updatetime", sdf.format(new Date()));
+					hashmap.put("updateuser", "api手机端修改字符串");
+					taskDetailInfoService.updateTaskDetailresultByid(hashmap);
+					return sb.toString();
+				}else{
+					sb.append("暂时没有任务");
+					return sb.toString();
+				}
+			}
+			hashmap2.clear();
+			hashmap2.put("phoneid", pid);
+			hashmap2.put("type", "2");
+			//查询满足当前时间小时和分钟都大于分配的小时和分钟
+			TTaskDetailInfoCustom tTaskDetailInfoCustom = taskDetailInfoService.requesttaskByphoneid(hashmap2);
 			if(tTaskDetailInfoCustom!= null){
 				hashmap.put("taskdetailid", tTaskDetailInfoCustom.getTaskdetailid());
 				hashmap.put("updatetime", sdf.format(new Date()));
@@ -75,9 +103,7 @@ public class phoneapi {
 				int i =taskDetailInfoService.updateTaskDetailstate(hashmap);
 				if(i > 0){
 					sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustom);
-					/*
-					 * 将返回的字符串更新到数据表中
-					 */
+					//将返回的字符串更新到数据表中
 					hashmap.put("result", sb.toString());
 					hashmap.put("updatetime", sdf.format(new Date()));
 					hashmap.put("updateuser", "api手机端修改字符串");
@@ -89,8 +115,7 @@ public class phoneapi {
 				sb.append("暂时没有任务");
 			}
 		}
-		String result=sb.toString();
-		return result;
+		return sb.toString();
 	}
 	
 	

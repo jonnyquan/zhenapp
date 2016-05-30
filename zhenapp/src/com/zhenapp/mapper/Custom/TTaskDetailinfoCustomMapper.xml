@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhenapp.mapper.Custom.TTaskDetailinfoCustomMapper" >
-  <select id="requesttaskByphoneid" parameterType="String" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
-  	SELECT * FROM t_task_detailinfo WHERE taskkeynum NOT IN (
-SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%d') AND phoneid = #{phoneid}
-) and phoneid is null and taskstate = '40' ORDER BY taskhour,taskminute LIMIT 0,1
+  <select id="requesttaskByphoneid" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
+  	SELECT * FROM t_task_detailinfo 
+  	<where>
+  		<if test="phoneid !=null and phoneid != '' ">
+  			and taskkeynum NOT IN (SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%d') AND phoneid = #{phoneid})
+  		</if>
+  		<if test="type !=null and type != '' ">
+  			<if test="type == 1">
+  				and taskhour+0 <![CDATA[<=]]> DATE_FORMAT(NOW(),'%H')
+  			</if>
+  			<if test="type == 2">
+  				AND taskhour+0 <![CDATA[<=]]> DATE_FORMAT(NOW(),'%H') AND taskminute+0 <![CDATA[<=]]> DATE_FORMAT(NOW(),'%i')
+  			</if>
+  		</if>
+  		and phoneid is null and taskstate = '40' 
+  	</where>
+  	ORDER BY taskhour,taskminute LIMIT 0,1
   </select>
   
   <select id="findCounts" resultType="int" parameterType="java.util.HashMap">
@@ -88,6 +101,12 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
 	LEFT JOIN t_data_dic_info e ON a.tasktype=e.dicinfoid
 	LEFT JOIN t_task_info f on a.taskid = f.taskid
 	  <where>
+	  	<if test="today != null and today != '' ">
+			and a.taskdate+0 <![CDATA[>=]]> #{today}
+		</if>
+		<if test="before != null and before != '' ">
+			and a.taskdate+0 <![CDATA[<]]> #{before}
+		</if>
 	  	<if test="taskid !=null and taskid != ''">
 	  		and a.taskid = #{taskid}
 	  	</if>
@@ -118,6 +137,12 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
     <select id="findTaskDetailTotalByPage" resultType="int" parameterType="java.util.HashMap">
 	  SELECT count(1) FROM t_task_detailinfo a
 	  <where>
+	  	<if test="today != null and today != '' ">
+			and a.taskdate+0 <![CDATA[>=]]> #{today}
+		</if>
+		<if test="before != null and before != '' ">
+			and a.taskdate+0 <![CDATA[<]]> #{before}
+		</if>
 	  	<if test="taskid !=null and taskid != ''">
 	  		and a.taskid = #{taskid}
 	  	</if>
@@ -188,10 +213,6 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
   	update t_task_detailinfo set taskstate = #{taskstate},phoneid = #{phoneid}  where taskdetailid = #{taskdetailid} and phoneid is null
   </update>
   
-  <update id="updateTaskDetailresultByid"  parameterType="java.util.HashMap" >
-  	update t_task_detailinfo set resultstr=#{result},updatetime=#{updatetime},updateuser=#{updateuser} where taskdetailid = #{taskdetailid} and phoneid is not null
-  </update>
-  
   <update id="updateTaskDetailstateByTaskidAndoldstate" parameterType="java.util.HashMap">
   	update t_task_detailinfo set taskstate = #{newstate},updatetime=#{updatetime},updateuser=#{updateuser} where taskid = #{taskid}  and taskstate in (${oldstate})
   </update>
@@ -241,9 +262,40 @@ SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%
   	iscreativetitle=#{iscreativetitle},
   	isshopcollect=#{isshopcollect},
   	updatetime=#{updatetime},updateuser=#{updateuser}
-	WHERE phoneid =#{phoneid} AND taskstate=#{taskstate}
+	<where>
+		<if test="phoneid != null and phoneid != '' ">
+			and phoneid = #{phoneid}
+		</if>
+		<if test="taskstate != null and taskstate != '' ">
+			and taskstate = #{taskstate}
+		</if>
+	</where>
   </update>
   
+    <update id="updateTaskDetail" parameterType="java.util.HashMap" >
+  	UPDATE t_task_detailinfo SET visit = (SELECT dicinfoid FROM t_data_dic_info WHERE dictypecode = 'visit' AND dictypename=#{visit}),
+  	collect = (SELECT dicinfoid FROM t_data_dic_info WHERE dictypecode = 'collect' AND dictypename=#{collect}),
+  	trolley = (SELECT dicinfoid FROM t_data_dic_info WHERE dictypecode = 'trolley' AND dictypename=#{trolley}),
+  	taskstate = #{taskstatenew},
+  	isflow=#{isflow},
+  	iscreativetitle=#{iscreativetitle},
+  	isshopcollect=#{isshopcollect},
+  	updatetime=#{updatetime},updateuser=#{updateuser}
+	<where>
+		<if test="phoneid != null and phoneid != '' ">
+			and phoneid = #{phoneid}
+		</if>
+		<if test="taskstate != null and taskstate != '' ">
+			and taskstate = #{taskstate}
+		</if>
+		<if test="taskdetailpk != null and taskdetailpk != '' ">
+			and taskdetailpk = #{taskdetailpk}
+		</if>
+	</where>
+  </update>
+  <update id="updateTaskDetailresultByid"  parameterType="java.util.HashMap" >
+  	update t_task_detailinfo set resultstr=#{result},updatetime=#{updatetime},updateuser=#{updateuser} where taskdetailid = #{taskdetailid} and phoneid is not null
+  </update>
   <delete id="deleteTaskBystate" parameterType="java.util.HashMap">
 	  delete from t_task_detailinfo 
 	  <where>

@@ -5,7 +5,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+
 import javax.servlet.http.HttpSession;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.zhenapp.po.Custom.MsgInfoCustom;
 import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
@@ -435,8 +438,9 @@ public class TaskInfoController {
 		mv.setViewName("/backstage/admin/findproblemtask.jsp");
 		return mv;
 	}*/
+	
 	/*
-	 * 跳转到任务详情界面-----系统管理员
+	 * 跳转到任务详情界面-----系统管理员	当前详情查询
 	 */
 	@RequestMapping(value="/findtaskdetaillist")
 	public ModelAndView findtaskdetaillist(Integer page,Integer rows,String tasktype,String phoneid,String taskkeynum,String taskpk,String taskhour,String detaid) throws Exception{
@@ -454,14 +458,55 @@ public class TaskInfoController {
 		pagemap.put("taskhour", taskhour);
 		pagemap.put("tasktype", tasktype);
 		pagemap.put("detaid", detaid);
-		/*
-		* 系统管理员
-		*/
+		pagemap.put("today", yyyyMMdd.format(new Date()));
+		//系统管理员
 		List<TTaskDetailInfoCustom> tTaskDetailInfoCustomlist = taskDetailInfoService.findTaskDetailByPage(pagemap);
 		int total = taskDetailInfoService.findTaskDetailTotalByPage(pagemap);
 		mv.addObject("tTaskDetailInfoCustomlist", tTaskDetailInfoCustomlist);
 		mv.addObject("total", total);
 		mv.addObject("pagenum", page);
+		mv.addObject("phoneid", phoneid);
+		mv.addObject("taskkeynum", taskkeynum);
+		mv.addObject("taskpk", taskpk);
+		mv.addObject("taskhour", taskhour);
+		mv.addObject("tasktype", tasktype);
+		mv.addObject("detaid", detaid);
+		mv.setViewName("/backstage/admin/taskdetaillist.jsp");
+		return mv;
+	}
+	
+	/*
+	 * 跳转到任务详情界面-----系统管理员	历史详情查询
+	 */
+	@RequestMapping(value="/findtaskdetaillistbefore")
+	public ModelAndView findtaskdetaillistbefore(Integer page,Integer rows,String tasktype,String phoneid,String taskkeynum,String taskpk,String taskhour,String detaid) throws Exception{
+		ModelAndView mv=new ModelAndView();
+		HashMap<String,Object> pagemap=new HashMap<String,Object>();
+		if (page == null || page==0) {
+			page = 1;
+		} 
+		rows = 10;
+		pagemap.put("page", (page - 1) * rows);
+		pagemap.put("rows", rows);
+		pagemap.put("phoneid", phoneid);
+		pagemap.put("taskkeynum", taskkeynum);
+		pagemap.put("taskpk", taskpk);
+		pagemap.put("taskhour", taskhour);
+		pagemap.put("tasktype", tasktype);
+		pagemap.put("detaid", detaid);
+		pagemap.put("before", yyyyMMdd.format(new Date()));
+		//系统管理员
+		List<TTaskDetailInfoCustom> tTaskDetailInfoCustomlist = taskDetailInfoService.findTaskDetailByPage(pagemap);
+		int total = taskDetailInfoService.findTaskDetailTotalByPage(pagemap);
+		mv.addObject("tTaskDetailInfoCustomlist", tTaskDetailInfoCustomlist);
+		mv.addObject("total", total);
+		mv.addObject("pagenum", page);
+		mv.addObject("phoneid", phoneid);
+		mv.addObject("taskkeynum", taskkeynum);
+		mv.addObject("taskpk", taskpk);
+		mv.addObject("taskhour", taskhour);
+		mv.addObject("tasktype", tasktype);
+		mv.addObject("detaid", detaid);
 		mv.setViewName("/backstage/admin/taskdetaillist.jsp");
 		return mv;
 	}
@@ -656,6 +701,7 @@ public class TaskInfoController {
 				newpoints = newpoints-(subtractpoints/(taskkeywordarr.length*(days + 1)));
 				//扣除消耗的积分
 				tUserInfoCustom.setPoints(newpoints);
+				tUserInfoCustom.setUpdatetime(sdf.format(new Date()));
 				userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
 				int collectionys = tTaskInfoCustom.getCollectioncount() / hourcount;
 				int collectionfps = tTaskInfoCustom.getCollectioncount() % hourcount;
@@ -773,11 +819,19 @@ public class TaskInfoController {
 							tTaskDetailInfoCustom.setIsshopping("0");
 							tTaskDetailInfoCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
 							tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
-							tTaskDetailInfoCustom.setTaskstate("40");
+							
 							tTaskDetailInfoCustom.setSubtractpoints(Integer.parseInt(tPriceInfoCustom.getPricecounts2()));
 							tTaskDetailInfoCustom.setTaskdate(yyyyMMdd.format(date));
 							tTaskDetailInfoCustom.setTaskhour(j);
 							tTaskDetailInfoCustom.setTaskminute(collectionminute[i]);
+							SimpleDateFormat hh = new SimpleDateFormat("HH");
+							SimpleDateFormat mm = new SimpleDateFormat("mm");
+							if(Integer.parseInt(yyyyMMdd.format(date))<=Integer.parseInt(yyyyMMdd.format(new Date()))
+								&& j<= Integer.parseInt(hh.format(new Date())) && collectionminute[i] <= Integer.parseInt(mm.format(new Date()))){
+								tTaskDetailInfoCustom.setTaskstate("23");
+							}else{
+								tTaskDetailInfoCustom.setTaskstate("40");
+							}
 							tTaskDetailInfoCustom.setCreatetime(sdf.format(new Date()));
 							tTaskDetailInfoCustom.setCreateuser("sys");
 							tTaskDetailInfoCustom.setUpdatetime(sdf.format(new Date()));
@@ -938,6 +992,34 @@ public class TaskInfoController {
 		pointsInfoService.savePoints(tPointsInfoCustom);
 		return map;
 	}*/
+	
+	/*
+	 * 删除卡机任务，并返回该任务状态为执行失败
+	 */
+	@RequestMapping("/deletetasklockBypk")
+	public @ResponseBody ModelAndView deletetasklockBypk(String pk) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		TTaskDetailInfoCustom tTaskDetailInfoCustom = taskDetailInfoService.findTaskDetailBypk(pk);
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		String visit = "notresult";
+		String collect = "no";
+		String trolley = "no";
+		hashmap.put("phoneid", tTaskDetailInfoCustom.getPhoneid());
+		hashmap.put("taskstate", tTaskDetailInfoCustom.getTaskstate());
+		hashmap.put("taskdetailpk", tTaskDetailInfoCustom.getTaskdetailpk());
+		hashmap.put("taskstatenew", 22);
+		hashmap.put("visit", visit);
+		hashmap.put("collect", collect);
+		hashmap.put("trolley", trolley);
+		hashmap.put("updatetime", sdf.format(new Date()));
+		hashmap.put("updateuser", "卡机任务反馈");
+		hashmap.put("isflow", "0");
+		hashmap.put("iscreativetitle", "0");
+		hashmap.put("isshopcollect", "0");
+		taskDetailInfoService.updateTaskDetail(hashmap);
+		mv.setViewName("/task/findtasklocklist");
+		return mv;
+	}
 	
 	
 }

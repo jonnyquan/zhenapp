@@ -180,7 +180,9 @@
 	                <td>${list.createtime }</td>
 	                <td>${list.dicinfoname} </td>
 					<td > 
-					  <a onclick="endtask('${list.taskid}');" class="btn btn-default btn-xs">终止任务</a>				
+						<c:if test="${list.taskstate != '19' }">
+						  <a onclick="endtask('${list.taskid}');" class="btn btn-default btn-xs">终止任务</a>	
+						</c:if>			
 					</td>
 	            </tr>
             </c:forEach>
