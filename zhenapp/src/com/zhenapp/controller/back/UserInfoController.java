@@ -21,6 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TComboInfoCustom;
 import com.zhenapp.po.Custom.TGuideInfoCustom;
+import com.zhenapp.po.Custom.TIntroInfoCustom;
+import com.zhenapp.po.Custom.TNoteInfoCustom;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
 import com.zhenapp.po.Custom.TPriceInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
@@ -31,6 +33,8 @@ import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.ComboInfoService;
 import com.zhenapp.service.ElectrityInfoService;
 import com.zhenapp.service.GuideInfoService;
+import com.zhenapp.service.IntroInfoService;
+import com.zhenapp.service.NoteInfoService;
 import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.PriceInfoService;
 import com.zhenapp.service.UserInfoService;
@@ -56,6 +60,11 @@ public class UserInfoController {
 	private GuideInfoService guideService;
 	@Autowired
 	private ComboInfoService comboInfoService;
+	@Autowired
+	private IntroInfoService introInfoService;
+	@Autowired
+	private NoteInfoService noteInfoService;
+	
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 	private static Logger logger = Logger.getLogger(UserInfoController.class);
 	/*
@@ -101,7 +110,6 @@ public class UserInfoController {
 		}
 		return mv;
 	}
-	
 	/*
 	 * 跳转到修改密码页面
 	 */
@@ -109,11 +117,9 @@ public class UserInfoController {
 	public ModelAndView responseupdatepassword() throws Exception{
 		ModelAndView mv=new ModelAndView();
 		
-		
 		mv.setViewName("/backstage/user/updatepassword.jsp");
 		return mv;
 	}
-	
 	/*
 	 * 退出系统
 	 */
@@ -170,7 +176,6 @@ public class UserInfoController {
 		}
 		return map;
 	}
-	
 	/*
 	 * 修改用户密码
 	 */
@@ -197,7 +202,6 @@ public class UserInfoController {
 		mv.setViewName("responseupdatepassword");
 		return mv;
 	}
-	
 	/*
 	 * 查询用户列表-----代理
 	 */
@@ -283,7 +287,6 @@ public class UserInfoController {
 		map.put("ec", 0);
 		return map;
 	}
-	
 	/*
 	 * 跳转到手工充值扣款界面 -----代理
 	 */
@@ -335,7 +338,6 @@ public class UserInfoController {
 		tUserInfoCustomagent.setUpdatetime(sdf.format(new Date()));
 		tUserInfoCustomagent.setUpdateuser(tUserInfoCustomsession.getUserid());
 		userInfoService.updateUserinfoPointByUserid(tUserInfoCustomagent);
-		
 		//插入账户明细
 		TPointsInfoCustom tPointsInfoCustomagent =new TPointsInfoCustom();
 		tPointsInfoCustomagent.setCreateuser(tUserInfoCustomagent.getUserid());
@@ -350,7 +352,6 @@ public class UserInfoController {
 		tPointsInfoCustomagent.setTaskpk(0);
 		tPointsInfoCustomagent.setUserid(tUserInfoCustomsession.getUserid());
 		pointsInfoService.savePoints(tPointsInfoCustomagent);
-		
 		//修改用户积分
 		tUserInfoCustom.setPoints(newpoints);
 		tUserInfoCustom.setUpdatetime(sdf.format(new Date()));
@@ -373,7 +374,6 @@ public class UserInfoController {
 		map.put("ec", "0");
 		return map;
 	}
-	
 	/*
 	 * 后台登录用户账号 -----代理
 	 */
@@ -405,9 +405,7 @@ public class UserInfoController {
 		pagemap.put("userpk", userpk);
 		pagemap.put("userphone", userphone);
 		pagemap.put("userstate", 29);
-		/*
-		* 系统管理员用户
-		*/
+		//系统管理员用户
 		List<TUserInfoCustom> tUserInfoCustomlist = userInfoService.findUserByPage(pagemap);
 		int total = userInfoService.findTotalUserByPage(pagemap);
 		mv.addObject("total", total);
@@ -448,9 +446,7 @@ public class UserInfoController {
 			newpoints=tUserInfoCustom.getPoints() - Integer.parseInt(updatepoints);
 			Pointstype = "32";//扣款
 		}
-		/*
-		 * 插入账户明细
-		 */
+		//插入账户明细
 		TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
 		tPointsInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
 		tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
@@ -464,9 +460,7 @@ public class UserInfoController {
 		tPointsInfoCustom.setTaskpk(0);
 		tPointsInfoCustom.setUserid(tUserInfoCustomsession.getUserid());
 		pointsInfoService.savePoints(tPointsInfoCustom);
-		/*
-		 * 修改用户积分
-		 */
+		//修改用户积分
 		tUserInfoCustom.setPoints(newpoints);
 		userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
 		map.put("ec", "0");
@@ -484,20 +478,17 @@ public class UserInfoController {
 		//查询出系统管理员的web信息
 		TWebInfoCustom tWebInfoCustomadmin = webInfoService.findWebByAgentid("0");
 		TUserInfoCustom TUserInfoCustom = userInfoService.findUserByuserpk(userpk);
-		/*
-		 * 修改角色为代理   useroleid=2   代理上级变为0 即系统管理员
-		 */
+		//修改角色为代理   useroleid=2   代理上级变为0 即系统管理员
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("agentid", "0");
+		TIntroInfoCustom tIntroInfoCustomtemp = introInfoService.findIntroinfo(hashmap);
 		hashmap.put("userpk", userpk);
 		hashmap.put("oldroleid", "3");
 		hashmap.put("newroleid", "2");
-		hashmap.put("agentid", "0");
 		hashmap.put("updatetime", sdf.format(new Date()));
 		hashmap.put("updateuser", tUserInfoCustomsession.getUserid());
 		userInfoService.updateroleAndagent(hashmap);
-		/*
-		 * 插入代理信息及对应的web信息    基本信息默认保持与系统管理员一致
-		 */
+		//插入代理信息及对应的web信息    基本信息默认保持与系统管理员一致
 		TAgentInfoCustom tAgentInfoCustom = new TAgentInfoCustom();
 		tAgentInfoCustom.setAgentid(UUID.randomUUID().toString().replace("-", ""));
 		tAgentInfoCustom.setAgentuserid(TUserInfoCustom.getUserid());
@@ -510,7 +501,6 @@ public class UserInfoController {
 		tAgentInfoCustom.setUpdatetime(sdf.format(new Date()));
 		tAgentInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
 		agentInfoService.saveAgentInfo(tAgentInfoCustom);
-		
 		TWebInfoCustom tWebInfoCustom = new TWebInfoCustom();
 		tWebInfoCustom.setWebid(UUID.randomUUID().toString().replace("-", ""));
 		tWebInfoCustom.setAgentid(tAgentInfoCustom.getAgentid());
@@ -531,13 +521,30 @@ public class UserInfoController {
 		tWebInfoCustom.setUpdatetime(sdf.format(new Date()));
 		tWebInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
 		webInfoService.saveWebInfo(tWebInfoCustom);
-		
+		//插入服务介绍信息
+		TIntroInfoCustom tIntroInfoCustom = new TIntroInfoCustom();
+		tIntroInfoCustom.setIntroid(UUID.randomUUID().toString().replace("-", ""));
+		tIntroInfoCustom.setIntroname(tIntroInfoCustomtemp.getIntroname());
+		tIntroInfoCustom.setIntrotext(tIntroInfoCustomtemp.getIntrotext());
+		tIntroInfoCustom.setCreatetime(sdf.format(new Date()));
+		tIntroInfoCustom.setCreateuser(tUserInfoCustomsession.getUserid());
+		tIntroInfoCustom.setUpdatetime(sdf.format(new Date()));
+		tIntroInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
+		introInfoService.insertIntro(tIntroInfoCustom);
+		//插入公告信息
+		hashmap.clear();
+		hashmap.put("agentid", "0");
+		hashmap.put("notetype", "2");
+		TNoteInfoCustom tNoteInfoCustom = noteInfoService.findNoteinfo(hashmap);
+		tNoteInfoCustom.setAgentid(tAgentInfoCustom.getAgentid());
+		tNoteInfoCustom.setCreatetime(sdf.format(new Date()));
+		tNoteInfoCustom.setCreateuser(tUserInfoCustomsession.getUserid());
+		tNoteInfoCustom.setUpdatetime(sdf.format(new Date()));
+		tNoteInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
+		noteInfoService.savenote(tNoteInfoCustom);
 		mv.setViewName("/user/findUserByPageAndAdmin");
 		return mv;
 	}
-	
-	
-	
 	//===============================================================================以上为新
 	
 	/*

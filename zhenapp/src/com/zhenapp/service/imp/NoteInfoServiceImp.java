@@ -15,46 +15,35 @@ public class NoteInfoServiceImp implements NoteInfoService {
 	private TNoteInfoCustomMapper tNoteInfoCustomMapper;
 	
 	public int findTotalNoteinfoByPage(HashMap<String, Object> hashmap) throws Exception{
-		
 		return tNoteInfoCustomMapper.findTotalNoteinfoByPage(hashmap);
 	}
-
 	@Override
-	public TNoteInfoCustom findNoteinfoByIdAndType(HashMap<String, Object> hashmap)
-			throws Exception {
-		// TODO Auto-generated method stub
+	public TNoteInfoCustom findNoteinfoByIdAndType(HashMap<String, Object> hashmap) throws Exception {
 		return tNoteInfoCustomMapper.findNoteinfoByIdAndType(hashmap);
 	}
-
 	@Override
 	public int updatenoteByid(TNoteInfoCustom tNoteInfoCustom) throws Exception {
-		// TODO Auto-generated method stub
 		return tNoteInfoCustomMapper.updatenoteByid(tNoteInfoCustom);
 	}
-
 	@Override
-	public List<TNoteInfoCustom> findNoteinfoByPage(
-			HashMap<String, Object> hashmap) throws Exception {
-		// TODO Auto-generated method stub
+	public List<TNoteInfoCustom> findNoteinfoByPage(HashMap<String, Object> hashmap) throws Exception {
 		return tNoteInfoCustomMapper.findNoteinfoByPage(hashmap);
 	}
-
 	@Override
 	public int deleteByIdAndType(HashMap<String, Object> hashmap) throws Exception {
-		// TODO Auto-generated method stub
 		return tNoteInfoCustomMapper.deleteByIdAndType(hashmap);
 	}
-
 	@Override
 	public int savenote(TNoteInfoCustom tNoteInfoCustom) throws Exception {
-		// TODO Auto-generated method stub
 		return tNoteInfoCustomMapper.savenote(tNoteInfoCustom);
 	}
 
 	@Override
-	public int updatenotestateByidandtype(HashMap<String, Object> hashmap)
-			throws Exception {
-		// TODO Auto-generated method stub
+	public int updatenotestateByidandtype(HashMap<String, Object> hashmap) throws Exception {
 		return tNoteInfoCustomMapper.updatenotestateByidandtype(hashmap);
+	}
+	@Override
+	public TNoteInfoCustom findNoteinfo(HashMap<String, Object> hashmap) throws Exception {
+		return tNoteInfoCustomMapper.findNoteinfo(hashmap);
 	};
 }

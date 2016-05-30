@@ -7,6 +7,10 @@ import com.zhenapp.po.Custom.TNoteInfoCustom;
 
 public interface TNoteInfoCustomMapper {
 	/*
+	 * 查询公告信息
+	 */
+	public TNoteInfoCustom findNoteinfo(HashMap<String, Object> hashmap) throws Exception;
+	/*
 	 * 查询全部公告信息条数
 	 */
 	public int findTotalNoteinfoByPage(HashMap<String, Object> hashmap) throws Exception;

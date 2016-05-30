@@ -27,6 +27,7 @@ import com.zhenapp.po.Custom.OrderReturnInfoCustom;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
 import com.zhenapp.po.Custom.TPriceInfoCustom;
 import com.zhenapp.po.Custom.TRechargeInfoCustom;
+import com.zhenapp.po.Custom.TSysconfInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailInfoFlowCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
@@ -807,6 +808,52 @@ public class platform {
 			System.out.println(ii1+"============"+ii2);
 		}
 		map.put("data", "success");
+		return map;
+	}
+	
+	/*
+	 * 将任务错误数大于等于系统设置的最大任务错误数即终止该任务
+	 */
+	@RequestMapping(value="/api/platform/endTaskstate")
+	public @ResponseBody ModelMap endTaskstate() throws Exception{
+		ModelMap map = new ModelMap();
+		TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("counts", tSysconfInfoCustom.getSysconfname4());
+		List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findTaskerrorcounts(hashmap);
+		if(tTaskInfoCustomlist != null){
+			for (int i = 0; i < tTaskInfoCustomlist.size(); i++) {
+				TTaskInfoCustom tTaskInfoCustom = tTaskInfoCustomlist.get(i);
+				hashmap.clear();
+				hashmap.put("taskid", tTaskInfoCustom.getTaskid());
+				TTaskInfoCustom tTaskInfoCustomtemp = taskInfoService.findTaskInfoByTaskid(tTaskInfoCustom.getTaskid());
+				if(!tTaskInfoCustomtemp.getTaskstate().equals("16")){
+					map.put("data", "stateerror");
+					return map;
+				}
+				hashmap.put("taskstate", 18);
+				taskInfoService.updateTaskstate(hashmap);//修改状态为终止中
+				taskDetailInfoService.updateterminationstate(hashmap);//修改状态为执行终止
+				taskDetailInfoFlowService.updateTaskstate(hashmap);//流量详情修改为终止中
+				TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);//根据任务id查询出流量详情信息
+				//并调用接口终止发布到第一个手机网站的任务
+				String url="http://liuliangapp.com/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/finish";
+				HttpClient httpClient = new HttpClient();
+				String result="";
+		        PostMethod postMethod = new PostMethod(url);
+		        postMethod.setRequestHeader("secret", secret);
+		        int statusCode =  httpClient.executeMethod(postMethod);
+		        if(statusCode == 200) {
+		            System.out.println("调用成功");
+		            result = postMethod.getResponseBodyAsString();
+		            map.put("msg", result);
+		        }
+		        else {
+		            System.out.println("调用失败" + statusCode);
+		            map.put("msg", "失败错误码" + statusCode);
+		        }
+			}
+		}
 		return map;
 	}
 	

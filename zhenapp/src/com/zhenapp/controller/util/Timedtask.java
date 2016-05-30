@@ -34,7 +34,7 @@ public class Timedtask {
         }else {
             System.out.println("调用失败" + statusCode);
         }
-        logger.info("任务执行结束....每分钟执行一次");
+        logger.info("判断终止中的任务是否已终止....每分钟执行一次");
 	}
 	
 	@Scheduled(cron = "0 */1 * * * ?")//每隔1分钟执行一次 将执行终止状态的详情任务删除
@@ -53,7 +53,7 @@ public class Timedtask {
         }else {
             System.out.println("调用失败" + statusCode);
         }
-        logger.info("任务执行结束....每分钟执行一次");
+        logger.info("将执行终止状态的详情任务删除....每分钟执行一次");
 	}
 	
 	@Scheduled(cron = "0 */10 * * * ?")//每隔10分钟执行一次 判断任务是否已完成
@@ -75,6 +75,23 @@ public class Timedtask {
         logger.info("任务执行结束....每10分钟执行一次检查任务是否执行完成");
 	}
 	
+	@Scheduled(cron = "0 */1 * * * ?")//每隔1分钟执行一次 将任务错误数大于等于系统设置的最大任务错误数即终止该任务
+	public void job4() throws HttpException, IOException {
+		HttpClient httpClient = new HttpClient();
+		String result="";
+		String url = host+"/api/platform/endTaskstate";
+        PostMethod postMethod = new PostMethod(url);
+        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+        int statusCode =  httpClient.executeMethod(postMethod);
+        if(statusCode == 200) {
+            System.out.println("调用成功");
+            result = postMethod.getResponseBodyAsString();
+            System.out.println(result);
+        }else {
+            System.out.println("调用失败" + statusCode);
+        }
+        logger.info("任务错误数大于等于系统设置的最大任务错误数即终止该任务数....每分钟执行一次");
+	}
 	
 	@Scheduled(cron = "0 1 0 * * ?")//每天0点1分执行一次
 	public void updateTaskstateByTime() throws Exception { 

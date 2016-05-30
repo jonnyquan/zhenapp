@@ -24,6 +24,7 @@ import com.zhenapp.po.Custom.TelectricityCustom;
 import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.ElectrityInfoService;
 import com.zhenapp.service.GuideInfoService;
+import com.zhenapp.service.IntroInfoService;
 import com.zhenapp.service.NoteInfoService;
 
 @Controller
@@ -37,6 +38,8 @@ public class NoteInfoController {
 	private GuideInfoService guideInfoService;
 	@Autowired
 	private AgentInfoService agentInfoService;
+	@Autowired
+	private IntroInfoService introInfoService;
 	
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 	/*
@@ -152,9 +155,10 @@ public class NoteInfoController {
 			electrityInfoService.updateElectrityById(hashmap);
 		}else if(tNoteInfoCustom.getNotetype().equals("1")){//类型为1表示新手指引信息
 			guideInfoService.updateGuideById(hashmap);
+		}else if(tNoteInfoCustom.getNotetype().equals("2")){//类型为1表示服务介绍信息
+			introInfoService.updateIntroById(hashmap);
 		}
 		noteService.updatenoteByid(tNoteInfoCustom);
-		
 		map.put("ec", "0");
 		return map;
 	}
@@ -203,9 +207,7 @@ public class NoteInfoController {
 		tNoteInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
 		noteService.savenote(tNoteInfoCustom);
 		if(tNoteInfoCustom.getNotetype().equals("0")){
-			/*
-			 * 添加电商信息
-			 */
+			//添加电商信息
 			TelectricityCustom telectricityCustom = new TelectricityCustom();
 			telectricityCustom.setElectricityid(id);
 			telectricityCustom.setElectricityname(tNoteInfoCustom.getNotename());
@@ -216,9 +218,7 @@ public class NoteInfoController {
 			telectricityCustom.setUpdateuser(tUserInfoCustom.getUserid());
 			electrityInfoService.saveElectrity(telectricityCustom);
 		}else if(tNoteInfoCustom.getNotetype().equals("1")){
-			/*
-			 * 新手指引信息
-			 */
+			//新手指引信息
 			TGuideInfoCustom tGuideInfoCustom = new TGuideInfoCustom();
 			tGuideInfoCustom.setGuideid(id);
 			tGuideInfoCustom.setGuidename(tNoteInfoCustom.getNotename());
@@ -232,7 +232,6 @@ public class NoteInfoController {
 		map.put("ec", "0");
 		return map;
 	}
-	
 	
 	/*
 	 * 跳转到添加公告信息页面-----系统管理员
@@ -262,9 +261,7 @@ public class NoteInfoController {
 		tNoteInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
 		noteService.savenote(tNoteInfoCustom);
 		if(tNoteInfoCustom.getNotetype().equals("0")){
-			/*
-			 * 添加电商信息
-			 */
+			//添加电商信息
 			TelectricityCustom telectricityCustom = new TelectricityCustom();
 			telectricityCustom.setElectricityid(id);
 			telectricityCustom.setElectricityname(tNoteInfoCustom.getNotename());
@@ -275,9 +272,7 @@ public class NoteInfoController {
 			telectricityCustom.setUpdateuser(tUserInfoCustom.getUserid());
 			electrityInfoService.saveElectrity(telectricityCustom);
 		}else if(tNoteInfoCustom.getNotetype().equals("1")){
-			/*
-			 * 新手指引信息
-			 */
+			//新手指引信息
 			TGuideInfoCustom tGuideInfoCustom = new TGuideInfoCustom();
 			tGuideInfoCustom.setGuideid(id);
 			tGuideInfoCustom.setGuidename(tNoteInfoCustom.getNotename());

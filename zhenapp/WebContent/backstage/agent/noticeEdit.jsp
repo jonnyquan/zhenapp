@@ -51,9 +51,7 @@
     <div class="am-cf admin-main">
       <!-- sidebar start -->
       <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
-        <div class=" admin-offcanvas-bar">
-           
-        </div>
+        
       </div>
        <!-- sidebar end -->
       <div id="module-head"></div>
@@ -100,25 +98,15 @@
         <div class="am-form-group am-form-group-sm">
           <label for="contentType"  class="am-u-sm-2 am-form-label">类型</label>
           <div class="am-u-sm-10">
-	          
 	          <c:if test="${tNoteInfoCustom.notetype=='0' }">
 		      	<span>电商信息</span>
 		      </c:if>
 		      <c:if test="${tNoteInfoCustom.notetype=='1' }">
 		      	<span>新手指引</span>
-		      </c:if> 
-	          <!-- 
-		      <select name="notetype" id="contentType">
-			      <c:if test="${tNoteInfoCustom.notetype=='0' }">
-			      	<option value="0" selected="selected" >电商信息</option>
-			       	<option value="1"  >新手指引</option>
-			      </c:if>
-			      <c:if test="${tNoteInfoCustom.notetype=='1' }">
-			      	<option value="0" >电商信息</option>
-			       	<option value="1" selected="selected">新手指引</option>
-			      </c:if> 
-		      </select>
-		       -->
+		      </c:if>
+		      <c:if test="${tNoteInfoCustom.notetype=='2' }">
+		      	<span>服务介绍</span>
+		      </c:if>
           </div>
         </div>
         <div class="am-form-group am-form-group-sm">
@@ -140,7 +128,7 @@
 </div>
 <script>
 $(function(){
-	$(".admin-offcanvas-bar").load("${pageContext.request.contextPath}/backstage/admin/adminmenu.jsp");
+	$("#admin-offcanvas").load("${pageContext.request.contextPath}/backstage/agent/menu.jsp");
 	
 	$("#btn-sub").click(function(){
 		editor1.sync();

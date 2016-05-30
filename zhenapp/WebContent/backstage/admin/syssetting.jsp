@@ -75,22 +75,6 @@
         </div>
         <div class="am-u-sm-2" style="padding: 0px;">台</div>
       </div>
-      
-       <div class="am-form-group">
-        <label for="phone_tag" class="am-u-sm-4 am-form-label">手机标记</label>
-        <div class="am-u-sm-4">
-          <input type="text" name="sysconfvalue2" value="${tSysconfInfoCustom.sysconfvalue2}">
-        </div>
-      </div>
-      
-       <div class="am-form-group">
-        <label for="min_account" class="am-u-sm-4 am-form-label">每个小号库最小账号数量</label>
-        <div class="am-u-sm-4">
-          <input type="text" name="sysconfvalue3" value="${tSysconfInfoCustom.sysconfvalue3}">
-        </div>
-        <div class="am-u-sm-2" style="padding: 0px;">个</div>
-      </div>
-      
        <div class="am-form-group">
         <label for="error_num" class="am-u-sm-4 am-form-label">宝贝错误次数（超过就终止）</label>
         <div class="am-u-sm-4">
@@ -98,15 +82,6 @@
         </div>
         <div class="am-u-sm-2" style="padding: 0px;">个</div>
       </div>
-      
-       <!--  <div class="am-form-group">
-        <label for="end_hour" class="am-u-sm-4 am-form-label">当天平均模式最后结束时间</label>
-        <div class="am-u-sm-4">
-          <input type="text" name="sysconfvalue5" value="${tSysconfInfoCustom.sysconfvalue5}">
-        </div>
-        <div class="am-u-sm-2" style="padding: 0px;">点</div>
-      </div>-->
-      
        <div class="am-form-group">
         <label for="flow_price" class="am-u-sm-4 am-form-label">禁止发布流量</label>
         <div class="am-u-sm-4">

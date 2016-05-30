@@ -11,29 +11,11 @@ public class TSysconfInfo {
 
     private String sysconfvalue1;
 
-    private String sysconfcode2;
-
-    private String sysconfname2;
-
-    private String sysconfvalue2;
-
-    private String sysconfcode3;
-
-    private String sysconfname3;
-
-    private String sysconfvalue3;
-
     private String sysconfcode4;
 
     private String sysconfname4;
 
     private String sysconfvalue4;
-
-    private String sysconfcode5;
-
-    private String sysconfname5;
-
-    private String sysconfvalue5;
 
     private String sysconfcode6;
 
@@ -89,54 +71,6 @@ public class TSysconfInfo {
         this.sysconfvalue1 = sysconfvalue1 == null ? null : sysconfvalue1.trim();
     }
 
-    public String getSysconfcode2() {
-        return sysconfcode2;
-    }
-
-    public void setSysconfcode2(String sysconfcode2) {
-        this.sysconfcode2 = sysconfcode2 == null ? null : sysconfcode2.trim();
-    }
-
-    public String getSysconfname2() {
-        return sysconfname2;
-    }
-
-    public void setSysconfname2(String sysconfname2) {
-        this.sysconfname2 = sysconfname2 == null ? null : sysconfname2.trim();
-    }
-
-    public String getSysconfvalue2() {
-        return sysconfvalue2;
-    }
-
-    public void setSysconfvalue2(String sysconfvalue2) {
-        this.sysconfvalue2 = sysconfvalue2 == null ? null : sysconfvalue2.trim();
-    }
-
-    public String getSysconfcode3() {
-        return sysconfcode3;
-    }
-
-    public void setSysconfcode3(String sysconfcode3) {
-        this.sysconfcode3 = sysconfcode3 == null ? null : sysconfcode3.trim();
-    }
-
-    public String getSysconfname3() {
-        return sysconfname3;
-    }
-
-    public void setSysconfname3(String sysconfname3) {
-        this.sysconfname3 = sysconfname3 == null ? null : sysconfname3.trim();
-    }
-
-    public String getSysconfvalue3() {
-        return sysconfvalue3;
-    }
-
-    public void setSysconfvalue3(String sysconfvalue3) {
-        this.sysconfvalue3 = sysconfvalue3 == null ? null : sysconfvalue3.trim();
-    }
-
     public String getSysconfcode4() {
         return sysconfcode4;
     }
@@ -159,30 +93,6 @@ public class TSysconfInfo {
 
     public void setSysconfvalue4(String sysconfvalue4) {
         this.sysconfvalue4 = sysconfvalue4 == null ? null : sysconfvalue4.trim();
-    }
-
-    public String getSysconfcode5() {
-        return sysconfcode5;
-    }
-
-    public void setSysconfcode5(String sysconfcode5) {
-        this.sysconfcode5 = sysconfcode5 == null ? null : sysconfcode5.trim();
-    }
-
-    public String getSysconfname5() {
-        return sysconfname5;
-    }
-
-    public void setSysconfname5(String sysconfname5) {
-        this.sysconfname5 = sysconfname5 == null ? null : sysconfname5.trim();
-    }
-
-    public String getSysconfvalue5() {
-        return sysconfvalue5;
-    }
-
-    public void setSysconfvalue5(String sysconfvalue5) {
-        this.sysconfvalue5 = sysconfvalue5 == null ? null : sysconfvalue5.trim();
     }
 
     public String getSysconfcode6() {

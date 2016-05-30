@@ -123,7 +123,7 @@
 </div>
 <script>
 $(function(){
-	$(".admin-offcanvas-bar").load("${pageContext.request.contextPath}/backstage/admin/adminmenu.jsp");
+	$(".admin-offcanvas-bar").load("${pageContext.request.contextPath}/backstage/agent/menu.jsp");
 	
 	$("#btn-sub").click(function(){
 		editor1.sync();

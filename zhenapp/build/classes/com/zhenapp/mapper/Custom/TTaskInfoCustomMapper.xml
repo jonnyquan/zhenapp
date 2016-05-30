@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhenapp.mapper.Custom.TTaskInfoCustomMapper" >
-  
+  <select id="findTaskerrorcounts" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap">
+  	SELECT a.taskid,COUNT(1) AS counts FROM t_task_info a
+	LEFT JOIN t_task_detailinfo b ON a.taskid= b.taskid
+	WHERE a.taskstate='16' AND DATE_FORMAT(a.taskdate,'%Y%m%d') = DATE_FORMAT(NOW(),'%Y%m%d') AND b.taskstate='22' GROUP BY a.taskid HAVING counts <![CDATA[<=]]> #{counts}
+  </select>
   <select id="findTaskInfoBypks" parameterType="String" resultType="com.zhenapp.po.Custom.TTaskInfoCustom">
   	select * from t_task_info where taskpk in (${value})
   </select>

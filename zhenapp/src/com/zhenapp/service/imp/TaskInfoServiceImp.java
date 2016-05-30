@@ -96,4 +96,10 @@ public class TaskInfoServiceImp implements TaskInfoService {
 		return tTaskInfoCustomMapper.findTaskInfoBypks(pks);
 	}
 
+	@Override
+	public List<TTaskInfoCustom> findTaskerrorcounts(HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskInfoCustomMapper.findTaskerrorcounts(hashmap);
+	}
+
 }

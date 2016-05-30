@@ -52,6 +52,7 @@
 </header>
     <div class="am-cf admin-main">
       <div id="menu" class="admin-sidebar am-offcanvas"></div>
+      
       <div id="module-head"></div>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <div class="admin-content">
@@ -102,9 +103,11 @@
 											<a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="${pageContext.request.contextPath}/note/responsenoticeEditagent/${list.noteid}/${list.notetype}"> 
 												<span class="am-icon-pencil-square-o"></span> 编辑
 											</a>
-											<a class="am-btn am-btn-default am-btn-xs am-text-danger" href="${pageContext.request.contextPath}/note/DeleteNoteAndinfo/${list.noteid}/${list.notetype}"> 
-												<span class="am-icon-trash-o"></span> 删除
-											</a>											
+											<c:if test="${list.notetype != '2'}">
+												<a class="am-btn am-btn-default am-btn-xs am-text-danger" href="${pageContext.request.contextPath}/note/DeleteNoteAndinfo/${list.noteid}/${list.notetype}"> 
+													<span class="am-icon-trash-o"></span> 删除
+												</a>										
+											</c:if>	
 										</div>
 									</div>
 								</td>

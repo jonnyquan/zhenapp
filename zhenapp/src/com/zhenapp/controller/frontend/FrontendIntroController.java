@@ -13,11 +13,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TGuideInfoCustom;
+import com.zhenapp.po.Custom.TIntroInfoCustom;
 import com.zhenapp.po.Custom.TWebInfoCustom;
 import com.zhenapp.po.Custom.TelectricityCustom;
 import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.ElectrityInfoService;
 import com.zhenapp.service.GuideInfoService;
+import com.zhenapp.service.IntroInfoService;
 import com.zhenapp.service.WebInfoService;
 
 @Controller
@@ -31,6 +33,8 @@ public class FrontendIntroController {
 	private AgentInfoService agentInfoService;
 	@Autowired
 	private WebInfoService webInfoService;
+	@Autowired
+	private IntroInfoService introInfoService;
 	
 	@RequestMapping(value="/intro")
 	public @ResponseBody ModelAndView intro(HttpServletRequest request) throws Exception{
@@ -42,7 +46,9 @@ public class FrontendIntroController {
 		pagemap.put("agentid", tAgentInfoCustom.getAgentid());
 		List<TelectricityCustom> TelectricityCustomlist = electrityService.findElectrity_10(pagemap);
 		List<TGuideInfoCustom> TGuideInfoCustomlist = guideService .findGuide_10(pagemap);
+		TIntroInfoCustom tIntroInfoCustom = introInfoService.findIntroinfo(pagemap);
 		mv.addObject("tWebInfoCustom",tWebInfoCustom);
+		mv.addObject("tIntroInfoCustom",tIntroInfoCustom);
 		mv.addObject("TelectricityCustomlist", TelectricityCustomlist);
 		mv.addObject("TGuideInfoCustomlist", TGuideInfoCustomlist);
 		mv.setViewName("/frontend/intro.jsp");

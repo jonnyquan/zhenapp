@@ -6,6 +6,10 @@ import java.util.List;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 
 public interface TaskInfoService {
+	/*
+	 * 查询当天执行中的任务   执行失败次数达到设置的最大错误数
+	 */
+	public List<TTaskInfoCustom> findTaskerrorcounts(HashMap<String, Object> hashmap)throws Exception;
 	//查询多个主键的订单信息
 	public List<TTaskInfoCustom> findTaskInfoBypks(String pks)throws Exception;
 	/*

@@ -9,7 +9,17 @@
   		</if>
   	</where>
   </select>
-  
+  <select id="findNoteinfo" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TNoteInfoCustom">
+  	select * from t_note_info a
+  	<where>
+  		<if test="agentid !=null and agentid != '' ">
+  			a.agentid = #{agentid}
+  		</if>
+  		<if test="notetype != null and notetype != '' ">
+  			a.notetype = #{notetype}
+  		</if>
+  	</where>
+  </select>
   <select id="findNoteinfoByPage" resultType="com.zhenapp.po.Custom.TNoteInfoCustom" parameterType="java.util.HashMap">
   	SELECT b.dicinfoname as notestatename,a.notepk,a.noteid,a.notetype,a.notestate,a.notename,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime,a.createuser,DATE_FORMAT(a.updatetime,'%Y-%m-%d %H:%i:%s') AS updatetime,a.updateuser 
   	FROM t_note_info a 
@@ -23,9 +33,10 @@
   </select>
   
   <select id="findNoteinfoByIdAndType" resultType="com.zhenapp.po.Custom.TNoteInfoCustom" parameterType="java.util.HashMap">
-  	SELECT a.noteid,a.notetype,a.notestate,a.notename,CASE WHEN a.notetype='0' THEN b.electricitytext ELSE c.guidetext END AS notetext FROM t_note_info a
-	LEFT JOIN (SELECT electricityid,electricitytext,'0' AS notetype FROM t_electricity_info) b ON a.noteid = b.electricityid  AND a.notetype=b.notetype
-	LEFT JOIN (SELECT guideid,guidetext,'1' AS notetype FROM t_guide_info) c ON a.noteid = c.guideid AND a.notetype=c.notetype
+  	SELECT a.noteid,a.notetype,a.notestate,a.notename,CASE WHEN a.notetype='0' THEN b.electricitytext WHEN a.notetype='1' THEN c.guidetext ELSE d.introtext END AS notetext FROM t_note_info a 
+	LEFT JOIN (SELECT electricityid,electricitytext,'0' AS notetype FROM t_electricity_info) b ON a.noteid = b.electricityid AND a.notetype=b.notetype 
+	LEFT JOIN (SELECT guideid,guidetext,'1' AS notetype FROM t_guide_info) c ON a.noteid = c.guideid AND a.notetype=c.notetype 
+	LEFT JOIN (SELECT introid,introtext,'2' AS notetype FROM t_intro_info) d ON a.noteid = d.introid AND a.notetype=d.notetype 
 	WHERE a.noteid=#{noteid} AND a.notetype=#{notetype}
   </select>
   
