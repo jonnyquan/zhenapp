@@ -82,7 +82,20 @@
         </div>
         <div class="am-u-sm-2" style="padding: 0px;">个</div>
       </div>
-       <div class="am-form-group">
+      <div class="am-form-group">
+        <label for="flow_price" class="am-u-sm-4 am-form-label">任务分配模式</label>
+        <div class="am-u-sm-4">
+        	<c:if test="${tSysconfInfoCustom.sysconfvalue5 == 0}">
+        		 <label class="am-radio-inline"><input type="radio" value="1" name="sysconfvalue5" >均匀</label>
+         		 <label class="am-radio-inline"><input type="radio" value="0" name="sysconfvalue5" checked="checked">快速</label>
+        	</c:if>
+         	<c:if test="${tSysconfInfoCustom.sysconfvalue5 == 1}">
+        		 <label class="am-radio-inline"><input type="radio" value="1" name="sysconfvalue5" checked="checked">均匀</label>
+         		 <label class="am-radio-inline"><input type="radio" value="0" name="sysconfvalue5" >快速</label>
+        	</c:if>
+        </div>
+      </div>
+      <div class="am-form-group">
         <label for="flow_price" class="am-u-sm-4 am-form-label">禁止发布流量</label>
         <div class="am-u-sm-4">
         	<c:if test="${tSysconfInfoCustom.sysconfvalue6 == 0}">

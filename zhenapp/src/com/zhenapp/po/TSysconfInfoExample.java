@@ -654,6 +654,216 @@ public class TSysconfInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andSysconfcode5IsNull() {
+            addCriterion("sysconfcode5 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfcode5IsNotNull() {
+            addCriterion("sysconfcode5 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfcode5EqualTo(String value) {
+            addCriterion("sysconfcode5 =", value, "sysconfcode5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfcode5NotEqualTo(String value) {
+            addCriterion("sysconfcode5 <>", value, "sysconfcode5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfcode5GreaterThan(String value) {
+            addCriterion("sysconfcode5 >", value, "sysconfcode5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfcode5GreaterThanOrEqualTo(String value) {
+            addCriterion("sysconfcode5 >=", value, "sysconfcode5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfcode5LessThan(String value) {
+            addCriterion("sysconfcode5 <", value, "sysconfcode5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfcode5LessThanOrEqualTo(String value) {
+            addCriterion("sysconfcode5 <=", value, "sysconfcode5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfcode5Like(String value) {
+            addCriterion("sysconfcode5 like", value, "sysconfcode5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfcode5NotLike(String value) {
+            addCriterion("sysconfcode5 not like", value, "sysconfcode5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfcode5In(List<String> values) {
+            addCriterion("sysconfcode5 in", values, "sysconfcode5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfcode5NotIn(List<String> values) {
+            addCriterion("sysconfcode5 not in", values, "sysconfcode5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfcode5Between(String value1, String value2) {
+            addCriterion("sysconfcode5 between", value1, value2, "sysconfcode5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfcode5NotBetween(String value1, String value2) {
+            addCriterion("sysconfcode5 not between", value1, value2, "sysconfcode5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfname5IsNull() {
+            addCriterion("sysconfname5 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfname5IsNotNull() {
+            addCriterion("sysconfname5 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfname5EqualTo(String value) {
+            addCriterion("sysconfname5 =", value, "sysconfname5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfname5NotEqualTo(String value) {
+            addCriterion("sysconfname5 <>", value, "sysconfname5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfname5GreaterThan(String value) {
+            addCriterion("sysconfname5 >", value, "sysconfname5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfname5GreaterThanOrEqualTo(String value) {
+            addCriterion("sysconfname5 >=", value, "sysconfname5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfname5LessThan(String value) {
+            addCriterion("sysconfname5 <", value, "sysconfname5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfname5LessThanOrEqualTo(String value) {
+            addCriterion("sysconfname5 <=", value, "sysconfname5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfname5Like(String value) {
+            addCriterion("sysconfname5 like", value, "sysconfname5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfname5NotLike(String value) {
+            addCriterion("sysconfname5 not like", value, "sysconfname5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfname5In(List<String> values) {
+            addCriterion("sysconfname5 in", values, "sysconfname5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfname5NotIn(List<String> values) {
+            addCriterion("sysconfname5 not in", values, "sysconfname5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfname5Between(String value1, String value2) {
+            addCriterion("sysconfname5 between", value1, value2, "sysconfname5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfname5NotBetween(String value1, String value2) {
+            addCriterion("sysconfname5 not between", value1, value2, "sysconfname5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfvalue5IsNull() {
+            addCriterion("sysconfvalue5 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfvalue5IsNotNull() {
+            addCriterion("sysconfvalue5 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfvalue5EqualTo(String value) {
+            addCriterion("sysconfvalue5 =", value, "sysconfvalue5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfvalue5NotEqualTo(String value) {
+            addCriterion("sysconfvalue5 <>", value, "sysconfvalue5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfvalue5GreaterThan(String value) {
+            addCriterion("sysconfvalue5 >", value, "sysconfvalue5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfvalue5GreaterThanOrEqualTo(String value) {
+            addCriterion("sysconfvalue5 >=", value, "sysconfvalue5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfvalue5LessThan(String value) {
+            addCriterion("sysconfvalue5 <", value, "sysconfvalue5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfvalue5LessThanOrEqualTo(String value) {
+            addCriterion("sysconfvalue5 <=", value, "sysconfvalue5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfvalue5Like(String value) {
+            addCriterion("sysconfvalue5 like", value, "sysconfvalue5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfvalue5NotLike(String value) {
+            addCriterion("sysconfvalue5 not like", value, "sysconfvalue5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfvalue5In(List<String> values) {
+            addCriterion("sysconfvalue5 in", values, "sysconfvalue5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfvalue5NotIn(List<String> values) {
+            addCriterion("sysconfvalue5 not in", values, "sysconfvalue5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfvalue5Between(String value1, String value2) {
+            addCriterion("sysconfvalue5 between", value1, value2, "sysconfvalue5");
+            return (Criteria) this;
+        }
+
+        public Criteria andSysconfvalue5NotBetween(String value1, String value2) {
+            addCriterion("sysconfvalue5 not between", value1, value2, "sysconfvalue5");
+            return (Criteria) this;
+        }
+
         public Criteria andSysconfcode6IsNull() {
             addCriterion("sysconfcode6 is null");
             return (Criteria) this;

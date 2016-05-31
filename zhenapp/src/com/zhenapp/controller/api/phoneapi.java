@@ -55,13 +55,18 @@ public class phoneapi {
 	 *param:pid-->手机号
 	 */
 	@RequestMapping(value="/api/phone/request/task/{pid}")
-	public @ResponseBody String requesttask(@PathVariable(value="pid")String pid) throws Exception{
+	public @ResponseBody synchronized String requesttask(@PathVariable(value="pid")String pid) throws Exception{
 		StringBuffer sb=new StringBuffer();
-		/*
-		 * 查询当前手机是否有未完成的任务
-		 */
+		//查询当前手机是否有未完成的任务
 		HashMap<String, Object> hashmap = new HashMap<String,Object>();
-		hashmap.put("phoneid", pid);
+		int phoneid = 0;
+		try{
+			phoneid = Integer.parseInt(pid);
+		}catch(Exception e){
+			sb.append("手机编号必须为数字!");
+			return sb.toString();
+		}
+		hashmap.put("phoneid", phoneid);
 		hashmap.put("taskstate", 20);
 		//查询该手机是否有执行中未返回的任务
 		TTaskDetailInfoCustom tTaskDetailInfoCustoming = taskDetailInfoService.findTaskDetailByPidAndState(hashmap);
@@ -69,17 +74,18 @@ public class phoneapi {
 			sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustoming);
 		}else{
 			HashMap<String, Object> hashmap2 = new HashMap<String, Object>();
-			hashmap2.put("phoneid", pid);
+			hashmap2.put("phoneid", phoneid);
 			hashmap2.put("type", "1");
-			//查询有没有当前小时之前的待执行的任务
-			TTaskDetailInfoCustom tTaskDetailInfoCustomtype1 = taskDetailInfoService.requesttaskByphoneid(hashmap2);
-			if(tTaskDetailInfoCustomtype1!=null){
-				hashmap.put("taskdetailid", tTaskDetailInfoCustomtype1.getTaskdetailid());
+			hashmap2.put("iscollection", "1");
+			//查询当前小时之前的带性质的收藏任务
+			TTaskDetailInfoCustom tTaskDetailInfoCustomtype1collection = taskDetailInfoService.requesttaskByphoneid(hashmap2);
+			if(tTaskDetailInfoCustomtype1collection!=null){
+				hashmap.put("taskdetailid", tTaskDetailInfoCustomtype1collection.getTaskdetailid());
 				hashmap.put("updatetime", sdf.format(new Date()));
 				hashmap.put("updateuser", "api手机端获取");
 				int i =taskDetailInfoService.updateTaskDetailstate(hashmap);
 				if(i > 0){
-					sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustomtype1);
+					sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustomtype1collection);
 					//将返回的字符串更新到数据表中
 					hashmap.put("result", sb.toString());
 					hashmap.put("updatetime", sdf.format(new Date()));
@@ -91,18 +97,45 @@ public class phoneapi {
 					return sb.toString();
 				}
 			}
+			
+			//查询有没有当前小时之前的待执行的任务
 			hashmap2.clear();
-			hashmap2.put("phoneid", pid);
-			hashmap2.put("type", "2");
-			//查询满足当前时间小时和分钟都大于分配的小时和分钟
-			TTaskDetailInfoCustom tTaskDetailInfoCustom = taskDetailInfoService.requesttaskByphoneid(hashmap2);
-			if(tTaskDetailInfoCustom!= null){
-				hashmap.put("taskdetailid", tTaskDetailInfoCustom.getTaskdetailid());
+			hashmap2.put("phoneid", phoneid);
+			hashmap2.put("type", "1");
+			hashmap2.put("isshopping", "1");
+			TTaskDetailInfoCustom tTaskDetailInfoCustomtype1shopping = taskDetailInfoService.requesttaskByphoneid(hashmap2);
+			if(tTaskDetailInfoCustomtype1shopping!=null){
+				hashmap.put("taskdetailid", tTaskDetailInfoCustomtype1shopping.getTaskdetailid());
 				hashmap.put("updatetime", sdf.format(new Date()));
 				hashmap.put("updateuser", "api手机端获取");
 				int i =taskDetailInfoService.updateTaskDetailstate(hashmap);
 				if(i > 0){
-					sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustom);
+					sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustomtype1shopping);
+					//将返回的字符串更新到数据表中
+					hashmap.put("result", sb.toString());
+					hashmap.put("updatetime", sdf.format(new Date()));
+					hashmap.put("updateuser", "api手机端修改字符串");
+					taskDetailInfoService.updateTaskDetailresultByid(hashmap);
+					return sb.toString();
+				}else{
+					sb.append("暂时没有任务");
+					return sb.toString();
+				}
+			}
+			
+			//查询满足当前时间小时和分钟都大于分配的小时和分钟
+			hashmap2.clear();
+			hashmap2.put("phoneid", phoneid);
+			hashmap2.put("type", "2");
+			hashmap2.put("iscollection", "1");
+			TTaskDetailInfoCustom tTaskDetailInfoCustomtype2collection = taskDetailInfoService.requesttaskByphoneid(hashmap2);
+			if(tTaskDetailInfoCustomtype2collection!= null){
+				hashmap.put("taskdetailid", tTaskDetailInfoCustomtype2collection.getTaskdetailid());
+				hashmap.put("updatetime", sdf.format(new Date()));
+				hashmap.put("updateuser", "api手机端获取");
+				int i =taskDetailInfoService.updateTaskDetailstate(hashmap);
+				if(i > 0){
+					sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustomtype2collection);
 					//将返回的字符串更新到数据表中
 					hashmap.put("result", sb.toString());
 					hashmap.put("updatetime", sdf.format(new Date()));
@@ -110,9 +143,37 @@ public class phoneapi {
 					taskDetailInfoService.updateTaskDetailresultByid(hashmap);
 				}else{
 					sb.append("暂时没有任务");
+					return sb.toString();
 				}
 			}else{
 				sb.append("暂时没有任务");
+				return sb.toString();
+			}
+			
+			hashmap2.clear();
+			hashmap2.put("phoneid", phoneid);
+			hashmap2.put("type", "2");
+			hashmap2.put("isshopping", "1");
+			TTaskDetailInfoCustom tTaskDetailInfoCustomtype2shopping = taskDetailInfoService.requesttaskByphoneid(hashmap2);
+			if(tTaskDetailInfoCustomtype2shopping!= null){
+				hashmap.put("taskdetailid", tTaskDetailInfoCustomtype2shopping.getTaskdetailid());
+				hashmap.put("updatetime", sdf.format(new Date()));
+				hashmap.put("updateuser", "api手机端获取");
+				int i =taskDetailInfoService.updateTaskDetailstate(hashmap);
+				if(i > 0){
+					sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustomtype2shopping);
+					//将返回的字符串更新到数据表中
+					hashmap.put("result", sb.toString());
+					hashmap.put("updatetime", sdf.format(new Date()));
+					hashmap.put("updateuser", "api手机端修改字符串");
+					taskDetailInfoService.updateTaskDetailresultByid(hashmap);
+				}else{
+					sb.append("暂时没有任务");
+					return sb.toString();
+				}
+			}else{
+				sb.append("暂时没有任务");
+				return sb.toString();
 			}
 		}
 		return sb.toString();

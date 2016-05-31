@@ -5,11 +5,17 @@
   	SELECT * FROM t_task_detailinfo 
   	<where>
   		<if test="phoneid !=null and phoneid != '' ">
-  			and taskkeynum NOT IN (SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%d') AND phoneid = #{phoneid})
+  			and taskkeynum NOT IN (SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%d') AND phoneid = #{phoneid} GROUP BY taskkeynum HAVING COUNT(1)>1)
+  		</if>
+  		<if test="iscollection !=null and iscollection != '' ">
+  			AND iscollection =#{iscollection} AND taskkeynum NOT IN (SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%d') AND phoneid = #{phoneid} AND iscollection = #{iscollection})
+  		</if>
+  		<if test="isshopping !=null and isshopping != '' ">
+  			AND isshopping =#{isshopping} AND taskkeynum NOT IN (SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%d') AND phoneid = #{phoneid} AND isshopping = #{isshopping})
   		</if>
   		<if test="type !=null and type != '' ">
   			<if test="type == 1">
-  				and taskhour+0 <![CDATA[<=]]> DATE_FORMAT(NOW(),'%H')
+  				and taskhour+0 <![CDATA[<]]> DATE_FORMAT(NOW(),'%H')
   			</if>
   			<if test="type == 2">
   				AND taskhour+0 <![CDATA[<=]]> DATE_FORMAT(NOW(),'%H') AND taskminute+0 <![CDATA[<=]]> DATE_FORMAT(NOW(),'%i')

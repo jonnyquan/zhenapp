@@ -17,6 +17,12 @@ public class TSysconfInfo {
 
     private String sysconfvalue4;
 
+    private String sysconfcode5;
+
+    private String sysconfname5;
+
+    private String sysconfvalue5;
+
     private String sysconfcode6;
 
     private String sysconfname6;
@@ -93,6 +99,30 @@ public class TSysconfInfo {
 
     public void setSysconfvalue4(String sysconfvalue4) {
         this.sysconfvalue4 = sysconfvalue4 == null ? null : sysconfvalue4.trim();
+    }
+
+    public String getSysconfcode5() {
+        return sysconfcode5;
+    }
+
+    public void setSysconfcode5(String sysconfcode5) {
+        this.sysconfcode5 = sysconfcode5 == null ? null : sysconfcode5.trim();
+    }
+
+    public String getSysconfname5() {
+        return sysconfname5;
+    }
+
+    public void setSysconfname5(String sysconfname5) {
+        this.sysconfname5 = sysconfname5 == null ? null : sysconfname5.trim();
+    }
+
+    public String getSysconfvalue5() {
+        return sysconfvalue5;
+    }
+
+    public void setSysconfvalue5(String sysconfvalue5) {
+        this.sysconfvalue5 = sysconfvalue5 == null ? null : sysconfvalue5.trim();
     }
 
     public String getSysconfcode6() {
