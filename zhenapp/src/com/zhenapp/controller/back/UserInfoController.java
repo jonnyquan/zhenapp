@@ -300,6 +300,30 @@ public class UserInfoController {
 		return mv;
 	}
 	/*
+	 * 跳转到手工充值扣款界面 -----系统管理员
+	 */
+	@RequestMapping(value="/rechargeadmin")
+	public @ResponseBody ModelAndView rechargeadmin(String userpk) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		TUserInfoCustom tUserInfoCustom= userInfoService.findUserByuserpk(userpk);
+		mv.addObject("points", tUserInfoCustom.getPoints());
+		mv.addObject("userpk", userpk);
+		mv.setViewName("/backstage/agent/recharge.jsp");
+		return mv;
+	}
+	/*
+	 * 跳转到为代理手工充值扣款界面 -----系统管理员
+	 */
+	@RequestMapping(value="/rechargeadminforagent")
+	public @ResponseBody ModelAndView rechargeadminforagent(String agentuserid) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserid(agentuserid);
+		mv.addObject("points", tUserInfoCustom.getPoints());
+		mv.addObject("userpk", tUserInfoCustom.getUserpk());
+		mv.setViewName("/backstage/admin/rechargeagent.jsp");
+		return mv;
+	}
+	/*
 	 * 对用户积分手工充值扣款-----代理 
 	 */
 	@RequestMapping(value="/handworkrecharge")
@@ -375,6 +399,94 @@ public class UserInfoController {
 		return map;
 	}
 	/*
+	 * 对用户积分手工充值扣款-----系统管理员
+	 */
+	@RequestMapping(value="/handworkrechargeadmin")
+	public @ResponseBody ModelMap handworkrechargeadmin(HttpSession session,String userpk,String updatepoints,String recharge,String memo) throws Exception{
+		ModelMap map = new ModelMap();
+		TUserInfoCustom tUserInfoCustomsession=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserpk(userpk);
+		Integer newpoints = 0;
+		String Pointstype = "";
+		if(recharge.equals("recharge")){
+			newpoints=tUserInfoCustom.getPoints() + Integer.parseInt(updatepoints);
+			Pointstype = "31";//充值
+		}else{
+			newpoints=tUserInfoCustom.getPoints() - Integer.parseInt(updatepoints);
+			if(newpoints<0){
+				map.put("msg", "扣除积分超出用户最大积分数");
+				logger.error("扣除积分超出用户最大积分数,代理：" + tUserInfoCustomsession.getUserid() + " 用户："+ tUserInfoCustom.getUserid());
+				return map;
+			}
+			Pointstype = "32";//扣款
+		}
+		//修改用户积分
+		tUserInfoCustom.setPoints(newpoints);
+		tUserInfoCustom.setUpdatetime(sdf.format(new Date()));
+		tUserInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
+		userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
+		//插入账户明细
+		TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
+		tPointsInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+		tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
+		tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
+		tPointsInfoCustom.setUpdateuser("sys");
+		tPointsInfoCustom.setPointreason(memo);
+		tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
+		tPointsInfoCustom.setPoints(newpoints);
+		tPointsInfoCustom.setPointstype(Pointstype);
+		tPointsInfoCustom.setPointsupdate(Integer.parseInt(updatepoints));
+		tPointsInfoCustom.setTaskpk(0);
+		tPointsInfoCustom.setUserid(tUserInfoCustomsession.getUserid());
+		pointsInfoService.savePoints(tPointsInfoCustom);
+		map.put("ec", "0");
+		return map;
+	}
+	/*
+	 * 对代理用户积分手工充值扣款-----系统管理员
+	 */
+	@RequestMapping(value="/handworkrechargeadminforagent")
+	public @ResponseBody ModelMap handworkrechargeadminforagent(HttpSession session,String userpk,String updatepoints,String recharge,String memo) throws Exception{
+		ModelMap map = new ModelMap();
+		TUserInfoCustom tUserInfoCustomsession=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
+		TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserpk(userpk);
+		Integer newpoints = 0;
+		String Pointstype = "";
+		if(recharge.equals("recharge")){
+			newpoints=tUserInfoCustom.getPoints() + Integer.parseInt(updatepoints);
+			Pointstype = "31";//充值
+		}else{
+			newpoints=tUserInfoCustom.getPoints() - Integer.parseInt(updatepoints);
+			if(newpoints<0){
+				map.put("msg", "扣除积分超出用户最大积分数");
+				logger.error("扣除积分超出用户最大积分数,代理：" + tUserInfoCustomsession.getUserid() + " 用户："+ tUserInfoCustom.getUserid());
+				return map;
+			}
+			Pointstype = "32";//扣款
+		}
+		//修改用户积分
+		tUserInfoCustom.setPoints(newpoints);
+		tUserInfoCustom.setUpdatetime(sdf.format(new Date()));
+		tUserInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
+		userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
+		//插入账户明细
+		TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
+		tPointsInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+		tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
+		tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
+		tPointsInfoCustom.setUpdateuser("sys");
+		tPointsInfoCustom.setPointreason(memo);
+		tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
+		tPointsInfoCustom.setPoints(newpoints);
+		tPointsInfoCustom.setPointstype(Pointstype);
+		tPointsInfoCustom.setPointsupdate(Integer.parseInt(updatepoints));
+		tPointsInfoCustom.setTaskpk(0);
+		tPointsInfoCustom.setUserid(tUserInfoCustomsession.getUserid());
+		pointsInfoService.savePoints(tPointsInfoCustom);
+		map.put("ec", "0");
+		return map;
+	}
+	/*
 	 * 后台登录用户账号 -----代理
 	 */
 	@RequestMapping(value="/handworkLogin")
@@ -417,55 +529,8 @@ public class UserInfoController {
 		mv.setViewName("/backstage/admin/useradmin.jsp");
 		return mv;
 	}
-	/*
-	 * 跳转到手工充值扣款界面 -----代理
-	 */
-	@RequestMapping(value="/rechargeadmin")
-	public @ResponseBody ModelAndView rechargeadmin(String userpk) throws Exception{
-		ModelAndView mv = new ModelAndView();
-		TUserInfoCustom tUserInfoCustom= userInfoService.findUserByuserpk(userpk);
-		mv.addObject("points", tUserInfoCustom.getPoints());
-		mv.addObject("userpk", userpk);
-		mv.setViewName("/backstage/admin/recharge.jsp");
-		return mv;
-	}
-	/*
-	 * 对用户积分手工充值扣款-----系统管理员
-	 */
-	@RequestMapping(value="/handworkrechargeadmin")
-	public @ResponseBody ModelMap handworkrechargeadmin(HttpSession session,String userpk,String updatepoints,String recharge,String memo) throws Exception{
-		ModelMap map = new ModelMap();
-		TUserInfoCustom tUserInfoCustomsession=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
-		TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserpk(userpk);
-		Integer newpoints = 0;
-		String Pointstype = "";
-		if(recharge.equals("recharge")){
-			newpoints=tUserInfoCustom.getPoints() + Integer.parseInt(updatepoints);
-			Pointstype = "31";//充值
-		}else{
-			newpoints=tUserInfoCustom.getPoints() - Integer.parseInt(updatepoints);
-			Pointstype = "32";//扣款
-		}
-		//插入账户明细
-		TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
-		tPointsInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
-		tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
-		tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
-		tPointsInfoCustom.setUpdateuser("sys");
-		tPointsInfoCustom.setPointreason(memo);
-		tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
-		tPointsInfoCustom.setPoints(newpoints);
-		tPointsInfoCustom.setPointstype(Pointstype);
-		tPointsInfoCustom.setPointsupdate(Integer.parseInt(updatepoints));
-		tPointsInfoCustom.setTaskpk(0);
-		tPointsInfoCustom.setUserid(tUserInfoCustomsession.getUserid());
-		pointsInfoService.savePoints(tPointsInfoCustom);
-		//修改用户积分
-		tUserInfoCustom.setPoints(newpoints);
-		userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
-		map.put("ec", "0");
-		return map;
-	}
+
+	
 	
 	
 	/*

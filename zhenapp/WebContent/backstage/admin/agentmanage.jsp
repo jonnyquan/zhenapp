@@ -99,7 +99,9 @@
 	              <td>${list.createtime }</td>
 	              <td>${list.updatetime }</td>
 	              <td>${list.agentstate }</td>
-	              <td><a href="${pageContext.request.contextPath}/web/findWebByAgentidadmin?agentid=${list.agentid }" data-id="${list.agentpk }" class="am-badge am-badge-primary">修改</a>
+	              <td>
+	              	<a href="${pageContext.request.contextPath}/user/rechargeadminforagent?agentuserid=${list.agentuserid}" class="am-badge am-badge-primary">充值/扣款</a>
+	              	&nbsp;<a href="${pageContext.request.contextPath}/web/findWebByAgentidadmin?agentid=${list.agentid }" data-id="${list.agentpk }" class="am-badge am-badge-primary">修改</a>
 	              	&nbsp;<a href="${pageContext.request.contextPath}/price/findPriceByAgentidadmin?agentid=${list.agentid }" data-id="${list.agentpk }" class="am-badge am-badge-primary">价格</a>
 	              	&nbsp;<a data-id="${list.agentpk }" class="am-badge am-badge-primary deleteUser">删除</a>
 	              </td>

@@ -72,6 +72,7 @@ public class phoneapi {
 		TTaskDetailInfoCustom tTaskDetailInfoCustoming = taskDetailInfoService.findTaskDetailByPidAndState(hashmap);
 		if(tTaskDetailInfoCustoming!=null){
 			sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustoming);
+			return sb.toString();
 		}else{
 			HashMap<String, Object> hashmap2 = new HashMap<String, Object>();
 			hashmap2.put("phoneid", phoneid);
@@ -97,7 +98,6 @@ public class phoneapi {
 					return sb.toString();
 				}
 			}
-			
 			//查询有没有当前小时之前的待执行的任务
 			hashmap2.clear();
 			hashmap2.put("phoneid", phoneid);
@@ -116,9 +116,6 @@ public class phoneapi {
 					hashmap.put("updatetime", sdf.format(new Date()));
 					hashmap.put("updateuser", "api手机端修改字符串");
 					taskDetailInfoService.updateTaskDetailresultByid(hashmap);
-					return sb.toString();
-				}else{
-					sb.append("暂时没有任务");
 					return sb.toString();
 				}
 			}
@@ -141,15 +138,12 @@ public class phoneapi {
 					hashmap.put("updatetime", sdf.format(new Date()));
 					hashmap.put("updateuser", "api手机端修改字符串");
 					taskDetailInfoService.updateTaskDetailresultByid(hashmap);
+					return sb.toString();
 				}else{
 					sb.append("暂时没有任务");
 					return sb.toString();
 				}
-			}else{
-				sb.append("暂时没有任务");
-				return sb.toString();
 			}
-			
 			hashmap2.clear();
 			hashmap2.put("phoneid", phoneid);
 			hashmap2.put("type", "2");
@@ -167,6 +161,7 @@ public class phoneapi {
 					hashmap.put("updatetime", sdf.format(new Date()));
 					hashmap.put("updateuser", "api手机端修改字符串");
 					taskDetailInfoService.updateTaskDetailresultByid(hashmap);
+					return sb.toString();
 				}else{
 					sb.append("暂时没有任务");
 					return sb.toString();
@@ -176,7 +171,6 @@ public class phoneapi {
 				return sb.toString();
 			}
 		}
-		return sb.toString();
 	}
 	
 	/*
