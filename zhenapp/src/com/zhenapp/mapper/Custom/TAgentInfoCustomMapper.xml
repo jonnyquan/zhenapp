@@ -7,6 +7,9 @@
 			<if test="agentstate != null and agentstate !='' ">
 				and agentstate=#{agentstate}
 			</if>
+			<if test="agentpk != null and agentpk !='' ">
+				and agentpk=#{agentpk}
+			</if>
 		</where> 
 		limit #{page},#{rows}
 	</select>

@@ -16,6 +16,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,7 +45,7 @@ import com.zhenapp.service.UserInfoService;
 import com.zhenapp.util.DateUtilWxf;
 import com.zhenapp.util.MD5Util;
 import com.zhenapp.util.StringUtilWxf;
-
+@Transactional
 @Controller
 public class platform {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -133,7 +134,7 @@ public class platform {
 		OrderInfoCustom orderInfoCustom = obj.readValue(data, OrderInfoCustom.class);
 		orderInfoCustom.setKwd(StringUtilWxf.trimFirstAndLastChar(orderInfoCustom.getKwd(), "===="));
 		String [] taskkeywordarr=orderInfoCustom.getKwd().split("====");
-		Date date = sdf.parse(orderInfoCustom.getTaskstartdate().replace("-", ""));
+		Date date = yyyyMMdd.parse(orderInfoCustom.getTaskstartdate().replace("-", ""));
 		int days = DateUtilWxf.getBetweenDays(orderInfoCustom.getTaskstartdate().replace("-", ""), orderInfoCustom.getTaskenddate().replace("-", ""));
 		TPriceInfoCustom tPriceInfoCustom = priceInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
 		int subtractpoints = orderInfoCustom.getTotalTask()*Integer.parseInt(tPriceInfoCustom.getPricecounts1())+orderInfoCustom.getTotalCollectProduct()*Integer.parseInt(tPriceInfoCustom.getPricecounts2())+orderInfoCustom.getTotalShoppingCart()*Integer.parseInt(tPriceInfoCustom.getPricecounts3());
@@ -153,7 +154,6 @@ public class platform {
 				hourcount=hourcount+1;
 			}
 		}
-		
 		TTaskInfoCustom tTaskInfoCustom=new TTaskInfoCustom();
 		tTaskInfoCustom.setTasktype(orderInfoCustom.getKtype());
 		tTaskInfoCustom.setTaskkeynum(orderInfoCustom.getNid());
@@ -186,7 +186,7 @@ public class platform {
 			for (int ii = 0; ii < taskkeywordarr.length; ii++) {
 				tTaskInfoCustom.setTaskid(UUID.randomUUID().toString().replace("-", ""));
 				tTaskInfoCustom.setTaskkeyword(taskkeywordarr[ii]);
-				tTaskInfoCustom.setTaskdate(sdf.format(date));
+				tTaskInfoCustom.setTaskdate(yyyyMMdd.format(date));
 				tTaskInfoCustom.setTaskstate("15");//待分配状态
 				taskInfoService.insertTaskInfo(tTaskInfoCustom);
 				//保存之后获取该任务的主键值
@@ -267,8 +267,7 @@ public class platform {
 		            	logger.info("调用发布任务接口失败，错误信息:" + result);
 		            	map.put("msg", "调用发布任务接口失败，错误信息:" + result);
 		            	//调用接口发布失败，需要删除保存的订单  积分明细信息
-		            	
-		            	return map;
+		            	throw new RuntimeException();
 		            }else{
 		            	ObjectMapper objmapper = new ObjectMapper();
 		 	    		MsgInfoCustom msgInfoCustom = objmapper.readValue(result, MsgInfoCustom.class);
@@ -286,7 +285,7 @@ public class platform {
 		            }
 			    }else {
 			        map.put("msg", "失败错误码" + statusCode);
-			        return map;
+			        throw new RuntimeException();
 			    }
 				//2.再分配收藏和加购
 				int count=0;

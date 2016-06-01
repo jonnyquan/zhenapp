@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenapp.mapper.Custom.TTbaccountInfoTempCustomMapper" >
+  <delete id="deleteAll">
+  	delete from t_tbaccount_info_temp
+  </delete>
+  
+  <select id="findAllTTbaccountInfoTemp" resultType="com.zhenapp.po.Custom.TTbaccountInfoTempCustom">
+  	select * from t_tbaccount_info_temp
+  </select>
+  
+  <insert id="insertTbaccount">
+	  insert into t_tbaccount_info_temp ( tbaccountid, tbaccountname, 
+      tbaccountpwd, tbaccounttime, tbaccountphoneid, 
+      tbaccountstate, createtime, createuser, 
+      updatetime, updateuser)
+    values ( #{tbaccountid,jdbcType=VARCHAR}, #{tbaccountname,jdbcType=VARCHAR}, 
+      #{tbaccountpwd,jdbcType=VARCHAR}, #{tbaccounttime,jdbcType=INTEGER}, #{tbaccountphoneid,jdbcType=VARCHAR}, 
+      #{tbaccountstate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR})
+	</insert>
+</mapper>

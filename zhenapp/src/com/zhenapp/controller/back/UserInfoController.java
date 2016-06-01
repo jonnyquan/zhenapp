@@ -308,7 +308,7 @@ public class UserInfoController {
 		TUserInfoCustom tUserInfoCustom= userInfoService.findUserByuserpk(userpk);
 		mv.addObject("points", tUserInfoCustom.getPoints());
 		mv.addObject("userpk", userpk);
-		mv.setViewName("/backstage/agent/recharge.jsp");
+		mv.setViewName("/backstage/admin/recharge.jsp");
 		return mv;
 	}
 	/*

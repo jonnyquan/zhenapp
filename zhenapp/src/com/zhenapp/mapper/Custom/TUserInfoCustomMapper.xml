@@ -171,6 +171,9 @@
    			<if test="agentid != null and agentid != '' ">
    				and agentid=#{agentid}
    			</if>
+   			<if test="userid != null and userid != '' ">
+   				and userid = #{userid}
+   			</if>
    		</where>
    </update>
    

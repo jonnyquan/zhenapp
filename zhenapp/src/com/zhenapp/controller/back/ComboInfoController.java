@@ -123,9 +123,7 @@ public class ComboInfoController {
 		pagemap.put("page", (page - 1) * rows);
 		pagemap.put("rows", rows);
 		pagemap.put("agentid", tAgentInfoCustom.getAgentid());
-		/*
-		 * 根据代理id查询套餐信息
-		 */
+		//根据代理id查询套餐信息
 		List<TComboInfoCustom> tComboInfoCustomlist = comboInfoService.findAllComboByAdmin(pagemap);
 		int total = comboInfoService.findAllTotalComboByAdmin(pagemap);
 		mv.addObject("tComboInfoCustomlist", tComboInfoCustomlist);

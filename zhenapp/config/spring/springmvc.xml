@@ -19,8 +19,10 @@
 	<!-- 可以扫描controller、service、...
 	这里让扫描controller，指定controller的包
 	 -->
-	<context:component-scan base-package="com.zhenapp.controller.api,com.zhenapp.controller.front,com.zhenapp.controller.back,com.zhenapp.controller.util,com.zhenapp.controller.frontend">
+	<context:component-scan base-package="com.zhenapp.controller">
 	</context:component-scan>
+	<!-- 启用事务注解 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 	
 	<context:component-scan base-package="com.zhenapp.service"></context:component-scan>
