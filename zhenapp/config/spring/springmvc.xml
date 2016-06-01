@@ -22,6 +22,11 @@
 	<context:component-scan base-package="com.zhenapp.controller.api,com.zhenapp.controller.front,com.zhenapp.controller.back,com.zhenapp.controller.util,com.zhenapp.controller.frontend">
 	</context:component-scan>
 	
+	
+	<context:component-scan base-package="com.zhenapp.service"></context:component-scan>
+	<!-- 测试类 -->
+	<bean id="test" class="com.zhenapp.test.TextImprot"/>
+	
 	<task:annotation-driven scheduler="qbScheduler" mode="proxy"/> 
 	<task:scheduler id="qbScheduler" pool-size="10"/> 
 	<!-- 静态资源解析

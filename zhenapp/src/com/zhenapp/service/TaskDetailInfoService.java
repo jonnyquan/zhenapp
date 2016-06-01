@@ -6,6 +6,11 @@ import java.util.List;
 import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 
 public interface TaskDetailInfoService {
+	//根据日期按手机分组统计完成的收藏数和加购数
+	public List<TTaskDetailInfoCustom> findtaskdatacount(HashMap<String, Object> hashmap) throws Exception;
+	//根据日期按手机分组统计完成的收藏数和加购数
+	public TTaskDetailInfoCustom findtaskdatasum(HashMap<String, Object> hashmap) throws Exception;
+	
 	//根据id更新反馈给手机的字符串
 	public int updateTaskDetailresultByid(HashMap<String, Object> hashmap) throws Exception;
 	//修改任务详情信息

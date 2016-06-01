@@ -10,7 +10,43 @@ public class TTaskDetailInfoCustom extends TTaskDetailinfo{
 	private String trolleyname;
 	private String tasktypename;
 	private String taskpk;
+	private int shoppingcount;
+	private int collectioncount;
+	private int shoppingsum;
+	private int collectionsum;
 	
+	public int getShoppingsum() {
+		return shoppingsum;
+	}
+
+	public void setShoppingsum(int shoppingsum) {
+		this.shoppingsum = shoppingsum;
+	}
+
+	public int getCollectionsum() {
+		return collectionsum;
+	}
+
+	public void setCollectionsum(int collectionsum) {
+		this.collectionsum = collectionsum;
+	}
+
+	public int getShoppingcount() {
+		return shoppingcount;
+	}
+
+	public void setShoppingcount(int shoppingcount) {
+		this.shoppingcount = shoppingcount;
+	}
+
+	public int getCollectioncount() {
+		return collectioncount;
+	}
+
+	public void setCollectioncount(int collectioncount) {
+		this.collectioncount = collectioncount;
+	}
+
 	public String getTaskpk() {
 		return taskpk;
 	}

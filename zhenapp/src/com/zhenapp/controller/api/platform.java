@@ -41,7 +41,6 @@ import com.zhenapp.service.TaskDetailInfoFlowService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.UserInfoService;
-import com.zhenapp.service.api.DateService;
 import com.zhenapp.util.DateUtilWxf;
 import com.zhenapp.util.MD5Util;
 import com.zhenapp.util.StringUtilWxf;
@@ -66,8 +65,6 @@ public class platform {
 	private PointsInfoService pointsInfoService;
 	@Autowired
 	private DateInfoService dateInfoService;
-	@Autowired
-	private DateService dateService;
 	@Autowired
 	private TaskDetailInfoFlowService taskDetailInfoFlowService;
 	@Autowired
@@ -914,16 +911,6 @@ public class platform {
 		        }
 			}
 		}
-		return map;
-	}
-	
-	/*
-	 * 初始化日期信息
-	 */
-	@RequestMapping(value="/api/platform/insertDate")
-	public @ResponseBody ModelMap insertDate() throws Exception{
-		ModelMap map = new ModelMap();
-		dateService.insertDate();
 		return map;
 	}
 	

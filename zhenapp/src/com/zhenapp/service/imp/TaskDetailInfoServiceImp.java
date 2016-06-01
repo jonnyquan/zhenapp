@@ -59,7 +59,6 @@ public class TaskDetailInfoServiceImp implements TaskDetailInfoService {
 			HashMap<String, Object> hashmap) throws Exception {
 		return tTaskDetailinfoCustomMapper.updateTaskDetailstateByTaskidAndoldstate(hashmap);
 	}
-
 	@Override
 	public List<TTaskDetailInfoCustom> findTaskDetailByflow() throws Exception {
 		return tTaskDetailinfoCustomMapper.findTaskDetailByflow();
@@ -81,44 +80,41 @@ public class TaskDetailInfoServiceImp implements TaskDetailInfoService {
 		return tTaskDetailinfoCustomMapper.deleteTaskBystate(hashmap);
 	}
 	@Override
-	public List<TTaskDetailInfoCustom> findTaskDetailByProblemAndPage(
-			HashMap<String, Object> hashmap) throws Exception {
-		// TODO Auto-generated method stub
+	public List<TTaskDetailInfoCustom> findTaskDetailByProblemAndPage(HashMap<String, Object> hashmap) throws Exception {
 		return tTaskDetailinfoCustomMapper.findTaskDetailByProblemAndPage(hashmap);
 	}
 	@Override
-	public int findTotalTaskDetailByProblemAndPage(
-			HashMap<String, Object> hashmap) throws Exception {
-		// TODO Auto-generated method stub
+	public int findTotalTaskDetailByProblemAndPage(HashMap<String, Object> hashmap) throws Exception {
 		return tTaskDetailinfoCustomMapper.findTotalTaskDetailByProblemAndPage(hashmap);
 	}
 	@Override
 	public int findCounts(HashMap<String, Object> hashmap) throws Exception {
-		// TODO Auto-generated method stub
 		return tTaskDetailinfoCustomMapper.findCounts(hashmap);
 	}
 	@Override
-	public int findshoppingcount(HashMap<String, Object> hashmap)
-			throws Exception {
-		// TODO Auto-generated method stub
+	public int findshoppingcount(HashMap<String, Object> hashmap)throws Exception {
 		return tTaskDetailinfoCustomMapper.findshoppingcount(hashmap);
 	}
 	@Override
-	public int findcollectioncount(HashMap<String, Object> hashmap)
-			throws Exception {
-		// TODO Auto-generated method stub
+	public int findcollectioncount(HashMap<String, Object> hashmap) throws Exception {
 		return tTaskDetailinfoCustomMapper.findcollectioncount(hashmap);
 	}
 	@Override
-	public int updateTaskDetail(HashMap<String, Object> hashmap)
-			throws Exception {
-		// TODO Auto-generated method stub
+	public int updateTaskDetail(HashMap<String, Object> hashmap)throws Exception {
 		return tTaskDetailinfoCustomMapper.updateTaskDetail(hashmap);
 	}
 	@Override
-	public int updateTaskDetailresultByid(HashMap<String, Object> hashmap)
+	public int updateTaskDetailresultByid(HashMap<String, Object> hashmap)throws Exception {
+		return tTaskDetailinfoCustomMapper.updateTaskDetailresultByid(hashmap);
+	}
+	@Override
+	public List<TTaskDetailInfoCustom> findtaskdatacount(HashMap<String, Object> hashmap) throws Exception {
+		return tTaskDetailinfoCustomMapper.findtaskdatacount(hashmap);
+	}
+	@Override
+	public TTaskDetailInfoCustom findtaskdatasum(HashMap<String, Object> hashmap)
 			throws Exception {
 		// TODO Auto-generated method stub
-		return tTaskDetailinfoCustomMapper.updateTaskDetailresultByid(hashmap);
+		return tTaskDetailinfoCustomMapper.findtaskdatasum(hashmap);
 	}
 }

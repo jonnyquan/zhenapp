@@ -19,10 +19,12 @@
 	<!--  <li><a href="${pageContext.request.contextPath}/task/findproblemtaskadmin"><span class="am-icon-mobile"></span> 有问题任务查询</a></li>-->
 	<li><a href="${pageContext.request.contextPath}/task/findtaskdetaillist"><span class="am-icon-mobile"></span> 任务详情</a></li> 
 	<li><a href="${pageContext.request.contextPath}/task/findtasklocklist"><span class="am-icon-mobile"></span> 卡机任务查询</a></li> 
+	<li><a href="${pageContext.request.contextPath}/phone/responsetaskdatasum"><span class="am-icon-bar-chart"></span>当前流量统计</a></li>
 	<li><a href="${pageContext.request.contextPath}/note/findnoticeList"><span class="am-icon-bullhorn"></span> 软文管理</a></li>
 	<li><a href="${pageContext.request.contextPath}/sysconf/responsesyssetting"><span class="am-icon-cog"></span>系统设置</a></li>
 	<li><a href="${pageContext.request.contextPath}/agent/responseagentmanage"><span class="am-icon-sitemap"></span>代理管理</a></li>
 	<li><a href="${pageContext.request.contextPath}/datacount/responsedatasumadmin"><span class="am-icon-bar-chart"></span>数据统计</a></li>
+	
 	<li class="admin-parent">
 		<a class="am-cf" data-am-collapse="{target: '#collapse-navo'}">
 			<spanclass="am-icon-sign-out"></span>其他 
@@ -34,5 +36,6 @@
 			<li><a href="${pageContext.request.contextPath}/tbaoccount/responsetaobaoid"><span class="am-icon-eye"></span>查看淘宝账户信息</a></li>
 		</ul>
 	</li>
+	
 </ul>
        

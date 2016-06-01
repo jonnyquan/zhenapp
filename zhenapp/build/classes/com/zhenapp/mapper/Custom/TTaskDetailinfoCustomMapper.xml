@@ -25,6 +25,13 @@
   	</where>
   	ORDER BY taskhour,taskminute LIMIT 0,1
   </select>
+   
+  <select id="findtaskdatacount" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
+  		SELECT phoneid,SUM(isshopping) AS shoppingcount,SUM(iscollection) AS collectioncount FROM t_task_detailinfo WHERE taskdate =#{date} AND taskstate='21' GROUP BY phoneid
+  </select>
+  <select id="findtaskdatasum" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
+  		SELECT SUM(isshopping) AS shoppingcount,SUM(iscollection) AS collectioncount FROM t_task_detailinfo WHERE taskdate =#{date} AND taskstate='21' 
+  </select>
   
   <select id="findCounts" resultType="int" parameterType="java.util.HashMap">
   	select count(1) from t_task_detailinfo 
@@ -239,6 +246,9 @@
   		</if>
   		<if test="taskid !=null and taskid != '' ">
   			and taskid = #{taskid}
+  		</if>
+  		<if test="today !=null and today != '' ">
+  			and taskdate = #{today}
   		</if>
   	</where>
   </select>
