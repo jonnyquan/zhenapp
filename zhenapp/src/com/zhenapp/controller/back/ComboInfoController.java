@@ -33,7 +33,6 @@ public class ComboInfoController {
 	@Autowired
 	private UserInfoService userInfoService;
 	
-	
 	private SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 	/*
 	 * 根据登录代理id查询套餐信息-----代理
@@ -161,7 +160,6 @@ public class ComboInfoController {
 		return mv;
 	}
 	*/
-	
 	/*
 	 * 保存套餐信息
 	 */

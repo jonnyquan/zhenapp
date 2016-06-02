@@ -84,15 +84,12 @@ public class PointsInfoController {
 		tRechargeInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
 		tRechargeInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
 		tRechargeInfoCustom.setCreatetime(sdf.format(new Date()));
-		int i = rechargeInfoService.insertRechargeinfo(tRechargeInfoCustom);
-		if(i>0){
-			mv.addObject("tComboInfoCustom", tComboInfoCustom);
-			mv.addObject("Verificationcode", verificationcode);
-			mv.setViewName("/backstage/points/buyingpoints.jsp");
-		}
+		rechargeInfoService.insertRechargeinfo(tRechargeInfoCustom);
+		mv.addObject("tComboInfoCustom", tComboInfoCustom);
+		mv.addObject("Verificationcode", verificationcode);
+		mv.setViewName("/backstage/points/buyingpoints.jsp");
 		return mv;
 	}
-	//===========================================================
 	/*
 	 * 跳转到充值记录界面--代理
 	 */
@@ -304,10 +301,7 @@ public class PointsInfoController {
 		}
 		pagemap.put("usernick", usernick);
 		pagemap.put("taskpk", taskpk);
-		/*
-		* 系统管理员
-		*/
-		//pagemap.put("userid", tUserInfoCustomsession.getUserid());
+		//系统管理员
 		List<TPointsInfoCustom> tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPage(pagemap);
 		int total = pointsInfoService.findTotalPointsInfoByPage(pagemap);
 		mv.addObject("total",total);
@@ -321,47 +315,4 @@ public class PointsInfoController {
 		return mv;
 	}
 	
-//============================================================================================以上为最新
-	/*@RequestMapping(value="/findPointsInfoByPage")
-	public @ResponseBody ModelMap findPointsInfoByPage(Integer page,Integer rows,HttpServletRequest request) throws Exception{
-		ModelMap map=new ModelMap();
-		HttpSession session = request.getSession();
-		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
-		HashMap<String, Object> pagemap= new HashMap<String, Object>();
-		if (page == null || page == null) {
-			pagemap.put("page", 0);
-			pagemap.put("rows", 10);
-		} else {
-			pagemap.put("page", page-1);
-			pagemap.put("rows", rows);
-		}
-		
-		List<TPointsInfoCustom> tPointsInfoCustomlist = new ArrayList<TPointsInfoCustom>();
-		int counts = 0;
-		if(tUserInfoCustom.getUserroleid()==1){
-			/*
-			 * 系统管理员
-			 *
-			tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPage(pagemap);
-			counts = pointsInfoService.findTotalPointsInfoByPage(pagemap);
-		}else if(tUserInfoCustom.getUserroleid()==2){
-			/*
-			 * 代理用户
-			 *
-			pagemap.put("userid", tUserInfoCustom.getUserid());
-			tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPageandRole(pagemap);
-			counts = pointsInfoService.findPointsCountsByPageandRole(pagemap);
-		}else{
-			/*
-			 * 普通用户
-			 *
-			pagemap.put("createuser", tUserInfoCustom.getUserid());
-			tPointsInfoCustomlist = pointsInfoService.findPointsInfoByPage(pagemap);
-			counts = pointsInfoService.findTotalPointsInfoByPage(pagemap);
-		}
-		map.put("total", counts);
-		map.put("rows", tPointsInfoCustomlist);
-		
-		return map;
-	}*/
 }

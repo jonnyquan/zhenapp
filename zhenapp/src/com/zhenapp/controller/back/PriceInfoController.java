@@ -90,34 +90,7 @@ public class PriceInfoController {
 		map.put("ec", "0");
 		return map;
 	}
-	
-	//=====================================================================
-	
-	/*
-	 * 查询单价列表
-	 
-	@RequestMapping(value="/findPrice")
-	public ModelAndView findPrice(HttpServletRequest request) throws Exception{
-		ModelAndView mv=new ModelAndView();
-		HttpSession session=request.getSession();
-		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
-		TAgentInfoCustom tAgentInfoCustom= agentInfoService.findAgentByuserid(tUserInfoCustom.getUserid());
-		TPriceInfoCustom tPriceInfoCustom= priceInfoService.findPriceByAgentid(tAgentInfoCustom.getAgentid());
-		mv.addObject("tPriceInfoCustom",tPriceInfoCustom);
-		mv.setViewName("/page/main/pricemange.jsp");
-		return mv;
-	}*/
-	/*
-	 * 管理用户查询代理单价列表
-	 
-	@RequestMapping(value="/findPriceByAgentid/{agentid}")
-	public ModelAndView findPriceByAgentid(@PathVariable(value="agentid")String agentid) throws Exception{
-		ModelAndView mv=new ModelAndView();
-		TPriceInfoCustom tPriceInfoCustom=priceInfoService.findPriceByAgentid(agentid);
-		mv.addObject("tPriceInfoCustom",tPriceInfoCustom);
-		mv.setViewName("/page/main/pricemange.jsp");
-		return mv;
-	}*/
+
 	/*
 	 * 修改单价信息
 	 */

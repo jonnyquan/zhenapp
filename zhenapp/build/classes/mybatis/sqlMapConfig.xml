@@ -5,7 +5,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
 	
 	<!-- 全局setting配置，根据需要添加 -->
-	
+	<settings>
+		<setting name="cacheEnabled" value="true" /><!-- 全局映射器启用缓存 -->   
+	</settings>
 	<!-- 配置别名 -->
 	<typeAliases>
 		<!-- 批量扫描别名 -->

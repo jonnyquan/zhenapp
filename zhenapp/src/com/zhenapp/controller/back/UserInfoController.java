@@ -19,12 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.TAgentInfoCustom;
-import com.zhenapp.po.Custom.TComboInfoCustom;
 import com.zhenapp.po.Custom.TGuideInfoCustom;
 import com.zhenapp.po.Custom.TIntroInfoCustom;
 import com.zhenapp.po.Custom.TNoteInfoCustom;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
-import com.zhenapp.po.Custom.TPriceInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Custom.TWebInfoCustom;
 import com.zhenapp.po.Custom.TelectricityCustom;
@@ -267,7 +265,6 @@ public class UserInfoController {
 		hashmap.put("updatetime", sdf.format(new Date()));
 		//根据要删除的用户主键及登录人的代理id修改需要删除的用户的状态为30
 		userInfoService.updateUserState(hashmap);
-		//userInfoService.deleteUserByUserpkAndRole(hashmap);
 		map.put("ec", 0);
 		return map;
 	}
@@ -530,9 +527,6 @@ public class UserInfoController {
 		return mv;
 	}
 
-	
-	
-	
 	/*
 	 * 设为代理----系统管理员
 	 */
@@ -610,145 +604,16 @@ public class UserInfoController {
 		mv.setViewName("/user/findUserByPageAndAdmin");
 		return mv;
 	}
-	//===============================================================================以上为新
-	
-	/*
-	 * 使用用户名密码登录
-	 
-	@RequestMapping(value="/Loginrest/{username}/{password}"
-			,method={RequestMethod.POST,RequestMethod.GET})
-	public @ResponseBody TUserInfo Loginrest(HttpSession httpSession, String username,String password) throws Exception{
-		TUserInfo tUserInfo=new TUserInfo();
-		tUserInfo.setUserstate("1");
-		List<TUserInfoCustom> list=userInfoService.findUserBynick(username);
-		if (list.size()>0) {
-			TUserInfoCustom tUserInfoCustom=list.get(0);
-			if(tUserInfoCustom.getUserpwd().equals(MD5Util.string2MD5(password))){
-				httpSession.setMaxInactiveInterval(900); //15分钟
-				httpSession.setAttribute("tUserInfoCustom", tUserInfoCustom);
-			}else{
-				tUserInfo = null;
-			}
-		}else{
-			tUserInfo = null;
-		}
-		return tUserInfo;
-	}*/
-	/*
-	 * 查询用户列表
-	 
-	@RequestMapping(value="/findUserByPage")
-	public @ResponseBody ModelMap findUserByPage(Integer page,Integer rows,HttpServletRequest request) throws Exception{
-		ModelMap map=new ModelMap();
-		HttpSession session = request.getSession();
-		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
-		HashMap<String,Object> pagemap=new HashMap<String,Object>();
-		if (page == null || page == null) {
-			pagemap.put("page", 0);
-			pagemap.put("rows", 10);
-		} else {
-			pagemap.put("page", page-1);
-			pagemap.put("rows", rows);
-		}
-		pagemap.put("userstate", 29);
-		List<TUserInfoCustom> tUserInfoCustomlist=userInfoService.findUserByPage(pagemap);
-		int total=0;
-		if(tUserInfoCustom.getUserroleid()==1){
-			//系统管理员
-			 
-			tUserInfoCustomlist = userInfoService.findUserByPage(pagemap);
-			total = userInfoService.findTotalUserByPage(pagemap);
-		}else if(tUserInfoCustom.getUserroleid()==2){
-			//代理用户
-			 
-			pagemap.put("userid", tUserInfoCustom.getUserid());
-			tUserInfoCustomlist = userInfoService.findUserByPageandRole(pagemap);
-			total = userInfoService.findTotalUserByPageandRole(pagemap);
-		}
-		map.put("total", total);
-		map.put("rows", tUserInfoCustomlist);
-		return map;
-	}*/
-	
-	
-	/*
-	 * 基本信息页面数据显示
-	 
-	@RequestMapping(value="/findUserinfoByusernick")
-	public ModelAndView findUserinfoByusernick(HttpServletRequest request) throws Exception{
-		ModelAndView mv=new ModelAndView();
-		HttpSession session=request.getSession();
-		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
-		List<TUserInfoCustom> list=userInfoService.findUserBynick(tUserInfoCustom.getUsernick());
-		TUserInfoCustom tUserinfoCustom=null;
-		if(list != null && list.size()>0){
-			tUserinfoCustom = list.get(0);
-		}
-		mv.addObject("tUserinfoCustom",tUserinfoCustom);
-		mv.setViewName("/page/personalcenter/personaldetails.jsp");
-		return mv;
-	}*/
-	/*
-	 * 重置密码页面数据显示
-	
-	@RequestMapping(value="/findUserinfoByusernicktopassword")
-	public ModelAndView findUserinfoByusernicktopassword(HttpServletRequest request) throws Exception{
-		ModelAndView mv=new ModelAndView();
-		HttpSession session=request.getSession();
-		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
-		List<TUserInfoCustom> list=userInfoService.findUserBynick(tUserInfoCustom.getUsernick());
-		TUserInfoCustom tUserinfoCustom=null;
-		if(list != null && list.size()>0){
-			tUserinfoCustom = list.get(0);
-		}
-		mv.addObject("tUserinfoCustom",tUserinfoCustom);
-		mv.setViewName("/page/personalcenter/personalPassword.jsp");
-		return mv;
-	} */
-	
-	/*
-	 * 使用邮件找回密码
-	 
-	@RequestMapping(value="/findPasswordByemail")
-	public @ResponseBody ModelAndView findPasswordByemail(TUserinfoVo tUserinfoVo) throws Exception{
-		ModelAndView mv =new ModelAndView();
-		TUserInfoCustom TUserinfoCustomtemp=userInfoService.findPasswordByemail(tUserinfoVo);
-		if(TUserinfoCustomtemp!=null){
-			try{
-				Mail.Send(TUserinfoCustomtemp.getUserpwd());
-				mv.addObject("msg", "请查收邮件!");
-			}catch(Exception e){
-				mv.addObject("msg", "系统异常,请联系管理员!");
-			}
-		}else{
-			mv.addObject("msg", "用户名或注册邮箱错误");
-		}
-		mv.setViewName("/page/pagestates/info.jsp");
-		return mv;
-	}*/
 	/*
 	 * 用于用户修改基本信息
 	 */
 	@RequestMapping(value="/updateUserinfo")
 	public @ResponseBody ModelAndView updateUserinfo(TUserinfoVo tUserinfoVo) throws Exception{
 		ModelAndView mv =new ModelAndView();
-		int i=userInfoService.updateUserinfo(tUserinfoVo);
-		if(i>0){
-			mv.setViewName("/user/findUserinfoByusernick");
-		}
+		userInfoService.updateUserinfo(tUserinfoVo);
+		mv.setViewName("/user/findUserinfoByusernick");
 		return mv;
 	}
-	/*
-	 * 删除用户信息
-	
-	@RequestMapping(value="/deleteUserinfoBypk/{userpk}")
-	public @ResponseBody ModelMap deleteUserinfoBypk(@PathVariable(value="userpk")String userpk) throws Exception{
-		ModelMap map= new ModelMap();
-		int i= userInfoService.deleteUserinfoBypk(userpk);
-		map.put("data", i);
-		return map;
-	}
-	 */
 	/*
 	 * 根据用户信息查询余额
 	 */
@@ -761,140 +626,4 @@ public class UserInfoController {
 		map.put("points", points);
 		return map;
 	}
-	/*
-	 * 设置普通用户为代理用户
-	 */
-	@RequestMapping(value="/updaterole/{userpk}")
-	public @ResponseBody ModelMap updaterole(@PathVariable(value="userpk")String userpk,HttpServletRequest request) throws Exception{
-		ModelMap map= new ModelMap();
-		HttpSession session=request.getSession();
-		TUserInfoCustom tUserInfoCustomsession=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
-		int i = userInfoService.updaterole(userpk);//根据用户主键修改用户角色
-		TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserpk(userpk);
-		/*
-		 * 插入代理信息
-		 */
-		//查询系统管理员的代理信息
-		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentByAgentid("0");
-		tAgentInfoCustom.setAgentid(UUID.randomUUID().toString().replace("-", ""));
-		tAgentInfoCustom.setAgentuserid(tUserInfoCustom.getUserid());
-		tAgentInfoCustom.setAgentperson(tUserInfoCustom.getUsername());
-		tAgentInfoCustom.setCreateuser(tUserInfoCustomsession.getUserid());
-		tAgentInfoCustom.setCreatetime(sdf.format(new Date()));
-		tAgentInfoCustom.setUpdatetime(sdf.format(new Date()));
-		tAgentInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
-		agentInfoService.saveAgentInfo(tAgentInfoCustom);
-		/*
-		 * 插入代理的价格信息  默认与系统管理员一致
-		 */
-		//查询系统管理员的价格信息
-		TPriceInfoCustom tPriceInfoCustom = priceInfoService.findPriceByAgentid("0");
-		tPriceInfoCustom.setPriceid(UUID.randomUUID().toString().replace("-", ""));
-		tPriceInfoCustom.setAgentid(tAgentInfoCustom.getAgentid());
-		tPriceInfoCustom.setCreateuser(tUserInfoCustomsession.getUserid());
-		tPriceInfoCustom.setCreatetime(sdf.format(new Date()));
-		tPriceInfoCustom.setUpdatetime(sdf.format(new Date()));
-		tPriceInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
-		priceInfoService.savePriceInfo(tPriceInfoCustom);
-		/*
-		 * 插入代理的web页面信息  默认与系统管理员一致
-		 */
-		//查询系统管理员的web信息
-		TWebInfoCustom tWebInfoCustom = webInfoService.findWebByAgentid("0");
-		tWebInfoCustom.setWebid(UUID.randomUUID().toString().replace("-", ""));
-		tWebInfoCustom.setAgentid(tAgentInfoCustom.getAgentid());
-		tWebInfoCustom.setCreateuser(tUserInfoCustomsession.getUserid());
-		tWebInfoCustom.setCreatetime(sdf.format(new Date()));
-		tWebInfoCustom.setUpdatetime(sdf.format(new Date()));
-		tWebInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
-		webInfoService.saveWebInfo(tWebInfoCustom);
-		/*
-		 * 插入代理套餐信息默认与系统管理员一致
-		 */
-		HashMap<String, Object> hashmap= new HashMap<String, Object>();
-		hashmap.put("agentid", "0");
-		hashmap.put("page", 0);
-		hashmap.put("rows", 100);
-		List<TComboInfoCustom> tComboInfoCustomlist = comboInfoService.findComboByAgentid(hashmap);
-		for (int j = 0; j < tComboInfoCustomlist.size(); j++) {
-			TComboInfoCustom tComboInfoCustom = tComboInfoCustomlist.get(j);
-			tComboInfoCustom.setComboid(UUID.randomUUID().toString().replace("-", ""));
-			tComboInfoCustom.setAgentid(tAgentInfoCustom.getAgentid());
-			tComboInfoCustom.setCombodesc("初始化套餐信息");
-			tComboInfoCustom.setCreatetime(sdf.format(new Date()));
-			tComboInfoCustom.setCreateuser(tUserInfoCustomsession.getUserid());
-			tComboInfoCustom.setUpdatetime(sdf.format(new Date()));
-			tComboInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
-			comboInfoService.insertComboto(tComboInfoCustom);
-		}
-		
-		map.put("data", i);
-		return map;
-	}
-	
-	/*
-	 * 代理用户直接登录某一用户
-	 */
-	@RequestMapping(value="/login/{userpk}")
-	public @ResponseBody ModelMap login(@PathVariable(value="userpk")String userpk,HttpServletRequest request) throws Exception{
-		ModelMap map= new ModelMap();
-		TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserpk(userpk);
-		HttpSession session=request.getSession();
-		session.removeAttribute("tUserInfoCustom");
-		session.setAttribute("tUserInfoCustom", tUserInfoCustom);
-		map.put("tUserInfoCustom", tUserInfoCustom);
-		return map;
-	}
-	/*
-	 * 代理根据用户主键给用户充值扣款
-	 
-	@RequestMapping(value="/findPointsByuserpk/{userpk}")
-	public @ResponseBody ModelAndView findPointsByuserpk(@PathVariable(value="userpk")String userpk) throws Exception{
-		ModelAndView mv = new ModelAndView();
-		TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserpk(userpk);
-		mv.addObject("tUserInfoCustom",tUserInfoCustom);
-		mv.setViewName("/page/user/updateUserpoints.jsp");
-		return mv;
-	}*/
-	/*
-	 * 代理根据用户主键给用户充值扣款
-	 
-	@RequestMapping(value="/updatepoints")
-	public @ResponseBody ModelAndView updatepoints(HttpServletRequest request,String userpk,String caozo,String updatepoints,String desc) throws Exception{
-		ModelAndView mv = new ModelAndView();
-		HttpSession session=request.getSession();
-		TUserInfoCustom tUserInfoCustomsession=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
-		TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserpk(userpk);
-		Integer newpoints = 0;
-		String Pointstype = "";
-		if(caozo.equals("0")){
-			newpoints=tUserInfoCustom.getPoints() + Integer.parseInt(updatepoints);
-			Pointstype = "31";
-		}else{
-			newpoints=tUserInfoCustom.getPoints() - Integer.parseInt(updatepoints);
-			Pointstype = "32";
-		}
-		//插入账户明细
-		 
-		TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
-		tPointsInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
-		tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
-		tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
-		tPointsInfoCustom.setUpdateuser("sys");
-		tPointsInfoCustom.setPointreason(desc);
-		tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
-		tPointsInfoCustom.setPoints(newpoints);
-		tPointsInfoCustom.setPointstype(Pointstype);
-		tPointsInfoCustom.setPointsupdate(Integer.parseInt(updatepoints));
-		tPointsInfoCustom.setTaskpk(0);
-		tPointsInfoCustom.setUserid(tUserInfoCustomsession.getUserid());
-		pointsInfoService.savePoints(tPointsInfoCustom);
-		//修改用户积分
-		 
-		tUserInfoCustom.setPoints(newpoints);
-		userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
-		
-		mv.setViewName("/page/user/userList.jsp");
-		return mv;
-	}*/
 }

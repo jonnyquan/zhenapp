@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,14 +44,19 @@ public class TbaccountInfoController {
 	private TbaccountInfoTempService tbaccountInfoTempService;
 	@Autowired
 	private PhoneInfoService phoneInfoService;
+	
+	@Value("${config.tbidfile}")
+	private String tbidfilepath;
+	
+	@Value("${middleRows}")
+	private Integer middleRows;
+	
 	/*
 	 * 跳转到上传淘宝账号界面
 	 */
 	@RequestMapping(value="responsetbaoccount")
 	public @ResponseBody ModelAndView responsetbaoccount() throws Exception{
 		ModelAndView mv = new ModelAndView();
-		
-		
 		mv.setViewName("/backstage/admin/uploadtaobaoid.jsp");
 		return mv;
 	}
@@ -59,15 +65,14 @@ public class TbaccountInfoController {
 	 * 跳转到查看淘宝账号界面
 	 */
 	@RequestMapping(value="/responsetaobaoid")
-	public @ResponseBody ModelAndView responsetaobaoid(String tbaccountphoneid,String tbaccountstate,Integer page,Integer rows) throws Exception{
+	public @ResponseBody ModelAndView responsetaobaoid(String tbaccountphoneid,String tbaccountstate,Integer page) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
 			page = 1;
 		} 
-		rows = 10;
-		pagemap.put("page", (page - 1) * rows);
-		pagemap.put("rows", rows);
+		pagemap.put("page", (page - 1) * middleRows);
+		pagemap.put("rows", middleRows);
 		pagemap.put("tbaccountphoneid", tbaccountphoneid);
 		pagemap.put("tbaccountstate", tbaccountstate);
 		List<TTbaccountInfoCustom> tTbaccountInfoCustomlist = tbaccountInfoService.findTbaccountBypage(pagemap);
@@ -80,10 +85,8 @@ public class TbaccountInfoController {
 		mv.setViewName("/backstage/admin/findtaobaoid.jsp");
 		return mv;
 	}
-	
 	/*
-	 * 根据淘宝账号主键删除淘宝账号信息
-	 * 
+	 * 根据淘宝账号主键删除淘宝账号信息 
 	 */
 	@RequestMapping(value="/deletetaobaoidBypk")
 	public @ResponseBody ModelAndView deletetaobaoidBypk(String tbaccountid) throws Exception{
@@ -92,7 +95,6 @@ public class TbaccountInfoController {
 		mv.setViewName("responsetaobaoid");
 		return mv;
 	}
-	
 	/*
 	 * 上传淘宝账号信息
 	 */
@@ -109,16 +111,13 @@ public class TbaccountInfoController {
 		// 上传图片
 		if (file != null && originalFilename != null
 				&& originalFilename.length() > 0) {
-			// 存储图片的物理路径
-			/*String pic_path = request.getSession().getServletContext()
-					.getRealPath("/")
-					+ "page/other/tbaccount/";*/
-			String pic_path = "C:/webfile/tbidfile/";
-			// 新的图片名称
+			// 存储账号文件的物理路径
+			String pic_path = tbidfilepath;
+			// 新的文件名称
 			String newFileName = UUID.randomUUID().toString().replace("-", "")
 					+ originalFilename.substring(originalFilename
 							.lastIndexOf("."));
-			// 新图片
+			// 新文件
 			File newFile = new File(pic_path + newFileName);
 			// 将内存中的数据写入磁盘
 			file.transferTo(newFile);
@@ -243,7 +242,6 @@ public class TbaccountInfoController {
 		map.put("ec", "0");
 		return map;
 	}
-	
 	/*
 	 * 设置一键换号
 	 */
@@ -256,45 +254,12 @@ public class TbaccountInfoController {
 		hashmap.put("updatetime",sdf.format(new Date()));
 		hashmap.put("updateuser",tUserInfoCustom.getUserid());
 		int i= tbaccountInfoService.updateTbaccountTag(hashmap);
-		
 		//将状为nochange的账号信息状态修改为未测试 60
 		tbaccountInfoService.updateTbaccountstate();
-		
 		logger.info("修改淘宝账号手机标记信息"+i+"条成功!");
 		map.put("ec", "0");
 		return map;
 	}
-	/*
-	@RequestMapping(value="/findTbaccountBypage")
-	public @ResponseBody ModelMap findTbaccountBypage(Integer page,Integer rows,String tbaccountphoneid,String tbaccountstate) throws Exception{
-		ModelMap map=new ModelMap();
-		HashMap<String,Object> pagemap=new HashMap<String,Object>();
-		if(tbaccountstate==null || tbaccountstate.equals("0")){
-			pagemap.put("tbaccountstate", null);
-		}else{
-			pagemap.put("tbaccountstate", tbaccountstate);
-		}
-		if(tbaccountstate==null ){
-			pagemap.put("tbaccountphoneid", null);
-		}else{
-			pagemap.put("tbaccountphoneid", tbaccountphoneid);
-		}
-		if (page == null || page == null) {
-			pagemap.put("page", 0);
-			pagemap.put("rows", 10);
-		} else {
-			pagemap.put("page", page-1);
-			pagemap.put("rows", rows);
-		}
-		List<TTbaccountInfoCustom>  tTbaccountInfoCustomlist = tbaccountInfoService.findTbaccountBypage(pagemap);
-		//List<TTbaccountInfoCustom>  tTbaccountInfoCustomAlllist = tbaccountInfoService.findAllTbaccountBypage(pagemap);
-		int total = tbaccountInfoService.findTotalTbaccountBypage(pagemap);
-		
-		map.put("total",total);
-		map.put("rows", tTbaccountInfoCustomlist);
-		
-		return map;
-	}*/
 	/*
 	 * 按条件删除淘宝账号
 	 */
@@ -306,14 +271,6 @@ public class TbaccountInfoController {
 		pagemap.put("tbaccountstate", problem);
 		tbaccountInfoService.deleteAccount(pagemap);
 		map.put("ec", "0");
-		return map;
-	}
-	
-	@RequestMapping(value="/deleteTbaccountByid")
-	public @ResponseBody ModelMap deleteTbaccountByid(String tbaccountids) throws Exception{
-		ModelMap map=new ModelMap();
-		int i= tbaccountInfoService.deleteTbaccountByid(tbaccountids);
-		System.out.println(i);
 		return map;
 	}
 }

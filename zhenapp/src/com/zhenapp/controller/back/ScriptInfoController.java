@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,22 +35,24 @@ import com.zhenapp.service.ScriptInfoService;
 public class ScriptInfoController {
 	@Autowired
 	private ScriptInfoService scriptInfoService;
-	
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+	@Value("${middleRows}")
+	private Integer middleRows;
+	@Value("${config.scriptfile}")
+	private String scriptfilepath;
 	
 	/*
 	 * 跳转到上传脚本界面 -----系统管理员
 	 */
 	@RequestMapping(value="/responsescriptmanage")
-	public @ResponseBody ModelAndView responsescriptmanage(Integer page,Integer rows) throws Exception{
+	public @ResponseBody ModelAndView responsescriptmanage(Integer page) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
 			page = 1;
-		} 
-		rows = 10;
-		pagemap.put("page", (page - 1) * rows);
-		pagemap.put("rows", rows);
+		}
+		pagemap.put("page", (page - 1) * middleRows);
+		pagemap.put("rows", middleRows);
 		List<TScriptInfoCustom> tScriptInfoCustomlist=scriptInfoService.findScriptByPage(pagemap);
 		int total =scriptInfoService.findTotalScriptByPage(pagemap);
 		mv.addObject("total", total);
@@ -65,7 +68,6 @@ public class ScriptInfoController {
 	@RequestMapping(value = "/uploadscript")
 	public @ResponseBody ModelMap uploadscript(HttpServletRequest request, @RequestParam("file_name") MultipartFile file) throws Exception {
 		ModelMap map = new ModelMap();
-		
 		TScriptInfoCustom tScriptInfoCustom = new TScriptInfoCustom();
 		HttpSession session = request.getSession();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
@@ -75,16 +77,12 @@ public class ScriptInfoController {
 		// 上传图片
 		if (file != null && originalFilename != null
 				&& originalFilename.length() > 0) {
-			// 存储图片的物理路径
-			// String pic_path =
-			// request.getSession().getServletContext().getRealPath("/") +
-			// "page/other/scriptfile/";
-			String pic_path = "C:/webfile/scriptfile/";
-			// 新的图片名称
+			String pic_path = scriptfilepath;
+			// 新的脚本文件名称
 			String newFileName = UUID.randomUUID().toString().replace("-", "")
 					+ originalFilename.substring(originalFilename
 							.lastIndexOf("."));
-			// 新图片
+			// 新文件
 			File newFile = new File(pic_path + newFileName);
 			// 将内存中的数据写入磁盘
 			file.transferTo(newFile);
@@ -100,7 +98,6 @@ public class ScriptInfoController {
 		map.put("ec", "0");
 		return map;
 	}
-	
 	
 	@RequestMapping(value = "/downloadFile/{scriptid}")
 	public void downloadFile(@PathVariable(value="scriptid") String scriptid, HttpServletResponse response,HttpServletRequest request)  {
@@ -147,11 +144,5 @@ public class ScriptInfoController {
 		mv.setViewName("/script/responsescriptmanage");
 		return mv;
 	}
-	
-	/*
-	@RequestMapping(value="/deletescriptByid")
-	public @ResponseBody void deletescriptByid(String scriptid) throws Exception{
-		scriptInfoService.deletescriptByid(scriptid);
-	}*/
-	
+
 }

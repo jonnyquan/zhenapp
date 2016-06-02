@@ -251,7 +251,15 @@
   </select>
   
   <select id="findTaskInfoByTaskstate" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap" >
-    select * from t_task_info WHERE taskstate in (${taskstate})
+    select * from t_task_info
+    <where>
+    	<if test="taskstate != null and taskstate != ''">
+    		and taskstate in (${taskstate})
+    	</if>
+    	<if test="before != null and before != ''">
+    		and taskdate+0 <![CDATA[<]]> DATE_FORMAT(#{before},'%Y%m%d')+0
+    	</if>
+    </where>
   </select>
   
   

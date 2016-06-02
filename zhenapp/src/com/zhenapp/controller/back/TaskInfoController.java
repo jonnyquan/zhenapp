@@ -75,7 +75,8 @@ public class TaskInfoController {
 	
 	@Value("${secret}")
 	private String secret;
-	
+	@Value("${middleRows}")
+	private Integer middleRows;
 	/*
 	 * 跳转到发布任务界面
 	 */
@@ -118,7 +119,7 @@ public class TaskInfoController {
 	 * 跳转到订单查询界面--代理  当前订单管理
 	 */
 	@RequestMapping(value="/responsetaskmanageagent")
-	public @ResponseBody ModelAndView responsetaskmanageagent(HttpSession session,Integer page,Integer rows,String datefrom,String dateto,String taskpk,String usernick,String taskkeynum,String taskkeyword,String tasktype) throws Exception{
+	public @ResponseBody ModelAndView responsetaskmanageagent(HttpSession session,Integer page,String datefrom,String dateto,String taskpk,String usernick,String taskkeynum,String taskkeyword,String tasktype) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
 		String points= userInfoService.findpointsByUsernickAndPwd(tUserInfoCustom);
@@ -126,10 +127,9 @@ public class TaskInfoController {
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
 			page = 1;
-		} 
-		rows = 10;
-		pagemap.put("page", (page - 1) * rows);
-		pagemap.put("rows", rows);
+		}
+		pagemap.put("page", (page - 1) * middleRows);
+		pagemap.put("rows", middleRows);
 		if(datefrom!=null){
 			pagemap.put("datefrom", datefrom.replace("-", ""));
 		}
@@ -161,7 +161,7 @@ public class TaskInfoController {
 	 * 跳转到订单查询界面--代理  历史订单管理
 	 */
 	@RequestMapping(value="/responsetaskmanageagentbefore")
-	public @ResponseBody ModelAndView responsetaskmanageagentbefore(HttpSession session,Integer page,Integer rows,String datefrom,String dateto,String taskpk,String usernick,String taskkeynum,String taskkeyword,String tasktype) throws Exception{
+	public @ResponseBody ModelAndView responsetaskmanageagentbefore(HttpSession session,Integer page,String datefrom,String dateto,String taskpk,String usernick,String taskkeynum,String taskkeyword,String tasktype) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
 		String points= userInfoService.findpointsByUsernickAndPwd(tUserInfoCustom);
@@ -169,10 +169,9 @@ public class TaskInfoController {
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
 			page = 1;
-		} 
-		rows = 10;
-		pagemap.put("page", (page - 1) * rows);
-		pagemap.put("rows", rows);
+		}
+		pagemap.put("page", (page - 1) * middleRows);
+		pagemap.put("rows", middleRows);
 		if(datefrom!=null){
 			pagemap.put("datefrom", datefrom.replace("-", ""));
 		}
@@ -205,16 +204,15 @@ public class TaskInfoController {
 	 * 跳转到任务管理界面-----任务管理
 	 */
 	@RequestMapping(value="/responsetaskmanage")
-	public ModelAndView responsetaskmanage(HttpSession session,Integer page,Integer rows,String taskpk,String taskkeynum,String keyword,String tasktype,String datefrom,String dateto,String taskstate) throws Exception{
+	public ModelAndView responsetaskmanage(HttpSession session,Integer page,String taskpk,String taskkeynum,String keyword,String tasktype,String datefrom,String dateto,String taskstate) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
 			page = 1;
 		} 
-		rows = 10;
-		pagemap.put("page", (page - 1) * rows);
-		pagemap.put("rows", rows);
+		pagemap.put("page", (page - 1) * middleRows);
+		pagemap.put("rows", middleRows);
 		pagemap.put("keyword", keyword);
 		pagemap.put("taskpk", taskpk);
 		pagemap.put("taskkeynum", taskkeynum);
@@ -250,16 +248,15 @@ public class TaskInfoController {
 	 * 跳转到任务管理界面-----历史任务管理
 	 */
 	@RequestMapping(value="/responsetaskmanagebefore")
-	public ModelAndView responsetaskmanagebefore(HttpSession session,Integer page,Integer rows,String taskpk,String taskkeynum,String keyword,String tasktype,String datefrom,String dateto,String taskstate) throws Exception{
+	public ModelAndView responsetaskmanagebefore(HttpSession session,Integer page,String taskpk,String taskkeynum,String keyword,String tasktype,String datefrom,String dateto,String taskstate) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
 			page = 1;
-		} 
-		rows = 10;
-		pagemap.put("page", (page - 1) * rows);
-		pagemap.put("rows", rows);
+		}
+		pagemap.put("page", (page - 1) * middleRows);
+		pagemap.put("rows", middleRows);
 		pagemap.put("keyword", keyword);
 		pagemap.put("taskpk", taskpk);
 		pagemap.put("taskkeynum", taskkeynum);
@@ -272,9 +269,7 @@ public class TaskInfoController {
 			pagemap.put("dateto", dateto.replace("-", "")+"235959");
 		}
 		pagemap.put("before", yyyyMMdd.format(new Date()));
-		/*
-		 * 普通用户
-		 */
+		//普通用户
 		pagemap.put("userid", tUserInfoCustom.getUserid());
 		List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findTaskBypage(pagemap);
 		int total = taskInfoService.findTotalTaskBypage(pagemap);
@@ -338,15 +333,14 @@ public class TaskInfoController {
 	 * 跳转到订单查询界面-----系统管理员		当前订单管理
 	 */
 	@RequestMapping(value="/responsetaskmanageadmin")
-	public ModelAndView responsetaskmanageadmin(HttpSession session,Integer page,Integer rows,String taskpk,String taskkeyword,String datefrom,String dateto,String taskid,String usernick,String taskkeynum,String tasktype) throws Exception{
+	public ModelAndView responsetaskmanageadmin(HttpSession session,Integer page,String taskpk,String taskkeyword,String datefrom,String dateto,String taskid,String usernick,String taskkeynum,String tasktype) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
 			page = 1;
-		} 
-		rows = 10;
-		pagemap.put("page", (page - 1) * rows);
-		pagemap.put("rows", rows);
+		}
+		pagemap.put("page", (page - 1) * middleRows);
+		pagemap.put("rows", middleRows);
 		if(datefrom!=null){
 			pagemap.put("datefrom", datefrom.replace("-", "")+"000000");
 		}
@@ -377,15 +371,14 @@ public class TaskInfoController {
 	 * 跳转到订单查询界面-----系统管理员		当前订单管理
 	 */
 	@RequestMapping(value="/responsetaskmanageadminbefore")
-	public ModelAndView responsetaskmanageadminbefore(HttpSession session,Integer page,Integer rows,String taskpk,String taskkeyword,String datefrom,String dateto,String taskid,String usernick,String taskkeynum,String tasktype) throws Exception{
+	public ModelAndView responsetaskmanageadminbefore(HttpSession session,Integer page,String taskpk,String taskkeyword,String datefrom,String dateto,String taskid,String usernick,String taskkeynum,String tasktype) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
 			page = 1;
-		} 
-		rows = 10;
-		pagemap.put("page", (page - 1) * rows);
-		pagemap.put("rows", rows);
+		}
+		pagemap.put("page", (page - 1) * middleRows);
+		pagemap.put("rows", middleRows);
 		if(datefrom!=null){
 			pagemap.put("datefrom", datefrom.replace("-", "")+"000000");
 		}
@@ -413,48 +406,17 @@ public class TaskInfoController {
 		return mv;
 	}
 	/*
-	 * 跳转到有问题任务查询界面-----系统管理员
-	 
-	@RequestMapping(value="/findproblemtaskadmin")
-	public ModelAndView findproblemtaskadmin(Integer page,Integer rows,String phoneid,String taskkeynum,String taskpk,String hours) throws Exception{
-		ModelAndView mv=new ModelAndView();
-		HashMap<String,Object> pagemap=new HashMap<String,Object>();
-		if (page == null || page==0) {
-			page = 1;
-		} 
-		rows = 10;
-		pagemap.put("page", (page - 1) * rows);
-		pagemap.put("rows", rows);
-		pagemap.put("phoneid", phoneid);
-		pagemap.put("taskkeynum", taskkeynum);
-		pagemap.put("taskpk", taskpk);
-		pagemap.put("hours", hours);
-		List<TTaskDetailInfoCustom> tTaskDetailInfoCustomlist = taskDetailInfoService.findTaskDetailByPage(pagemap);
-		int total = taskDetailInfoService.findTaskDetailTotalByPage(pagemap);
-		mv.addObject("tTaskDetailInfoCustomlist", tTaskDetailInfoCustomlist);
-		mv.addObject("total", total);
-		mv.addObject("pagenum", page);
-		mv.addObject("phoneid", phoneid);
-		mv.addObject("taskkeynum", taskkeynum);
-		mv.addObject("taskpk", taskpk);
-		mv.addObject("hours", hours);
-		mv.setViewName("/backstage/admin/findproblemtask.jsp");
-		return mv;
-	}*/
-	
-	/*
 	 * 跳转到任务详情界面-----系统管理员	当前详情查询
 	 */
 	@RequestMapping(value="/findtaskdetaillist")
-	public ModelAndView findtaskdetaillist(Integer page,Integer rows,String tasktype,String phoneid,String taskkeynum,String taskpk,String taskhour,String detaid) throws Exception{
+	public ModelAndView findtaskdetaillist(Integer page,String tasktype,String phoneid,String taskkeynum,String taskpk,String taskhour,String detaid) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
 			page = 1;
-		} 
-		rows = 10;
-		pagemap.put("page", (page - 1) * rows);
-		pagemap.put("rows", rows);
+		}
+		pagemap.put("page", (page - 1) * middleRows);
+		pagemap.put("rows", middleRows);
 		pagemap.put("phoneid", phoneid);
 		pagemap.put("taskkeynum", taskkeynum);
 		pagemap.put("taskpk", taskpk);
@@ -482,15 +444,14 @@ public class TaskInfoController {
 	 * 跳转到任务详情界面-----系统管理员	历史详情查询
 	 */
 	@RequestMapping(value="/findtaskdetaillistbefore")
-	public ModelAndView findtaskdetaillistbefore(Integer page,Integer rows,String tasktype,String phoneid,String taskkeynum,String taskpk,String taskhour,String detaid) throws Exception{
+	public ModelAndView findtaskdetaillistbefore(Integer page,String tasktype,String phoneid,String taskkeynum,String taskpk,String taskhour,String detaid) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
 			page = 1;
-		} 
-		rows = 10;
-		pagemap.put("page", (page - 1) * rows);
-		pagemap.put("rows", rows);
+		}
+		pagemap.put("page", (page - 1) * middleRows);
+		pagemap.put("rows", middleRows);
 		pagemap.put("phoneid", phoneid);
 		pagemap.put("taskkeynum", taskkeynum);
 		pagemap.put("taskpk", taskpk);
@@ -517,15 +478,14 @@ public class TaskInfoController {
 	 * 跳转卡机任务查询界面-----系统管理员
 	 */
 	@RequestMapping(value="/findtasklocklist")
-	public ModelAndView findtasklocklist(Integer page,Integer rows,String taskdetailpk,String phoneid,String taskkeynum) throws Exception{
+	public ModelAndView findtasklocklist(Integer page,String taskdetailpk,String phoneid,String taskkeynum) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
 			page = 1;
-		} 
-		rows = 10;
-		pagemap.put("page", (page - 1) * rows);
-		pagemap.put("rows", rows);
+		}
+		pagemap.put("page", (page - 1) * middleRows);
+		pagemap.put("rows", middleRows);
 		pagemap.put("phoneid", phoneid);
 		pagemap.put("taskkeynum", taskkeynum);
 		pagemap.put("taskdetailpk", taskdetailpk);
@@ -943,122 +903,6 @@ public class TaskInfoController {
 		map.put("data", "insertsuccess");
 		return map;
 	}
-	
-	/*
-	 * 查询可以做该宝贝id的有多少部手机
-	 
-	@RequestMapping(value="/findAllPhoneInfoBykeynum/{taskkeynum}")
-	public @ResponseBody ModelMap findIsFirst(@PathVariable(value="taskkeynum") String taskkeynum) throws Exception{
-		ModelMap map=new ModelMap();
-		TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
-		//做过该宝贝id的收藏任务数
-		HashMap<String, Object> hashmap = new HashMap<String, Object>();
-		hashmap.put("taskdate", yyyyMMdd.format(new Date()));
-		hashmap.put("taskkeynum", taskkeynum);
-		hashmap.put("iscollection", "1");
-		int collectiontaskcount = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
-		hashmap.clear();
-		hashmap.put("taskdate", yyyyMMdd.format(new Date()));
-		hashmap.put("taskkeynum", taskkeynum);
-		hashmap.put("isshopping", "1");
-		int shoppingtaskcount = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
-		map.put("count", tSysconfInfoCustom.getSysconfvalue1());
-		map.put("collectiontaskcount", Integer.parseInt(tSysconfInfoCustom.getSysconfvalue1()) - collectiontaskcount);
-		map.put("shoppingtaskcount", Integer.parseInt(tSysconfInfoCustom.getSysconfvalue1()) - shoppingtaskcount);
-		return map;
-	}*/
-	/*
-	 * 发布任务 新增订单信息
-	@RequestMapping(value="/insertTaskInfo")
-	public @ResponseBody ModelMap insertTaskInfo(HttpServletRequest request, TTaskInfoCustom tTaskInfoCustom,String taskkeywords) throws Exception{
-		ModelMap map=new ModelMap();
-		//查询系统配置项中是否禁止发布任务
-		HttpSession session=request.getSession();
-		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
-		TPriceInfoCustom tPriceInfoCustom = priceInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
-		Date date = new Date();
-		long curren = System.currentTimeMillis();
-		curren += 60 * 60 * 1000;
-		Date da = new Date(curren);
-		SimpleDateFormat dateFormat = new SimpleDateFormat( "HH");
-		int hours = Integer.parseInt(dateFormat.format(da));
-		int days = DateUtilWxf.getBetweenDays(tTaskInfoCustom.getTaskstartdate().replace("-", ""), tTaskInfoCustom.getTaskenddate().replace("-", ""));
-		String [] taskkeywordarr=taskkeywords.split("====");
-		String [] hourarr = tTaskInfoCustom.getTaskhourcounts().split(",");
-		int flowcounts = 0;
-		int subflowcounts = 0;
-		for (int i = 0; i < hourarr.length; i++) {
-			flowcounts = flowcounts + Integer.parseInt(hourarr[i]);
-		}
-		for (int i = 0; i < hours; i++) {
-			subflowcounts = subflowcounts + Integer.parseInt(hourarr[i]);
-		}
-		int flowpoints = flowcounts * Integer.parseInt(tPriceInfoCustom.getPricecounts1()) * taskkeywordarr.length * (days + 1)  - subflowcounts * Integer.parseInt(tPriceInfoCustom.getPricecounts1());
-		int Collectionpoints = tTaskInfoCustom.getCollectioncount() * Integer.parseInt(tPriceInfoCustom.getPricecounts2());
-		int Shoppingpoints = tTaskInfoCustom.getShoppingcount() * Integer.parseInt(tPriceInfoCustom.getPricecounts3());
-		int subtractpoints=flowpoints + Collectionpoints + Shoppingpoints;
-		
-		String points = userInfoService.findpointsByUsernickAndPwd(tUserInfoCustom);
-		if(Integer.parseInt(points) < subtractpoints){
-			map.put("data", "low");
-			return map;
-		}
-		String desable = sysconfInfoService.findSysdesable();
-		if(!desable.equals("1")){
-			map.put("data", "refuse");
-			return map;
-		}
-		tTaskInfoCustom.setTasktype(tTaskInfoCustom.getTasktype());//33 流量   34 直通车
-		tTaskInfoCustom.setTaskkeynum(tTaskInfoCustom.getTaskkeynum());
-		tTaskInfoCustom.setTaskkeyword(taskkeywords);
-		tTaskInfoCustom.setTaskstartdate(tTaskInfoCustom.getTaskstartdate().replace("-", ""));
-		tTaskInfoCustom.setTaskenddate(tTaskInfoCustom.getTaskenddate().replace("-", ""));
-		tTaskInfoCustom.setTaskhourcounts(tTaskInfoCustom.getTaskhourcounts());
-		tTaskInfoCustom.setTaskminprice(tTaskInfoCustom.getTaskminprice());
-		tTaskInfoCustom.setTaskmaxprice(tTaskInfoCustom.getTaskmaxprice());
-		tTaskInfoCustom.setTasksearchtype(tTaskInfoCustom.getTasksearchtype());
-		tTaskInfoCustom.setFlowcount(tTaskInfoCustom.getFlowcount());
-		tTaskInfoCustom.setCollectioncount(tTaskInfoCustom.getCollectioncount());
-		tTaskInfoCustom.setShoppingcount(tTaskInfoCustom.getShoppingcount());
-		tTaskInfoCustom.setSubtractpoints(subtractpoints);
-		tTaskInfoCustom.setTaskstate("15");//待分配状态
-		tTaskInfoCustom.setCreatetime(sdf.format(new Date()));
-		tTaskInfoCustom.setUpdatetime(sdf.format(new Date()));
-		tTaskInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
-		tTaskInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
-		for (int i = 0; i <= days; i++) {
-			for (int ii = 0; ii < taskkeywordarr.length; ii++) {
-				tTaskInfoCustom.setTaskid(UUID.randomUUID().toString().replace("-", ""));
-				tTaskInfoCustom.setTaskkeyword(taskkeywordarr[ii]);
-				tTaskInfoCustom.setTaskdate(sdf.format(date));
-				taskInfoService.insertTaskInfo(tTaskInfoCustom);
-				
-			}
-			date = sdf.parse(sdf.format(date.getTime()+24*3600*1000));
-		}
-		map.put("data", "insertsuccess");
-		//扣除消耗的积分
-		 
-		tUserInfoCustom.setPoints(Integer.parseInt(points)-subtractpoints);
-		userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
-		//添加积分明细记录
-		 
-		TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
-		tPointsInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
-		tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
-		tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
-		tPointsInfoCustom.setUpdateuser("sys");
-		tPointsInfoCustom.setPointreason("发布任务" + tTaskInfoCustom.getTaskpk() + "消耗积分"+subtractpoints);
-		tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
-		tPointsInfoCustom.setPoints(tUserInfoCustom.getPoints());
-		tPointsInfoCustom.setPointstype("27");
-		tPointsInfoCustom.setPointsupdate(subtractpoints);
-		tPointsInfoCustom.setTaskpk(0);
-		tPointsInfoCustom.setUserid(tUserInfoCustom.getUserid());
-		pointsInfoService.savePoints(tPointsInfoCustom);
-		return map;
-	}*/
-	
 	/*
 	 * 删除卡机任务，并返回该任务状态为执行失败
 	 */
@@ -1086,6 +930,5 @@ public class TaskInfoController {
 		mv.setViewName("/task/findtasklocklist");
 		return mv;
 	}
-	
 	
 }
