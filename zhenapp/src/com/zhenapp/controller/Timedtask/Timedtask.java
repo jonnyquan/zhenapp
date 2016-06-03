@@ -93,6 +93,22 @@ public class Timedtask {
         logger.info("任务错误数大于等于系统设置的最大任务错误数即终止该任务数....每分钟执行一次");
 	}
 	
+	@Scheduled(cron = "0 */1 * * * ?")//每隔1分钟执行一次 将符合要求的详情任务放入详情任务临时表
+	public void job5() throws HttpException, IOException {
+		HttpClient httpClient = new HttpClient();
+		String result="";
+		String url = host+"/api/allocationTask";
+        PostMethod postMethod = new PostMethod(url);
+        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+        int statusCode =  httpClient.executeMethod(postMethod);
+        if(statusCode == 200) {
+            result = postMethod.getResponseBodyAsString();
+            System.out.println(result);
+        }else {
+            System.out.println("调用失败" + statusCode);
+        }
+	}
+	
 	@Scheduled(cron = "0 1 0 * * ?")//每天0点1分执行一次
 	public void updateTaskstateByTime() throws Exception { 
 		logger.info("任务执行开始....每天0点1分执行一次");

@@ -117,4 +117,10 @@ public class TaskDetailInfoServiceImp implements TaskDetailInfoService {
 		// TODO Auto-generated method stub
 		return tTaskDetailinfoCustomMapper.findtaskdatasum(hashmap);
 	}
+	@Override
+	public TTaskDetailInfoCustom requesttaskByphoneid_temp(
+			HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskDetailinfoCustomMapper.requesttaskByphoneid_temp(hashmap);
+	}
 }

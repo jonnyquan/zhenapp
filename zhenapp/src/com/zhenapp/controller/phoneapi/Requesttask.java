@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,16 +14,18 @@ import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 import com.zhenapp.service.PhoneInfoService;
 import com.zhenapp.service.ScriptInfoService;
 import com.zhenapp.service.TaskDetailInfoService;
+import com.zhenapp.service.TaskDetailInfoTempService;
 import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.TbaccountInfoService;
 
-@Scope("prototype")
 @Controller
 public class Requesttask {
 	@Autowired
 	private PhoneInfoService phoneInfoService;
 	@Autowired
 	private TaskInfoService taskInfoService;
+	@Autowired
+	private TaskDetailInfoTempService taskDetailInfoTempService;
 	@Autowired
 	private TaskDetailInfoService taskDetailInfoService;
 	@Autowired
@@ -40,7 +41,7 @@ public class Requesttask {
 	 *param:pid-->手机号
 	 */
 	@RequestMapping(value="/api/phone/request/task/{pid}")
-	public synchronized @ResponseBody String requesttask(@PathVariable(value="pid")String pid) throws Exception{
+	public @ResponseBody String requesttask(@PathVariable(value="pid")String pid) throws Exception{
 		StringBuffer sb=new StringBuffer();
 		//查询当前手机是否有未完成的任务
 		HashMap<String, Object> hashmap = new HashMap<String,Object>();
@@ -59,31 +60,20 @@ public class Requesttask {
 			sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustoming);
 			return sb.toString();
 		}else{
-			HashMap<String, Object> countmap= new HashMap<String, Object>();
-			countmap.put("today", yyyyMMdd.format(new Date()));
-			countmap.put("taskstate", "40");
-			int taskdetainfocounts = taskDetailInfoService.findTaskDetailInfoByIdAndTaskstate(countmap);
-			if(taskdetainfocounts>0){
-				HashMap<String, Object> hashmap2 = new HashMap<String, Object>();
-				hashmap2.put("phoneid", phoneid);
-				hashmap2.put("today", yyyyMMdd.format(new Date()));
-				hashmap2.put("HHmm", HHmm.format(new Date()));
-				TTaskDetailInfoCustom tTaskDetailInfoCustomtype1collection = taskDetailInfoService.requesttaskByphoneid(hashmap2);
-				if(tTaskDetailInfoCustomtype1collection!=null){
-					hashmap.put("taskdetailid", tTaskDetailInfoCustomtype1collection.getTaskdetailid());
-					hashmap.put("updatetime", sdf.format(new Date()));
-					hashmap.put("updateuser", "api手机端获取");
-					int i =taskDetailInfoService.updateTaskDetailstate(hashmap);
-					if(i > 0){
-						sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustomtype1collection);
-						//将返回的字符串更新到数据表中
-						hashmap.put("result", sb.toString());
-						hashmap.put("updatetime", sdf.format(new Date()));
-						hashmap.put("updateuser", "api手机端修改字符串");
-						taskDetailInfoService.updateTaskDetailresultByid(hashmap);
-						return sb.toString();
-					}
-				}
+			HashMap<String, Object> hashmap2 = new HashMap<String, Object>();
+			hashmap2.put("phoneid", phoneid);
+			TTaskDetailInfoCustom tTaskDetailInfoCustomtype1collection = taskDetailInfoService.requesttaskByphoneid(hashmap2);
+			if(tTaskDetailInfoCustomtype1collection!=null){
+				hashmap.put("taskdetailid", tTaskDetailInfoCustomtype1collection.getTaskdetailid());
+				hashmap.put("updatetime", sdf.format(new Date()));
+				hashmap.put("updateuser", "api手机端获取");
+				taskDetailInfoService.updateTaskDetailstate(hashmap);
+				//taskDetailInfoTempService.deletetaskDetailInfoTemp(hashmap);
+				//将临时表的详情任务状态修改为执行中
+				hashmap.put("oldstate", "20");
+				taskDetailInfoTempService.updatestate(hashmap);
+				sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustomtype1collection);
+				return sb.toString();
 			}
 			sb.append("暂时没有任务");
 			return sb.toString();

@@ -10,9 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -23,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zhenapp.po.Custom.MsgInfoCustom;
 import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
 import com.zhenapp.po.Custom.TPriceInfoCustom;
@@ -42,7 +39,6 @@ import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.UserInfoService;
 import com.zhenapp.util.DateUtilWxf;
-import com.zhenapp.util.StringUtilWxf;
 @Transactional
 @Controller
 @RequestMapping(value="/task")
@@ -847,7 +843,7 @@ public class TaskInfoController {
 								tTaskDetailInfoCustom.setTaskhour(j);
 								tTaskDetailInfoCustom.setTaskminute(0);
 								if(Integer.parseInt(yyyyMMdd.format(date))<=Integer.parseInt(yyyyMMdd.format(new Date()))
-									&& j<= Integer.parseInt(hh.format(new Date())) && collectionminute[i] <= Integer.parseInt(mm.format(new Date()))){
+									&& j<= Integer.parseInt(hh.format(new Date())) && 0<= Integer.parseInt(mm.format(new Date()))){
 									tTaskDetailInfoCustom.setTaskstate("23");
 								}else{
 									tTaskDetailInfoCustom.setTaskstate("40");
@@ -874,7 +870,7 @@ public class TaskInfoController {
 								tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
 								
 								if(Integer.parseInt(yyyyMMdd.format(date))<=Integer.parseInt(yyyyMMdd.format(new Date()))
-									&& j<= Integer.parseInt(hh.format(new Date())) && collectionminute[j2] <= Integer.parseInt(mm.format(new Date()))){
+									&& j<= Integer.parseInt(hh.format(new Date())) && 0 <= Integer.parseInt(mm.format(new Date()))){
 									tTaskDetailInfoCustom.setTaskstate("23");
 								}else{
 									tTaskDetailInfoCustom.setTaskstate("40");

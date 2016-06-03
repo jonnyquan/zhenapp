@@ -294,16 +294,16 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-    $('.scl6').addClass('hover');
-</script>
+	    $('.scl6').addClass('hover');
+	</script>
 
 	<div class="uc_warp">
 		<div class="userbody clearfix">
 			<div class="leftmenu row_l">
 			</div>
-<script type="text/javascript">
-   $('#addtask').addClass('hover');
-</script>
+	<script type="text/javascript">
+	   $('#addtask').addClass('hover');
+	</script>
 			<div class="rightbox row_r">
 				<div class="u_outbox">
 					<div class="tabtitle clearfix">

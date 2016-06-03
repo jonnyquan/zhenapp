@@ -46,6 +46,11 @@ public interface TaskDetailInfoService {
 	 */
 	public TTaskDetailInfoCustom requesttaskByphoneid(HashMap<String, Object> hashmap) throws Exception;
 	/*
+	 * 根据手机id获取符合规则的任务详情
+	 */
+	public TTaskDetailInfoCustom requesttaskByphoneid_temp(HashMap<String, Object> hashmap) throws Exception;
+	
+	/*
 	 * 根据任务详情id修改该任务详情状态
 	 */
 	public int updateTaskDetailstate(HashMap<String, Object> hashmap) throws Exception;

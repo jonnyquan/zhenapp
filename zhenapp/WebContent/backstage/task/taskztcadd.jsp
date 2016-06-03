@@ -294,31 +294,27 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-    $('.scl6').addClass('hover');
-</script>
+	    $('.scl6').addClass('hover');
+	</script>
+
 	<div class="uc_warp">
 		<div class="userbody clearfix">
 			<div class="leftmenu row_l">
-				
 			</div>
-			<script type="text/javascript">
-        $('#addztctask').addClass('hover');
-    </script>
+	<script type="text/javascript">
+	   $('#addztctask').addClass('hover');
+	</script>
 			<div class="rightbox row_r">
 				<div class="u_outbox">
 					<div class="tabtitle clearfix">
 						<a href="../task/responsetaskadd" class="row_l hover">淘宝APP流量</a>
 						<!--  <a href="/user/task/taokouling/add" class="row_l">淘口令流量</a>-->
-						<a href="${pageContext.request.contextPath}/detail/1715" target="_blank"
-							class="row_r" style="color:#FF0000">如何发布淘宝APP流量？</a>
+						<a href="${pageContext.request.contextPath}/frontend/articleguidedetail/5" target="_blank" class="row_r" style="color:#FF0000">如何发布淘宝APP流量？</a>
 					</div>
 					<div class="umainbox">
 						<!--main-->
 						<div id="addTaskDiv">
 							<form class="koo_fromBox" >
-								<input type="hidden" name="_token"
-									value="t1yIDXF06aLrBmCEySsRpefqJxLY1EARgWOjXaYV">
-
 								<div class="taxkTips">
 									<h2>
 										<scan class="scan_icon">
@@ -326,66 +322,63 @@
 										任务基本信息区
 									</h2>
 								</div>
-								<table class="table">
-									<tr>
-										<td>
-											宝贝id
-										</td>
-										<td>
-											<input type="text" name="taskkeynum" id="taskkeynum"
-												placeholder="请输入宝贝id" class='form-control' value="528712405918" onblur="checkkeynum(this);" />
-											<span id="span" style="color:#aaa;"></span>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											直通车图片
-										</td>
-										<td>
-											<input type="text" name="taskimgztc" id="taskimgztc" placeholder="请输入直通车图片" class='form-control'
-											 onblur="checkztcurl(this);" />
-											<span id="imgztcspan" style="color:#aaa;"></span>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											关键词
-										</td>
-										<td>
-											<table id="tab_keyword">
-												<tr>
-													<td>
-														<input type="text" name="taskkeywords" class='form-control' style="width:600px;" placeholder="请输入关键词" value="2016夏季新款亚麻女装"/>		
-													</td>
-													<td>
-														<input type="button" class="easyui-linkbutton" iconCls="icon-add" onclick="addinput();" value="&nbsp;&nbsp;添 &nbsp;加 &nbsp;&nbsp;" />
-													</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											发布时间
-										</td>
-										<td>
-											<lable style="padding:0 10px 0 10px;">从:</lable>
-											<input type="text" name="datefrom" id="datefrom"  width="200px"  />
-											到：<input type="text" name="dateto" id="dateto"  width="200px"  />
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<label >宝贝价格</label>
-										</td>
-										<td>
-											<input type="text" name="taskprice" id="taskprice" class='form-control' placeholder="请输入宝贝价格" value="120"/>
-										</td>
-									</tr>
+								<div class="form_control clearfix">
+									<label class="form_label">宝贝url：</label> 
+									<input type="text" name="taskurl" placeholder="请输入宝贝url" id="taskurl" style="width:350px;"
+									<c:if test="${tTaskInfoCustom.taskurl!=null }">value="${tTaskInfoCustom.taskurl}"</c:if>
+									<c:if test="${tTaskInfoCustom.taskurl==null }">value=" "</c:if>
+									maxlength="1000" onchange="checkurl(this);" />&nbsp;&nbsp;&nbsp;&nbsp;
+									<span id="span_taskurl"></span>
+									<!-- 例如:https://item.taobao.com/item.htm?id=531027639098 --><br/>
+								</div>
+								<label class="form_label"></label>
+								<table id="tab_keyword" style="padding: 0px;">
+										<tr>
+											<c:if test="${tTaskInfoCustom!=null}">
+												<td style="width:170px;" align="right">
+													<label class="form_label">关键词：</label>
+												</td>
+												<td style="width:10px;">
+												</td>
+												<td>
+													<input type="text" name="taskkeywords" style="width:200px;" value="${tTaskInfoCustom.taskkeyword}" placeholder="请输入关键词" onchange="checkword(this);" />		
+												</td>
+												<td style="width:5px;">
+												</td>
+												<td>
+													<input type="button" class="easyui-linkbutton" iconCls="icon-add" onclick="addinput();" value="&nbsp;&nbsp;添 &nbsp;加 &nbsp;&nbsp;" />
+												</td>
+												<td style="width:10px;">
+												</td>
+												<td>
+													
+												</td>
+											</c:if>
+											<c:if test="${tTaskInfoCustom==null}">
+												<td style="width:170px;" align="right">
+													<label class="form_label">关键词：</label>
+												</td>
+												<td style="width:10px;">
+												</td>
+												<td>
+													<input type="text" name="taskkeywords"  style="width:200px;" onchange="checkword(this);" />		
+												</td>
+												<td style="width:5px;">
+												</td>
+												<td>
+													<input type="button" class="easyui-linkbutton" iconCls="icon-add" onclick="addinput();" value="&nbsp;&nbsp;添 &nbsp;加 &nbsp;&nbsp;" />
+												</td>
+												<td style="width:10px;">
+												</td>
+												<td>
+												</td>
+											</c:if>
+										</tr>
 								</table>
-
-								<div class="box">
-
+								<div class="form_control clearfix" style="height:0px;">
+								</div>
+								
+								<div class="box" style="padding:0px 0px;">
 									<div class="taxkTips box_toggle">
 										<h2>
 											<scan class="scan_icon">
@@ -406,19 +399,13 @@
 												<option value="36">信用排序</option>
 											</select>
 										</div>
-
 										<div class="form_control clearfix">
-
-											<label class="form_label">限价区间：</label> <input
-												class="form_input input50" type="text"
-												name="priceRangeMinValue" id="priceRangeMinValue"
-												v-model="start_price" value=0 /> <span
-												class="Validform_checktip scan_break">--</span> <input
-												class="form_input input50" type="text"
-												name="priceRangeMaxValue" id="priceRangeMaxValue"
-												v-model="end_price" value=0 /> <label class="form_label">发货地：</label>
-											<select name="searchArea" id="searchArea"
-												class="form_select select_big" v-model="loc">
+											<label class="form_label">限价区间：</label> 
+											<input class="form_input input50" type="text" name="priceRangeMinValue" id="priceRangeMinValue" v-model="start_price" value=0 /> 
+											<span class="Validform_checktip scan_break">--</span> 
+											<input class="form_input input50" type="text" name="priceRangeMaxValue" id="priceRangeMaxValue" v-model="end_price" value=0 /> 
+											<label class="form_label">发货地：</label>
+											<select name="searchArea" id="searchArea" class="form_select select_big" v-model="loc">
 												<option value="所有地区">所有地区</option>
 												<option value="江浙沪">江浙沪</option>
 												<option value="珠三角">珠三角</option>
@@ -489,23 +476,33 @@
 										</div>
 
 										<div class="form_control clearfix">
-											<label class="form_label">折扣和服务：</label> <label
-												class="form_radio"><input type="checkbox"
-												name="myfChecked" v-model="myfChecked" /><span>免运费</span></label> <label
-												class="form_radio"><input type="checkbox"
-												name="tmChecked" v-model="tmChecked" /><span>天猫</span></label> <label
-												class="form_radio"><input type="checkbox"
-												name="sjzxChecked" v-model="sjzxChecked" /><span>手机专享</span></label>
-											<label class="form_radio"><input type="checkbox"
-												name="tjbChecked" v-model="tjbChecked" /><span>淘金币抵钱</span></label>
-											<label class="form_radio"><input type="checkbox"
-												name="hdfkChecked" v-model="hdfkChecked" /><span>货到付款</span></label>
-											<label class="form_radio"><input type="checkbox"
-												name="cxChecked" v-model="cxChecked" /><span>促销</span></label>
+											<label class="form_label">折扣和服务：</label> 
+											<label class="form_radio">
+												<input type="checkbox" name="myfChecked" v-model="myfChecked" />
+												<span>免运费</span></label> 
+											<label class="form_radio">
+												<input type="checkbox" name="tmChecked" v-model="tmChecked" />
+												<span>天猫</span>
+											</label> 
+											<label class="form_radio">
+												<input type="checkbox" name="sjzxChecked" v-model="sjzxChecked" />
+												<span>手机专享</span>
+											</label>
+											<label class="form_radio">
+												<input type="checkbox" name="tjbChecked" v-model="tjbChecked" />
+												<span>淘金币抵钱</span>
+											</label>
+											<label class="form_radio">
+												<input type="checkbox" name="hdfkChecked" v-model="hdfkChecked" />
+												<span>货到付款</span>
+											</label>
+											<label class="form_radio">
+												<input type="checkbox" name="cxChecked" v-model="cxChecked" />
+												<span>促销</span>
+											</label>
 										</div>
 									</div>
 								</div>
-								
 								<div class="taxkTips">
 									<h2>
 										<scan class="scan_icon">
@@ -528,13 +525,19 @@
 									</tr>
 								</table>
 								<div class="form_control clearfix">
-									<label class="form_label">任务数量：</label> 
-									<input type="text" name="flowcount" id="flowcount"
-										placeholder="请输入需要的流量数" onblur="fpll(this)"
-										onchange="fpll(this)" value="1"
-										onkeyup="this.value=this.value.replace(/\D/g,'')"
-										onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+									<label class="form_label">发布时间：</label> 
+									<lable style="padding:0px;"></lable>
+									<input type="text" name="datefrom" id="datefrom" width="200px"/>--<input type="text" name="dateto" id="dateto" width="200px"/>
 								</div>
+								<div class="form_control clearfix">
+									<label class="form_label">任务数量：</label> 
+									<input type="text" name="flowcount" id="flowcount" <c:if test="${tTaskInfoCustom.flowcount!=null }">value="${tTaskInfoCustom.flowcount}"</c:if>
+									<c:if test="${tTaskInfoCustom.flowcount==null }">value="1"</c:if>
+										placeholder="请输入需要的流量数" onblur="fpll(this)"
+										onkeyup="this.value=this.value.replace(/\D/g,'')"
+										onafterpaste="this.value=this.value.replace(/\D/g,'')" />&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_flowcount"></span>
+								</div>
+								
 								<div class="form_control form_control_dist clearfix">
 									<label class="form_label">任务分布：</label>
 									<div class="hourCounts clearfix">
@@ -714,39 +717,43 @@
 									</div>
 								</div>
 								<div class="form_control clearfix">
+									<label class="form_label">深入点击比例：</label> 
+									<input type="text" name="deepclick" id="deepclick" maxlength="3" onblur="checkdeep();"
+													onkeyup="this.value=this.value.replace(/\D/g,'')"
+													onafterpaste="this.value=this.value.replace(/\D/g,'')"
+													<c:if test="${tTaskInfoCustom.shoppingcount!=null }">value="${tTaskInfoCustom.shoppingcount}"</c:if>
+													<c:if test="${tTaskInfoCustom.shoppingcount==null }">value="0"</c:if>
+													 />
+													 <apan style="font-size:20px;">%</apan>
+												（百分比，0到100整数，浏览店铺其它宝贝比例）&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_deepclick"></span>
+								</div>
+								<div class="form_control clearfix">
 									<label class="form_label">收藏数量：</label> 
 									<input name="collectioncount" id="collectioncount"
-										placeholder="请输入收藏数" onblur="fpsc(this)" value="0"
+										placeholder="请输入收藏数" onchange="fpsc(this)" 
+										<c:if test="${tTaskInfoCustom.collectioncount!=null }">value="${tTaskInfoCustom.flowcount}"</c:if>
+										<c:if test="${tTaskInfoCustom.collectioncount==null }">value="0"</c:if>
 										onkeyup="this.value=this.value.replace(/\D/g,'')"
-										onafterpaste="this.value=this.value.replace(/\D/g,'')"/> 
+										onafterpaste="this.value=this.value.replace(/\D/g,'')"/>&nbsp;&nbsp;<span id="span_collection_text"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_collection"></span>
 								</div>
 								<div class="form_control clearfix">
 									<label class="form_label">加购物车数量：</label> 
 									<input type="text" name="shoppingcount" id="shoppingcount"
-										placeholder="请输入购物车数"  onblur="fpgwc(this)" value="0"
+										placeholder="请输入购物车数"  onchange="fpgwc(this)" 
+										<c:if test="${tTaskInfoCustom.shoppingcount!=null }">value="${tTaskInfoCustom.shoppingcount}"</c:if>
+										<c:if test="${tTaskInfoCustom.shoppingcount==null }">value="0"</c:if>
 										onkeyup="this.value=this.value.replace(/\D/g,'')"
-										onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+										onafterpaste="this.value=this.value.replace(/\D/g,'')" />&nbsp;&nbsp;<span id="span_shopping_text"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_shopping"></span>
 								</div>
 								<div id="buttonSubmit" class="form_control clearfix"
 									style="margin-top:20px; border-bottom:none;">
 									<div class="botton" style="margin-left:40px;">
 										<input type="button" class="btn btn-info" id="subbtn" value="发布任务" />
-										<!--  <button id="orderCheck" type="button" name="orderCheck"
-											 v-on="click: searchOrder">排名检查</button>
-										&nbsp;&nbsp;<font color="#FF0000">*发布任务前务必先进行“排名检查”</font>-->
 									</div>
 								</div>
-								<!--  <div id="searchOrderWrapper" class="form_control clearfix"
+								<div id="searchOrderWrapper" class="form_control clearfix"
 									style="margin-top:20px; border-bottom:none;">
 									<div id="searchOrderInnerWrapper" class="botton"></div>
-								</div>-->
-								<div id="searchOrderWrapper" class="form_control clearfix"
-									style="margin-top:20px; border-bottom:none;color:red;font-size:18px;">
-									【注】：如果要加收藏或者购物车，必须绑定与访问数相同数量的收藏或者购物车
-								</div>
-								<div id="searchOrderWrapper" class="form_control clearfix"
-									style="margin-top:20px; border-bottom:none;color:red;font-size:18px;">
-									【注】：在任务期间，请勿修改宝贝的图片，价格，标题等重要的信息，否则找不到宝贝，一律不返回积分
 								</div>
 							</form>
 						</div>
@@ -756,7 +763,6 @@
 			</div>
 			<script type="text/javascript">
         $(function () {
-        	
         	$(".leftmenu").load("${pageContext.request.contextPath}/backstage/user/menu.jsp");
         	
             $(".koo_fromBox").Validform({
@@ -772,21 +778,18 @@
         });
         var uri = "${pageContext.request.contextPath}";
     </script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/vue.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/addtask-v3.26.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/layer_user.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/taskztcadd.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/backstage/pagematter/common/js/Validform_v5.3.2.js"></script>
-				
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/vue.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/addtask-v3.26.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/layer_user.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/taskadd.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/Validform_v5.3.2.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/easyui/locale/easyui-lang-zh_CN.js"></script>
 		</div>
 	</div>
 	<div class="copyRight">
