@@ -441,7 +441,7 @@ var isurl=false;
 				type : "POST",
 				success:function(data,state){
 					if(data!=null && data.status=='y'){
-						llmax=data.count;
+						//llmax=data.count;
 						scmax=data.collectiontaskcount;
 						gwcmax=data.shoppingtaskcount;
 						$("#span_shopping_text").html("  最多可发布购物车数:"+gwcmax);
@@ -450,11 +450,11 @@ var isurl=false;
 							/*$.messager.alert('消息提示', '该宝贝发布流量数不能大于允许发布的最大流量数!', 'info', function () {
 								$("#flowcount").val(llmax);
 								fpll($("#flowcount")[0]);
-							});*/
+							});
 							$("#span_flowcount").html("该宝贝发布流量数不能大于允许发布的最大流量数");
 							$("#span_flowcount").css("color","red");
 							$("#flowcount").val(llmax);
-							fpll($("#flowcount")[0]);
+							fpll($("#flowcount")[0]);*/
 						}else{
 							$("#span_flowcount").html("该宝贝发布流量数填写正确!");
 							$("#span_flowcount").css("color","green");
@@ -537,6 +537,9 @@ var isurl=false;
 						istaskword=obj.value;
 					}else{
 						istaskword="";
+						$(obj).parent().next().next().next().next().html("关键词填写正确");
+						$(obj).parent().next().next().next().next().css("color","green");
+						
 					}
 				}
 			});

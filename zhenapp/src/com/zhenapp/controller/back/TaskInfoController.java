@@ -707,6 +707,7 @@ public class TaskInfoController {
 				tTaskDetailInfoFlowCustom.setUpdatetime(sdf.format(new Date()));
 				tTaskDetailInfoFlowCustom.setUpdateuser("sys");
 				taskDetailInfoFlowService.insertTaskDetailInfoFlow(tTaskDetailInfoFlowCustom);
+				/*
 				//调用接口发送任务
 				HttpClient httpClient = new HttpClient();
 				String result="";
@@ -752,7 +753,7 @@ public class TaskInfoController {
 			        map.put("msg", "失败错误码" + statusCode);
 			        throw new RuntimeException();
 			        //return map;
-			    }
+			    }*/
 				//2.再分配收藏和加购
 				int count=0;
 				for (int j = 0; j < hourarr.length; j++) {

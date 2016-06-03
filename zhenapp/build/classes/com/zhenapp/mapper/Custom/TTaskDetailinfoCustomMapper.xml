@@ -2,27 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhenapp.mapper.Custom.TTaskDetailinfoCustomMapper" >
   <select id="requesttaskByphoneid" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
-  	SELECT * FROM t_task_detailinfo 
-  	<where>
-  		<if test="phoneid !=null and phoneid != '' ">
-  			and taskkeynum NOT IN (SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%d') AND phoneid = #{phoneid} GROUP BY taskkeynum HAVING COUNT(1)>1)
-  		</if>
-  		<if test="iscollection !=null and iscollection != '' ">
-  			AND iscollection =#{iscollection} AND taskkeynum NOT IN (SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%d') AND phoneid = #{phoneid} AND iscollection = #{iscollection})
-  		</if>
-  		<if test="isshopping !=null and isshopping != '' ">
-  			AND isshopping =#{isshopping} AND taskkeynum NOT IN (SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=DATE_FORMAT(NOW(),'%Y%m%d') AND phoneid = #{phoneid} AND isshopping = #{isshopping})
-  		</if>
-  		<if test="type !=null and type != '' ">
-  			<if test="type == 1">
-  				and taskhour+0 <![CDATA[<]]> DATE_FORMAT(NOW(),'%H')
-  			</if>
-  			<if test="type == 2">
-  				AND taskhour+0 <![CDATA[<=]]> DATE_FORMAT(NOW(),'%H') AND taskminute+0 <![CDATA[<=]]> DATE_FORMAT(NOW(),'%i')
-  			</if>
-  		</if>
-  		and phoneid is null and taskstate = '40' 
-  	</where>
+  	SELECT a.* FROM t_task_detailinfo a
+	WHERE a.phoneid IS NULL AND a.taskstate='40' AND taskdate=#{today}
+	AND (a.iscollection ="1" AND taskkeynum NOT IN (SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=#{today} AND phoneid = #{phoneid} AND iscollection = "1")
+	OR a.isshopping ="1" AND taskkeynum NOT IN (SELECT taskkeynum FROM t_task_detailinfo WHERE taskdate=#{today} AND phoneid = #{phoneid} AND isshopping = "1"))
+	AND (CASE WHEN taskminute>9 THEN CONCAT(taskhour,taskminute)+0 <![CDATA[<=]]> #{HHmm}+0 ELSE CONCAT(taskhour,'0',taskminute)+0 <![CDATA[<=]]> #{HHmm}+0 END)
   	ORDER BY taskhour,taskminute LIMIT 0,1
   </select>
    
