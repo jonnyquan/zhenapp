@@ -24,6 +24,7 @@ import com.zhenapp.service.RechargeInfoService;
 import com.zhenapp.service.SysconfInfoService;
 import com.zhenapp.service.TaskDetailInfoFlowService;
 import com.zhenapp.service.TaskDetailInfoService;
+import com.zhenapp.service.TaskDetailInfoTempService;
 import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.UserInfoService;
 @Controller
@@ -42,6 +43,8 @@ public class CheckErrorTask {
 	private RechargeInfoService rechargeInfoService;
 	@Autowired
 	private TaskDetailInfoService taskDetailInfoService;
+	@Autowired
+	private TaskDetailInfoTempService taskDetailInfoTempService;
 	@Autowired
 	private PointsInfoService pointsInfoService;
 	@Autowired
@@ -76,6 +79,9 @@ public class CheckErrorTask {
 				taskInfoService.updateTaskstate(hashmap);//修改状态为终止中
 				taskDetailInfoService.updateterminationstate(hashmap);//修改状态为执行终止
 				taskDetailInfoFlowService.updateTaskstate(hashmap);//流量详情修改为终止中
+				hashmap.put("newstate", 40);
+				hashmap.put("oldstate", 23);
+				taskDetailInfoTempService.updatestate(hashmap);
 				TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);//根据任务id查询出流量详情信息
 				//并调用接口终止发布到第一个手机网站的任务
 				String url="http://liuliangapp.com/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/finish";

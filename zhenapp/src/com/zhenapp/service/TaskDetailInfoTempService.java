@@ -14,4 +14,5 @@ public interface TaskDetailInfoTempService {
 	public int deletetaskDetailInfoTemp(HashMap<String, Object> hashmap) throws Exception;
 	//根据条件修改详情任务临时信息的状态
 	public int updatestate(HashMap<String, Object> hashmap) throws Exception;
+	
 }

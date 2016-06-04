@@ -6,10 +6,32 @@
 	</select>
 	
 	<delete id="deletetaskDetailInfoTemp" parameterType="java.util.HashMap">
-		delete from t_task_detailinfo_temp where taskdetailid=#{taskdetailid}
+		delete from t_task_detailinfo_temp 
+		<where>
+			<if test="taskdetailid != null and taskdetailid != ''">
+				and taskdetailid=#{taskdetailid}
+			</if>
+			<if test="taskid != null and taskid != ''">
+				and taskid=#{taskid}
+			</if>
+			<if test="taskstate != null and taskstate != ''">
+				and taskstate=#{taskstate}
+			</if>
+		</where>
 	</delete>
 	<update id="updatestate" parameterType="java.util.HashMap">
-		update t_task_detailinfo_temp set taskstate = #{oldstate} where taskdetailid=#{taskdetailid}
+		update t_task_detailinfo_temp set taskstate = #{oldstate} 
+		<where>
+			<if test="taskdetailid !=null and taskdetailid != ''">
+			 	and taskdetailid=#{taskdetailid}
+			</if>
+			<if test="taskid !=null and taskid != ''">
+			 	and taskid=#{taskid}
+			</if>
+			<if test="newstate !=null and newstate != ''">
+			 	and taskstate=#{newstate}
+			</if>
+		</where>
 	</update>
 
   <insert id="insertDetailinfo" parameterType="com.zhenapp.po.Custom.TTaskDetailinfoTempCustom">

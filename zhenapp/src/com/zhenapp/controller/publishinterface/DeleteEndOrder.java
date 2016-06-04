@@ -19,6 +19,7 @@ import com.zhenapp.service.RechargeInfoService;
 import com.zhenapp.service.SysconfInfoService;
 import com.zhenapp.service.TaskDetailInfoFlowService;
 import com.zhenapp.service.TaskDetailInfoService;
+import com.zhenapp.service.TaskDetailInfoTempService;
 import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.UserInfoService;
 @Controller
@@ -44,6 +45,8 @@ public class DeleteEndOrder {
 	@Autowired
 	private TaskDetailInfoFlowService taskDetailInfoFlowService;
 	@Autowired
+	private TaskDetailInfoTempService taskDetailInfoTempService;
+	@Autowired
 	private PriceInfoService priceInfoService;
 	
 	/*
@@ -60,6 +63,7 @@ public class DeleteEndOrder {
 				hashmap.put("taskstate", "23");
 				hashmap.put("taskid", tTaskInfoCustomlist.get(i).getTaskid());
 				taskDetailInfoService.deleteTaskBystate(hashmap);
+				taskDetailInfoTempService.deletetaskDetailInfoTemp(hashmap);
 				logger.info("删除订单号为:"+ tTaskInfoCustomlist.get(i).getTaskpk()+"的所有已终止订单!");
 			}
 		}

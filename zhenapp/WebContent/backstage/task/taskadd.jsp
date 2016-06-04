@@ -307,8 +307,8 @@
 			<div class="rightbox row_r">
 				<div class="u_outbox">
 					<div class="tabtitle clearfix">
-						<a href="../task/responsetaskadd" class="row_l hover">淘宝APP流量</a>
-						<!--  <a href="/user/task/taokouling/add" class="row_l">淘口令流量</a>-->
+						<a href="${pageContext.request.contextPath}/task/responsetaskadd" class="row_l hover">淘宝APP流量</a>
+						<a href="${pageContext.request.contextPath}/task/responsetaskztcadd" class="row_l ">淘宝APP直通车流量</a>
 						<a href="${pageContext.request.contextPath}/frontend/articleguidedetail/5" target="_blank" class="row_r" style="color:#FF0000">如何发布淘宝APP流量？</a>
 					</div>
 					<div class="umainbox">

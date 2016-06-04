@@ -307,8 +307,8 @@
 			<div class="rightbox row_r">
 				<div class="u_outbox">
 					<div class="tabtitle clearfix">
-						<a href="../task/responsetaskadd" class="row_l hover">淘宝APP流量</a>
-						<!--  <a href="/user/task/taokouling/add" class="row_l">淘口令流量</a>-->
+						<a href="${pageContext.request.contextPath}/task/responsetaskadd" class="row_l ">淘宝APP流量</a>
+						<a href="${pageContext.request.contextPath}/task/responsetaskztcadd" class="row_l hover">淘宝APP直通车流量</a>
 						<a href="${pageContext.request.contextPath}/frontend/articleguidedetail/5" target="_blank" class="row_r" style="color:#FF0000">如何发布淘宝APP流量？</a>
 					</div>
 					<div class="umainbox">
@@ -377,7 +377,35 @@
 								</table>
 								<div class="form_control clearfix" style="height:0px;">
 								</div>
-								
+								<div class="form_control clearfix">
+									<label class="form_label">直通车图片：</label> 
+									<input type="text" name="taskurl" placeholder="请输入宝贝url" id="taskurl" style="width:350px;"
+									<c:if test="${tTaskInfoCustom.taskurl!=null }">value="${tTaskInfoCustom.taskurl}"</c:if>
+									<c:if test="${tTaskInfoCustom.taskurl==null }">value=" "</c:if>
+									maxlength="1000" onchange="checkurl(this);" />&nbsp;&nbsp;&nbsp;&nbsp;
+									<span id="span_taskurl"></span>
+									<!-- 例如:https://item.taobao.com/item.htm?id=531027639098 --><br/>
+								</div>
+								<div class="form_control clearfix">
+									<label class="form_label">是否创意标题模式：</label> 
+									<label class="form_radio">
+										<input type="radio" name="is" v-model="myfChecked" />
+										<span>是</span></label> 
+									<label class="form_radio">
+										<input type="radio" name="is" v-model="tmChecked" />
+										<span>否</span>
+									</label> 
+									<!-- 例如:https://item.taobao.com/item.htm?id=531027639098 --><br/>
+								</div>
+								<div class="form_control clearfix">
+									<label class="form_label">宝贝价格：</label> 
+									<input type="text" name="taskurl" placeholder="请输入宝贝url" id="taskurl" style="width:350px;"
+									<c:if test="${tTaskInfoCustom.taskurl!=null }">value="${tTaskInfoCustom.taskurl}"</c:if>
+									<c:if test="${tTaskInfoCustom.taskurl==null }">value=" "</c:if>
+									maxlength="1000" onchange="checkurl(this);" />&nbsp;&nbsp;&nbsp;&nbsp;
+									<span id="span_taskurl"></span>
+									<!-- 例如:https://item.taobao.com/item.htm?id=531027639098 --><br/>
+								</div>
 								<div class="box" style="padding:0px 0px;">
 									<div class="taxkTips box_toggle">
 										<h2>

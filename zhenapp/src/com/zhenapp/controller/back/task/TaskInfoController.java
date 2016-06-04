@@ -1,4 +1,4 @@
-package com.zhenapp.controller.back;
+package com.zhenapp.controller.back.task;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,6 +36,7 @@ import com.zhenapp.service.PriceInfoService;
 import com.zhenapp.service.SysconfInfoService;
 import com.zhenapp.service.TaskDetailInfoFlowService;
 import com.zhenapp.service.TaskDetailInfoService;
+import com.zhenapp.service.TaskDetailInfoTempService;
 import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.UserInfoService;
 import com.zhenapp.util.DateUtilWxf;
@@ -49,7 +50,8 @@ public class TaskInfoController {
 	SimpleDateFormat hh = new SimpleDateFormat("HH");
 	SimpleDateFormat mm = new SimpleDateFormat("mm");
 	private static Logger logger = Logger.getLogger(TaskInfoController.class);
-	
+	@Autowired
+	private TaskDetailInfoTempService taskDetailInfoTempService;
 	@Autowired
 	private TaskInfoService taskInfoService;
 	@Autowired
@@ -75,7 +77,7 @@ public class TaskInfoController {
 	private Integer middleRows;
 	/*
 	 * 跳转到发布任务界面
-	 */
+	 
 	@RequestMapping(value="/responsetaskadd")
 	public ModelAndView responsetaskadd(HttpSession session) throws Exception{
 		ModelAndView mv=new ModelAndView();
@@ -91,10 +93,10 @@ public class TaskInfoController {
 		}
 		mv.setViewName("/backstage/task/taskadd.jsp");
 		return mv;
-	}
+	}*/
 	/*
 	 * 跳转到发布直通车任务界面
-	 */
+	
 	@RequestMapping(value="/responsetaskztcadd")
 	public ModelAndView responsetaskztcadd(HttpSession session) throws Exception{
 		ModelAndView mv=new ModelAndView();
@@ -110,7 +112,7 @@ public class TaskInfoController {
 		}
 		mv.setViewName("/backstage/task/taskztcadd.jsp");
 		return mv;
-	}
+	} */
 	/*
 	 * 跳转到订单查询界面--代理  当前订单管理
 	 */
@@ -517,6 +519,9 @@ public class TaskInfoController {
 		taskInfoService.updateTaskstate(hashmap);//修改状态为终止中
 		taskDetailInfoService.updateterminationstate(hashmap);//修改状态为执行终止
 		taskDetailInfoFlowService.updateTaskstate(hashmap);//流量详情修改为终止中
+		hashmap.put("newstate", 40);
+		hashmap.put("oldstate", 23);
+		taskDetailInfoTempService.updatestate(hashmap);
 		TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);//根据任务id查询出流量详情信息
 		//并调用接口终止发布到第一个手机网站的任务
 		String url="http://liuliangapp.com/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/finish";
@@ -582,12 +587,7 @@ public class TaskInfoController {
 		ModelMap map=new ModelMap();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		TPriceInfoCustom tPriceInfoCustom = priceInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
-		//取当前小时
-		//long curren = System.currentTimeMillis();
-		//curren += 60 * 60 * 1000;
-		//Date da = new Date(curren);
-		//SimpleDateFormat dateFormat = new SimpleDateFormat("HH");
-		//int hours = Integer.parseInt(dateFormat.format(da));
+		
 		//计算需要消耗的积分数
 		int days = DateUtilWxf.getBetweenDays(tTaskInfoCustom.getTaskstartdate().replace("-", ""), tTaskInfoCustom.getTaskenddate().replace("-", ""));
 		String [] taskkeywordarr=taskkeywords.split("====");

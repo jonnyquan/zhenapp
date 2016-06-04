@@ -12,6 +12,9 @@ var isurl=false;
 
 	;$(function() {
 		$("#taskurl").focus();
+		if($("#taskurl").val().length >1){
+			checkurl($("#taskurl")[0]);
+		}
 		
 		fpll($("#flowcount")[0]);//默认加载一次分配流量数
 		
