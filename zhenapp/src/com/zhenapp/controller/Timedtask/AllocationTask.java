@@ -3,6 +3,7 @@ package com.zhenapp.controller.Timedtask;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zhenapp.po.Custom.TSysconfInfoCustom;
+import com.zhenapp.po.Custom.TPhoneInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailinfoTempCustom;
 import com.zhenapp.service.PhoneInfoService;
@@ -44,16 +45,18 @@ public class AllocationTask {
 		ModelMap map = new ModelMap();
 		StringBuffer sb=new StringBuffer();
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
-		TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
-		for (int i = 1; i <= Integer.parseInt(tSysconfInfoCustom.getSysconfvalue1()); i++) {
+		//TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
+		List<TPhoneInfoCustom> TPhoneInfoCustomlist = phoneInfoService.findPhoneAndTask(hashmap);
+		for (int i = 0; i < TPhoneInfoCustomlist.size(); i++) {
+			TPhoneInfoCustom tPhoneInfoCustom = TPhoneInfoCustomlist.get(i);
 			hashmap.clear();
-			hashmap.put("phoneid", i);
+			hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
 			hashmap.put("iscollection", 1);
 			hashmap.put("today", yyyyMMdd.format(new Date()));
-			hashmap.put("HHmm", HHmm.format(new Date()));
+			hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
 			TTaskDetailInfoCustom tTaskDetailInfoCustomtype1collection = taskDetailInfoService.requesttaskByphoneid_temp(hashmap);
 			if(tTaskDetailInfoCustomtype1collection!=null){
-				tTaskDetailInfoCustomtype1collection.setPhoneid(i+"");
+				tTaskDetailInfoCustomtype1collection.setPhoneid(tPhoneInfoCustom.getPhoneid());
 				TTaskDetailinfoTempCustom tTaskDetailinfoTempCustom = TTaskDetailinfoTempCustom.setTTaskDetailinfoTempCustom(tTaskDetailInfoCustomtype1collection);
 				taskDetailInfoTempService.insertDetailinfo(tTaskDetailinfoTempCustom);
 				sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustomtype1collection);
@@ -65,13 +68,13 @@ public class AllocationTask {
 				taskDetailInfoService.updateTaskDetailresultByid(hashmap);
 			}
 			hashmap.clear();
-			hashmap.put("phoneid", i);
+			hashmap.put("phoneid", tPhoneInfoCustom.getPhoneid());
 			hashmap.put("isshopping", 1);
 			hashmap.put("today", yyyyMMdd.format(new Date()));
-			hashmap.put("HHmm", HHmm.format(new Date()));
+			hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
 			TTaskDetailInfoCustom tTaskDetailInfoCustomtype1shopping = taskDetailInfoService.requesttaskByphoneid_temp(hashmap);
 			if(tTaskDetailInfoCustomtype1shopping!=null){
-				tTaskDetailInfoCustomtype1shopping.setPhoneid(i+"");
+				tTaskDetailInfoCustomtype1shopping.setPhoneid(tPhoneInfoCustom.getPhoneid());
 				TTaskDetailinfoTempCustom tTaskDetailinfoTempCustom = TTaskDetailinfoTempCustom.setTTaskDetailinfoTempCustom(tTaskDetailInfoCustomtype1shopping);
 				taskDetailInfoTempService.insertDetailinfo(tTaskDetailinfoTempCustom);
 				sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustomtype1shopping);

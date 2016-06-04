@@ -379,32 +379,28 @@
 								</div>
 								<div class="form_control clearfix">
 									<label class="form_label">直通车图片：</label> 
-									<input type="text" name="taskurl" placeholder="请输入宝贝url" id="taskurl" style="width:350px;"
-									<c:if test="${tTaskInfoCustom.taskurl!=null }">value="${tTaskInfoCustom.taskurl}"</c:if>
-									<c:if test="${tTaskInfoCustom.taskurl==null }">value=" "</c:if>
-									maxlength="1000" onchange="checkurl(this);" />&nbsp;&nbsp;&nbsp;&nbsp;
-									<span id="span_taskurl"></span>
-									<!-- 例如:https://item.taobao.com/item.htm?id=531027639098 --><br/>
+									<input type="text" name="taskimgztc" placeholder="请输入直通车图片" id="taskimgztc" style="width:350px;"
+									<c:if test="${tTaskInfoCustom.taskimgztc!=null }">value="${tTaskInfoCustom.taskimgztc}"</c:if>
+									<c:if test="${tTaskInfoCustom.taskimgztc==null }">value=" "</c:if>
+									maxlength="1000" />&nbsp;&nbsp;&nbsp;&nbsp;
+									<span id="span_taskimgztc"></span>
 								</div>
 								<div class="form_control clearfix">
 									<label class="form_label">是否创意标题模式：</label> 
 									<label class="form_radio">
-										<input type="radio" name="is" v-model="myfChecked" />
+										<input type="radio" name="iscreativetitle" v-model="myfChecked" <c:if test="${tTaskInfoCustom.iscreativetitle==1 }">checked="checked"</c:if> value="1"/>
 										<span>是</span></label> 
 									<label class="form_radio">
-										<input type="radio" name="is" v-model="tmChecked" />
+										<input type="radio" name="iscreativetitle" v-model="tmChecked" <c:if test="${tTaskInfoCustom.iscreativetitle==null }">checked="checked"</c:if> value="0"/>
 										<span>否</span>
 									</label> 
-									<!-- 例如:https://item.taobao.com/item.htm?id=531027639098 --><br/>
 								</div>
 								<div class="form_control clearfix">
 									<label class="form_label">宝贝价格：</label> 
-									<input type="text" name="taskurl" placeholder="请输入宝贝url" id="taskurl" style="width:350px;"
-									<c:if test="${tTaskInfoCustom.taskurl!=null }">value="${tTaskInfoCustom.taskurl}"</c:if>
-									<c:if test="${tTaskInfoCustom.taskurl==null }">value=" "</c:if>
-									maxlength="1000" onchange="checkurl(this);" />&nbsp;&nbsp;&nbsp;&nbsp;
-									<span id="span_taskurl"></span>
-									<!-- 例如:https://item.taobao.com/item.htm?id=531027639098 --><br/>
+									<input type="text" name="taskminprice" placeholder="请输入宝贝价格" id="taskminprice" style="width:150px;"
+									<c:if test="${tTaskInfoCustom.taskminprice!=null }">value="${tTaskInfoCustom.taskminprice}"</c:if>
+									<c:if test="${tTaskInfoCustom.taskminprice==null }">value=" "</c:if>
+									maxlength="10"/>&nbsp;&nbsp;&nbsp;&nbsp;
 								</div>
 								<div class="box" style="padding:0px 0px;">
 									<div class="taxkTips box_toggle">
@@ -414,9 +410,7 @@
 											卡位可选信息区（点击显示更多可选项，以更好的提升宝贝流量）建议保持默认不做更改!!
 										</h2>
 									</div>
-
 									<div class="toggle_wrapper">
-
 										<div class="form_control clearfix">
 											<label class="form_label">排序类型：</label> 
 											<select name="tasksearchType" id="tasksearchType" class="form_select select_big" v-model="sortType">
@@ -563,7 +557,8 @@
 									<c:if test="${tTaskInfoCustom.flowcount==null }">value="1"</c:if>
 										placeholder="请输入需要的流量数" onblur="fpll(this)"
 										onkeyup="this.value=this.value.replace(/\D/g,'')"
-										onafterpaste="this.value=this.value.replace(/\D/g,'')" />&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_flowcount"></span>
+										onafterpaste="this.value=this.value.replace(/\D/g,'')" />&nbsp;&nbsp;&nbsp;&nbsp;
+										<span id="span_flowcount_text"></span><span id="span_flowcount"></span>
 								</div>
 								
 								<div class="form_control form_control_dist clearfix">
@@ -757,21 +752,22 @@
 								</div>
 								<div class="form_control clearfix">
 									<label class="form_label">收藏数量：</label> 
-									<input name="collectioncount" id="collectioncount"
-										placeholder="请输入收藏数" onchange="fpsc(this)" 
+									<input name="collectioncount" id="collectioncount" disabled="disabled"
+										placeholder="请输入收藏数"
 										<c:if test="${tTaskInfoCustom.collectioncount!=null }">value="${tTaskInfoCustom.flowcount}"</c:if>
 										<c:if test="${tTaskInfoCustom.collectioncount==null }">value="0"</c:if>
 										onkeyup="this.value=this.value.replace(/\D/g,'')"
-										onafterpaste="this.value=this.value.replace(/\D/g,'')"/>&nbsp;&nbsp;<span id="span_collection_text"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_collection"></span>
+										onafterpaste="this.value=this.value.replace(/\D/g,'')"/>&nbsp;&nbsp;
+										<span id="span_collection_text" style="color:red;">* 必须与流量数保持一致</span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_collection"></span>
 								</div>
 								<div class="form_control clearfix">
 									<label class="form_label">加购物车数量：</label> 
-									<input type="text" name="shoppingcount" id="shoppingcount"
-										placeholder="请输入购物车数"  onchange="fpgwc(this)" 
+									<input type="text" name="shoppingcount" id="shoppingcount" disabled="disabled"
+										placeholder="请输入购物车数"
 										<c:if test="${tTaskInfoCustom.shoppingcount!=null }">value="${tTaskInfoCustom.shoppingcount}"</c:if>
 										<c:if test="${tTaskInfoCustom.shoppingcount==null }">value="0"</c:if>
-										onkeyup="this.value=this.value.replace(/\D/g,'')"
-										onafterpaste="this.value=this.value.replace(/\D/g,'')" />&nbsp;&nbsp;<span id="span_shopping_text"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_shopping"></span>
+										/>&nbsp;&nbsp;
+										<span id="span_shopping_text" style="color:red;">* 必须与流量数保持一致</span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_shopping"></span>
 								</div>
 								<div id="buttonSubmit" class="form_control clearfix"
 									style="margin-top:20px; border-bottom:none;">
@@ -813,7 +809,7 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/layer_user.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/taskadd.js"></script>
+		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/taskztcadd.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/Validform_v5.3.2.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/easyui/jquery.easyui.min.js"></script>

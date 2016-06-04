@@ -868,7 +868,6 @@ public class TaskInfoController {
 								tTaskDetailInfoCustom.setIsshopping("1");
 								tTaskDetailInfoCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
 								tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
-								
 								if(Integer.parseInt(yyyyMMdd.format(date))<=Integer.parseInt(yyyyMMdd.format(new Date()))
 									&& j<= Integer.parseInt(hh.format(new Date())) && 0 <= Integer.parseInt(mm.format(new Date()))){
 									tTaskDetailInfoCustom.setTaskstate("23");

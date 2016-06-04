@@ -31,4 +31,10 @@ public interface PhoneInfoService {
 	 */
 	public List<TPhoneInfoCustom> findAllPhoneBycount(int count) throws Exception;
 	
+	
+	/*
+	 * 查询手机待完成的任务情况
+	 */
+	public List<TPhoneInfoCustom> findPhoneAndTask(HashMap<String, Object> hashmap) throws Exception;
+	
 }

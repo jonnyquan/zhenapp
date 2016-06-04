@@ -16,28 +16,28 @@ public class PhoneInfoServiceImp implements PhoneInfoService{
 	private TPhoneInfoCustomMapper tPhoneInfoCustomMapper;
 	
 	@Override
-	public TPhoneInfoCustom findTPhoneByTask(HashMap<String, Object> hashmap)
-			throws Exception {
+	public TPhoneInfoCustom findTPhoneByTask(HashMap<String, Object> hashmap)throws Exception {
 		return tPhoneInfoCustomMapper.findTPhoneByTask(hashmap);
 	}
 
 	@Override
-	public List<TPhoneInfoCustom> findAllPhoneBykeynum(String keynum)
-			throws Exception {
-		// TODO Auto-generated method stub
+	public List<TPhoneInfoCustom> findAllPhoneBykeynum(String keynum)throws Exception {
 		return tPhoneInfoCustomMapper.findAllPhoneBykeynum(keynum);
 	}
 
 	@Override
 	public int findPhonecountBykeynum(String keynum) throws Exception {
-		// TODO Auto-generated method stub
 		return tPhoneInfoCustomMapper.findPhonecountBykeynum(keynum);
 	}
 
 	@Override
 	public List<TPhoneInfoCustom> findAllPhoneBycount(int count) throws Exception {
-		// TODO Auto-generated method stub
 		return tPhoneInfoCustomMapper.findAllPhoneBycount(count);
+	}
+
+	@Override
+	public List<TPhoneInfoCustom> findPhoneAndTask(HashMap<String, Object> hashmap) throws Exception {
+		return tPhoneInfoCustomMapper.findPhoneAndTask(hashmap);
 	}
 
 }

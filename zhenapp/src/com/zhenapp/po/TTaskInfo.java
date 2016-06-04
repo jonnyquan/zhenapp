@@ -53,6 +53,8 @@ public class TTaskInfo {
 
     private String taskduration;
 
+    private String iscreativetitle;
+
     private Integer subtractpoints;
 
     private String taskstate;
@@ -271,6 +273,14 @@ public class TTaskInfo {
 
     public void setTaskduration(String taskduration) {
         this.taskduration = taskduration == null ? null : taskduration.trim();
+    }
+
+    public String getIscreativetitle() {
+        return iscreativetitle;
+    }
+
+    public void setIscreativetitle(String iscreativetitle) {
+        this.iscreativetitle = iscreativetitle == null ? null : iscreativetitle.trim();
     }
 
     public Integer getSubtractpoints() {

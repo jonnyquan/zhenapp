@@ -28,6 +28,7 @@
     <result column="taskgprspct" property="taskgprspct" jdbcType="VARCHAR" />
     <result column="taskPlus" property="taskplus" jdbcType="VARCHAR" />
     <result column="taskduration" property="taskduration" jdbcType="VARCHAR" />
+    <result column="iscreativetitle" property="iscreativetitle" jdbcType="VARCHAR" />
     <result column="subtractpoints" property="subtractpoints" jdbcType="INTEGER" />
     <result column="taskstate" property="taskstate" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="VARCHAR" />
@@ -97,8 +98,8 @@
     taskpk, taskid, tasktype, taskkeynum, taskurl, tasktitle, taskwirelesstitle, taskstartdate, 
     taskenddate, taskdate, taskreleasekeyword, taskkeyword, taskhourcounts, taskminprice, 
     taskmaxprice, tasksearchType, taskimgztc, taskimgpt, flowcount, Collectioncount, 
-    Shoppingcount, deepclick, tasktmallapppct, taskgprspct, taskPlus, taskduration, subtractpoints, 
-    taskstate, createtime, createuser, updatetime, updateuser
+    Shoppingcount, deepclick, tasktmallapppct, taskgprspct, taskPlus, taskduration, iscreativetitle, 
+    subtractpoints, taskstate, createtime, createuser, updatetime, updateuser
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TTaskInfoExample" >
     select
@@ -139,9 +140,10 @@
       tasksearchType, taskimgztc, taskimgpt, 
       flowcount, Collectioncount, Shoppingcount, 
       deepclick, tasktmallapppct, taskgprspct, 
-      taskPlus, taskduration, subtractpoints, 
-      taskstate, createtime, createuser, 
-      updatetime, updateuser)
+      taskPlus, taskduration, iscreativetitle, 
+      subtractpoints, taskstate, createtime, 
+      createuser, updatetime, updateuser
+      )
     values (#{taskpk,jdbcType=INTEGER}, #{taskid,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
       #{taskkeynum,jdbcType=VARCHAR}, #{taskurl,jdbcType=VARCHAR}, #{tasktitle,jdbcType=VARCHAR}, 
       #{taskwirelesstitle,jdbcType=VARCHAR}, #{taskstartdate,jdbcType=VARCHAR}, #{taskenddate,jdbcType=VARCHAR}, 
@@ -150,9 +152,10 @@
       #{tasksearchtype,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR}, #{taskimgpt,jdbcType=VARCHAR}, 
       #{flowcount,jdbcType=INTEGER}, #{collectioncount,jdbcType=INTEGER}, #{shoppingcount,jdbcType=INTEGER}, 
       #{deepclick,jdbcType=VARCHAR}, #{tasktmallapppct,jdbcType=VARCHAR}, #{taskgprspct,jdbcType=VARCHAR}, 
-      #{taskplus,jdbcType=VARCHAR}, #{taskduration,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, 
-      #{taskstate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
-      #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR})
+      #{taskplus,jdbcType=VARCHAR}, #{taskduration,jdbcType=VARCHAR}, #{iscreativetitle,jdbcType=VARCHAR}, 
+      #{subtractpoints,jdbcType=INTEGER}, #{taskstate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+      #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.zhenapp.po.TTaskInfo" >
     insert into t_task_info
@@ -234,6 +237,9 @@
       </if>
       <if test="taskduration != null" >
         taskduration,
+      </if>
+      <if test="iscreativetitle != null" >
+        iscreativetitle,
       </if>
       <if test="subtractpoints != null" >
         subtractpoints,
@@ -332,6 +338,9 @@
       </if>
       <if test="taskduration != null" >
         #{taskduration,jdbcType=VARCHAR},
+      </if>
+      <if test="iscreativetitle != null" >
+        #{iscreativetitle,jdbcType=VARCHAR},
       </if>
       <if test="subtractpoints != null" >
         #{subtractpoints,jdbcType=INTEGER},
@@ -440,6 +449,9 @@
       <if test="record.taskduration != null" >
         taskduration = #{record.taskduration,jdbcType=VARCHAR},
       </if>
+      <if test="record.iscreativetitle != null" >
+        iscreativetitle = #{record.iscreativetitle,jdbcType=VARCHAR},
+      </if>
       <if test="record.subtractpoints != null" >
         subtractpoints = #{record.subtractpoints,jdbcType=INTEGER},
       </if>
@@ -491,6 +503,7 @@
       taskgprspct = #{record.taskgprspct,jdbcType=VARCHAR},
       taskPlus = #{record.taskplus,jdbcType=VARCHAR},
       taskduration = #{record.taskduration,jdbcType=VARCHAR},
+      iscreativetitle = #{record.iscreativetitle,jdbcType=VARCHAR},
       subtractpoints = #{record.subtractpoints,jdbcType=INTEGER},
       taskstate = #{record.taskstate,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=VARCHAR},
@@ -579,6 +592,9 @@
       <if test="taskduration != null" >
         taskduration = #{taskduration,jdbcType=VARCHAR},
       </if>
+      <if test="iscreativetitle != null" >
+        iscreativetitle = #{iscreativetitle,jdbcType=VARCHAR},
+      </if>
       <if test="subtractpoints != null" >
         subtractpoints = #{subtractpoints,jdbcType=INTEGER},
       </if>
@@ -627,6 +643,7 @@
       taskgprspct = #{taskgprspct,jdbcType=VARCHAR},
       taskPlus = #{taskplus,jdbcType=VARCHAR},
       taskduration = #{taskduration,jdbcType=VARCHAR},
+      iscreativetitle = #{iscreativetitle,jdbcType=VARCHAR},
       subtractpoints = #{subtractpoints,jdbcType=INTEGER},
       taskstate = #{taskstate,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=VARCHAR},

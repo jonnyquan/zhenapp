@@ -1884,6 +1884,76 @@ public class TTaskInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andIscreativetitleIsNull() {
+            addCriterion("iscreativetitle is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscreativetitleIsNotNull() {
+            addCriterion("iscreativetitle is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscreativetitleEqualTo(String value) {
+            addCriterion("iscreativetitle =", value, "iscreativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscreativetitleNotEqualTo(String value) {
+            addCriterion("iscreativetitle <>", value, "iscreativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscreativetitleGreaterThan(String value) {
+            addCriterion("iscreativetitle >", value, "iscreativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscreativetitleGreaterThanOrEqualTo(String value) {
+            addCriterion("iscreativetitle >=", value, "iscreativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscreativetitleLessThan(String value) {
+            addCriterion("iscreativetitle <", value, "iscreativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscreativetitleLessThanOrEqualTo(String value) {
+            addCriterion("iscreativetitle <=", value, "iscreativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscreativetitleLike(String value) {
+            addCriterion("iscreativetitle like", value, "iscreativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscreativetitleNotLike(String value) {
+            addCriterion("iscreativetitle not like", value, "iscreativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscreativetitleIn(List<String> values) {
+            addCriterion("iscreativetitle in", values, "iscreativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscreativetitleNotIn(List<String> values) {
+            addCriterion("iscreativetitle not in", values, "iscreativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscreativetitleBetween(String value1, String value2) {
+            addCriterion("iscreativetitle between", value1, value2, "iscreativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscreativetitleNotBetween(String value1, String value2) {
+            addCriterion("iscreativetitle not between", value1, value2, "iscreativetitle");
+            return (Criteria) this;
+        }
+
         public Criteria andSubtractpointsIsNull() {
             addCriterion("subtractpoints is null");
             return (Criteria) this;
