@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenapp.mapper.Custom.TTaskDetailinfoTempCustomMapper" >
+	<select id="findTTaskDetailinfoTempByphoneid" resultType="com.zhenapp.po.Custom.TTaskDetailinfoTempCustom" parameterType="java.util.HashMap">
+		SELECT * FROM t_task_detailinfo_temp WHERE phoneid = #{phoneid}
+	</select>
+	
+	<delete id="deletetaskDetailInfoTemp" parameterType="java.util.HashMap">
+		delete from t_task_detailinfo_temp 
+		<where>
+			<if test="taskdetailid != null and taskdetailid != ''">
+				and taskdetailid=#{taskdetailid}
+			</if>
+			<if test="taskid != null and taskid != ''">
+				and taskid=#{taskid}
+			</if>
+			<if test="taskstate != null and taskstate != ''">
+				and taskstate=#{taskstate}
+			</if>
+		</where>
+	</delete>
+	<update id="updatestate" parameterType="java.util.HashMap">
+		update t_task_detailinfo_temp set taskstate = #{oldstate} 
+		<where>
+			<if test="taskdetailid !=null and taskdetailid != ''">
+			 	and taskdetailid=#{taskdetailid}
+			</if>
+			<if test="taskid !=null and taskid != ''">
+			 	and taskid=#{taskid}
+			</if>
+			<if test="newstate !=null and newstate != ''">
+			 	and taskstate=#{newstate}
+			</if>
+		</where>
+	</update>
+
+  <insert id="insertDetailinfo" parameterType="com.zhenapp.po.Custom.TTaskDetailinfoTempCustom">
+  	insert into t_task_detailinfo_temp (taskdetailid, taskid, 
+      taskkeyword, searchtype, price, 
+      region, isfreeship, istmall, 
+      iscollection, isshopping, taskkeynum, 
+      minpicture, maxpicture, tasktype, 
+      isflow, iscreativetitle, isshopcollect, 
+      taskstate, taskdate, taskhour, 
+      taskminute, visit, collect, 
+      trolley, phoneid, subtractpoints, 
+      resultstr, createtime, createuser, 
+      updatetime, updateuser)
+    values (#{taskdetailid,jdbcType=VARCHAR}, #{taskid,jdbcType=VARCHAR}, 
+      #{taskkeyword,jdbcType=VARCHAR}, #{searchtype,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, 
+      #{region,jdbcType=VARCHAR}, #{isfreeship,jdbcType=VARCHAR}, #{istmall,jdbcType=VARCHAR}, 
+      #{iscollection,jdbcType=VARCHAR}, #{isshopping,jdbcType=VARCHAR}, #{taskkeynum,jdbcType=VARCHAR}, 
+      #{minpicture,jdbcType=VARCHAR}, #{maxpicture,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
+      #{isflow,jdbcType=VARCHAR}, #{iscreativetitle,jdbcType=VARCHAR}, #{isshopcollect,jdbcType=VARCHAR}, 
+      #{taskstate,jdbcType=VARCHAR}, #{taskdate,jdbcType=VARCHAR}, #{taskhour,jdbcType=INTEGER}, 
+      #{taskminute,jdbcType=INTEGER}, #{visit,jdbcType=VARCHAR}, #{collect,jdbcType=VARCHAR}, 
+      #{trolley,jdbcType=VARCHAR}, #{phoneid,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, 
+      #{resultstr,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR})
+  </insert>
+</mapper>

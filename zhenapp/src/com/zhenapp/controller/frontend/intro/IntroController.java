@@ -48,6 +48,7 @@ public class IntroController {
 		List<TGuideInfoCustom> TGuideInfoCustomlist = guideService .findGuide_10(pagemap);
 		TIntroInfoCustom tIntroInfoCustom = introInfoService.findIntroinfo(pagemap);
 		mv.addObject("tWebInfoCustom",tWebInfoCustom);
+		mv.addObject("tAgentInfoCustom",tAgentInfoCustom);
 		mv.addObject("tIntroInfoCustom",tIntroInfoCustom);
 		mv.addObject("TelectricityCustomlist", TelectricityCustomlist);
 		mv.addObject("TGuideInfoCustomlist", TGuideInfoCustomlist);

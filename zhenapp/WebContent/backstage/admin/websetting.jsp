@@ -25,7 +25,7 @@
 </head>
 <header class="am-topbar admin-header">
   <div class="am-topbar-brand">
-    <strong>真流量</strong> <small>后台管理系统</small>
+    <strong>${tAgentInfoCustom.agentname }</strong> <small>后台管理系统</small>
   </div>
   <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
     data-am-collapse="{target: '#topbar-collapse'}">
@@ -179,7 +179,7 @@
   			<label>第一张轮播图</label>
   		</td>
   		<td>
-  		  <img src="${pageContext.request.contextPath}/webimg/${tWebInfoCustom.carousel01}" class="img_u" height="50%" width="100%">
+  		  <img src="${pageContext.request.contextPath}/webimg/${tWebInfoCustom.carousel01}" class="img_u" height="40%" width="100%">
           <input type="hidden" class="imgUrl" id="carousel01" name="carousel01" value="${tWebInfoCustom.carousel01}"> 
           <input type="file" class="fileupload" name="image_file">
           <div class="container"></div>
@@ -190,7 +190,7 @@
   			<label>第二张轮播图</label>
   		</td>
   		<td>
-  		  <img src="${pageContext.request.contextPath}/webimg/${tWebInfoCustom.carousel02}" class="img_u" height="50%" width="100%">
+  		  <img src="${pageContext.request.contextPath}/webimg/${tWebInfoCustom.carousel02}" class="img_u" height="40%" width="100%">
           <input type="hidden" class="imgUrl" id="carousel02" name="carousel02" value="${tWebInfoCustom.carousel02}"> 
           <input type="file" class="fileupload" name="image_file">
           <div class="container"></div>
@@ -201,7 +201,7 @@
   			<label>第三张轮播图</label>
   		</td>
   		<td>
-  		  <img src="${pageContext.request.contextPath}/webimg/${tWebInfoCustom.carousel03}" class="img_u" height="50%" width="100%">
+  		  <img src="${pageContext.request.contextPath}/webimg/${tWebInfoCustom.carousel03}" class="img_u" height="40%" width="100%">
           <input type="hidden" class="imgUrl" id="carousel03" name="carousel03" value="${tWebInfoCustom.carousel03}"> 
           <input type="file" class="fileupload" name="image_file">
           <div class="container"></div>
@@ -215,73 +215,49 @@
   </table>
  </form>
   <script>
-      $(function() {
-    		$(".admin-offcanvas-bar").load("${pageContext.request.contextPath}/backstage/admin/adminmenu.jsp");
-    	  
-        $("#saveInfo").click(function() {
-          $.ajax({
-            type : "post",
-            dataType : "json",
-            url : "${pageContext.request.contextPath}/web/agentAndwebSave",
-            data : {
-            	agentid : $("#agentid").val(),
-            	webid : $("#webid").val(),
-            	agentname : $("#agentname").val(),
-            	agentperson : $("#agentperson").val(),
-            	agentphone : $("#agentphone").val(),
-            	url : $("#url").val(),
-            	record : $("#record").val(),
-            	alipay : $("#alipay").val(),
-            	qq : $("#qq").val(),
-            	qqgroup : $("#qqgroup").val(),
-            	wechat : $("#wechat").val(),
-            	logo : $("#logo").val(),
-            	bg01 : $("#bg01").val(),
-            	bg02 : $("#bg02").val(),
-            	carousel01 : $("#carousel01").val(),
-            	carousel02 : $("#carousel02").val(),
-            	carousel03 : $("#carousel03").val()
-            },
-            success : function(resp) {
-              if (resp && resp.ec == 0) {
-                Message.info('保存成功：', true);
-                setTimeout(function() {
-                  window.location.href = location;
-                }, 2000);
-              } else {
-                Message.error('保存失败,' + resp.em, false);
-              }
-            },
-            error : function(XMLHttpRequest, textStatus, errorThrown) {
-              Message.error('保存失败！');
-            }
-          });
-        });
-        $('.fileupload').fileupload(
-            {
-              url : '/api/image/save',
-              dataType : 'json',
-              add : function(e, data) {
-                data.submit();
-              },
-              done : function(e, data) {
-                var resp = data.result;
-                if (resp && resp.ec == 0) {
-                  $(this).parent().find('.imgUrl').val(resp.rst);
-                  $(this).parent().find('.img_u').remove();
-                  $(this).next().append(
-                      '<img src="http://daibile.b0.upaiyun.com/' + resp.rst + '" height="40%" width="100%">');
-                  $(this).remove();
-                }
-              },
-              progressall : function(e, data) {
-                // update progress.
-                var progress = parseInt(data.loaded / data.total * 100, 10);
-                $('.container').css('width', progress + '%');
-              }
-            }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
-      });
-    </script>
+ 	      $(function() {
+ 	    	  $(".admin-offcanvas-bar").load("${pageContext.request.contextPath}/backstage/admin/adminmenu.jsp");
+ 	    	  
+ 	        $("#saveInfo").click(function() {
+ 	          $.ajax({
+ 	            type : "post",
+ 	            dataType : "json",
+ 	            url : "${pageContext.request.contextPath}/web/agentAndwebSave",
+ 	            data : $('#formdata').serialize(),
+ 	            success : function(resp) {
+ 	              if (resp && resp.ec == 0) {
+ 	                Message.info('保存成功：', true);
+ 	                setTimeout(function() {
+ 	                  window.location.href = location;
+ 	                }, 2000);
+ 	              } else {
+ 	                Message.error('保存失败,' + resp.em, false);
+ 	              }
+ 	            },
+ 	            error : function(XMLHttpRequest, textStatus, errorThrown) {
+ 	              Message.error('保存失败！');
+ 	            }
+ 	          });
+ 	        });
+ 	        $('.fileupload').fileupload(
+ 	            {
+ 	              url : '${pageContext.request.contextPath}/web/imagesave',
+ 	              dataType : 'json',
+ 	              add : function(e, data) {
+ 	                data.submit();
+ 	              },
+ 	              done : function(e, data) {
+ 	                var resp = data.result;
+ 	                if (resp && resp.ec == 0) {
+ 	                  $(this).parent().find('.imgUrl').val(resp.rst);
+ 	                  $(this).parent().find('.img_u').remove();
+ 	                  $(this).next().append('<img src="${pageContext.request.contextPath}/webimg/'+resp.rst+'" width="100%" height="40%" />');
+ 	                  $(this).remove();
+ 	                }
+ 	              }
+ 	            }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+ 	      });
+ 	    </script>
 
     </div>
   

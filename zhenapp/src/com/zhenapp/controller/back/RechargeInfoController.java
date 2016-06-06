@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.RechargeInfoService;
 import com.zhenapp.service.UserInfoService;
 
-
+@Transactional
 @Controller
 @RequestMapping(value="/recharge")
 public class RechargeInfoController {
@@ -75,6 +76,9 @@ public class RechargeInfoController {
 			tUserInfoCustom.setUpdatetime(sdf.format(new Date()));
 			tUserInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
 			userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
+			//扣除用户所属代理积分
+			
+			
 		}
 		map.put("data", "success");
 		return map;

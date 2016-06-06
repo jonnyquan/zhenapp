@@ -80,7 +80,7 @@ public class CheckFinshOrder {
 				TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserid(tTaskInfoCustom.getCreateuser());
 				TPriceInfoCustom tPriceInfoCustom = priceInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
 				hashmap.put("taskid", tTaskInfoCustom.getTaskid());
-				hashmap.put("taskstate", "21,22,23");
+				hashmap.put("taskstate", "21,22");
 				int counts = taskDetailInfoService.findCounts(hashmap);
 				int checkcount=tTaskInfoCustom.getCollectioncount()+tTaskInfoCustom.getShoppingcount();
 				if(counts==checkcount){

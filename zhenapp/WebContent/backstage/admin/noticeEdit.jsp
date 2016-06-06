@@ -29,7 +29,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <header class="am-topbar admin-header">
   <div class="am-topbar-brand">
-    <strong>真流量</strong> <small>后台管理系统</small>
+    <strong>${tAgentInfoCustom.agentname }</strong> <small>后台管理系统</small>
   </div>
   <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
     data-am-collapse="{target: '#topbar-collapse'}">
@@ -106,19 +106,13 @@
 		      </c:if>
 		      <c:if test="${tNoteInfoCustom.notetype=='1' }">
 		      	<span>新手指引</span>
-		      </c:if> 
-	          <!-- 
-		      <select name="notetype" id="contentType">
-			      <c:if test="${tNoteInfoCustom.notetype=='0' }">
-			      	<option value="0" selected="selected" >电商信息</option>
-			       	<option value="1"  >新手指引</option>
-			      </c:if>
-			      <c:if test="${tNoteInfoCustom.notetype=='1' }">
-			      	<option value="0" >电商信息</option>
-			       	<option value="1" selected="selected">新手指引</option>
-			      </c:if> 
-		      </select>
-		       -->
+		      </c:if>
+		       <c:if test="${tNoteInfoCustom.notetype=='2' }">
+		      	<span>服务介绍</span>
+		      </c:if>
+		       <c:if test="${tNoteInfoCustom.notetype=='3' }">
+		      	<span>首页信息</span>
+		      </c:if>
           </div>
         </div>
         <div class="am-form-group am-form-group-sm">

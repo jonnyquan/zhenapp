@@ -19,6 +19,7 @@ import com.zhenapp.po.Custom.TelectricityCustom;
 import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.ElectrityInfoService;
 import com.zhenapp.service.GuideInfoService;
+import com.zhenapp.service.IndexInfoService;
 import com.zhenapp.service.WebInfoService;
 
 @Controller
@@ -32,6 +33,9 @@ public class ActicleguideController {
 	private WebInfoService webInfoService;
 	@Autowired
 	private AgentInfoService agentInfoService;
+	@Autowired
+	private IndexInfoService indexInfoService;
+	
 	@Value("${maxRows}")
 	private Integer maxRows;
 	/*
@@ -42,9 +46,11 @@ public class ActicleguideController {
 		ModelAndView mv = new ModelAndView();
 		String webwww=request.getServerName();
 		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
+		
 		TWebInfoCustom tWebInfoCustom=webInfoService.findWebByAgentid(tAgentInfoCustom.getAgentid());
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		pagemap.put("agentid", tAgentInfoCustom.getAgentid());
+		
 		List<TelectricityCustom> TelectricityCustomlist = electrityService.findElectrity_10(pagemap);
 		List<TGuideInfoCustom> TGuideInfoCustomlist = guideService.findGuide_10(pagemap);
 		if (page == null || page==0) {
@@ -55,8 +61,10 @@ public class ActicleguideController {
 		int total = guideService.findTotalGuide();
 		List<TGuideInfoCustom> tGuideInfoCustomAlllist = guideService.findGuideBypage(pagemap);
 		mv.addObject("tWebInfoCustom",tWebInfoCustom);
+		mv.addObject("tAgentInfoCustom",tAgentInfoCustom);
 		mv.addObject("total", total);
 		mv.addObject("pagenum", page);
+		
 		mv.addObject("TelectricityCustomlist", TelectricityCustomlist);
 		mv.addObject("TGuideInfoCustomlist", TGuideInfoCustomlist);
 		mv.addObject("tGuideInfoCustomAlllist", tGuideInfoCustomAlllist);

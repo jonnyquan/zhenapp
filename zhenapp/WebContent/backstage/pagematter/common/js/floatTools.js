@@ -5,7 +5,7 @@ var floatTools = '<div class="floatTools clearfix">\
 	</div>\
 	<div id="ToolsView" class="row_l box">\
 	<div class="cn radius5">\
-	<h3>真流量</h3>\
+	<h3>旺点击</h3>\
 	<ul>\
 	<li><a target="_blank" href="tencent://message/?uin=319809430&Site=&Menu=yes" title="点击这里给我发消息">流量客服</a></li>\
 	<li><a target="_blank" href="tencent://message/?uin=319809430&Site=&Menu=yes" title="点击这里给我发消息">技术咨询</a></li>\

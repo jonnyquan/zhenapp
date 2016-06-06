@@ -15,8 +15,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<meta name="keywords" content="真流量,淘口令,刷淘宝流量,淘宝刷流量软件,淘宝流量,淘宝刷流量" />
-<meta name="description" content="真流量是一个快速提升淘宝手机流量、淘口令流量、淘宝无线流量、淘宝APP流量的平台,真流量优势:  百分百模拟刷淘宝手机流量、淘口令、淘宝刷流量软件、刷淘宝流量软件。" />
+<meta name="keywords" content="淘口令,刷淘宝流量,淘宝刷流量软件,淘宝流量,淘宝刷流量" />
+<meta name="description" content="旺点击是一个快速提升淘宝手机流量、淘口令流量、淘宝无线流量、淘宝APP流量的平台,真流量优势:  百分百模拟刷淘宝手机流量、淘口令、淘宝刷流量软件、刷淘宝流量软件。" />
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/frontend/pagematter/common/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/frontend/pagematter/common/css/global.css">
@@ -57,7 +57,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 		<div class="warp1200 toplogin clearfix">
 			<div class="userlogin row_r" id="userLogin">
 				<c:if test="${tUserInfoCustom == null}">
-					您好，欢迎来到真流量网！<a href="${pageContext.request.contextPath}/frontend/authlogin">马上登录</a>|<a href="${pageContext.request.contextPath}/frontend/authregister">快速注册</a>
+					您好，欢迎来到${tAgentInfoCustom.agentname }！<a href="${pageContext.request.contextPath}/frontend/authlogin">马上登录</a>|<a href="${pageContext.request.contextPath}/frontend/authregister">快速注册</a>
 				</c:if>
 				<c:if test="${tUserInfoCustom != null}">
 					<div class="userlogin row_r" id="userLogin">您好 <span>${tUserInfoCustom.usernick }</span> 欢迎您回来！<a href="${pageContext.request.contextPath}/user/responsepersonal">进入会员中心</a>|<a href="${pageContext.request.contextPath}/user/authlogout">退出登录</a></div>
@@ -69,7 +69,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 	<div class="pageFull">
 		<div class="webHeader clearfix">
 			<div class="logo row_l">
-				<a href="${pageContext.request.contextPath}/frontend/index" title="电商流量">真流量</a>
+				<a href="${pageContext.request.contextPath}/frontend/index" title="电商流量">${tAgentInfoCustom.agentname }</a>
 			</div>
 			<div class="channel row_r">
 				<ul class="clearfix">
@@ -79,7 +79,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 					<li><a href="${pageContext.request.contextPath}/frontend/anli" class="scl3">成功案例</a></li>
 					<li><a href="${pageContext.request.contextPath}/frontend/articlenews" class="scl4" title="电商干货">电商干货</a></li>
 					<li><a href="${pageContext.request.contextPath}/frontend/articleguide" class="scl5">新手指引</a></li>
-					<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="真流量用户中心">用户中心</a></li>
+					<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="用户中心">用户中心</a></li>
 					<li><a href="${pageContext.request.contextPath}/frontend/about" class="scl7">联系我们</a></li>
 				</ul>
 			</div>
@@ -137,7 +137,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 <div class="copyRight">
 	<div class="warp1200 footer">
 		<p>
-			Copyright (c) 2015 <a href="${pageContext.request.contextPath}/frontend/index" title="淘宝流量">淘宝流量</a> | <a href="${pageContext.request.contextPath}/frontend/index" title="真流量">真流量</a>(www.zhenapp.cn) Inc. All Rights. 浙ICP备140452118号-5.
+			Copyright (c) 2015 <a href="${pageContext.request.contextPath}/frontend/index" title="淘宝流量">淘宝流量</a> | <a href="${pageContext.request.contextPath}/frontend/index" title="${tAgentInfoCustom.agentname }">${tAgentInfoCustom.agentname }</a>(www.zhenapp.cn) Inc. All Rights. 浙ICP备140452118号-5.
 		</p>
 	</div>
 </div>

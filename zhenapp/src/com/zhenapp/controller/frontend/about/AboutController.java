@@ -43,6 +43,7 @@ public class AboutController {
 		List<TelectricityCustom> TelectricityCustomlist = electrityService.findElectrity_10(pagemap);
 		List<TGuideInfoCustom> TGuideInfoCustomlist = guideService .findGuide_10(pagemap);
 		mv.addObject("tWebInfoCustom",tWebInfoCustom);
+		mv.addObject("tAgentInfoCustom",tAgentInfoCustom);
 		mv.addObject("TelectricityCustomlist", TelectricityCustomlist);
 		mv.addObject("TGuideInfoCustomlist", TGuideInfoCustomlist);
 		mv.setViewName("/frontend/about.jsp");

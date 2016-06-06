@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,9 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TGuideInfoCustom;
+import com.zhenapp.po.Custom.TIndexInfoCustom;
 import com.zhenapp.po.Custom.TIntroInfoCustom;
 import com.zhenapp.po.Custom.TNoteInfoCustom;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
+import com.zhenapp.po.Custom.TPriceInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Custom.TWebInfoCustom;
 import com.zhenapp.po.Custom.TelectricityCustom;
@@ -31,6 +34,7 @@ import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.ComboInfoService;
 import com.zhenapp.service.ElectrityInfoService;
 import com.zhenapp.service.GuideInfoService;
+import com.zhenapp.service.IndexInfoService;
 import com.zhenapp.service.IntroInfoService;
 import com.zhenapp.service.NoteInfoService;
 import com.zhenapp.service.PointsInfoService;
@@ -38,7 +42,7 @@ import com.zhenapp.service.PriceInfoService;
 import com.zhenapp.service.UserInfoService;
 import com.zhenapp.service.WebInfoService;
 import com.zhenapp.util.MD5Util;
-
+@Transactional
 @Controller
 @RequestMapping(value="/user")
 public class UserInfoController {
@@ -62,6 +66,8 @@ public class UserInfoController {
 	private IntroInfoService introInfoService;
 	@Autowired
 	private NoteInfoService noteInfoService;
+	@Autowired
+	private IndexInfoService indexInfoService;
 	
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 	private static Logger logger = Logger.getLogger(UserInfoController.class);
@@ -335,7 +341,7 @@ public class UserInfoController {
 		String Pointstypeagent = "";
 		if(recharge.equals("recharge")){
 			newpoints=tUserInfoCustom.getPoints() + Integer.parseInt(updatepoints);
-			newpointsagent = tUserInfoCustomagent.getPoints() - Integer.parseInt(updatepoints);
+			newpointsagent = tUserInfoCustomsession.getPoints() - Integer.parseInt(updatepoints);
 			if(newpointsagent<0){
 				map.put("msg", "充值积分超出代理最大积分数");
 				logger.error("充值积分超出代理最大积分数,代理：" + tUserInfoCustomsession.getUserid() + " 用户："+ tUserInfoCustom.getUserid());
@@ -350,7 +356,7 @@ public class UserInfoController {
 				logger.error("扣除积分超出用户最大积分数,代理：" + tUserInfoCustomsession.getUserid() + " 用户："+ tUserInfoCustom.getUserid());
 				return map;
 			}
-			newpointsagent = tUserInfoCustomagent.getPoints() + Integer.parseInt(updatepoints);
+			newpointsagent = tUserInfoCustomsession.getPoints() + Integer.parseInt(updatepoints);
 			Pointstype = "32";//扣款
 			Pointstypeagent = "31";//充值
 		}
@@ -541,6 +547,7 @@ public class UserInfoController {
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.put("agentid", "0");
 		TIntroInfoCustom tIntroInfoCustomtemp = introInfoService.findIntroinfo(hashmap);
+		TIndexInfoCustom tIndexInfoCustomtemp = indexInfoService.findIndex(hashmap);
 		hashmap.put("userpk", userpk);
 		hashmap.put("oldroleid", "3");
 		hashmap.put("newroleid", "2");
@@ -553,7 +560,7 @@ public class UserInfoController {
 		tAgentInfoCustom.setAgentuserid(TUserInfoCustom.getUserid());
 		tAgentInfoCustom.setAgentperson(TUserInfoCustom.getUsernick());
 		tAgentInfoCustom.setAgentphone(TUserInfoCustom.getUserphone());
-		tAgentInfoCustom.setAgentname(UUID.randomUUID().toString().replace("-", ""));//网站名称，请尽快修改...
+		tAgentInfoCustom.setAgentname("网站名称");//网站名称，请尽快修改...
 		tAgentInfoCustom.setAgentstate("29");
 		tAgentInfoCustom.setCreatetime(sdf.format(new Date()));
 		tAgentInfoCustom.setCreateuser(tUserInfoCustomsession.getUserid());
@@ -590,17 +597,51 @@ public class UserInfoController {
 		tIntroInfoCustom.setUpdatetime(sdf.format(new Date()));
 		tIntroInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
 		introInfoService.insertIntro(tIntroInfoCustom);
+		TIndexInfoCustom tIndexInfoCustom = new TIndexInfoCustom();
+		tIndexInfoCustom.setIndexid(UUID.randomUUID().toString().replace("-", ""));
+		tIndexInfoCustom.setIndexname(tIndexInfoCustomtemp.getIndexname());
+		tIndexInfoCustom.setIndextext(tIndexInfoCustomtemp.getIndextext());
+		tIndexInfoCustom.setCreatetime(sdf.format(new Date()));
+		tIndexInfoCustom.setCreateuser(tUserInfoCustomsession.getUserid());
+		tIndexInfoCustom.setUpdatetime(sdf.format(new Date()));
+		tIndexInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
+		indexInfoService.insertIndex(tIndexInfoCustom);
 		//插入公告信息
 		hashmap.clear();
 		hashmap.put("agentid", "0");
 		hashmap.put("notetype", "2");
-		TNoteInfoCustom tNoteInfoCustom = noteInfoService.findNoteinfo(hashmap);
-		tNoteInfoCustom.setAgentid(tAgentInfoCustom.getAgentid());
-		tNoteInfoCustom.setCreatetime(sdf.format(new Date()));
-		tNoteInfoCustom.setCreateuser(tUserInfoCustomsession.getUserid());
-		tNoteInfoCustom.setUpdatetime(sdf.format(new Date()));
-		tNoteInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
-		noteInfoService.savenote(tNoteInfoCustom);
+		TNoteInfoCustom tNoteInfoCustom2 = noteInfoService.findNoteinfo(hashmap);
+		tNoteInfoCustom2.setNoteid(tIntroInfoCustom.getIntroid());
+		tNoteInfoCustom2.setAgentid(tAgentInfoCustom.getAgentid());
+		tNoteInfoCustom2.setCreatetime(sdf.format(new Date()));
+		tNoteInfoCustom2.setCreateuser(tUserInfoCustomsession.getUserid());
+		tNoteInfoCustom2.setUpdatetime(sdf.format(new Date()));
+		tNoteInfoCustom2.setUpdateuser(tUserInfoCustomsession.getUserid());
+		noteInfoService.savenote(tNoteInfoCustom2);
+		hashmap.put("agentid", "0");
+		hashmap.put("notetype", "3");
+		TNoteInfoCustom tNoteInfoCustom3 = noteInfoService.findNoteinfo(hashmap);
+		tNoteInfoCustom3.setNoteid(tIndexInfoCustom.getIndexid());
+		tNoteInfoCustom3.setAgentid(tAgentInfoCustom.getAgentid());
+		tNoteInfoCustom3.setCreatetime(sdf.format(new Date()));
+		tNoteInfoCustom3.setCreateuser(tUserInfoCustomsession.getUserid());
+		tNoteInfoCustom3.setUpdatetime(sdf.format(new Date()));
+		tNoteInfoCustom3.setUpdateuser(tUserInfoCustomsession.getUserid());
+		noteInfoService.savenote(tNoteInfoCustom3);
+		
+		TPriceInfoCustom tPriceInfoCustom = priceInfoService.findPriceByAgentid("0");
+		tPriceInfoCustom.setPriceid(UUID.randomUUID().toString().replace("-", ""));
+		tPriceInfoCustom.setAgentid(tAgentInfoCustom.getAgentid());
+		tPriceInfoCustom.setCreatetime(sdf.format(new Date()));
+		tPriceInfoCustom.setCreateuser(tUserInfoCustomsession.getUserid());
+		tPriceInfoCustom.setUpdatetime(sdf.format(new Date()));
+		tPriceInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
+		priceInfoService.savePriceInfo(tPriceInfoCustom);
+		hashmap.clear();
+		hashmap.put("agentid", "0");
+		hashmap.put("notetype", "3");
+		
+		indexInfoService.findIndex(hashmap);
 		mv.setViewName("/user/findUserByPageAndAdmin");
 		return mv;
 	}

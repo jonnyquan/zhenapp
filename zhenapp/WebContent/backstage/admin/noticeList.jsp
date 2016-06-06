@@ -31,7 +31,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <header class="am-topbar admin-header">
   <div class="am-topbar-brand">
-    <strong>真流量</strong> <small>后台管理系统</small>
+    <strong>${tAgentInfoCustom.agentname }</strong> <small>后台管理系统</small>
   </div>
   <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
     data-am-collapse="{target: '#topbar-collapse'}">
@@ -112,9 +112,11 @@
 											<a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="${pageContext.request.contextPath}/note/responsenoticeEdit/${list.noteid}/${list.notetype}"> 
 												<span class="am-icon-pencil-square-o"></span> 编辑
 											</a>
-											<a class="am-btn am-btn-default am-btn-xs am-text-danger" href="${pageContext.request.contextPath}/note/DeleteNoteAndinfo/${list.noteid}/${list.notetype}"> 
-												<span class="am-icon-trash-o"></span> 删除
-											</a>
+											<c:if test="${list.notetype == 0 or list.notetype == 1}">
+												<a class="am-btn am-btn-default am-btn-xs am-text-danger" href="${pageContext.request.contextPath}/note/DeleteNoteAndinfo/${list.noteid}/${list.notetype}"> 
+													<span class="am-icon-trash-o"></span> 删除
+												</a>
+											</c:if>
 											<c:if test="${list.notestate == 66}">
 												<a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="${pageContext.request.contextPath}/note/updatenotestate/${list.noteid}/${list.notetype}"> 
 													<span class="am-icon-pencil-square-o"></span> 审核通过

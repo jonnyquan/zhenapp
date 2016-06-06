@@ -31,7 +31,7 @@
 </head>
 <header class="am-topbar admin-header">
   <div class="am-topbar-brand">
-    <strong>真流量</strong> <small>后台管理系统</small>
+    <strong>${tAgentInfoCustom.agentname }</strong> <small>后台管理系统</small>
   </div>
   <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
     data-am-collapse="{target: '#topbar-collapse'}">
@@ -181,7 +181,7 @@
 	                <td>${list.dicinfoname} </td>
 					<td > 
 						<c:if test="${list.taskstate != '19' }">
-						  <a onclick="endtask('${list.taskid}');" class="btn btn-default btn-xs">终止任务</a>	
+						  <a onclick="endtask('${list.taskid}',this);" class="btn btn-default btn-xs">终止任务</a>	
 						</c:if>			
 					</td>
 	            </tr>
@@ -205,7 +205,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/easyui/locale/easyui-lang-zh_CN.js"></script>
 <script>
 
-function endtask(taskid){
+function endtask(taskid,obj){
+	$(obj).attr("disabled","true");
 	$.ajax({
 		url : "${pageContext.request.contextPath}/task/endtaskBytaskid/"+taskid,
 		type : 'post',
@@ -255,29 +256,6 @@ $('#dateto').datebox();
         	btn_search(1);
         });
     
-    $(document).on("click",".shutdownTaks", function() {
-		if (confirm("您确定要终止该订单吗？")) {
-			$.ajax({
-				type : "post",
-				url : "/admin/user/terminateTask",
-				data : {id : $(this).attr("data-id")},
-				success : function(resp) {
-					if (resp && resp.ec == 0) {
-						Message.info('终止成功：',false);
-						setTimeout(
-								function() {
-									window.location.href = '/admin/user/taskList?page=1';
-								}, 2000);
-					} else {
-						Message.error(resp.em,true);
-					}
-				},
-				error : function() {
-					Message.error(resp.em, true);
-				}
-			});
-		}
-	});
   });
   function btn_search(num){
 	  var taskpk = $("#taskpk").val();

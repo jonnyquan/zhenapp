@@ -16,8 +16,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="真流量,淘口令,刷淘宝流量,淘宝刷流量软件,淘宝流量,淘宝刷流量" />
-<meta name="description" content="流量真真流量是一个快速提升淘宝手机流量、淘口令流量、淘宝无线流量、淘宝APP流量的平台,真流量优势:  百分百模拟刷淘宝手机流量、淘口令、淘宝刷流量软件、刷淘宝流量软件。" />
+<meta name="keywords" content="淘口令,刷淘宝流量,淘宝刷流量软件,淘宝流量,淘宝刷流量" />
+<meta name="description" content="旺点击是一个快速提升淘宝手机流量、淘口令流量、淘宝无线流量、淘宝APP流量的平台,真流量优势:  百分百模拟刷淘宝手机流量、淘口令、淘宝刷流量软件、刷淘宝流量软件。" />
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/frontend/pagematter/common/img/favicon.ico" type="image/x-icon" />
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/frontend/pagematter/common/css/font-awesome.min.css">
@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${pageContext.request.contextPath}/frontend/pagematter/common/js/common.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/frontend/pagematter/common/js/jquery.SuperSlide.2.1.1.js"></script>
 
-<title>真流量</title>
+<title>${tAgentInfoCustom.agentname }</title>
 
 <style type="text/css">
 /*html5*/
@@ -60,7 +60,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 		<div class="warp1200 toplogin clearfix">
 			<div class="userlogin row_r" id="userLogin">
 				<c:if test="${tUserInfoCustom == null}">
-					您好，欢迎来到真流量网！<a href="${pageContext.request.contextPath}/frontend/authlogin">马上登录</a>|<a href="${pageContext.request.contextPath}/frontend/authregister">快速注册</a>
+					您好，欢迎来到旺点击！<a href="${pageContext.request.contextPath}/frontend/authlogin">马上登录</a>|<a href="${pageContext.request.contextPath}/frontend/authregister">快速注册</a>
 				</c:if>
 				<c:if test="${tUserInfoCustom != null}">
 					<div class="userlogin row_r" id="userLogin">您好 <span>${tUserInfoCustom.usernick }</span> 欢迎您回来！<a href="${pageContext.request.contextPath}/user/responsepersonal">进入会员中心</a>|<a href="${pageContext.request.contextPath}/user/authlogout">退出登录</a></div>
@@ -72,7 +72,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 	<div class="pageFull">
 		<div class="webHeader clearfix">
 			<div class="logo row_l">
-				<a href="${pageContext.request.contextPath}/frontend/index" title="电商流量">真流量</a>
+				<a href="${pageContext.request.contextPath}/frontend/index" title="电商流量">${tAgentInfoCustom.agentname }</a>
 			</div>
 			<div class="channel row_r">
 				<ul class="clearfix">
@@ -82,7 +82,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 					<li><a href="${pageContext.request.contextPath}/frontend/anli" class="scl3">成功案例</a></li>
 					<li><a href="${pageContext.request.contextPath}/frontend/articlenews" class="scl4" title="电商干货">电商干货</a></li>
 					<li><a href="${pageContext.request.contextPath}/frontend/articleguide" class="scl5">新手指引</a></li>
-					<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="真流量用户中心">用户中心</a></li>
+					<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="用户中心">用户中心</a></li>
 					<li><a href="${pageContext.request.contextPath}/frontend/about" class="scl7">联系我们</a></li>
 				</ul>
 			</div>
@@ -214,10 +214,11 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 				关于我们<span>ABOUT</span>
 			</h3>
 			<div class="cont">
-				<p>真流量是一个针对淘宝店铺增加无线端APP手机流量、收藏、加购物车、淘口令和提高直通车质量得分的平台！您可以通过真流量平台注册会员进行提升淘宝app流量、收藏、加购等操作，真实有效提升商品关键词指数和商品排名。</p>
-				<p>真流量团队，有国内最有技术实力的淘宝专业技术公司团队，针对淘宝规则的整个系统进行的研发。网站技术团队有多位实力成员，负责整个平台的研发、测试、上线、维护、更新、服务。一直不断的根据淘宝的监察规则和淘宝不断变化的情况来研发最真实的流量，符合淘宝的规则。为客户提供流量的必备工具(刷手机淘宝流量、淘宝手机流量软件、淘宝无线流量软件)。</p>
+				<!--<p>旺点击是一个针对淘宝店铺增加无线端APP手机流量、收藏、加购物车和提高直通车质量得分的平台！您可以通过旺点击平台注册会员进行提升淘宝app流量、收藏、加购等操作，真实有效提升商品关键词指数和商品排名。</p>
+				<p>旺点击团队，有国内最有技术实力的淘宝专业技术公司团队，针对淘宝规则的整个系统进行的研发。网站技术团队有多位实力成员，负责整个平台的研发、测试、上线、维护、更新、服务。一直不断的根据淘宝的监察规则和淘宝不断变化的情况来研发最真实的流量，符合淘宝的规则。为客户提供流量的必备工具(刷手机淘宝流量、淘宝手机流量软件、淘宝无线流量软件)。</p>
 				<p>我们拥有5万以上真实手机，全国分布多个流量机房，轮流提高流量及点击率，提供最真实人工流量，及完全模拟手工操作。造爆款必备，提升网店浏览量和宝贝人气，提高直通车质量得分，完全通过生意参谋检测，可以查到真实的手机淘宝流量，非wap网页模拟流量！</p>
-				<p>专业打造优质无线流量 欢迎广大卖家咨询合作 加入我们共享双赢网店</p>
+				<p>专业打造优质无线流量 欢迎广大卖家咨询合作 加入我们共享双赢网店</p>-->
+				${tIndexInfoCustom.indextext }
 			</div>
 		</div>
 	</div>
@@ -260,7 +261,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 			<p>
 				<a href="${pageContext.request.contextPath}/frontend/index" title="淘宝流量">淘宝流量</a>
 				${tWebInfoCustom.record}
-				<a href="${pageContext.request.contextPath}/frontend/index" title="真流量">真流量</a>
+				<a href="${pageContext.request.contextPath}/frontend/index" title="${tAgentInfoCustom.agentname }">${tAgentInfoCustom.agentname }</a>
 			</p>
 		</div>
 	</div>

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhenapp.mapper.TIntroInfoMapper" >
   <resultMap id="BaseResultMap" type="com.zhenapp.po.TIntroInfo" >
-    <result column="intropk" property="intropk" jdbcType="INTEGER" />
+    <id column="intropk" property="intropk" jdbcType="INTEGER" />
     <result column="introid" property="introid" jdbcType="VARCHAR" />
     <result column="introname" property="introname" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="VARCHAR" />
@@ -107,6 +107,18 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_intro_info
+    where intropk = #{intropk,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_intro_info
+    where intropk = #{intropk,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByExample" parameterType="com.zhenapp.po.TIntroInfoExample" >
     delete from t_intro_info
     <if test="_parameter != null" >
@@ -240,5 +252,53 @@
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhenapp.po.TIntroInfo" >
+    update t_intro_info
+    <set >
+      <if test="introid != null" >
+        introid = #{introid,jdbcType=VARCHAR},
+      </if>
+      <if test="introname != null" >
+        introname = #{introname,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        createuser = #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateuser != null" >
+        updateuser = #{updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="introtext != null" >
+        introtext = #{introtext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where intropk = #{intropk,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zhenapp.po.TIntroInfo" >
+    update t_intro_info
+    set introid = #{introid,jdbcType=VARCHAR},
+      introname = #{introname,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=VARCHAR},
+      createuser = #{createuser,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=VARCHAR},
+      updateuser = #{updateuser,jdbcType=VARCHAR},
+      introtext = #{introtext,jdbcType=LONGVARCHAR}
+    where intropk = #{intropk,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhenapp.po.TIntroInfo" >
+    update t_intro_info
+    set introid = #{introid,jdbcType=VARCHAR},
+      introname = #{introname,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=VARCHAR},
+      createuser = #{createuser,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=VARCHAR},
+      updateuser = #{updateuser,jdbcType=VARCHAR}
+    where intropk = #{intropk,jdbcType=INTEGER}
   </update>
 </mapper>

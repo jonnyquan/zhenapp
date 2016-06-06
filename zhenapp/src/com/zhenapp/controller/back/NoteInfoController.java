@@ -24,6 +24,7 @@ import com.zhenapp.po.Custom.TelectricityCustom;
 import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.ElectrityInfoService;
 import com.zhenapp.service.GuideInfoService;
+import com.zhenapp.service.IndexInfoService;
 import com.zhenapp.service.IntroInfoService;
 import com.zhenapp.service.NoteInfoService;
 
@@ -40,6 +41,8 @@ public class NoteInfoController {
 	private AgentInfoService agentInfoService;
 	@Autowired
 	private IntroInfoService introInfoService;
+	@Autowired
+	private IndexInfoService indexInfoService;
 	
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 	/*
@@ -148,6 +151,7 @@ public class NoteInfoController {
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.put("noteid", tNoteInfoCustom.getNoteid());
 		hashmap.put("notetext", tNoteInfoCustom.getNotetext());
+		hashmap.put("notetype", tNoteInfoCustom.getNotetype());
 		hashmap.put("notename", tNoteInfoCustom.getNotename());
 		hashmap.put("updatetime", sdf.format(new Date()));
 		hashmap.put("updateuser", tUserInfoCustom.getUserid());
@@ -155,8 +159,10 @@ public class NoteInfoController {
 			electrityInfoService.updateElectrityById(hashmap);
 		}else if(tNoteInfoCustom.getNotetype().equals("1")){//类型为1表示新手指引信息
 			guideInfoService.updateGuideById(hashmap);
-		}else if(tNoteInfoCustom.getNotetype().equals("2")){//类型为1表示服务介绍信息
+		}else if(tNoteInfoCustom.getNotetype().equals("2")){//类型为2表示服务介绍信息
 			introInfoService.updateIntroById(hashmap);
+		}else if(tNoteInfoCustom.getNotetype().equals("3")){//类型为3表示首页信息
+			indexInfoService.updateIndex(hashmap);
 		}
 		noteService.updatenoteByid(tNoteInfoCustom);
 		map.put("ec", "0");

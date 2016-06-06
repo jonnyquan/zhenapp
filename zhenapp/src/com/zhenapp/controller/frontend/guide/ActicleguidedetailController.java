@@ -48,6 +48,7 @@ public class ActicleguidedetailController {
 		List<TGuideInfoCustom> TGuideInfoCustomlist = guideService.findGuide_10(pagemap);
 		TGuideInfoCustom tGuideInfoCustom=guideService.findElectrityBypk(guidepk);
 		mv.addObject("tWebInfoCustom",tWebInfoCustom);
+		mv.addObject("tAgentInfoCustom",tAgentInfoCustom);
 		mv.addObject("TelectricityCustomlist", TelectricityCustomlist);
 		mv.addObject("TGuideInfoCustomlist", TGuideInfoCustomlist);
 		mv.addObject("tGuideInfoCustom", tGuideInfoCustom);

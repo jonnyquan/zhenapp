@@ -40,6 +40,7 @@ public class AuthloginController {
 		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
 		TWebInfoCustom tWebInfoCustom=webInfoService.findWebByAgentid(tAgentInfoCustom.getAgentid());
 		mv.addObject("tWebInfoCustom",tWebInfoCustom);
+		mv.addObject("tAgentInfoCustom",tAgentInfoCustom);
 		if (list.size()>0) {
 			TUserInfoCustom tUserInfoCustom=list.get(0);
 			if(tUserInfoCustom.getUserpwd().equals(MD5Util.string2MD5(password))){

@@ -47,6 +47,7 @@ public class ActicleNewsDetailController {
 		List<TGuideInfoCustom> TGuideInfoCustomlist = guideService.findGuide_10(pagemap);
 		TelectricityCustom telectricityCustom = electrityService.findElectrityBypk(electricitypk);
 		mv.addObject("tWebInfoCustom",tWebInfoCustom);
+		mv.addObject("tAgentInfoCustom",tAgentInfoCustom);
 		mv.addObject("TelectricityCustomlist", TelectricityCustomlist);
 		mv.addObject("TGuideInfoCustomlist", TGuideInfoCustomlist);
 		mv.addObject("telectricityCustom", telectricityCustom);

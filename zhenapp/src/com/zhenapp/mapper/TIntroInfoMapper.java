@@ -10,6 +10,8 @@ public interface TIntroInfoMapper {
 
     int deleteByExample(TIntroInfoExample example);
 
+    int deleteByPrimaryKey(Integer intropk);
+
     int insert(TIntroInfo record);
 
     int insertSelective(TIntroInfo record);
@@ -18,9 +20,17 @@ public interface TIntroInfoMapper {
 
     List<TIntroInfo> selectByExample(TIntroInfoExample example);
 
+    TIntroInfo selectByPrimaryKey(Integer intropk);
+
     int updateByExampleSelective(@Param("record") TIntroInfo record, @Param("example") TIntroInfoExample example);
 
     int updateByExampleWithBLOBs(@Param("record") TIntroInfo record, @Param("example") TIntroInfoExample example);
 
     int updateByExample(@Param("record") TIntroInfo record, @Param("example") TIntroInfoExample example);
+
+    int updateByPrimaryKeySelective(TIntroInfo record);
+
+    int updateByPrimaryKeyWithBLOBs(TIntroInfo record);
+
+    int updateByPrimaryKey(TIntroInfo record);
 }

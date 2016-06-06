@@ -244,7 +244,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 	color: red;
 }
 </style>
-<title>会员登录 - 真流量</title>
+<title>会员登录 - ${tAgentInfoCustom.agentname }</title>
 </head>
 
 <body>
@@ -253,7 +253,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 		<div class="warp1200 toplogin clearfix">
 			<div class="userlogin row_r" id="userLogin">
 				<c:if test="${tUserInfoCustom == null}">
-					您好，欢迎来到真流量网！<a href="${pageContext.request.contextPath}/frontend/authlogin">马上登录</a>|<a href="${pageContext.request.contextPath}/frontend/authregister">快速注册</a>
+					您好，欢迎来到${tAgentInfoCustom.agentname }！<a href="${pageContext.request.contextPath}/frontend/authlogin">马上登录</a>|<a href="${pageContext.request.contextPath}/frontend/authregister">快速注册</a>
 				</c:if>
 				<c:if test="${tUserInfoCustom != null}">
 					<div class="userlogin row_r" id="userLogin">您好 <span>${tUserInfoCustom.usernick }</span> 欢迎您回来！<a href="${pageContext.request.contextPath}/user/responsepersonal">进入会员中心</a>|<a href="${pageContext.request.contextPath}/user/authlogout">退出登录</a></div>
@@ -266,7 +266,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 		<div class="webHeader clearfix">
 			<div class="logo row_l">
 				<a href="${pageContext.request.contextPath}/frontend/index"
-					title="淘宝流量">真流量</a>
+					title="淘宝流量">${tAgentInfoCustom.agentname }</a>
 			</div>
 			<div class="channel row_r">
 				<ul class="clearfix">
@@ -276,7 +276,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 					<li><a href="${pageContext.request.contextPath}/frontend/anli" class="scl3">成功案例</a></li>
 					<li><a href="${pageContext.request.contextPath}/frontend/articlenews" class="scl4" title="电商干货">电商干货</a></li>
 					<li><a href="${pageContext.request.contextPath}/frontend/articleguide" class="scl5">新手指引</a></li>
-					<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="真流量用户中心">用户中心</a></li>
+					<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="用户中心">用户中心</a></li>
 					<li><a href="${pageContext.request.contextPath}/frontend/about" class="scl7">联系我们</a></li>
 				</ul>
 			</div>
@@ -330,7 +330,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 
 				<div class="aregtips">
 
-					<div class="tipwz">您还没有注册真流量帐号？您只需10秒钟！</div>
+					<div class="tipwz">您还没有注册${tAgentInfoCustom.agentname }帐号？您只需10秒钟！</div>
 
 					<div class="tipwz">成功注册立刻发布任务！</div>
 					<div class="reg">
@@ -394,7 +394,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 	<div class="copyRight">
 		<div class="warp1200 footer">
 			<p>
-				Copyright (c) 2015 <a href="${pageContext.request.contextPath}/frontend/index" title="淘宝流量">淘宝流量</a> | <a href="${pageContext.request.contextPath}/frontend/index" title="真流量">真流量</a>(www.zhenapp.cn) Inc. All Rights. 浙ICP备140452118号-5.
+				Copyright (c) 2015 <a href="${pageContext.request.contextPath}/frontend/index" title="淘宝流量">淘宝流量</a> | <a href="${pageContext.request.contextPath}/frontend/index" title="${tAgentInfoCustom.agentname }">${tAgentInfoCustom.agentname }</a>(www.zhenapp.cn) Inc. All Rights. 浙ICP备140452118号-5.
 			</p>
 		</div>
 	</div>

@@ -109,6 +109,7 @@ public class CheckEndOrder {
 					}
 					//查询完成了多少个流量任务
 					int flowpoints=0;
+					int flowcounts=0;
 					TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);//根据任务id查询出流量详情信息
 					HttpClient httpClient = new HttpClient();
 					String result="";
@@ -126,16 +127,17 @@ public class CheckEndOrder {
 			 	    		//更新完成数
 			 	    		hashmap.put("finishcount", msgInfoCustom.getTotal());
 			 	    		taskDetailInfoFlowService.updatefinishcount(hashmap);
-			 	    		if(maxcount < Integer.parseInt(msgInfoCustom.getTotal())){
-			 	    			maxcount = Integer.parseInt(msgInfoCustom.getTotal());
-			 	    		}
-			 	    		flowpoints =(tTaskInfoCustom.getFlowcount() - maxcount) * Integer.parseInt(tPriceInfoCustom.getPricecounts1());
+			 	    		flowcounts= Integer.parseInt(msgInfoCustom.getTotal());
 			            }
 			            map.put("msg", result);
 			        }
 			        else {
 			            map.put("msg", "失败错误码" + statusCode);
 			        }
+			        if(maxcount < flowcounts){
+	 	    			maxcount = flowcounts;
+	 	    		}
+	 	    		flowpoints =(tTaskInfoCustom.getFlowcount() - maxcount) * Integer.parseInt(tPriceInfoCustom.getPricecounts1());
 					//添加终止任务所返回的积分
 					tUserInfoCustom.setPoints(tUserInfoCustom.getPoints() + points + flowpoints + pointserror);
 					tUserInfoCustom.setUpdatetime(sdf.format(new Date()));

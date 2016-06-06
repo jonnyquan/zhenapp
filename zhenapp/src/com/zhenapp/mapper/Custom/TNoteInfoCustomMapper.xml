@@ -13,10 +13,10 @@
   	select * from t_note_info a
   	<where>
   		<if test="agentid !=null and agentid != '' ">
-  			a.agentid = #{agentid}
+  			and a.agentid = #{agentid}
   		</if>
   		<if test="notetype != null and notetype != '' ">
-  			a.notetype = #{notetype}
+  			and a.notetype = #{notetype}
   		</if>
   	</where>
   </select>
@@ -33,10 +33,11 @@
   </select>
   
   <select id="findNoteinfoByIdAndType" resultType="com.zhenapp.po.Custom.TNoteInfoCustom" parameterType="java.util.HashMap">
-  	SELECT a.noteid,a.notetype,a.notestate,a.notename,CASE WHEN a.notetype='0' THEN b.electricitytext WHEN a.notetype='1' THEN c.guidetext ELSE d.introtext END AS notetext FROM t_note_info a 
+  	SELECT a.noteid,a.notetype,a.notestate,a.notename,CASE WHEN a.notetype='0' THEN b.electricitytext WHEN a.notetype='1' THEN c.guidetext WHEN a.notetype='2' THEN d.introtext ELSE e.indextext END AS notetext FROM t_note_info a 
 	LEFT JOIN (SELECT electricityid,electricitytext,'0' AS notetype FROM t_electricity_info) b ON a.noteid = b.electricityid AND a.notetype=b.notetype 
 	LEFT JOIN (SELECT guideid,guidetext,'1' AS notetype FROM t_guide_info) c ON a.noteid = c.guideid AND a.notetype=c.notetype 
 	LEFT JOIN (SELECT introid,introtext,'2' AS notetype FROM t_intro_info) d ON a.noteid = d.introid AND a.notetype=d.notetype 
+	LEFT JOIN (SELECT indexid,indextext,'3' AS notetype FROM t_index_info) e ON a.noteid = e.indexid AND a.notetype=e.notetype 
 	WHERE a.noteid=#{noteid} AND a.notetype=#{notetype}
   </select>
   
@@ -49,7 +50,7 @@
       notename = #{notename,jdbcType=VARCHAR},
       updatetime = #{updatetime,jdbcType=VARCHAR},
       updateuser = #{updateuser,jdbcType=VARCHAR}
-    where noteid = #{noteid,jdbcType=INTEGER}
+    where noteid = #{noteid,jdbcType=INTEGER} and notetype=#{notetype}
   </update>
   <delete id="deleteByIdAndType" parameterType="java.util.HashMap">
   	delete from t_note_info where noteid=#{noteid} and notetype=#{notetype}

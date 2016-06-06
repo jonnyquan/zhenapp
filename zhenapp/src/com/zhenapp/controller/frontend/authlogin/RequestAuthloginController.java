@@ -32,6 +32,7 @@ public class RequestAuthloginController {
 		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
 		TWebInfoCustom tWebInfoCustom=webInfoService.findWebByAgentid(tAgentInfoCustom.getAgentid());
 		mv.addObject("tWebInfoCustom",tWebInfoCustom);
+		mv.addObject("tAgentInfoCustom",tAgentInfoCustom);
 		if(session.getAttribute("tUserInfoCustom") != null){
 			mv.setViewName("/user/responseuser");
 		}else{

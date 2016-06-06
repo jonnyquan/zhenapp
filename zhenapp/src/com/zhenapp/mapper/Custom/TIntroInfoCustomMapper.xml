@@ -16,4 +16,13 @@
 	<update id="updateIntroById" parameterType="java.util.HashMap">
 	  	UPDATE t_intro_info SET introname=#{notename},introtext=#{notetext},updatetime=#{updatetime},updateuser=#{updateuser} WHERE introid=#{noteid}
 	</update>
+	
+	<insert id="insertIntro" parameterType="com.zhenapp.po.Custom.TIntroInfoCustom">
+		insert into t_intro_info ( introid, introname, 
+      createtime, createuser, updatetime, 
+      updateuser, introtext)
+    values ( #{introid,jdbcType=VARCHAR}, #{introname,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{updateuser,jdbcType=VARCHAR}, #{introtext,jdbcType=LONGVARCHAR})
+	</insert>
 </mapper>

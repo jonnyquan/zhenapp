@@ -191,7 +191,7 @@
                 <td>${list.createtime }</td>
                 <td>${list.dicinfoname} </td>
 				<td > 
-				  <a onclick="endtask('${list.taskid}')" class="btn btn-default btn-xs">终止任务</a>				
+				  <a onclick="endtask('${list.taskid}',this)" class="btn btn-default btn-xs">终止任务</a>				
 				</td>
               </tr>
             </c:forEach>
@@ -273,7 +273,8 @@
           + "&taskkeynum=" + taskkeynum + "&taskkeyword="+taskkeyword+"&tasktype="+tasktype;
   }
   
-	function endtask(taskid){
+	function endtask(taskid,obj){
+		$(obj).attr("disabled","true");
 		$.ajax({
 			url : "${pageContext.request.contextPath}/task/endtaskBytaskid/"+taskid,
 			type : 'post',

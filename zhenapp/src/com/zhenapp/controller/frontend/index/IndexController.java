@@ -1,5 +1,7 @@
 package com.zhenapp.controller.frontend.index;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.TAgentInfoCustom;
+import com.zhenapp.po.Custom.TIndexInfoCustom;
 import com.zhenapp.po.Custom.TWebInfoCustom;
 import com.zhenapp.service.AgentInfoService;
+import com.zhenapp.service.IndexInfoService;
 import com.zhenapp.service.WebInfoService;
 
 @Controller
@@ -20,6 +24,9 @@ public class IndexController {
 	private WebInfoService webInfoService;
 	@Autowired
 	private AgentInfoService agentInfoService;
+	@Autowired
+	private IndexInfoService indexInfoService;
+	
 	/*
 	 * 查询web信息 跳转到主页
 	 */
@@ -28,8 +35,13 @@ public class IndexController {
 		ModelAndView mv = new ModelAndView();
 		String webwww=request.getServerName();
 		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("agentid", tAgentInfoCustom.getAgentid());
+		TIndexInfoCustom tIndexInfoCustom = indexInfoService.findIndex(hashmap);
 		TWebInfoCustom tWebInfoCustom=webInfoService.findWebByAgentid(tAgentInfoCustom.getAgentid());
 		mv.addObject("tWebInfoCustom",tWebInfoCustom);
+		mv.addObject("tIndexInfoCustom",tIndexInfoCustom);
+		mv.addObject("tAgentInfoCustom",tAgentInfoCustom);
 		mv.setViewName("/frontend/index.jsp");
 		return mv;
 	}

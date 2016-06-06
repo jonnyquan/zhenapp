@@ -10,7 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>真流量</title>
+<title>${tAgentInfoCustom.agentname }</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/amazeui.min.css" />
@@ -31,7 +31,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <header class="am-topbar admin-header">
   <div class="am-topbar-brand">
-    <strong>真流量</strong> <small>后台管理系统</small>
+    <strong>${tAgentInfoCustom.agentname }</strong> <small>后台管理系统</small>
   </div>
   <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
     data-am-collapse="{target: '#topbar-collapse'}">

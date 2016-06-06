@@ -16,8 +16,8 @@
   <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
   <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-<meta name="keywords" content="真流量,无线流量,无限流量代运营,无线刷流量 " />
-<meta name="description" content="真流量,无线流量,无限流量代运营,无线刷流量 " />
+<meta name="keywords" content="无线流量,无限流量代运营,无线刷流量 " />
+<meta name="description" content="无线流量,无限流量代运营,无线刷流量 " />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
@@ -65,7 +65,7 @@
 	color: #f00;
 }
 </style>
-<title>购买记录 - 真流量</title>
+<title>购买记录 - ${tAgentInfoCustom.agentname }</title>
 </head>
 
 <body>
@@ -91,7 +91,7 @@
 		<div class="webHeader clearfix">
 			<div class="logo row_l">
 				<a href="${pageContext.request.contextPath}/frontend/index"
-					title="电商流量">真流量</a>
+					title="电商流量">${tAgentInfoCustom.agentname }</a>
 			</div>
 			<div class="channel row_r">
 				<ul class="clearfix">
@@ -111,7 +111,7 @@
 						class="scl5">新手指引</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/frontend/authlogin"
-						class="scl6" title="真流量用户中心">用户中心</a></li>
+						class="scl6" title="用户中心">用户中心</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/frontend/about"
 						class="scl7">联系我们</a></li>
@@ -206,7 +206,7 @@
 	<div class="copyRight">
 		<div class="warp1200 footer">
 			<p>
-				Copyright (c) 2015 <a href="${pageContext.request.contextPath}/frontend/index" title="淘宝流量">淘宝流量</a> | <a href="${pageContext.request.contextPath}/frontend/index" title="真流量">真流量</a>(www.zhenapp.cn) Inc. All Rights. 浙ICP备140452118号-5.
+				Copyright (c) 2015 <a href="${pageContext.request.contextPath}/frontend/index" title="淘宝流量">淘宝流量</a> | <a href="${pageContext.request.contextPath}/frontend/index" title="${tAgentInfoCustom.agentname }">${tAgentInfoCustom.agentname }</a>(www.zhenapp.cn) Inc. All Rights. 浙ICP备140452118号-5.
 			</p>
 		</div>
 	</div>

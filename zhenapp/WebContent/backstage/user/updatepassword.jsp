@@ -15,8 +15,8 @@
   <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
   <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-<meta name="keywords" content="真流量,无线流量,无限流量代运营,无线刷流量 " />
-<meta name="description" content="真流量,无线流量,无限流量代运营,无线刷流量 " />
+<meta name="keywords" content="无线流量,无限流量代运营,无线刷流量 " />
+<meta name="description" content="无线流量,无限流量代运营,无线刷流量 " />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
@@ -67,7 +67,7 @@
             font-size: 14px;
         }
     </style>
-    <title>基本资料 - 真流量</title>
+    <title>基本资料 - ${tAgentInfoCustom.agentname }</title>
 </head>
 <body>
 <div id="topbar">
@@ -86,7 +86,7 @@
 </div>
 <div class="pageFull">
     <div class="webHeader clearfix">
-        <div class="logo row_l"><a href="${pageContext.request.contextPath}/frontend/index" title="电商流量">真流量</a></div>
+        <div class="logo row_l"><a href="${pageContext.request.contextPath}/frontend/index" title="电商流量">${tAgentInfoCustom.agentname }</a></div>
         <div class="channel row_r">
             <ul class="clearfix">
 				<li><a href="${pageContext.request.contextPath}/frontend/index" title="电商流量" class="scl1">网站首页</a></li>
@@ -94,7 +94,7 @@
 				<li><a href="${pageContext.request.contextPath}/frontend/anli" class="scl3">成功案例</a></li>
 				<li><a href="${pageContext.request.contextPath}/frontend/articlenews" class="scl4" title="电商干货">电商干货</a></li>
 				<li><a href="${pageContext.request.contextPath}/frontend/articleguide" class="scl5">新手指引</a></li>
-				<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="真流量用户中心">用户中心</a></li>
+				<li><a href="${pageContext.request.contextPath}/frontend/authlogin" class="scl6" title="用户中心">用户中心</a></li>
 				<li><a href="${pageContext.request.contextPath}/frontend/about" class="scl7">联系我们</a></li>
 			</ul>
         </div>
@@ -179,7 +179,7 @@
 					href="${pageContext.request.contextPath}/frontend/index"
 					title="淘宝流量">淘宝流量</a> | <a
 					href="${pageContext.request.contextPath}/frontend/index"
-					title="真流量">真流量</a>(www.zhenapp.cn) Inc. All Rights.
+					title="${tAgentInfoCustom.agentname }">${tAgentInfoCustom.agentname }</a>(www.zhenapp.cn) Inc. All Rights.
 				浙ICP备140452118号-5.
 			</p>
 		</div>

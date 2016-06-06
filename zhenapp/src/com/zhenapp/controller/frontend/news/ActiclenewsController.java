@@ -56,6 +56,7 @@ public class ActiclenewsController {
 		List<TelectricityCustom> telectricityCustomcountlist = electrityService.findAllElectrity(pagemap);
 		List<TelectricityCustom> TelectricityCustomAlllist = electrityService.findElectrityBypage(pagemap);
 		mv.addObject("tWebInfoCustom",tWebInfoCustom);
+		mv.addObject("tAgentInfoCustom",tAgentInfoCustom);
 		mv.addObject("total", telectricityCustomcountlist.size());
 		mv.addObject("pagenum", page);
 		mv.addObject("TelectricityCustomlist", TelectricityCustomlist);
