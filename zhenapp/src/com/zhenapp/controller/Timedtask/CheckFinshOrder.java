@@ -20,12 +20,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhenapp.po.Custom.MsgInfoCustom;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
+import com.zhenapp.po.Custom.TPriceAgentInfoCustom;
 import com.zhenapp.po.Custom.TPriceInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailInfoFlowCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.DateInfoService;
 import com.zhenapp.service.PointsInfoService;
+import com.zhenapp.service.PriceAgentInfoService;
 import com.zhenapp.service.PriceInfoService;
 import com.zhenapp.service.RechargeInfoService;
 import com.zhenapp.service.SysconfInfoService;
@@ -59,6 +61,8 @@ public class CheckFinshOrder {
 	private TaskDetailInfoFlowService taskDetailInfoFlowService;
 	@Autowired
 	private PriceInfoService priceInfoService;
+	@Autowired
+	private PriceAgentInfoService priceAgentInfoService;
 	
 	@Value("${secret}")
 	private String secret;
@@ -78,7 +82,9 @@ public class CheckFinshOrder {
 				boolean isfinishflow = false;
 				TTaskInfoCustom tTaskInfoCustom = tTaskInfoCustomlist.get(i);
 				TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserid(tTaskInfoCustom.getCreateuser());
+				TUserInfoCustom tUserInfoCustomagent = userInfoService.findUserByuserid(tUserInfoCustom.getUserid());
 				TPriceInfoCustom tPriceInfoCustom = priceInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
+				TPriceAgentInfoCustom tPriceAgentInfoCustom = priceAgentInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
 				hashmap.put("taskid", tTaskInfoCustom.getTaskid());
 				hashmap.put("taskstate", "21,22");
 				int counts = taskDetailInfoService.findCounts(hashmap);
@@ -87,7 +93,7 @@ public class CheckFinshOrder {
 					//收藏和加购任务已经执行完成
 					isfinish=true;
 				}
-				TTaskDetailInfoFlowCustom TTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);
+				/*TTaskDetailInfoFlowCustom TTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);
 				//调用接口判断流量任务是否完成
 				HttpClient httpClient = new HttpClient();
 				String result="";
@@ -113,7 +119,7 @@ public class CheckFinshOrder {
 		        } else {
 		            map.put("msg", "失败错误码" + statusCode);
 		            throw new RuntimeException();
-		        }
+		        }*/
 		        if(isfinish && isfinishflow){
 		        	//表示任务已完成
 		        	//更新任务状态
@@ -125,7 +131,8 @@ public class CheckFinshOrder {
 		        	taskInfoService.updateTaskstate(hashmap);
 		        	//任务失败积分数返回
 		        	TTaskDetailInfoFlowCustom TTaskDetailInfoFlowCustombefore = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);
-		        	int pointsflow= (tTaskInfoCustom.getFlowcount()-TTaskDetailInfoFlowCustombefore.getFinishcount())*Integer.parseInt(tPriceInfoCustom.getPricecounts1());
+		        	int pointsflow = (tTaskInfoCustom.getFlowcount()-TTaskDetailInfoFlowCustombefore.getFinishcount())*Integer.parseInt(tPriceInfoCustom.getPricecounts1());
+		        	int pointsflowagent = (tTaskInfoCustom.getFlowcount()-TTaskDetailInfoFlowCustombefore.getFinishcount())*Integer.parseInt(tPriceAgentInfoCustom.getPricecounts1());
 		        	//加购失败
 		        	hashmap.put("taskid", tTaskInfoCustom.getTaskid());
 					hashmap.put("taskstate", "22");
@@ -133,12 +140,16 @@ public class CheckFinshOrder {
 					int shoppingcount = taskDetailInfoService.findshoppingcount(hashmap);
 					int pointscollect = collectcount*Integer.parseInt(tPriceInfoCustom.getPricecounts2());
 					int pointsshopping = shoppingcount*Integer.parseInt(tPriceInfoCustom.getPricecounts3());
-					//添加终止任务所返回的积分
+					
+					int pointscollectagent = collectcount*Integer.parseInt(tPriceAgentInfoCustom.getPricecounts2());
+					int pointsshoppingagent = shoppingcount*Integer.parseInt(tPriceAgentInfoCustom.getPricecounts3());
+					
+					//给用户添加终止任务所返回的积分
 					tUserInfoCustom.setPoints(tUserInfoCustom.getPoints() + pointsflow + pointscollect + pointsshopping);
 					tUserInfoCustom.setUpdatetime(sdf.format(new Date()));
 					tUserInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
 					userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
-					//添加积分明细记录
+					//给用户添加积分明细记录
 					TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
 					tPointsInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
 					tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
@@ -152,6 +163,26 @@ public class CheckFinshOrder {
 					tPointsInfoCustom.setTaskpk(tTaskInfoCustom.getTaskpk());
 					tPointsInfoCustom.setUserid(tUserInfoCustom.getUserid());
 					pointsInfoService.savePoints(tPointsInfoCustom);
+					
+					//给代理添加终止任务所返回的积分
+					tUserInfoCustomagent.setPoints(tUserInfoCustomagent.getPoints() + pointsflowagent + pointscollectagent + pointsshoppingagent);
+					tUserInfoCustomagent.setUpdatetime(sdf.format(new Date()));
+					tUserInfoCustomagent.setUpdateuser(tUserInfoCustomagent.getUserid());
+					userInfoService.updateUserinfoPointByUserid(tUserInfoCustomagent);
+					//给代理添加积分明细记录
+					TPointsInfoCustom tPointsInfoCustomagent =new TPointsInfoCustom();
+					tPointsInfoCustomagent.setCreateuser(tUserInfoCustomagent.getUserid());
+					tPointsInfoCustomagent.setCreatetime(sdf.format(new Date()));
+					tPointsInfoCustomagent.setUpdatetime(sdf.format(new Date()));
+					tPointsInfoCustomagent.setUpdateuser("sys");
+					tPointsInfoCustomagent.setPointreason("任务完成" + tTaskInfoCustom.getTaskpk() + ",失败任务返回积分"+(pointsflowagent + pointscollectagent + pointsshoppingagent));
+					tPointsInfoCustomagent.setPointsid(UUID.randomUUID().toString().replace("-", ""));
+					tPointsInfoCustomagent.setPoints(tUserInfoCustomagent.getPoints());
+					tPointsInfoCustomagent.setPointstype("28");
+					tPointsInfoCustomagent.setPointsupdate((pointsflowagent + pointscollectagent + pointsshoppingagent));
+					tPointsInfoCustomagent.setTaskpk(tTaskInfoCustom.getTaskpk());
+					tPointsInfoCustomagent.setUserid(tUserInfoCustomagent.getUserid());
+					pointsInfoService.savePoints(tPointsInfoCustomagent);
 		        }
 			}
 			logger.info("检查订单是否已完成结束!");

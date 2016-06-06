@@ -86,6 +86,7 @@ public class EndOrder {
 					hashmap.put("newstate", 40);
 					hashmap.put("oldstate", 23);
 					taskDetailInfoTempService.updatestate(hashmap);
+					/*
 					//并调用接口终止发布到第一个手机网站的任务
 					String url="http://liuliangapp.com/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/finish";
 					HttpClient httpClient = new HttpClient();
@@ -94,14 +95,18 @@ public class EndOrder {
 			        postMethod.setRequestHeader("secret", secret);
 			        int statusCode =  httpClient.executeMethod(postMethod);
 			        if(statusCode == 200) {
-			            System.out.println("调用成功");
 			            result = postMethod.getResponseBodyAsString();
 			            map.put("msg", result);
-			            logger.info("终止订单成功!");
+			            if(result.indexOf("delay")!=-1){
+            	
+			            }else{
+			            	logger.error("终止任务订单："+tTaskDetailInfoFlowCustom.getTaskdetailid()+"失败,失败代码："+result);
+			                throw new RuntimeException();
+			            }
 			        }else {
-			            System.out.println("调用失败" + statusCode);
 			            map.put("msg", "失败错误码" + statusCode);
-			        }
+			            throw new RuntimeException();
+			        }*/
 				}else{
 					map.put("code", 0);
 					map.put("msg", "订单号不存在");

@@ -261,7 +261,11 @@
     	</if>
     </where>
   </select>
-  
+  <select id="findEndTaskfordel" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap">
+	  SELECT a.* FROM t_task_info a
+	LEFT JOIN t_task_detailinfo b ON a.taskid=b.taskid
+	WHERE a.taskstate=#{taskstate} AND b.taskstate='23'
+  </select>
   
   <select id="findIsFirst" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="String" >
     select * from t_task_info WHERE taskkeynum=#{taskkeynum}

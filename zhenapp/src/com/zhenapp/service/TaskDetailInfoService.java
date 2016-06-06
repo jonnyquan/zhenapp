@@ -6,6 +6,8 @@ import java.util.List;
 import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 
 public interface TaskDetailInfoService {
+	//查询出终止任务个数
+	public int findcountEndstate(String taskid) throws Exception;
 	//根据日期按手机分组统计完成的收藏数和加购数
 	public List<TTaskDetailInfoCustom> findtaskdatacount(HashMap<String, Object> hashmap) throws Exception;
 	//根据日期按手机分组统计完成的收藏数和加购数

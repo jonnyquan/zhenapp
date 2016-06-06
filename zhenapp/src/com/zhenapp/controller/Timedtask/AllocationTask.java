@@ -15,12 +15,11 @@ import com.zhenapp.po.Custom.TPhoneInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailinfoTempCustom;
 import com.zhenapp.service.PhoneInfoService;
-import com.zhenapp.service.ScriptInfoService;
 import com.zhenapp.service.SysconfInfoService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskDetailInfoTempService;
 import com.zhenapp.service.TaskInfoService;
-import com.zhenapp.service.TbaccountInfoService;
+
 @Controller
 public class AllocationTask {
 	@Autowired
@@ -33,10 +32,6 @@ public class AllocationTask {
 	private TaskDetailInfoTempService taskDetailInfoTempService;
 	@Autowired
 	private TaskDetailInfoService taskDetailInfoService;
-	@Autowired
-	private TbaccountInfoService tbaccountInfoService;
-	@Autowired
-	private ScriptInfoService scriptInfoService;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 	SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
 	SimpleDateFormat HHmm = new SimpleDateFormat("HHmm");
@@ -45,7 +40,6 @@ public class AllocationTask {
 		ModelMap map = new ModelMap();
 		StringBuffer sb=new StringBuffer();
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
-		//TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
 		List<TPhoneInfoCustom> TPhoneInfoCustomlist = phoneInfoService.findPhoneAndTask(hashmap);
 		for (int i = 0; i < TPhoneInfoCustomlist.size(); i++) {
 			TPhoneInfoCustom tPhoneInfoCustom = TPhoneInfoCustomlist.get(i);

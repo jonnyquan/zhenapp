@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenapp.mapper.Custom.TPriceAgentInfoCustomMapper" >
+	<select id="findPriceByAgentid" parameterType="String" resultType="com.zhenapp.po.Custom.TPriceAgentInfoCustom">
+		select * from t_priceagent_info where agentid=#{agentid}
+	</select>
+	
+	
+	<insert id="insertPriceAgent" parameterType="com.zhenapp.po.Custom.TPriceAgentInfoCustom">
+		 insert into t_priceagent_info (priceid, agentid, 
+	      pricetype1, pricecode1, pricecounts1, 
+	      pricetype2, pricecode2, pricecounts2, 
+	      pricetype3, pricecode3, pricecounts3, 
+	      pricetype4, pricecode4, pricecounts4, 
+	      createtime, createuser, updatetime, 
+	      updateuser)
+	    values (#{priceid,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
+	      #{pricetype1,jdbcType=VARCHAR}, #{pricecode1,jdbcType=VARCHAR}, #{pricecounts1,jdbcType=VARCHAR}, 
+	      #{pricetype2,jdbcType=VARCHAR}, #{pricecode2,jdbcType=VARCHAR}, #{pricecounts2,jdbcType=VARCHAR}, 
+	      #{pricetype3,jdbcType=VARCHAR}, #{pricecode3,jdbcType=VARCHAR}, #{pricecounts3,jdbcType=VARCHAR}, 
+	      #{pricetype4,jdbcType=VARCHAR}, #{pricecode4,jdbcType=VARCHAR}, #{pricecounts4,jdbcType=VARCHAR}, 
+	      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+	      #{updateuser,jdbcType=VARCHAR})
+	</insert>
+
+	<update id="updatePrice" parameterType="com.zhenapp.po.Custom.TPriceAgentInfoCustom">
+		update t_priceagent_info
+	    set 
+	      pricecounts1 = #{pricecounts1,jdbcType=VARCHAR},
+	      pricecounts2 = #{pricecounts2,jdbcType=VARCHAR},
+	      pricecounts3 = #{pricecounts3,jdbcType=VARCHAR},
+	      pricecounts4 = #{pricecounts4,jdbcType=VARCHAR},
+	      updatetime = #{updatetime,jdbcType=VARCHAR},
+	      updateuser = #{updateuser,jdbcType=VARCHAR}
+	    where agentid = #{agentid,jdbcType=VARCHAR}
+	</update>
+</mapper>

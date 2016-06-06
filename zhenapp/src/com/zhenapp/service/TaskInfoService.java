@@ -6,6 +6,8 @@ import java.util.List;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 
 public interface TaskInfoService {
+	//查询已终止的任务还有未删除的详情任务的任务记录
+	public List<TTaskInfoCustom> findEndTaskfordel(HashMap<String, Object> hashmap) throws Exception;
 	/*
 	 * 查询当天执行中的任务   执行失败次数达到设置的最大错误数
 	 */

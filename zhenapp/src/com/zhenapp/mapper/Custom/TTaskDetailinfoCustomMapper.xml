@@ -230,6 +230,10 @@
   <select id="findPointsByteterminationstate" parameterType="String" resultType="int">
   	select IFNULL(sum(subtractpoints),0) from t_task_detailinfo where taskid = #{taskid} and taskstate = '23'
   </select>
+ 
+  <select id="findcountEndstate" parameterType="String" resultType="int">
+  	select count(1) from t_task_detailinfo where taskid = #{taskid} and taskstate = '23'
+  </select>
   
   <select id="findTaskDetailInfoByIdAndTaskstate" parameterType="java.util.HashMap" resultType="int">
   	select count(1) from t_task_detailinfo 

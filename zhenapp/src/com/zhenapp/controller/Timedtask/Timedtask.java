@@ -37,7 +37,7 @@ public class Timedtask {
         logger.info("判断终止中的任务是否已终止....每分钟执行一次");
 	}
 	
-	@Scheduled(cron = "0 */1 * * * ?")//每隔1分钟执行一次 将执行终止状态的详情任务删除
+	@Scheduled(cron = "0 */2 * * * ?")//每隔1分钟执行一次 将执行终止状态的详情任务删除
 	public void job2() throws HttpException, IOException {
 		logger.info("任务执行开始....每分钟执行一次");
 		HttpClient httpClient = new HttpClient();
@@ -93,7 +93,7 @@ public class Timedtask {
         logger.info("任务错误数大于等于系统设置的最大任务错误数即终止该任务数....每分钟执行一次");
 	}
 	
-	@Scheduled(cron = "0 */2 * * * ?")//每隔2分钟执行一次 将符合要求的详情任务放入详情任务临时表
+	@Scheduled(cron = "0 */1 * * * ?")//每隔2分钟执行一次 将符合要求的详情任务放入详情任务临时表
 	public void job5() throws HttpException, IOException {
 		HttpClient httpClient = new HttpClient();
 		String result="";

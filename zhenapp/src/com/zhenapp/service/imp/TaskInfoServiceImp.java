@@ -40,66 +40,62 @@ public class TaskInfoServiceImp implements TaskInfoService {
 	@Override
 	public List<TTaskInfoCustom> findTaskallocation(
 			HashMap<String, Object> hashmap) throws Exception {
-		// TODO Auto-generated method stub
 		return tTaskInfoCustomMapper.findTaskallocation(hashmap);
 	}
 
 	@Override
 	public List<TTaskInfoCustom> findIsFirst(String taskkeynum) throws Exception {
-		// TODO Auto-generated method stub
 		return tTaskInfoCustomMapper.findIsFirst(taskkeynum);
 	}
 
 	@Override
 	public int updateTaskstate(HashMap<String,Object> hashmap) throws Exception {
-		// TODO Auto-generated method stub
 		return tTaskInfoCustomMapper.updateTaskstate(hashmap);
 	}
 
 	@Override
 	public int findTotalTaskBypage(HashMap<String, Object> hashmap)
 			throws Exception {
-		// TODO Auto-generated method stub
 		return tTaskInfoCustomMapper.findTotalTaskBypage(hashmap);
 	}
 
 	@Override
 	public List<TTaskInfoCustom> findTaskBypageAndrole(
 			HashMap<String, Object> hashmap) throws Exception {
-		// TODO Auto-generated method stub
 		return tTaskInfoCustomMapper.findTaskBypageAndrole(hashmap);
 	}
 
 	@Override
 	public int findTotalTaskBypageAndrole(
 			HashMap<String, Object> hashmap) throws Exception {
-		// TODO Auto-generated method stub
 		return tTaskInfoCustomMapper.findTotalTaskBypageAndrole(hashmap);
 	}
 
 	@Override
 	public TTaskInfoCustom findTaskInfoByTaskid(String taskid) throws Exception {
-		// TODO Auto-generated method stub
 		return tTaskInfoCustomMapper.findTaskInfoByTaskid(taskid);
 	}
 
 	@Override
 	public List<TTaskInfoCustom> findTaskInfoByTaskstate(
 			HashMap<String, Object> hashmap) throws Exception {
-		// TODO Auto-generated method stub
 		return tTaskInfoCustomMapper.findTaskInfoByTaskstate(hashmap);
 	}
 
 	@Override
 	public List<TTaskInfoCustom> findTaskInfoBypks(String pks) throws Exception {
-		// TODO Auto-generated method stub
 		return tTaskInfoCustomMapper.findTaskInfoBypks(pks);
 	}
 
 	@Override
 	public List<TTaskInfoCustom> findTaskerrorcounts(HashMap<String, Object> hashmap) throws Exception {
-		// TODO Auto-generated method stub
 		return tTaskInfoCustomMapper.findTaskerrorcounts(hashmap);
+	}
+
+	@Override
+	public List<TTaskInfoCustom> findEndTaskfordel(
+			HashMap<String, Object> hashmap) throws Exception {
+		return tTaskInfoCustomMapper.findEndTaskfordel(hashmap);
 	}
 
 }

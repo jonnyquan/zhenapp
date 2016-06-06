@@ -57,7 +57,7 @@ public class DeleteEndOrder {
 		ModelMap map = new ModelMap();
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.put("taskstate", "19");
-		List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findTaskInfoByTaskstate(hashmap);
+		List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findEndTaskfordel(hashmap);
 		if(tTaskInfoCustomlist!=null && tTaskInfoCustomlist.size()>0){
 			for (int i = 0; i < tTaskInfoCustomlist.size(); i++) {
 				hashmap.put("taskstate", "23");

@@ -120,7 +120,10 @@ public class TaskDetailInfoServiceImp implements TaskDetailInfoService {
 	@Override
 	public TTaskDetailInfoCustom requesttaskByphoneid_temp(
 			HashMap<String, Object> hashmap) throws Exception {
-		// TODO Auto-generated method stub
 		return tTaskDetailinfoCustomMapper.requesttaskByphoneid_temp(hashmap);
+	}
+	@Override
+	public int findcountEndstate(String taskid) throws Exception {
+		return tTaskDetailinfoCustomMapper.findcountEndstate(taskid);
 	}
 }

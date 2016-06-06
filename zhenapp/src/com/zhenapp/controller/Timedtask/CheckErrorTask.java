@@ -91,14 +91,13 @@ public class CheckErrorTask {
 		        postMethod.setRequestHeader("secret", secret);
 		        int statusCode =  httpClient.executeMethod(postMethod);
 		        if(statusCode == 200) {
-		            System.out.println("调用成功");
 		            result = postMethod.getResponseBodyAsString();
 		            map.put("msg", result);
 		            logger.info("任务错误数超出预定值，自动终止任务成功");
 		        }
 		        else {
-		            System.out.println("调用失败" + statusCode);
 		            map.put("msg", "失败错误码" + statusCode);
+		            throw new RuntimeException();
 		        }
 			}
 		}

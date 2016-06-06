@@ -19,12 +19,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhenapp.po.Custom.MsgInfoCustom;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
+import com.zhenapp.po.Custom.TPriceAgentInfoCustom;
 import com.zhenapp.po.Custom.TPriceInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailInfoFlowCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.DateInfoService;
 import com.zhenapp.service.PointsInfoService;
+import com.zhenapp.service.PriceAgentInfoService;
 import com.zhenapp.service.PriceInfoService;
 import com.zhenapp.service.RechargeInfoService;
 import com.zhenapp.service.SysconfInfoService;
@@ -57,6 +59,8 @@ public class CheckEndOrder {
 	private TaskDetailInfoFlowService taskDetailInfoFlowService;
 	@Autowired
 	private PriceInfoService priceInfoService;
+	@Autowired
+	private PriceAgentInfoService priceAgentInfoService;
 	
 	@Value("${secret}")
 	private String secret;
@@ -74,7 +78,9 @@ public class CheckEndOrder {
 			for (int i = 0; i < tTaskInfoCustomlist.size(); i++) {
 				TTaskInfoCustom tTaskInfoCustom = tTaskInfoCustomlist.get(i);
 				TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserid(tTaskInfoCustom.getCreateuser());
+				TUserInfoCustom tUserInfoCustomagent = userInfoService.findUserByuserid(tUserInfoCustom.getUserid());
 				TPriceInfoCustom tPriceInfoCustom = priceInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
+				TPriceAgentInfoCustom tPriceAgentInfoCustom = priceAgentInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
 				//查询该任务 执行中的详情任务条数
 				hashmap.put("taskstate", "20");
 				hashmap.put("taskid", tTaskInfoCustom.getTaskid());
@@ -90,7 +96,12 @@ public class CheckEndOrder {
 					//taskDetailInfoService.deleteTaskBystate(hashmap);
 					hashmap.clear();
 					hashmap.put("taskid", tTaskInfoCustom.getTaskid());
-					int points = taskDetailInfoService.findPointsByteterminationstate(tTaskInfoCustom.getTaskid());
+					//int points = taskDetailInfoService.findPointsByteterminationstate(tTaskInfoCustom.getTaskid());
+					int endcounts = taskDetailInfoService.findcountEndstate(tTaskInfoCustom.getTaskid());
+					int endpoints = endcounts * Integer.parseInt(tPriceInfoCustom.getPricecounts1());
+					int endpointsagent = endcounts * Integer.parseInt(tPriceAgentInfoCustom.getPricecounts1());
+					
+					
 					//收藏，加购失败需要返回的积分
 		        	hashmap.put("taskid", tTaskInfoCustom.getTaskid());
 					hashmap.put("taskstate", "22");
@@ -99,6 +110,12 @@ public class CheckEndOrder {
 					int pointscollect = collectcount*Integer.parseInt(tPriceInfoCustom.getPricecounts2());
 					int pointsshopping = shoppingcount*Integer.parseInt(tPriceInfoCustom.getPricecounts3());
 					int pointserror=pointscollect+pointsshopping;
+					
+
+					int pointscollectagent = collectcount*Integer.parseInt(tPriceAgentInfoCustom.getPricecounts2());
+					int pointsshoppingagent = shoppingcount*Integer.parseInt(tPriceAgentInfoCustom.getPricecounts3());
+					int pointserroragent = pointscollectagent + pointsshoppingagent;
+					
 					hashmap.put("taskid", tTaskInfoCustom.getTaskid());
 					hashmap.put("taskstate", "21");
 					int tempcollectcount = taskDetailInfoService.findcollectioncount(hashmap);
@@ -110,6 +127,7 @@ public class CheckEndOrder {
 					//查询完成了多少个流量任务
 					int flowpoints=0;
 					int flowcounts=0;
+					int flowpointsagent=0;
 					TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);//根据任务id查询出流量详情信息
 					HttpClient httpClient = new HttpClient();
 					String result="";
@@ -138,25 +156,46 @@ public class CheckEndOrder {
 	 	    			maxcount = flowcounts;
 	 	    		}
 	 	    		flowpoints =(tTaskInfoCustom.getFlowcount() - maxcount) * Integer.parseInt(tPriceInfoCustom.getPricecounts1());
-					//添加终止任务所返回的积分
-					tUserInfoCustom.setPoints(tUserInfoCustom.getPoints() + points + flowpoints + pointserror);
+	 	    		flowpointsagent = (tTaskInfoCustom.getFlowcount() - maxcount) * Integer.parseInt(tPriceAgentInfoCustom.getPricecounts1());
+	 	    		//给用户添加终止任务所返回的积分
+					tUserInfoCustom.setPoints(tUserInfoCustom.getPoints() + endpoints + flowpoints + pointserror);
 					tUserInfoCustom.setUpdatetime(sdf.format(new Date()));
 					tUserInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
 					userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
-					//添加积分明细记录
+					//给用户添加积分明细记录
 					TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
 					tPointsInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
 					tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
 					tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
 					tPointsInfoCustom.setUpdateuser("sys");
-					tPointsInfoCustom.setPointreason("终止任务" + tTaskInfoCustom.getTaskpk() + "返回积分"+(points+flowpoints+pointserror));
+					tPointsInfoCustom.setPointreason("终止任务" + tTaskInfoCustom.getTaskpk() + "返回积分"+(endpoints + flowpoints + pointserror));
 					tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
 					tPointsInfoCustom.setPoints(tUserInfoCustom.getPoints());
 					tPointsInfoCustom.setPointstype("28");
-					tPointsInfoCustom.setPointsupdate((points+flowpoints+pointserror));
+					tPointsInfoCustom.setPointsupdate((endpoints + flowpoints + pointserror));
 					tPointsInfoCustom.setTaskpk(tTaskInfoCustom.getTaskpk());
 					tPointsInfoCustom.setUserid(tUserInfoCustom.getUserid());
 					pointsInfoService.savePoints(tPointsInfoCustom);
+					
+					//给代理添加终止任务所返回的积分
+					tUserInfoCustomagent.setPoints(tUserInfoCustomagent.getPoints() + endpointsagent + flowpointsagent + pointserroragent);
+					tUserInfoCustomagent.setUpdatetime(sdf.format(new Date()));
+					tUserInfoCustomagent.setUpdateuser(tUserInfoCustomagent.getUserid());
+					userInfoService.updateUserinfoPointByUserid(tUserInfoCustomagent);
+					//给代理添加积分明细记录
+					TPointsInfoCustom tPointsInfoCustomagent =new TPointsInfoCustom();
+					tPointsInfoCustomagent.setCreateuser(tUserInfoCustom.getUserid());
+					tPointsInfoCustomagent.setCreatetime(sdf.format(new Date()));
+					tPointsInfoCustomagent.setUpdatetime(sdf.format(new Date()));
+					tPointsInfoCustomagent.setUpdateuser("sys");
+					tPointsInfoCustomagent.setPointreason("终止任务" + tTaskInfoCustom.getTaskpk() + "返回积分"+(endpointsagent + flowpointsagent + pointserroragent));
+					tPointsInfoCustomagent.setPointsid(UUID.randomUUID().toString().replace("-", ""));
+					tPointsInfoCustomagent.setPoints(tUserInfoCustomagent.getPoints());
+					tPointsInfoCustomagent.setPointstype("28");
+					tPointsInfoCustomagent.setPointsupdate((endpointsagent + flowpointsagent + pointserroragent));
+					tPointsInfoCustomagent.setTaskpk(tTaskInfoCustom.getTaskpk());
+					tPointsInfoCustomagent.setUserid(tUserInfoCustomagent.getUserid());
+					pointsInfoService.savePoints(tPointsInfoCustomagent);
 					map.put("data", "success");
 					logger.info("该订单已成功终止!");
 				}else{
