@@ -89,7 +89,7 @@
   			<label>网站联系人</label>
   		</td>
   		<td>
-  			<input type="text" name="agentperson" id="agentperson" placeholder="网站联系人" class='form-control' value="${tAgentInfoCustom.agentperson }" />
+  			<input type="text" name="agentperson" id="agentperson" placeholder="网站联系人" disabled="disabled" class='form-control' value="${tAgentInfoCustom.agentperson }" />
   		</td>
   	</tr>
   	<tr>

@@ -209,7 +209,10 @@
 							<table class="table table-hover">
 								<tr>
 									<td width="20%">收款人：</td>
-									<td width="80%"><input type="hidden" name="payee" readonly="readonly" width=100% height=100%>wuxiaofan@qq.com
+									<td width="80%"><input type="hidden" name="payee" readonly="readonly" width=100% height=100%>
+										<span>
+											${alipay}
+										</span>
 									</td>
 								</tr>
 								<tr>

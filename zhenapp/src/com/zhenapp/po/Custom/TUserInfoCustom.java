@@ -5,7 +5,17 @@ import com.zhenapp.po.TUserInfo;
 public class TUserInfoCustom extends TUserInfo {
 	private String rolename;
 	private String statename;
+	private String usernickagent;
 	
+	
+	public String getUsernickagent() {
+		return usernickagent;
+	}
+
+	public void setUsernickagent(String usernickagent) {
+		this.usernickagent = usernickagent;
+	}
+
 	public String getStatename() {
 		return statename;
 	}

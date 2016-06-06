@@ -89,6 +89,7 @@
           <tr class="am-success">
             <th>用户ID</th>
             <th>用户名</th>
+            <th>所属代理</th>
             <th>手机号</th>
             <th>邮箱</th>
             <th>积分</th>
@@ -108,6 +109,7 @@
           	<tr data-id="${list.userpk}">
               <th>${list.userpk}</th>
               <td>${list.usernick}</td>
+              <td>${list.usernickagent}</td>
               <td>${list.userphone}</td>
               <td>${list.regemail}</td>
               <td>${list.points}</td>
