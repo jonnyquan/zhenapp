@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenapp.mapper.TNoteInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zhenapp.po.TNoteInfo" >
+    <id column="notepk" property="notepk" jdbcType="INTEGER" />
+    <result column="noteid" property="noteid" jdbcType="VARCHAR" />
+    <result column="agentid" property="agentid" jdbcType="VARCHAR" />
+    <result column="notetype" property="notetype" jdbcType="VARCHAR" />
+    <result column="notename" property="notename" jdbcType="VARCHAR" />
+    <result column="notestate" property="notestate" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="VARCHAR" />
+    <result column="createuser" property="createuser" jdbcType="VARCHAR" />
+    <result column="updatetime" property="updatetime" jdbcType="VARCHAR" />
+    <result column="updateuser" property="updateuser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    notepk, noteid, agentid, notetype, notename, notestate, createtime, createuser, updatetime, 
+    updateuser
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TNoteInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_note_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_note_info
+    where notepk = #{notepk,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_note_info
+    where notepk = #{notepk,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zhenapp.po.TNoteInfoExample" >
+    delete from t_note_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhenapp.po.TNoteInfo" >
+    insert into t_note_info (notepk, noteid, agentid, 
+      notetype, notename, notestate, 
+      createtime, createuser, updatetime, 
+      updateuser)
+    values (#{notepk,jdbcType=INTEGER}, #{noteid,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
+      #{notetype,jdbcType=VARCHAR}, #{notename,jdbcType=VARCHAR}, #{notestate,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{updateuser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhenapp.po.TNoteInfo" >
+    insert into t_note_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="notepk != null" >
+        notepk,
+      </if>
+      <if test="noteid != null" >
+        noteid,
+      </if>
+      <if test="agentid != null" >
+        agentid,
+      </if>
+      <if test="notetype != null" >
+        notetype,
+      </if>
+      <if test="notename != null" >
+        notename,
+      </if>
+      <if test="notestate != null" >
+        notestate,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="createuser != null" >
+        createuser,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="updateuser != null" >
+        updateuser,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="notepk != null" >
+        #{notepk,jdbcType=INTEGER},
+      </if>
+      <if test="noteid != null" >
+        #{noteid,jdbcType=VARCHAR},
+      </if>
+      <if test="agentid != null" >
+        #{agentid,jdbcType=VARCHAR},
+      </if>
+      <if test="notetype != null" >
+        #{notetype,jdbcType=VARCHAR},
+      </if>
+      <if test="notename != null" >
+        #{notename,jdbcType=VARCHAR},
+      </if>
+      <if test="notestate != null" >
+        #{notestate,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateuser != null" >
+        #{updateuser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhenapp.po.TNoteInfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_note_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_note_info
+    <set >
+      <if test="record.notepk != null" >
+        notepk = #{record.notepk,jdbcType=INTEGER},
+      </if>
+      <if test="record.noteid != null" >
+        noteid = #{record.noteid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentid != null" >
+        agentid = #{record.agentid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notetype != null" >
+        notetype = #{record.notetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notename != null" >
+        notename = #{record.notename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notestate != null" >
+        notestate = #{record.notestate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createuser != null" >
+        createuser = #{record.createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatetime != null" >
+        updatetime = #{record.updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateuser != null" >
+        updateuser = #{record.updateuser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_note_info
+    set notepk = #{record.notepk,jdbcType=INTEGER},
+      noteid = #{record.noteid,jdbcType=VARCHAR},
+      agentid = #{record.agentid,jdbcType=VARCHAR},
+      notetype = #{record.notetype,jdbcType=VARCHAR},
+      notename = #{record.notename,jdbcType=VARCHAR},
+      notestate = #{record.notestate,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=VARCHAR},
+      createuser = #{record.createuser,jdbcType=VARCHAR},
+      updatetime = #{record.updatetime,jdbcType=VARCHAR},
+      updateuser = #{record.updateuser,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhenapp.po.TNoteInfo" >
+    update t_note_info
+    <set >
+      <if test="noteid != null" >
+        noteid = #{noteid,jdbcType=VARCHAR},
+      </if>
+      <if test="agentid != null" >
+        agentid = #{agentid,jdbcType=VARCHAR},
+      </if>
+      <if test="notetype != null" >
+        notetype = #{notetype,jdbcType=VARCHAR},
+      </if>
+      <if test="notename != null" >
+        notename = #{notename,jdbcType=VARCHAR},
+      </if>
+      <if test="notestate != null" >
+        notestate = #{notestate,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        createuser = #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateuser != null" >
+        updateuser = #{updateuser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where notepk = #{notepk,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhenapp.po.TNoteInfo" >
+    update t_note_info
+    set noteid = #{noteid,jdbcType=VARCHAR},
+      agentid = #{agentid,jdbcType=VARCHAR},
+      notetype = #{notetype,jdbcType=VARCHAR},
+      notename = #{notename,jdbcType=VARCHAR},
+      notestate = #{notestate,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=VARCHAR},
+      createuser = #{createuser,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=VARCHAR},
+      updateuser = #{updateuser,jdbcType=VARCHAR}
+    where notepk = #{notepk,jdbcType=INTEGER}
+  </update>
+</mapper>

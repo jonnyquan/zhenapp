@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenapp.mapper.TTbaccountInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zhenapp.po.TTbaccountInfo" >
+    <id column="tbaccountpk" property="tbaccountpk" jdbcType="INTEGER" />
+    <result column="tbaccountid" property="tbaccountid" jdbcType="VARCHAR" />
+    <result column="tbaccountname" property="tbaccountname" jdbcType="VARCHAR" />
+    <result column="tbaccountpwd" property="tbaccountpwd" jdbcType="VARCHAR" />
+    <result column="tbaccounttime" property="tbaccounttime" jdbcType="INTEGER" />
+    <result column="tbaccounttag" property="tbaccounttag" jdbcType="VARCHAR" />
+    <result column="tbaccountphoneid" property="tbaccountphoneid" jdbcType="VARCHAR" />
+    <result column="tbaccountstate" property="tbaccountstate" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="VARCHAR" />
+    <result column="createuser" property="createuser" jdbcType="VARCHAR" />
+    <result column="updatetime" property="updatetime" jdbcType="VARCHAR" />
+    <result column="updateuser" property="updateuser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    tbaccountpk, tbaccountid, tbaccountname, tbaccountpwd, tbaccounttime, tbaccounttag, 
+    tbaccountphoneid, tbaccountstate, createtime, createuser, updatetime, updateuser
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TTbaccountInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_tbaccount_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_tbaccount_info
+    where tbaccountpk = #{tbaccountpk,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_tbaccount_info
+    where tbaccountpk = #{tbaccountpk,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zhenapp.po.TTbaccountInfoExample" >
+    delete from t_tbaccount_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhenapp.po.TTbaccountInfo" >
+    insert into t_tbaccount_info (tbaccountpk, tbaccountid, tbaccountname, 
+      tbaccountpwd, tbaccounttime, tbaccounttag, 
+      tbaccountphoneid, tbaccountstate, createtime, 
+      createuser, updatetime, updateuser
+      )
+    values (#{tbaccountpk,jdbcType=INTEGER}, #{tbaccountid,jdbcType=VARCHAR}, #{tbaccountname,jdbcType=VARCHAR}, 
+      #{tbaccountpwd,jdbcType=VARCHAR}, #{tbaccounttime,jdbcType=INTEGER}, #{tbaccounttag,jdbcType=VARCHAR}, 
+      #{tbaccountphoneid,jdbcType=VARCHAR}, #{tbaccountstate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+      #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhenapp.po.TTbaccountInfo" >
+    insert into t_tbaccount_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tbaccountpk != null" >
+        tbaccountpk,
+      </if>
+      <if test="tbaccountid != null" >
+        tbaccountid,
+      </if>
+      <if test="tbaccountname != null" >
+        tbaccountname,
+      </if>
+      <if test="tbaccountpwd != null" >
+        tbaccountpwd,
+      </if>
+      <if test="tbaccounttime != null" >
+        tbaccounttime,
+      </if>
+      <if test="tbaccounttag != null" >
+        tbaccounttag,
+      </if>
+      <if test="tbaccountphoneid != null" >
+        tbaccountphoneid,
+      </if>
+      <if test="tbaccountstate != null" >
+        tbaccountstate,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="createuser != null" >
+        createuser,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="updateuser != null" >
+        updateuser,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tbaccountpk != null" >
+        #{tbaccountpk,jdbcType=INTEGER},
+      </if>
+      <if test="tbaccountid != null" >
+        #{tbaccountid,jdbcType=VARCHAR},
+      </if>
+      <if test="tbaccountname != null" >
+        #{tbaccountname,jdbcType=VARCHAR},
+      </if>
+      <if test="tbaccountpwd != null" >
+        #{tbaccountpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="tbaccounttime != null" >
+        #{tbaccounttime,jdbcType=INTEGER},
+      </if>
+      <if test="tbaccounttag != null" >
+        #{tbaccounttag,jdbcType=VARCHAR},
+      </if>
+      <if test="tbaccountphoneid != null" >
+        #{tbaccountphoneid,jdbcType=VARCHAR},
+      </if>
+      <if test="tbaccountstate != null" >
+        #{tbaccountstate,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateuser != null" >
+        #{updateuser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhenapp.po.TTbaccountInfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_tbaccount_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_tbaccount_info
+    <set >
+      <if test="record.tbaccountpk != null" >
+        tbaccountpk = #{record.tbaccountpk,jdbcType=INTEGER},
+      </if>
+      <if test="record.tbaccountid != null" >
+        tbaccountid = #{record.tbaccountid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tbaccountname != null" >
+        tbaccountname = #{record.tbaccountname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tbaccountpwd != null" >
+        tbaccountpwd = #{record.tbaccountpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tbaccounttime != null" >
+        tbaccounttime = #{record.tbaccounttime,jdbcType=INTEGER},
+      </if>
+      <if test="record.tbaccounttag != null" >
+        tbaccounttag = #{record.tbaccounttag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tbaccountphoneid != null" >
+        tbaccountphoneid = #{record.tbaccountphoneid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tbaccountstate != null" >
+        tbaccountstate = #{record.tbaccountstate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createuser != null" >
+        createuser = #{record.createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatetime != null" >
+        updatetime = #{record.updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateuser != null" >
+        updateuser = #{record.updateuser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_tbaccount_info
+    set tbaccountpk = #{record.tbaccountpk,jdbcType=INTEGER},
+      tbaccountid = #{record.tbaccountid,jdbcType=VARCHAR},
+      tbaccountname = #{record.tbaccountname,jdbcType=VARCHAR},
+      tbaccountpwd = #{record.tbaccountpwd,jdbcType=VARCHAR},
+      tbaccounttime = #{record.tbaccounttime,jdbcType=INTEGER},
+      tbaccounttag = #{record.tbaccounttag,jdbcType=VARCHAR},
+      tbaccountphoneid = #{record.tbaccountphoneid,jdbcType=VARCHAR},
+      tbaccountstate = #{record.tbaccountstate,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=VARCHAR},
+      createuser = #{record.createuser,jdbcType=VARCHAR},
+      updatetime = #{record.updatetime,jdbcType=VARCHAR},
+      updateuser = #{record.updateuser,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhenapp.po.TTbaccountInfo" >
+    update t_tbaccount_info
+    <set >
+      <if test="tbaccountid != null" >
+        tbaccountid = #{tbaccountid,jdbcType=VARCHAR},
+      </if>
+      <if test="tbaccountname != null" >
+        tbaccountname = #{tbaccountname,jdbcType=VARCHAR},
+      </if>
+      <if test="tbaccountpwd != null" >
+        tbaccountpwd = #{tbaccountpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="tbaccounttime != null" >
+        tbaccounttime = #{tbaccounttime,jdbcType=INTEGER},
+      </if>
+      <if test="tbaccounttag != null" >
+        tbaccounttag = #{tbaccounttag,jdbcType=VARCHAR},
+      </if>
+      <if test="tbaccountphoneid != null" >
+        tbaccountphoneid = #{tbaccountphoneid,jdbcType=VARCHAR},
+      </if>
+      <if test="tbaccountstate != null" >
+        tbaccountstate = #{tbaccountstate,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        createuser = #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateuser != null" >
+        updateuser = #{updateuser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tbaccountpk = #{tbaccountpk,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhenapp.po.TTbaccountInfo" >
+    update t_tbaccount_info
+    set tbaccountid = #{tbaccountid,jdbcType=VARCHAR},
+      tbaccountname = #{tbaccountname,jdbcType=VARCHAR},
+      tbaccountpwd = #{tbaccountpwd,jdbcType=VARCHAR},
+      tbaccounttime = #{tbaccounttime,jdbcType=INTEGER},
+      tbaccounttag = #{tbaccounttag,jdbcType=VARCHAR},
+      tbaccountphoneid = #{tbaccountphoneid,jdbcType=VARCHAR},
+      tbaccountstate = #{tbaccountstate,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=VARCHAR},
+      createuser = #{createuser,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=VARCHAR},
+      updateuser = #{updateuser,jdbcType=VARCHAR}
+    where tbaccountpk = #{tbaccountpk,jdbcType=INTEGER}
+  </update>
+</mapper>

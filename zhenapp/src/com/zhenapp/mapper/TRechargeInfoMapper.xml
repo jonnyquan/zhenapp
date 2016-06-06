@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenapp.mapper.TRechargeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zhenapp.po.TRechargeInfo" >
+    <id column="rechargepk" property="rechargepk" jdbcType="INTEGER" />
+    <result column="rechargeid" property="rechargeid" jdbcType="VARCHAR" />
+    <result column="rechargeverification" property="rechargeverification" jdbcType="VARCHAR" />
+    <result column="rechargemoney" property="rechargemoney" jdbcType="INTEGER" />
+    <result column="rechargepoints" property="rechargepoints" jdbcType="INTEGER" />
+    <result column="rechargegivemoney" property="rechargegivemoney" jdbcType="INTEGER" />
+    <result column="rechargegivepoints" property="rechargegivepoints" jdbcType="INTEGER" />
+    <result column="rechargestate" property="rechargestate" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="VARCHAR" />
+    <result column="createuser" property="createuser" jdbcType="VARCHAR" />
+    <result column="updatetime" property="updatetime" jdbcType="VARCHAR" />
+    <result column="updateuser" property="updateuser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    rechargepk, rechargeid, rechargeverification, rechargemoney, rechargepoints, rechargegivemoney, 
+    rechargegivepoints, rechargestate, createtime, createuser, updatetime, updateuser
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TRechargeInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_recharge_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_recharge_info
+    where rechargepk = #{rechargepk,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_recharge_info
+    where rechargepk = #{rechargepk,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zhenapp.po.TRechargeInfoExample" >
+    delete from t_recharge_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhenapp.po.TRechargeInfo" >
+    insert into t_recharge_info (rechargepk, rechargeid, rechargeverification, 
+      rechargemoney, rechargepoints, rechargegivemoney, 
+      rechargegivepoints, rechargestate, createtime, 
+      createuser, updatetime, updateuser
+      )
+    values (#{rechargepk,jdbcType=INTEGER}, #{rechargeid,jdbcType=VARCHAR}, #{rechargeverification,jdbcType=VARCHAR}, 
+      #{rechargemoney,jdbcType=INTEGER}, #{rechargepoints,jdbcType=INTEGER}, #{rechargegivemoney,jdbcType=INTEGER}, 
+      #{rechargegivepoints,jdbcType=INTEGER}, #{rechargestate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+      #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhenapp.po.TRechargeInfo" >
+    insert into t_recharge_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rechargepk != null" >
+        rechargepk,
+      </if>
+      <if test="rechargeid != null" >
+        rechargeid,
+      </if>
+      <if test="rechargeverification != null" >
+        rechargeverification,
+      </if>
+      <if test="rechargemoney != null" >
+        rechargemoney,
+      </if>
+      <if test="rechargepoints != null" >
+        rechargepoints,
+      </if>
+      <if test="rechargegivemoney != null" >
+        rechargegivemoney,
+      </if>
+      <if test="rechargegivepoints != null" >
+        rechargegivepoints,
+      </if>
+      <if test="rechargestate != null" >
+        rechargestate,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="createuser != null" >
+        createuser,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="updateuser != null" >
+        updateuser,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rechargepk != null" >
+        #{rechargepk,jdbcType=INTEGER},
+      </if>
+      <if test="rechargeid != null" >
+        #{rechargeid,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeverification != null" >
+        #{rechargeverification,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargemoney != null" >
+        #{rechargemoney,jdbcType=INTEGER},
+      </if>
+      <if test="rechargepoints != null" >
+        #{rechargepoints,jdbcType=INTEGER},
+      </if>
+      <if test="rechargegivemoney != null" >
+        #{rechargegivemoney,jdbcType=INTEGER},
+      </if>
+      <if test="rechargegivepoints != null" >
+        #{rechargegivepoints,jdbcType=INTEGER},
+      </if>
+      <if test="rechargestate != null" >
+        #{rechargestate,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateuser != null" >
+        #{updateuser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhenapp.po.TRechargeInfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_recharge_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_recharge_info
+    <set >
+      <if test="record.rechargepk != null" >
+        rechargepk = #{record.rechargepk,jdbcType=INTEGER},
+      </if>
+      <if test="record.rechargeid != null" >
+        rechargeid = #{record.rechargeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rechargeverification != null" >
+        rechargeverification = #{record.rechargeverification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rechargemoney != null" >
+        rechargemoney = #{record.rechargemoney,jdbcType=INTEGER},
+      </if>
+      <if test="record.rechargepoints != null" >
+        rechargepoints = #{record.rechargepoints,jdbcType=INTEGER},
+      </if>
+      <if test="record.rechargegivemoney != null" >
+        rechargegivemoney = #{record.rechargegivemoney,jdbcType=INTEGER},
+      </if>
+      <if test="record.rechargegivepoints != null" >
+        rechargegivepoints = #{record.rechargegivepoints,jdbcType=INTEGER},
+      </if>
+      <if test="record.rechargestate != null" >
+        rechargestate = #{record.rechargestate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createuser != null" >
+        createuser = #{record.createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatetime != null" >
+        updatetime = #{record.updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateuser != null" >
+        updateuser = #{record.updateuser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_recharge_info
+    set rechargepk = #{record.rechargepk,jdbcType=INTEGER},
+      rechargeid = #{record.rechargeid,jdbcType=VARCHAR},
+      rechargeverification = #{record.rechargeverification,jdbcType=VARCHAR},
+      rechargemoney = #{record.rechargemoney,jdbcType=INTEGER},
+      rechargepoints = #{record.rechargepoints,jdbcType=INTEGER},
+      rechargegivemoney = #{record.rechargegivemoney,jdbcType=INTEGER},
+      rechargegivepoints = #{record.rechargegivepoints,jdbcType=INTEGER},
+      rechargestate = #{record.rechargestate,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=VARCHAR},
+      createuser = #{record.createuser,jdbcType=VARCHAR},
+      updatetime = #{record.updatetime,jdbcType=VARCHAR},
+      updateuser = #{record.updateuser,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhenapp.po.TRechargeInfo" >
+    update t_recharge_info
+    <set >
+      <if test="rechargeid != null" >
+        rechargeid = #{rechargeid,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeverification != null" >
+        rechargeverification = #{rechargeverification,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargemoney != null" >
+        rechargemoney = #{rechargemoney,jdbcType=INTEGER},
+      </if>
+      <if test="rechargepoints != null" >
+        rechargepoints = #{rechargepoints,jdbcType=INTEGER},
+      </if>
+      <if test="rechargegivemoney != null" >
+        rechargegivemoney = #{rechargegivemoney,jdbcType=INTEGER},
+      </if>
+      <if test="rechargegivepoints != null" >
+        rechargegivepoints = #{rechargegivepoints,jdbcType=INTEGER},
+      </if>
+      <if test="rechargestate != null" >
+        rechargestate = #{rechargestate,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        createuser = #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateuser != null" >
+        updateuser = #{updateuser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rechargepk = #{rechargepk,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhenapp.po.TRechargeInfo" >
+    update t_recharge_info
+    set rechargeid = #{rechargeid,jdbcType=VARCHAR},
+      rechargeverification = #{rechargeverification,jdbcType=VARCHAR},
+      rechargemoney = #{rechargemoney,jdbcType=INTEGER},
+      rechargepoints = #{rechargepoints,jdbcType=INTEGER},
+      rechargegivemoney = #{rechargegivemoney,jdbcType=INTEGER},
+      rechargegivepoints = #{rechargegivepoints,jdbcType=INTEGER},
+      rechargestate = #{rechargestate,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=VARCHAR},
+      createuser = #{createuser,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=VARCHAR},
+      updateuser = #{updateuser,jdbcType=VARCHAR}
+    where rechargepk = #{rechargepk,jdbcType=INTEGER}
+  </update>
+</mapper>
