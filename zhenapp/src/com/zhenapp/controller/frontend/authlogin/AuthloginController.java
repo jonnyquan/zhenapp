@@ -1,5 +1,6 @@
 package com.zhenapp.controller.frontend.authlogin;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +36,10 @@ public class AuthloginController {
 	@RequestMapping(value="/login")
 	public @ResponseBody ModelAndView login(HttpSession httpSession, HttpServletRequest request,String username,String password) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		List<TUserInfoCustom> list=userInfoService.findUserBynick(username);
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("usernick", username);
+		hashmap.put("userstate", "29");
+		List<TUserInfoCustom> list=userInfoService.findUserBynick(hashmap);
 		String webwww=request.getServerName();
 		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
 		TWebInfoCustom tWebInfoCustom=webInfoService.findWebByAgentid(tAgentInfoCustom.getAgentid());

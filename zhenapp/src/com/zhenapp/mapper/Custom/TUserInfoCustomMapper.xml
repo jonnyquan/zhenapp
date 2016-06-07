@@ -14,8 +14,16 @@
   <select id="checkEmailUnique" resultType="int" parameterType="String" >
     select count(1) from t_user_info where regemail = #{regemail} and userstate ='29'
   </select>
-  <select id="findUserBynick" resultType="com.zhenapp.po.Custom.TUserInfoCustom" parameterType="String" >
-    select * from t_user_info where userNick = #{usernick} and userstate ='29'
+  <select id="findUserBynick" resultType="com.zhenapp.po.Custom.TUserInfoCustom" parameterType="java.util.HashMap" >
+    select * from t_user_info 
+    <where>
+    	<if test="usernick != null and usernick != '' ">
+    		and userNick = #{usernick}
+    	</if>
+    	<if test="userstate != null and userstate != '' ">
+    		and userstate = #{userstate}
+    	</if>
+    </where>
   </select>
   <select id="findUserByuserid" parameterType="String" resultType="com.zhenapp.po.Custom.TUserInfoCustom">
   	select * from t_user_info where userid = #{userid} and userstate ='29'

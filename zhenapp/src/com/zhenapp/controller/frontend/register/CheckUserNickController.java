@@ -1,5 +1,6 @@
 package com.zhenapp.controller.frontend.register;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,9 @@ public class CheckUserNickController {
 	
 	@RequestMapping(value="/ajax/checkUserNameUnique")
 	public @ResponseBody ModelMap findUserByNick(String param) throws Exception{
-		List<TUserInfoCustom> list=userInfoService.findUserBynick(param);
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("usernick", param);
+		List<TUserInfoCustom> list=userInfoService.findUserBynick(hashmap);
 		ModelMap map= new ModelMap();
 		if(list.size()>0){
 			map.put("status", "n");
@@ -31,7 +34,9 @@ public class CheckUserNickController {
 	}
 	@RequestMapping(value="/ajax/checkUserNameexist")
 	public @ResponseBody ModelMap checkUserNameexist(String param) throws Exception{
-		List<TUserInfoCustom> list=userInfoService.findUserBynick(param);
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("usernick", param);
+		List<TUserInfoCustom> list=userInfoService.findUserBynick(hashmap);
 		ModelMap map= new ModelMap();
 		if(list.size()>0){
 			map.put("status", "y");

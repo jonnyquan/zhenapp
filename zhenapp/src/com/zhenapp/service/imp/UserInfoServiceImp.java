@@ -23,8 +23,8 @@ public class UserInfoServiceImp implements UserInfoService {
 	/*
 	 * 根据用户名查询用户信息 -----供登录及根据用户名查询用户信息使用
 	 */
-	public List<TUserInfoCustom> findUserBynick(String usernick) {
-		return tUserInfoCustomMapper.findUserBynick(usernick);
+	public List<TUserInfoCustom> findUserBynick(HashMap<String, Object> hashmap) {
+		return tUserInfoCustomMapper.findUserBynick(hashmap);
 	}
 	/*
 	 * 根据用户名密码查询积分点数

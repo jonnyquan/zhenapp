@@ -41,7 +41,7 @@ public interface TUserInfoCustomMapper {
 	/*
 	 * 根据用户名查询用户信息
 	 */
-	public List<TUserInfoCustom> findUserBynick(String usernick);
+	public List<TUserInfoCustom> findUserBynick(HashMap<String, Object> hashmap);
 
 	/*
 	 * 分页查询出用户

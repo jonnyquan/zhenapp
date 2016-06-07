@@ -4,8 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -63,7 +61,10 @@ public class EndOrder {
 	public @ResponseBody ModelMap shutdown(String partnerId,String password,String fid) throws Exception{
 		ModelMap map = new ModelMap();
 		//首先确保该用户能终止该订单
-		List<TUserInfoCustom> tUserInfoCustomlist = userInfoService.findUserBynick(partnerId);
+		HashMap<String, Object> hashmapuser = new HashMap<String, Object>();
+		hashmapuser.put("usernick", partnerId);
+		hashmapuser.put("userstate", "29");
+		List<TUserInfoCustom> tUserInfoCustomlist = userInfoService.findUserBynick(hashmapuser);
 		if(tUserInfoCustomlist!=null && tUserInfoCustomlist.size()==1){
 			TUserInfoCustom tUserInfoCustom = tUserInfoCustomlist.get(0);
 			if(tUserInfoCustom.getUserpwd().equals(MD5Util.string2MD5(password))){

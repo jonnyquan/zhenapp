@@ -28,7 +28,10 @@ public class GetOrder {
 	@RequestMapping(value="/api/platform/search/flow")
 	public @ResponseBody ModelMap searchflow(String partnerId,String password,String fid) throws Exception{
 		ModelMap map=new ModelMap();
-		List<TUserInfoCustom> tUserInfoCustomlist = userInfoService.findUserBynick(partnerId);
+		HashMap<String, Object> hashmapuser = new HashMap<String, Object>();
+		hashmapuser.put("usernick", partnerId);
+		hashmapuser.put("userstate", "29");
+		List<TUserInfoCustom> tUserInfoCustomlist = userInfoService.findUserBynick(hashmapuser);
 		if(tUserInfoCustomlist!=null && tUserInfoCustomlist.size()==1){
 			if(tUserInfoCustomlist.get(0).getUserpwd().equals(MD5Util.string2MD5(password))){
 				HashMap<String, Object> hashmap=new HashMap<String,Object>();
@@ -67,7 +70,10 @@ public class GetOrder {
 	@RequestMapping(value="/api/platform/search/flow/{partnerId}/{password}/{fid}")
 	public @ResponseBody ModelMap searchflowrest(@PathVariable(value="partnerId")String partnerId,@PathVariable(value="password")String password,@PathVariable(value="fid")String fid) throws Exception{
 		ModelMap map=new ModelMap();
-		List<TUserInfoCustom> tUserInfoCustomlist = userInfoService.findUserBynick(partnerId);
+		HashMap<String, Object> hashmapuser = new HashMap<String, Object>();
+		hashmapuser.put("usernick", partnerId);
+		hashmapuser.put("userstate", "29");
+		List<TUserInfoCustom> tUserInfoCustomlist = userInfoService.findUserBynick(hashmapuser);
 		if(tUserInfoCustomlist!=null && tUserInfoCustomlist.size()==1){
 			if(tUserInfoCustomlist.get(0).getUserpwd().equals(MD5Util.string2MD5(password))){
 				HashMap<String, Object> hashmap=new HashMap<String,Object>();

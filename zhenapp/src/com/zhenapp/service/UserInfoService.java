@@ -35,7 +35,7 @@ public interface UserInfoService {
 	/*
 	 * 根据用户名查询用户信息
 	 */
-	public List<TUserInfoCustom> findUserBynick(String usernick) throws Exception;
+	public List<TUserInfoCustom> findUserBynick(HashMap<String, Object> hashmap) throws Exception;
 	
 	/*
 	 * 根据id查询用户信息

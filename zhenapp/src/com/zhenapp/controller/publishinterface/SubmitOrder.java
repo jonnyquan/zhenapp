@@ -78,8 +78,11 @@ public class SubmitOrder {
 	@RequestMapping(value="/api/platform/flow/save")
 	public @ResponseBody ModelMap flowsave(String partnerId,String data,String validation) throws Exception{
 		ModelMap map=new ModelMap();
+		HashMap<String, Object> hashmapuser = new HashMap<String, Object>();
+		hashmapuser.put("usernick", partnerId);
+		hashmapuser.put("userstate", "29");
 		List<OrderReturnInfoCustom> orderReturnInfoCustomlist = new ArrayList<OrderReturnInfoCustom>();
-		List<TUserInfoCustom> tUserinfoCustomlist=userInfoService.findUserBynick(partnerId);
+		List<TUserInfoCustom> tUserinfoCustomlist=userInfoService.findUserBynick(hashmapuser);
 		if(tUserinfoCustomlist.size()<0){
 			map.put("code", "0");
 			map.put("desc", "用户不存在");

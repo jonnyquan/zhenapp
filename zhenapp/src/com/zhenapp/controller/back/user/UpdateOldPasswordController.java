@@ -2,6 +2,7 @@ package com.zhenapp.controller.back.user;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -30,7 +31,10 @@ public class UpdateOldPasswordController {
 	public @ResponseBody ModelAndView updateOldPassword(HttpSession session,String oldpassword,String userpwd) throws Exception{
 		ModelAndView mv =new ModelAndView();
 		String usernick = ((TUserInfoCustom)session.getAttribute("tUserInfoCustom")).getUsernick();
-		List<TUserInfoCustom> tUserInfoCustomlist=userInfoService.findUserBynick(usernick);
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("usernick", usernick);
+		hashmap.put("userstate", "29");
+		List<TUserInfoCustom> tUserInfoCustomlist=userInfoService.findUserBynick(hashmap);
 		if(tUserInfoCustomlist!=null && tUserInfoCustomlist.size()>0){
 			TUserInfoCustom tUserInfoCustom=tUserInfoCustomlist.get(0);
 			if(tUserInfoCustom.getUserpwd().equals(MD5Util.string2MD5(oldpassword))){

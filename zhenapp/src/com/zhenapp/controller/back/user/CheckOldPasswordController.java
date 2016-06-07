@@ -1,13 +1,16 @@
 package com.zhenapp.controller.back.user;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.UserInfoService;
 import com.zhenapp.util.MD5Util;
@@ -25,7 +28,10 @@ public class CheckOldPasswordController {
 	public @ResponseBody ModelMap checkOldPassword(HttpSession session,String param) throws Exception{
 		ModelMap map =new ModelMap();
 		String usernick = ((TUserInfoCustom)session.getAttribute("tUserInfoCustom")).getUsernick();
-		List<TUserInfoCustom> tUserInfoCustomlist=userInfoService.findUserBynick(usernick);
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("usernick", usernick);
+		hashmap.put("userstate", "29");
+		List<TUserInfoCustom> tUserInfoCustomlist=userInfoService.findUserBynick(hashmap);
 		if(tUserInfoCustomlist!=null && tUserInfoCustomlist.size()>0){
 			TUserInfoCustom tUserInfoCustom=tUserInfoCustomlist.get(0);
 			if(tUserInfoCustom.getUserpwd().equals(MD5Util.string2MD5(param))){
