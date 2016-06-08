@@ -4,19 +4,22 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.zhenapp.po.Custom.TPhoneInfoCustom;
-import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailinfoTempCustom;
 import com.zhenapp.service.PhoneInfoService;
 import com.zhenapp.service.SysconfInfoService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskDetailInfoTempService;
 import com.zhenapp.service.TaskInfoService;
+import com.zhenapp.service.Timedtask.AllocationcollectionTaskService;
+import com.zhenapp.service.Timedtask.AllocationshoppingTaskService;
 
 @Controller
 public class AllocationTask {
@@ -30,52 +33,45 @@ public class AllocationTask {
 	private TaskDetailInfoTempService taskDetailInfoTempService;
 	@Autowired
 	private TaskDetailInfoService taskDetailInfoService;
+	@Autowired
+	private AllocationcollectionTaskService allocationcollectionTaskService;
+	@Autowired
+	private AllocationshoppingTaskService allocationshoppingTaskService;
+	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 	SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
 	SimpleDateFormat HHmm = new SimpleDateFormat("HHmm");
 	@RequestMapping(value="/api/allocationTask")
 	public @ResponseBody ModelMap allocateiontask() throws Exception{
 		ModelMap map = new ModelMap();
-		StringBuffer sb=new StringBuffer();
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		List<TPhoneInfoCustom> TPhoneInfoCustomlist = phoneInfoService.findPhoneAndTask(hashmap);
 		for (int i = 0; i < TPhoneInfoCustomlist.size(); i++) {
+			StringBuffer sbiscollection = new StringBuffer();
 			TPhoneInfoCustom tPhoneInfoCustom = TPhoneInfoCustomlist.get(i);
 			hashmap.clear();
 			hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
 			hashmap.put("iscollection", 1);
 			hashmap.put("today", yyyyMMdd.format(new Date()));
 			hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
-			TTaskDetailInfoCustom tTaskDetailInfoCustomtype1collection = taskDetailInfoService.requesttaskByphoneid_temp(hashmap);
-			if(tTaskDetailInfoCustomtype1collection!=null){
-				tTaskDetailInfoCustomtype1collection.setPhoneid(tPhoneInfoCustom.getPhoneid());
-				TTaskDetailinfoTempCustom tTaskDetailinfoTempCustom = TTaskDetailinfoTempCustom.setTTaskDetailinfoTempCustom(tTaskDetailInfoCustomtype1collection);
-				taskDetailInfoTempService.insertDetailinfo(tTaskDetailinfoTempCustom);
-				sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustomtype1collection);
-				//将返回的字符串更新到数据表中
-				hashmap.put("result", sb.toString());
-				hashmap.put("taskdetailid", tTaskDetailinfoTempCustom.getTaskdetailid());
-				hashmap.put("updatetime", sdf.format(new Date()));
-				hashmap.put("updateuser", "api手机端修改字符串");
-				taskDetailInfoService.updateTaskDetailresultByid(hashmap);
+			List<TTaskDetailinfoTempCustom> TTaskDetailinfoTempCustomlistiscollection = taskDetailInfoTempService.findtaskkeynumlist(hashmap);
+			for (int j = 0; j < TTaskDetailinfoTempCustomlistiscollection.size(); j++) {
+				sbiscollection.append(TTaskDetailinfoTempCustomlistiscollection.get(j).getTaskkeynum()).append(",");
 			}
+			String taskkeynumstriscollection =sbiscollection.toString().length()>1?sbiscollection.toString().substring(0, sbiscollection.toString().length()-1):"";
+			allocationcollectionTaskService.allocateiontaskcollection(tPhoneInfoCustom,taskkeynumstriscollection);
 			hashmap.clear();
-			hashmap.put("phoneid", tPhoneInfoCustom.getPhoneid());
+			hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
 			hashmap.put("isshopping", 1);
 			hashmap.put("today", yyyyMMdd.format(new Date()));
 			hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
-			TTaskDetailInfoCustom tTaskDetailInfoCustomtype1shopping = taskDetailInfoService.requesttaskByphoneid_temp(hashmap);
-			if(tTaskDetailInfoCustomtype1shopping!=null){
-				tTaskDetailInfoCustomtype1shopping.setPhoneid(tPhoneInfoCustom.getPhoneid());
-				TTaskDetailinfoTempCustom tTaskDetailinfoTempCustom = TTaskDetailinfoTempCustom.setTTaskDetailinfoTempCustom(tTaskDetailInfoCustomtype1shopping);
-				taskDetailInfoTempService.insertDetailinfo(tTaskDetailinfoTempCustom);
-				sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustomtype1shopping);
-				hashmap.put("result", sb.toString());
-				hashmap.put("taskdetailid", tTaskDetailinfoTempCustom.getTaskdetailid());
-				hashmap.put("updatetime", sdf.format(new Date()));
-				hashmap.put("updateuser", "api手机端修改字符串");
-				taskDetailInfoService.updateTaskDetailresultByid(hashmap);
+			List<TTaskDetailinfoTempCustom> TTaskDetailinfoTempCustomlisisshopping = taskDetailInfoTempService.findtaskkeynumlist(hashmap);
+			StringBuffer sbisshopping = new StringBuffer();
+			for (int j = 0; j < TTaskDetailinfoTempCustomlisisshopping.size(); j++) {
+				sbisshopping.append(TTaskDetailinfoTempCustomlisisshopping.get(j).getTaskkeynum()).append(",");
 			}
+			String taskkeynumstrisshopping =sbisshopping.toString().length()>1?sbisshopping.toString().substring(0, sbisshopping.toString().length()-1):"";
+			allocationshoppingTaskService.allocateiontaskshopping(tPhoneInfoCustom,taskkeynumstrisshopping);
 		}
 		return map;
 	}

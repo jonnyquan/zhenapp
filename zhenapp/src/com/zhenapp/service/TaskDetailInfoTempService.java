@@ -1,6 +1,7 @@
 package com.zhenapp.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.zhenapp.po.Custom.TTaskDetailinfoTempCustom;
 
@@ -14,5 +15,6 @@ public interface TaskDetailInfoTempService {
 	public int deletetaskDetailInfoTemp(HashMap<String, Object> hashmap) throws Exception;
 	//根据条件修改详情任务临时信息的状态
 	public int updatestate(HashMap<String, Object> hashmap) throws Exception;
-	
+	//根据手机号查询某一日期做过的任务类型的宝贝id
+	public List<TTaskDetailinfoTempCustom> findtaskkeynumlist(HashMap<String, Object> hashmap) throws Exception;
 }

@@ -140,6 +140,7 @@
 							<th>是否加购物车</th>
 							<th>是否收藏</th>
 							<th>返回状态</th>
+							<th>执行状态</th>
 							<th>执行时间(点)</th>
 							<th>完成收藏</th>
 							<th>完成加购</th>
@@ -159,6 +160,7 @@
 									<td>${list.isshoppingname}</td>
 									<td>${list.iscollectionname}</td>
 									<td>${list.visitname}</td>
+									<td>${list.taskstatename}</td>
 									<td>${list.taskhour}</td>
 									<td>${list.collectname}</td>
 									<td>${list.trolleyname}</td>

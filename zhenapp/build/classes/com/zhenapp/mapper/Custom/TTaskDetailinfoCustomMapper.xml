@@ -8,15 +8,18 @@
   	SELECT a.* FROM t_task_detailinfo a
 	<where>
 		<if test="iscollection != null and iscollection != '' ">
-			AND a.iscollection ='1' AND taskkeynum NOT IN (SELECT taskkeynum FROM t_task_detailinfo_temp WHERE taskdate=#{today} AND phoneid = #{phoneid} AND iscollection = '1')
+			AND a.iscollection ='1'
 		</if>
 		<if test="isshopping != null and isshopping != '' ">
-			AND a.isshopping ='1' AND taskkeynum NOT IN (SELECT taskkeynum FROM t_task_detailinfo_temp WHERE taskdate=#{today} AND phoneid = #{phoneid} AND isshopping = '1')
+			AND a.isshopping ='1'
+		</if>
+		<if test="tasknumstr != null and tasknumstr != '' ">
+			AND a.taskkeynum NOT IN (#{tasknumstr})
 		</if>
 	</where>
-	AND a.phoneid IS NULL AND a.taskstate='40' AND taskdate=#{today} and resultstr is null
-	AND (CASE WHEN taskminute>9 THEN CONCAT(taskhour,taskminute)+0 <![CDATA[<=]]> #{HHmm}+0 ELSE CONCAT(taskhour,'0',taskminute)+0 <![CDATA[<=]]> #{HHmm}+0 END)
-  	ORDER BY taskhour,taskminute LIMIT 0,1
+	AND a.phoneid IS NULL AND a.taskstate='40' AND a.taskdate=#{today} and a.resultstr is null
+	AND (CASE WHEN a.taskminute>9 THEN CONCAT(a.taskhour,a.taskminute)+0 <![CDATA[<=]]> #{HHmm}+0 ELSE CONCAT(a.taskhour,'0',a.taskminute)+0 <![CDATA[<=]]> #{HHmm}+0 END)
+  	ORDER BY a.taskhour,a.taskminute LIMIT 0,1
   </select>
    
   <select id="findtaskdatacount" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
@@ -96,7 +99,7 @@
   </select>
   
   <select id="findTaskDetailByPage" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom" parameterType="java.util.HashMap">
-	SELECT f.taskpk,a.taskdetailpk, a.taskdetailid, a.taskid, a.taskkeyword, a.searchtype,e.dicinfoname AS tasktypename, a.price, a.region, a.isfreeship, 
+	SELECT g.dicinfoname as taskstatename,f.taskpk,a.taskdetailpk, a.taskdetailid, a.taskid, a.taskkeyword, a.searchtype,e.dicinfoname AS tasktypename, a.price, a.region, a.isfreeship, 
     a.istmall, a.iscollection,CASE WHEN a.iscollection='0' THEN '否' ELSE '是' END AS iscollectionname,a.isshopping, CASE WHEN a.isshopping='0' THEN '否' ELSE '是' END AS isshoppingname, a.taskkeynum, a.minpicture, a.maxpicture, a.tasktype, 
     a.isflow, a.iscreativetitle, a.isshopcollect, a.taskstate, a.taskdate, a.taskhour, a.taskminute, 
     a.visit,b.dictypename AS visitname ,a.collect,c.dictypename AS collectname, a.trolley, d.dictypename AS trolleyname, a.phoneid, a.subtractpoints, a.resultstr,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime, a.createuser, DATE_FORMAT(a.updatetime,'%Y-%m-%d %H:%i:%s') AS updatetime, 
@@ -105,6 +108,7 @@
 	LEFT JOIN t_data_dic_info c ON a.collect=c.dicinfoid
 	LEFT JOIN t_data_dic_info d ON a.trolley=d.dicinfoid
 	LEFT JOIN t_data_dic_info e ON a.tasktype=e.dicinfoid
+	LEFT JOIN t_data_dic_info g ON a.taskstate=g.dicinfoid
 	LEFT JOIN t_task_info f on a.taskid = f.taskid
 	  <where>
 	  	<if test="today != null and today != '' ">

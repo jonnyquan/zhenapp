@@ -14,7 +14,17 @@ public class TTaskDetailInfoCustom extends TTaskDetailinfo{
 	private int collectioncount;
 	private int shoppingsum;
 	private int collectionsum;
+	private String taskstatename;
 	
+	
+	public String getTaskstatename() {
+		return taskstatename;
+	}
+
+	public void setTaskstatename(String taskstatename) {
+		this.taskstatename = taskstatename;
+	}
+
 	public int getShoppingsum() {
 		return shoppingsum;
 	}
