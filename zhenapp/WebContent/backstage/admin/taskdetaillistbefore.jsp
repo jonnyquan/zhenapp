@@ -111,6 +111,16 @@
 						<option <c:if test="${tasktype=='34'}">selected</c:if> value="34">直通车</option>
 					</select> 
 				</div>
+				<div class="am-form-group">
+					<select name="taskstate" id="taskstate" class="am-form-field am-input-sm">
+						<option <c:if test="${taskstate==''}">selected</c:if> value="">执行状态</option>
+						<option <c:if test="${taskstate=='20'}">selected</c:if> value="20">执行中</option>
+						<option <c:if test="${taskstate=='21'}">selected</c:if> value="21">执行完成</option>
+						<option <c:if test="${taskstate=='22'}">selected</c:if> value="22">执行失败</option>
+						<option <c:if test="${taskstate=='23'}">selected</c:if> value="23">执行终止</option>
+						<option <c:if test="${taskstate=='40'}">selected</c:if> value="40">待获取</option>
+					</select> 
+				</div>
 				<button class="am-btn am-btn-default" id="search" type="button">搜索</button>
 			</form>
 		</div>
@@ -140,6 +150,7 @@
 							<th>是否加购物车</th>
 							<th>是否收藏</th>
 							<th>返回状态</th>
+							<th>执行状态</th>
 							<th>执行时间(点)</th>
 							<th>完成收藏</th>
 							<th>完成加购</th>
@@ -159,6 +170,7 @@
 									<td>${list.isshoppingname}</td>
 									<td>${list.iscollectionname}</td>
 									<td>${list.visitname}</td>
+									<td>${list.taskstatename}</td>
 									<td>${list.taskhour}</td>
 									<td>${list.collectname}</td>
 									<td>${list.trolleyname}</td>
@@ -205,8 +217,9 @@ $(function() {
 		var hours = $("#hours").val();
 		var tasktype= $("#tasktype").val();
 		var detaid= $("#detaid").val();
+		var taskstate = $("#taskstate").val();
 		location.href = "${pageContext.request.contextPath}/task/findtaskdetaillistbefore?page="+num+"&&phoneid=" + pid
-				+ "&&taskkeynum=" + nid+"&&taskpk="+fid+"&&taskhour="+hours+"&&tasktype="+tasktype +"&&detaid="+detaid;
+				+ "&&taskkeynum=" + nid+"&&taskpk="+fid+"&&taskhour="+hours+"&&tasktype="+tasktype +"&&detaid="+detaid +"&&taskstate="+taskstate;
 	}
 	function onmouse(taskdetailpk){
 		$.ajax({

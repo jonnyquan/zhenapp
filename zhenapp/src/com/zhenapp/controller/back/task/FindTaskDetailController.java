@@ -28,7 +28,7 @@ public class FindTaskDetailController {
 	 * 跳转到任务详情界面-----系统管理员	当前详情查询
 	 */
 	@RequestMapping(value="/findtaskdetaillist")
-	public ModelAndView findtaskdetaillist(Integer page,String tasktype,String phoneid,String taskkeynum,String taskpk,String taskhour,String detaid) throws Exception{
+	public ModelAndView findtaskdetaillist(Integer page,String tasktype,String phoneid,String taskkeynum,String taskstate,String taskpk,String taskhour,String detaid) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
@@ -42,6 +42,7 @@ public class FindTaskDetailController {
 		pagemap.put("taskhour", taskhour);
 		pagemap.put("tasktype", tasktype);
 		pagemap.put("detaid", detaid);
+		pagemap.put("taskstate", taskstate);
 		pagemap.put("today", yyyyMMdd.format(new Date()));
 		//系统管理员
 		List<TTaskDetailInfoCustom> tTaskDetailInfoCustomlist = taskDetailInfoService.findTaskDetailByPage(pagemap);
@@ -54,6 +55,7 @@ public class FindTaskDetailController {
 		mv.addObject("taskpk", taskpk);
 		mv.addObject("taskhour", taskhour);
 		mv.addObject("tasktype", tasktype);
+		mv.addObject("taskstate", taskstate);
 		mv.addObject("detaid", detaid);
 		mv.setViewName("/backstage/admin/taskdetaillist.jsp");
 		return mv;

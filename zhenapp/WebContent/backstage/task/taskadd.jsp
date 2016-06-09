@@ -768,7 +768,7 @@
 								</div>
 								<div class="form_control clearfix">
 									<label class="form_label">深入点击比例：</label> 
-									<input type="text" name="deepclick" id="deepclick" maxlength="3" onblur="checkdeep();"
+									<input type="text" name="deepclick" id="deepclick" maxlength="3" onchange="checkdeep();"
 													onkeyup="this.value=this.value.replace(/\D/g,'')"
 													onafterpaste="this.value=this.value.replace(/\D/g,'')"
 													<c:if test="${tTaskInfoCustom.shoppingcount!=null }">value="${tTaskInfoCustom.shoppingcount}"</c:if>

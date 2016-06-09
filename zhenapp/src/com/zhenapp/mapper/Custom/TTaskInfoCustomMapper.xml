@@ -10,7 +10,7 @@
   	select * from t_task_info where taskpk in (${value})
   </select>
   <select id="findTaskBypage" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap" >
-  SELECT DATE_FORMAT(a.taskdate,'%Y-%m-%d') AS taskdaterange,a.taskpk,a.taskid, a.tasktype, 
+  SELECT g.usernick,DATE_FORMAT(a.taskdate,'%Y-%m-%d') AS taskdaterange,a.taskpk,a.taskid, a.tasktype, 
      a.taskkeynum, a.tasktitle, a.taskwirelesstitle, 
      a.taskstartdate,a.taskenddate,a.taskdate, 
      a.taskreleasekeyword,a.taskkeyword,a.taskhourcounts, 
@@ -32,6 +32,7 @@
 	LEFT JOIN t_task_detailinfo_flow f ON a.taskid = f.taskid
 	LEFT JOIN (SELECT taskid,SUM(iscollection) AS finishcollectioncount,SUM(isshopping) AS finishshoppingcount FROM t_task_detailinfo WHERE taskstate='21' GROUP BY taskid) c ON a.taskid=c.taskid
 	LEFT JOIN (SELECT taskid,(SUM(iscollection)+SUM(isshopping)) AS errorcount FROM t_task_detailinfo WHERE taskstate='22' GROUP BY taskid) d ON a.taskid=d.taskid
+	LEFT JOIN t_user_info g ON a.createuser = g.userid
 	<where>
 		<if test="today != null and today != '' ">
 			and a.taskdate+0 <![CDATA[>=]]> #{today}
@@ -77,7 +78,7 @@
   </select>
   
   <select id="findTaskBypageAndrole" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap" >
-     SELECT DATE_FORMAT(a.taskdate,'%Y-%m-%d') AS taskdaterange,a.taskpk,a.taskid, a.tasktype, 
+     SELECT g.usernick,DATE_FORMAT(a.taskdate,'%Y-%m-%d') AS taskdaterange,a.taskpk,a.taskid, a.tasktype, 
      a.taskkeynum, a.tasktitle, a.taskwirelesstitle, 
      a.taskstartdate,a.taskenddate,a.taskdate, 
      a.taskreleasekeyword,a.taskkeyword,a.taskhourcounts, 
@@ -99,6 +100,7 @@
 	LEFT JOIN t_task_detailinfo_flow h ON a.taskid = h.taskid
 	LEFT JOIN (SELECT taskid,SUM(iscollection) AS finishcollectioncount,SUM(isshopping) AS finishshoppingcount FROM t_task_detailinfo WHERE taskstate='21' GROUP BY taskid) c ON a.taskid=c.taskid
 	LEFT JOIN (SELECT taskid,(SUM(iscollection)+SUM(isshopping)) AS errorcount FROM t_task_detailinfo WHERE taskstate='22' GROUP BY taskid) d ON a.taskid=d.taskid
+	LEFT JOIN t_user_info g ON a.createuser = g.userid
 	INNER JOIN (SELECT a.* FROM t_user_info a WHERE a.agentid IN (SELECT agentid FROM t_agent_info WHERE agentuserid=#{userid})) f ON a.createuser=f.userid<where>
     	<if test="taskid !=null and taskid != ''">
     		and a.taskid like '%${taskid}%'

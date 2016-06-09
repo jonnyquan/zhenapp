@@ -147,6 +147,7 @@
         <table class="am-table am-table-striped am-table-hover" style="font-size: 1.4rem;">
           <thead>
             <tr class="am-success">
+              <th style="width:100px;">用户名</th>
               <th style="width:140px;">订单ID</th>
               <th style="width:100px;">宝贝ID</th>
               <th style="width:60px;">类型</th>
@@ -158,6 +159,7 @@
               <th style="width:50px;">完成收藏</th>
               <th style="width:50px;">完成加购</th>
               <th style="width:40px;">失败</th>
+              <th style="width:100px;">任务日期</th>
               <th style="width:100px;">发布时间</th>
               <th style="width:80px;">任务状态</th>
               <th>操作</th>
@@ -166,6 +168,7 @@
           <tbody>
             <c:forEach items="${tTaskInfoCustomlist}" var="list">
             	<tr>
+            		<td>${list.usernick}</td>
 	            	<td>${list.taskpk}</td>
 	                <td>${list.taskkeynum}</td>
 	                <td>${list.tasktypename }</td>
@@ -177,6 +180,7 @@
 	                <td>${list.finishcollectioncount }</td>
 	                <td>${list.finishshoppingcount }</td>
 	                <td class="font-red">${list.errorcount}</td>
+	                <td>${list.taskdaterange }</td>
 	                <td>${list.createtime }</td>
 	                <td>${list.dicinfoname} </td>
 					<td > 

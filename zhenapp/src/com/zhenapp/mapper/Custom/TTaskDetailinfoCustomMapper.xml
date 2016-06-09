@@ -23,7 +23,7 @@
   </select>
    
   <select id="findtaskdatacount" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
-  		SELECT phoneid,SUM(isshopping) AS shoppingcount,SUM(iscollection) AS collectioncount FROM t_task_detailinfo WHERE taskdate =#{date} AND taskstate='21' GROUP BY phoneid
+  		SELECT phoneid,SUM(isshopping) AS shoppingcount,SUM(iscollection) AS collectioncount FROM t_task_detailinfo WHERE taskdate =#{date} AND taskstate='21' GROUP BY phoneid ORDER BY phoneid+0
   </select>
   <select id="findtaskdatasum" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
   		SELECT SUM(isshopping) AS shoppingcount,SUM(iscollection) AS collectioncount FROM t_task_detailinfo WHERE taskdate =#{date} AND taskstate='21' 
@@ -141,6 +141,9 @@
 	  	<if test="tasktype !=null and tasktype != ''">
 	  		and a.tasktype = #{tasktype}
 	  	</if>
+	  	<if test="taskstate !=null and taskstate != ''">
+	  		and a.taskstate = #{taskstate}
+	  	</if>
 	  </where>
 	  order by a.phoneid desc limit #{page},#{rows}
   </select>
@@ -170,6 +173,9 @@
 	  	</if>
 	  	<if test="tasktype !=null and tasktype != ''">
 	  		and a.tasktype = #{tasktype}
+	  	</if>
+	  	<if test="taskstate !=null and taskstate != ''">
+	  		and a.taskstate = #{taskstate}
 	  	</if>
 	  </where>
   </select>

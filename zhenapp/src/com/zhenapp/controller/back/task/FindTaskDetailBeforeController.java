@@ -28,7 +28,7 @@ public class FindTaskDetailBeforeController {
 	 * 跳转到任务详情界面-----系统管理员	历史详情查询
 	 */
 	@RequestMapping(value="/findtaskdetaillistbefore")
-	public ModelAndView findtaskdetaillistbefore(Integer page,String tasktype,String phoneid,String taskkeynum,String taskpk,String taskhour,String detaid) throws Exception{
+	public ModelAndView findtaskdetaillistbefore(Integer page,String tasktype,String phoneid,String taskkeynum,String taskstate,String taskpk,String taskhour,String detaid) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
@@ -42,6 +42,7 @@ public class FindTaskDetailBeforeController {
 		pagemap.put("taskhour", taskhour);
 		pagemap.put("tasktype", tasktype);
 		pagemap.put("detaid", detaid);
+		pagemap.put("taskstate", taskstate);
 		pagemap.put("before", yyyyMMdd.format(new Date()));
 		//系统管理员
 		List<TTaskDetailInfoCustom> tTaskDetailInfoCustomlist = taskDetailInfoService.findTaskDetailByPage(pagemap);
@@ -54,8 +55,9 @@ public class FindTaskDetailBeforeController {
 		mv.addObject("taskpk", taskpk);
 		mv.addObject("taskhour", taskhour);
 		mv.addObject("tasktype", tasktype);
+		mv.addObject("taskstate", taskstate);
 		mv.addObject("detaid", detaid);
-		mv.setViewName("/backstage/admin/taskdetaillist.jsp");
+		mv.setViewName("/backstage/admin/taskdetaillistbefore.jsp");
 		return mv;
 	}
 	
