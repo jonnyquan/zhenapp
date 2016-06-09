@@ -14,7 +14,7 @@
 			AND a.isshopping ='1'
 		</if>
 		<if test="tasknumstr != null and tasknumstr != '' ">
-			AND a.taskkeynum NOT IN (#{tasknumstr})
+			AND a.taskkeynum NOT IN (${tasknumstr})
 		</if>
 	</where>
 	AND a.phoneid IS NULL AND a.taskstate='40' AND a.taskdate=#{today} and a.resultstr is null

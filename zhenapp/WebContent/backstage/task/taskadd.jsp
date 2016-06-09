@@ -828,11 +828,11 @@
         });
         var uri = "${pageContext.request.contextPath}";
     </script>
-	<script type="text/javascript"
+	<!--  <script type="text/javascript"
 		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/vue.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/addtask-v3.26.js"></script>
-	<script type="text/javascript"
+	--><script type="text/javascript"
 		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/layer_user.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/taskadd.js"></script>

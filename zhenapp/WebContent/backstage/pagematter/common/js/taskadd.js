@@ -16,7 +16,6 @@ var isurl=false;
 		if($("#taskurl").val().length >1){
 			checkurl_2($("#taskurl")[0]);
 		}
-		
 		fpll($("#flowcount")[0]);//默认加载一次分配流量数
 		
 		$('#datefrom').datebox({
@@ -323,11 +322,6 @@ var isurl=false;
 		var number = /^\d+$/;
 		var temp = obj.value;
 		if(parseInt(temp) > parseInt(llmax)){
-			/*$.messager.alert('消息提示', '该宝贝id发布流量数不能大于允许发布的最大流量数!', 'info', function () {
-				$("#flowcount").val(llmax);
-				fpll($("#flowcount")[0]);
-				return false;
-			});*/
 			$("#span_flowcount").html("该宝贝发布流量数不能大于允许发布的最大流量数!");
 			$("#span_flowcount").css("color","red");
 			$("#flowcount").val(llmax);
@@ -438,7 +432,6 @@ var isurl=false;
 			 $("#span_taskurl").css("color","red");
 			 $("#taskurl").focus();
 			 return false;
-			llmax=10000;
 		}else{
 			$.ajax({
 				url : uri+"/api/url/validate?param="+param +"&&taskkeynum=" + taskkeynumval,
@@ -451,14 +444,7 @@ var isurl=false;
 						$("#span_shopping_text").html("  今天最多还可发:"+gwcmax);
 						$("#span_collection_text").html("  今天最多还可发："+scmax);
 						if(parseInt($("#flowcount").val()) > parseInt(llmax)){
-							/*$.messager.alert('消息提示', '该宝贝发布流量数不能大于允许发布的最大流量数!', 'info', function () {
-								$("#flowcount").val(llmax);
-								fpll($("#flowcount")[0]);
-							});
-							$("#span_flowcount").html("该宝贝发布流量数不能大于允许发布的最大流量数");
-							$("#span_flowcount").css("color","red");
-							$("#flowcount").val(llmax);
-							fpll($("#flowcount")[0]);*/
+							
 						}else{
 							$("#span_flowcount").html("该宝贝发布流量数填写正确!");
 							$("#span_flowcount").css("color","green");
@@ -570,6 +556,9 @@ var isurl=false;
 			$("#span_deepclick").css("color","red");
 			$("#deepclick").focus();
 			return false;
+		}else{
+			$("#span_deepclick").html("深入点击比例填写正确!");
+			$("#span_deepclick").css("color","green");
 		}
 	}
 	
@@ -635,7 +624,6 @@ function checkurl_2(obj){
 		 $("#span_taskurl").css("color","red");
 		 $("#taskurl").focus();
 		 return false;
-		llmax=10000;
 	}else{
 		$.ajax({
 			url : uri+"/api/url/validate?param="+param +"&&taskkeynum=" + taskkeynumval,
@@ -654,7 +642,6 @@ function checkurl_2(obj){
 						fpll($("#flowcount")[0]);
 					}
 					if(parseInt($("#collectioncount").val()) > parseInt(scmax)){
-						
 						$("#span_collection").html("该宝贝发布收藏数不能大于允许发布的最大收藏数");
 						$("#span_collection").css("color","red");
 						$("#collectioncount").val(scmax);

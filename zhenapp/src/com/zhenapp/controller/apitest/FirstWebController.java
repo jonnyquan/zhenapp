@@ -245,13 +245,13 @@ public class FirstWebController {
     			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
     			hashmap.put("taskkeynum", taskkeynum);
     			hashmap.put("iscollection", "1");
-    			hashmap.put("taskstate", "20,21");
+    			//hashmap.put("taskstate", "20,21");
     			int collectiontaskcount = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
     			hashmap.clear();
     			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
     			hashmap.put("taskkeynum", taskkeynum);
     			hashmap.put("isshopping", "1");
-    			hashmap.put("taskstate", "20,21");
+    			//hashmap.put("taskstate", "20,21");
     			int shoppingtaskcount = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
     			map.put("count", tSysconfInfoCustom.getSysconfvalue1());
     			map.put("collectiontaskcount", Integer.parseInt(tSysconfInfoCustom.getSysconfvalue1()) - collectiontaskcount);
