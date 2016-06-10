@@ -90,7 +90,7 @@
 					您好，欢迎来到${tAgentInfoCustom.agentname }！<a href="${pageContext.request.contextPath}/frontend/authlogin">马上登录</a>|<a href="${pageContext.request.contextPath}/frontend/authregister">快速注册</a>
 				</c:if>
 				<c:if test="${tUserInfoCustom != null}">
-					<div class="userlogin row_r" id="userLogin">您好 <span>${tUserInfoCustom.usernick }</span> 欢迎您回来！<a href="${pageContext.request.contextPath}/user/responsepersonal">进入会员中心</a>|<a href="${pageContext.request.contextPath}/user/authlogout">退出登录</a></div>
+					<div class="userlogin row_r" id="userLogin">您好 <span>${tUserInfoCustom.usernick }</span> 欢迎您回来！<a href="${pageContext.request.contextPath}/frontend/authlogin">进入会员中心</a>|<a href="${pageContext.request.contextPath}/user/authlogout">退出登录</a></div>
 				</c:if>
 			</div>
 		</div>
@@ -186,25 +186,6 @@
                     }
                 }
             });
-            /*
-            $("#btn_submit").click(function(){
-            	var email = $("#email").val();
-            	var usernick = $("#usernick").val();
-            	$.ajax({
-    				url : "${pageContext.request.contextPath}/frontend/password/reset",
-    				data :$("form").serialize(),
-    				type : "POST",
-    				success:function(data,state){
-    					if(data!=null && data.msg == "success"){
-    						$("#spanmsg").html("重置密码成功");
-    				     	$("#spanmsg").show();
-    				     	$("#spanmsg").fadeOut(4000);
-    					}else{
-    						$("#spanmsg").html("重置密码失败,请稍后再试!");
-    					}
-    				}
-    			});
-            });*/
             var msg = "${msg}";
             if(msg=="success"){
             	$("#spanmsg").html("重置密码成功");

@@ -10,6 +10,8 @@
     <result column="Carousel02" property="carousel02" jdbcType="VARCHAR" />
     <result column="Carousel03" property="carousel03" jdbcType="VARCHAR" />
     <result column="QQ" property="qq" jdbcType="VARCHAR" />
+    <result column="QQ2" property="qq2" jdbcType="VARCHAR" />
+    <result column="QQ3" property="qq3" jdbcType="VARCHAR" />
     <result column="qqgroup" property="qqgroup" jdbcType="VARCHAR" />
     <result column="wechat" property="wechat" jdbcType="VARCHAR" />
     <result column="record" property="record" jdbcType="VARCHAR" />
@@ -81,8 +83,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    webpk, webid, agentid, logo, Carousel01, Carousel02, Carousel03, QQ, qqgroup, wechat, 
-    record, alipay, bg01, bg02, ico, createuser, createtime, updateuser, updatetime
+    webpk, webid, agentid, logo, Carousel01, Carousel02, Carousel03, QQ, QQ2, QQ3, qqgroup, 
+    wechat, record, alipay, bg01, bg02, ico, createuser, createtime, updateuser, updatetime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TWebInfoExample" >
     select
@@ -117,16 +119,18 @@
   <insert id="insert" parameterType="com.zhenapp.po.TWebInfo" >
     insert into t_web_info (webpk, webid, agentid, 
       logo, Carousel01, Carousel02, 
-      Carousel03, QQ, qqgroup, 
-      wechat, record, alipay, 
-      bg01, bg02, ico, createuser, 
+      Carousel03, QQ, QQ2, 
+      QQ3, qqgroup, wechat, 
+      record, alipay, bg01, 
+      bg02, ico, createuser, 
       createtime, updateuser, updatetime
       )
     values (#{webpk,jdbcType=INTEGER}, #{webid,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
       #{logo,jdbcType=VARCHAR}, #{carousel01,jdbcType=VARCHAR}, #{carousel02,jdbcType=VARCHAR}, 
-      #{carousel03,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{qqgroup,jdbcType=VARCHAR}, 
-      #{wechat,jdbcType=VARCHAR}, #{record,jdbcType=VARCHAR}, #{alipay,jdbcType=VARCHAR}, 
-      #{bg01,jdbcType=VARCHAR}, #{bg02,jdbcType=VARCHAR}, #{ico,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
+      #{carousel03,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{qq2,jdbcType=VARCHAR}, 
+      #{qq3,jdbcType=VARCHAR}, #{qqgroup,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, 
+      #{record,jdbcType=VARCHAR}, #{alipay,jdbcType=VARCHAR}, #{bg01,jdbcType=VARCHAR}, 
+      #{bg02,jdbcType=VARCHAR}, #{ico,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}
       )
   </insert>
@@ -156,6 +160,12 @@
       </if>
       <if test="qq != null" >
         QQ,
+      </if>
+      <if test="qq2 != null" >
+        QQ2,
+      </if>
+      <if test="qq3 != null" >
+        QQ3,
       </if>
       <if test="qqgroup != null" >
         qqgroup,
@@ -215,6 +225,12 @@
       </if>
       <if test="qq != null" >
         #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="qq2 != null" >
+        #{qq2,jdbcType=VARCHAR},
+      </if>
+      <if test="qq3 != null" >
+        #{qq3,jdbcType=VARCHAR},
       </if>
       <if test="qqgroup != null" >
         #{qqgroup,jdbcType=VARCHAR},
@@ -284,6 +300,12 @@
       <if test="record.qq != null" >
         QQ = #{record.qq,jdbcType=VARCHAR},
       </if>
+      <if test="record.qq2 != null" >
+        QQ2 = #{record.qq2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qq3 != null" >
+        QQ3 = #{record.qq3,jdbcType=VARCHAR},
+      </if>
       <if test="record.qqgroup != null" >
         qqgroup = #{record.qqgroup,jdbcType=VARCHAR},
       </if>
@@ -332,6 +354,8 @@
       Carousel02 = #{record.carousel02,jdbcType=VARCHAR},
       Carousel03 = #{record.carousel03,jdbcType=VARCHAR},
       QQ = #{record.qq,jdbcType=VARCHAR},
+      QQ2 = #{record.qq2,jdbcType=VARCHAR},
+      QQ3 = #{record.qq3,jdbcType=VARCHAR},
       qqgroup = #{record.qqgroup,jdbcType=VARCHAR},
       wechat = #{record.wechat,jdbcType=VARCHAR},
       record = #{record.record,jdbcType=VARCHAR},
@@ -370,6 +394,12 @@
       </if>
       <if test="qq != null" >
         QQ = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="qq2 != null" >
+        QQ2 = #{qq2,jdbcType=VARCHAR},
+      </if>
+      <if test="qq3 != null" >
+        QQ3 = #{qq3,jdbcType=VARCHAR},
       </if>
       <if test="qqgroup != null" >
         qqgroup = #{qqgroup,jdbcType=VARCHAR},
@@ -416,6 +446,8 @@
       Carousel02 = #{carousel02,jdbcType=VARCHAR},
       Carousel03 = #{carousel03,jdbcType=VARCHAR},
       QQ = #{qq,jdbcType=VARCHAR},
+      QQ2 = #{qq2,jdbcType=VARCHAR},
+      QQ3 = #{qq3,jdbcType=VARCHAR},
       qqgroup = #{qqgroup,jdbcType=VARCHAR},
       wechat = #{wechat,jdbcType=VARCHAR},
       record = #{record,jdbcType=VARCHAR},

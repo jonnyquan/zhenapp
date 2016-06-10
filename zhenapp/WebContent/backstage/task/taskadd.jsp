@@ -793,14 +793,20 @@
 										<c:if test="${tTaskInfoCustom.shoppingcount!=null }">value="${tTaskInfoCustom.shoppingcount}"</c:if>
 										<c:if test="${tTaskInfoCustom.shoppingcount==null }">value="0"</c:if>
 										onkeyup="this.value=this.value.replace(/\D/g,'')"
-										onafterpaste="this.value=this.value.replace(/\D/g,'')" />&nbsp;&nbsp;<span id="span_shopping_text"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_shopping"></span>
+										onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+										&nbsp;&nbsp;<span id="span_shopping_text"></span>&nbsp;&nbsp;
+										&nbsp;&nbsp;<span id="span_shopping"></span>
 								</div>
-								<div id="buttonSubmit" class="form_control clearfix"
+								<div class="form_control clearfix">
+									<span style="color: red;padding-left: 100px;">* 请注意商品必须有库存，做活动时候放不了购物车</span>
+								</div>
+								<div id="buttonSubmit" class="form_control"
 									style="margin-top:20px; border-bottom:none;">
 									<div class="botton" style="margin-left:40px;">
 										<input type="button" class="btn btn-info" id="subbtn" value="发布任务" />
 									</div>
 								</div>
+								
 								<div id="searchOrderWrapper" class="form_control clearfix"
 									style="margin-top:20px; border-bottom:none;">
 									<div id="searchOrderInnerWrapper" class="botton"></div>

@@ -654,6 +654,146 @@ public class TWebInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andQq2IsNull() {
+            addCriterion("QQ2 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq2IsNotNull() {
+            addCriterion("QQ2 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq2EqualTo(String value) {
+            addCriterion("QQ2 =", value, "qq2");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq2NotEqualTo(String value) {
+            addCriterion("QQ2 <>", value, "qq2");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq2GreaterThan(String value) {
+            addCriterion("QQ2 >", value, "qq2");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq2GreaterThanOrEqualTo(String value) {
+            addCriterion("QQ2 >=", value, "qq2");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq2LessThan(String value) {
+            addCriterion("QQ2 <", value, "qq2");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq2LessThanOrEqualTo(String value) {
+            addCriterion("QQ2 <=", value, "qq2");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq2Like(String value) {
+            addCriterion("QQ2 like", value, "qq2");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq2NotLike(String value) {
+            addCriterion("QQ2 not like", value, "qq2");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq2In(List<String> values) {
+            addCriterion("QQ2 in", values, "qq2");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq2NotIn(List<String> values) {
+            addCriterion("QQ2 not in", values, "qq2");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq2Between(String value1, String value2) {
+            addCriterion("QQ2 between", value1, value2, "qq2");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq2NotBetween(String value1, String value2) {
+            addCriterion("QQ2 not between", value1, value2, "qq2");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq3IsNull() {
+            addCriterion("QQ3 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq3IsNotNull() {
+            addCriterion("QQ3 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq3EqualTo(String value) {
+            addCriterion("QQ3 =", value, "qq3");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq3NotEqualTo(String value) {
+            addCriterion("QQ3 <>", value, "qq3");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq3GreaterThan(String value) {
+            addCriterion("QQ3 >", value, "qq3");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq3GreaterThanOrEqualTo(String value) {
+            addCriterion("QQ3 >=", value, "qq3");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq3LessThan(String value) {
+            addCriterion("QQ3 <", value, "qq3");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq3LessThanOrEqualTo(String value) {
+            addCriterion("QQ3 <=", value, "qq3");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq3Like(String value) {
+            addCriterion("QQ3 like", value, "qq3");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq3NotLike(String value) {
+            addCriterion("QQ3 not like", value, "qq3");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq3In(List<String> values) {
+            addCriterion("QQ3 in", values, "qq3");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq3NotIn(List<String> values) {
+            addCriterion("QQ3 not in", values, "qq3");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq3Between(String value1, String value2) {
+            addCriterion("QQ3 between", value1, value2, "qq3");
+            return (Criteria) this;
+        }
+
+        public Criteria andQq3NotBetween(String value1, String value2) {
+            addCriterion("QQ3 not between", value1, value2, "qq3");
+            return (Criteria) this;
+        }
+
         public Criteria andQqgroupIsNull() {
             addCriterion("qqgroup is null");
             return (Criteria) this;

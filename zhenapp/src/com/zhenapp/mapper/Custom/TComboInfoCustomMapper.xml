@@ -40,22 +40,24 @@
 	
 	
 	<update id="updateCombotoByid" parameterType="com.zhenapp.po.Custom.TComboInfoCustom">
-		update t_combo_info set comboname=#{comboname},combomoney=#{combomoney},combointegral=#{combointegral},combogivemoney=#{combogivemoney},
+		update t_combo_info set comboname=#{comboname},combomoney=#{combomoney},discount=#{discount},unitprice=#{unitprice},combointegral=#{combointegral},combogivemoney=#{combogivemoney},
 		combogiveintegral=#{combogiveintegral},updateuser = #{updateuser},updatetime = #{updatetime}
 		where combopk=#{combopk}
 	</update>
 	
 	<insert id="insertComboto" parameterType="com.zhenapp.po.Custom.TComboInfoCustom">
-  	  insert into t_combo_info ( comboid, agentid, 
-      comboname, combomoney, combointegral, 
-      combogivemoney, combogiveintegral, combodesc, 
-      createuser, createtime, updateuser, 
-      updatetime)
+  	  insert into t_combo_info (comboid, agentid, 
+      comboname, combomoney, discount, 
+      unitprice, combointegral, combogivemoney, 
+      combogiveintegral, combodesc, createuser, 
+      createtime, updateuser, updatetime
+      )
     values (#{comboid,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
-      #{comboname,jdbcType=VARCHAR}, #{combomoney,jdbcType=INTEGER}, #{combointegral,jdbcType=INTEGER}, 
-      #{combogivemoney,jdbcType=INTEGER}, #{combogiveintegral,jdbcType=INTEGER}, #{combodesc,jdbcType=VARCHAR}, 
-      #{createuser,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, 
-      #{updatetime,jdbcType=VARCHAR})
+      #{comboname,jdbcType=VARCHAR}, #{combomoney,jdbcType=INTEGER}, #{discount,jdbcType=VARCHAR}, 
+      #{unitprice,jdbcType=VARCHAR}, #{combointegral,jdbcType=INTEGER}, #{combogivemoney,jdbcType=INTEGER}, 
+      #{combogiveintegral,jdbcType=INTEGER}, #{combodesc,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}
+      )
   </insert>
 	
 	

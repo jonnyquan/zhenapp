@@ -102,6 +102,8 @@ public class SetAgentController {
 		tWebInfoCustom.setCarousel02(tWebInfoCustomadmin.getCarousel02());
 		tWebInfoCustom.setCarousel03(tWebInfoCustomadmin.getCarousel03());
 		tWebInfoCustom.setQq(tWebInfoCustomadmin.getQq());
+		tWebInfoCustom.setQq2(tWebInfoCustomadmin.getQq2());
+		tWebInfoCustom.setQq3(tWebInfoCustomadmin.getQq3());
 		tWebInfoCustom.setQqgroup(tWebInfoCustom.getQqgroup());
 		tWebInfoCustom.setWechat(tWebInfoCustomadmin.getWechat());
 		tWebInfoCustom.setRecord(tWebInfoCustomadmin.getRecord());

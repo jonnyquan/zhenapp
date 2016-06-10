@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.TPointsInfoCustom;
-import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.ComboInfoService;
 import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.RechargeInfoService;
@@ -30,8 +29,6 @@ public class ResponseRecordsPointsAdminController {
 	private RechargeInfoService rechargeInfoService;
 	@Autowired
 	private UserInfoService userInfoService;
-	@Autowired
-	private AgentInfoService agentInfoService;
 	@Value("${middleRows}")
 	private Integer middleRows;
 	

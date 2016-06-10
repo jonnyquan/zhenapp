@@ -18,6 +18,10 @@
 <meta name="keywords" content="无线流量,无限流量代运营,无线刷流量 " />
 <meta name="description" content="无线流量,无限流量代运营,无线刷流量 " />
 <link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap-theme.min.css" />
+<link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/global.css">
@@ -214,17 +218,22 @@
 						<a href="${pageContext.request.contextPath}/points/responserecordspoints" class="row_l">积分明细</a>
 					</div>
 					<div class="umainbox">
-						<!--main-->
+						<!--main
 						<form class="koo_fromBox" action="${pageContext.request.contextPath}/points/buypoints" method="post">
 							<div class="taxkTips">
-								<h2>可选套餐</h2>
+								<h2>可选套餐&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								基本定价：    手机流量0.1元    收藏价格0.1元    加购0.1元</h2>
 							</div>
 							<c:forEach items="${tComboInfoCustomlist}" var="list" varStatus="status">
-								<div class="form_control clearfix">
+								<div class="form_control">
 									<label class="form_label">${list.comboname}</label> 
 									<label class="form_radio"> 
-										<input type="radio" name="id" value="${list.comboid }" <c:if test="${status.index == 0}"> checked</c:if>  > 
-										<span>价格：${list.combomoney} 元</span>  <span>积分数量：${list.combointegral}</span> <span>赠送积分：${list.combogiveintegral}</span> 
+										<input type="radio" name="id" value="${list.comboid }" <c:if test="${status.index == 0}">checked</c:if> /> 
+										<span>充值：${list.combomoney}元</span>  
+										<span>折扣：${list.discount}折</span>
+										<span>单价：${list.unitprice}分</span>
+										<span>积分：${list.combointegral}</span> 
+										<span>赠送积分：${list.combogiveintegral}</span> 
 									</label>
 								</div>
 							</c:forEach>
@@ -236,6 +245,45 @@
 							</div>
 						</form>
 						<!--main-->
+						<div class="tablebox">
+							<div class="taxkTips">
+								<h2>可选套餐&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								基本定价：    手机流量0.1元    收藏价格0.1元    加购0.1元</h2>
+							</div>
+		                    <table class="tablelist">
+		                        <c:if test="${tComboInfoCustomlist!=null}">
+			                       <c:forEach items="${tComboInfoCustomlist}" var="list" varStatus="status">
+			                       		<tr>
+			                       			<td width="10%" align="right">
+			                       				${list.comboname}
+			                       				<input type="radio" name="id" value="${list.comboid }" <c:if test="${status.index == 0}">checked</c:if> /> 
+			                       			</td>
+					                        <td width="10%" style="padding-left: 0px;margin-left: 0px;">
+												充值：${list.combomoney}元
+											</td>
+											<td width="10%">
+												折扣：${list.discount}折
+											</td>
+											<td width="10%">
+												单价：${list.unitprice}分
+											</td>
+					                        <td width="10%">
+												积分：${list.combointegral}
+											</td>
+					                        <td width="20%">
+					                        	赠送积分：${list.combogiveintegral}
+					                        </td>
+			                       		</tr>
+			                       </c:forEach>
+		                        </c:if>
+		                     </table>
+		                     <div class="form_control clearfix"
+								style="margin-top:20px; border-bottom:none;">
+								<div class="botton">
+									<button type="submit" name="submit" class="form_btn">确定购买</button>
+								</div>
+							</div>
+		                </div>
 					</div>
 				</div>
 			</div>
@@ -253,7 +301,9 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/backstage/pagematter/common/js/Validform_v5.3.2.js"></script>
 <script type="text/javascript">
 ;$(function(){
-	$(".leftmenu").load("${pageContext.request.contextPath}/backstage/user/menu.jsp");	
+	$(".leftmenu").load("${pageContext.request.contextPath}/backstage/user/menu.jsp");
+	
+	
 });
 </script>
 </html>

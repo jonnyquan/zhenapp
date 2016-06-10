@@ -17,6 +17,10 @@ public class TWebInfo {
 
     private String qq;
 
+    private String qq2;
+
+    private String qq3;
+
     private String qqgroup;
 
     private String wechat;
@@ -101,6 +105,22 @@ public class TWebInfo {
 
     public void setQq(String qq) {
         this.qq = qq == null ? null : qq.trim();
+    }
+
+    public String getQq2() {
+        return qq2;
+    }
+
+    public void setQq2(String qq2) {
+        this.qq2 = qq2 == null ? null : qq2.trim();
+    }
+
+    public String getQq3() {
+        return qq3;
+    }
+
+    public void setQq3(String qq3) {
+        this.qq3 = qq3 == null ? null : qq3.trim();
     }
 
     public String getQqgroup() {

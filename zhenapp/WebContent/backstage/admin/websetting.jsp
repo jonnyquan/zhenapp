@@ -81,7 +81,9 @@
   			<label>网站联系人</label>
   		</td>
   		<td>
-  			<input type="text" name="agentperson" id="agentperson" placeholder="网站联系人" disabled="disabled" class='form-control' value="${tAgentInfoCustom.agentperson }" />
+  			<input type="text" name="agentperson" id="agentperson" placeholder="网站联系人,一经设置不可修改" 
+  			<c:if test="${tAgentInfoCustom.agentperson != null}">disabled="disabled"</c:if>
+  			class='form-control' value="${tAgentInfoCustom.agentperson }" />
   		</td>
   	</tr>
   	<tr>
@@ -118,10 +120,26 @@
   	</tr>
   	<tr>
   		<td width="150px">
-  			<label>qq号</label>
+  			<label>qq号(技术咨询)</label>
   		</td>
   		<td>
-  			<input type="text" id="qq" name="qq" placeholder="qq号" class='form-control' value="${tWebInfoCustom.qq}">
+  			<input type="text" id="qq" name="qq" placeholder="qq号(技术咨询)" class='form-control' value="${tWebInfoCustom.qq}">
+  		</td>
+  	</tr>
+  	  	<tr>
+  		<td width="150px">
+  			<label>qq号(流量托管)</label>
+  		</td>
+  		<td>
+  			<input type="text" id="qq2" name="qq2" placeholder="qq号(流量托管)" class='form-control' value="${tWebInfoCustom.qq2}">
+  		</td>
+  	</tr>
+  	  	<tr>
+  		<td width="150px">
+  			<label>qq号(代理咨询)</label>
+  		</td>
+  		<td>
+  			<input type="text" id="qq3" name="qq3" placeholder="qq号(代理咨询)" class='form-control' value="${tWebInfoCustom.qq3}">
   		</td>
   	</tr>
   	<tr>

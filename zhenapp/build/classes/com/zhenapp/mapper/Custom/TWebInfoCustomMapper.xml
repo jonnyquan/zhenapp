@@ -14,6 +14,8 @@
       Carousel02 = #{carousel02,jdbcType=VARCHAR},
       Carousel03 = #{carousel03,jdbcType=VARCHAR},
       QQ = #{qq,jdbcType=VARCHAR},
+      QQ2 = #{qq2,jdbcType=VARCHAR},
+      QQ3 = #{qq3,jdbcType=VARCHAR},
       bg01 = #{bg01,jdbcType=VARCHAR},
       bg02 = #{bg02,jdbcType=VARCHAR}, 
       qqgroup = #{qqgroup}, 
@@ -28,13 +30,13 @@
   <insert id="saveWebInfo" parameterType="com.zhenapp.po.Custom.TWebInfoCustom" >
     insert into t_web_info ( webid, agentid, 
       logo, Carousel01, 
-      Carousel02, Carousel03, QQ, 
+      Carousel02, Carousel03, QQ,QQ2,QQ3, 
       bg01, bg02, createuser, 
       createtime, updateuser, updatetime
       )
     values ( #{webid,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
        #{logo,jdbcType=VARCHAR}, #{carousel01,jdbcType=VARCHAR}, 
-      #{carousel02,jdbcType=VARCHAR}, #{carousel03,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
+      #{carousel02,jdbcType=VARCHAR}, #{carousel03,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR},#{qq2,jdbcType=VARCHAR},#{qq3,jdbcType=VARCHAR}, 
       #{bg01,jdbcType=VARCHAR}, #{bg02,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}
       )

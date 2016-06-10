@@ -434,6 +434,146 @@ public class TComboInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andDiscountIsNull() {
+            addCriterion("discount is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountIsNotNull() {
+            addCriterion("discount is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountEqualTo(String value) {
+            addCriterion("discount =", value, "discount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountNotEqualTo(String value) {
+            addCriterion("discount <>", value, "discount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountGreaterThan(String value) {
+            addCriterion("discount >", value, "discount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountGreaterThanOrEqualTo(String value) {
+            addCriterion("discount >=", value, "discount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountLessThan(String value) {
+            addCriterion("discount <", value, "discount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountLessThanOrEqualTo(String value) {
+            addCriterion("discount <=", value, "discount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountLike(String value) {
+            addCriterion("discount like", value, "discount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountNotLike(String value) {
+            addCriterion("discount not like", value, "discount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountIn(List<String> values) {
+            addCriterion("discount in", values, "discount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountNotIn(List<String> values) {
+            addCriterion("discount not in", values, "discount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountBetween(String value1, String value2) {
+            addCriterion("discount between", value1, value2, "discount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountNotBetween(String value1, String value2) {
+            addCriterion("discount not between", value1, value2, "discount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceIsNull() {
+            addCriterion("unitprice is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceIsNotNull() {
+            addCriterion("unitprice is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceEqualTo(String value) {
+            addCriterion("unitprice =", value, "unitprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceNotEqualTo(String value) {
+            addCriterion("unitprice <>", value, "unitprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceGreaterThan(String value) {
+            addCriterion("unitprice >", value, "unitprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceGreaterThanOrEqualTo(String value) {
+            addCriterion("unitprice >=", value, "unitprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceLessThan(String value) {
+            addCriterion("unitprice <", value, "unitprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceLessThanOrEqualTo(String value) {
+            addCriterion("unitprice <=", value, "unitprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceLike(String value) {
+            addCriterion("unitprice like", value, "unitprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceNotLike(String value) {
+            addCriterion("unitprice not like", value, "unitprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceIn(List<String> values) {
+            addCriterion("unitprice in", values, "unitprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceNotIn(List<String> values) {
+            addCriterion("unitprice not in", values, "unitprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceBetween(String value1, String value2) {
+            addCriterion("unitprice between", value1, value2, "unitprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceNotBetween(String value1, String value2) {
+            addCriterion("unitprice not between", value1, value2, "unitprice");
+            return (Criteria) this;
+        }
+
         public Criteria andCombointegralIsNull() {
             addCriterion("combointegral is null");
             return (Criteria) this;

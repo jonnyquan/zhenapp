@@ -13,28 +13,29 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhenapp.po.Custom.MsgInfoCustom;
+import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
 import com.zhenapp.po.Custom.TPriceAgentInfoCustom;
 import com.zhenapp.po.Custom.TPriceInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailInfoFlowCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
-import com.zhenapp.service.DateInfoService;
+import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.PriceAgentInfoService;
 import com.zhenapp.service.PriceInfoService;
-import com.zhenapp.service.RechargeInfoService;
-import com.zhenapp.service.SysconfInfoService;
 import com.zhenapp.service.TaskDetailInfoFlowService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.UserInfoService;
 import com.zhenapp.util.StringUtilWxf;
+@Transactional
 @Controller
 public class CheckEndOrder {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -44,17 +45,13 @@ public class CheckEndOrder {
 	@Autowired
 	private UserInfoService userInfoService;
 	@Autowired
-	private SysconfInfoService sysconfInfoService;
-	@Autowired
 	private TaskInfoService taskInfoService;
 	@Autowired
-	private RechargeInfoService rechargeInfoService;
+	private AgentInfoService agentInfoService;
 	@Autowired
 	private TaskDetailInfoService taskDetailInfoService;
 	@Autowired
 	private PointsInfoService pointsInfoService;
-	@Autowired
-	private DateInfoService dateInfoService;
 	@Autowired
 	private TaskDetailInfoFlowService taskDetailInfoFlowService;
 	@Autowired
@@ -78,7 +75,8 @@ public class CheckEndOrder {
 			for (int i = 0; i < tTaskInfoCustomlist.size(); i++) {
 				TTaskInfoCustom tTaskInfoCustom = tTaskInfoCustomlist.get(i);
 				TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserid(tTaskInfoCustom.getCreateuser());
-				TUserInfoCustom tUserInfoCustomagent = userInfoService.findUserByuserid(tUserInfoCustom.getUserid());
+				TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentByAgentid(tUserInfoCustom.getAgentid());
+				TUserInfoCustom tUserInfoCustomagent = userInfoService.findUserByuserid(tAgentInfoCustom.getAgentuserid());
 				TPriceInfoCustom tPriceInfoCustom = priceInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
 				TPriceAgentInfoCustom tPriceAgentInfoCustom = priceAgentInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
 				//查询该任务 执行中的详情任务条数
@@ -86,21 +84,13 @@ public class CheckEndOrder {
 				hashmap.put("taskid", tTaskInfoCustom.getTaskid());
 				int tempcount = taskDetailInfoService.findTaskDetailInfoByIdAndTaskstate(hashmap);
 				if(tempcount==0){
-					hashmap.clear();
-					hashmap.put("taskid", tTaskInfoCustom.getTaskid());
-					hashmap.put("taskstate", 19);
-					hashmap.put("updatetime", sdf.format(new Date()));
-					hashmap.put("updateuser", "sys");
-					taskInfoService.updateTaskstate(hashmap);
-					//hashmap.put("taskstate", "23");
-					//taskDetailInfoService.deleteTaskBystate(hashmap);
+					
 					hashmap.clear();
 					hashmap.put("taskid", tTaskInfoCustom.getTaskid());
 					//int points = taskDetailInfoService.findPointsByteterminationstate(tTaskInfoCustom.getTaskid());
 					int endcounts = taskDetailInfoService.findcountEndstate(tTaskInfoCustom.getTaskid());
 					int endpoints = endcounts * Integer.parseInt(tPriceInfoCustom.getPricecounts1());
 					int endpointsagent = endcounts * Integer.parseInt(tPriceAgentInfoCustom.getPricecounts1());
-					
 					
 					//收藏，加购失败需要返回的积分
 		        	hashmap.put("taskid", tTaskInfoCustom.getTaskid());
@@ -111,7 +101,6 @@ public class CheckEndOrder {
 					int pointsshopping = shoppingcount*Integer.parseInt(tPriceInfoCustom.getPricecounts3());
 					int pointserror=pointscollect+pointsshopping;
 					
-
 					int pointscollectagent = collectcount*Integer.parseInt(tPriceAgentInfoCustom.getPricecounts2());
 					int pointsshoppingagent = shoppingcount*Integer.parseInt(tPriceAgentInfoCustom.getPricecounts3());
 					int pointserroragent = pointscollectagent + pointsshoppingagent;
@@ -128,7 +117,7 @@ public class CheckEndOrder {
 					int flowpoints=0;
 					int flowcounts=0;
 					int flowpointsagent=0;
-					TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);//根据任务id查询出流量详情信息
+					/*TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);//根据任务id查询出流量详情信息
 					HttpClient httpClient = new HttpClient();
 					String result="";
 			        GetMethod getMethod = new GetMethod("http://liuliangapp.com/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/total");
@@ -138,6 +127,7 @@ public class CheckEndOrder {
 			            result = getMethod.getResponseBodyAsString();
 			            if(result.indexOf("total")==-1){
 			            	result = StringUtilWxf.translat(result);
+			            	throw new RuntimeException();
 			            }else{
 			            	ObjectMapper obj = new ObjectMapper();
 			 	    		MsgInfoCustom msgInfoCustom = obj.readValue(result, MsgInfoCustom.class);
@@ -151,7 +141,8 @@ public class CheckEndOrder {
 			        }
 			        else {
 			            map.put("msg", "失败错误码" + statusCode);
-			        }
+			            throw new RuntimeException();
+			        }*/
 			        if(maxcount < flowcounts){
 	 	    			maxcount = flowcounts;
 	 	    		}
@@ -184,7 +175,7 @@ public class CheckEndOrder {
 					userInfoService.updateUserinfoPointByUserid(tUserInfoCustomagent);
 					//给代理添加积分明细记录
 					TPointsInfoCustom tPointsInfoCustomagent =new TPointsInfoCustom();
-					tPointsInfoCustomagent.setCreateuser(tUserInfoCustom.getUserid());
+					tPointsInfoCustomagent.setCreateuser(tUserInfoCustomagent.getUserid());
 					tPointsInfoCustomagent.setCreatetime(sdf.format(new Date()));
 					tPointsInfoCustomagent.setUpdatetime(sdf.format(new Date()));
 					tPointsInfoCustomagent.setUpdateuser("sys");
@@ -196,6 +187,15 @@ public class CheckEndOrder {
 					tPointsInfoCustomagent.setTaskpk(tTaskInfoCustom.getTaskpk());
 					tPointsInfoCustomagent.setUserid(tUserInfoCustomagent.getUserid());
 					pointsInfoService.savePoints(tPointsInfoCustomagent);
+					
+					hashmap.clear();
+					hashmap.put("taskid", tTaskInfoCustom.getTaskid());
+					hashmap.put("taskstate", 19);
+					hashmap.put("updatetime", sdf.format(new Date()));
+					hashmap.put("updateuser", "sys");
+					taskInfoService.updateTaskstate(hashmap);//将该任务id修改为已终止
+					//hashmap.put("taskstate", "23");
+					//taskDetailInfoService.deleteTaskBystate(hashmap);
 					map.put("data", "success");
 					logger.info("该订单已成功终止!");
 				}else{

@@ -18,7 +18,6 @@ import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.UserInfoService;
-import com.zhenapp.service.WebInfoService;
 import com.zhenapp.util.MD5Util;
 
 @Controller
@@ -31,8 +30,6 @@ public class AuthregisterController {
 	private UserInfoService userInfoService;
 	@Autowired
 	private AgentInfoService agentInfoService;
-	@Autowired
-	private WebInfoService webInfoService;
 	
 	@RequestMapping(value="/saveuser")
 	public @ResponseBody ModelAndView saveuser(HttpServletRequest request,TUserInfoCustom tUserInfoCustom) throws Exception{

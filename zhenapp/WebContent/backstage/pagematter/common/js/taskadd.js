@@ -205,6 +205,7 @@ var isurl=false;
 				$.messager.alert('消息提示', '流量数最少不能小于1', 'info');
 				return false;
 			}
+			$("#subbtn").attr("disabled","true");
 			$.ajax({
 				url : uri+"/task/saveTaskInfo",
 				type : "POST",
@@ -226,6 +227,7 @@ var isurl=false;
 					subtractpoints : $("#sum").text(),
 				},
 				success:function(data,state){
+					$('#subbtn').removeAttr("disabled");
 					if(data.data=="insertsuccess"){
 						$.messager.alert('消息提示', '任务发布成功!', 'info', function () {
 							window.location.href=uri+"/task/responsetaskadd";

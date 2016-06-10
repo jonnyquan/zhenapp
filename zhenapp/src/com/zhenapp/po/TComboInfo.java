@@ -11,6 +11,10 @@ public class TComboInfo {
 
     private Integer combomoney;
 
+    private String discount;
+
+    private String unitprice;
+
     private Integer combointegral;
 
     private Integer combogivemoney;
@@ -65,6 +69,22 @@ public class TComboInfo {
 
     public void setCombomoney(Integer combomoney) {
         this.combomoney = combomoney;
+    }
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount == null ? null : discount.trim();
+    }
+
+    public String getUnitprice() {
+        return unitprice;
+    }
+
+    public void setUnitprice(String unitprice) {
+        this.unitprice = unitprice == null ? null : unitprice.trim();
     }
 
     public Integer getCombointegral() {

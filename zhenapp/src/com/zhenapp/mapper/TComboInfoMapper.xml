@@ -7,6 +7,8 @@
     <result column="agentid" property="agentid" jdbcType="VARCHAR" />
     <result column="comboname" property="comboname" jdbcType="VARCHAR" />
     <result column="combomoney" property="combomoney" jdbcType="INTEGER" />
+    <result column="discount" property="discount" jdbcType="VARCHAR" />
+    <result column="unitprice" property="unitprice" jdbcType="VARCHAR" />
     <result column="combointegral" property="combointegral" jdbcType="INTEGER" />
     <result column="combogivemoney" property="combogivemoney" jdbcType="INTEGER" />
     <result column="combogiveintegral" property="combogiveintegral" jdbcType="INTEGER" />
@@ -75,8 +77,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    combopk, comboid, agentid, comboname, combomoney, combointegral, combogivemoney, 
-    combogiveintegral, combodesc, createuser, createtime, updateuser, updatetime
+    combopk, comboid, agentid, comboname, combomoney, discount, unitprice, combointegral, 
+    combogivemoney, combogiveintegral, combodesc, createuser, createtime, updateuser, 
+    updatetime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TComboInfoExample" >
     select
@@ -110,15 +113,17 @@
   </delete>
   <insert id="insert" parameterType="com.zhenapp.po.TComboInfo" >
     insert into t_combo_info (combopk, comboid, agentid, 
-      comboname, combomoney, combointegral, 
-      combogivemoney, combogiveintegral, combodesc, 
-      createuser, createtime, updateuser, 
-      updatetime)
+      comboname, combomoney, discount, 
+      unitprice, combointegral, combogivemoney, 
+      combogiveintegral, combodesc, createuser, 
+      createtime, updateuser, updatetime
+      )
     values (#{combopk,jdbcType=INTEGER}, #{comboid,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
-      #{comboname,jdbcType=VARCHAR}, #{combomoney,jdbcType=INTEGER}, #{combointegral,jdbcType=INTEGER}, 
-      #{combogivemoney,jdbcType=INTEGER}, #{combogiveintegral,jdbcType=INTEGER}, #{combodesc,jdbcType=VARCHAR}, 
-      #{createuser,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, 
-      #{updatetime,jdbcType=VARCHAR})
+      #{comboname,jdbcType=VARCHAR}, #{combomoney,jdbcType=INTEGER}, #{discount,jdbcType=VARCHAR}, 
+      #{unitprice,jdbcType=VARCHAR}, #{combointegral,jdbcType=INTEGER}, #{combogivemoney,jdbcType=INTEGER}, 
+      #{combogiveintegral,jdbcType=INTEGER}, #{combodesc,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.zhenapp.po.TComboInfo" >
     insert into t_combo_info
@@ -137,6 +142,12 @@
       </if>
       <if test="combomoney != null" >
         combomoney,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+      <if test="unitprice != null" >
+        unitprice,
       </if>
       <if test="combointegral != null" >
         combointegral,
@@ -178,6 +189,12 @@
       </if>
       <if test="combomoney != null" >
         #{combomoney,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=VARCHAR},
+      </if>
+      <if test="unitprice != null" >
+        #{unitprice,jdbcType=VARCHAR},
       </if>
       <if test="combointegral != null" >
         #{combointegral,jdbcType=INTEGER},
@@ -229,6 +246,12 @@
       <if test="record.combomoney != null" >
         combomoney = #{record.combomoney,jdbcType=INTEGER},
       </if>
+      <if test="record.discount != null" >
+        discount = #{record.discount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitprice != null" >
+        unitprice = #{record.unitprice,jdbcType=VARCHAR},
+      </if>
       <if test="record.combointegral != null" >
         combointegral = #{record.combointegral,jdbcType=INTEGER},
       </if>
@@ -265,6 +288,8 @@
       agentid = #{record.agentid,jdbcType=VARCHAR},
       comboname = #{record.comboname,jdbcType=VARCHAR},
       combomoney = #{record.combomoney,jdbcType=INTEGER},
+      discount = #{record.discount,jdbcType=VARCHAR},
+      unitprice = #{record.unitprice,jdbcType=VARCHAR},
       combointegral = #{record.combointegral,jdbcType=INTEGER},
       combogivemoney = #{record.combogivemoney,jdbcType=INTEGER},
       combogiveintegral = #{record.combogiveintegral,jdbcType=INTEGER},
@@ -291,6 +316,12 @@
       </if>
       <if test="combomoney != null" >
         combomoney = #{combomoney,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null" >
+        discount = #{discount,jdbcType=VARCHAR},
+      </if>
+      <if test="unitprice != null" >
+        unitprice = #{unitprice,jdbcType=VARCHAR},
       </if>
       <if test="combointegral != null" >
         combointegral = #{combointegral,jdbcType=INTEGER},
@@ -325,6 +356,8 @@
       agentid = #{agentid,jdbcType=VARCHAR},
       comboname = #{comboname,jdbcType=VARCHAR},
       combomoney = #{combomoney,jdbcType=INTEGER},
+      discount = #{discount,jdbcType=VARCHAR},
+      unitprice = #{unitprice,jdbcType=VARCHAR},
       combointegral = #{combointegral,jdbcType=INTEGER},
       combogivemoney = #{combogivemoney,jdbcType=INTEGER},
       combogiveintegral = #{combogiveintegral,jdbcType=INTEGER},

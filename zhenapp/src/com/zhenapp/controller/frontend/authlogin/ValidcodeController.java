@@ -23,19 +23,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.UserInfoService;
-import com.zhenapp.service.WebInfoService;
 
 @Controller
 @RequestMapping(value="/frontend")
 public class ValidcodeController {
 	@Autowired
 	private UserInfoService userInfoService;
-	@Autowired
-	private WebInfoService webInfoService;
-	@Autowired
-	private AgentInfoService agentInfoService;
 	@Value("${sendemail}")
 	private String sendemail;
 	@Value("${sendemailpwd}")

@@ -38,6 +38,11 @@ public class SaveWebAgentController {
 		webInfoService.updateWebByAgentid(tWebInfoCustom);
 		tAgentInfoCustom.setUpdatetime(sdf.format(new Date()));
 		tAgentInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
+		if(tAgentInfoCustom.getAgentperson() == null){
+			tAgentInfoCustom.setAgentperson(null);
+		}else if(tAgentInfoCustom.getAgentperson().length()<2){
+			tAgentInfoCustom.setAgentperson(null);
+		}
 		agentInfoService.updateAgentByid(tAgentInfoCustom);
 		map.put("ec", "0");
 		return map;

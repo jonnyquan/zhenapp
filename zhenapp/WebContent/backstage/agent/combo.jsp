@@ -92,6 +92,8 @@
               <th>序号</th>
               <th>套餐名称</th>
               <th>原价格</th>
+              <th>折扣</th>
+              <th>单价</th>
               <th>价格积分</th>
               <th>赠送价格</th>
               <th>赠送积分</th>
@@ -104,6 +106,8 @@
                  <td>${list.combopk}</td>
                  <td>${list.comboname }</td>
                  <td>${list.combomoney}</td>
+                 <td>${list.discount}</td>
+                 <td>${list.unitprice}</td>
                  <td>${list.combointegral }</td>
 			     <td>${list.combogivemoney}</td>
 				 <td>${list.combogiveintegral}</td>
@@ -155,11 +159,22 @@
           <input type="text" id="name" name="comboname" placeholder="套餐名称">
         </div>
       </div>
-
       <div class="am-form-group">
         <label for="price" class="am-u-sm-3 am-form-label">原价格</label>
         <div class="am-u-sm-7">
           <input type="text" id="price" name="combomoney" placeholder="原价格">
+        </div>
+      </div>
+      <div class="am-form-group">
+        <label for="price" class="am-u-sm-3 am-form-label">折扣</label>
+        <div class="am-u-sm-7">
+          <input type="text" id="discount" name="discount" placeholder="折扣">
+        </div>
+      </div>
+      <div class="am-form-group">
+        <label for="price" class="am-u-sm-3 am-form-label">单价</label>
+        <div class="am-u-sm-7">
+          <input type="text" id="unitprice" name="unitprice" placeholder="单价">
         </div>
       </div>
       <div class="am-form-group">
@@ -196,9 +211,11 @@
     $("#combopk").val(id);
     $("#name").val($('tr[data-id=' + id + ']').children().eq(1).text());
     $("#price").val($('tr[data-id=' + id + ']').children().eq(2).text());
-    $("#cion").val($('tr[data-id=' + id + ']').children().eq(3).text());
-    $("#presentPrice").val($('tr[data-id=' + id + ']').children().eq(4).text());
-    $("#presentCoin").val($('tr[data-id=' + id + ']').children().eq(5).text());
+    $("#discount").val($('tr[data-id=' + id + ']').children().eq(3).text());
+    $("#unitprice").val($('tr[data-id=' + id + ']').children().eq(4).text());
+    $("#cion").val($('tr[data-id=' + id + ']').children().eq(5).text());
+    $("#presentPrice").val($('tr[data-id=' + id + ']').children().eq(6).text());
+    $("#presentCoin").val($('tr[data-id=' + id + ']').children().eq(7).text());
     $(".am-popup-title").html("修改套餐信息");
     $("#add-combo").modal('open');
   }
