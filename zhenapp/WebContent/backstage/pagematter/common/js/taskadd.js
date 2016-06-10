@@ -236,6 +236,10 @@ var isurl=false;
 						$.messager.alert('消息提示', '系统维护暂停任务发布!', 'info', function () {
 							window.location.href=uri+"/task/responsetaskadd";
 						});
+					}else if(data.data=="agentlow"){
+						$.messager.alert('消息提示', '代理积分不足,任务发布失败!', 'info', function () {
+							window.location.href=uri+"/task/responsetaskadd";
+						});
 					}else if(data.data=="low"){
 						$.messager.alert('消息提示', '余额不足,任务发布失败!', 'info', function () {
 							window.location.href=uri+"/task/responsetaskadd";

@@ -139,7 +139,6 @@ public class SaveTaskController {
 		tTaskInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
 		//添加积分明细记录
 		TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
-		
 		tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
 		tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
 		tPointsInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());

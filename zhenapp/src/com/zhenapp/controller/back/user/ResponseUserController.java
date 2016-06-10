@@ -2,12 +2,15 @@ package com.zhenapp.controller.back.user;
 
 import java.util.HashMap;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TGuideInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
@@ -15,6 +18,7 @@ import com.zhenapp.po.Custom.TelectricityCustom;
 import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.ElectrityInfoService;
 import com.zhenapp.service.GuideInfoService;
+import com.zhenapp.service.UserInfoService;
 
 @Controller
 @RequestMapping(value="/user")
@@ -25,6 +29,8 @@ public class ResponseUserController {
 	private ElectrityInfoService electrityService;
 	@Autowired
 	private GuideInfoService guideService;
+	@Autowired
+	private UserInfoService userInfoService;
 	
 	/*
 	 * 跳转到个人中心页面
@@ -41,6 +47,8 @@ public class ResponseUserController {
 		mv.addObject("TelectricityCustomlist", TelectricityCustomlist);
 		mv.addObject("TGuideInfoCustomlist", TGuideInfoCustomlist);
 		TUserInfoCustom tUserInfoCustom = (TUserInfoCustom)session.getAttribute("tUserInfoCustom");
+		TUserInfoCustom tUserInfoCustomnew = userInfoService.findUserByuserpk(tUserInfoCustom.getUserpk()+"");
+		session.setAttribute("tUserInfoCustom", tUserInfoCustomnew);
 		String url="";
 		if(tUserInfoCustom.getUserroleid()==3){//普通用户角色
 			url = "/backstage/user/user.jsp";
