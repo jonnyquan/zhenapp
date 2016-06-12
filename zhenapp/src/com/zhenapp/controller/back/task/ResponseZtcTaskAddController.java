@@ -34,12 +34,12 @@ public class ResponseZtcTaskAddController {
 		try{
 			TPriceInfoCustom tPriceInfoCustom= priceInfoService.findPriceByAgentid(tAgentInfoCustom.getAgentid());//根据代理信息查询所设置的价格信息
 			mv.addObject("tPriceInfoCustom",tPriceInfoCustom);
+			mv.setViewName("/backstage/task/taskztcadd.jsp");
+			return mv;
 		}catch(NullPointerException e){
 			logger.error("未查询到所属代理信息的单价,无法发布任务!");
 			mv.addObject("msg","未查询到所属代理信息");
 			throw e;
 		}
-		mv.setViewName("/backstage/task/taskztcadd.jsp");
-		return mv;
 	}
 }

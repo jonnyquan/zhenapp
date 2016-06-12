@@ -11,6 +11,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zhenapp.controller.service.Timedtask.AllocationcollectionTaskService;
+import com.zhenapp.controller.service.Timedtask.AllocationshoppingTaskService;
 import com.zhenapp.po.Custom.TPhoneInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailinfoTempCustom;
 import com.zhenapp.service.PhoneInfoService;
@@ -18,8 +20,6 @@ import com.zhenapp.service.SysconfInfoService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskDetailInfoTempService;
 import com.zhenapp.service.TaskInfoService;
-import com.zhenapp.service.Timedtask.AllocationcollectionTaskService;
-import com.zhenapp.service.Timedtask.AllocationshoppingTaskService;
 
 @Controller
 public class AllocationTask {
@@ -52,7 +52,7 @@ public class AllocationTask {
 			hashmap.clear();
 			hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
 			hashmap.put("iscollection", 1);
-			hashmap.put("today", yyyyMMdd.format(new Date()));
+			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
 			hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
 			List<TTaskDetailinfoTempCustom> TTaskDetailinfoTempCustomlistiscollection = taskDetailInfoTempService.findtaskkeynumlist(hashmap);
 			for (int j = 0; j < TTaskDetailinfoTempCustomlistiscollection.size(); j++) {
@@ -63,7 +63,7 @@ public class AllocationTask {
 			hashmap.clear();
 			hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
 			hashmap.put("isshopping", 1);
-			hashmap.put("today", yyyyMMdd.format(new Date()));
+			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
 			hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
 			List<TTaskDetailinfoTempCustom> TTaskDetailinfoTempCustomlisisshopping = taskDetailInfoTempService.findtaskkeynumlist(hashmap);
 			StringBuffer sbisshopping = new StringBuffer();

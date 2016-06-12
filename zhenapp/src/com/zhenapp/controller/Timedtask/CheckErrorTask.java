@@ -92,11 +92,16 @@ public class CheckErrorTask {
 		        int statusCode =  httpClient.executeMethod(postMethod);
 		        if(statusCode == 200) {
 		            result = postMethod.getResponseBodyAsString();
-		            map.put("msg", result);
-		            logger.info("任务错误数超出预定值，自动终止任务成功");
+		            if(result.indexOf("delay") != -1){
+			            map.put("msg", result);
+			            logger.info("任务错误数超出预定值，自动终止任务成功");
+		            }else{
+		            	logger.error("任务错误数超出预定值，自动终止任务失败，失败返回值："+result);
+			            throw new RuntimeException();
+		            }
 		        }
 		        else {
-		            map.put("msg", "失败错误码" + statusCode);
+		            logger.error("任务错误数超出预定值，自动终止任务失败，失败错误码："+statusCode);
 		            throw new RuntimeException();
 		        }
 			}

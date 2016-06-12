@@ -23,6 +23,7 @@
 	<li><a href="${pageContext.request.contextPath}/note/findnoticeList"><span class="am-icon-bullhorn"></span> 软文管理</a></li>
 	<li><a href="${pageContext.request.contextPath}/sysconf/responsesyssetting"><span class="am-icon-cog"></span>系统设置</a></li>
 	<li><a href="${pageContext.request.contextPath}/agent/responseagentmanage"><span class="am-icon-sitemap"></span>代理管理</a></li>
+	<li><a href="${pageContext.request.contextPath}/user/findUsertestAdmin"><span class="am-icon-sitemap"></span>测试账号管理</a></li>
 	<li><a href="${pageContext.request.contextPath}/datacount/responsedatasumadmin"><span class="am-icon-bar-chart"></span>数据统计</a></li>
 	
 	<li class="admin-parent">

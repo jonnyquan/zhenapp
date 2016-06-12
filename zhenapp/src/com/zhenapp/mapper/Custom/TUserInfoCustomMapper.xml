@@ -29,11 +29,12 @@
   	select * from t_user_info where userid = #{userid} and userstate ='29'
   </select>
   <select id="findUserByPage" resultType="com.zhenapp.po.Custom.TUserInfoCustom" parameterType="java.util.HashMap">
-    SELECT d.usernick as usernickagent,a.userpk,a.userid,a.usernick,a.userpwd,a.username,a.points,a.userqq,a.usercardnum,a.userroleid,a.userphone,a.userstate,a.regemail,a.regip,a.regurl,a.agentid, 
+    SELECT e.usertestnick,d.usernick as usernickagent,a.userpk,a.userid,a.usernick,a.userpwd,a.username,a.points,a.userqq,a.usercardnum,a.userroleid,a.userphone,a.userstate,a.regemail,a.regip,a.regurl,a.agentid, 
 	DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime,a.createuser,DATE_FORMAT(a.updatetime,'%Y-%m-%d %H:%i:%s') AS updatetime, a.updateuser,b.rolename,c.dicinfoname as statename FROM t_user_info a 
 	LEFT JOIN t_role_info b ON b.roleid=a.userroleid 
 	LEFT JOIN t_data_dic_info c ON a.userstate=c.dicinfoid
 	LEFT JOIN (SELECT A.AGENTID,B.USERNICK FROM t_agent_info A LEFT JOIN T_USER_INFO B ON A.AGENTUSERID=B.USERID) d ON a.agentid=d.agentid
+	LEFT JOIN t_usertest_info e ON a.userpk=e.usertestpk
     <where>
     	<if test="usernick != null and usernick != ''">
     		and a.usernick like '%${usernick}%'

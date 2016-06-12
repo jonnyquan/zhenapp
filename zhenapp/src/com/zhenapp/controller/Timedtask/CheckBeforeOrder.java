@@ -209,6 +209,7 @@ public class CheckBeforeOrder {
 		            result = getMethod.getResponseBodyAsString();
 		            if(result.indexOf("total")==-1){
 		            	result = StringUtilWxf.translat(result);
+		            	throw new RuntimeException();
 		            }else{
 		            	ObjectMapper obj = new ObjectMapper();
 		 	    		MsgInfoCustom msgInfoCustom = obj.readValue(result, MsgInfoCustom.class);

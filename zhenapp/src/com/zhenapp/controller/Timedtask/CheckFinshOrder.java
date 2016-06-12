@@ -6,7 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -15,6 +18,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zhenapp.po.Custom.MsgInfoCustom;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
 import com.zhenapp.po.Custom.TPriceAgentInfoCustom;
 import com.zhenapp.po.Custom.TPriceInfoCustom;
@@ -31,6 +35,7 @@ import com.zhenapp.service.TaskDetailInfoFlowService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.UserInfoService;
+import com.zhenapp.util.StringUtilWxf;
 @Transactional
 @Controller
 public class CheckFinshOrder {
@@ -88,7 +93,7 @@ public class CheckFinshOrder {
 					//收藏和加购任务已经执行完成
 					isfinish=true;
 				}
-				/*TTaskDetailInfoFlowCustom TTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);
+				TTaskDetailInfoFlowCustom TTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);
 				//调用接口判断流量任务是否完成
 				HttpClient httpClient = new HttpClient();
 				String result="";
@@ -99,6 +104,8 @@ public class CheckFinshOrder {
 		            result = getMethod.getResponseBodyAsString();
 		            if(result.indexOf("total")==-1){
 		            	result = StringUtilWxf.translat(result);
+		            	logger.error("调用查询完成量接口,返回："+result);
+		            	throw new RuntimeException();
 		            }else{
 		            	ObjectMapper obj = new ObjectMapper();
 		 	    		MsgInfoCustom msgInfoCustom = obj.readValue(result, MsgInfoCustom.class);
@@ -112,9 +119,9 @@ public class CheckFinshOrder {
 		            }
 		            map.put("msg", result);
 		        } else {
-		            map.put("msg", "失败错误码" + statusCode);
+		            logger.error("失败错误码："+result);
 		            throw new RuntimeException();
-		        }*/
+		        }
 		        if(isfinish && isfinishflow){
 		        	//表示任务已完成
 		        	//更新任务状态

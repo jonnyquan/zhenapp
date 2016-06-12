@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zhenapp.po.Custom.TTaskDetailInfoFlowCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.service.TaskDetailInfoFlowService;
 import com.zhenapp.service.TaskDetailInfoService;
@@ -56,8 +59,7 @@ public class EndTaskController {
 		hashmap.put("newstate", 40);
 		hashmap.put("oldstate", 23);
 		taskDetailInfoTempService.updatestate(hashmap);
-		/*TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);//根据任务id查询出流量详情信息
-		
+		TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);//根据任务id查询出流量详情信息
 		//并调用接口终止发布到第一个手机网站的任务
 		String url="http://liuliangapp.com/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/finish";
 		HttpClient httpClient = new HttpClient();
@@ -69,7 +71,9 @@ public class EndTaskController {
             result = postMethod.getResponseBodyAsString();
             map.put("msg", result);
             if(result.indexOf("delay")!=-1){
-            	
+            	logger.info("终止任务成功");
+        		map.put("data", "success");
+        		return map;
             }else{
             	logger.error("终止任务订单："+tTaskDetailInfoFlowCustom.getTaskdetailid()+"失败,失败代码："+result);
                 throw new RuntimeException();
@@ -78,10 +82,6 @@ public class EndTaskController {
             map.put("msg", "失败错误码" + statusCode);
             logger.error("终止任务订单："+tTaskDetailInfoFlowCustom.getTaskdetailid()+"失败,失败错误码："+result);
             throw new RuntimeException();
-        }*/
-		logger.info("终止任务成功");
-		map.put("data", "success");
-		return map;
+        }
 	}
-	
 }

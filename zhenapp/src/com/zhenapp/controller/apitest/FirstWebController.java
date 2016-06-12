@@ -1,5 +1,6 @@
 package com.zhenapp.controller.apitest;
 
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -282,7 +283,8 @@ public class FirstWebController {
 		String result="";
         PostMethod postMethod = new PostMethod(url);
         postMethod.setRequestHeader("secret", secret);
-        postMethod.setParameter("keywords", keywords);
+        //postMethod.setParameter("keywords",URLEncoder.encode(keywords.trim(), "UTF-8") );
+        postMethod.setParameter("keywords",keywords.trim().replace(" ", "　") );
         postMethod.setParameter("product_id", product_id);
         postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
         int statusCode =  httpClient.executeMethod(postMethod);

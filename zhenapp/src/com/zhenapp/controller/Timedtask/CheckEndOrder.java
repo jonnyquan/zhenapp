@@ -117,7 +117,7 @@ public class CheckEndOrder {
 					int flowpoints=0;
 					int flowcounts=0;
 					int flowpointsagent=0;
-					/*TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);//根据任务id查询出流量详情信息
+					TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);//根据任务id查询出流量详情信息
 					HttpClient httpClient = new HttpClient();
 					String result="";
 			        GetMethod getMethod = new GetMethod("http://liuliangapp.com/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/total");
@@ -142,7 +142,7 @@ public class CheckEndOrder {
 			        else {
 			            map.put("msg", "失败错误码" + statusCode);
 			            throw new RuntimeException();
-			        }*/
+			        }
 			        if(maxcount < flowcounts){
 	 	    			maxcount = flowcounts;
 	 	    		}

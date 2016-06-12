@@ -70,10 +70,10 @@
     <form class="am-form">
       <div class="am-u-md-2">
       	<select id="agentpk">
-          <option value="">代理名称</option>
+          <option value="">代理账号</option>
           <c:if test="${tAgentInfoCustomlist !=null }">
           	<c:forEach items="${tAgentInfoCustomlist}" var="list">
-          		<option  <c:if test="${list.agentpk == agentpk }">selected="selected"</c:if> value="${list.agentpk}">${list.agentname}</option>
+          		<option  <c:if test="${list.agentpk == agentpk }">selected="selected"</c:if> value="${list.agentpk}">${list.agentperson}</option>
           	</c:forEach>
           </c:if>
         </select>

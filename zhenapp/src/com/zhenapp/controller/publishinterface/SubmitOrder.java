@@ -214,7 +214,7 @@ public class SubmitOrder {
 				HttpClient httpClient = new HttpClient();
 				String result="";
 			    PostMethod postMethod = new PostMethod("http://liuliangapp.com/api/tasks");
-			    postMethod.addParameter("name", "任务"+tTaskInfoCustom.getTaskpk());
+			    postMethod.addParameter("name", tTaskDetailInfoFlowCustom.getTaskkeyword());
 			    postMethod.addParameter("keywords", tTaskDetailInfoFlowCustom.getTaskkeyword());
 			    postMethod.addParameter("product_url", "https://item.taobao.com/item.htm?id="+tTaskInfoCustom.getTaskkeynum());
 			    postMethod.addParameter("start_date", yyyy_MM_dd.format(yyyyMMdd.parse(tTaskInfoCustom.getTaskstartdate())));

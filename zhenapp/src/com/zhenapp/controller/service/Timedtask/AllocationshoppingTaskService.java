@@ -1,4 +1,4 @@
-package com.zhenapp.service.Timedtask;
+package com.zhenapp.controller.service.Timedtask;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,7 +18,7 @@ import com.zhenapp.service.TaskDetailInfoTempService;
 import com.zhenapp.service.TaskInfoService;
 @Transactional
 @Service
-public class AllocationcollectionTaskService {
+public class AllocationshoppingTaskService {
 	@Autowired
 	private SysconfInfoService sysconfInfoService;
 	@Autowired
@@ -33,22 +33,21 @@ public class AllocationcollectionTaskService {
 	SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
 	SimpleDateFormat HHmm = new SimpleDateFormat("HHmm");
 	
-	public String allocateiontaskcollection(TPhoneInfoCustom tPhoneInfoCustom,String tasknumstr) throws Exception{
+	
+	public String allocateiontaskshopping(TPhoneInfoCustom tPhoneInfoCustom,String tasknumstr) throws Exception{
 		StringBuffer sb=new StringBuffer();
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
-		hashmap.clear();
-		hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
-		hashmap.put("iscollection", 1);
+		hashmap.put("phoneid", tPhoneInfoCustom.getPhoneid());
+		hashmap.put("isshopping", 1);
 		hashmap.put("today", yyyyMMdd.format(new Date()));
 		hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
 		hashmap.put("tasknumstr", tasknumstr);
-		TTaskDetailInfoCustom tTaskDetailInfoCustomtype1collection = taskDetailInfoService.requesttaskByphoneid_temp(hashmap);
-		if(tTaskDetailInfoCustomtype1collection!=null){
-			tTaskDetailInfoCustomtype1collection.setPhoneid(tPhoneInfoCustom.getPhoneid());
-			TTaskDetailinfoTempCustom tTaskDetailinfoTempCustom = TTaskDetailinfoTempCustom.setTTaskDetailinfoTempCustom(tTaskDetailInfoCustomtype1collection);
+		TTaskDetailInfoCustom tTaskDetailInfoCustomtype1shopping = taskDetailInfoService.requesttaskByphoneid_temp(hashmap);
+		if(tTaskDetailInfoCustomtype1shopping!=null){
+			tTaskDetailInfoCustomtype1shopping.setPhoneid(tPhoneInfoCustom.getPhoneid());
+			TTaskDetailinfoTempCustom tTaskDetailinfoTempCustom = TTaskDetailinfoTempCustom.setTTaskDetailinfoTempCustom(tTaskDetailInfoCustomtype1shopping);
 			taskDetailInfoTempService.insertDetailinfo(tTaskDetailinfoTempCustom);
-			sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustomtype1collection);
-			//将返回的字符串更新到数据表中
+			sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustomtype1shopping);
 			hashmap.put("result", sb.toString());
 			hashmap.put("taskdetailid", tTaskDetailinfoTempCustom.getTaskdetailid());
 			hashmap.put("updatetime", sdf.format(new Date()));

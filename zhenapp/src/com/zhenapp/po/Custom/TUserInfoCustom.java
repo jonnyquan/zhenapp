@@ -6,8 +6,17 @@ public class TUserInfoCustom extends TUserInfo {
 	private String rolename;
 	private String statename;
 	private String usernickagent;
+	private String usertestnick;
 	
 	
+	public String getUsertestnick() {
+		return usertestnick;
+	}
+
+	public void setUsertestnick(String usertestnick) {
+		this.usertestnick = usertestnick;
+	}
+
 	public String getUsernickagent() {
 		return usernickagent;
 	}

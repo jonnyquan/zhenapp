@@ -3,11 +3,16 @@ package com.zhenapp.controller.back.task;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -16,6 +21,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zhenapp.po.Custom.MsgInfoCustom;
 import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
 import com.zhenapp.po.Custom.TPriceAgentInfoCustom;
@@ -25,6 +31,7 @@ import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailInfoFlowCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
+import com.zhenapp.po.Custom.TUsertestInfoCustom;
 import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.PhoneInfoService;
 import com.zhenapp.service.PointsInfoService;
@@ -36,7 +43,9 @@ import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskDetailInfoTempService;
 import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.UserInfoService;
+import com.zhenapp.service.UsertestInfoService;
 import com.zhenapp.util.DateUtilWxf;
+import com.zhenapp.util.StringUtilWxf;
 @Transactional
 @Controller
 @RequestMapping(value="/task")
@@ -69,6 +78,8 @@ public class SaveTaskController {
 	private PhoneInfoService phoneInfoService;
 	@Autowired
 	private TaskDetailInfoFlowService taskDetailInfoFlowService;
+	@Autowired
+	private UsertestInfoService usertestInfoService;
 	
 	@Value("${secret}")
 	private String secret;
@@ -226,53 +237,57 @@ public class SaveTaskController {
 				tTaskDetailInfoFlowCustom.setUpdatetime(sdf.format(new Date()));
 				tTaskDetailInfoFlowCustom.setUpdateuser("sys");
 				taskDetailInfoFlowService.insertTaskDetailInfoFlow(tTaskDetailInfoFlowCustom);
-				/*
-				//调用接口发送任务
-				HttpClient httpClient = new HttpClient();
-				String result="";
-			    PostMethod postMethod = new PostMethod("http://liuliangapp.com/api/tasks");
-			    postMethod.addParameter("name", "任务"+tTaskInfoCustom.getTaskpk());
-			    postMethod.addParameter("keywords", tTaskDetailInfoFlowCustom.getTaskkeyword());
-			    postMethod.addParameter("product_url", "https://item.taobao.com/item.htm?id="+tTaskInfoCustom.getTaskkeynum());
-			    postMethod.addParameter("start_date", yyyy_MM_dd.format(yyyyMMdd.parse(tTaskInfoCustom.getTaskstartdate())));
-			    postMethod.addParameter("end_date", yyyy_MM_dd.format(yyyyMMdd.parse(tTaskInfoCustom.getTaskenddate())));
-			    postMethod.addParameter("hour_counts", "["+tTaskInfoCustom.getTaskhourcounts()+"]");
-			    postMethod.addParameter("duration", "2");
-			    postMethod.addParameter("plus", "true");
-			    postMethod.addParameter("gprs_pct", "40");
-			    postMethod.addParameter("tmall_app_pct", "20");
-			    postMethod.addParameter("deep_click_pct", tTaskDetailInfoFlowCustom.getDeepclick()==null?"0":tTaskDetailInfoFlowCustom.getDeepclick());
-			    postMethod.setRequestHeader("secret", secret);
-			    postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
-			    int statusCode =  httpClient.executeMethod(postMethod);
-			    if(statusCode == 200) {
-			        result = postMethod.getResponseBodyAsString();
-			        if(result.indexOf("id")==-1){
-		            	result = StringUtilWxf.translat(result);
-		            	logger.info("调用发布任务接口失败，错误信息:" + result);
-		            	map.put("msg", "调用发布任务接口失败，错误信息:" + result);
-		            	throw new RuntimeException();
-		            	//return map;
-		            }else{
-		            	ObjectMapper obj = new ObjectMapper();
-		 	    		MsgInfoCustom msgInfoCustom = obj.readValue(result, MsgInfoCustom.class);
-		 	    		result = msgInfoCustom.getId() + "";
-		 	    		logger.info("调用发布任务接口成功!");
-		 	    		//将调用接口返回的订单号设置到流量任务记录中
-		 	    		HashMap<String, Object> hashmap = new HashMap<String, Object>();
-		 	    		hashmap.put("taskdetailid", msgInfoCustom.getId());
-		 	    		hashmap.put("taskdetailpk", tTaskDetailInfoFlowCustom.getTaskdetailpk());
-		 	    		hashmap.put("taskid", tTaskDetailInfoFlowCustom.getTaskid());
-		 	    		int i = taskDetailInfoFlowService.updateTaskdetailIdByPk(hashmap);
-		 	    		if(i>0){
-		 	    			logger.info("更新返回的订单号成功!");
-		 	    		}
-		            }
-			    }else {
-			        map.put("msg", "失败错误码" + statusCode);
-			        throw new RuntimeException();
-			        //return map;
-			    }*/
+				HashMap<String, Object> hashmaptest = new HashMap<String, Object>();
+				hashmaptest.put("usertestnick", tUserInfoCustom.getUsernick());
+				hashmaptest.put("page", 0);
+				hashmaptest.put("rows", middleRows);
+				List<TUsertestInfoCustom> tUsertestInfoCustomlist = usertestInfoService.findUserTest(hashmaptest);
+				if(tUsertestInfoCustomlist == null || tUsertestInfoCustomlist.size()<1){
+					//调用接口发送任务
+					HttpClient httpClient = new HttpClient();
+					String result="";
+				    PostMethod postMethod = new PostMethod("http://liuliangapp.com/api/tasks");
+				    postMethod.addParameter("name", tTaskDetailInfoFlowCustom.getTaskkeyword());
+				    postMethod.addParameter("keywords", tTaskDetailInfoFlowCustom.getTaskkeyword());
+				    postMethod.addParameter("product_url", "https://item.taobao.com/item.htm?id="+tTaskInfoCustom.getTaskkeynum());
+				    postMethod.addParameter("start_date", yyyy_MM_dd.format(yyyyMMdd.parse(tTaskInfoCustom.getTaskstartdate())));
+				    postMethod.addParameter("end_date", yyyy_MM_dd.format(yyyyMMdd.parse(tTaskInfoCustom.getTaskenddate())));
+				    postMethod.addParameter("hour_counts", "["+tTaskInfoCustom.getTaskhourcounts()+"]");
+				    postMethod.addParameter("duration", "2");
+				    postMethod.addParameter("plus", "true");
+				    postMethod.addParameter("gprs_pct", "40");
+				    postMethod.addParameter("tmall_app_pct", "20");
+				    postMethod.addParameter("deep_click_pct", tTaskDetailInfoFlowCustom.getDeepclick()==null?"0":tTaskDetailInfoFlowCustom.getDeepclick());
+				    postMethod.setRequestHeader("secret", secret);
+				    postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+				    int statusCode =  httpClient.executeMethod(postMethod);
+				    if(statusCode == 200) {
+				        result = postMethod.getResponseBodyAsString();
+				        if(result.indexOf("id")==-1){
+			            	result = StringUtilWxf.translat(result);
+			            	logger.info("调用发布任务接口失败，错误信息:" + result);
+			            	map.put("msg", "调用发布任务接口失败，错误信息:" + result);
+			            	throw new RuntimeException();
+			            }else{
+			            	ObjectMapper obj = new ObjectMapper();
+			 	    		MsgInfoCustom msgInfoCustom = obj.readValue(result, MsgInfoCustom.class);
+			 	    		result = msgInfoCustom.getId() + "";
+			 	    		logger.info("调用发布任务接口成功!");
+			 	    		//将调用接口返回的订单号设置到流量任务记录中
+			 	    		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+			 	    		hashmap.put("taskdetailid", msgInfoCustom.getId());
+			 	    		hashmap.put("taskdetailpk", tTaskDetailInfoFlowCustom.getTaskdetailpk());
+			 	    		hashmap.put("taskid", tTaskDetailInfoFlowCustom.getTaskid());
+			 	    		int i = taskDetailInfoFlowService.updateTaskdetailIdByPk(hashmap);
+			 	    		if(i>0){
+			 	    			logger.info("更新返回的订单号成功!");
+			 	    		}
+			            }
+				    }else {
+				        map.put("msg", "失败错误码" + statusCode);
+				        throw new RuntimeException();
+				    }
+				}
 				//2.再分配收藏和加购
 				int count=0;
 				for (int j = 0; j < hourarr.length; j++) {

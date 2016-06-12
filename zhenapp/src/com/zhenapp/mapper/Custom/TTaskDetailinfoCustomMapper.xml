@@ -26,7 +26,7 @@
   		SELECT phoneid,SUM(isshopping) AS shoppingcount,SUM(iscollection) AS collectioncount FROM t_task_detailinfo WHERE taskdate =#{date} AND taskstate='21' GROUP BY phoneid ORDER BY phoneid+0
   </select>
   <select id="findtaskdatasum" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
-  		SELECT SUM(isshopping) AS shoppingcount,SUM(iscollection) AS collectioncount FROM t_task_detailinfo WHERE taskdate =#{date} AND taskstate='21' 
+  		SELECT SUM(isshopping) AS shoppingsum,SUM(iscollection) AS collectionsum FROM t_task_detailinfo WHERE taskdate =#{date} AND taskstate='21' 
   </select>
   
   <select id="findCounts" resultType="int" parameterType="java.util.HashMap">

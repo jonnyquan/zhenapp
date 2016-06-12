@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenapp.mapper.Custom.TUsertestInfoCustomMapper" >
+  	<insert id="insertUsertest" parameterType="com.zhenapp.po.Custom.TUsertestInfoCustom">
+  		 insert into t_usertest_info (usertestpk,usertestid, usertestnick, 
+	     createtime, createuser, updatetime, 
+	     updateuser)
+	   values (#{usertestpk},#{usertestid,jdbcType=VARCHAR}, #{usertestnick,jdbcType=VARCHAR}, 
+	     #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+	     #{updateuser,jdbcType=VARCHAR})
+  	</insert>
+  	
+  	<delete id="deleteUsertest" parameterType="java.util.HashMap">
+  		delete from t_usertest_info 
+  		<where>
+  			<if test="usertestpk != null and usertestpk != ''">
+  				and usertestpk = #{usertestpk}
+  			</if>
+  		</where>
+  	</delete>
+  	
+  	<select id="findUserTest" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TUsertestInfoCustom">
+  		select * from t_usertest_info
+  		<where>
+  			<if test="usertestnick != null and usertestnick != ''">
+  				and usertestnick = #{usertestnick}
+  			</if>
+  		</where>
+  		 limit #{page},#{rows}
+  	</select>
+  	<select id="findTotalUsertest" parameterType="java.util.HashMap" resultType="int">
+  		select count(1) from t_usertest_info
+  		<where>
+  			<if test="usertestnick != null and usertestnick != ''">
+  				and usertestnick = #{usertestnick}
+  			</if>
+  		</where>
+  	</select>
+</mapper>

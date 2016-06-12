@@ -28,11 +28,10 @@ public class Timedtask {
         postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
         int statusCode =  httpClient.executeMethod(postMethod);
         if(statusCode == 200) {
-            System.out.println("调用成功");
             result = postMethod.getResponseBodyAsString();
-            System.out.println(result);
+            logger.info("调用接口成功(/api/platform/updateTaskstateByTiming)，返回："+result);
         }else {
-            System.out.println("调用失败" + statusCode);
+            logger.info("调用接口失败(/api/platform/updateTaskstateByTiming)，返回："+statusCode);
         }
         logger.info("判断终止中的任务是否已终止....每分钟执行一次");
 	}
@@ -47,11 +46,10 @@ public class Timedtask {
         postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
         int statusCode =  httpClient.executeMethod(postMethod);
         if(statusCode == 200) {
-            System.out.println("调用成功");
             result = postMethod.getResponseBodyAsString();
-            System.out.println(result);
+            logger.info("调用接口成功(/api/platform/deleteTaskstate)，返回："+result);
         }else {
-            System.out.println("调用失败" + statusCode);
+            logger.info("调用接口失败(/api/platform/deleteTaskstate)，返回："+statusCode);
         }
         logger.info("将执行终止状态的详情任务删除....每分钟执行一次");
 	}
@@ -66,11 +64,10 @@ public class Timedtask {
         postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
         int statusCode =  httpClient.executeMethod(postMethod);
         if(statusCode == 200) {
-            System.out.println("调用成功");
             result = postMethod.getResponseBodyAsString();
-            System.out.println(result);
+            logger.info("调用接口成功(/api/platform/cyclecheckTask)，返回："+result);
         }else {
-            System.out.println("调用失败" + statusCode);
+            logger.info("调用接口失败(/api/platform/cyclecheckTask)，返回："+statusCode);
         }
         logger.info("任务执行结束....每10分钟执行一次检查任务是否执行完成");
 	}
@@ -84,11 +81,10 @@ public class Timedtask {
         postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
         int statusCode =  httpClient.executeMethod(postMethod);
         if(statusCode == 200) {
-            System.out.println("调用成功");
             result = postMethod.getResponseBodyAsString();
-            System.out.println(result);
+            logger.info("调用接口成功(/api/platform/endTaskstate)，返回："+result);
         }else {
-            System.out.println("调用失败" + statusCode);
+            logger.info("调用接口失败(/api/platform/endTaskstate)，返回："+statusCode);
         }
         logger.info("任务错误数大于等于系统设置的最大任务错误数即终止该任务数....每分钟执行一次");
 	}
@@ -103,9 +99,9 @@ public class Timedtask {
         int statusCode =  httpClient.executeMethod(postMethod);
         if(statusCode == 200) {
             result = postMethod.getResponseBodyAsString();
-            System.out.println(result);
+            logger.info("调用接口成功(/api/allocationTask)，返回："+result);
         }else {
-            System.out.println("调用失败" + statusCode);
+            logger.info("调用接口失败(/api/allocationTask)，返回："+statusCode);
         }
 	}
 	
@@ -118,12 +114,27 @@ public class Timedtask {
         postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
         int statusCode =  httpClient.executeMethod(postMethod);
         if(statusCode == 200) {
-            System.out.println("调用成功");
             result = postMethod.getResponseBodyAsString();
-            System.out.println(result);
+            logger.info("调用接口成功(/api/platform/updateTaskstateByTime)，返回："+result);
         }else {
-            System.out.println("调用失败" + statusCode);
+            logger.info("调用接口失败(/api/platform/updateTaskstateByTime)，返回："+statusCode);
         }
 		logger.info("任务执行完成....每天0点1分执行一次");
+	}
+	@Scheduled(cron = "0 2 0 * * ?")//每天0点2分执行一次
+	public void insertDateByTimes() throws Exception { 
+		logger.info("插入日期....每天0点2分执行一次");
+		HttpClient httpClient = new HttpClient();
+		String result="";
+        PostMethod postMethod = new PostMethod(host+"/api/platform/insertDateByTimes");
+        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+        int statusCode =  httpClient.executeMethod(postMethod);
+        if(statusCode == 200) {
+            result = postMethod.getResponseBodyAsString();
+            logger.info("调用接口成功(/api/platform/insertDateByTimes)，返回："+result);
+        }else {
+            logger.info("调用接口失败(/api/platform/insertDateByTimes)，返回："+statusCode);
+        }
+		logger.info("插入日期....每天0点2分执行一次");
 	}
 }

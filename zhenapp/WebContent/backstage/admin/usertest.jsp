@@ -63,20 +63,14 @@
 <div class="admin-content">
   <div class="am-cf am-padding">
     <div class="am-fl am-cf">
-      <strong class="am-text-primary am-text-lg">用户管理</strong>/<small>用户列表</small>
+      <strong class="am-text-primary am-text-lg">测试用户管理</strong>/<small>测试用户列表</small>
     </div>
   </div>
   <div class="am-g" style="margin-bottom: 10px;">
     <div class="am-u-sm-12">
       <form class="am-form-inline" role="form">
         <div class="am-form-group">
-          <input type="text" id="userId" value="${userpk}" class="am-form-field" placeholder="用户ID">
-        </div>
-        <div class="am-form-group">
-          <input type="text" id="userName" value="${usernick}" class="am-form-field" placeholder="用户名">
-        </div>
-        <div class="am-form-group">
-          <input type="text" id="mobile" value="${userphone}" class="am-form-field" placeholder="手机号">
+          <input type="text" id="userName" value="${usertestnick}" class="am-form-field" placeholder="用户名">
         </div>
         <button type="button" class="am-btn am-btn-default" id="search">搜索</button>
       </form>
@@ -89,42 +83,23 @@
           <tr class="am-success">
             <th>用户ID</th>
             <th>用户名</th>
-            <th>所属代理</th>
-            <th>手机号</th>
-            <th>邮箱</th>
-            <th>积分</th>
             <th>创建时间</th>
-            <th>更新时间</th>
-            <th>状态</th>
             <th>操作</th>
           </tr>
         </thead>
         <tbody>
-        <c:if test="${tUserInfoCustomlist==null}">
+        <c:if test="${tUsertestInfoCustomlist==null}">
         	<tr data-id="1">
         		<td colspan="9">暂无数据</td>
         	</tr>
         </c:if>
-          <c:forEach items="${tUserInfoCustomlist}" var="list">
-          	<tr data-id="${list.userpk}">
-              <th>${list.userpk}</th>
-              <td>${list.usernick}</td>
-              <td>${list.usernickagent}</td>
-              <td>${list.userphone}</td>
-              <td>${list.regemail}</td>
-              <td>${list.points}</td>
+          <c:forEach items="${tUsertestInfoCustomlist}" var="list">
+          	<tr data-id="${list.usertestpk}">
+              <th>${list.usertestpk}</th>
+              <td>${list.usertestnick}</td>
               <td>${list.createtime}</td>
-              <td>${list.updatetime}</td>
-              <td>${list.statename}</td>
-			  <td><a href="${pageContext.request.contextPath}/user/rechargeadmin?userpk=${list.userpk}" class="am-badge am-badge-primary">充值/扣款</a> 
-                  <a data-id="${list.userpk}" class="am-badge am-badge-primary deleteUser">删除</a>
-                  <a href="${pageContext.request.contextPath}/user/handworkLogin?userpk=${list.userpk}" data-id="3685" class="am-badge am-badge-primary">登录</a>
-                  <c:if test="${list.userroleid == 3}">
-                 	 <a href="${pageContext.request.contextPath}/user/setAgent/${list.userpk}" class="am-badge am-badge-primary">设为代理</a>
-                  </c:if>
-                  <c:if test="${list.usertestnick == null and list.userroleid == 3}">
-                  	<a href="${pageContext.request.contextPath}/user/setUsertest/${list.userpk}" class="am-badge am-badge-primary">设为测试账号</a>
-                  </c:if>
+			  <td> 
+                  <a data-id="${list.usertestpk}" class="am-badge am-badge-primary deleteUser">删除</a>
               </td>
             </tr>
           </c:forEach>
@@ -149,18 +124,16 @@
 		
 	  $("#search").click(function() {
 	      var name = $("#userName").val();
-	      var id = $("#userId").val();
-	      var mobile = $("#mobile").val();
-	      location.href = "${pageContext.request.contextPath}/user/findUserByPageAndAdmin?page=1&usernick=" + name + "&userpk=" + id + "&userphone=" + mobile;
+	      location.href = "${pageContext.request.contextPath}/user/findUsertestAdmin?page=1&usertestnick=" + name ;
 	    });
 
 	  $(document).on("click", ".deleteUser", function() {
 	      if (confirm("你确定要删除吗？")) {
-	        $.getJSON('${pageContext.request.contextPath}/user/deleteUserByUserpkAndAdmin', {
-	          userpk : $(this).attr("data-id")
+	        $.getJSON('${pageContext.request.contextPath}/user/deleteUsertest', {
+	        	usertestpk : $(this).attr("data-id")
 	        }, function(data) {
 	          if (data && data.ec == 0) {
-	            location.href = '${pageContext.request.contextPath}/user/findUserByPageAndAdmin';
+	            location.href = '${pageContext.request.contextPath}/user/findUsertestAdmin';
 	          } else {
 	            alert('删除失败!');
 	          }
@@ -171,9 +144,7 @@
   
   function btn_search(num){
       var name = $("#userName").val();
-      var id = $("#userId").val();
-      var mobile = $("#mobile").val();
-      location.href = "${pageContext.request.contextPath}/user/findUserByPageAndAdmin?page=" + num + "&usernick=" + name + "&userpk=" + id + "&userphone=" + mobile;
+      location.href = "${pageContext.request.contextPath}/user/findUsertestAdmin?page=" + num + "&usertestnick" + name;
   }
   var index = Number("${pagenum}");
 	if (index.length < 1) {
