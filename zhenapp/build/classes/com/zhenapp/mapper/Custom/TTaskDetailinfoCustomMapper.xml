@@ -10,8 +10,14 @@
 		<if test="iscollection != null and iscollection != '' ">
 			AND a.iscollection ='1'
 		</if>
+		<if test="isstorecollection != null and isstorecollection != '' ">
+			AND a.isstorecollection ='1'
+		</if>
 		<if test="isshopping != null and isshopping != '' ">
 			AND a.isshopping ='1'
+		</if>
+		<if test="isfakechat != null and isfakechat != '' ">
+			AND a.isfakechat ='1'
 		</if>
 		<if test="tasknumstr != null and tasknumstr != '' ">
 			AND a.taskkeynum NOT IN (${tasknumstr})
@@ -201,26 +207,30 @@
   </select>
   
   <insert id="insertDetailinfo" parameterType="com.zhenapp.po.Custom.TTaskDetailInfoCustom" >
-     insert into t_task_detailinfo (taskdetailid, taskid, 
+      insert into t_task_detailinfo (taskdetailid, taskid, 
       taskkeyword, searchtype, price, 
       region, isfreeship, istmall, 
-      iscollection, isshopping, taskkeynum, 
+      iscollection, isshopping, isstorecollection, 
+      isfakechat, fakechatstr1, fakechatstr2, 
+      fakechatstr3, fakechatstr4, taskkeynum, 
       minpicture, maxpicture, tasktype, 
-      isflow, iscreativetitle, isshopcollect, 
-      taskstate, taskdate, taskhour, 
-      taskminute, visit, collect, 
-      trolley, phoneid, subtractpoints, 
+      isflow, iscreativetitle, taskstate, 
+      taskdate, taskhour, taskminute, 
+      visit, collect, trolley, 
+      phoneid, subtractpoints, resultstr, 
       createtime, createuser, updatetime, 
       updateuser)
-    values ( #{taskdetailid,jdbcType=VARCHAR}, #{taskid,jdbcType=VARCHAR}, 
+    values (#{taskdetailid,jdbcType=VARCHAR}, #{taskid,jdbcType=VARCHAR}, 
       #{taskkeyword,jdbcType=VARCHAR}, #{searchtype,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, 
       #{region,jdbcType=VARCHAR}, #{isfreeship,jdbcType=VARCHAR}, #{istmall,jdbcType=VARCHAR}, 
-      #{iscollection,jdbcType=VARCHAR}, #{isshopping,jdbcType=VARCHAR}, #{taskkeynum,jdbcType=VARCHAR}, 
+      #{iscollection,jdbcType=VARCHAR}, #{isshopping,jdbcType=VARCHAR}, #{isstorecollection,jdbcType=VARCHAR}, 
+      #{isfakechat,jdbcType=VARCHAR}, #{fakechatstr1,jdbcType=VARCHAR}, #{fakechatstr2,jdbcType=VARCHAR}, 
+      #{fakechatstr3,jdbcType=VARCHAR}, #{fakechatstr4,jdbcType=VARCHAR}, #{taskkeynum,jdbcType=VARCHAR}, 
       #{minpicture,jdbcType=VARCHAR}, #{maxpicture,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
-      #{isflow,jdbcType=VARCHAR}, #{iscreativetitle,jdbcType=VARCHAR}, #{isshopcollect,jdbcType=VARCHAR}, 
-      #{taskstate,jdbcType=VARCHAR}, #{taskdate,jdbcType=VARCHAR}, #{taskhour,jdbcType=VARCHAR}, 
-      #{taskminute,jdbcType=VARCHAR}, #{visit,jdbcType=VARCHAR}, #{collect,jdbcType=VARCHAR}, 
-      #{trolley,jdbcType=VARCHAR}, #{phoneid,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, 
+      #{isflow,jdbcType=VARCHAR}, #{iscreativetitle,jdbcType=VARCHAR}, #{taskstate,jdbcType=VARCHAR}, 
+      #{taskdate,jdbcType=VARCHAR}, #{taskhour,jdbcType=INTEGER}, #{taskminute,jdbcType=INTEGER}, 
+      #{visit,jdbcType=VARCHAR}, #{collect,jdbcType=VARCHAR}, #{trolley,jdbcType=VARCHAR}, 
+      #{phoneid,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, #{resultstr,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
       #{updateuser,jdbcType=VARCHAR})
   </insert>

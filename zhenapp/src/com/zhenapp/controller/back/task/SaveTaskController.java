@@ -5,9 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
@@ -20,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.zhenapp.po.Custom.MsgInfoCustom;
 import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
@@ -142,6 +139,12 @@ public class SaveTaskController {
 		tTaskInfoCustom.setFlowcount(tTaskInfoCustom.getFlowcount());
 		tTaskInfoCustom.setCollectioncount(tTaskInfoCustom.getCollectioncount());
 		tTaskInfoCustom.setShoppingcount(tTaskInfoCustom.getShoppingcount());
+		tTaskInfoCustom.setStorecollectioncount(tTaskInfoCustom.getStorecollectioncount());
+		tTaskInfoCustom.setFakechatcount(tTaskInfoCustom.getFakechatcount());
+		tTaskInfoCustom.setFakechatstr1(tTaskInfoCustom.getFakechatstr1());
+		tTaskInfoCustom.setFakechatstr2(tTaskInfoCustom.getFakechatstr2());
+		tTaskInfoCustom.setFakechatstr3(tTaskInfoCustom.getFakechatstr3());
+		tTaskInfoCustom.setFakechatstr4(tTaskInfoCustom.getFakechatstr4());
 		tTaskInfoCustom.setSubtractpoints(subtractpoints);
 		tTaskInfoCustom.setTaskstate("15");//待分配状态
 		tTaskInfoCustom.setCreatetime(sdf.format(new Date()));
@@ -156,7 +159,7 @@ public class SaveTaskController {
 		tPointsInfoCustom.setPointstype("27");
 		int newpoints =Integer.parseInt(points);
 		int newpointsagent = Integer.parseInt(pointsagent);
-		//获取系统设置中总的手机数目
+		
 		Date date = yyyyMMdd.parse(tTaskInfoCustom.getTaskstartdate().replace("-", ""));
 		for (int day = 0; day <= days; day++) {
 			for (int ii = 0; ii < taskkeywordarr.length; ii++) {
@@ -195,7 +198,7 @@ public class SaveTaskController {
 				TUserInfoCustomagent.setPoints(newpointsagent);
 				TUserInfoCustomagent.setUpdatetime(sdf.format(new Date()));
 				userInfoService.updateUserinfoPointByUserid(TUserInfoCustomagent);
-				
+				/*
 				int collectionys = tTaskInfoCustom.getCollectioncount() / hourcount;
 				int collectionfps = tTaskInfoCustom.getCollectioncount() % hourcount;
 				int []collectionarr = new int[hourcount];
@@ -430,7 +433,7 @@ public class SaveTaskController {
 				hashmap3.put("taskstate", "16");//任务运行中
 				hashmap3.put("updatetime", sdf.format(new Date()));
 				hashmap3.put("updateuser", "拆分任务");
-				taskInfoService.updateTaskstate(hashmap3);
+				taskInfoService.updateTaskstate(hashmap3);*/
 			}
 			date = sdf.parse(sdf.format(date.getTime()+24*3600*1000));
 		}

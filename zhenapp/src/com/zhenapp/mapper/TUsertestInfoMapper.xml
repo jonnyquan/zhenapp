@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhenapp.mapper.TUsertestInfoMapper" >
   <resultMap id="BaseResultMap" type="com.zhenapp.po.TUsertestInfo" >
-    <id column="usertestpk" property="usertestpk" jdbcType="INTEGER" />
+    <result column="usertestpk" property="usertestpk" jdbcType="INTEGER" />
     <result column="usertestid" property="usertestid" jdbcType="VARCHAR" />
     <result column="usertestnick" property="usertestnick" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="VARCHAR" />
@@ -85,16 +85,6 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from t_usertest_info
-    where usertestpk = #{usertestpk,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_usertest_info
-    where usertestpk = #{usertestpk,jdbcType=INTEGER}
-  </delete>
   <delete id="deleteByExample" parameterType="com.zhenapp.po.TUsertestInfoExample" >
     delete from t_usertest_info
     <if test="_parameter != null" >
@@ -205,39 +195,5 @@
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zhenapp.po.TUsertestInfo" >
-    update t_usertest_info
-    <set >
-      <if test="usertestid != null" >
-        usertestid = #{usertestid,jdbcType=VARCHAR},
-      </if>
-      <if test="usertestnick != null" >
-        usertestnick = #{usertestnick,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null" >
-        createtime = #{createtime,jdbcType=VARCHAR},
-      </if>
-      <if test="createuser != null" >
-        createuser = #{createuser,jdbcType=VARCHAR},
-      </if>
-      <if test="updatetime != null" >
-        updatetime = #{updatetime,jdbcType=VARCHAR},
-      </if>
-      <if test="updateuser != null" >
-        updateuser = #{updateuser,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where usertestpk = #{usertestpk,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.zhenapp.po.TUsertestInfo" >
-    update t_usertest_info
-    set usertestid = #{usertestid,jdbcType=VARCHAR},
-      usertestnick = #{usertestnick,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR},
-      createuser = #{createuser,jdbcType=VARCHAR},
-      updatetime = #{updatetime,jdbcType=VARCHAR},
-      updateuser = #{updateuser,jdbcType=VARCHAR}
-    where usertestpk = #{usertestpk,jdbcType=INTEGER}
   </update>
 </mapper>

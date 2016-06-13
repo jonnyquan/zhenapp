@@ -132,7 +132,7 @@ public class TTaskDetailInfoCustom extends TTaskDetailinfo{
 		.append(tTaskDetailInfoCustom.getMaxpicture()).append("&")
 		.append(tTaskDetailInfoCustom.getTasktype().equals("33")?"流量":"直通车").append("&")
 		.append(tTaskDetailInfoCustom.getIscreativetitle()).append("&")
-		.append(tTaskDetailInfoCustom.getIsshopcollect()).append("&")
+		.append(tTaskDetailInfoCustom.getIsstorecollection()).append("&")
 		.append("否").append("&")//店铺收藏
 		.append("否").append("&")//直通车是否自定义筛选价格范围
 		.append("否").append("&")//直通车筛选的价格范围1

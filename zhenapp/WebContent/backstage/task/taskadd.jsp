@@ -377,57 +377,6 @@
 								</table>
 								<div class="form_control clearfix" style="height:0px;">
 								</div>
-								
-								<!--  <table class="table">
-									<tr>
-										<td >
-											宝贝url
-										</td>
-										<td >
-											<input type="text" name="taskurl" placeholder="请输入宝贝url" class='form-control' id="taskurl" value="${tTaskInfoCustom.taskurl}" maxlength="1000" 
-												
-												onchange="checkurl(this);" /><!-- 例如:https://item.taobao.com/item.htm?id=531027639098 --<br/>
-											<span id="span" style="color:#aaa;"></span>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											关键词
-										</td>
-										<td>
-											<table id="tab_keyword" >
-												<tr>
-													<c:if test="${tTaskInfoCustom!=null}">
-														<td>
-															<input type="text" name="taskkeywords" class='form-control'  style="width:600px;" value="${tTaskInfoCustom.taskkeyword}" placeholder="请输入关键词" onchange="checkword(this);" />		
-														</td>
-														<td>
-															<input type="button" class="easyui-linkbutton" iconCls="icon-add" onclick="addinput();" value="&nbsp;&nbsp;添 &nbsp;加 &nbsp;&nbsp;" />
-														</td>
-													</c:if>
-													<c:if test="${tTaskInfoCustom==null}">
-														<td>
-															<input type="text" name="taskkeywords" class='form-control' style="width:600px;"  onchange="checkword(this);" />		
-														</td>
-														<td>
-															<input type="button" class="easyui-linkbutton" iconCls="icon-add" onclick="addinput();" value="&nbsp;&nbsp;添 &nbsp;加 &nbsp;&nbsp;" />
-														</td>
-													</c:if>
-												</tr>
-											</table>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											发布时间
-										</td>
-										<td>
-											<lable style="padding:0 10px 0 10px;">从:</lable>
-											<input type="text" name="datefrom" id="datefrom" width="200px"/>
-											到：<input type="text" name="dateto" id="dateto" width="200px"/>
-										</td>
-									</tr>
-								</table>-->
 								<div class="box" style="padding:0px 0px;">
 									<div class="taxkTips box_toggle">
 										<h2>
@@ -436,9 +385,7 @@
 											卡位可选信息区（点击显示更多可选项，以更好的提升宝贝流量）建议保持默认不做更改!!
 										</h2>
 									</div>
-
 									<div class="toggle_wrapper">
-
 										<div class="form_control clearfix">
 											<label class="form_label">排序类型：</label> 
 											<select name="tasksearchType" id="tasksearchType" class="form_select select_big" v-model="sortType">
@@ -781,7 +728,7 @@
 									<label class="form_label">收藏数量：</label> 
 									<input name="collectioncount" id="collectioncount"
 										placeholder="请输入收藏数" onchange="fpsc(this)" 
-										<c:if test="${tTaskInfoCustom.collectioncount!=null }">value="${tTaskInfoCustom.flowcount}"</c:if>
+										<c:if test="${tTaskInfoCustom.collectioncount!=null }">value="${tTaskInfoCustom.collectioncount}"</c:if>
 										<c:if test="${tTaskInfoCustom.collectioncount==null }">value="0"</c:if>
 										onkeyup="this.value=this.value.replace(/\D/g,'')"
 										onafterpaste="this.value=this.value.replace(/\D/g,'')"/>&nbsp;&nbsp;<span id="span_collection_text"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_collection"></span>
@@ -800,13 +747,75 @@
 								<div class="form_control clearfix">
 									<span style="color: red;padding-left: 100px;">* 请注意商品必须有库存，做活动时候放不了购物车</span>
 								</div>
+								<div class="form_control clearfix">
+									<label class="form_label">店铺收藏数量：</label> 
+									<input type="text" name="storecollectioncount" id="storecollectioncount"
+										placeholder="请输入店铺收藏数" onchange="fpdpsc(this)" 
+										<c:if test="${tTaskInfoCustom.storecollectioncount!=null }">value="${tTaskInfoCustom.flowcount}"</c:if>
+										<c:if test="${tTaskInfoCustom.storecollectioncount==null }">value="0"</c:if>
+										onkeyup="this.value=this.value.replace(/\D/g,'')"
+										onafterpaste="this.value=this.value.replace(/\D/g,'')"/>&nbsp;&nbsp;<span id="span_storecollection_text"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_storecollection"></span>
+								</div>
+								<div class="form_control clearfix">
+									<label class="form_label">假聊数量：</label> 
+									<input type="text" name="fakechatcount" id="fakechatcount"
+										placeholder="请输入假聊数" onchange="fpfakechat(this)" 
+										<c:if test="${tTaskInfoCustom.fakechatcount!=null }">value="${tTaskInfoCustom.fakechatcount}"</c:if>
+										<c:if test="${tTaskInfoCustom.fakechatcount==null }">value="0"</c:if>
+										onkeyup="this.value=this.value.replace(/\D/g,'')"
+										onafterpaste="this.value=this.value.replace(/\D/g,'')"/>&nbsp;&nbsp;
+										<span id="span_fakechat_text"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+										<span id="span_fakechat"></span>
+								</div>
+								<div class="form_control clearfix">
+									<label class="form_label">第一句：</label> 
+									<input type="text" name="fakechatstr1" id="fakechatstr1" maxlength="20"
+										placeholder="请输入第一句假聊" onchange="fpfakechat(this)" 
+										<c:if test="${tTaskInfoCustom.fakechatstr1!=null }">value="${tTaskInfoCustom.fakechatstr1}"</c:if>
+										<c:if test="${tTaskInfoCustom.fakechatstr1==null }">value=""</c:if>
+										/>&nbsp;&nbsp;
+										<span id="span_fakechat_text"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+										<span id="span_fakechat"></span>
+								</div>
+								<div class="form_control clearfix">
+									<label class="form_label">第二句：</label> 
+									<input type="text" name="fakechatstr2" id="fakechatstr2" maxlength="20"
+										placeholder="请输入第二句假聊" onchange="fpfakechat(this)" 
+										<c:if test="${tTaskInfoCustom.fakechatstr2!=null }">value="${tTaskInfoCustom.fakechatstr2}"</c:if>
+										<c:if test="${tTaskInfoCustom.fakechatstr2==null }">value=""</c:if>
+										/>&nbsp;&nbsp;
+										<span id="span_fakechat_text"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+										<span id="span_fakechat"></span>
+								</div>
+								<div class="form_control clearfix">
+									<label class="form_label">第三句：</label> 
+									<input type="text" name="fakechatstr3" id="fakechatstr3" maxlength="20"
+										placeholder="请输入第三句假聊" onchange="fpfakechat(this)" 
+										<c:if test="${tTaskInfoCustom.fakechatstr3!=null }">value="${tTaskInfoCustom.fakechatstr3}"</c:if>
+										<c:if test="${tTaskInfoCustom.fakechatstr3==null }">value=""</c:if>
+										/>&nbsp;&nbsp;
+										<span id="span_fakechat_text"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+										<span id="span_fakechat"></span>
+								</div>
+								<div class="form_control clearfix">
+									<label class="form_label">第四句：</label> 
+									<input type="text" name="fakechatstr4" id="fakechatstr4" maxlength="20"
+										placeholder="请输入第四句假聊" onchange="fpfakechat(this)" 
+										<c:if test="${tTaskInfoCustom.fakechatstr4!=null }">value="${tTaskInfoCustom.fakechatstr4}"</c:if>
+										<c:if test="${tTaskInfoCustom.fakechatstr4==null }">value=""</c:if>
+										/>&nbsp;&nbsp;
+										<span id="span_fakechat_text"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+										<span id="span_fakechat"></span>
+								</div>
+								<div class="form_control clearfix">
+									<span style="color: red;padding-left: 100px;">*假聊信息字数不超过20个</span>
+								</div>
 								<div id="buttonSubmit" class="form_control"
 									style="margin-top:20px; border-bottom:none;">
 									<div class="botton" style="margin-left:40px;">
 										<input type="button" class="btn btn-info" id="subbtn" value="发布任务" />
 									</div>
 								</div>
-								
 								<div id="searchOrderWrapper" class="form_control clearfix"
 									style="margin-top:20px; border-bottom:none;">
 									<div id="searchOrderInnerWrapper" class="botton"></div>

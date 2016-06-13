@@ -25,6 +25,7 @@ import com.zhenapp.po.Custom.TPriceInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailInfoFlowCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
+import com.zhenapp.po.Custom.TUsertestInfoCustom;
 import com.zhenapp.service.DateInfoService;
 import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.PriceAgentInfoService;
@@ -35,6 +36,7 @@ import com.zhenapp.service.TaskDetailInfoFlowService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.UserInfoService;
+import com.zhenapp.service.UsertestInfoService;
 import com.zhenapp.util.StringUtilWxf;
 @Transactional
 @Controller
@@ -63,6 +65,8 @@ public class CheckFinshOrder {
 	private PriceInfoService priceInfoService;
 	@Autowired
 	private PriceAgentInfoService priceAgentInfoService;
+	@Autowired
+	private UsertestInfoService usertestInfoService;
 	
 	@Value("${secret}")
 	private String secret;
@@ -93,35 +97,45 @@ public class CheckFinshOrder {
 					//收藏和加购任务已经执行完成
 					isfinish=true;
 				}
-				TTaskDetailInfoFlowCustom TTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);
-				//调用接口判断流量任务是否完成
-				HttpClient httpClient = new HttpClient();
-				String result="";
-		        GetMethod getMethod = new GetMethod("http://liuliangapp.com/api/tasks/"+TTaskDetailInfoFlowCustom.getTaskdetailid()+"/total");
-		        getMethod.setRequestHeader("secret", secret);
-		        int statusCode =  httpClient.executeMethod(getMethod);
-		        if(statusCode == 200) {
-		            result = getMethod.getResponseBodyAsString();
-		            if(result.indexOf("total")==-1){
-		            	result = StringUtilWxf.translat(result);
-		            	logger.error("调用查询完成量接口,返回："+result);
-		            	throw new RuntimeException();
-		            }else{
-		            	ObjectMapper obj = new ObjectMapper();
-		 	    		MsgInfoCustom msgInfoCustom = obj.readValue(result, MsgInfoCustom.class);
-		 	    		result=msgInfoCustom.getTotal();
-		 	    		//更新完成数
-		 	    		hashmap.put("finishcount", msgInfoCustom.getTotal());
-		 	    		taskDetailInfoFlowService.updatefinishcount(hashmap);
-		 	    		if(tTaskInfoCustom.getFlowcount()==Integer.parseInt(msgInfoCustom.getTotal())){
-		 	    			isfinishflow = true;
-		 	    		}
-		            }
-		            map.put("msg", result);
-		        } else {
-		            logger.error("失败错误码："+result);
-		            throw new RuntimeException();
-		        }
+				TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);
+				
+				HashMap<String,Object> hashmapusertest= new HashMap<String, Object>();
+				hashmapusertest.put("page", 0);
+				hashmapusertest.put("rows", 10);
+				hashmapusertest.put("usertestid", tTaskDetailInfoFlowCustom.getCreateuser());
+				List<TUsertestInfoCustom> tUsertestInfoCustomlist = usertestInfoService.findUserTest(hashmapusertest);
+				if(tUsertestInfoCustomlist!=null && tUsertestInfoCustomlist.size()>0){
+					isfinishflow = true;
+				}else{
+					//调用接口判断流量任务是否完成
+					HttpClient httpClient = new HttpClient();
+					String result="";
+			        GetMethod getMethod = new GetMethod("http://liuliangapp.com/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/total");
+			        getMethod.setRequestHeader("secret", secret);
+			        int statusCode =  httpClient.executeMethod(getMethod);
+			        if(statusCode == 200) {
+			            result = getMethod.getResponseBodyAsString();
+			            if(result.indexOf("total")==-1){
+			            	result = StringUtilWxf.translat(result);
+			            	logger.error("调用查询完成量接口失败,返回："+result);
+			            	throw new RuntimeException();
+			            }else{
+			            	ObjectMapper obj = new ObjectMapper();
+			 	    		MsgInfoCustom msgInfoCustom = obj.readValue(result, MsgInfoCustom.class);
+			 	    		result=msgInfoCustom.getTotal();
+			 	    		//更新完成数
+			 	    		hashmap.put("finishcount", msgInfoCustom.getTotal());
+			 	    		taskDetailInfoFlowService.updatefinishcount(hashmap);
+			 	    		if(tTaskInfoCustom.getFlowcount()==Integer.parseInt(msgInfoCustom.getTotal())){
+			 	    			isfinishflow = true;
+			 	    		}
+			            }
+			            map.put("msg", result);
+			        } else {
+			            logger.error("失败错误码："+result);
+			            throw new RuntimeException();
+			        }
+				}
 		        if(isfinish && isfinishflow){
 		        	//表示任务已完成
 		        	//更新任务状态

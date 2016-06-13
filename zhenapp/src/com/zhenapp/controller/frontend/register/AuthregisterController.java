@@ -23,7 +23,7 @@ import com.zhenapp.util.MD5Util;
 @Controller
 @RequestMapping(value="/frontend")
 public class AuthregisterController {
-	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 	@Autowired
 	private PointsInfoService pointsInfoService;
 	@Autowired
@@ -36,7 +36,6 @@ public class AuthregisterController {
 		ModelAndView mv=new ModelAndView();
 		String webwww=request.getServerName();
 		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentBywww(webwww);
-		String time = sdf.format(new Date());
 		tUserInfoCustom.setUserroleid(3);//默认初始化角色id
 		tUserInfoCustom.setRegurl(webwww);
 		tUserInfoCustom.setPoints(0);//默认用户注册积分为0 并插入积分明细记录
@@ -45,9 +44,9 @@ public class AuthregisterController {
 		tUserInfoCustom.setUserid(UUID.randomUUID().toString().replace("-", ""));
 		tUserInfoCustom.setUserpwd(MD5Util.string2MD5(tUserInfoCustom.getUserpwd()));
 		tUserInfoCustom.setAgentid(tAgentInfoCustom.getAgentid());
-		tUserInfoCustom.setCreatetime(time);
+		tUserInfoCustom.setCreatetime(sdf.format(new Date()));
 		tUserInfoCustom.setCreateuser("sys");
-		tUserInfoCustom.setUpdatetime(time);
+		tUserInfoCustom.setUpdatetime(sdf.format(new Date()));
 		tUserInfoCustom.setUpdateuser("sys");
 		int i=userInfoService.saveUser(tUserInfoCustom);
 		if(i>0){

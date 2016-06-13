@@ -26,6 +26,7 @@ import com.zhenapp.po.Custom.TPriceInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailInfoFlowCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
+import com.zhenapp.po.Custom.TUsertestInfoCustom;
 import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.PriceAgentInfoService;
@@ -34,6 +35,7 @@ import com.zhenapp.service.TaskDetailInfoFlowService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.UserInfoService;
+import com.zhenapp.service.UsertestInfoService;
 import com.zhenapp.util.StringUtilWxf;
 @Transactional
 @Controller
@@ -58,6 +60,8 @@ public class CheckEndOrder {
 	private PriceInfoService priceInfoService;
 	@Autowired
 	private PriceAgentInfoService priceAgentInfoService;
+	@Autowired
+	private UsertestInfoService usertestInfoService;
 	
 	@Value("${secret}")
 	private String secret;
@@ -84,7 +88,6 @@ public class CheckEndOrder {
 				hashmap.put("taskid", tTaskInfoCustom.getTaskid());
 				int tempcount = taskDetailInfoService.findTaskDetailInfoByIdAndTaskstate(hashmap);
 				if(tempcount==0){
-					
 					hashmap.clear();
 					hashmap.put("taskid", tTaskInfoCustom.getTaskid());
 					//int points = taskDetailInfoService.findPointsByteterminationstate(tTaskInfoCustom.getTaskid());
@@ -118,31 +121,39 @@ public class CheckEndOrder {
 					int flowcounts=0;
 					int flowpointsagent=0;
 					TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);//根据任务id查询出流量详情信息
-					HttpClient httpClient = new HttpClient();
-					String result="";
-			        GetMethod getMethod = new GetMethod("http://liuliangapp.com/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/total");
-			        getMethod.setRequestHeader("secret", secret);
-			        int statusCode =  httpClient.executeMethod(getMethod);
-			        if(statusCode == 200) {
-			            result = getMethod.getResponseBodyAsString();
-			            if(result.indexOf("total")==-1){
-			            	result = StringUtilWxf.translat(result);
-			            	throw new RuntimeException();
-			            }else{
-			            	ObjectMapper obj = new ObjectMapper();
-			 	    		MsgInfoCustom msgInfoCustom = obj.readValue(result, MsgInfoCustom.class);
-			 	    		result=msgInfoCustom.getTotal()+"";
-			 	    		//更新完成数
-			 	    		hashmap.put("finishcount", msgInfoCustom.getTotal());
-			 	    		taskDetailInfoFlowService.updatefinishcount(hashmap);
-			 	    		flowcounts= Integer.parseInt(msgInfoCustom.getTotal());
-			            }
-			            map.put("msg", result);
-			        }
-			        else {
-			            map.put("msg", "失败错误码" + statusCode);
-			            throw new RuntimeException();
-			        }
+					HashMap<String,Object> hashmapusertest= new HashMap<String, Object>();
+					hashmapusertest.put("page", 0);
+					hashmapusertest.put("rows", 10);
+					hashmapusertest.put("usertestid", tTaskDetailInfoFlowCustom.getCreateuser());
+					List<TUsertestInfoCustom> tUsertestInfoCustomlist = usertestInfoService.findUserTest(hashmapusertest);
+					if(tUsertestInfoCustomlist!=null && tUsertestInfoCustomlist.size()>0){
+						
+					}else{
+						HttpClient httpClient = new HttpClient();
+						String result="";
+				        GetMethod getMethod = new GetMethod("http://liuliangapp.com/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/total");
+				        getMethod.setRequestHeader("secret", secret);
+				        int statusCode =  httpClient.executeMethod(getMethod);
+				        if(statusCode == 200) {
+				            result = getMethod.getResponseBodyAsString();
+				            if(result.indexOf("total")==-1){
+				            	result = StringUtilWxf.translat(result);
+				            	throw new RuntimeException();
+				            }else{
+				            	ObjectMapper obj = new ObjectMapper();
+				 	    		MsgInfoCustom msgInfoCustom = obj.readValue(result, MsgInfoCustom.class);
+				 	    		result=msgInfoCustom.getTotal()+"";
+				 	    		//更新完成数
+				 	    		hashmap.put("finishcount", msgInfoCustom.getTotal());
+				 	    		taskDetailInfoFlowService.updatefinishcount(hashmap);
+				 	    		flowcounts= Integer.parseInt(msgInfoCustom.getTotal());
+				            }
+				            map.put("msg", result);
+				        }else {
+				            map.put("msg", "失败错误码" + statusCode);
+				            throw new RuntimeException();
+				        }
+					}
 			        if(maxcount < flowcounts){
 	 	    			maxcount = flowcounts;
 	 	    		}

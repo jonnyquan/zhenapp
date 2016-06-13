@@ -864,6 +864,426 @@ public class TTaskDetailinfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andIsstorecollectionIsNull() {
+            addCriterion("isstorecollection is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsstorecollectionIsNotNull() {
+            addCriterion("isstorecollection is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsstorecollectionEqualTo(String value) {
+            addCriterion("isstorecollection =", value, "isstorecollection");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsstorecollectionNotEqualTo(String value) {
+            addCriterion("isstorecollection <>", value, "isstorecollection");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsstorecollectionGreaterThan(String value) {
+            addCriterion("isstorecollection >", value, "isstorecollection");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsstorecollectionGreaterThanOrEqualTo(String value) {
+            addCriterion("isstorecollection >=", value, "isstorecollection");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsstorecollectionLessThan(String value) {
+            addCriterion("isstorecollection <", value, "isstorecollection");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsstorecollectionLessThanOrEqualTo(String value) {
+            addCriterion("isstorecollection <=", value, "isstorecollection");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsstorecollectionLike(String value) {
+            addCriterion("isstorecollection like", value, "isstorecollection");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsstorecollectionNotLike(String value) {
+            addCriterion("isstorecollection not like", value, "isstorecollection");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsstorecollectionIn(List<String> values) {
+            addCriterion("isstorecollection in", values, "isstorecollection");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsstorecollectionNotIn(List<String> values) {
+            addCriterion("isstorecollection not in", values, "isstorecollection");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsstorecollectionBetween(String value1, String value2) {
+            addCriterion("isstorecollection between", value1, value2, "isstorecollection");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsstorecollectionNotBetween(String value1, String value2) {
+            addCriterion("isstorecollection not between", value1, value2, "isstorecollection");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfakechatIsNull() {
+            addCriterion("isfakechat is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfakechatIsNotNull() {
+            addCriterion("isfakechat is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfakechatEqualTo(String value) {
+            addCriterion("isfakechat =", value, "isfakechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfakechatNotEqualTo(String value) {
+            addCriterion("isfakechat <>", value, "isfakechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfakechatGreaterThan(String value) {
+            addCriterion("isfakechat >", value, "isfakechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfakechatGreaterThanOrEqualTo(String value) {
+            addCriterion("isfakechat >=", value, "isfakechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfakechatLessThan(String value) {
+            addCriterion("isfakechat <", value, "isfakechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfakechatLessThanOrEqualTo(String value) {
+            addCriterion("isfakechat <=", value, "isfakechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfakechatLike(String value) {
+            addCriterion("isfakechat like", value, "isfakechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfakechatNotLike(String value) {
+            addCriterion("isfakechat not like", value, "isfakechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfakechatIn(List<String> values) {
+            addCriterion("isfakechat in", values, "isfakechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfakechatNotIn(List<String> values) {
+            addCriterion("isfakechat not in", values, "isfakechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfakechatBetween(String value1, String value2) {
+            addCriterion("isfakechat between", value1, value2, "isfakechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfakechatNotBetween(String value1, String value2) {
+            addCriterion("isfakechat not between", value1, value2, "isfakechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr1IsNull() {
+            addCriterion("fakechatstr1 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr1IsNotNull() {
+            addCriterion("fakechatstr1 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr1EqualTo(String value) {
+            addCriterion("fakechatstr1 =", value, "fakechatstr1");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr1NotEqualTo(String value) {
+            addCriterion("fakechatstr1 <>", value, "fakechatstr1");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr1GreaterThan(String value) {
+            addCriterion("fakechatstr1 >", value, "fakechatstr1");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr1GreaterThanOrEqualTo(String value) {
+            addCriterion("fakechatstr1 >=", value, "fakechatstr1");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr1LessThan(String value) {
+            addCriterion("fakechatstr1 <", value, "fakechatstr1");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr1LessThanOrEqualTo(String value) {
+            addCriterion("fakechatstr1 <=", value, "fakechatstr1");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr1Like(String value) {
+            addCriterion("fakechatstr1 like", value, "fakechatstr1");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr1NotLike(String value) {
+            addCriterion("fakechatstr1 not like", value, "fakechatstr1");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr1In(List<String> values) {
+            addCriterion("fakechatstr1 in", values, "fakechatstr1");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr1NotIn(List<String> values) {
+            addCriterion("fakechatstr1 not in", values, "fakechatstr1");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr1Between(String value1, String value2) {
+            addCriterion("fakechatstr1 between", value1, value2, "fakechatstr1");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr1NotBetween(String value1, String value2) {
+            addCriterion("fakechatstr1 not between", value1, value2, "fakechatstr1");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr2IsNull() {
+            addCriterion("fakechatstr2 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr2IsNotNull() {
+            addCriterion("fakechatstr2 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr2EqualTo(String value) {
+            addCriterion("fakechatstr2 =", value, "fakechatstr2");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr2NotEqualTo(String value) {
+            addCriterion("fakechatstr2 <>", value, "fakechatstr2");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr2GreaterThan(String value) {
+            addCriterion("fakechatstr2 >", value, "fakechatstr2");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr2GreaterThanOrEqualTo(String value) {
+            addCriterion("fakechatstr2 >=", value, "fakechatstr2");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr2LessThan(String value) {
+            addCriterion("fakechatstr2 <", value, "fakechatstr2");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr2LessThanOrEqualTo(String value) {
+            addCriterion("fakechatstr2 <=", value, "fakechatstr2");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr2Like(String value) {
+            addCriterion("fakechatstr2 like", value, "fakechatstr2");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr2NotLike(String value) {
+            addCriterion("fakechatstr2 not like", value, "fakechatstr2");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr2In(List<String> values) {
+            addCriterion("fakechatstr2 in", values, "fakechatstr2");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr2NotIn(List<String> values) {
+            addCriterion("fakechatstr2 not in", values, "fakechatstr2");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr2Between(String value1, String value2) {
+            addCriterion("fakechatstr2 between", value1, value2, "fakechatstr2");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr2NotBetween(String value1, String value2) {
+            addCriterion("fakechatstr2 not between", value1, value2, "fakechatstr2");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr3IsNull() {
+            addCriterion("fakechatstr3 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr3IsNotNull() {
+            addCriterion("fakechatstr3 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr3EqualTo(String value) {
+            addCriterion("fakechatstr3 =", value, "fakechatstr3");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr3NotEqualTo(String value) {
+            addCriterion("fakechatstr3 <>", value, "fakechatstr3");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr3GreaterThan(String value) {
+            addCriterion("fakechatstr3 >", value, "fakechatstr3");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr3GreaterThanOrEqualTo(String value) {
+            addCriterion("fakechatstr3 >=", value, "fakechatstr3");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr3LessThan(String value) {
+            addCriterion("fakechatstr3 <", value, "fakechatstr3");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr3LessThanOrEqualTo(String value) {
+            addCriterion("fakechatstr3 <=", value, "fakechatstr3");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr3Like(String value) {
+            addCriterion("fakechatstr3 like", value, "fakechatstr3");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr3NotLike(String value) {
+            addCriterion("fakechatstr3 not like", value, "fakechatstr3");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr3In(List<String> values) {
+            addCriterion("fakechatstr3 in", values, "fakechatstr3");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr3NotIn(List<String> values) {
+            addCriterion("fakechatstr3 not in", values, "fakechatstr3");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr3Between(String value1, String value2) {
+            addCriterion("fakechatstr3 between", value1, value2, "fakechatstr3");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr3NotBetween(String value1, String value2) {
+            addCriterion("fakechatstr3 not between", value1, value2, "fakechatstr3");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr4IsNull() {
+            addCriterion("fakechatstr4 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr4IsNotNull() {
+            addCriterion("fakechatstr4 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr4EqualTo(String value) {
+            addCriterion("fakechatstr4 =", value, "fakechatstr4");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr4NotEqualTo(String value) {
+            addCriterion("fakechatstr4 <>", value, "fakechatstr4");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr4GreaterThan(String value) {
+            addCriterion("fakechatstr4 >", value, "fakechatstr4");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr4GreaterThanOrEqualTo(String value) {
+            addCriterion("fakechatstr4 >=", value, "fakechatstr4");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr4LessThan(String value) {
+            addCriterion("fakechatstr4 <", value, "fakechatstr4");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr4LessThanOrEqualTo(String value) {
+            addCriterion("fakechatstr4 <=", value, "fakechatstr4");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr4Like(String value) {
+            addCriterion("fakechatstr4 like", value, "fakechatstr4");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr4NotLike(String value) {
+            addCriterion("fakechatstr4 not like", value, "fakechatstr4");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr4In(List<String> values) {
+            addCriterion("fakechatstr4 in", values, "fakechatstr4");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr4NotIn(List<String> values) {
+            addCriterion("fakechatstr4 not in", values, "fakechatstr4");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr4Between(String value1, String value2) {
+            addCriterion("fakechatstr4 between", value1, value2, "fakechatstr4");
+            return (Criteria) this;
+        }
+
+        public Criteria andFakechatstr4NotBetween(String value1, String value2) {
+            addCriterion("fakechatstr4 not between", value1, value2, "fakechatstr4");
+            return (Criteria) this;
+        }
+
         public Criteria andTaskkeynumIsNull() {
             addCriterion("taskkeynum is null");
             return (Criteria) this;
@@ -1281,76 +1701,6 @@ public class TTaskDetailinfoExample {
 
         public Criteria andIscreativetitleNotBetween(String value1, String value2) {
             addCriterion("iscreativetitle not between", value1, value2, "iscreativetitle");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsshopcollectIsNull() {
-            addCriterion("isshopcollect is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsshopcollectIsNotNull() {
-            addCriterion("isshopcollect is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsshopcollectEqualTo(String value) {
-            addCriterion("isshopcollect =", value, "isshopcollect");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsshopcollectNotEqualTo(String value) {
-            addCriterion("isshopcollect <>", value, "isshopcollect");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsshopcollectGreaterThan(String value) {
-            addCriterion("isshopcollect >", value, "isshopcollect");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsshopcollectGreaterThanOrEqualTo(String value) {
-            addCriterion("isshopcollect >=", value, "isshopcollect");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsshopcollectLessThan(String value) {
-            addCriterion("isshopcollect <", value, "isshopcollect");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsshopcollectLessThanOrEqualTo(String value) {
-            addCriterion("isshopcollect <=", value, "isshopcollect");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsshopcollectLike(String value) {
-            addCriterion("isshopcollect like", value, "isshopcollect");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsshopcollectNotLike(String value) {
-            addCriterion("isshopcollect not like", value, "isshopcollect");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsshopcollectIn(List<String> values) {
-            addCriterion("isshopcollect in", values, "isshopcollect");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsshopcollectNotIn(List<String> values) {
-            addCriterion("isshopcollect not in", values, "isshopcollect");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsshopcollectBetween(String value1, String value2) {
-            addCriterion("isshopcollect between", value1, value2, "isshopcollect");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsshopcollectNotBetween(String value1, String value2) {
-            addCriterion("isshopcollect not between", value1, value2, "isshopcollect");
             return (Criteria) this;
         }
 

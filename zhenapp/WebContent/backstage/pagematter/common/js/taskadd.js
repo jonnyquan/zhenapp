@@ -225,6 +225,12 @@ var isurl=false;
 					collectioncount : $("#collectioncount").val(),
 					shoppingcount : $("#shoppingcount").val(),
 					subtractpoints : $("#sum").text(),
+					storecollectioncount : $("#storecollectioncount").val(),
+					fakechatcount : $("#fakechatcount").val(),
+					fakechatstr1 : $("#fakechatstr1").val(),
+					fakechatstr2 : $("#fakechatstr2").val(),
+					fakechatstr3 : $("#fakechatstr3").val(),
+					fakechatstr4 : $("#fakechatstr4").val(),
 				},
 				success:function(data,state){
 					$('#subbtn').removeAttr("disabled");

@@ -23,6 +23,18 @@ public class TTaskDetailinfo {
 
     private String isshopping;
 
+    private String isstorecollection;
+
+    private String isfakechat;
+
+    private String fakechatstr1;
+
+    private String fakechatstr2;
+
+    private String fakechatstr3;
+
+    private String fakechatstr4;
+
     private String taskkeynum;
 
     private String minpicture;
@@ -34,8 +46,6 @@ public class TTaskDetailinfo {
     private String isflow;
 
     private String iscreativetitle;
-
-    private String isshopcollect;
 
     private String taskstate;
 
@@ -153,6 +163,54 @@ public class TTaskDetailinfo {
         this.isshopping = isshopping == null ? null : isshopping.trim();
     }
 
+    public String getIsstorecollection() {
+        return isstorecollection;
+    }
+
+    public void setIsstorecollection(String isstorecollection) {
+        this.isstorecollection = isstorecollection == null ? null : isstorecollection.trim();
+    }
+
+    public String getIsfakechat() {
+        return isfakechat;
+    }
+
+    public void setIsfakechat(String isfakechat) {
+        this.isfakechat = isfakechat == null ? null : isfakechat.trim();
+    }
+
+    public String getFakechatstr1() {
+        return fakechatstr1;
+    }
+
+    public void setFakechatstr1(String fakechatstr1) {
+        this.fakechatstr1 = fakechatstr1 == null ? null : fakechatstr1.trim();
+    }
+
+    public String getFakechatstr2() {
+        return fakechatstr2;
+    }
+
+    public void setFakechatstr2(String fakechatstr2) {
+        this.fakechatstr2 = fakechatstr2 == null ? null : fakechatstr2.trim();
+    }
+
+    public String getFakechatstr3() {
+        return fakechatstr3;
+    }
+
+    public void setFakechatstr3(String fakechatstr3) {
+        this.fakechatstr3 = fakechatstr3 == null ? null : fakechatstr3.trim();
+    }
+
+    public String getFakechatstr4() {
+        return fakechatstr4;
+    }
+
+    public void setFakechatstr4(String fakechatstr4) {
+        this.fakechatstr4 = fakechatstr4 == null ? null : fakechatstr4.trim();
+    }
+
     public String getTaskkeynum() {
         return taskkeynum;
     }
@@ -199,14 +257,6 @@ public class TTaskDetailinfo {
 
     public void setIscreativetitle(String iscreativetitle) {
         this.iscreativetitle = iscreativetitle == null ? null : iscreativetitle.trim();
-    }
-
-    public String getIsshopcollect() {
-        return isshopcollect;
-    }
-
-    public void setIsshopcollect(String isshopcollect) {
-        this.isshopcollect = isshopcollect == null ? null : isshopcollect.trim();
     }
 
     public String getTaskstate() {

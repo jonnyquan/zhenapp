@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhenapp.controller.service.Timedtask.AllocationcollectionTaskService;
+import com.zhenapp.controller.service.Timedtask.AllocationfakechatTaskService;
 import com.zhenapp.controller.service.Timedtask.AllocationshoppingTaskService;
+import com.zhenapp.controller.service.Timedtask.AllocationstorecollectionTaskService;
 import com.zhenapp.po.Custom.TPhoneInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailinfoTempCustom;
 import com.zhenapp.service.PhoneInfoService;
@@ -37,6 +39,10 @@ public class AllocationTask {
 	private AllocationcollectionTaskService allocationcollectionTaskService;
 	@Autowired
 	private AllocationshoppingTaskService allocationshoppingTaskService;
+	@Autowired
+	private AllocationfakechatTaskService allocationfakechatTaskService;
+	@Autowired
+	private AllocationstorecollectionTaskService allocationstorecollectionTaskService;
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 	SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
@@ -72,6 +78,32 @@ public class AllocationTask {
 			}
 			String taskkeynumstrisshopping =sbisshopping.toString().length()>1?sbisshopping.toString().substring(0, sbisshopping.toString().length()-1):"";
 			allocationshoppingTaskService.allocateiontaskshopping(tPhoneInfoCustom,taskkeynumstrisshopping);
+			
+			hashmap.clear();
+			hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
+			hashmap.put("isstorecollection", 1);
+			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
+			hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
+			List<TTaskDetailinfoTempCustom> TTaskDetailinfoTempCustomlisstorecollection = taskDetailInfoTempService.findtaskkeynumlist(hashmap);
+			StringBuffer sbisstorecollection = new StringBuffer();
+			for (int j = 0; j < TTaskDetailinfoTempCustomlisisshopping.size(); j++) {
+				sbisstorecollection.append(TTaskDetailinfoTempCustomlisstorecollection.get(j).getTaskkeynum()).append(",");
+			}
+			String taskkeynumstrisstorecollection =sbisstorecollection.toString().length()>1?sbisstorecollection.toString().substring(0, sbisstorecollection.toString().length()-1):"";
+			allocationstorecollectionTaskService.allocateiontaskstorecollection(tPhoneInfoCustom,taskkeynumstrisstorecollection);
+			
+			hashmap.clear();
+			hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
+			hashmap.put("isfakechat", 1);
+			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
+			hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
+			List<TTaskDetailinfoTempCustom> TTaskDetailinfoTempCustomlisfakechat = taskDetailInfoTempService.findtaskkeynumlist(hashmap);
+			StringBuffer sbisfakechat = new StringBuffer();
+			for (int j = 0; j < TTaskDetailinfoTempCustomlisfakechat.size(); j++) {
+				sbisfakechat.append(TTaskDetailinfoTempCustomlisfakechat.get(j).getTaskkeynum()).append(",");
+			}
+			String taskkeynumstrisfakechat =sbisfakechat.toString().length()>1?sbisfakechat.toString().substring(0, sbisfakechat.toString().length()-1):"";
+			allocationfakechatTaskService.allocateiontaskfakechat(tPhoneInfoCustom,taskkeynumstrisfakechat);
 		}
 		return map;
 	}

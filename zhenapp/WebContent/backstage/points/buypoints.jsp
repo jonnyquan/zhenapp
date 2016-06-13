@@ -218,7 +218,7 @@
 						<a href="${pageContext.request.contextPath}/points/responserecordspoints" class="row_l">积分明细</a>
 					</div>
 					<div class="umainbox">
-						<!--main
+						<!--main-->
 						<form class="koo_fromBox" action="${pageContext.request.contextPath}/points/buypoints" method="post">
 							<div class="taxkTips">
 								<h2>可选套餐&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -228,12 +228,12 @@
 								<div class="form_control">
 									<label class="form_label">${list.comboname}</label> 
 									<label class="form_radio"> 
-										<input type="radio" name="id" value="${list.comboid }" <c:if test="${status.index == 0}">checked</c:if> /> 
-										<span>充值：${list.combomoney}元</span>  
-										<span>折扣：${list.discount}折</span>
-										<span>单价：${list.unitprice}分</span>
-										<span>积分：${list.combointegral}</span> 
-										<span>赠送积分：${list.combogiveintegral}</span> 
+										<input style="float:left;width:10px;" type="radio" name="id" value="${list.comboid }" <c:if test="${status.index == 0}">checked</c:if> /> 
+										<span style="float:left;width:80px;">充值：${list.combomoney}元</span>  
+										<span style="float:left;width:80px;">折扣：${list.discount}折</span>
+										<span style="float:left;width:80px;">单价：${list.unitprice}分</span>
+										<span style="float:left;width:120px;">积分：${list.combointegral}</span> 
+										<span style="float:left;width:150px;">赠送积分：${list.combogiveintegral}</span> 
 									</label>
 								</div>
 							</c:forEach>
@@ -244,7 +244,7 @@
 								</div>
 							</div>
 						</form>
-						<!--main-->
+						<!--main
 						<div class="tablebox">
 							<div class="taxkTips">
 								<h2>可选套餐&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -254,11 +254,11 @@
 		                        <c:if test="${tComboInfoCustomlist!=null}">
 			                       <c:forEach items="${tComboInfoCustomlist}" var="list" varStatus="status">
 			                       		<tr>
-			                       			<td width="10%" align="right">
+			                       			<td width="10%" style="padding-left:10px;">
 			                       				${list.comboname}
 			                       				<input type="radio" name="id" value="${list.comboid }" <c:if test="${status.index == 0}">checked</c:if> /> 
 			                       			</td>
-					                        <td width="10%" style="padding-left: 0px;margin-left: 0px;">
+					                        <td width="20%" >
 												充值：${list.combomoney}元
 											</td>
 											<td width="10%">
@@ -283,7 +283,7 @@
 									<button type="submit" name="submit" class="form_btn">确定购买</button>
 								</div>
 							</div>
-		                </div>
+		                </div>-->
 					</div>
 				</div>
 			</div>

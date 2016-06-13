@@ -23,6 +23,12 @@
     <result column="flowcount" property="flowcount" jdbcType="INTEGER" />
     <result column="Collectioncount" property="collectioncount" jdbcType="INTEGER" />
     <result column="Shoppingcount" property="shoppingcount" jdbcType="INTEGER" />
+    <result column="storecollectioncount" property="storecollectioncount" jdbcType="INTEGER" />
+    <result column="fakechatcount" property="fakechatcount" jdbcType="INTEGER" />
+    <result column="fakechatstr1" property="fakechatstr1" jdbcType="VARCHAR" />
+    <result column="fakechatstr2" property="fakechatstr2" jdbcType="VARCHAR" />
+    <result column="fakechatstr3" property="fakechatstr3" jdbcType="VARCHAR" />
+    <result column="fakechatstr4" property="fakechatstr4" jdbcType="VARCHAR" />
     <result column="deepclick" property="deepclick" jdbcType="VARCHAR" />
     <result column="tasktmallapppct" property="tasktmallapppct" jdbcType="VARCHAR" />
     <result column="taskgprspct" property="taskgprspct" jdbcType="VARCHAR" />
@@ -98,7 +104,8 @@
     taskpk, taskid, tasktype, taskkeynum, taskurl, tasktitle, taskwirelesstitle, taskstartdate, 
     taskenddate, taskdate, taskreleasekeyword, taskkeyword, taskhourcounts, taskminprice, 
     taskmaxprice, tasksearchType, taskimgztc, taskimgpt, flowcount, Collectioncount, 
-    Shoppingcount, deepclick, tasktmallapppct, taskgprspct, taskPlus, taskduration, iscreativetitle, 
+    Shoppingcount, storecollectioncount, fakechatcount, fakechatstr1, fakechatstr2, fakechatstr3, 
+    fakechatstr4, deepclick, tasktmallapppct, taskgprspct, taskPlus, taskduration, iscreativetitle, 
     subtractpoints, taskstate, createtime, createuser, updatetime, updateuser
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TTaskInfoExample" >
@@ -139,6 +146,8 @@
       taskhourcounts, taskminprice, taskmaxprice, 
       tasksearchType, taskimgztc, taskimgpt, 
       flowcount, Collectioncount, Shoppingcount, 
+      storecollectioncount, fakechatcount, fakechatstr1, 
+      fakechatstr2, fakechatstr3, fakechatstr4, 
       deepclick, tasktmallapppct, taskgprspct, 
       taskPlus, taskduration, iscreativetitle, 
       subtractpoints, taskstate, createtime, 
@@ -151,6 +160,8 @@
       #{taskhourcounts,jdbcType=VARCHAR}, #{taskminprice,jdbcType=VARCHAR}, #{taskmaxprice,jdbcType=VARCHAR}, 
       #{tasksearchtype,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR}, #{taskimgpt,jdbcType=VARCHAR}, 
       #{flowcount,jdbcType=INTEGER}, #{collectioncount,jdbcType=INTEGER}, #{shoppingcount,jdbcType=INTEGER}, 
+      #{storecollectioncount,jdbcType=INTEGER}, #{fakechatcount,jdbcType=INTEGER}, #{fakechatstr1,jdbcType=VARCHAR}, 
+      #{fakechatstr2,jdbcType=VARCHAR}, #{fakechatstr3,jdbcType=VARCHAR}, #{fakechatstr4,jdbcType=VARCHAR}, 
       #{deepclick,jdbcType=VARCHAR}, #{tasktmallapppct,jdbcType=VARCHAR}, #{taskgprspct,jdbcType=VARCHAR}, 
       #{taskplus,jdbcType=VARCHAR}, #{taskduration,jdbcType=VARCHAR}, #{iscreativetitle,jdbcType=VARCHAR}, 
       #{subtractpoints,jdbcType=INTEGER}, #{taskstate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
@@ -222,6 +233,24 @@
       </if>
       <if test="shoppingcount != null" >
         Shoppingcount,
+      </if>
+      <if test="storecollectioncount != null" >
+        storecollectioncount,
+      </if>
+      <if test="fakechatcount != null" >
+        fakechatcount,
+      </if>
+      <if test="fakechatstr1 != null" >
+        fakechatstr1,
+      </if>
+      <if test="fakechatstr2 != null" >
+        fakechatstr2,
+      </if>
+      <if test="fakechatstr3 != null" >
+        fakechatstr3,
+      </if>
+      <if test="fakechatstr4 != null" >
+        fakechatstr4,
       </if>
       <if test="deepclick != null" >
         deepclick,
@@ -323,6 +352,24 @@
       </if>
       <if test="shoppingcount != null" >
         #{shoppingcount,jdbcType=INTEGER},
+      </if>
+      <if test="storecollectioncount != null" >
+        #{storecollectioncount,jdbcType=INTEGER},
+      </if>
+      <if test="fakechatcount != null" >
+        #{fakechatcount,jdbcType=INTEGER},
+      </if>
+      <if test="fakechatstr1 != null" >
+        #{fakechatstr1,jdbcType=VARCHAR},
+      </if>
+      <if test="fakechatstr2 != null" >
+        #{fakechatstr2,jdbcType=VARCHAR},
+      </if>
+      <if test="fakechatstr3 != null" >
+        #{fakechatstr3,jdbcType=VARCHAR},
+      </if>
+      <if test="fakechatstr4 != null" >
+        #{fakechatstr4,jdbcType=VARCHAR},
       </if>
       <if test="deepclick != null" >
         #{deepclick,jdbcType=VARCHAR},
@@ -434,6 +481,24 @@
       <if test="record.shoppingcount != null" >
         Shoppingcount = #{record.shoppingcount,jdbcType=INTEGER},
       </if>
+      <if test="record.storecollectioncount != null" >
+        storecollectioncount = #{record.storecollectioncount,jdbcType=INTEGER},
+      </if>
+      <if test="record.fakechatcount != null" >
+        fakechatcount = #{record.fakechatcount,jdbcType=INTEGER},
+      </if>
+      <if test="record.fakechatstr1 != null" >
+        fakechatstr1 = #{record.fakechatstr1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fakechatstr2 != null" >
+        fakechatstr2 = #{record.fakechatstr2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fakechatstr3 != null" >
+        fakechatstr3 = #{record.fakechatstr3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fakechatstr4 != null" >
+        fakechatstr4 = #{record.fakechatstr4,jdbcType=VARCHAR},
+      </if>
       <if test="record.deepclick != null" >
         deepclick = #{record.deepclick,jdbcType=VARCHAR},
       </if>
@@ -498,6 +563,12 @@
       flowcount = #{record.flowcount,jdbcType=INTEGER},
       Collectioncount = #{record.collectioncount,jdbcType=INTEGER},
       Shoppingcount = #{record.shoppingcount,jdbcType=INTEGER},
+      storecollectioncount = #{record.storecollectioncount,jdbcType=INTEGER},
+      fakechatcount = #{record.fakechatcount,jdbcType=INTEGER},
+      fakechatstr1 = #{record.fakechatstr1,jdbcType=VARCHAR},
+      fakechatstr2 = #{record.fakechatstr2,jdbcType=VARCHAR},
+      fakechatstr3 = #{record.fakechatstr3,jdbcType=VARCHAR},
+      fakechatstr4 = #{record.fakechatstr4,jdbcType=VARCHAR},
       deepclick = #{record.deepclick,jdbcType=VARCHAR},
       tasktmallapppct = #{record.tasktmallapppct,jdbcType=VARCHAR},
       taskgprspct = #{record.taskgprspct,jdbcType=VARCHAR},
@@ -577,6 +648,24 @@
       <if test="shoppingcount != null" >
         Shoppingcount = #{shoppingcount,jdbcType=INTEGER},
       </if>
+      <if test="storecollectioncount != null" >
+        storecollectioncount = #{storecollectioncount,jdbcType=INTEGER},
+      </if>
+      <if test="fakechatcount != null" >
+        fakechatcount = #{fakechatcount,jdbcType=INTEGER},
+      </if>
+      <if test="fakechatstr1 != null" >
+        fakechatstr1 = #{fakechatstr1,jdbcType=VARCHAR},
+      </if>
+      <if test="fakechatstr2 != null" >
+        fakechatstr2 = #{fakechatstr2,jdbcType=VARCHAR},
+      </if>
+      <if test="fakechatstr3 != null" >
+        fakechatstr3 = #{fakechatstr3,jdbcType=VARCHAR},
+      </if>
+      <if test="fakechatstr4 != null" >
+        fakechatstr4 = #{fakechatstr4,jdbcType=VARCHAR},
+      </if>
       <if test="deepclick != null" >
         deepclick = #{deepclick,jdbcType=VARCHAR},
       </if>
@@ -638,6 +727,12 @@
       flowcount = #{flowcount,jdbcType=INTEGER},
       Collectioncount = #{collectioncount,jdbcType=INTEGER},
       Shoppingcount = #{shoppingcount,jdbcType=INTEGER},
+      storecollectioncount = #{storecollectioncount,jdbcType=INTEGER},
+      fakechatcount = #{fakechatcount,jdbcType=INTEGER},
+      fakechatstr1 = #{fakechatstr1,jdbcType=VARCHAR},
+      fakechatstr2 = #{fakechatstr2,jdbcType=VARCHAR},
+      fakechatstr3 = #{fakechatstr3,jdbcType=VARCHAR},
+      fakechatstr4 = #{fakechatstr4,jdbcType=VARCHAR},
       deepclick = #{deepclick,jdbcType=VARCHAR},
       tasktmallapppct = #{tasktmallapppct,jdbcType=VARCHAR},
       taskgprspct = #{taskgprspct,jdbcType=VARCHAR},

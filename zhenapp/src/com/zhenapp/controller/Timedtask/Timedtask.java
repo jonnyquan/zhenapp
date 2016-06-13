@@ -89,8 +89,9 @@ public class Timedtask {
         logger.info("任务错误数大于等于系统设置的最大任务错误数即终止该任务数....每分钟执行一次");
 	}
 	
-	@Scheduled(cron = "0 */1 * * * ?")//每隔2分钟执行一次 将符合要求的详情任务放入详情任务临时表
+	@Scheduled(cron = "0 */1 * * * ?")//每隔2分钟执行一次 将符合要求的详情任务放入详情任务临时表   
 	public void job5() throws HttpException, IOException {
+		logger.info("给任务指定手机执行开始....每隔2分钟执行一次");
 		HttpClient httpClient = new HttpClient();
 		String result="";
 		String url = host+"/api/allocationTask";
@@ -107,7 +108,7 @@ public class Timedtask {
 	
 	@Scheduled(cron = "0 1 0 * * ?")//每天0点1分执行一次
 	public void updateTaskstateByTime() throws Exception { 
-		logger.info("任务执行开始....每天0点1分执行一次");
+		logger.info("处理前一天的任务....每天0点1分执行一次");
 		HttpClient httpClient = new HttpClient();
 		String result="";
         PostMethod postMethod = new PostMethod(host+"/api/platform/updateTaskstateByTime");
@@ -119,7 +120,7 @@ public class Timedtask {
         }else {
             logger.info("调用接口失败(/api/platform/updateTaskstateByTime)，返回："+statusCode);
         }
-		logger.info("任务执行完成....每天0点1分执行一次");
+		logger.info("处理前一天的任务....每天0点1分执行一次");
 	}
 	@Scheduled(cron = "0 2 0 * * ?")//每天0点2分执行一次
 	public void insertDateByTimes() throws Exception { 
@@ -136,5 +137,21 @@ public class Timedtask {
             logger.info("调用接口失败(/api/platform/insertDateByTimes)，返回："+statusCode);
         }
 		logger.info("插入日期....每天0点2分执行一次");
+	}
+	@Scheduled(cron = "0 */5 * * * ?")//每5分钟执行一次
+	public void allocation() throws Exception { 
+		logger.info("分配任务开始....每5分钟执行一次");
+		HttpClient httpClient = new HttpClient();
+		String result="";
+        PostMethod postMethod = new PostMethod(host+"/api/allocation");
+        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+        int statusCode =  httpClient.executeMethod(postMethod);
+        if(statusCode == 200) {
+            result = postMethod.getResponseBodyAsString();
+            logger.info("调用接口成功(/api/allocation)，返回："+result);
+        }else {
+            logger.info("调用接口失败(/api/allocation)，返回："+statusCode);
+        }
+		logger.info("分配任务完成....每5分钟执行一次");
 	}
 }

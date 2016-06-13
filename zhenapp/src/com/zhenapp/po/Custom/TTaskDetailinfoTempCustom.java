@@ -23,7 +23,7 @@ public class TTaskDetailinfoTempCustom extends TTaskDetailinfoTemp{
 		tTaskDetailinfoTempCustom.setTasktype(tTaskDetailInfoCustom.getTasktype());
 		tTaskDetailinfoTempCustom.setIsflow(tTaskDetailInfoCustom.getIsflow());
 		tTaskDetailinfoTempCustom.setIscreativetitle(tTaskDetailInfoCustom.getIscreativetitle());
-		tTaskDetailinfoTempCustom.setIsshopcollect(tTaskDetailInfoCustom.getIsshopcollect());
+		tTaskDetailinfoTempCustom.setIsshopcollect(tTaskDetailInfoCustom.getIsstorecollection());
 		tTaskDetailinfoTempCustom.setTaskstate(tTaskDetailInfoCustom.getTaskstate());
 		tTaskDetailinfoTempCustom.setTaskdate(tTaskDetailInfoCustom.getTaskdate());
 		tTaskDetailinfoTempCustom.setTaskhour(tTaskDetailInfoCustom.getTaskhour());

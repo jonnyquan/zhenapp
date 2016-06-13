@@ -43,6 +43,18 @@ public class TTaskInfo {
 
     private Integer shoppingcount;
 
+    private Integer storecollectioncount;
+
+    private Integer fakechatcount;
+
+    private String fakechatstr1;
+
+    private String fakechatstr2;
+
+    private String fakechatstr3;
+
+    private String fakechatstr4;
+
     private String deepclick;
 
     private String tasktmallapppct;
@@ -233,6 +245,54 @@ public class TTaskInfo {
 
     public void setShoppingcount(Integer shoppingcount) {
         this.shoppingcount = shoppingcount;
+    }
+
+    public Integer getStorecollectioncount() {
+        return storecollectioncount;
+    }
+
+    public void setStorecollectioncount(Integer storecollectioncount) {
+        this.storecollectioncount = storecollectioncount;
+    }
+
+    public Integer getFakechatcount() {
+        return fakechatcount;
+    }
+
+    public void setFakechatcount(Integer fakechatcount) {
+        this.fakechatcount = fakechatcount;
+    }
+
+    public String getFakechatstr1() {
+        return fakechatstr1;
+    }
+
+    public void setFakechatstr1(String fakechatstr1) {
+        this.fakechatstr1 = fakechatstr1 == null ? null : fakechatstr1.trim();
+    }
+
+    public String getFakechatstr2() {
+        return fakechatstr2;
+    }
+
+    public void setFakechatstr2(String fakechatstr2) {
+        this.fakechatstr2 = fakechatstr2 == null ? null : fakechatstr2.trim();
+    }
+
+    public String getFakechatstr3() {
+        return fakechatstr3;
+    }
+
+    public void setFakechatstr3(String fakechatstr3) {
+        this.fakechatstr3 = fakechatstr3 == null ? null : fakechatstr3.trim();
+    }
+
+    public String getFakechatstr4() {
+        return fakechatstr4;
+    }
+
+    public void setFakechatstr4(String fakechatstr4) {
+        this.fakechatstr4 = fakechatstr4 == null ? null : fakechatstr4.trim();
     }
 
     public String getDeepclick() {

@@ -47,7 +47,7 @@ public class AllocationcollectionTaskService {
 			tTaskDetailInfoCustomtype1collection.setPhoneid(tPhoneInfoCustom.getPhoneid());
 			TTaskDetailinfoTempCustom tTaskDetailinfoTempCustom = TTaskDetailinfoTempCustom.setTTaskDetailinfoTempCustom(tTaskDetailInfoCustomtype1collection);
 			tTaskDetailinfoTempCustom.setCreatetime(sdf.format(new Date()));
-			tTaskDetailinfoTempCustom.setCreateuser("分配任务到手机");;
+			tTaskDetailinfoTempCustom.setCreateuser(tTaskDetailInfoCustomtype1collection.getCreateuser());;
 			tTaskDetailinfoTempCustom.setUpdatetime(sdf.format(new Date()));
 			tTaskDetailinfoTempCustom.setUpdateuser("分配任务到手机");
 			taskDetailInfoTempService.insertDetailinfo(tTaskDetailinfoTempCustom);
