@@ -329,7 +329,6 @@ public class Taskallocation {
 						}
 					}
 				}
-				
 				//任务拆分
 				//1.先将流量任务单独提取出来调用接口发布，并保存返回的订单号
 				TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom=new TTaskDetailInfoFlowCustom();
@@ -349,9 +348,9 @@ public class Taskallocation {
 				tTaskDetailInfoFlowCustom.setSubtractpoints(tTaskInfoCustom.getFlowcount()*Integer.parseInt(tPriceInfoCustom.getPricecounts2()));
 				tTaskDetailInfoFlowCustom.setTaskdate(tTaskInfoCustom.getTaskdate());
 				tTaskDetailInfoFlowCustom.setCreatetime(sdf.format(new Date()));
-				tTaskDetailInfoFlowCustom.setCreateuser("sys");
+				tTaskDetailInfoFlowCustom.setCreateuser(tTaskInfoCustom.getCreateuser());
 				tTaskDetailInfoFlowCustom.setUpdatetime(sdf.format(new Date()));
-				tTaskDetailInfoFlowCustom.setUpdateuser("sys");
+				tTaskDetailInfoFlowCustom.setUpdateuser(tTaskInfoCustom.getCreateuser());
 				taskDetailInfoFlowService.insertTaskDetailInfoFlow(tTaskDetailInfoFlowCustom);
 				HashMap<String, Object> hashmaptest = new HashMap<String, Object>();
 				hashmaptest.put("usertestnick", tUserInfoCustom.getUsernick());

@@ -45,7 +45,7 @@ public class AuthregisterController {
 		tUserInfoCustom.setUserpwd(MD5Util.string2MD5(tUserInfoCustom.getUserpwd()));
 		tUserInfoCustom.setAgentid(tAgentInfoCustom.getAgentid());
 		tUserInfoCustom.setCreatetime(sdf.format(new Date()));
-		tUserInfoCustom.setCreateuser("sys");
+		tUserInfoCustom.setCreateuser("注册");
 		tUserInfoCustom.setUpdatetime(sdf.format(new Date()));
 		tUserInfoCustom.setUpdateuser("sys");
 		int i=userInfoService.saveUser(tUserInfoCustom);

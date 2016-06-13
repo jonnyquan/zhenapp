@@ -1,6 +1,5 @@
 package com.zhenapp.controller.apitest;
 
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -78,7 +77,6 @@ public class FirstWebController {
 	        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
 	        int statusCode =  httpClient.executeMethod(postMethod);
 	        if(statusCode == 200) {
-	            System.out.println("调用成功");
 	            result = postMethod.getResponseBodyAsString();
 	            if(result.indexOf("id")==-1){
 	            	result = StringUtilWxf.translat(result);
@@ -90,7 +88,6 @@ public class FirstWebController {
 	            map.put("msg", result);
 	        }
 	        else {
-	            System.out.println("调用失败" + statusCode);
 	            map.put("msg", "失败错误码" + statusCode);
 	        }
 		}
@@ -110,12 +107,10 @@ public class FirstWebController {
         getMethod.setRequestHeader("secret", secret);
         int statusCode =  httpClient.executeMethod(getMethod);
         if(statusCode == 200) {
-            System.out.println("调用成功");
             result = getMethod.getResponseBodyAsString();
             map.put("msg", result);
         }
         else {
-            System.out.println("调用失败" + statusCode);
             map.put("msg", "失败错误码" + statusCode);
         }
 		return map;
@@ -153,12 +148,10 @@ public class FirstWebController {
 	        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
 	        int statusCode =  httpClient.executeMethod(postMethod);
 	        if(statusCode == 200) {
-	            System.out.println("调用成功");
 	            result = postMethod.getResponseBodyAsString();
 	            map.put("msg", result);
 	        }
 	        else {
-	            System.out.println("调用失败" + statusCode);
 	            map.put("msg", "失败错误码" + statusCode);
 	        }
 		}
@@ -178,12 +171,10 @@ public class FirstWebController {
         postMethod.setRequestHeader("secret", secret);
         int statusCode =  httpClient.executeMethod(postMethod);
         if(statusCode == 200) {
-            System.out.println("调用成功");
             result = postMethod.getResponseBodyAsString();
             map.put("msg", result);
         }
         else {
-            System.out.println("调用失败" + statusCode);
             map.put("msg", "失败错误码" + statusCode);
         }
 		return map;
@@ -202,12 +193,10 @@ public class FirstWebController {
         getMethod.setRequestHeader("secret", secret);
         int statusCode =  httpClient.executeMethod(getMethod);
         if(statusCode == 200) {
-            System.out.println("调用成功");
             result = getMethod.getResponseBodyAsString();
             map.put("msg", result);
         }
         else {
-            System.out.println("调用失败" + statusCode);
             map.put("msg", "失败错误码" + statusCode);
         }
 		return map;
@@ -231,11 +220,9 @@ public class FirstWebController {
         postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
         int statusCode =  httpClient.executeMethod(postMethod);
         if(statusCode == 200) {
-            System.out.println("调用成功");
             result = postMethod.getResponseBodyAsString();
             ObjectMapper obj = new ObjectMapper();
     		FirstWebInfoCustom firstWebInfoCustom = obj.readValue(result, FirstWebInfoCustom.class);
-    		System.out.println(firstWebInfoCustom);
     		if(firstWebInfoCustom.isSuccess()){
     			map.put("status", "y");
     			map.put("info", "验证成功");
@@ -264,7 +251,6 @@ public class FirstWebController {
     		}
         }
         else {
-            //System.out.println("调用失败" + statusCode);
             logger.error("调用失败" + statusCode);
             map.put("status", "n");
 			map.put("info", "验证失败");

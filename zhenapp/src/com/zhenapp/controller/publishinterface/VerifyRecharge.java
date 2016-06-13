@@ -73,13 +73,12 @@ public class VerifyRecharge {
 			tPointsInfoCustom.setPointsupdate(tRechargeInfoCustom.getRechargepoints()+tRechargeInfoCustom.getRechargegivepoints());
 			tPointsInfoCustom.setTaskpk(0);
 			tPointsInfoCustom.setUserid(tUserInfoCustom.getUserid());
-			int ii1 = pointsInfoService.savePoints(tPointsInfoCustom);
+			pointsInfoService.savePoints(tPointsInfoCustom);
 			//修改用户当前积分
 			tUserInfoCustom.setPoints(tUserInfoCustom.getPoints()+tRechargeInfoCustom.getRechargepoints()+tRechargeInfoCustom.getRechargegivepoints());
 			tUserInfoCustom.setUpdatetime(sdf.format(new Date()));
 			tUserInfoCustom.setUpdateuser("接口确认充值");
-			int ii2 = userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
-			System.out.println(ii1+"============"+ii2);
+			userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
 			logger.info("确认充值成功");
 			map.put("data", "success");
 			return map;

@@ -206,7 +206,7 @@ public class SubmitOrder {
 				tTaskDetailInfoFlowCustom.setSubtractpoints(tTaskInfoCustom.getFlowcount()*Integer.parseInt(tPriceInfoCustom.getPricecounts2()));
 				tTaskDetailInfoFlowCustom.setTaskdate(yyyyMMdd.format(date));
 				tTaskDetailInfoFlowCustom.setCreatetime(sdf.format(new Date()));
-				tTaskDetailInfoFlowCustom.setCreateuser("sys");
+				tTaskDetailInfoFlowCustom.setCreateuser(tTaskInfoCustom.getCreateuser());
 				tTaskDetailInfoFlowCustom.setUpdatetime(sdf.format(new Date()));
 				tTaskDetailInfoFlowCustom.setUpdateuser("sys");
 				taskDetailInfoFlowService.insertTaskDetailInfoFlow(tTaskDetailInfoFlowCustom);
@@ -300,7 +300,7 @@ public class SubmitOrder {
 									tTaskDetailInfoCustom.setTaskstate("40");
 								}
 								tTaskDetailInfoCustom.setCreatetime(sdf.format(new Date()));
-								tTaskDetailInfoCustom.setCreateuser("sys");
+								tTaskDetailInfoCustom.setCreateuser(tTaskInfoCustom.getCreateuser());
 								tTaskDetailInfoCustom.setUpdatetime(sdf.format(new Date()));
 								tTaskDetailInfoCustom.setUpdateuser("sys");
 								taskDetailInfoService.insertDetailinfo(tTaskDetailInfoCustom);
@@ -325,7 +325,7 @@ public class SubmitOrder {
 								tTaskDetailInfoCustom.setTaskhour(j);
 								tTaskDetailInfoCustom.setTaskminute(shoppingminute[j2]);
 								tTaskDetailInfoCustom.setCreatetime(sdf.format(new Date()));
-								tTaskDetailInfoCustom.setCreateuser("sys");
+								tTaskDetailInfoCustom.setCreateuser(tTaskInfoCustom.getCreateuser());
 								tTaskDetailInfoCustom.setUpdatetime(sdf.format(new Date()));
 								tTaskDetailInfoCustom.setUpdateuser("sys");
 								taskDetailInfoService.insertDetailinfo(tTaskDetailInfoCustom);
@@ -358,7 +358,7 @@ public class SubmitOrder {
 									tTaskDetailInfoCustom.setTaskstate("40");
 								}
 								tTaskDetailInfoCustom.setCreatetime(sdf.format(new Date()));
-								tTaskDetailInfoCustom.setCreateuser("sys");
+								tTaskDetailInfoCustom.setCreateuser(tTaskInfoCustom.getCreateuser());
 								tTaskDetailInfoCustom.setUpdatetime(sdf.format(new Date()));
 								tTaskDetailInfoCustom.setUpdateuser("sys");
 								taskDetailInfoService.insertDetailinfo(tTaskDetailInfoCustom);
@@ -390,7 +390,7 @@ public class SubmitOrder {
 								tTaskDetailInfoCustom.setTaskhour(j);
 								tTaskDetailInfoCustom.setTaskminute(0);
 								tTaskDetailInfoCustom.setCreatetime(sdf.format(new Date()));
-								tTaskDetailInfoCustom.setCreateuser("sys");
+								tTaskDetailInfoCustom.setCreateuser(tTaskInfoCustom.getCreateuser());
 								tTaskDetailInfoCustom.setUpdatetime(sdf.format(new Date()));
 								tTaskDetailInfoCustom.setUpdateuser("sys");
 								taskDetailInfoService.insertDetailinfo(tTaskDetailInfoCustom);
