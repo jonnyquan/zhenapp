@@ -7,6 +7,7 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhenapp.po.Custom.TPhoneInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
@@ -33,7 +34,7 @@ public class AllocationstorecollectionTaskService {
 	SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
 	SimpleDateFormat HHmm = new SimpleDateFormat("HHmm");
 	
-	public String allocateiontaskstorecollection(TPhoneInfoCustom tPhoneInfoCustom,String tasknumstr) throws Exception{
+	public synchronized @ResponseBody String allocateiontaskstorecollection(TPhoneInfoCustom tPhoneInfoCustom,String tasknumstr) throws Exception{
 		StringBuffer sb=new StringBuffer();
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.clear();
