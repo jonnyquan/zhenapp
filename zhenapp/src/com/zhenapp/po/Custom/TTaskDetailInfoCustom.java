@@ -137,7 +137,13 @@ public class TTaskDetailInfoCustom extends TTaskDetailinfo{
 		.append("否").append("&")//直通车是否自定义筛选价格范围
 		.append("否").append("&")//直通车筛选的价格范围1
 		.append("否").append("&")//直通车筛选的价格范围2
-		.append("否");//自定义筛选的地区
+		.append("否").append("&")//自定义筛选的地区
+		.append(tTaskDetailInfoCustom.getIsstorecollection().equals("1")?"是":"否").append("&")//是否店铺收藏
+		.append(tTaskDetailInfoCustom.getIsfakechat().equals("1")?"是":"否").append("&")//是否假聊
+		.append(tTaskDetailInfoCustom.getFakechatstr1()).append("&")//假聊信息第一句
+		.append(tTaskDetailInfoCustom.getFakechatstr2()).append("&")//假聊信息第二句
+		.append(tTaskDetailInfoCustom.getFakechatstr3()).append("&")//假聊信息第三句
+		.append(tTaskDetailInfoCustom.getFakechatstr4());//假聊信息第四句
 		return sb;
 	}
 }
