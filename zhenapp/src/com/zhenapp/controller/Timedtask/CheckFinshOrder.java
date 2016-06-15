@@ -132,7 +132,7 @@ public class CheckFinshOrder {
 			            }
 			            map.put("msg", result);
 			        } else {
-			            logger.error("失败错误码："+result);
+			            logger.error("失败错误码："+statusCode);
 			            throw new RuntimeException();
 			        }
 				}

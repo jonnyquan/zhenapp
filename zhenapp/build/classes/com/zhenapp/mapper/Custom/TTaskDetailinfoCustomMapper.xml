@@ -107,7 +107,7 @@
   <select id="findTaskDetailByPage" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom" parameterType="java.util.HashMap">
 	SELECT g.dicinfoname as taskstatename,f.taskpk,a.taskdetailpk, a.taskdetailid, a.taskid, a.taskkeyword, a.searchtype,e.dicinfoname AS tasktypename, a.price, a.region, a.isfreeship, 
     a.istmall, a.iscollection,CASE WHEN a.iscollection='0' THEN '否' ELSE '是' END AS iscollectionname,a.isshopping, CASE WHEN a.isshopping='0' THEN '否' ELSE '是' END AS isshoppingname, a.taskkeynum, a.minpicture, a.maxpicture, a.tasktype, 
-    a.isflow, a.iscreativetitle, a.isshopcollect, a.taskstate, a.taskdate, a.taskhour, a.taskminute, 
+    a.isflow, a.iscreativetitle, a.taskstate, a.taskdate, a.taskhour, a.taskminute, 
     a.visit,b.dictypename AS visitname ,a.collect,c.dictypename AS collectname, a.trolley, d.dictypename AS trolleyname, a.phoneid, a.subtractpoints, a.resultstr,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime, a.createuser, DATE_FORMAT(a.updatetime,'%Y-%m-%d %H:%i:%s') AS updatetime, 
     a.updateuser FROM t_task_detailinfo a
 	LEFT JOIN t_data_dic_info b ON a.visit=b.dicinfoid
@@ -291,9 +291,6 @@
   	collect = (SELECT dicinfoid FROM t_data_dic_info WHERE dictypecode = 'collect' AND dictypename=#{collect}),
   	trolley = (SELECT dicinfoid FROM t_data_dic_info WHERE dictypecode = 'trolley' AND dictypename=#{trolley}),
   	taskstate = #{taskstatenew},
-  	isflow=#{isflow},
-  	iscreativetitle=#{iscreativetitle},
-  	isshopcollect=#{isshopcollect},
   	updatetime=#{updatetime},updateuser=#{updateuser}
 	<where>
 		<if test="phoneid != null and phoneid != '' ">
@@ -310,9 +307,6 @@
   	collect = (SELECT dicinfoid FROM t_data_dic_info WHERE dictypecode = 'collect' AND dictypename=#{collect}),
   	trolley = (SELECT dicinfoid FROM t_data_dic_info WHERE dictypecode = 'trolley' AND dictypename=#{trolley}),
   	taskstate = #{taskstatenew},
-  	isflow=#{isflow},
-  	iscreativetitle=#{iscreativetitle},
-  	isshopcollect=#{isshopcollect},
   	updatetime=#{updatetime},updateuser=#{updateuser}
 	<where>
 		<if test="phoneid != null and phoneid != '' ">

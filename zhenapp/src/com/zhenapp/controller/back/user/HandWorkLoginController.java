@@ -26,7 +26,7 @@ public class HandWorkLoginController {
 			session.removeAttribute("tUserInfoCustom");//删除原session中的用户信息
 			session.setAttribute("tUserInfoCustom", tUserInfoCustom);//重新设置session中的用户信息
 		}
-		mv.setViewName("/user/responseuser");
+		mv.setViewName("redirect:/user/responseuser");
 		return mv;
 	}
 }

@@ -71,7 +71,7 @@ public class Feedbacktask {
 			hashmap.put("trolley", trolley);
 			hashmap.put("updatetime", sdf.format(new Date()));
 			hashmap.put("updateuser", "api手机端反馈");
-			if(visit.equals("yes")){
+			/*if(visit.equals("yes")){
 				hashmap.put("isflow", "1");
 			}
 			if(collect.equals("yes")){
@@ -79,7 +79,7 @@ public class Feedbacktask {
 			}
 			if(trolley.equals("yes")){
 				hashmap.put("isshopcollect", "1");
-			}
+			}*/
 			int i = taskDetailInfoService.updateTaskDetailByPidAndState(hashmap);
 			if(i > 0){
 				map.put("feedback", "已更新!");

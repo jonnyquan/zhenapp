@@ -30,7 +30,7 @@ public class FindUserAgentController {
 	 * 查询用户列表-----代理
 	 */
 	@RequestMapping(value="/findUserByPageandRole")
-	public @ResponseBody ModelAndView findUserByPageandRole(HttpSession session,Integer page,String usernick,String userpk,String userphone) throws Exception{
+	public @ResponseBody ModelAndView findUserByPageandRole(HttpSession session,Integer page,String usernick,String userpk,String userphone,String handworklogin) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");//得到登陆用户信息
 		String points= userInfoService.findpointsByUsernickAndPwd(tUserInfoCustom);
@@ -43,6 +43,7 @@ public class FindUserAgentController {
 		pagemap.put("rows", middleRows);
 		pagemap.put("usernick", usernick);
 		pagemap.put("userpk", userpk);
+		
 		pagemap.put("userphone", userphone);
 		//代理用户
 		pagemap.put("userid", tUserInfoCustom.getUserid());

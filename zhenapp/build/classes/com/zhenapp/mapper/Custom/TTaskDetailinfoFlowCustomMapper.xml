@@ -10,7 +10,7 @@
 	      price, region, isfreeship, 
 	      istmall, taskkeynum, taskurl, 
 	      minpicture, maxpicture, tasktype, 
-	      isflow, iscreativetitle, isshopcollect, 
+	      isflow, iscreativetitle, 
 	      taskstate, taskdate, finishcount, 
 	      errorcount, subtractpoints, createtime, 
 	      createuser, updatetime, updateuser
@@ -20,7 +20,7 @@
 	      #{price,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, #{isfreeship,jdbcType=VARCHAR}, 
 	      #{istmall,jdbcType=VARCHAR}, #{taskkeynum,jdbcType=VARCHAR}, #{taskurl,jdbcType=VARCHAR}, 
 	      #{minpicture,jdbcType=VARCHAR}, #{maxpicture,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
-	      #{isflow,jdbcType=VARCHAR}, #{iscreativetitle,jdbcType=VARCHAR}, #{isshopcollect,jdbcType=VARCHAR}, 
+	      #{isflow,jdbcType=VARCHAR}, #{iscreativetitle,jdbcType=VARCHAR},
 	      #{taskstate,jdbcType=VARCHAR}, #{taskdate,jdbcType=VARCHAR}, #{finishcount,jdbcType=INTEGER}, 
 	      #{errorcount,jdbcType=INTEGER}, #{subtractpoints,jdbcType=INTEGER}, #{createtime,jdbcType=VARCHAR}, 
 	      #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}

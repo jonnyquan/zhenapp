@@ -167,9 +167,13 @@
               <th style="width:30px;">访</th>
               <th style="width:30px;">藏</th>
               <th style="width:30px;">购</th>
+              <th style="width:30px;">店铺</th>
+			  <th style="width:30px;">假聊</th>
               <th style="width:50px;">完成访问</th>
               <th style="width:50px;">完成收藏</th>
               <th style="width:50px;">完成加购</th>
+              <th style="width:40px;">完成店铺</th>
+			  <th style="width:40px;">完成假聊</th>
               <th style="width:40px;">失败</th>
               <th style="width:100px;">任务日期</th>
               <th style="width:100px;">发布时间</th>
@@ -187,9 +191,13 @@
                 <td>${list.flowcount }</td>
                 <td>${list.collectioncount }</td>
                 <td>${list.shoppingcount }</td>
+                <td>${list.storecollectioncount }</td>
+				<td>${list.fakechatcount }</td>
                 <td>${list.finishflowcount }</td>
                 <td>${list.finishcollectioncount }</td>
                 <td>${list.finishshoppingcount }</td>
+                <td>${list.finishstorecollectioncount }</td>
+				<td>${list.finishfakechatcount }</td>
                 <td class="font-red">${list.errorcount}</td>
                 <td>${list.taskdaterange }</td>
                 <td>${list.createtime }</td>

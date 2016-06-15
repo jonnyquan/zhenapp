@@ -6,6 +6,8 @@ public class TTaskInfoCustom extends TTaskInfo{
 	private Integer finishflowcount;
     private Integer finishcollectioncount;
     private Integer finishshoppingcount;
+    private Integer finishstorecollectioncount;
+    private Integer finishfakechatcount;
     private Integer errorcount;
     private String dicinfoname;
     private String tasktypename;
@@ -13,6 +15,18 @@ public class TTaskInfoCustom extends TTaskInfo{
     private String taskdaterange;
     private int counts;
     
+	public Integer getFinishstorecollectioncount() {
+		return finishstorecollectioncount;
+	}
+	public void setFinishstorecollectioncount(Integer finishstorecollectioncount) {
+		this.finishstorecollectioncount = finishstorecollectioncount;
+	}
+	public Integer getFinishfakechatcount() {
+		return finishfakechatcount;
+	}
+	public void setFinishfakechatcount(Integer finishfakechatcount) {
+		this.finishfakechatcount = finishfakechatcount;
+	}
 	public int getCounts() {
 		return counts;
 	}

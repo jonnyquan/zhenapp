@@ -41,9 +41,9 @@ public class DeleteTaskLockController {
 		hashmap.put("trolley", trolley);
 		hashmap.put("updatetime", sdf.format(new Date()));
 		hashmap.put("updateuser", "卡机任务反馈");
-		hashmap.put("isflow", "0");
-		hashmap.put("iscreativetitle", "0");
-		hashmap.put("isshopcollect", "0");
+		//hashmap.put("isflow", "0");
+		//hashmap.put("iscreativetitle", "0");
+		//hashmap.put("isshopcollect", "0");
 		taskDetailInfoService.updateTaskDetail(hashmap);
 		mv.setViewName("/task/findtasklocklist");
 		return mv;

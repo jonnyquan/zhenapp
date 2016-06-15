@@ -16,22 +16,22 @@
      a.taskreleasekeyword,a.taskkeyword,a.taskhourcounts, 
      a.taskminprice,a.taskmaxprice,a.tasksearchType, 
      a.taskimgztc,a.taskimgpt,a.flowcount, 
-     a.Collectioncount,a.Shoppingcount,a.tasktmallapppct, 
+     a.Collectioncount,a.Shoppingcount,a.storecollectioncount,a.fakechatcount,a.tasktmallapppct, 
      a.taskgprspct,a.taskPlus,a.taskduration, 
      a.subtractpoints,a.taskstate,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime, 
      a.createuser,a.updatetime,a.updateuser,b.dicinfoname,
-     CASE WHEN IFNULL(f.finishcount,0)>=IFNULL(c.finishcollectioncount,0) and IFNULL(f.finishcount,0)>=IFNULL(c.finishshoppingcount,0) THEN IFNULL(f.finishcount,0)
-     WHEN IFNULL(f.finishcount,0)>=IFNULL(c.finishcollectioncount,0) and IFNULL(f.finishcount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishshoppingcount,0)
-     WHEN IFNULL(f.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) and IFNULL(f.finishcount,0)>=IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishcollectioncount,0)
-     WHEN IFNULL(f.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) and IFNULL(f.finishcount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) and IFNULL(c.finishcollectioncount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishshoppingcount,0)
+     CASE WHEN IFNULL(f.finishcount,0)>=IFNULL(c.finishcollectioncount,0) AND IFNULL(f.finishcount,0)>=IFNULL(c.finishshoppingcount,0) THEN IFNULL(f.finishcount,0)
+     WHEN IFNULL(f.finishcount,0)>=IFNULL(c.finishcollectioncount,0) AND IFNULL(f.finishcount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishshoppingcount,0)
+     WHEN IFNULL(f.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) AND IFNULL(f.finishcount,0)>=IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishcollectioncount,0)
+     WHEN IFNULL(f.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) AND IFNULL(f.finishcount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) AND IFNULL(c.finishcollectioncount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishshoppingcount,0)
      ELSE IFNULL(c.finishcollectioncount,0) END finishflowcount,
-     IFNULL(c.finishcollectioncount,0) AS finishcollectioncount,IFNULL(c.finishshoppingcount,0) AS finishshoppingcount,IFNULL(d.errorcount,0) AS errorcount,e.dicinfoname AS tasktypename 
+     IFNULL(c.finishcollectioncount,0) AS finishcollectioncount,IFNULL(c.finishshoppingcount,0) AS finishshoppingcount,IFNULL(c.finishstorecollectioncount,0) AS finishstorecollectioncount,IFNULL(c.finishfakechatcount,0) AS finishfakechatcount,IFNULL(d.errorcount,0) AS errorcount,e.dicinfoname AS tasktypename 
      FROM t_task_info a
 	LEFT JOIN (SELECT dicinfoid,dicinfoname FROM t_data_dic_info WHERE dictypecode='runstate') b ON a.taskstate=b.dicinfoid
 	LEFT JOIN t_data_dic_info e ON a.tasktype=e.dicinfoid
 	LEFT JOIN t_task_detailinfo_flow f ON a.taskid = f.taskid
-	LEFT JOIN (SELECT taskid,SUM(iscollection) AS finishcollectioncount,SUM(isshopping) AS finishshoppingcount FROM t_task_detailinfo WHERE taskstate='21' GROUP BY taskid) c ON a.taskid=c.taskid
-	LEFT JOIN (SELECT taskid,(SUM(iscollection)+SUM(isshopping)) AS errorcount FROM t_task_detailinfo WHERE taskstate='22' GROUP BY taskid) d ON a.taskid=d.taskid
+	LEFT JOIN (SELECT taskid,SUM(iscollection) AS finishcollectioncount,SUM(isshopping) AS finishshoppingcount,SUM(isstorecollection) AS finishstorecollectioncount,SUM(isfakechat) AS finishfakechatcount FROM t_task_detailinfo WHERE taskstate='21' GROUP BY taskid) c ON a.taskid=c.taskid
+	LEFT JOIN (SELECT taskid,(SUM(iscollection)+SUM(isshopping)+SUM(isstorecollection)+SUM(isfakechat)) AS errorcount FROM t_task_detailinfo WHERE taskstate='22' GROUP BY taskid) d ON a.taskid=d.taskid
 	LEFT JOIN t_user_info g ON a.createuser = g.userid
 	<where>
 		<if test="today != null and today != '' ">
@@ -84,7 +84,7 @@
      a.taskreleasekeyword,a.taskkeyword,a.taskhourcounts, 
      a.taskminprice,a.taskmaxprice,a.tasksearchType, 
      a.taskimgztc,a.taskimgpt,a.flowcount, 
-     a.Collectioncount,a.Shoppingcount,a.tasktmallapppct, 
+     a.Collectioncount,a.Shoppingcount,a.storecollectioncount,a.fakechatcount,a.tasktmallapppct, 
      a.taskgprspct,a.taskPlus,a.taskduration, 
      a.subtractpoints,a.taskstate,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime, 
      a.createuser,a.updatetime,a.updateuser,b.dicinfoname,
@@ -93,13 +93,13 @@
      WHEN IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0)>=IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishcollectioncount,0)
      WHEN IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) and IFNULL(c.finishcollectioncount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishshoppingcount,0)
      ELSE IFNULL(c.finishcollectioncount,0) END finishflowcount,
-     IFNULL(c.finishcollectioncount,0) AS finishcollectioncount,IFNULL(c.finishshoppingcount,0) AS finishshoppingcount,IFNULL(d.errorcount,0) AS errorcount,e.dicinfoname AS tasktypename 
+     IFNULL(c.finishcollectioncount,0) AS finishcollectioncount,IFNULL(c.finishshoppingcount,0) AS finishshoppingcount,IFNULL(c.finishstorecollectioncount,0) AS finishstorecollectioncount,IFNULL(c.finishfakechatcount,0) AS finishfakechatcount,IFNULL(d.errorcount,0) AS errorcount,e.dicinfoname AS tasktypename 
      FROM t_task_info a
      LEFT JOIN (SELECT dicinfoid,dicinfoname FROM t_data_dic_info WHERE dictypecode='runstate') b ON a.taskstate=b.dicinfoid
 	LEFT JOIN t_data_dic_info e ON a.tasktype=e.dicinfoid
 	LEFT JOIN t_task_detailinfo_flow h ON a.taskid = h.taskid
-	LEFT JOIN (SELECT taskid,SUM(iscollection) AS finishcollectioncount,SUM(isshopping) AS finishshoppingcount FROM t_task_detailinfo WHERE taskstate='21' GROUP BY taskid) c ON a.taskid=c.taskid
-	LEFT JOIN (SELECT taskid,(SUM(iscollection)+SUM(isshopping)) AS errorcount FROM t_task_detailinfo WHERE taskstate='22' GROUP BY taskid) d ON a.taskid=d.taskid
+	LEFT JOIN (SELECT taskid,SUM(iscollection) AS finishcollectioncount,SUM(isshopping) AS finishshoppingcount,SUM(isstorecollection) AS finishstorecollectioncount,SUM(isfakechat) AS finishfakechatcount FROM t_task_detailinfo WHERE taskstate='21' GROUP BY taskid) c ON a.taskid=c.taskid
+	LEFT JOIN (SELECT taskid,(SUM(iscollection)+SUM(isshopping)+SUM(isstorecollection)+SUM(isfakechat)) AS errorcount FROM t_task_detailinfo WHERE taskstate='22' GROUP BY taskid) d ON a.taskid=d.taskid
 	LEFT JOIN t_user_info g ON a.createuser = g.userid
 	INNER JOIN (SELECT a.* FROM t_user_info a WHERE a.agentid IN (SELECT agentid FROM t_agent_info WHERE agentuserid=#{userid})) f ON a.createuser=f.userid<where>
     	<if test="taskid !=null and taskid != ''">
@@ -137,11 +137,13 @@
   </select>
   
     <select id="findTotalTaskBypageAndrole" resultType="int" parameterType="java.util.HashMap" >
-    SELECT count(1) FROM t_task_info a
-	LEFT JOIN (select dicinfoid,dicinfoname from t_data_dic_info WHERE dictypecode='runstate') b ON a.taskstate=b.dicinfoid
-	left join t_data_dic_info e ON a.tasktype=e.dicinfoid
-	LEFT JOIN (SELECT taskid,COUNT(isflow) AS finishflowcount,COUNT(iscreativetitle) AS finishcollectioncount,COUNT(isshopcollect) AS finishshoppingcount FROM t_task_detailinfo where taskstate='21' GROUP BY taskid) c ON a.taskid=c.taskid
-	LEFT JOIN (SELECT taskid,COUNT(isflow) AS errorcount FROM t_task_detailinfo WHERE taskstate='22' GROUP BY taskid) d ON a.taskid=d.taskid
+   SELECT count(1) FROM t_task_info a
+     LEFT JOIN (SELECT dicinfoid,dicinfoname FROM t_data_dic_info WHERE dictypecode='runstate') b ON a.taskstate=b.dicinfoid
+	LEFT JOIN t_data_dic_info e ON a.tasktype=e.dicinfoid
+	LEFT JOIN t_task_detailinfo_flow h ON a.taskid = h.taskid
+	LEFT JOIN (SELECT taskid,SUM(iscollection) AS finishcollectioncount,SUM(isshopping) AS finishshoppingcount,SUM(isstorecollection) AS finishstorecollectioncount,SUM(isfakechat) AS finishfakechatcount FROM t_task_detailinfo WHERE taskstate='21' GROUP BY taskid) c ON a.taskid=c.taskid
+	LEFT JOIN (SELECT taskid,(SUM(iscollection)+SUM(isshopping)+SUM(isstorecollection)+SUM(isfakechat)) AS errorcount FROM t_task_detailinfo WHERE taskstate='22' GROUP BY taskid) d ON a.taskid=d.taskid
+	LEFT JOIN t_user_info g ON a.createuser = g.userid
 	INNER JOIN (SELECT a.* FROM t_user_info a WHERE a.agentid IN (SELECT agentid FROM t_agent_info WHERE agentuserid=#{userid})) f ON a.createuser=f.userid
 	<where>
     	<if test="taskid !=null and taskid != ''">
@@ -178,43 +180,52 @@
   </select>
   
   <select id="findTotalTaskBypage" resultType="int" parameterType="java.util.HashMap" >
-    select count(1) from t_task_info
-    <where>
-    	<if test="today != null and today != '' ">
-			and taskdate+0 <![CDATA[>=]]> #{today}
+    SELECT count(1) FROM t_task_info a
+	LEFT JOIN (SELECT dicinfoid,dicinfoname FROM t_data_dic_info WHERE dictypecode='runstate') b ON a.taskstate=b.dicinfoid
+	LEFT JOIN t_data_dic_info e ON a.tasktype=e.dicinfoid
+	LEFT JOIN t_task_detailinfo_flow f ON a.taskid = f.taskid
+	LEFT JOIN (SELECT taskid,SUM(iscollection) AS finishcollectioncount,SUM(isshopping) AS finishshoppingcount,SUM(isstorecollection) AS finishstorecollectioncount,SUM(isfakechat) AS finishfakechatcount FROM t_task_detailinfo WHERE taskstate='21' GROUP BY taskid) c ON a.taskid=c.taskid
+	LEFT JOIN (SELECT taskid,(SUM(iscollection)+SUM(isshopping)+SUM(isstorecollection)+SUM(isfakechat)) AS errorcount FROM t_task_detailinfo WHERE taskstate='22' GROUP BY taskid) d ON a.taskid=d.taskid
+	LEFT JOIN t_user_info g ON a.createuser = g.userid
+	<where>
+		<if test="today != null and today != '' ">
+			and a.taskdate+0 <![CDATA[>=]]> #{today}
 		</if>
 		<if test="before != null and before != '' ">
-			and taskdate+0 <![CDATA[<]]> #{before}
+			and a.taskdate+0 <![CDATA[<]]> #{before}
 		</if>
-    	<if test="taskid !=null and taskid != ''">
-    		and taskid like '%${taskid}%'
+    	<if test="taskid !=null and taskid !='' ">
+    		and a.taskid like '%${taskid}%'
     	</if>
     	<if test="taskpk !=null and taskpk != ''">
-    		and taskpk = #{taskpk}
+    		and a.taskpk = #{taskpk}
     	</if>
     	<if test="datefrom != null and datefrom != ''">
-    		and createtime <![CDATA[>=]]> #{datefrom}
+    		and a.createtime <![CDATA[>=]]> #{datefrom}
     	</if>
     	<if test="dateto != null and dateto != ''">
-    		and createtime <![CDATA[<=]]> #{dateto}
+    		and a.createtime <![CDATA[<=]]> #{dateto}
     	</if>
     	<if test="userid != null and userid != ''">
-    		and createuser = #{userid}
+    		and a.createuser = #{userid}
     	</if>
     	<if test="keyword != null and keyword != ''">
-    		and taskkeyword like '%${keyword}%'
+    		and a.taskkeyword like '%${keyword}%'
+    	</if>
+    	<if test="taskkeyword != null and taskkeyword != ''">
+    		and a.taskkeyword like '%${taskkeyword}%'
     	</if>
     	<if test="tasktype != null and tasktype != ''">
-    		and tasktype = #{tasktype}
+    		and a.tasktype = #{tasktype}
     	</if>
-    	<if test="state != null and state != ''">
-    		and taskstate = #{state}
+    	<if test="taskstate != null and taskstate != ''">
+    		and a.taskstate = #{taskstate}
     	</if>
     	<if test="taskkeynum != null and taskkeynum != ''">
-    		and taskkeynum = #{taskkeynum}
+    		and a.taskkeynum = #{taskkeynum}
     	</if>
     	<if test="taskid != null and taskid != ''">
-    		and taskid = #{taskid}
+    		and a.taskid = #{taskid}
     	</if>
     </where>
   </select>
