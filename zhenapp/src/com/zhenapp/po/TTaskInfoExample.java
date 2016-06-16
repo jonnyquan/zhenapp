@@ -1004,6 +1004,76 @@ public class TTaskInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andTaskpriceIsNull() {
+            addCriterion("taskprice is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskpriceIsNotNull() {
+            addCriterion("taskprice is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskpriceEqualTo(String value) {
+            addCriterion("taskprice =", value, "taskprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskpriceNotEqualTo(String value) {
+            addCriterion("taskprice <>", value, "taskprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskpriceGreaterThan(String value) {
+            addCriterion("taskprice >", value, "taskprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskpriceGreaterThanOrEqualTo(String value) {
+            addCriterion("taskprice >=", value, "taskprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskpriceLessThan(String value) {
+            addCriterion("taskprice <", value, "taskprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskpriceLessThanOrEqualTo(String value) {
+            addCriterion("taskprice <=", value, "taskprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskpriceLike(String value) {
+            addCriterion("taskprice like", value, "taskprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskpriceNotLike(String value) {
+            addCriterion("taskprice not like", value, "taskprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskpriceIn(List<String> values) {
+            addCriterion("taskprice in", values, "taskprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskpriceNotIn(List<String> values) {
+            addCriterion("taskprice not in", values, "taskprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskpriceBetween(String value1, String value2) {
+            addCriterion("taskprice between", value1, value2, "taskprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskpriceNotBetween(String value1, String value2) {
+            addCriterion("taskprice not between", value1, value2, "taskprice");
+            return (Criteria) this;
+        }
+
         public Criteria andTaskminpriceIsNull() {
             addCriterion("taskminprice is null");
             return (Criteria) this;
@@ -1141,6 +1211,76 @@ public class TTaskInfoExample {
 
         public Criteria andTaskmaxpriceNotBetween(String value1, String value2) {
             addCriterion("taskmaxprice not between", value1, value2, "taskmaxprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipaddressIsNull() {
+            addCriterion("shipaddress is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipaddressIsNotNull() {
+            addCriterion("shipaddress is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipaddressEqualTo(String value) {
+            addCriterion("shipaddress =", value, "shipaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipaddressNotEqualTo(String value) {
+            addCriterion("shipaddress <>", value, "shipaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipaddressGreaterThan(String value) {
+            addCriterion("shipaddress >", value, "shipaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipaddressGreaterThanOrEqualTo(String value) {
+            addCriterion("shipaddress >=", value, "shipaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipaddressLessThan(String value) {
+            addCriterion("shipaddress <", value, "shipaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipaddressLessThanOrEqualTo(String value) {
+            addCriterion("shipaddress <=", value, "shipaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipaddressLike(String value) {
+            addCriterion("shipaddress like", value, "shipaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipaddressNotLike(String value) {
+            addCriterion("shipaddress not like", value, "shipaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipaddressIn(List<String> values) {
+            addCriterion("shipaddress in", values, "shipaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipaddressNotIn(List<String> values) {
+            addCriterion("shipaddress not in", values, "shipaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipaddressBetween(String value1, String value2) {
+            addCriterion("shipaddress between", value1, value2, "shipaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andShipaddressNotBetween(String value1, String value2) {
+            addCriterion("shipaddress not between", value1, value2, "shipaddress");
             return (Criteria) this;
         }
 

@@ -2,15 +2,11 @@ package com.zhenapp.controller.back.task;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
+
 import javax.servlet.http.HttpSession;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.params.HttpMethodParams;
+
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -18,17 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.zhenapp.po.Custom.MsgInfoCustom;
+
 import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
 import com.zhenapp.po.Custom.TPriceAgentInfoCustom;
 import com.zhenapp.po.Custom.TPriceInfoCustom;
-import com.zhenapp.po.Custom.TSysconfInfoCustom;
-import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
-import com.zhenapp.po.Custom.TTaskDetailInfoFlowCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
-import com.zhenapp.po.Custom.TUsertestInfoCustom;
 import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.PhoneInfoService;
 import com.zhenapp.service.PointsInfoService;
@@ -42,7 +34,6 @@ import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.UserInfoService;
 import com.zhenapp.service.UsertestInfoService;
 import com.zhenapp.util.DateUtilWxf;
-import com.zhenapp.util.StringUtilWxf;
 @Transactional
 @Controller
 @RequestMapping(value="/task")
@@ -96,8 +87,15 @@ public class SaveTaskController {
 		//计算需要消耗的积分数
 		int days = DateUtilWxf.getBetweenDays(tTaskInfoCustom.getTaskstartdate().replace("-", ""), tTaskInfoCustom.getTaskenddate().replace("-", ""));
 		String [] taskkeywordarr=taskkeywords.split("====");
-		int subtractpoints = tTaskInfoCustom.getFlowcount()*Integer.parseInt(tPriceInfoCustom.getPricecounts1())+tTaskInfoCustom.getCollectioncount()*Integer.parseInt(tPriceInfoCustom.getPricecounts2())+tTaskInfoCustom.getShoppingcount()*Integer.parseInt(tPriceInfoCustom.getPricecounts3());
-		int subtractpointsagent = tTaskInfoCustom.getFlowcount()*Integer.parseInt(tPriceAgentInfoCustomagent.getPricecounts1())+tTaskInfoCustom.getCollectioncount()*Integer.parseInt(tPriceAgentInfoCustomagent.getPricecounts2())+tTaskInfoCustom.getShoppingcount()*Integer.parseInt(tPriceAgentInfoCustomagent.getPricecounts3());
+		int subtractpoints = 0;
+		int subtractpointsagent = 0;
+		if(tTaskInfoCustom.getTasktype().equals("33")){
+			subtractpoints = tTaskInfoCustom.getFlowcount()*Integer.parseInt(tPriceInfoCustom.getPricecounts1())+tTaskInfoCustom.getCollectioncount()*Integer.parseInt(tPriceInfoCustom.getPricecounts2())+tTaskInfoCustom.getShoppingcount()*Integer.parseInt(tPriceInfoCustom.getPricecounts3());
+			subtractpointsagent = tTaskInfoCustom.getFlowcount()*Integer.parseInt(tPriceAgentInfoCustomagent.getPricecounts1())+tTaskInfoCustom.getCollectioncount()*Integer.parseInt(tPriceAgentInfoCustomagent.getPricecounts2())+tTaskInfoCustom.getShoppingcount()*Integer.parseInt(tPriceAgentInfoCustomagent.getPricecounts3());
+		}else{
+			subtractpoints = tTaskInfoCustom.getFlowcount()*Integer.parseInt(tPriceInfoCustom.getPricecounts4())+tTaskInfoCustom.getCollectioncount()*Integer.parseInt(tPriceInfoCustom.getPricecounts5())+tTaskInfoCustom.getShoppingcount()*Integer.parseInt(tPriceInfoCustom.getPricecounts6());
+			subtractpointsagent = tTaskInfoCustom.getFlowcount()*Integer.parseInt(tPriceAgentInfoCustomagent.getPricecounts4())+tTaskInfoCustom.getCollectioncount()*Integer.parseInt(tPriceAgentInfoCustomagent.getPricecounts5())+tTaskInfoCustom.getShoppingcount()*Integer.parseInt(tPriceAgentInfoCustomagent.getPricecounts6());			
+		}
 		subtractpoints = subtractpoints * taskkeywordarr.length * (days + 1);
 		subtractpointsagent = subtractpointsagent * taskkeywordarr.length * (days + 1);
 		String [] hourarr = tTaskInfoCustom.getTaskhourcounts().split(",");

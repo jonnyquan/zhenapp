@@ -329,7 +329,6 @@
 									<c:if test="${tTaskInfoCustom.taskurl==null }">value=" "</c:if>
 									maxlength="1000" onchange="checkurl(this);" />&nbsp;&nbsp;&nbsp;&nbsp;
 									<span id="span_taskurl"></span>
-									<!-- 例如:https://item.taobao.com/item.htm?id=531027639098 --><br/>
 								</div>
 								<label class="form_label"></label>
 								<table id="tab_keyword" style="padding: 0px;">
@@ -351,7 +350,6 @@
 												<td style="width:10px;">
 												</td>
 												<td>
-													
 												</td>
 											</c:if>
 											<c:if test="${tTaskInfoCustom==null}">
@@ -378,6 +376,16 @@
 								<div class="form_control clearfix" style="height:0px;">
 								</div>
 								<div class="form_control clearfix">
+									<label class="form_label">模式：</label> 
+									<label class="form_radio">
+										<input type="radio" name="Mode" v-model="myfChecked" value="1" onchange="checkmode(this);"/>
+										<span>老模式</span></label> 
+									<label class="form_radio">
+										<input type="radio" name="Mode" v-model="tmChecked" checked="checked" value="0" onchange="checkmode(this);"/>
+										<span>新模式</span>
+									</label> 
+								</div>
+								<div class="form_control clearfix" id="div_taskimgztc" style="display: none;">
 									<label class="form_label">直通车图片：</label> 
 									<input type="text" name="taskimgztc" placeholder="请输入直通车图片" id="taskimgztc" style="width:350px;"
 									<c:if test="${tTaskInfoCustom.taskimgztc!=null }">value="${tTaskInfoCustom.taskimgztc}"</c:if>
@@ -385,32 +393,30 @@
 									maxlength="1000" />&nbsp;&nbsp;&nbsp;&nbsp;
 									<span id="span_taskimgztc"></span>
 								</div>
-								<div class="form_control clearfix">
-									<label class="form_label">是否创意标题模式：</label> 
-									<label class="form_radio">
-										<input type="radio" name="iscreativetitle" v-model="myfChecked" <c:if test="${tTaskInfoCustom.iscreativetitle==1 }">checked="checked"</c:if> value="1"/>
-										<span>是</span></label> 
-									<label class="form_radio">
-										<input type="radio" name="iscreativetitle" v-model="tmChecked" <c:if test="${tTaskInfoCustom.iscreativetitle==null }">checked="checked"</c:if> value="0"/>
-										<span>否</span>
-									</label> 
+								<div class="form_control clearfix" id="div_creativetitle" style="display: block;">
+									<label class="form_label">创意标题：</label> 
+									<input type="text" name="creativetitle" placeholder="请输入直通车图片" id="creativetitle" style="width:350px;"
+									<c:if test="${tTaskInfoCustom.creativetitle!=null }">value="${tTaskInfoCustom.creativetitle}"</c:if>
+									<c:if test="${tTaskInfoCustom.creativetitle==null }">value=" "</c:if>
+									maxlength="100" />&nbsp;&nbsp;&nbsp;&nbsp;
+									<span id="span_creativetitle"></span>
 								</div>
 								<div class="form_control clearfix">
 									<label class="form_label">宝贝价格：</label> 
-									<input type="text" name="taskminprice" placeholder="请输入宝贝价格" id="taskminprice" style="width:150px;"
-									<c:if test="${tTaskInfoCustom.taskminprice!=null }">value="${tTaskInfoCustom.taskminprice}"</c:if>
-									<c:if test="${tTaskInfoCustom.taskminprice==null }">value=" "</c:if>
+									<input type="text" name="taskprice" placeholder="请输入宝贝价格" id="taskprice" style="width:150px;"
+									<c:if test="${tTaskInfoCustom.taskprice!=null }">value="${tTaskInfoCustom.taskprice}"</c:if>
+									<c:if test="${tTaskInfoCustom.taskprice==null }">value="0"</c:if>
 									maxlength="10"/>&nbsp;&nbsp;&nbsp;&nbsp;
+									<span id="span_taskprice"></span>
 								</div>
-								<div class="box" style="padding:0px 0px;">
-									<div class="taxkTips box_toggle">
+								
+									<div class="taxkTips">
 										<h2>
 											<scan class="scan_icon">
 											<a><i class="fa fa-chevron-circle-right fa-lg"></i></a></scan>
 											卡位可选信息区（点击显示更多可选项，以更好的提升宝贝流量）建议保持默认不做更改!!
 										</h2>
 									</div>
-									<div class="toggle_wrapper">
 										<div class="form_control clearfix">
 											<label class="form_label">排序类型：</label> 
 											<select name="tasksearchType" id="tasksearchType" class="form_select select_big" v-model="sortType">
@@ -422,12 +428,34 @@
 											</select>
 										</div>
 										<div class="form_control clearfix">
-											<label class="form_label">限价区间：</label> 
-											<input class="form_input input50" type="text" name="priceRangeMinValue" id="priceRangeMinValue" v-model="start_price" value=0 /> 
+											<label class="form_label">卡价格模式：</label> 
+											<label class="form_radio">
+												<input type="radio" name="priceMode" v-model="myfChecked" value="0" onchange="checkpricemode(this);"/>
+												<span>默认综合不卡价格（必须排名很前）</span></label> 
+											<label class="form_radio">
+												<input type="radio" name="priceMode" v-model="tmChecked" checked="checked" value="1" onchange="checkpricemode(this);"/>
+												<span>默认卡原价加减1元（成功率最高，速度最快）</span>
+											</label>
+										</div>
+										<div class="form_control clearfix">
+											<label class="form_label"></label> 
+											<label class="form_radio">
+												<input type="radio" name="priceMode" v-model="myfChecked" value="2" onchange="checkpricemode(this);"/>
+												<span>默认卡原价加减10元（成功率其次，慢）</span></label> 
+											<label class="form_radio">
+												<input type="radio" name="priceMode" v-model="tmChecked" value="3" onchange="checkpricemode(this);"/>
+												<span>自定义（请亲自手动搜索成功再用）</span>
+											</label> 
+										</div>
+										<div class="form_control clearfix" id="div_price">
+											<label class="form_label">自定义价格区间:</label>
+											<input class="form_input input50" type="text" name="taskminprice" id="taskminprice" v-model="start_price" value=0 /> 
 											<span class="Validform_checktip scan_break">--</span> 
-											<input class="form_input input50" type="text" name="priceRangeMaxValue" id="priceRangeMaxValue" v-model="end_price" value=0 /> 
+											<input class="form_input input50" type="text" name="taskmaxprice" id="taskmaxprice" v-model="end_price" value=0 />
+										</div>
+										<div class="form_control clearfix">
 											<label class="form_label">发货地：</label>
-											<select name="searchArea" id="searchArea" class="form_select select_big" v-model="loc">
+											<select name="shipaddress" id="shipaddress" class="form_select select_big" v-model="loc">
 												<option value="所有地区">所有地区</option>
 												<option value="江浙沪">江浙沪</option>
 												<option value="珠三角">珠三角</option>
@@ -496,35 +524,6 @@
 												<option value="台湾">台湾</option>
 											</select>
 										</div>
-
-										<div class="form_control clearfix">
-											<label class="form_label">折扣和服务：</label> 
-											<label class="form_radio">
-												<input type="checkbox" name="myfChecked" v-model="myfChecked" />
-												<span>免运费</span></label> 
-											<label class="form_radio">
-												<input type="checkbox" name="tmChecked" v-model="tmChecked" />
-												<span>天猫</span>
-											</label> 
-											<label class="form_radio">
-												<input type="checkbox" name="sjzxChecked" v-model="sjzxChecked" />
-												<span>手机专享</span>
-											</label>
-											<label class="form_radio">
-												<input type="checkbox" name="tjbChecked" v-model="tjbChecked" />
-												<span>淘金币抵钱</span>
-											</label>
-											<label class="form_radio">
-												<input type="checkbox" name="hdfkChecked" v-model="hdfkChecked" />
-												<span>货到付款</span>
-											</label>
-											<label class="form_radio">
-												<input type="checkbox" name="cxChecked" v-model="cxChecked" />
-												<span>促销</span>
-											</label>
-										</div>
-									</div>
-								</div>
 								<div class="taxkTips">
 									<h2>
 										<scan class="scan_icon">
@@ -802,10 +801,6 @@
         });
         var uri = "${pageContext.request.contextPath}";
     </script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/vue.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/addtask-v3.26.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/layer_user.js"></script>
 	<script type="text/javascript"

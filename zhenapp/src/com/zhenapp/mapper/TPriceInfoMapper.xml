@@ -17,6 +17,12 @@
     <result column="pricetype4" property="pricetype4" jdbcType="VARCHAR" />
     <result column="pricecode4" property="pricecode4" jdbcType="VARCHAR" />
     <result column="pricecounts4" property="pricecounts4" jdbcType="VARCHAR" />
+    <result column="pricetype5" property="pricetype5" jdbcType="VARCHAR" />
+    <result column="pricecode5" property="pricecode5" jdbcType="VARCHAR" />
+    <result column="pricecounts5" property="pricecounts5" jdbcType="VARCHAR" />
+    <result column="pricetype6" property="pricetype6" jdbcType="VARCHAR" />
+    <result column="pricecode6" property="pricecode6" jdbcType="VARCHAR" />
+    <result column="pricecounts6" property="pricecounts6" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="VARCHAR" />
     <result column="createuser" property="createuser" jdbcType="VARCHAR" />
     <result column="updatetime" property="updatetime" jdbcType="VARCHAR" />
@@ -83,7 +89,8 @@
   <sql id="Base_Column_List" >
     pricepk, priceid, agentid, pricetype1, pricecode1, pricecounts1, pricetype2, pricecode2, 
     pricecounts2, pricetype3, pricecode3, pricecounts3, pricetype4, pricecode4, pricecounts4, 
-    createtime, createuser, updatetime, updateuser
+    pricetype5, pricecode5, pricecounts5, pricetype6, pricecode6, pricecounts6, createtime, 
+    createuser, updatetime, updateuser
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TPriceInfoExample" >
     select
@@ -121,6 +128,8 @@
       pricetype2, pricecode2, pricecounts2, 
       pricetype3, pricecode3, pricecounts3, 
       pricetype4, pricecode4, pricecounts4, 
+      pricetype5, pricecode5, pricecounts5, 
+      pricetype6, pricecode6, pricecounts6, 
       createtime, createuser, updatetime, 
       updateuser)
     values (#{pricepk,jdbcType=INTEGER}, #{priceid,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
@@ -128,6 +137,8 @@
       #{pricetype2,jdbcType=VARCHAR}, #{pricecode2,jdbcType=VARCHAR}, #{pricecounts2,jdbcType=VARCHAR}, 
       #{pricetype3,jdbcType=VARCHAR}, #{pricecode3,jdbcType=VARCHAR}, #{pricecounts3,jdbcType=VARCHAR}, 
       #{pricetype4,jdbcType=VARCHAR}, #{pricecode4,jdbcType=VARCHAR}, #{pricecounts4,jdbcType=VARCHAR}, 
+      #{pricetype5,jdbcType=VARCHAR}, #{pricecode5,jdbcType=VARCHAR}, #{pricecounts5,jdbcType=VARCHAR}, 
+      #{pricetype6,jdbcType=VARCHAR}, #{pricecode6,jdbcType=VARCHAR}, #{pricecounts6,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
       #{updateuser,jdbcType=VARCHAR})
   </insert>
@@ -178,6 +189,24 @@
       </if>
       <if test="pricecounts4 != null" >
         pricecounts4,
+      </if>
+      <if test="pricetype5 != null" >
+        pricetype5,
+      </if>
+      <if test="pricecode5 != null" >
+        pricecode5,
+      </if>
+      <if test="pricecounts5 != null" >
+        pricecounts5,
+      </if>
+      <if test="pricetype6 != null" >
+        pricetype6,
+      </if>
+      <if test="pricecode6 != null" >
+        pricecode6,
+      </if>
+      <if test="pricecounts6 != null" >
+        pricecounts6,
       </if>
       <if test="createtime != null" >
         createtime,
@@ -237,6 +266,24 @@
       </if>
       <if test="pricecounts4 != null" >
         #{pricecounts4,jdbcType=VARCHAR},
+      </if>
+      <if test="pricetype5 != null" >
+        #{pricetype5,jdbcType=VARCHAR},
+      </if>
+      <if test="pricecode5 != null" >
+        #{pricecode5,jdbcType=VARCHAR},
+      </if>
+      <if test="pricecounts5 != null" >
+        #{pricecounts5,jdbcType=VARCHAR},
+      </if>
+      <if test="pricetype6 != null" >
+        #{pricetype6,jdbcType=VARCHAR},
+      </if>
+      <if test="pricecode6 != null" >
+        #{pricecode6,jdbcType=VARCHAR},
+      </if>
+      <if test="pricecounts6 != null" >
+        #{pricecounts6,jdbcType=VARCHAR},
       </if>
       <if test="createtime != null" >
         #{createtime,jdbcType=VARCHAR},
@@ -306,6 +353,24 @@
       <if test="record.pricecounts4 != null" >
         pricecounts4 = #{record.pricecounts4,jdbcType=VARCHAR},
       </if>
+      <if test="record.pricetype5 != null" >
+        pricetype5 = #{record.pricetype5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pricecode5 != null" >
+        pricecode5 = #{record.pricecode5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pricecounts5 != null" >
+        pricecounts5 = #{record.pricecounts5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pricetype6 != null" >
+        pricetype6 = #{record.pricetype6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pricecode6 != null" >
+        pricecode6 = #{record.pricecode6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pricecounts6 != null" >
+        pricecounts6 = #{record.pricecounts6,jdbcType=VARCHAR},
+      </if>
       <if test="record.createtime != null" >
         createtime = #{record.createtime,jdbcType=VARCHAR},
       </if>
@@ -340,6 +405,12 @@
       pricetype4 = #{record.pricetype4,jdbcType=VARCHAR},
       pricecode4 = #{record.pricecode4,jdbcType=VARCHAR},
       pricecounts4 = #{record.pricecounts4,jdbcType=VARCHAR},
+      pricetype5 = #{record.pricetype5,jdbcType=VARCHAR},
+      pricecode5 = #{record.pricecode5,jdbcType=VARCHAR},
+      pricecounts5 = #{record.pricecounts5,jdbcType=VARCHAR},
+      pricetype6 = #{record.pricetype6,jdbcType=VARCHAR},
+      pricecode6 = #{record.pricecode6,jdbcType=VARCHAR},
+      pricecounts6 = #{record.pricecounts6,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=VARCHAR},
       createuser = #{record.createuser,jdbcType=VARCHAR},
       updatetime = #{record.updatetime,jdbcType=VARCHAR},
@@ -393,6 +464,24 @@
       <if test="pricecounts4 != null" >
         pricecounts4 = #{pricecounts4,jdbcType=VARCHAR},
       </if>
+      <if test="pricetype5 != null" >
+        pricetype5 = #{pricetype5,jdbcType=VARCHAR},
+      </if>
+      <if test="pricecode5 != null" >
+        pricecode5 = #{pricecode5,jdbcType=VARCHAR},
+      </if>
+      <if test="pricecounts5 != null" >
+        pricecounts5 = #{pricecounts5,jdbcType=VARCHAR},
+      </if>
+      <if test="pricetype6 != null" >
+        pricetype6 = #{pricetype6,jdbcType=VARCHAR},
+      </if>
+      <if test="pricecode6 != null" >
+        pricecode6 = #{pricecode6,jdbcType=VARCHAR},
+      </if>
+      <if test="pricecounts6 != null" >
+        pricecounts6 = #{pricecounts6,jdbcType=VARCHAR},
+      </if>
       <if test="createtime != null" >
         createtime = #{createtime,jdbcType=VARCHAR},
       </if>
@@ -424,6 +513,12 @@
       pricetype4 = #{pricetype4,jdbcType=VARCHAR},
       pricecode4 = #{pricecode4,jdbcType=VARCHAR},
       pricecounts4 = #{pricecounts4,jdbcType=VARCHAR},
+      pricetype5 = #{pricetype5,jdbcType=VARCHAR},
+      pricecode5 = #{pricecode5,jdbcType=VARCHAR},
+      pricecounts5 = #{pricecounts5,jdbcType=VARCHAR},
+      pricetype6 = #{pricetype6,jdbcType=VARCHAR},
+      pricecode6 = #{pricecode6,jdbcType=VARCHAR},
+      pricecounts6 = #{pricecounts6,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=VARCHAR},
       createuser = #{createuser,jdbcType=VARCHAR},
       updatetime = #{updatetime,jdbcType=VARCHAR},

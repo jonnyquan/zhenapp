@@ -19,7 +19,7 @@ import com.zhenapp.service.TaskDetailInfoTempService;
 import com.zhenapp.service.TaskInfoService;
 @Transactional
 @Service
-public class AllocationcollectionTaskService {
+public class AllocationZtcTaskService {
 	@Autowired
 	private SysconfInfoService sysconfInfoService;
 	@Autowired
@@ -39,21 +39,20 @@ public class AllocationcollectionTaskService {
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.clear();
 		hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
-		hashmap.put("iscollection", 1);
 		hashmap.put("today", yyyyMMdd.format(new Date()));
-		hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
+		hashmap.put("HHmm", HHmm.format(new Date().getTime() + 1*60*1000));
 		hashmap.put("tasknumstr", tasknumstr);
-		hashmap.put("tasktype", "33");
-		TTaskDetailInfoCustom tTaskDetailInfoCustomtype1collection = taskDetailInfoService.requesttaskByphoneid_temp(hashmap);
-		if(tTaskDetailInfoCustomtype1collection!=null){
-			tTaskDetailInfoCustomtype1collection.setPhoneid(tPhoneInfoCustom.getPhoneid());
-			TTaskDetailinfoTempCustom tTaskDetailinfoTempCustom = TTaskDetailinfoTempCustom.setTTaskDetailinfoTempCustom(tTaskDetailInfoCustomtype1collection);
+		hashmap.put("tasktype", "34");
+		TTaskDetailInfoCustom tTaskDetailInfoCustom = taskDetailInfoService.requesttaskByphoneid_temp(hashmap);
+		if(tTaskDetailInfoCustom!=null){
+			tTaskDetailInfoCustom.setPhoneid(tPhoneInfoCustom.getPhoneid());
+			TTaskDetailinfoTempCustom tTaskDetailinfoTempCustom = TTaskDetailinfoTempCustom.setTTaskDetailinfoTempCustom(tTaskDetailInfoCustom);
 			tTaskDetailinfoTempCustom.setCreatetime(sdf.format(new Date()));
-			tTaskDetailinfoTempCustom.setCreateuser(tTaskDetailInfoCustomtype1collection.getCreateuser());;
+			tTaskDetailinfoTempCustom.setCreateuser(tTaskDetailInfoCustom.getCreateuser());;
 			tTaskDetailinfoTempCustom.setUpdatetime(sdf.format(new Date()));
 			tTaskDetailinfoTempCustom.setUpdateuser("分配任务到手机");
 			taskDetailInfoTempService.insertDetailinfo(tTaskDetailinfoTempCustom);
-			sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustomtype1collection);
+			sb = TTaskDetailInfoCustom.Mosaicstr(tTaskDetailInfoCustom);
 			//将返回的字符串更新到数据表中
 			hashmap.put("result", sb.toString());
 			hashmap.put("taskdetailid", tTaskDetailinfoTempCustom.getTaskdetailid());

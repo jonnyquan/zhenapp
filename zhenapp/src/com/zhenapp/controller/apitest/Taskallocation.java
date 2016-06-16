@@ -88,325 +88,378 @@ public class Taskallocation {
 						hourcount=hourcount+1;
 					}
 				}
-				
-				int collectionys = tTaskInfoCustom.getCollectioncount() / hourcount;
-				int collectionfps = tTaskInfoCustom.getCollectioncount() % hourcount;
-				int []collectionarr = new int[hourcount];
-				for (int i = 0; i < collectionarr.length; i++) {
-					collectionarr[i]=collectionys;
-				}
-				for (int i = 0; i < collectionfps; i++) {
-					collectionarr[i]=collectionarr[i]+1;
-				}
-				
-				int shoppingys = tTaskInfoCustom.getShoppingcount() / hourcount;
-				int shoppingfps = tTaskInfoCustom.getShoppingcount() % hourcount;
-				int []shoppingarr = new int[hourcount];
-				for (int i = 0; i < shoppingarr.length; i++) {
-					shoppingarr[i]=shoppingys;
-				}
-				for (int i = 0; i < shoppingfps; i++) {
-					shoppingarr[i]=shoppingarr[i]+1;
-				}
-				
-				int storecollectionys = tTaskInfoCustom.getStorecollectioncount() / hourcount;
-				int storecollectionfps = tTaskInfoCustom.getStorecollectioncount() % hourcount;
-				int []storecollectionarr = new int[hourcount];
-				for (int i = 0; i < storecollectionarr.length; i++) {
-					storecollectionarr[i]=storecollectionys;
-				}
-				for (int i = 0; i < storecollectionfps; i++) {
-					storecollectionarr[i]=storecollectionarr[i]+1;
-				}
-				
-				int fakechatys = tTaskInfoCustom.getFakechatcount() / hourcount;
-				int fakechatfps = tTaskInfoCustom.getFakechatcount() % hourcount;
-				int []fakechatarr = new int[hourcount];
-				for (int i = 0; i < fakechatarr.length; i++) {
-					fakechatarr[i]=fakechatys;
-				}
-				for (int i = 0; i < fakechatfps; i++) {
-					fakechatarr[i]=fakechatarr[i]+1;
-				}
-				
-				//2.再分配收藏和加购
-				int count=0;
-				for (int j = 0; j < hourarr.length; j++) {
-					if(!hourarr[j].equals("0")){
-						int collectionhoursum = collectionarr[count];//每小时分配的收藏数
-						int shoppinghoursum = shoppingarr[count];//每小时分配的加购数
-						int storecollectionhoursum = storecollectionarr[count];//每小时分配的店铺收藏数
-						int fakechathoursum = fakechatarr[count];//每小时分配的假聊数
-						count=count+1;
-						int [] collectionminute = new int[collectionhoursum];
-						for(int a=0;a<collectionhoursum ; a++){
-							collectionminute[a]=a*60/collectionhoursum;
-						}
-						int [] shoppingminute = new int[shoppinghoursum];
-						for(int a=0;a<shoppinghoursum ; a++){
-							shoppingminute[a]=a*60/shoppinghoursum;
-						}
-						int [] storecollectionminute = new int[storecollectionhoursum];
-						for(int a=0;a<storecollectionhoursum ; a++){
-							storecollectionminute[a]=a*60/storecollectionhoursum;
-						}
-						int [] fakechatminute = new int[fakechathoursum];
-						for(int a=0;a<fakechathoursum ; a++){
-							fakechatminute[a]=a*60/fakechathoursum;
-						}
-						//先分配收藏任务
-						TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
-						for (int i = 0; i < collectionminute.length; i++) {
-							TTaskDetailInfoCustom tTaskDetailInfoCustom=new TTaskDetailInfoCustom();
-							tTaskDetailInfoCustom.setTaskdetailid(UUID.randomUUID().toString().replace("-", ""));
-							tTaskDetailInfoCustom.setTaskid(tTaskInfoCustom.getTaskid());
-							tTaskDetailInfoCustom.setTaskkeyword(tTaskInfoCustom.getTaskkeyword());
-							tTaskDetailInfoCustom.setTaskkeynum(tTaskInfoCustom.getTaskkeynum());
-							tTaskDetailInfoCustom.setSearchtype(tTaskInfoCustom.getTasksearchtype());
-							tTaskDetailInfoCustom.setTasktype(tTaskInfoCustom.getTasktype());
-							tTaskDetailInfoCustom.setPrice(tTaskInfoCustom.getTaskminprice());
-							tTaskDetailInfoCustom.setIscollection("1");
-							tTaskDetailInfoCustom.setIsshopping("0");
-							tTaskDetailInfoCustom.setIsstorecollection("0");
-							tTaskDetailInfoCustom.setIsfakechat("0");
-							tTaskDetailInfoCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
-							tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
-							tTaskDetailInfoCustom.setSubtractpoints(Integer.parseInt(tPriceInfoCustom.getPricecounts2()));
-							tTaskDetailInfoCustom.setTaskdate(tTaskInfoCustom.getTaskdate());
-							tTaskDetailInfoCustom.setTaskhour(j);
-							if(tSysconfInfoCustom.getSysconfvalue5().equals("1")){
-								tTaskDetailInfoCustom.setTaskminute(collectionminute[i]);
-								if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
-									&& j<= Integer.parseInt(hh.format(new Date())) && collectionminute[i] <= Integer.parseInt(mm.format(new Date()))){
-									tTaskDetailInfoCustom.setTaskstate("23");
-								}else{
-									tTaskDetailInfoCustom.setTaskstate("40");
-								}
-							}else{
-								tTaskDetailInfoCustom.setTaskminute(0);
-								if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
-									&& j<= Integer.parseInt(hh.format(new Date())) && 0<= Integer.parseInt(mm.format(new Date()))){
-									tTaskDetailInfoCustom.setTaskstate("23");
-								}else{
-									tTaskDetailInfoCustom.setTaskstate("40");
-								}
+				TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
+				if(tTaskInfoCustom.getTasktype().equals("33")){
+					int collectionys = tTaskInfoCustom.getCollectioncount() / hourcount;
+					int collectionfps = tTaskInfoCustom.getCollectioncount() % hourcount;
+					int []collectionarr = new int[hourcount];
+					for (int i = 0; i < collectionarr.length; i++) {
+						collectionarr[i]=collectionys;
+					}
+					for (int i = 0; i < collectionfps; i++) {
+						collectionarr[i]=collectionarr[i]+1;
+					}
+					
+					int shoppingys = tTaskInfoCustom.getShoppingcount() / hourcount;
+					int shoppingfps = tTaskInfoCustom.getShoppingcount() % hourcount;
+					int []shoppingarr = new int[hourcount];
+					for (int i = 0; i < shoppingarr.length; i++) {
+						shoppingarr[i]=shoppingys;
+					}
+					for (int i = 0; i < shoppingfps; i++) {
+						shoppingarr[i]=shoppingarr[i]+1;
+					}
+					/*
+					int storecollectionys = tTaskInfoCustom.getStorecollectioncount() / hourcount;
+					int storecollectionfps = tTaskInfoCustom.getStorecollectioncount() % hourcount;
+					int []storecollectionarr = new int[hourcount];
+					for (int i = 0; i < storecollectionarr.length; i++) {
+						storecollectionarr[i]=storecollectionys;
+					}
+					for (int i = 0; i < storecollectionfps; i++) {
+						storecollectionarr[i]=storecollectionarr[i]+1;
+					}
+					
+					int fakechatys = tTaskInfoCustom.getFakechatcount() / hourcount;
+					int fakechatfps = tTaskInfoCustom.getFakechatcount() % hourcount;
+					int []fakechatarr = new int[hourcount];
+					for (int i = 0; i < fakechatarr.length; i++) {
+						fakechatarr[i]=fakechatys;
+					}
+					for (int i = 0; i < fakechatfps; i++) {
+						fakechatarr[i]=fakechatarr[i]+1;
+					}*/
+					
+					//1.分配收藏和加购
+					int count=0;
+					for (int j = 0; j < hourarr.length; j++) {
+						if(!hourarr[j].equals("0")){
+							int collectionhoursum = collectionarr[count];//每小时分配的收藏数
+							int shoppinghoursum = shoppingarr[count];//每小时分配的加购数
+							//int storecollectionhoursum = storecollectionarr[count];//每小时分配的店铺收藏数
+							//int fakechathoursum = fakechatarr[count];//每小时分配的假聊数
+							count=count+1;
+							int [] collectionminute = new int[collectionhoursum];
+							for(int a=0;a<collectionhoursum ; a++){
+								collectionminute[a]=a*60/collectionhoursum;
 							}
-							tTaskDetailInfoCustom.setCreatetime(sdf.format(new Date()));
-							tTaskDetailInfoCustom.setCreateuser(tTaskInfoCustom.getCreateuser());
-							tTaskDetailInfoCustom.setUpdatetime(sdf.format(new Date()));
-							tTaskDetailInfoCustom.setUpdateuser(tTaskInfoCustom.getCreateuser());
-							taskDetailInfoService.insertDetailinfo(tTaskDetailInfoCustom);
-						}
-						//分配购物车任务
-						for (int j2 = 0; j2 < shoppingminute.length; j2++) {
-							TTaskDetailInfoCustom tTaskDetailInfoCustom=new TTaskDetailInfoCustom();
-							tTaskDetailInfoCustom.setTaskdetailid(UUID.randomUUID().toString().replace("-", ""));
-							tTaskDetailInfoCustom.setTaskid(tTaskInfoCustom.getTaskid());
-							tTaskDetailInfoCustom.setTaskkeyword(tTaskInfoCustom.getTaskkeyword());
-							tTaskDetailInfoCustom.setTaskkeynum(tTaskInfoCustom.getTaskkeynum());
-							tTaskDetailInfoCustom.setSearchtype(tTaskInfoCustom.getTasksearchtype());
-							tTaskDetailInfoCustom.setTasktype(tTaskInfoCustom.getTasktype());
-							tTaskDetailInfoCustom.setPrice(tTaskInfoCustom.getTaskminprice());
-							tTaskDetailInfoCustom.setIscollection("0");
-							tTaskDetailInfoCustom.setIsshopping("1");
-							tTaskDetailInfoCustom.setIsstorecollection("0");
-							tTaskDetailInfoCustom.setIsfakechat("0");
-							tTaskDetailInfoCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
-							tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
-							tTaskDetailInfoCustom.setSubtractpoints(Integer.parseInt(tPriceInfoCustom.getPricecounts3()));
-							tTaskDetailInfoCustom.setTaskdate(tTaskInfoCustom.getTaskdate());
-							tTaskDetailInfoCustom.setTaskhour(j);
-							if(tSysconfInfoCustom.getSysconfvalue5().equals("1")){
-								tTaskDetailInfoCustom.setTaskminute(shoppingminute[j2]);
-								if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
-										&& j<= Integer.parseInt(hh.format(new Date())) && shoppingminute[j2] <= Integer.parseInt(mm.format(new Date()))){
+							int [] shoppingminute = new int[shoppinghoursum];
+							for(int a=0;a<shoppinghoursum ; a++){
+								shoppingminute[a]=a*60/shoppinghoursum;
+							}
+							/*int [] storecollectionminute = new int[storecollectionhoursum];
+							for(int a=0;a<storecollectionhoursum ; a++){
+								storecollectionminute[a]=a*60/storecollectionhoursum;
+							}
+							int [] fakechatminute = new int[fakechathoursum];
+							for(int a=0;a<fakechathoursum ; a++){
+								fakechatminute[a]=a*60/fakechathoursum;
+							}*/
+							//先分配收藏任务
+							for (int i = 0; i < collectionminute.length; i++) {
+								TTaskDetailInfoCustom tTaskDetailInfoCustom=new TTaskDetailInfoCustom();
+								tTaskDetailInfoCustom.setTaskdetailid(UUID.randomUUID().toString().replace("-", ""));
+								tTaskDetailInfoCustom.setTaskid(tTaskInfoCustom.getTaskid());
+								tTaskDetailInfoCustom.setTaskkeyword(tTaskInfoCustom.getTaskkeyword());
+								tTaskDetailInfoCustom.setTaskkeynum(tTaskInfoCustom.getTaskkeynum());
+								tTaskDetailInfoCustom.setSearchtype(tTaskInfoCustom.getTasksearchtype());
+								tTaskDetailInfoCustom.setTasktype(tTaskInfoCustom.getTasktype());
+								tTaskDetailInfoCustom.setPrice(tTaskInfoCustom.getTaskminprice());
+								tTaskDetailInfoCustom.setIscollection("1");
+								tTaskDetailInfoCustom.setIsshopping("0");
+								tTaskDetailInfoCustom.setIsstorecollection("0");
+								tTaskDetailInfoCustom.setIsfakechat("0");
+								tTaskDetailInfoCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
+								tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
+								tTaskDetailInfoCustom.setSubtractpoints(Integer.parseInt(tPriceInfoCustom.getPricecounts2()));
+								tTaskDetailInfoCustom.setTaskdate(tTaskInfoCustom.getTaskdate());
+								tTaskDetailInfoCustom.setTaskhour(j);
+								if(tSysconfInfoCustom.getSysconfvalue5().equals("1")){
+									tTaskDetailInfoCustom.setTaskminute(collectionminute[i]);
+									if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
+										&& j<= Integer.parseInt(hh.format(new Date())) && collectionminute[i] <= Integer.parseInt(mm.format(new Date()))){
 										tTaskDetailInfoCustom.setTaskstate("23");
 									}else{
 										tTaskDetailInfoCustom.setTaskstate("40");
 									}
-							}else{
-								tTaskDetailInfoCustom.setTaskminute(0);
-								if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
-									&& j<= Integer.parseInt(hh.format(new Date())) && 0 <= Integer.parseInt(mm.format(new Date()))){
-									tTaskDetailInfoCustom.setTaskstate("23");
 								}else{
-									tTaskDetailInfoCustom.setTaskstate("40");
-								}
-							}
-							tTaskDetailInfoCustom.setCreatetime(sdf.format(new Date()));
-							tTaskDetailInfoCustom.setCreateuser(tTaskInfoCustom.getCreateuser());
-							tTaskDetailInfoCustom.setUpdatetime(sdf.format(new Date()));
-							tTaskDetailInfoCustom.setUpdateuser(tTaskInfoCustom.getCreateuser());
-							taskDetailInfoService.insertDetailinfo(tTaskDetailInfoCustom);
-						}
-						//分配店铺收藏任务
-						for (int j2 = 0; j2 < storecollectionminute.length; j2++) {
-							TTaskDetailInfoCustom tTaskDetailInfoCustom=new TTaskDetailInfoCustom();
-							tTaskDetailInfoCustom.setTaskdetailid(UUID.randomUUID().toString().replace("-", ""));
-							tTaskDetailInfoCustom.setTaskid(tTaskInfoCustom.getTaskid());
-							tTaskDetailInfoCustom.setTaskkeyword(tTaskInfoCustom.getTaskkeyword());
-							tTaskDetailInfoCustom.setTaskkeynum(tTaskInfoCustom.getTaskkeynum());
-							tTaskDetailInfoCustom.setSearchtype(tTaskInfoCustom.getTasksearchtype());
-							tTaskDetailInfoCustom.setTasktype(tTaskInfoCustom.getTasktype());
-							tTaskDetailInfoCustom.setPrice(tTaskInfoCustom.getTaskminprice());
-							tTaskDetailInfoCustom.setIscollection("0");
-							tTaskDetailInfoCustom.setIsshopping("0");
-							tTaskDetailInfoCustom.setIsstorecollection("1");
-							tTaskDetailInfoCustom.setIsfakechat("0");
-							tTaskDetailInfoCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
-							tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
-							tTaskDetailInfoCustom.setSubtractpoints(Integer.parseInt(tPriceInfoCustom.getPricecounts3()));
-							tTaskDetailInfoCustom.setTaskdate(tTaskInfoCustom.getTaskdate());
-							tTaskDetailInfoCustom.setTaskhour(j);
-							if(tSysconfInfoCustom.getSysconfvalue5().equals("1")){
-								tTaskDetailInfoCustom.setTaskminute(storecollectionminute[j2]);
-								if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
-										&& j<= Integer.parseInt(hh.format(new Date())) && storecollectionminute[j2] <= Integer.parseInt(mm.format(new Date()))){
+									tTaskDetailInfoCustom.setTaskminute(0);
+									if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
+										&& j<= Integer.parseInt(hh.format(new Date())) && 0<= Integer.parseInt(mm.format(new Date()))){
 										tTaskDetailInfoCustom.setTaskstate("23");
 									}else{
 										tTaskDetailInfoCustom.setTaskstate("40");
 									}
-							}else{
-								tTaskDetailInfoCustom.setTaskminute(0);
-								if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
-									&& j<= Integer.parseInt(hh.format(new Date())) && 0 <= Integer.parseInt(mm.format(new Date()))){
-									tTaskDetailInfoCustom.setTaskstate("23");
-								}else{
-									tTaskDetailInfoCustom.setTaskstate("40");
 								}
+								tTaskDetailInfoCustom.setCreatetime(sdf.format(new Date()));
+								tTaskDetailInfoCustom.setCreateuser(tTaskInfoCustom.getCreateuser());
+								tTaskDetailInfoCustom.setUpdatetime(sdf.format(new Date()));
+								tTaskDetailInfoCustom.setUpdateuser(tTaskInfoCustom.getCreateuser());
+								taskDetailInfoService.insertDetailinfo(tTaskDetailInfoCustom);
 							}
-							tTaskDetailInfoCustom.setCreatetime(sdf.format(new Date()));
-							tTaskDetailInfoCustom.setCreateuser(tTaskInfoCustom.getCreateuser());
-							tTaskDetailInfoCustom.setUpdatetime(sdf.format(new Date()));
-							tTaskDetailInfoCustom.setUpdateuser(tTaskInfoCustom.getCreateuser());
-							taskDetailInfoService.insertDetailinfo(tTaskDetailInfoCustom);
-						}
-						//分配假聊任务
-						for (int j2 = 0; j2 < fakechatminute.length; j2++) {
-							TTaskDetailInfoCustom tTaskDetailInfoCustom=new TTaskDetailInfoCustom();
-							tTaskDetailInfoCustom.setTaskdetailid(UUID.randomUUID().toString().replace("-", ""));
-							tTaskDetailInfoCustom.setTaskid(tTaskInfoCustom.getTaskid());
-							tTaskDetailInfoCustom.setTaskkeyword(tTaskInfoCustom.getTaskkeyword());
-							tTaskDetailInfoCustom.setTaskkeynum(tTaskInfoCustom.getTaskkeynum());
-							tTaskDetailInfoCustom.setSearchtype(tTaskInfoCustom.getTasksearchtype());
-							tTaskDetailInfoCustom.setTasktype(tTaskInfoCustom.getTasktype());
-							tTaskDetailInfoCustom.setPrice(tTaskInfoCustom.getTaskminprice());
-							tTaskDetailInfoCustom.setIscollection("0");
-							tTaskDetailInfoCustom.setIsshopping("0");
-							tTaskDetailInfoCustom.setIsstorecollection("0");
-							tTaskDetailInfoCustom.setIsfakechat("1");
-							tTaskDetailInfoCustom.setFakechatstr1(tTaskInfoCustom.getFakechatstr1());
-							tTaskDetailInfoCustom.setFakechatstr2(tTaskInfoCustom.getFakechatstr2());
-							tTaskDetailInfoCustom.setFakechatstr3(tTaskInfoCustom.getFakechatstr3());
-							tTaskDetailInfoCustom.setFakechatstr4(tTaskInfoCustom.getFakechatstr4());
-							tTaskDetailInfoCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
-							tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
-							tTaskDetailInfoCustom.setSubtractpoints(Integer.parseInt(tPriceInfoCustom.getPricecounts3()));
-							tTaskDetailInfoCustom.setTaskdate(tTaskInfoCustom.getTaskdate());
-							tTaskDetailInfoCustom.setTaskhour(j);
-							if(tSysconfInfoCustom.getSysconfvalue5().equals("1")){
-								tTaskDetailInfoCustom.setTaskminute(fakechatminute[j2]);
-								if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
-										&& j<= Integer.parseInt(hh.format(new Date())) && fakechatminute[j2] <= Integer.parseInt(mm.format(new Date()))){
+							//分配购物车任务
+							for (int j2 = 0; j2 < shoppingminute.length; j2++) {
+								TTaskDetailInfoCustom tTaskDetailInfoCustom=new TTaskDetailInfoCustom();
+								tTaskDetailInfoCustom.setTaskdetailid(UUID.randomUUID().toString().replace("-", ""));
+								tTaskDetailInfoCustom.setTaskid(tTaskInfoCustom.getTaskid());
+								tTaskDetailInfoCustom.setTaskkeyword(tTaskInfoCustom.getTaskkeyword());
+								tTaskDetailInfoCustom.setTaskkeynum(tTaskInfoCustom.getTaskkeynum());
+								tTaskDetailInfoCustom.setSearchtype(tTaskInfoCustom.getTasksearchtype());
+								tTaskDetailInfoCustom.setTasktype(tTaskInfoCustom.getTasktype());
+								tTaskDetailInfoCustom.setPrice(tTaskInfoCustom.getTaskminprice());
+								tTaskDetailInfoCustom.setIscollection("0");
+								tTaskDetailInfoCustom.setIsshopping("1");
+								tTaskDetailInfoCustom.setIsstorecollection("0");
+								tTaskDetailInfoCustom.setIsfakechat("0");
+								tTaskDetailInfoCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
+								tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
+								tTaskDetailInfoCustom.setSubtractpoints(Integer.parseInt(tPriceInfoCustom.getPricecounts3()));
+								tTaskDetailInfoCustom.setTaskdate(tTaskInfoCustom.getTaskdate());
+								tTaskDetailInfoCustom.setTaskhour(j);
+								if(tSysconfInfoCustom.getSysconfvalue5().equals("1")){
+									tTaskDetailInfoCustom.setTaskminute(shoppingminute[j2]);
+									if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
+											&& j<= Integer.parseInt(hh.format(new Date())) && shoppingminute[j2] <= Integer.parseInt(mm.format(new Date()))){
+											tTaskDetailInfoCustom.setTaskstate("23");
+										}else{
+											tTaskDetailInfoCustom.setTaskstate("40");
+										}
+								}else{
+									tTaskDetailInfoCustom.setTaskminute(0);
+									if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
+										&& j<= Integer.parseInt(hh.format(new Date())) && 0 <= Integer.parseInt(mm.format(new Date()))){
 										tTaskDetailInfoCustom.setTaskstate("23");
 									}else{
 										tTaskDetailInfoCustom.setTaskstate("40");
 									}
-							}else{
-								tTaskDetailInfoCustom.setTaskminute(0);
-								if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
-									&& j<= Integer.parseInt(hh.format(new Date())) && 0 <= Integer.parseInt(mm.format(new Date()))){
-									tTaskDetailInfoCustom.setTaskstate("23");
-								}else{
-									tTaskDetailInfoCustom.setTaskstate("40");
 								}
+								tTaskDetailInfoCustom.setCreatetime(sdf.format(new Date()));
+								tTaskDetailInfoCustom.setCreateuser(tTaskInfoCustom.getCreateuser());
+								tTaskDetailInfoCustom.setUpdatetime(sdf.format(new Date()));
+								tTaskDetailInfoCustom.setUpdateuser(tTaskInfoCustom.getCreateuser());
+								taskDetailInfoService.insertDetailinfo(tTaskDetailInfoCustom);
 							}
-							tTaskDetailInfoCustom.setCreatetime(sdf.format(new Date()));
-							tTaskDetailInfoCustom.setCreateuser(tTaskInfoCustom.getCreateuser());
-							tTaskDetailInfoCustom.setUpdatetime(sdf.format(new Date()));
-							tTaskDetailInfoCustom.setUpdateuser(tTaskInfoCustom.getCreateuser());
-							taskDetailInfoService.insertDetailinfo(tTaskDetailInfoCustom);
+							/*
+							//分配店铺收藏任务
+							for (int j2 = 0; j2 < storecollectionminute.length; j2++) {
+								TTaskDetailInfoCustom tTaskDetailInfoCustom=new TTaskDetailInfoCustom();
+								tTaskDetailInfoCustom.setTaskdetailid(UUID.randomUUID().toString().replace("-", ""));
+								tTaskDetailInfoCustom.setTaskid(tTaskInfoCustom.getTaskid());
+								tTaskDetailInfoCustom.setTaskkeyword(tTaskInfoCustom.getTaskkeyword());
+								tTaskDetailInfoCustom.setTaskkeynum(tTaskInfoCustom.getTaskkeynum());
+								tTaskDetailInfoCustom.setSearchtype(tTaskInfoCustom.getTasksearchtype());
+								tTaskDetailInfoCustom.setTasktype(tTaskInfoCustom.getTasktype());
+								tTaskDetailInfoCustom.setPrice(tTaskInfoCustom.getTaskminprice());
+								tTaskDetailInfoCustom.setIscollection("0");
+								tTaskDetailInfoCustom.setIsshopping("0");
+								tTaskDetailInfoCustom.setIsstorecollection("1");
+								tTaskDetailInfoCustom.setIsfakechat("0");
+								tTaskDetailInfoCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
+								tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
+								tTaskDetailInfoCustom.setSubtractpoints(Integer.parseInt(tPriceInfoCustom.getPricecounts3()));
+								tTaskDetailInfoCustom.setTaskdate(tTaskInfoCustom.getTaskdate());
+								tTaskDetailInfoCustom.setTaskhour(j);
+								if(tSysconfInfoCustom.getSysconfvalue5().equals("1")){
+									tTaskDetailInfoCustom.setTaskminute(storecollectionminute[j2]);
+									if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
+											&& j<= Integer.parseInt(hh.format(new Date())) && storecollectionminute[j2] <= Integer.parseInt(mm.format(new Date()))){
+											tTaskDetailInfoCustom.setTaskstate("23");
+										}else{
+											tTaskDetailInfoCustom.setTaskstate("40");
+										}
+								}else{
+									tTaskDetailInfoCustom.setTaskminute(0);
+									if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
+										&& j<= Integer.parseInt(hh.format(new Date())) && 0 <= Integer.parseInt(mm.format(new Date()))){
+										tTaskDetailInfoCustom.setTaskstate("23");
+									}else{
+										tTaskDetailInfoCustom.setTaskstate("40");
+									}
+								}
+								tTaskDetailInfoCustom.setCreatetime(sdf.format(new Date()));
+								tTaskDetailInfoCustom.setCreateuser(tTaskInfoCustom.getCreateuser());
+								tTaskDetailInfoCustom.setUpdatetime(sdf.format(new Date()));
+								tTaskDetailInfoCustom.setUpdateuser(tTaskInfoCustom.getCreateuser());
+								taskDetailInfoService.insertDetailinfo(tTaskDetailInfoCustom);
+							}
+							//分配假聊任务
+							for (int j2 = 0; j2 < fakechatminute.length; j2++) {
+								TTaskDetailInfoCustom tTaskDetailInfoCustom=new TTaskDetailInfoCustom();
+								tTaskDetailInfoCustom.setTaskdetailid(UUID.randomUUID().toString().replace("-", ""));
+								tTaskDetailInfoCustom.setTaskid(tTaskInfoCustom.getTaskid());
+								tTaskDetailInfoCustom.setTaskkeyword(tTaskInfoCustom.getTaskkeyword());
+								tTaskDetailInfoCustom.setTaskkeynum(tTaskInfoCustom.getTaskkeynum());
+								tTaskDetailInfoCustom.setSearchtype(tTaskInfoCustom.getTasksearchtype());
+								tTaskDetailInfoCustom.setTasktype(tTaskInfoCustom.getTasktype());
+								tTaskDetailInfoCustom.setPrice(tTaskInfoCustom.getTaskminprice());
+								tTaskDetailInfoCustom.setIscollection("0");
+								tTaskDetailInfoCustom.setIsshopping("0");
+								tTaskDetailInfoCustom.setIsstorecollection("0");
+								tTaskDetailInfoCustom.setIsfakechat("1");
+								tTaskDetailInfoCustom.setFakechatstr1(tTaskInfoCustom.getFakechatstr1());
+								tTaskDetailInfoCustom.setFakechatstr2(tTaskInfoCustom.getFakechatstr2());
+								tTaskDetailInfoCustom.setFakechatstr3(tTaskInfoCustom.getFakechatstr3());
+								tTaskDetailInfoCustom.setFakechatstr4(tTaskInfoCustom.getFakechatstr4());
+								tTaskDetailInfoCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
+								tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
+								tTaskDetailInfoCustom.setSubtractpoints(Integer.parseInt(tPriceInfoCustom.getPricecounts3()));
+								tTaskDetailInfoCustom.setTaskdate(tTaskInfoCustom.getTaskdate());
+								tTaskDetailInfoCustom.setTaskhour(j);
+								if(tSysconfInfoCustom.getSysconfvalue5().equals("1")){
+									tTaskDetailInfoCustom.setTaskminute(fakechatminute[j2]);
+									if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
+											&& j<= Integer.parseInt(hh.format(new Date())) && fakechatminute[j2] <= Integer.parseInt(mm.format(new Date()))){
+											tTaskDetailInfoCustom.setTaskstate("23");
+										}else{
+											tTaskDetailInfoCustom.setTaskstate("40");
+										}
+								}else{
+									tTaskDetailInfoCustom.setTaskminute(0);
+									if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
+										&& j<= Integer.parseInt(hh.format(new Date())) && 0 <= Integer.parseInt(mm.format(new Date()))){
+										tTaskDetailInfoCustom.setTaskstate("23");
+									}else{
+										tTaskDetailInfoCustom.setTaskstate("40");
+									}
+								}
+								tTaskDetailInfoCustom.setCreatetime(sdf.format(new Date()));
+								tTaskDetailInfoCustom.setCreateuser(tTaskInfoCustom.getCreateuser());
+								tTaskDetailInfoCustom.setUpdatetime(sdf.format(new Date()));
+								tTaskDetailInfoCustom.setUpdateuser(tTaskInfoCustom.getCreateuser());
+								taskDetailInfoService.insertDetailinfo(tTaskDetailInfoCustom);
+							}*/
+						}
+					}
+					//2.将流量任务单独提取出来调用接口发布，并保存返回的订单号
+					TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom=new TTaskDetailInfoFlowCustom();
+					tTaskDetailInfoFlowCustom.setTaskid(tTaskInfoCustom.getTaskid());
+					tTaskDetailInfoFlowCustom.setTaskkeyword(tTaskInfoCustom.getTaskkeyword());
+					tTaskDetailInfoFlowCustom.setTaskhourcounts(tTaskInfoCustom.getTaskhourcounts());
+					tTaskDetailInfoFlowCustom.setSearchtype(tTaskInfoCustom.getTasksearchtype());
+					tTaskDetailInfoFlowCustom.setPrice(tTaskInfoCustom.getTaskminprice());
+					tTaskDetailInfoFlowCustom.setTaskkeynum(tTaskInfoCustom.getTaskkeynum());
+					tTaskDetailInfoFlowCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
+					tTaskDetailInfoFlowCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
+					tTaskDetailInfoFlowCustom.setTasktype(tTaskInfoCustom.getTasktype());
+					tTaskDetailInfoFlowCustom.setTaskstate("40");
+					tTaskDetailInfoFlowCustom.setDeepclick(tTaskInfoCustom.getDeepclick());
+					tTaskDetailInfoFlowCustom.setFinishcount(0);
+					tTaskDetailInfoFlowCustom.setErrorcount(0);
+					tTaskDetailInfoFlowCustom.setSubtractpoints(tTaskInfoCustom.getFlowcount()*Integer.parseInt(tPriceInfoCustom.getPricecounts2()));
+					tTaskDetailInfoFlowCustom.setTaskdate(tTaskInfoCustom.getTaskdate());
+					tTaskDetailInfoFlowCustom.setCreatetime(sdf.format(new Date()));
+					tTaskDetailInfoFlowCustom.setCreateuser(tTaskInfoCustom.getCreateuser());
+					tTaskDetailInfoFlowCustom.setUpdatetime(sdf.format(new Date()));
+					tTaskDetailInfoFlowCustom.setUpdateuser(tTaskInfoCustom.getCreateuser());
+					taskDetailInfoFlowService.insertTaskDetailInfoFlow(tTaskDetailInfoFlowCustom);
+					HashMap<String, Object> hashmaptest = new HashMap<String, Object>();
+					hashmaptest.put("usertestnick", tUserInfoCustom.getUsernick());
+					hashmaptest.put("page", 0);
+					hashmaptest.put("rows", middleRows);
+					List<TUsertestInfoCustom> tUsertestInfoCustomlist = usertestInfoService.findUserTest(hashmaptest);
+					if(tUsertestInfoCustomlist == null || tUsertestInfoCustomlist.size()<1){
+						//调用接口发送任务
+						HttpClient httpClient = new HttpClient();
+						String result="";
+					    PostMethod postMethod = new PostMethod("http://liuliangapp.com/api/tasks");
+					    postMethod.addParameter("name", tTaskDetailInfoFlowCustom.getTaskkeyword());
+					    postMethod.addParameter("keywords", tTaskDetailInfoFlowCustom.getTaskkeyword());
+					    postMethod.addParameter("product_url", "https://item.taobao.com/item.htm?id="+tTaskInfoCustom.getTaskkeynum());
+					    postMethod.addParameter("start_date", yyyy_MM_dd.format(yyyyMMdd.parse(tTaskInfoCustom.getTaskstartdate())));
+					    postMethod.addParameter("end_date", yyyy_MM_dd.format(yyyyMMdd.parse(tTaskInfoCustom.getTaskenddate())));
+					    postMethod.addParameter("hour_counts", "["+tTaskInfoCustom.getTaskhourcounts()+"]");
+					    postMethod.addParameter("duration", "2");
+					    postMethod.addParameter("plus", "true");
+					    postMethod.addParameter("gprs_pct", "40");
+					    postMethod.addParameter("tmall_app_pct", "20");
+					    postMethod.addParameter("deep_click_pct", tTaskDetailInfoFlowCustom.getDeepclick()==null?"0":tTaskDetailInfoFlowCustom.getDeepclick());
+					    postMethod.setRequestHeader("secret", secret);
+					    postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+					    int statusCode =  httpClient.executeMethod(postMethod);
+					    if(statusCode == 200) {
+					        result = postMethod.getResponseBodyAsString();
+					        if(result.indexOf("id")==-1){
+				            	result = StringUtilWxf.translat(result);
+				            	logger.info("调用发布任务"+ tTaskInfoCustom.getTaskpk() +"接口失败，错误信息:" + result);
+				            	map.put("msg", "调用发布任务接口失败，错误信息:" + result);
+				            	throw new RuntimeException();
+				            }else{
+				            	ObjectMapper obj = new ObjectMapper();
+				 	    		MsgInfoCustom msgInfoCustom = obj.readValue(result, MsgInfoCustom.class);
+				 	    		result = msgInfoCustom.getId() + "";
+				 	    		logger.info("调用发布任务接口成功!");
+				 	    		//将调用接口返回的订单号设置到流量任务记录中
+				 	    		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+				 	    		hashmap.put("taskdetailid", msgInfoCustom.getId());
+				 	    		hashmap.put("taskdetailpk", tTaskDetailInfoFlowCustom.getTaskdetailpk());
+				 	    		hashmap.put("taskid", tTaskDetailInfoFlowCustom.getTaskid());
+				 	    		taskDetailInfoFlowService.updateTaskdetailIdByPk(hashmap);
+				 	    		logger.info("更新返回的订单号成功，"+"单号：" + tTaskDetailInfoFlowCustom.getTaskdetailpk());
+				            }
+					    }else {
+					        map.put("msg", "失败错误码" + statusCode);
+					        throw new RuntimeException();
+					    }
+					}
+					HashMap<String,Object> hashmap3=new HashMap<String,Object>();
+					hashmap3.put("taskid", tTaskInfoCustom.getTaskid());
+					hashmap3.put("taskstate", "16");//任务运行中
+					hashmap3.put("updatetime", sdf.format(new Date()));
+					hashmap3.put("updateuser", "拆分任务");
+					taskInfoService.updateTaskstate(hashmap3);
+				}else{
+					for (int j = 0; j < hourarr.length; j++) {
+						if(!hourarr[j].equals("0")){
+							//得到每分钟没分配多少个
+							int [] ztcminute = new int[Integer.parseInt(hourarr[j])];
+							for(int a=0;a<Integer.parseInt(hourarr[j]) ; a++){
+								ztcminute[a]=a*60/Integer.parseInt(hourarr[j]);
+							}
+							
+							for (int i = 0; i < ztcminute.length; i++) {
+								TTaskDetailInfoCustom tTaskDetailInfoCustom=new TTaskDetailInfoCustom();
+								tTaskDetailInfoCustom.setTaskdetailid(UUID.randomUUID().toString().replace("-", ""));
+								tTaskDetailInfoCustom.setTaskid(tTaskInfoCustom.getTaskid());
+								tTaskDetailInfoCustom.setTaskkeyword(tTaskInfoCustom.getTaskkeyword());
+								tTaskDetailInfoCustom.setTaskkeynum(tTaskInfoCustom.getTaskkeynum());
+								tTaskDetailInfoCustom.setSearchtype(tTaskInfoCustom.getTasksearchtype());
+								tTaskDetailInfoCustom.setTasktype(tTaskInfoCustom.getTasktype());
+								tTaskDetailInfoCustom.setPrice(tTaskInfoCustom.getTaskminprice());
+								tTaskDetailInfoCustom.setIscollection("1");
+								tTaskDetailInfoCustom.setIsshopping("1");
+								tTaskDetailInfoCustom.setIsstorecollection("0");
+								tTaskDetailInfoCustom.setIsfakechat("0");
+								tTaskDetailInfoCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
+								tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
+								tTaskDetailInfoCustom.setSubtractpoints(Integer.parseInt(tPriceInfoCustom.getPricecounts2()));
+								tTaskDetailInfoCustom.setTaskdate(tTaskInfoCustom.getTaskdate());
+								tTaskDetailInfoCustom.setTaskhour(j);
+								if(tSysconfInfoCustom.getSysconfvalue5().equals("1")){
+									tTaskDetailInfoCustom.setTaskminute(ztcminute[i]);
+									if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
+										&& j<= Integer.parseInt(hh.format(new Date())) && ztcminute[i] <= Integer.parseInt(mm.format(new Date()))){
+										tTaskDetailInfoCustom.setTaskstate("23");
+									}else{
+										tTaskDetailInfoCustom.setTaskstate("40");
+									}
+								}else{
+									tTaskDetailInfoCustom.setTaskminute(0);
+									if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
+										&& j<= Integer.parseInt(hh.format(new Date())) && 0<= Integer.parseInt(mm.format(new Date()))){
+										tTaskDetailInfoCustom.setTaskstate("23");
+									}else{
+										tTaskDetailInfoCustom.setTaskstate("40");
+									}
+								}
+								tTaskDetailInfoCustom.setCreatetime(sdf.format(new Date()));
+								tTaskDetailInfoCustom.setCreateuser(tTaskInfoCustom.getCreateuser());
+								tTaskDetailInfoCustom.setUpdatetime(sdf.format(new Date()));
+								tTaskDetailInfoCustom.setUpdateuser(tTaskInfoCustom.getCreateuser());
+								taskDetailInfoService.insertDetailinfo(tTaskDetailInfoCustom);
+							}
 						}
 					}
 				}
-				//任务拆分
-				//1.先将流量任务单独提取出来调用接口发布，并保存返回的订单号
-				TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom=new TTaskDetailInfoFlowCustom();
-				tTaskDetailInfoFlowCustom.setTaskid(tTaskInfoCustom.getTaskid());
-				tTaskDetailInfoFlowCustom.setTaskkeyword(tTaskInfoCustom.getTaskkeyword());
-				tTaskDetailInfoFlowCustom.setTaskhourcounts(tTaskInfoCustom.getTaskhourcounts());
-				tTaskDetailInfoFlowCustom.setSearchtype(tTaskInfoCustom.getTasksearchtype());
-				tTaskDetailInfoFlowCustom.setPrice(tTaskInfoCustom.getTaskminprice());
-				tTaskDetailInfoFlowCustom.setTaskkeynum(tTaskInfoCustom.getTaskkeynum());
-				tTaskDetailInfoFlowCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
-				tTaskDetailInfoFlowCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
-				tTaskDetailInfoFlowCustom.setTasktype(tTaskInfoCustom.getTasktype());
-				tTaskDetailInfoFlowCustom.setTaskstate("40");
-				tTaskDetailInfoFlowCustom.setDeepclick(tTaskInfoCustom.getDeepclick());
-				tTaskDetailInfoFlowCustom.setFinishcount(0);
-				tTaskDetailInfoFlowCustom.setErrorcount(0);
-				tTaskDetailInfoFlowCustom.setSubtractpoints(tTaskInfoCustom.getFlowcount()*Integer.parseInt(tPriceInfoCustom.getPricecounts2()));
-				tTaskDetailInfoFlowCustom.setTaskdate(tTaskInfoCustom.getTaskdate());
-				tTaskDetailInfoFlowCustom.setCreatetime(sdf.format(new Date()));
-				tTaskDetailInfoFlowCustom.setCreateuser(tTaskInfoCustom.getCreateuser());
-				tTaskDetailInfoFlowCustom.setUpdatetime(sdf.format(new Date()));
-				tTaskDetailInfoFlowCustom.setUpdateuser(tTaskInfoCustom.getCreateuser());
-				taskDetailInfoFlowService.insertTaskDetailInfoFlow(tTaskDetailInfoFlowCustom);
-				HashMap<String, Object> hashmaptest = new HashMap<String, Object>();
-				hashmaptest.put("usertestnick", tUserInfoCustom.getUsernick());
-				hashmaptest.put("page", 0);
-				hashmaptest.put("rows", middleRows);
-				List<TUsertestInfoCustom> tUsertestInfoCustomlist = usertestInfoService.findUserTest(hashmaptest);
-				if(tUsertestInfoCustomlist == null || tUsertestInfoCustomlist.size()<1){
-					//调用接口发送任务
-					HttpClient httpClient = new HttpClient();
-					String result="";
-				    PostMethod postMethod = new PostMethod("http://liuliangapp.com/api/tasks");
-				    postMethod.addParameter("name", tTaskDetailInfoFlowCustom.getTaskkeyword());
-				    postMethod.addParameter("keywords", tTaskDetailInfoFlowCustom.getTaskkeyword());
-				    postMethod.addParameter("product_url", "https://item.taobao.com/item.htm?id="+tTaskInfoCustom.getTaskkeynum());
-				    postMethod.addParameter("start_date", yyyy_MM_dd.format(yyyyMMdd.parse(tTaskInfoCustom.getTaskstartdate())));
-				    postMethod.addParameter("end_date", yyyy_MM_dd.format(yyyyMMdd.parse(tTaskInfoCustom.getTaskenddate())));
-				    postMethod.addParameter("hour_counts", "["+tTaskInfoCustom.getTaskhourcounts()+"]");
-				    postMethod.addParameter("duration", "2");
-				    postMethod.addParameter("plus", "true");
-				    postMethod.addParameter("gprs_pct", "40");
-				    postMethod.addParameter("tmall_app_pct", "20");
-				    postMethod.addParameter("deep_click_pct", tTaskDetailInfoFlowCustom.getDeepclick()==null?"0":tTaskDetailInfoFlowCustom.getDeepclick());
-				    postMethod.setRequestHeader("secret", secret);
-				    postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
-				    int statusCode =  httpClient.executeMethod(postMethod);
-				    if(statusCode == 200) {
-				        result = postMethod.getResponseBodyAsString();
-				        if(result.indexOf("id")==-1){
-			            	result = StringUtilWxf.translat(result);
-			            	logger.info("调用发布任务"+ tTaskInfoCustom.getTaskpk() +"接口失败，错误信息:" + result);
-			            	map.put("msg", "调用发布任务接口失败，错误信息:" + result);
-			            	throw new RuntimeException();
-			            }else{
-			            	ObjectMapper obj = new ObjectMapper();
-			 	    		MsgInfoCustom msgInfoCustom = obj.readValue(result, MsgInfoCustom.class);
-			 	    		result = msgInfoCustom.getId() + "";
-			 	    		logger.info("调用发布任务接口成功!");
-			 	    		//将调用接口返回的订单号设置到流量任务记录中
-			 	    		HashMap<String, Object> hashmap = new HashMap<String, Object>();
-			 	    		hashmap.put("taskdetailid", msgInfoCustom.getId());
-			 	    		hashmap.put("taskdetailpk", tTaskDetailInfoFlowCustom.getTaskdetailpk());
-			 	    		hashmap.put("taskid", tTaskDetailInfoFlowCustom.getTaskid());
-			 	    		taskDetailInfoFlowService.updateTaskdetailIdByPk(hashmap);
-			 	    		logger.info("更新返回的订单号成功，"+"单号：" + tTaskDetailInfoFlowCustom.getTaskdetailpk());
-			            }
-				    }else {
-				        map.put("msg", "失败错误码" + statusCode);
-				        throw new RuntimeException();
-				    }
-				}
-				HashMap<String,Object> hashmap3=new HashMap<String,Object>();
-				hashmap3.put("taskid", tTaskInfoCustom.getTaskid());
-				hashmap3.put("taskstate", "16");//任务运行中
-				hashmap3.put("updatetime", sdf.format(new Date()));
-				hashmap3.put("updateuser", "拆分任务");
-				taskInfoService.updateTaskstate(hashmap3);
 			}
 		}
 		return map;

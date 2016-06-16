@@ -27,9 +27,13 @@ public class TTaskInfo {
 
     private String taskhourcounts;
 
+    private String taskprice;
+
     private String taskminprice;
 
     private String taskmaxprice;
+
+    private String shipaddress;
 
     private String tasksearchtype;
 
@@ -183,6 +187,14 @@ public class TTaskInfo {
         this.taskhourcounts = taskhourcounts == null ? null : taskhourcounts.trim();
     }
 
+    public String getTaskprice() {
+        return taskprice;
+    }
+
+    public void setTaskprice(String taskprice) {
+        this.taskprice = taskprice == null ? null : taskprice.trim();
+    }
+
     public String getTaskminprice() {
         return taskminprice;
     }
@@ -197,6 +209,14 @@ public class TTaskInfo {
 
     public void setTaskmaxprice(String taskmaxprice) {
         this.taskmaxprice = taskmaxprice == null ? null : taskmaxprice.trim();
+    }
+
+    public String getShipaddress() {
+        return shipaddress;
+    }
+
+    public void setShipaddress(String shipaddress) {
+        this.shipaddress = shipaddress == null ? null : shipaddress.trim();
     }
 
     public String getTasksearchtype() {

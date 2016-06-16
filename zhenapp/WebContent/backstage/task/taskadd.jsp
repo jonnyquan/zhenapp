@@ -308,7 +308,7 @@
 				<div class="u_outbox">
 					<div class="tabtitle clearfix">
 						<a href="${pageContext.request.contextPath}/task/responsetaskadd" class="row_l hover">淘宝APP流量</a>
-						<!--  <a href="${pageContext.request.contextPath}/task/responsetaskztcadd" class="row_l ">淘宝APP直通车流量</a>-->
+						<a href="${pageContext.request.contextPath}/task/responsetaskztcadd" class="row_l ">淘宝APP直通车流量</a>
 						<a href="${pageContext.request.contextPath}/frontend/articleguidedetail/5" target="_blank" class="row_r" style="color:#FF0000">如何发布淘宝APP流量？</a>
 					</div>
 					<div class="umainbox">
@@ -398,11 +398,11 @@
 										</div>
 										<div class="form_control clearfix">
 											<label class="form_label">限价区间：</label> 
-											<input class="form_input input50" type="text" name="priceRangeMinValue" id="priceRangeMinValue" v-model="start_price" value=0 /> 
+											<input class="form_input input50" type="text" name="taskminprice" id="taskminprice" v-model="start_price" value=0 /> 
 											<span class="Validform_checktip scan_break">--</span> 
-											<input class="form_input input50" type="text" name="priceRangeMaxValue" id="priceRangeMaxValue" v-model="end_price" value=0 /> 
+											<input class="form_input input50" type="text" name="taskmaxprice" id="taskmaxprice" v-model="end_price" value=0 /> 
 											<label class="form_label">发货地：</label>
-											<select name="searchArea" id="searchArea" class="form_select select_big" v-model="loc">
+											<select name="shipaddress" id="shipaddress" class="form_select select_big" v-model="loc">
 												<option value="所有地区">所有地区</option>
 												<option value="江浙沪">江浙沪</option>
 												<option value="珠三角">珠三角</option>
@@ -718,11 +718,11 @@
 									<input type="text" name="deepclick" id="deepclick" maxlength="3" onchange="checkdeep();"
 													onkeyup="this.value=this.value.replace(/\D/g,'')"
 													onafterpaste="this.value=this.value.replace(/\D/g,'')"
-													<c:if test="${tTaskInfoCustom.shoppingcount!=null }">value="${tTaskInfoCustom.shoppingcount}"</c:if>
-													<c:if test="${tTaskInfoCustom.shoppingcount==null }">value="0"</c:if>
+													<c:if test="${tTaskInfoCustom.deepclick!=null }">value="${tTaskInfoCustom.deepclick}"</c:if>
+													<c:if test="${tTaskInfoCustom.deepclick==null }">value="1"</c:if>
 													 />
 													 <apan style="font-size:20px;">%</apan>
-												（百分比，0到100整数，浏览店铺其它宝贝比例）&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_deepclick"></span>
+												（百分比，1到100整数，浏览店铺其它宝贝比例）&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_deepclick"></span>
 								</div>
 								<div class="form_control clearfix">
 									<label class="form_label">收藏数量：</label> 
@@ -747,7 +747,7 @@
 								<div class="form_control clearfix">
 									<span style="color: red;padding-left: 100px;">* 请注意商品必须有库存，做活动时候放不了购物车</span>
 								</div>
-								<div class="form_control clearfix">
+								<!--  <div class="form_control clearfix">
 									<label class="form_label">店铺收藏数量：</label> 
 									<input type="text" name="storecollectioncount" id="storecollectioncount"
 										placeholder="请输入店铺收藏数" onchange="fpdpsc(this)" 
@@ -809,7 +809,7 @@
 								</div>
 								<div class="form_control clearfix">
 									<span style="color: red;padding-left: 100px;">*假聊信息字数不超过20个</span>
-								</div>
+								</div>-->
 								<div id="buttonSubmit" class="form_control"
 									style="margin-top:20px; border-bottom:none;">
 									<div class="botton" style="margin-left:40px;">

@@ -278,6 +278,7 @@ input {
 			<div class="umainbox">
 				<!--main-->
 				<form id="searchform" class="koo_fromBox" action="${pageContext.request.contextPath}/task/responsetaskmanage" method="post">
+				<input type="hidden" name="page" id="page">
 				<table class="table table-bordered">
 						<tr>
 							<td>
@@ -335,20 +336,16 @@ input {
 						<thead>
 							<tr class="active">
 							  <th style="width:10px;">选择</th>
-				              <th style="width:80px;">订单ID</th>
-				              <th style="width:100px;">宝贝ID</th>
+				              <th style="width:100px;">订单ID</th>
+				              <th style="width:110px;">宝贝ID</th>
 				              <th style="width:40px;">类型</th>
-				              <th style="width:50px;">关键词</th>
+				              <th style="width:130px;">关键词</th>
 				              <th style="width:35px;">访</th>
 				              <th style="width:35px;">藏</th>
 				              <th style="width:35px;">购</th>
-				              <th style="width:35px;">店铺</th>
-				              <th style="width:35px;">假聊</th>
 				              <th style="width:40px;">完成访问</th>
 				              <th style="width:40px;">完成收藏</th>
 				              <th style="width:40px;">完成加购</th>
-				              <th style="width:40px;">完成店铺</th>
-				              <th style="width:40px;">完成假聊</th>
 				              <th style="width:40px;">失败</th>
 				              <th style="width:60px;">任务日期</th>
 				              <th style="width:80px;">发布时间</th>
@@ -374,13 +371,9 @@ input {
 					                <td>${list.flowcount }</td>
 					                <td>${list.collectioncount }</td>
 					                <td>${list.shoppingcount }</td>
-					                <td>${list.storecollectioncount }</td>
-					                <td>${list.fakechatcount }</td>
 					                <td>${list.finishflowcount }</td>
 					                <td>${list.finishcollectioncount }</td>
 					                <td>${list.finishshoppingcount }</td>
-					                <td>${list.finishstorecollectioncount }</td>
-					                <td>${list.finishfakechatcount }</td>
 					                <td class="font-red">${list.errorcount}</td>
 					                <td >${list.taskdaterange}</td>
 					                <td >${list.createtime}</td>
@@ -464,29 +457,13 @@ input {
 		});
 	});
 });
-/*
-function againtask(taskid){
-	$.ajax({
-		url : "${pageContext.request.contextPath}/task/againtaskBytaskid/"+taskid,
-		type : 'post',
-		success : function (data, response, status) {
-			if (data!=null && data.data=="success") {
-				alert("发布成功！");
-				window.location.href="${pageContext.request.contextPath}/task/responsetaskmanage";
-			} else if(data!=null && data.data=="low") {
-				alert("余额不足,发布失败！");
-			} else if(data!=null && data.data=="refuse") {
-				alert("系统维护暂停任务发布！");
-			} else{
-				alert("任务发布失败,请联系客服！");
-			}
-		}
-	});
-}*/
 function againtask(taskid){
 	window.location.href="${pageContext.request.contextPath}/task/againtaskBytaskid/"+taskid;
 }
-
+function btn_search(num){
+	$("#page").val(num);
+	$("#searchform").submit();
+}
 function endtask(taskid,obj){
 	$(obj).attr("disabled","true");
 	$.ajax({
@@ -523,14 +500,14 @@ function loadpage() {
 		totalPages : parseInt($("#countindex").val()),
 		visiblePages : parseInt($("#visiblePages").val()),
 		currentPage : index,
-		first : '<li class="first"><a href="${pageContext.request.contextPath}/task/responsetaskmanage?page=1">首页</a></li>',
+		first : '<li class="first"><a onclick="btn_search(1);">首页</a></li>',
 		prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
 		next : '<li class="next"><a href="javascript:;">下一页</a></li>',
 		last : '<li class="last"><a href="javascript:;">末页</a></li>',
 		page : '<li class="page"><a href="javascript:;">{{page}}</a></li>',
 		onPageChange : function(num, type) {
 			if (type == "change") {
-				window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanage?page=" + num;
+				btn_search(num);
 			}
 		}
 	});
@@ -543,8 +520,6 @@ function fn_deleteTaskBypk (obj){
 	    }
 	});
 }
-		
-		
-	</script>
+</script>
 </body>
 </html>

@@ -78,7 +78,7 @@ public class AllocationTask {
 			}
 			String taskkeynumstrisshopping =sbisshopping.toString().length()>1?sbisshopping.toString().substring(0, sbisshopping.toString().length()-1):"";
 			allocationshoppingTaskService.allocateiontaskshopping(tPhoneInfoCustom,taskkeynumstrisshopping);
-			
+			/*
 			hashmap.clear();
 			hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
 			hashmap.put("isstorecollection", 1);
@@ -104,6 +104,7 @@ public class AllocationTask {
 			}
 			String taskkeynumstrisfakechat =sbisfakechat.toString().length()>1?sbisfakechat.toString().substring(0, sbisfakechat.toString().length()-1):"";
 			allocationfakechatTaskService.allocateiontaskfakechat(tPhoneInfoCustom,taskkeynumstrisfakechat);
+			*/
 		}
 		return map;
 	}

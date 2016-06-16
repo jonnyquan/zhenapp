@@ -37,8 +37,6 @@ public class TTaskDetailinfoFlow {
 
     private String iscreativetitle;
 
-    private String isshopcollect;
-
     private String taskstate;
 
     private String taskdate;
@@ -199,14 +197,6 @@ public class TTaskDetailinfoFlow {
 
     public void setIscreativetitle(String iscreativetitle) {
         this.iscreativetitle = iscreativetitle == null ? null : iscreativetitle.trim();
-    }
-
-    public String getIsshopcollect() {
-        return isshopcollect;
-    }
-
-    public void setIsshopcollect(String isshopcollect) {
-        this.isshopcollect = isshopcollect == null ? null : isshopcollect.trim();
     }
 
     public String getTaskstate() {

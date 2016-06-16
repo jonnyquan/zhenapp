@@ -22,6 +22,9 @@
 		<if test="tasknumstr != null and tasknumstr != '' ">
 			AND a.taskkeynum NOT IN (${tasknumstr})
 		</if>
+		<if test="tasktype != null and tasktype != '' ">
+			AND a.tasktype = #{tasktype}
+		</if>
 	</where>
 	AND a.phoneid IS NULL AND a.taskstate='40' AND a.taskdate=#{today} and a.resultstr is null
 	AND (CASE WHEN a.taskminute>9 THEN CONCAT(a.taskhour,a.taskminute)+0 <![CDATA[<=]]> #{HHmm}+0 ELSE CONCAT(a.taskhour,'0',a.taskminute)+0 <![CDATA[<=]]> #{HHmm}+0 END)
@@ -202,6 +205,9 @@
   		</if>
   		<if test="taskstate != null and taskstate != '' ">
   			and taskstate in (${taskstate})
+  		</if>
+  		<if test="taskid != null and taskid != '' ">
+  			and taskid = #{taskid}
   		</if>
   	</where>
   </select>

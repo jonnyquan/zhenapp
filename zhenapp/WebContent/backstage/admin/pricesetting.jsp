@@ -65,9 +65,16 @@
   </div>
   <form class="am-form am-form-horizontal am-padding" id="syssconf-form" action="${pageContext.request.contextPath}/price/updatePriceByAgentidadmin" method="post">
     <input type="hidden" value="${tPriceAgentInfoCustom.agentid }" name="agentid">
-    
+     <div class="am-form-group">
+        <label for="flow_price" class="am-u-sm-4 am-form-label">流量单价</label>
+        <div class="am-u-sm-4">
+          <input type="text" name="pricecounts1" placeholder="流量单价" value="${tPriceAgentInfoCustom.pricecounts1 }">
+        </div>
+        <div class="am-u-sm-2" style="padding: 0px;">积分/个</div>
+      </div>
+      
       <div class="am-form-group">
-        <label for="cart_price" class="am-u-sm-4 am-form-label">购物车单价</label>
+        <label for="cart_price" class="am-u-sm-4 am-form-label">购物车单价(流量)</label>
         <div class="am-u-sm-4">
           <input type="text" name="pricecounts2" placeholder="购物车单价" value="${tPriceAgentInfoCustom.pricecounts2 }">
         </div>
@@ -75,30 +82,36 @@
       </div>
       
       <div class="am-form-group">
-        <label for="collect_price" class="am-u-sm-4 am-form-label">收藏单价</label>
+        <label for="collect_price" class="am-u-sm-4 am-form-label">收藏单价(流量)</label>
         <div class="am-u-sm-4">
           <input type="text" name="pricecounts3" placeholder="收藏单价" value="${tPriceAgentInfoCustom.pricecounts3 }">
         </div>
         <div class="am-u-sm-2" style="padding: 0px;">积分/个</div>
       </div>
       
-      <div class="am-form-group">
+	 <div class="am-form-group">
         <label for="train_price" class="am-u-sm-4 am-form-label">直通车单价</label>
         <div class="am-u-sm-4">
           <input type="text" name="pricecounts4" placeholder="直通车单价" value="${tPriceAgentInfoCustom.pricecounts4 }">
         </div>
         <div class="am-u-sm-2" style="padding: 0px;">积分/个</div>
       </div>
-      
       <div class="am-form-group">
-        <label for="flow_price" class="am-u-sm-4 am-form-label">流量单价</label>
+        <label for="cart_price" class="am-u-sm-4 am-form-label">购物车单价(直通车)</label>
         <div class="am-u-sm-4">
-          <input type="text" name="pricecounts1" placeholder="流量单价" value="${tPriceAgentInfoCustom.pricecounts1 }">
+          <input type="text" name="pricecounts5" placeholder="购物车单价" value="${tPriceAgentInfoCustom.pricecounts5 }">
         </div>
         <div class="am-u-sm-2" style="padding: 0px;">积分/个</div>
       </div>
-    
-
+      
+      <div class="am-form-group">
+        <label for="collect_price" class="am-u-sm-4 am-form-label">收藏单价(直通车)</label>
+        <div class="am-u-sm-4">
+          <input type="text" name="pricecounts6" placeholder="收藏单价" value="${tPriceAgentInfoCustom.pricecounts6 }">
+        </div>
+        <div class="am-u-sm-2" style="padding: 0px;">积分/个</div>
+      </div>
+      
     <div class="am-form-group">
       <div class="am-u-sm-3 am-u-sm-push-4">
         <button type="submit" class="am-btn am-btn-primary">

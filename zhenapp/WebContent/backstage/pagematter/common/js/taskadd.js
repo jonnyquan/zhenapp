@@ -225,12 +225,12 @@ var isurl=false;
 					collectioncount : $("#collectioncount").val(),
 					shoppingcount : $("#shoppingcount").val(),
 					subtractpoints : $("#sum").text(),
-					storecollectioncount : $("#storecollectioncount").val(),
-					fakechatcount : $("#fakechatcount").val(),
-					fakechatstr1 : $("#fakechatstr1").val(),
-					fakechatstr2 : $("#fakechatstr2").val(),
-					fakechatstr3 : $("#fakechatstr3").val(),
-					fakechatstr4 : $("#fakechatstr4").val(),
+					//storecollectioncount : $("#storecollectioncount").val(),
+					//fakechatcount : $("#fakechatcount").val(),
+					//fakechatstr1 : $("#fakechatstr1").val(),
+					//fakechatstr2 : $("#fakechatstr2").val(),
+					//fakechatstr3 : $("#fakechatstr3").val(),
+					//fakechatstr4 : $("#fakechatstr4").val(),
 				},
 				success:function(data,state){
 					$('#subbtn').removeAttr("disabled");
@@ -280,20 +280,12 @@ var isurl=false;
 		$("#gwcs_1").html(temp3);
 		$("#gwcs_3").html(parseInt($('#gwcs_2').text())*temp3);
 		if(parseInt(temp1) < parseInt(temp2)){
-			/*$.messager.alert('消息提示', '发布流量数不得小于收藏数!', 'info',function () {
-				$("#collectioncount").focus();
-				return false;
-			});*/
 			$("#span_flowcount").html("发布流量数不得小于收藏数");
 			$("#span_flowcount").css("color","red");
 			$("#flowcount").focus();
 			return false;
 		}
 		if(parseInt(temp1) < parseInt(temp3)){
-			/*$.messager.alert('消息提示', '发布流量数不得小于加购物车数!', 'info',function () {
-				$("#shoppingcount").focus();
-				return false;
-			});*/
 			$("#span_flowcount").html("发布流量数不得小于加购物车数!");
 			$("#span_flowcount").css("color","red");
 			$("#flowcount").focus();
@@ -366,10 +358,6 @@ var isurl=false;
 			temp=0;
 		}
 		if(parseInt(temp) > parseInt(scmax)){
-			/*$.messager.alert('消息提示', '该宝贝id发布收藏数不能大于允许发布的最大收藏数!', 'info', function () {
-				$("#collectioncount").val(scmax);
-				return false;
-			});*/
 			$("#span_collection").html("该宝贝发布收藏数不能大于允许发布的最大收藏数");
 			$("#span_collection").css("color","red");
 			$("#collectioncount").val(scmax);
@@ -389,10 +377,6 @@ var isurl=false;
 			temp=0;
 		}
 		if(parseInt(temp) > parseInt(gwcmax)){
-			/*$.messager.alert('消息提示', '该宝贝id发布加购数不能大于允许发布的最大加购数!', 'info', function () {
-				$("#shoppingcount").val(gwcmax);
-				return false;
-			});*/
 			$("#span_shopping").html("该宝贝发布加购数不能大于允许发布的最大加购数");
 			$("#span_shopping").css("color","red");
 			$("#shoppingcount").val(gwcmax);
@@ -404,7 +388,6 @@ var isurl=false;
 			totalsum();
 		}
 	}
-
 	/*
 	检查宝贝id当天可以发布多少流量数
 	*/
@@ -454,7 +437,7 @@ var isurl=false;
 						scmax=data.collectiontaskcount;
 						gwcmax=data.shoppingtaskcount;
 						$("#span_shopping_text").html("  今天最多还可发:"+gwcmax);
-						$("#span_collection_text").html("  今天最多还可发："+scmax);
+						$("#span_collection_text").html("  今天最多还可发:"+scmax);
 						if(parseInt($("#flowcount").val()) > parseInt(llmax)){
 							
 						}else{
@@ -463,9 +446,6 @@ var isurl=false;
 							fpll($("#flowcount")[0]);
 						}
 						if(parseInt($("#collectioncount").val()) > parseInt(scmax)){
-							/*$.messager.alert('消息提示', '该宝贝发布收藏数不能大于允许发布的最大收藏数!', 'info', function () {
-								$("#collectioncount").val(scmax);
-							});*/
 							$("#span_collection").html("该宝贝发布收藏数不能大于允许发布的最大收藏数");
 							$("#span_collection").css("color","red");
 							$("#collectioncount").val(scmax);
@@ -474,9 +454,6 @@ var isurl=false;
 							$("#span_collection").css("color","green");
 						}
 						if(parseInt($("#shoppingcount").val()) > parseInt(gwcmax)){
-							/*$.messager.alert('消息提示', '该宝贝发布加购数不能大于允许发布的最大加购数!', 'info', function () {
-								$("#shoppingcount").val(gwcmax);
-							});*/
 							$("#span_shoppingcount").html("该宝贝发布加购数不能大于允许发布的最大加购数");
 							$("#span_shoppingcount").css("color","red");
 							$("#shoppingcount").val(gwcmax);
@@ -496,7 +473,6 @@ var isurl=false;
 			});
 		}
 	}
-	
 	/*
 	 *验证关键词
 	 */
@@ -561,9 +537,6 @@ var isurl=false;
 		var   type="^[0-9]*[1-9][0-9]*$"; 
         var   re   =   new   RegExp(type); 
         if(deep.match(re)==null) {
-			/*$.messager.alert('消息提示', '深入点击比例为0到100的正整数,请重新输入深入点击比例!', 'info', function () {
-				$('#deepclick').focus();
-			});*/
 			$("#span_deepclick").html("请检查输入的深入点击比例!");
 			$("#span_deepclick").css("color","red");
 			$("#deepclick").focus();

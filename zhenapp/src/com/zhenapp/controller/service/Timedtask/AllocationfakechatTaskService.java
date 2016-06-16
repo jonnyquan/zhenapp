@@ -43,6 +43,7 @@ public class AllocationfakechatTaskService {
 		hashmap.put("today", yyyyMMdd.format(new Date()));
 		hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
 		hashmap.put("tasknumstr", tasknumstr);
+		hashmap.put("tasktype", "33");
 		TTaskDetailInfoCustom tTaskDetailInfoCustom = taskDetailInfoService.requesttaskByphoneid_temp(hashmap);
 		if(tTaskDetailInfoCustom!=null){
 			tTaskDetailInfoCustom.setPhoneid(tPhoneInfoCustom.getPhoneid());

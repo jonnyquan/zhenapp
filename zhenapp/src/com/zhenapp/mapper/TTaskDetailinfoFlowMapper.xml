@@ -20,7 +20,6 @@
     <result column="deepclick" property="deepclick" jdbcType="VARCHAR" />
     <result column="isflow" property="isflow" jdbcType="VARCHAR" />
     <result column="iscreativetitle" property="iscreativetitle" jdbcType="VARCHAR" />
-    <result column="isshopcollect" property="isshopcollect" jdbcType="VARCHAR" />
     <result column="taskstate" property="taskstate" jdbcType="VARCHAR" />
     <result column="taskdate" property="taskdate" jdbcType="VARCHAR" />
     <result column="finishcount" property="finishcount" jdbcType="INTEGER" />
@@ -92,8 +91,8 @@
   <sql id="Base_Column_List" >
     taskdetailpk, taskdetailid, taskid, taskkeyword, taskhourcounts, searchtype, price, 
     region, isfreeship, istmall, taskkeynum, taskurl, minpicture, maxpicture, tasktype, 
-    deepclick, isflow, iscreativetitle, isshopcollect, taskstate, taskdate, finishcount, 
-    errorcount, subtractpoints, createtime, createuser, updatetime, updateuser
+    deepclick, isflow, iscreativetitle, taskstate, taskdate, finishcount, errorcount, 
+    subtractpoints, createtime, createuser, updatetime, updateuser
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TTaskDetailinfoFlowExample" >
     select
@@ -132,20 +131,20 @@
       istmall, taskkeynum, taskurl, 
       minpicture, maxpicture, tasktype, 
       deepclick, isflow, iscreativetitle, 
-      isshopcollect, taskstate, taskdate, 
-      finishcount, errorcount, subtractpoints, 
-      createtime, createuser, updatetime, 
-      updateuser)
+      taskstate, taskdate, finishcount, 
+      errorcount, subtractpoints, createtime, 
+      createuser, updatetime, updateuser
+      )
     values (#{taskdetailpk,jdbcType=INTEGER}, #{taskdetailid,jdbcType=VARCHAR}, #{taskid,jdbcType=VARCHAR}, 
       #{taskkeyword,jdbcType=VARCHAR}, #{taskhourcounts,jdbcType=VARCHAR}, #{searchtype,jdbcType=VARCHAR}, 
       #{price,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, #{isfreeship,jdbcType=VARCHAR}, 
       #{istmall,jdbcType=VARCHAR}, #{taskkeynum,jdbcType=VARCHAR}, #{taskurl,jdbcType=VARCHAR}, 
       #{minpicture,jdbcType=VARCHAR}, #{maxpicture,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
       #{deepclick,jdbcType=VARCHAR}, #{isflow,jdbcType=VARCHAR}, #{iscreativetitle,jdbcType=VARCHAR}, 
-      #{isshopcollect,jdbcType=VARCHAR}, #{taskstate,jdbcType=VARCHAR}, #{taskdate,jdbcType=VARCHAR}, 
-      #{finishcount,jdbcType=INTEGER}, #{errorcount,jdbcType=INTEGER}, #{subtractpoints,jdbcType=INTEGER}, 
-      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
-      #{updateuser,jdbcType=VARCHAR})
+      #{taskstate,jdbcType=VARCHAR}, #{taskdate,jdbcType=VARCHAR}, #{finishcount,jdbcType=INTEGER}, 
+      #{errorcount,jdbcType=INTEGER}, #{subtractpoints,jdbcType=INTEGER}, #{createtime,jdbcType=VARCHAR}, 
+      #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.zhenapp.po.TTaskDetailinfoFlow" >
     insert into t_task_detailinfo_flow
@@ -203,9 +202,6 @@
       </if>
       <if test="iscreativetitle != null" >
         iscreativetitle,
-      </if>
-      <if test="isshopcollect != null" >
-        isshopcollect,
       </if>
       <if test="taskstate != null" >
         taskstate,
@@ -289,9 +285,6 @@
       </if>
       <if test="iscreativetitle != null" >
         #{iscreativetitle,jdbcType=VARCHAR},
-      </if>
-      <if test="isshopcollect != null" >
-        #{isshopcollect,jdbcType=VARCHAR},
       </if>
       <if test="taskstate != null" >
         #{taskstate,jdbcType=VARCHAR},
@@ -385,9 +378,6 @@
       <if test="record.iscreativetitle != null" >
         iscreativetitle = #{record.iscreativetitle,jdbcType=VARCHAR},
       </if>
-      <if test="record.isshopcollect != null" >
-        isshopcollect = #{record.isshopcollect,jdbcType=VARCHAR},
-      </if>
       <if test="record.taskstate != null" >
         taskstate = #{record.taskstate,jdbcType=VARCHAR},
       </if>
@@ -440,7 +430,6 @@
       deepclick = #{record.deepclick,jdbcType=VARCHAR},
       isflow = #{record.isflow,jdbcType=VARCHAR},
       iscreativetitle = #{record.iscreativetitle,jdbcType=VARCHAR},
-      isshopcollect = #{record.isshopcollect,jdbcType=VARCHAR},
       taskstate = #{record.taskstate,jdbcType=VARCHAR},
       taskdate = #{record.taskdate,jdbcType=VARCHAR},
       finishcount = #{record.finishcount,jdbcType=INTEGER},
@@ -508,9 +497,6 @@
       <if test="iscreativetitle != null" >
         iscreativetitle = #{iscreativetitle,jdbcType=VARCHAR},
       </if>
-      <if test="isshopcollect != null" >
-        isshopcollect = #{isshopcollect,jdbcType=VARCHAR},
-      </if>
       <if test="taskstate != null" >
         taskstate = #{taskstate,jdbcType=VARCHAR},
       </if>
@@ -560,7 +546,6 @@
       deepclick = #{deepclick,jdbcType=VARCHAR},
       isflow = #{isflow,jdbcType=VARCHAR},
       iscreativetitle = #{iscreativetitle,jdbcType=VARCHAR},
-      isshopcollect = #{isshopcollect,jdbcType=VARCHAR},
       taskstate = #{taskstate,jdbcType=VARCHAR},
       taskdate = #{taskdate,jdbcType=VARCHAR},
       finishcount = #{finishcount,jdbcType=INTEGER},

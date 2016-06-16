@@ -12,13 +12,17 @@
 	      pricetype2, pricecode2, pricecounts2, 
 	      pricetype3, pricecode3, pricecounts3, 
 	      pricetype4, pricecode4, pricecounts4, 
+	      pricetype5, pricecode5, pricecounts5, 
+	      pricetype6, pricecode6, pricecounts6, 
 	      createtime, createuser, updatetime, 
 	      updateuser)
 	    values (#{priceid,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
 	      #{pricetype1,jdbcType=VARCHAR}, #{pricecode1,jdbcType=VARCHAR}, #{pricecounts1,jdbcType=VARCHAR}, 
 	      #{pricetype2,jdbcType=VARCHAR}, #{pricecode2,jdbcType=VARCHAR}, #{pricecounts2,jdbcType=VARCHAR}, 
 	      #{pricetype3,jdbcType=VARCHAR}, #{pricecode3,jdbcType=VARCHAR}, #{pricecounts3,jdbcType=VARCHAR}, 
-	      #{pricetype4,jdbcType=VARCHAR}, #{pricecode4,jdbcType=VARCHAR}, #{pricecounts4,jdbcType=VARCHAR}, 
+	      #{pricetype4,jdbcType=VARCHAR}, #{pricecode4,jdbcType=VARCHAR}, #{pricecounts4,jdbcType=VARCHAR},
+	      #{pricetype5,jdbcType=VARCHAR}, #{pricecode5,jdbcType=VARCHAR}, #{pricecounts5,jdbcType=VARCHAR},
+	      #{pricetype6,jdbcType=VARCHAR}, #{pricecode6,jdbcType=VARCHAR}, #{pricecounts6,jdbcType=VARCHAR}, 
 	      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
 	      #{updateuser,jdbcType=VARCHAR})
 	</insert>
@@ -30,6 +34,8 @@
 	      pricecounts2 = #{pricecounts2,jdbcType=VARCHAR},
 	      pricecounts3 = #{pricecounts3,jdbcType=VARCHAR},
 	      pricecounts4 = #{pricecounts4,jdbcType=VARCHAR},
+	      pricecounts5 = #{pricecounts5,jdbcType=VARCHAR},
+	      pricecounts6 = #{pricecounts6,jdbcType=VARCHAR},
 	      updatetime = #{updatetime,jdbcType=VARCHAR},
 	      updateuser = #{updateuser,jdbcType=VARCHAR}
 	    where agentid = #{agentid,jdbcType=VARCHAR}

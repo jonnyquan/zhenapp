@@ -43,6 +43,7 @@ public class AllocationshoppingTaskService {
 		hashmap.put("today", yyyyMMdd.format(new Date()));
 		hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
 		hashmap.put("tasknumstr", tasknumstr);
+		hashmap.put("tasktype", "33");
 		TTaskDetailInfoCustom tTaskDetailInfoCustomtype1shopping = taskDetailInfoService.requesttaskByphoneid_temp(hashmap);
 		if(tTaskDetailInfoCustomtype1shopping!=null){
 			tTaskDetailInfoCustomtype1shopping.setPhoneid(tPhoneInfoCustom.getPhoneid());

@@ -87,36 +87,40 @@ public class CheckErrorTask {
 				hashmap.put("newstate", 40);
 				hashmap.put("oldstate", 23);
 				taskDetailInfoTempService.updatestate(hashmap);
-				TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);//根据任务id查询出流量详情信息
-				
-				HashMap<String,Object> hashmapusertest= new HashMap<String, Object>();
-				hashmapusertest.put("page", 0);
-				hashmapusertest.put("rows", 10);
-				hashmapusertest.put("usertestid", tTaskDetailInfoFlowCustom.getCreateuser());
-				List<TUsertestInfoCustom> tUsertestInfoCustomlist = usertestInfoService.findUserTest(hashmapusertest);
-				if(tUsertestInfoCustomlist!=null && tUsertestInfoCustomlist.size()>0){
+				if(tTaskInfoCustom.getTasktype().equals(33)){
+					TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);//根据任务id查询出流量详情信息
 					
-				}else{
-					//并调用接口终止发布到第一个手机网站的任务
-					String url="http://liuliangapp.com/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/finish";
-					HttpClient httpClient = new HttpClient();
-					String result="";
-			        PostMethod postMethod = new PostMethod(url);
-			        postMethod.setRequestHeader("secret", secret);
-			        int statusCode =  httpClient.executeMethod(postMethod);
-			        if(statusCode == 200) {
-			            result = postMethod.getResponseBodyAsString();
-			            if(result.indexOf("delay") != -1){
-				            map.put("msg", result);
-				            logger.info("任务错误数超出预定值，自动终止任务成功");
-			            }else{
-			            	logger.error("任务错误数超出预定值，自动终止任务失败，失败返回值："+result);
+					HashMap<String,Object> hashmapusertest= new HashMap<String, Object>();
+					hashmapusertest.put("page", 0);
+					hashmapusertest.put("rows", 10);
+					hashmapusertest.put("usertestid", tTaskDetailInfoFlowCustom.getCreateuser());
+					List<TUsertestInfoCustom> tUsertestInfoCustomlist = usertestInfoService.findUserTest(hashmapusertest);
+					if(tUsertestInfoCustomlist!=null && tUsertestInfoCustomlist.size()>0){
+						
+					}else{
+						//并调用接口终止发布到第一个手机网站的任务
+						String url="http://liuliangapp.com/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/finish";
+						HttpClient httpClient = new HttpClient();
+						String result="";
+				        PostMethod postMethod = new PostMethod(url);
+				        postMethod.setRequestHeader("secret", secret);
+				        int statusCode =  httpClient.executeMethod(postMethod);
+				        if(statusCode == 200) {
+				            result = postMethod.getResponseBodyAsString();
+				            if(result.indexOf("delay") != -1){
+					            map.put("msg", result);
+					            logger.info("任务错误数超出预定值，自动终止任务成功");
+				            }else{
+				            	logger.error("任务错误数超出预定值，自动终止任务失败，失败返回值："+result);
+					            throw new RuntimeException();
+				            }
+				        }else {
+				            logger.error("任务错误数超出预定值，自动终止任务失败，失败错误码："+statusCode);
 				            throw new RuntimeException();
-			            }
-			        }else {
-			            logger.error("任务错误数超出预定值，自动终止任务失败，失败错误码："+statusCode);
-			            throw new RuntimeException();
-			        }
+				        }
+					}
+				}else{
+					
 				}
 			}
 		}

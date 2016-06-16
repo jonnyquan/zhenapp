@@ -167,13 +167,9 @@
               <th style="width:30px;">访</th>
               <th style="width:30px;">藏</th>
               <th style="width:30px;">购</th>
-              <th style="width:30px;">店铺</th>
-			  <th style="width:30px;">假聊</th>
               <th style="width:50px;">完成访问</th>
               <th style="width:50px;">完成收藏</th>
               <th style="width:50px;">完成加购</th>
-              <th style="width:40px;">完成店铺</th>
-			  <th style="width:40px;">完成假聊</th>
               <th style="width:40px;">失败</th>
               <th style="width:100px;">任务日期</th>
               <th style="width:100px;">发布时间</th>
@@ -191,13 +187,9 @@
                 <td>${list.flowcount }</td>
                 <td>${list.collectioncount }</td>
                 <td>${list.shoppingcount }</td>
-                <td>${list.storecollectioncount }</td>
-				<td>${list.fakechatcount }</td>
                 <td>${list.finishflowcount }</td>
                 <td>${list.finishcollectioncount }</td>
                 <td>${list.finishshoppingcount }</td>
-                <td>${list.finishstorecollectioncount }</td>
-				<td>${list.finishfakechatcount }</td>
                 <td class="font-red">${list.errorcount}</td>
                 <td>${list.taskdaterange }</td>
                 <td>${list.createtime }</td>
@@ -229,44 +221,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/easyui/locale/easyui-lang-zh_CN.js"></script>
 <script>
   $(function() {
-	  $("#menu").load("${pageContext.request.contextPath}/backstage/agent/menu.jsp");
-	  /*
-	 var startDate = new Date(2015, 12, 20);
-    var endDate = new Date(2016, 11, 25);
-    var $alert = $('#my-alert');
-    $('#my-start').datepicker().on('changeDate.datepicker.amui', function(event) {
-      if (event.date.valueOf() > endDate.valueOf()) {
-        $alert.find('p').text('开始日期应小于结束日期！').end().show();
-      } else {
-        $alert.hide();
-        startDate = new Date(event.date);
-        $('#my-startDate').text($('#my-start').data('date'));
-      }
-      $(this).datepicker('close');
-    });
-
-    $('#my-end').datepicker().on('changeDate.datepicker.amui', function(event) {
-      if (event.date.valueOf() < startDate.valueOf()) {
-        $alert.find('p').text('结束日期应大于开始日期！').end().show();
-      } else {
-        $alert.hide();
-        endDate = new Date(event.date);
-        $('#my-endDate').text($('#my-end').data('date'));
-      }
-      $(this).datepicker('close');
-    });
-
-    $("#search").click(
-        function() {
-          var startTime = $("#my-startDate").text();
-          var entTime = $("#my-endDate").text();
-          var fid = $("#fid").val();
-          var nid = $("#nid").val();
-          location.href = "${pageContext.request.contextPath}/task/responsetaskmanageagent?page=1&datefrom=" + startTime + "&dateto=" + entTime + "&taskid=" + fid
-              + "&usernick=" + $("#nick").val()+"&taskkeynum="+nid+"&tasktype="+$("#ktype").val();
-        });
-  */  
-    
+	$("#menu").load("${pageContext.request.contextPath}/backstage/agent/menu.jsp");
+	 
     $('#datefrom').datebox();
 	$('#dateto').datebox();
 	
@@ -330,11 +286,8 @@
 		});
 }
 </script>
-
-    </div>
-  
-  <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
-    data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+  </div>
+  <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
     
 	<script type="text/javascript" src="${pageContext.request.contextPath}/easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/easyui/locale/easyui-lang-zh_CN.js"></script>

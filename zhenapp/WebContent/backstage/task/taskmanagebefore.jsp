@@ -336,22 +336,16 @@ input {
 						<thead>
 							<tr class="active">
 							  <th style="width:10px;">选择</th>
-				              <th style="width:80px;">订单ID</th>
-				              <th style="width:100px;">宝贝ID</th>
+				              <th style="width:100px;">订单ID</th>
+				              <th style="width:110px;">宝贝ID</th>
 				              <th style="width:40px;">类型</th>
-				              <th style="width:50px;">关键词</th>
+				              <th style="width:130px;">关键词</th>
 				              <th style="width:35px;">访</th>
 				              <th style="width:35px;">藏</th>
 				              <th style="width:35px;">购</th>
-				              <th style="width:35px;">店铺</th>
-				              <th style="width:35px;">假聊</th>
 				              <th style="width:40px;">完成访问</th>
 				              <th style="width:40px;">完成收藏</th>
 				              <th style="width:40px;">完成加购</th>
-				              <th style="width:40px;">完成店铺</th>
-				              <th style="width:40px;">完成假聊</th>
-				              <th style="width:40px;">完成店铺</th>
-				              <th style="width:40px;">完成假聊</th>
 				              <th style="width:40px;">失败</th>
 				              <th style="width:60px;">任务日期</th>
 				              <th style="width:80px;">发布时间</th>
@@ -382,8 +376,6 @@ input {
 					                <td>${list.finishflowcount }</td>
 					                <td>${list.finishcollectioncount }</td>
 					                <td>${list.finishshoppingcount }</td>
-					                <td>${list.finishstorecollectioncount }</td>
-					                <td>${list.finishfakechatcount }</td>
 					                <td class="font-red">${list.errorcount}</td>
 					                <td >${list.taskdaterange}</td>
 					                <td >${list.createtime}</td>

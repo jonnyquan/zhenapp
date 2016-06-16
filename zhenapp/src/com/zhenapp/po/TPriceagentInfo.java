@@ -31,6 +31,18 @@ public class TPriceagentInfo {
 
     private String pricecounts4;
 
+    private String pricetype5;
+
+    private String pricecode5;
+
+    private String pricecounts5;
+
+    private String pricetype6;
+
+    private String pricecode6;
+
+    private String pricecounts6;
+
     private String createtime;
 
     private String createuser;
@@ -157,6 +169,54 @@ public class TPriceagentInfo {
 
     public void setPricecounts4(String pricecounts4) {
         this.pricecounts4 = pricecounts4 == null ? null : pricecounts4.trim();
+    }
+
+    public String getPricetype5() {
+        return pricetype5;
+    }
+
+    public void setPricetype5(String pricetype5) {
+        this.pricetype5 = pricetype5 == null ? null : pricetype5.trim();
+    }
+
+    public String getPricecode5() {
+        return pricecode5;
+    }
+
+    public void setPricecode5(String pricecode5) {
+        this.pricecode5 = pricecode5 == null ? null : pricecode5.trim();
+    }
+
+    public String getPricecounts5() {
+        return pricecounts5;
+    }
+
+    public void setPricecounts5(String pricecounts5) {
+        this.pricecounts5 = pricecounts5 == null ? null : pricecounts5.trim();
+    }
+
+    public String getPricetype6() {
+        return pricetype6;
+    }
+
+    public void setPricetype6(String pricetype6) {
+        this.pricetype6 = pricetype6 == null ? null : pricetype6.trim();
+    }
+
+    public String getPricecode6() {
+        return pricecode6;
+    }
+
+    public void setPricecode6(String pricecode6) {
+        this.pricecode6 = pricecode6 == null ? null : pricecode6.trim();
+    }
+
+    public String getPricecounts6() {
+        return pricecounts6;
+    }
+
+    public void setPricecounts6(String pricecounts6) {
+        this.pricecounts6 = pricecounts6 == null ? null : pricecounts6.trim();
     }
 
     public String getCreatetime() {

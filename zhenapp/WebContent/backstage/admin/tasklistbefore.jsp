@@ -57,19 +57,12 @@
           
         </div>
       </div>
- <!-- sidebar end -->
       <div id="module-head"></div>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <div class="admin-content">
   <div class="am-alert am-alert-danger" id="my-alert" style="display: none">
     <p>开始日期应小于结束日期！</p>
   </div>
-  <!--  <div class="am-cf am-padding">
-    <div class="am-fl am-cf">
-      <strong class="am-text-primary am-text-lg">我的订单 </strong>
-    </div>
-  </div>
-  -->
   <div style="height:10px;">
   </div>
   <table>
@@ -155,13 +148,9 @@
               <th style="width:30px;">访</th>
               <th style="width:30px;">藏</th>
               <th style="width:30px;">购</th>
-              <th style="width:30px;">店铺</th>
-			  <th style="width:30px;">假聊</th>
               <th style="width:50px;">完成访问</th>
               <th style="width:50px;">完成收藏</th>
               <th style="width:50px;">完成加购</th>
-              <th style="width:40px;">完成店铺</th>
-			  <th style="width:40px;">完成假聊</th>
               <th style="width:40px;">失败</th>
               <th style="width:100px;">任务日期</th>
               <th style="width:100px;">发布时间</th>
@@ -180,13 +169,9 @@
 	                <td>${list.flowcount }</td>
 	                <td>${list.collectioncount }</td>
 	                <td>${list.shoppingcount }</td>
-	                <td>${list.storecollectioncount }</td>
-					<td>${list.fakechatcount }</td>
 	                <td>${list.finishflowcount }</td>
 	                <td>${list.finishcollectioncount }</td>
 	                <td>${list.finishshoppingcount }</td>
-	                <td>${list.finishstorecollectioncount }</td>
-					<td>${list.finishfakechatcount }</td>
 	                <td class="font-red">${list.errorcount}</td>
 	                <td>${list.taskdaterange }</td>
 	                <td>${list.createtime }</td>
@@ -233,35 +218,10 @@ function endtask(taskid){
 	});
 }
   $(function() {
-		$(".admin-offcanvas-bar").load("${pageContext.request.contextPath}/backstage/admin/adminmenu.jsp");
-	  /*
-    var startDate = new Date(2015, 12, 20);
-    var endDate = new Date(2016, 11, 25);
-    var $alert = $('#my-alert');
-    $('#my-start').datepicker().on('changeDate.datepicker.amui', function(event) {
-      if (event.date.valueOf() > endDate.valueOf()) {
-        $alert.find('p').text('开始日期应小于结束日期！').end().show();
-      } else {
-        $alert.hide();
-        startDate = new Date(event.date);
-        $('#my-startDate').text($('#my-start').data('date'));
-      }
-      $(this).datepicker('close');
-    });
-
-    $('#my-end').datepicker().on('changeDate.datepicker.amui', function(event) {
-      if (event.date.valueOf() < startDate.valueOf()) {
-        $alert.find('p').text('结束日期应大于开始日期！').end().show();
-      } else {
-        $alert.hide();
-        endDate = new Date(event.date);
-        $('#my-endDate').text($('#my-end').data('date'));
-      }
-      $(this).datepicker('close');
-    });
-*/
-$('#datefrom').datebox();
-$('#dateto').datebox();
+	$(".admin-offcanvas-bar").load("${pageContext.request.contextPath}/backstage/admin/adminmenu.jsp");
+	
+	$('#datefrom').datebox();
+	$('#dateto').datebox();
     $("#search").click(
         function() {
         	btn_search(1);
@@ -308,15 +268,12 @@ $('#dateto').datebox();
 		});
 	}
 </script>
-
     </div>
-  
   <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
     data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
   <footer>
     <hr>
     <p class="am-padding-left">Copyright (c) 2015 zhenapp.cn Inc. All Rights. 浙ICP备140452118号-5</p>
   </footer>
-
 </body>
 </html>
