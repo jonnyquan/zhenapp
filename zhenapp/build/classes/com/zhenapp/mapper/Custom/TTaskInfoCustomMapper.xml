@@ -20,10 +20,11 @@
      a.taskgprspct,a.taskPlus,a.taskduration, 
      a.subtractpoints,a.taskstate,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime, 
      a.createuser,a.updatetime,a.updateuser,b.dicinfoname,
-     CASE WHEN IFNULL(f.finishcount,0)>=IFNULL(c.finishcollectioncount,0) AND IFNULL(f.finishcount,0)>=IFNULL(c.finishshoppingcount,0) THEN IFNULL(f.finishcount,0)
-     WHEN IFNULL(f.finishcount,0)>=IFNULL(c.finishcollectioncount,0) AND IFNULL(f.finishcount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishshoppingcount,0)
-     WHEN IFNULL(f.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) AND IFNULL(f.finishcount,0)>=IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishcollectioncount,0)
-     WHEN IFNULL(f.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) AND IFNULL(f.finishcount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) AND IFNULL(c.finishcollectioncount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishshoppingcount,0)
+     CASE WHEN a.tasktype='34' THEN IFNULL(c.finishcollectioncount,0)
+     WHEN a.tasktype='33' AND IFNULL(f.finishcount,0)>=IFNULL(c.finishcollectioncount,0) AND IFNULL(f.finishcount,0)>=IFNULL(c.finishshoppingcount,0) THEN IFNULL(f.finishcount,0)
+     WHEN a.tasktype='33' AND IFNULL(f.finishcount,0)>=IFNULL(c.finishcollectioncount,0) AND IFNULL(f.finishcount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishshoppingcount,0)
+     WHEN a.tasktype='33' AND IFNULL(f.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) AND IFNULL(f.finishcount,0)>=IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishcollectioncount,0)
+     WHEN a.tasktype='33' AND IFNULL(f.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) AND IFNULL(f.finishcount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) AND IFNULL(c.finishcollectioncount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishshoppingcount,0)
      ELSE IFNULL(c.finishcollectioncount,0) END finishflowcount,
      IFNULL(c.finishcollectioncount,0) AS finishcollectioncount,IFNULL(c.finishshoppingcount,0) AS finishshoppingcount,IFNULL(c.finishstorecollectioncount,0) AS finishstorecollectioncount,IFNULL(c.finishfakechatcount,0) AS finishfakechatcount,IFNULL(d.errorcount,0) AS errorcount,e.dicinfoname AS tasktypename 
      FROM t_task_info a
@@ -35,10 +36,10 @@
 	LEFT JOIN t_user_info g ON a.createuser = g.userid
 	<where>
 		<if test="today != null and today != '' ">
-			and a.taskdate+0 <![CDATA[>=]]> #{today}
+			and a.taskdate+0 <![CDATA[>=]]> #{today}+0
 		</if>
 		<if test="before != null and before != '' ">
-			and a.taskdate+0 <![CDATA[<]]> #{before}
+			and a.taskdate+0 <![CDATA[<]]> #{before}+0
 		</if>
     	<if test="taskid !=null and taskid !='' ">
     		and a.taskid like '%${taskid}%'
@@ -88,10 +89,11 @@
      a.taskgprspct,a.taskPlus,a.taskduration, 
      a.subtractpoints,a.taskstate,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime, 
      a.createuser,a.updatetime,a.updateuser,b.dicinfoname,
-     CASE WHEN IFNULL(h.finishcount,0)>=IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0)>=IFNULL(c.finishshoppingcount,0) THEN IFNULL(h.finishcount,0)
-     WHEN IFNULL(h.finishcount,0)>=IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishshoppingcount,0)
-     WHEN IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0)>=IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishcollectioncount,0)
-     WHEN IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) and IFNULL(c.finishcollectioncount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishshoppingcount,0)
+     CASE WHEN a.tasktype='34' THEN IFNULL(c.finishcollectioncount,0)
+     WHEN a.tasktype='33' IFNULL(h.finishcount,0)>=IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0)>=IFNULL(c.finishshoppingcount,0) THEN IFNULL(h.finishcount,0)
+     WHEN a.tasktype='33' IFNULL(h.finishcount,0)>=IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishshoppingcount,0)
+     WHEN a.tasktype='33' IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0)>=IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishcollectioncount,0)
+     WHEN a.tasktype='33' IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) and IFNULL(c.finishcollectioncount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishshoppingcount,0)
      ELSE IFNULL(c.finishcollectioncount,0) END finishflowcount,
      IFNULL(c.finishcollectioncount,0) AS finishcollectioncount,IFNULL(c.finishshoppingcount,0) AS finishshoppingcount,IFNULL(c.finishstorecollectioncount,0) AS finishstorecollectioncount,IFNULL(c.finishfakechatcount,0) AS finishfakechatcount,IFNULL(d.errorcount,0) AS errorcount,e.dicinfoname AS tasktypename 
      FROM t_task_info a
@@ -109,10 +111,10 @@
     		and a.taskpk = #{taskpk}
     	</if>
     	<if test="today != null and today != '' ">
-			and a.taskdate+0 <![CDATA[>=]]> #{today}
+			and a.taskdate+0 <![CDATA[>=]]> #{today}+0
 		</if>
 		<if test="before != null and before != '' ">
-			and a.taskdate+0 <![CDATA[<]]> #{before}
+			and a.taskdate+0 <![CDATA[<]]> #{before}+0
 		</if>
     	<if test="datefrom != null and datefrom != ''">
     		and a.createtime <![CDATA[>=]]> #{datefrom}
@@ -153,10 +155,10 @@
     		and a.taskpk = #{taskpk}
     	</if>
     	<if test="today != null and today != '' ">
-			and a.taskdate+0 <![CDATA[>=]]> #{today}
+			and a.taskdate+0 <![CDATA[>=]]> #{today}+0
 		</if>
 		<if test="before != null and before != '' ">
-			and a.taskdate+0 <![CDATA[<]]> #{before}
+			and a.taskdate+0 <![CDATA[<]]> #{before}+0
 		</if>
     	<if test="datefrom != null and datefrom != ''">
     		and a.createtime <![CDATA[>=]]> #{datefrom}
@@ -189,10 +191,10 @@
 	LEFT JOIN t_user_info g ON a.createuser = g.userid
 	<where>
 		<if test="today != null and today != '' ">
-			and a.taskdate+0 <![CDATA[>=]]> #{today}
+			and a.taskdate+0 <![CDATA[>=]]> #{today}+0
 		</if>
 		<if test="before != null and before != '' ">
-			and a.taskdate+0 <![CDATA[<]]> #{before}
+			and a.taskdate+0 <![CDATA[<]]> #{before}+0
 		</if>
     	<if test="taskid !=null and taskid !='' ">
     		and a.taskid like '%${taskid}%'
@@ -237,10 +239,10 @@
     		and taskid like '%${taskid}%'
     	</if>
     	<if test="datefrom != null and datefrom != ''">
-    		and createtime <![CDATA[>=]]> #{datefrom}
+    		and createtime+0 <![CDATA[>=]]> #{datefrom}+0
     	</if>
     	<if test="dateto != null and dateto != ''">
-    		and createtime <![CDATA[<=]]> #{dateto}
+    		and createtime+0 <![CDATA[<=]]> #{dateto}+0
     	</if>
     </where>
     order by taskpk+0 desc
@@ -283,7 +285,6 @@
   <select id="findIsFirst" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="String" >
     select * from t_task_info WHERE taskkeynum=#{taskkeynum}
   </select>
-  
   
   <insert id="insertTaskInfo" parameterType="com.zhenapp.po.Custom.TTaskInfoCustom" >
   	<selectKey keyProperty="taskpk" order="AFTER" resultType="int">

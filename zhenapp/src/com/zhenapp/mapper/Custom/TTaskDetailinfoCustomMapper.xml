@@ -4,7 +4,7 @@
   <select id="requesttaskByphoneid" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
   	SELECT a.* FROM t_task_detailinfo_temp a where a.phoneid=#{phoneid} AND a.taskstate='40' ORDER BY taskhour,taskminute LIMIT 0,1
   </select>
-    <select id="requesttaskByphoneid_temp" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
+  <select id="requesttaskByphoneid_temp" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
   	SELECT a.* FROM t_task_detailinfo a
 	<where>
 		<if test="iscollection != null and iscollection != '' ">

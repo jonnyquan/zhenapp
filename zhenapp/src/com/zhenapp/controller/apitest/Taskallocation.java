@@ -401,12 +401,6 @@ public class Taskallocation {
 					        throw new RuntimeException();
 					    }
 					}
-					HashMap<String,Object> hashmap3=new HashMap<String,Object>();
-					hashmap3.put("taskid", tTaskInfoCustom.getTaskid());
-					hashmap3.put("taskstate", "16");//任务运行中
-					hashmap3.put("updatetime", sdf.format(new Date()));
-					hashmap3.put("updateuser", "拆分任务");
-					taskInfoService.updateTaskstate(hashmap3);
 				}else{
 					for (int j = 0; j < hourarr.length; j++) {
 						if(!hourarr[j].equals("0")){
@@ -415,7 +409,6 @@ public class Taskallocation {
 							for(int a=0;a<Integer.parseInt(hourarr[j]) ; a++){
 								ztcminute[a]=a*60/Integer.parseInt(hourarr[j]);
 							}
-							
 							for (int i = 0; i < ztcminute.length; i++) {
 								TTaskDetailInfoCustom tTaskDetailInfoCustom=new TTaskDetailInfoCustom();
 								tTaskDetailInfoCustom.setTaskdetailid(UUID.randomUUID().toString().replace("-", ""));
@@ -431,7 +424,7 @@ public class Taskallocation {
 								tTaskDetailInfoCustom.setIsfakechat("0");
 								tTaskDetailInfoCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
 								tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
-								tTaskDetailInfoCustom.setSubtractpoints(Integer.parseInt(tPriceInfoCustom.getPricecounts2()));
+								tTaskDetailInfoCustom.setSubtractpoints(Integer.parseInt(tPriceInfoCustom.getPricecounts4())+Integer.parseInt(tPriceInfoCustom.getPricecounts5())+Integer.parseInt(tPriceInfoCustom.getPricecounts6()));
 								tTaskDetailInfoCustom.setTaskdate(tTaskInfoCustom.getTaskdate());
 								tTaskDetailInfoCustom.setTaskhour(j);
 								if(tSysconfInfoCustom.getSysconfvalue5().equals("1")){
@@ -460,6 +453,12 @@ public class Taskallocation {
 						}
 					}
 				}
+				HashMap<String,Object> hashmap3=new HashMap<String,Object>();
+				hashmap3.put("taskid", tTaskInfoCustom.getTaskid());
+				hashmap3.put("taskstate", "16");//任务运行中
+				hashmap3.put("updatetime", sdf.format(new Date()));
+				hashmap3.put("updateuser", "拆分任务");
+				taskInfoService.updateTaskstate(hashmap3);
 			}
 		}
 		return map;
