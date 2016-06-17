@@ -19,7 +19,11 @@
 			<if test="iscollection != null and iscollection != '' ">
 				and iscollection=#{iscollection}
 			</if>
+			<if test="tasktype != null and tasktype != '' ">
+				and tasktype=#{tasktype}
+			</if>
 		</where>
+		group by taskkeynum
 	</select>
 	
 	
@@ -59,7 +63,7 @@
       iscollection, isshopping, isstorecollection, 
       isfakechat, fakechatstr1, fakechatstr2, 
       fakechatstr3, fakechatstr4, taskkeynum, 
-      minpicture, maxpicture, tasktype, 
+      creativetitle, taskimgztc,minpicture, maxpicture, tasktype, 
       isflow, iscreativetitle, taskstate, 
       taskdate, taskhour, taskminute, 
       visit, collect, trolley, 
@@ -71,7 +75,7 @@
       #{region,jdbcType=VARCHAR}, #{isfreeship,jdbcType=VARCHAR}, #{istmall,jdbcType=VARCHAR}, 
       #{iscollection,jdbcType=VARCHAR}, #{isshopping,jdbcType=VARCHAR}, #{isstorecollection,jdbcType=VARCHAR}, 
       #{isfakechat,jdbcType=VARCHAR}, #{fakechatstr1,jdbcType=VARCHAR}, #{fakechatstr2,jdbcType=VARCHAR}, 
-      #{fakechatstr3,jdbcType=VARCHAR}, #{fakechatstr4,jdbcType=VARCHAR}, #{taskkeynum,jdbcType=VARCHAR}, 
+      #{fakechatstr3,jdbcType=VARCHAR}, #{fakechatstr4,jdbcType=VARCHAR}, #{taskkeynum,jdbcType=VARCHAR}, #{creativetitle,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR}, 
       #{minpicture,jdbcType=VARCHAR}, #{maxpicture,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
       #{isflow,jdbcType=VARCHAR}, #{iscreativetitle,jdbcType=VARCHAR}, #{taskstate,jdbcType=VARCHAR}, 
       #{taskdate,jdbcType=VARCHAR}, #{taskhour,jdbcType=INTEGER}, #{taskminute,jdbcType=INTEGER}, 

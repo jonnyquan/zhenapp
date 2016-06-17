@@ -1354,6 +1354,76 @@ public class TTaskInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andCreativetitleIsNull() {
+            addCriterion("creativetitle is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreativetitleIsNotNull() {
+            addCriterion("creativetitle is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreativetitleEqualTo(String value) {
+            addCriterion("creativetitle =", value, "creativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreativetitleNotEqualTo(String value) {
+            addCriterion("creativetitle <>", value, "creativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreativetitleGreaterThan(String value) {
+            addCriterion("creativetitle >", value, "creativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreativetitleGreaterThanOrEqualTo(String value) {
+            addCriterion("creativetitle >=", value, "creativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreativetitleLessThan(String value) {
+            addCriterion("creativetitle <", value, "creativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreativetitleLessThanOrEqualTo(String value) {
+            addCriterion("creativetitle <=", value, "creativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreativetitleLike(String value) {
+            addCriterion("creativetitle like", value, "creativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreativetitleNotLike(String value) {
+            addCriterion("creativetitle not like", value, "creativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreativetitleIn(List<String> values) {
+            addCriterion("creativetitle in", values, "creativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreativetitleNotIn(List<String> values) {
+            addCriterion("creativetitle not in", values, "creativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreativetitleBetween(String value1, String value2) {
+            addCriterion("creativetitle between", value1, value2, "creativetitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreativetitleNotBetween(String value1, String value2) {
+            addCriterion("creativetitle not between", value1, value2, "creativetitle");
+            return (Criteria) this;
+        }
+
         public Criteria andTaskimgztcIsNull() {
             addCriterion("taskimgztc is null");
             return (Criteria) this;

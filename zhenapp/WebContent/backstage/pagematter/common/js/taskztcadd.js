@@ -11,8 +11,8 @@ var taskkeynumval="";
 var isurl=false;
 var mode=0;
 var pricemode=0;
-var taskminprice=0;
-var taskmaxprice=0;
+var taskminpricestr=0;
+var taskmaxpricestr=0;
 	;$(function() {
 		$("#taskurl").focus();
 		$(".box").show();
@@ -141,7 +141,7 @@ var taskmaxprice=0;
 		发布流量
 		*/
 		$("#subbtn").click(function () {
-			
+			checkpricemode($("#priceMode2")[0]);
 			if (!$('#taskurl').validatebox('isValid')) {
 				$.messager.alert('消息提示', '请输入宝贝url!', 'info', function () {
 					$('#taskurl').focus();
@@ -293,8 +293,9 @@ var taskmaxprice=0;
 					taskstartdate:$("input[name='datefrom']")[0].value,
 					taskenddate:$("input[name='dateto']")[0].value,
 					taskhourcounts : taskhourcounts.join(','),
-					taskminprice : $("#taskminprice").val(),
-					taskmaxprice : $("#taskmaxprice").val(),
+					taskminprice : taskminpricestr,
+					taskmaxprice : taskmaxpricestr,
+					taskprice : $("#taskprice").val(),
 					tasksearchtype : $("#tasksearchType").val(),
 					flowcount : $("#flowcount").val(),
 					collectioncount : $("#collectioncount").val(),
@@ -380,8 +381,6 @@ var taskmaxprice=0;
 				sum=sum+parseInt($("#hour_" +  i).val());
 			}
 			$("#flowcount").val(sum);
-			$('#collectioncount').val(sum);
-			$('#shoppingcount').val(sum);
 			var number = /^\d+$/;
 			var temp = $("#flowcount")[0].value;
 			if (number.test(temp)) {
@@ -404,8 +403,6 @@ var taskmaxprice=0;
 			$("#span_flowcount").html("该宝贝发布流量数填写正确!");
 			$("#span_flowcount").css("color","green");
 		}
-		$('#collectioncount').val(temp);
-		$('#shoppingcount').val(temp);
 		if (number.test(temp)) {
 			totalsum();
 			var ys = temp / (24 - hour-1);
@@ -422,21 +419,27 @@ var taskmaxprice=0;
 			}
 		}
 	}
-	/*function fpsc(obj) {
+	function fpsc(obj) {
 		var number = /^\d+$/;
 		var temp = obj.value;
-		
 		if(temp.length<1){
 			$('#collectioncount').val("0");
 			temp=0;
 		}
-		if(parseInt(temp) > parseInt(scmax)){
-			$("#span_collection").html("该宝贝发布收藏数不能大于允许发布的最大收藏数");
+		if(parseInt(temp) > parseInt($("#flowcount").val())){
+			$("#span_collection").show();
+			$("#span_collection").html("该宝贝发布收藏数不能大于发布的流量数");
 			$("#span_collection").css("color","red");
-			$("#collectioncount").val(scmax);
+			$("#span_collection").hide(2000);
+			$("#collectioncount").val($("#flowcount").val());
+			$('#shoppingcount').val($("#flowcount").val());
 		}else{
+			$("#span_collection").show();
 			$("#span_collection").html("该宝贝发布收藏数填写正确!");
 			$("#span_collection").css("color","green");
+			$('#shoppingcount').val(temp);
+			$("#span_shopping").html("该宝贝发布加购数填写正确!");
+			$("#span_shopping").css("color","green");
 		}
 		if (number.test(temp)) {
 			totalsum();
@@ -449,18 +452,25 @@ var taskmaxprice=0;
 			$('#shoppingcount').val("0");
 			temp=0;
 		}
-		if(parseInt(temp) > parseInt(gwcmax)){
-			$("#span_shopping").html("该宝贝发布加购数不能大于允许发布的最大加购数");
+		if(parseInt(temp) > parseInt($("#flowcount").val())){
+			$("#span_shopping").show();
+			$("#span_shopping").html("该宝贝发布加购数不能大于发布的流量数");
 			$("#span_shopping").css("color","red");
-			$("#shoppingcount").val(gwcmax);
+			$("#span_shopping").hide(2000);
+			$("#shoppingcount").val($("#flowcount").val());
+			$('#collectioncount').val($("#flowcount").val());
 		}else{
+			$("#span_shopping").show();
 			$("#span_shopping").html("该宝贝发布加购数填写正确!");
 			$("#span_shopping").css("color","green");
+			$('#collectioncount').val(temp);
+			$("#span_collection").html("该宝贝发布收藏数填写正确!");
+			$("#span_collection").css("color","green");
 		}
 		if (number.test(temp)) {
 			totalsum();
 		}
-	}*/
+	}
 	/*
 	检查宝贝id当天可以发布多少流量数
 	*/
@@ -685,12 +695,12 @@ function checkurl_2(obj){
 		 return false;
 	}else{
 		$.ajax({
-			url : uri+"/api/url/validate?param="+param +"&&taskkeynum=" + taskkeynumval,
+			url : uri+"/api/url/validateztc?param="+param +"&&taskkeynum=" + taskkeynumval,
 			type : "POST",
 			success:function(data,state){
 				if(data!=null && data.status=='y'){
-					scmax=data.collectiontaskcount;
-					gwcmax=data.shoppingtaskcount;
+					scmax=data.count;
+					gwcmax=data.count;
 					$("#span_shopping_text").html("  今天最多还可发:"+gwcmax);
 					$("#span_collection_text").html("  今天最多还可发："+scmax);
 					if(parseInt($("#flowcount").val()) > parseInt(llmax)){
@@ -745,6 +755,15 @@ function checkmode(obj){
 		}
 	}
 }
+
+/*
+ *价格变化设置值
+ */
+function setprice(obj){
+	taskminpricestr = $("#taskminprice").val();
+	taskmaxpricestr = $("#taskmaxprice").val();
+	checkpricemode($("#priceMode2")[0]);
+}
 /*
 检查卡价格模式
 */
@@ -756,53 +775,57 @@ function checkpricemode(obj){
 			if(obj.value=='3'){
 				taskminprice=0;
 				taskmaxprice=0;
-				$('#subbtn').removeAttr("disabled");
+				$("#taskminprice").attr("disabled",false);
+				$("#taskmaxprice").attr("disabled",false);
 			}else if(obj.value=='0'){
 				taskminprice=0;
 				taskmaxprice=0;
-				
 				$("#taskminprice").val("0");
 				$("#taskmaxprice").val("0");
-				$("#taskminprice").css("disabled","true");
-				$("#taskmaxprice").css("disabled","true");
+				$("#taskminprice").attr("disabled","disabled"); 
+				$("#taskmaxprice").attr("disabled","disabled");
 			}else if(obj.value=='1'){
-				var pricearr=price.split(".")[0];
+				var pricearr=price.split(".");
 				if(pricearr.length>1){
 					if(parseInt(price)<1){
-						taskminprice=0;
+						taskminpricestr=0;
 					}else{
-						taskminprice= (parseInt(price.split(".")[0])-1)+""+price.split(".")[1];
+						taskminpricestr= (parseInt(price.split(".")[0])-1)+""+price.split(".")[1];
 					}
-					taskmaxprice= (parseInt(price.split(".")[0])+1)+""+price.split(".")[1];
+					taskmaxpricestr= (parseInt(price.split(".")[0])+1)+""+price.split(".")[1];
 				}else{
-					taskminprice= (parseInt(price.split(".")[0])-1);
-					taskmaxprice= (parseInt(price.split(".")[0])+1);
+					if(parseInt(price)<1){
+						taskminpricestr=0;
+					}else{
+						taskminpricestr= (parseInt(price.split(".")[0])-1);
+					}
+					taskmaxpricestr= (parseInt(price.split(".")[0])+1);
 				}
-				$("#taskminprice").val(taskminprice);
-				$("#taskmaxprice").val(taskmaxprice);
-				$("#taskminprice").css("disabled","true");
-				$("#taskmaxprice").css("disabled","true");
+				$("#taskminprice").val(taskminpricestr);
+				$("#taskmaxprice").val(taskmaxpricestr);
+				$("#taskminprice").attr("disabled","disabled"); 
+				$("#taskmaxprice").attr("disabled","disabled");
 			}else if(obj.value=='2'){
-				var pricearr=price.split(".")[0];
+				var pricearr=price.split(".");
 				if(pricearr.length>1){
 					if(parseInt(price)<10){
-						taskminprice=0;
+						taskminpricestr=0;
 					}else{
-						taskminprice= (parseInt(price.split(".")[0])-10) + "" + price.split(".")[1];
+						taskminpricestr= (parseInt(price.split(".")[0])-10) + "" + price.split(".")[1];
 					}
-					taskmaxprice= (parseInt(price.split(".")[0])+10) + "" + price.split(".")[1];
+					taskmaxpricestr= (parseInt(price.split(".")[0])+10) + "" + price.split(".")[1];
 				}else{
 					if(parseInt(price)<10){
-						taskminprice=0;
+						taskminpricestr=0;
 					}else{
-						taskminprice= (parseInt(price.split(".")[0])-10);
+						taskminpricestr= (parseInt(price.split(".")[0])-10);
 					}
-					taskmaxprice= (parseInt(price.split(".")[0])+10);
+					taskmaxpricestr= (parseInt(price.split(".")[0])+10);
 				}
-				$("#taskminprice").val(taskminprice);
-				$("#taskmaxprice").val(taskmaxprice);
-				$("#taskminprice").css("disabled","true");
-				$("#taskmaxprice").css("disabled","true");
+				$("#taskminprice").val(taskminpricestr);
+				$("#taskmaxprice").val(taskmaxpricestr);
+				$("#taskminprice").attr("disabled","disabled"); 
+				$("#taskmaxprice").attr("disabled","disabled");
 			}
 		}
 		$("#span_taskprice").html("输入价格正确!");

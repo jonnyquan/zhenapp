@@ -133,6 +133,8 @@ public class SaveTaskController {
 		tTaskInfoCustom.setTaskhourcounts(tTaskInfoCustom.getTaskhourcounts());
 		tTaskInfoCustom.setTaskminprice(tTaskInfoCustom.getTaskminprice());
 		tTaskInfoCustom.setTaskmaxprice(tTaskInfoCustom.getTaskmaxprice());
+		tTaskInfoCustom.setTaskimgztc(tTaskInfoCustom.getTaskimgztc());
+		tTaskInfoCustom.setCreativetitle(tTaskInfoCustom.getCreativetitle());
 		tTaskInfoCustom.setTasksearchtype(tTaskInfoCustom.getTasksearchtype());
 		tTaskInfoCustom.setFlowcount(tTaskInfoCustom.getFlowcount());
 		tTaskInfoCustom.setCollectioncount(tTaskInfoCustom.getCollectioncount());

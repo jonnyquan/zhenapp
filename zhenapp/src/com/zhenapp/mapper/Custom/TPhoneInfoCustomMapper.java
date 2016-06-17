@@ -35,4 +35,13 @@ public interface TPhoneInfoCustomMapper {
 	 * 查询手机待完成的任务情况
 	 */
 	public List<TPhoneInfoCustom> findPhoneAndTask(HashMap<String, Object> hashmap) throws Exception;
+	
+	/*
+	 * 插入手机信息
+	 */
+	public int insertPhone(TPhoneInfoCustom tPhoneInfoCustom) throws Exception;
+	/*
+	 * 删除全部手机信息
+	 */
+	public int deletePhone(HashMap<String, Object> hashmap) throws Exception;
 }

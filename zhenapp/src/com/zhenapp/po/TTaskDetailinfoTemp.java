@@ -37,6 +37,10 @@ public class TTaskDetailinfoTemp {
 
     private String taskkeynum;
 
+    private String creativetitle;
+
+    private String taskimgztc;
+
     private String minpicture;
 
     private String maxpicture;
@@ -217,6 +221,22 @@ public class TTaskDetailinfoTemp {
 
     public void setTaskkeynum(String taskkeynum) {
         this.taskkeynum = taskkeynum == null ? null : taskkeynum.trim();
+    }
+
+    public String getCreativetitle() {
+        return creativetitle;
+    }
+
+    public void setCreativetitle(String creativetitle) {
+        this.creativetitle = creativetitle == null ? null : creativetitle.trim();
+    }
+
+    public String getTaskimgztc() {
+        return taskimgztc;
+    }
+
+    public void setTaskimgztc(String taskimgztc) {
+        this.taskimgztc = taskimgztc == null ? null : taskimgztc.trim();
     }
 
     public String getMinpicture() {

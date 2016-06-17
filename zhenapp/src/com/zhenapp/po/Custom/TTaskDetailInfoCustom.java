@@ -120,8 +120,10 @@ public class TTaskDetailInfoCustom extends TTaskDetailinfo{
 		sb.append(tTaskDetailInfoCustom.getTaskid()).append("&")
 		.append(tTaskDetailInfoCustom.getTaskdetailid()).append("&")
 		.append(tTaskDetailInfoCustom.getTaskkeyword()).append("&")
-		.append(tTaskDetailInfoCustom.getSearchtype()).append("&")
-		.append(tTaskDetailInfoCustom.getMinpicture()).append("&")
+		//.append(StringUtilWxf.checkcode(tTaskDetailInfoCustom.getSearchtype())).append("&")
+		//.append(tTaskDetailInfoCustom.getMinpicture()).append("&")
+		.append("null").append("&")//排序类型
+		.append("null").append("&")//最小价格
 		.append("null").append("&")//地区
 		.append("null").append("&")//是否免运费
 		.append("null").append("&")//是否天猫
@@ -137,7 +139,12 @@ public class TTaskDetailInfoCustom extends TTaskDetailinfo{
 		.append("否").append("&")//直通车是否自定义筛选价格范围
 		.append("否").append("&")//直通车筛选的价格范围1
 		.append("否").append("&")//直通车筛选的价格范围2
-		.append("否");//自定义筛选的地区
+		.append("否").append("&")//自定义筛选的地区
+		.append(tTaskDetailInfoCustom.getMinpicture()).append("&")//最小价格
+		.append(tTaskDetailInfoCustom.getMaxpicture()).append("&")//最大价格
+		.append(tTaskDetailInfoCustom.getPrice()).append("&")//宝贝价格
+		.append(tTaskDetailInfoCustom.getTaskimgztc()).append("&")//直通车图片地址
+		.append(tTaskDetailInfoCustom.getCreativetitle());//创意标题
 		//.append(tTaskDetailInfoCustom.getIsstorecollection().equals("1")?"是":"否").append("&")//是否店铺收藏
 		//.append(tTaskDetailInfoCustom.getIsfakechat().equals("1")?"是":"否").append("&")//是否假聊
 		//.append(tTaskDetailInfoCustom.getFakechatstr1()).append("&")//假聊信息第一句

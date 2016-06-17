@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zhenapp.controller.service.Timedtask.AllocationZtcTaskService;
 import com.zhenapp.controller.service.Timedtask.AllocationcollectionTaskService;
 import com.zhenapp.controller.service.Timedtask.AllocationfakechatTaskService;
 import com.zhenapp.controller.service.Timedtask.AllocationshoppingTaskService;
@@ -43,6 +44,8 @@ public class AllocationTask {
 	private AllocationfakechatTaskService allocationfakechatTaskService;
 	@Autowired
 	private AllocationstorecollectionTaskService allocationstorecollectionTaskService;
+	@Autowired
+	private AllocationZtcTaskService allocationZtcTaskService;
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 	SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
@@ -55,29 +58,46 @@ public class AllocationTask {
 		for (int i = 0; i < TPhoneInfoCustomlist.size(); i++) {
 			StringBuffer sbiscollection = new StringBuffer();
 			TPhoneInfoCustom tPhoneInfoCustom = TPhoneInfoCustomlist.get(i);
-			hashmap.clear();
-			hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
-			hashmap.put("iscollection", 1);
-			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
-			hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
-			List<TTaskDetailinfoTempCustom> TTaskDetailinfoTempCustomlistiscollection = taskDetailInfoTempService.findtaskkeynumlist(hashmap);
-			for (int j = 0; j < TTaskDetailinfoTempCustomlistiscollection.size(); j++) {
-				sbiscollection.append(TTaskDetailinfoTempCustomlistiscollection.get(j).getTaskkeynum()).append(",");
+			if(Integer.parseInt(tPhoneInfoCustom.getPhoneid()) < 200){
+				hashmap.clear();
+				hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
+				hashmap.put("iscollection", 1);
+				hashmap.put("taskdate", yyyyMMdd.format(new Date()));
+				hashmap.put("tasktype", 33);
+				hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
+				List<TTaskDetailinfoTempCustom> TTaskDetailinfoTempCustomlistiscollection = taskDetailInfoTempService.findtaskkeynumlist(hashmap);
+				for (int j = 0; j < TTaskDetailinfoTempCustomlistiscollection.size(); j++) {
+					sbiscollection.append(TTaskDetailinfoTempCustomlistiscollection.get(j).getTaskkeynum()).append(",");
+				}
+				String taskkeynumstriscollection =sbiscollection.toString().length()>1?sbiscollection.toString().substring(0, sbiscollection.toString().length()-1):"";
+				allocationcollectionTaskService.allocateiontaskcollection(tPhoneInfoCustom,taskkeynumstriscollection);
+				hashmap.clear();
+				hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
+				hashmap.put("isshopping", 1);
+				hashmap.put("taskdate", yyyyMMdd.format(new Date()));
+				hashmap.put("tasktype", 33);
+				hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
+				List<TTaskDetailinfoTempCustom> TTaskDetailinfoTempCustomlisisshopping = taskDetailInfoTempService.findtaskkeynumlist(hashmap);
+				StringBuffer sbisshopping = new StringBuffer();
+				for (int j = 0; j < TTaskDetailinfoTempCustomlisisshopping.size(); j++) {
+					sbisshopping.append(TTaskDetailinfoTempCustomlisisshopping.get(j).getTaskkeynum()).append(",");
+				}
+				String taskkeynumstrisshopping =sbisshopping.toString().length()>1?sbisshopping.toString().substring(0, sbisshopping.toString().length()-1):"";
+				allocationshoppingTaskService.allocateiontaskshopping(tPhoneInfoCustom,taskkeynumstrisshopping);
+			}else if(Integer.parseInt(tPhoneInfoCustom.getPhoneid())>=200){
+				hashmap.clear();
+				hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
+				hashmap.put("taskdate", yyyyMMdd.format(new Date()));
+				hashmap.put("tasktype", 34);
+				hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
+				List<TTaskDetailinfoTempCustom> TTaskDetailinfoTempCustomlist = taskDetailInfoTempService.findtaskkeynumlist(hashmap);
+				StringBuffer sbztc = new StringBuffer();
+				for (int j = 0; j < TTaskDetailinfoTempCustomlist.size(); j++) {
+					sbztc.append(TTaskDetailinfoTempCustomlist.get(j).getTaskkeynum()).append(",");
+				}
+				String taskkeynumztc =sbztc.toString().length()>1?sbztc.toString().substring(0, sbztc.toString().length()-1):"";
+				allocationZtcTaskService.allocateionztctask(tPhoneInfoCustom,taskkeynumztc);
 			}
-			String taskkeynumstriscollection =sbiscollection.toString().length()>1?sbiscollection.toString().substring(0, sbiscollection.toString().length()-1):"";
-			allocationcollectionTaskService.allocateiontaskcollection(tPhoneInfoCustom,taskkeynumstriscollection);
-			hashmap.clear();
-			hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
-			hashmap.put("isshopping", 1);
-			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
-			hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
-			List<TTaskDetailinfoTempCustom> TTaskDetailinfoTempCustomlisisshopping = taskDetailInfoTempService.findtaskkeynumlist(hashmap);
-			StringBuffer sbisshopping = new StringBuffer();
-			for (int j = 0; j < TTaskDetailinfoTempCustomlisisshopping.size(); j++) {
-				sbisshopping.append(TTaskDetailinfoTempCustomlisisshopping.get(j).getTaskkeynum()).append(",");
-			}
-			String taskkeynumstrisshopping =sbisshopping.toString().length()>1?sbisshopping.toString().substring(0, sbisshopping.toString().length()-1):"";
-			allocationshoppingTaskService.allocateiontaskshopping(tPhoneInfoCustom,taskkeynumstrisshopping);
 			/*
 			hashmap.clear();
 			hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());

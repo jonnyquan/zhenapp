@@ -36,4 +36,17 @@
 	</where>
 	ORDER BY b.counts,a.phoneid+0
   </select>
+  
+  <delete id="deletePhone" parameterType="java.util.HashMap">
+  	delete from t_phone_info
+  </delete>
+  
+  <insert id="insertPhone" parameterType="com.zhenapp.po.Custom.TPhoneInfoCustom">
+  	 insert into t_phone_info ( phoneid, phonestate, 
+      phonetype, createuser, createtime, 
+      updateuser, updatetime)
+    values (#{phoneid,jdbcType=VARCHAR}, #{phonestate,jdbcType=VARCHAR}, 
+      #{phonetype,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+      #{updateuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR})
+  </insert>
 </mapper>

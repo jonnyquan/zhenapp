@@ -81,5 +81,24 @@ public class StringUtilWxf {
 		}
 		return str;
 	}
+	
+	public static String checkcode(String code){
+		String str="";
+		if(code.equals("35")){
+			str="综合";
+		}else if(code.equals("36")){
+			str="信用";
+		}else if(code.equals("37")){
+			str="价格低到高";
+		}else if(code.equals("38")){
+			str="价格高到低";
+		}else if(code.equals("39")){
+			str="销量";
+		}else{
+			str="未知排序类型";
+		}
+		return str;
+		
+	}
 
 }

@@ -75,6 +75,13 @@
         </div>
         <div class="am-u-sm-2" style="padding: 0px;">台</div>
       </div>
+      <div class="am-form-group">
+        <label for="phone_num" class="am-u-sm-4 am-form-label">直通车手机数目（需要重启服务器）</label>
+        <div class="am-u-sm-4">
+          <input type="text" name="sysconfvalue2" value="${tSysconfInfoCustom.sysconfvalue2 }">
+        </div>
+        <div class="am-u-sm-2" style="padding: 0px;">台</div>
+      </div>
        <div class="am-form-group">
         <label for="error_num" class="am-u-sm-4 am-form-label">宝贝错误次数（超过就终止）</label>
         <div class="am-u-sm-4">

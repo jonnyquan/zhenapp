@@ -20,6 +20,8 @@
     <result column="fakechatstr3" property="fakechatstr3" jdbcType="VARCHAR" />
     <result column="fakechatstr4" property="fakechatstr4" jdbcType="VARCHAR" />
     <result column="taskkeynum" property="taskkeynum" jdbcType="VARCHAR" />
+    <result column="creativetitle" property="creativetitle" jdbcType="VARCHAR" />
+    <result column="taskimgztc" property="taskimgztc" jdbcType="VARCHAR" />
     <result column="minpicture" property="minpicture" jdbcType="VARCHAR" />
     <result column="maxpicture" property="maxpicture" jdbcType="VARCHAR" />
     <result column="tasktype" property="tasktype" jdbcType="VARCHAR" />
@@ -101,9 +103,10 @@
   <sql id="Base_Column_List" >
     taskdetailpk, taskdetailid, taskid, taskkeyword, searchtype, price, region, isfreeship, 
     istmall, iscollection, isshopping, isstorecollection, isfakechat, fakechatstr1, fakechatstr2, 
-    fakechatstr3, fakechatstr4, taskkeynum, minpicture, maxpicture, tasktype, isflow, 
-    iscreativetitle, taskstate, taskdate, taskhour, taskminute, visit, collect, trolley, 
-    phoneid, subtractpoints, resultstr, createtime, createuser, updatetime, updateuser
+    fakechatstr3, fakechatstr4, taskkeynum, creativetitle, taskimgztc, minpicture, maxpicture, 
+    tasktype, isflow, iscreativetitle, taskstate, taskdate, taskhour, taskminute, visit, 
+    collect, trolley, phoneid, subtractpoints, resultstr, createtime, createuser, updatetime, 
+    updateuser
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TTaskDetailinfoExample" >
     select
@@ -142,26 +145,28 @@
       iscollection, isshopping, isstorecollection, 
       isfakechat, fakechatstr1, fakechatstr2, 
       fakechatstr3, fakechatstr4, taskkeynum, 
-      minpicture, maxpicture, tasktype, 
-      isflow, iscreativetitle, taskstate, 
-      taskdate, taskhour, taskminute, 
-      visit, collect, trolley, 
-      phoneid, subtractpoints, resultstr, 
-      createtime, createuser, updatetime, 
-      updateuser)
+      creativetitle, taskimgztc, minpicture, 
+      maxpicture, tasktype, isflow, 
+      iscreativetitle, taskstate, taskdate, 
+      taskhour, taskminute, visit, 
+      collect, trolley, phoneid, 
+      subtractpoints, resultstr, createtime, 
+      createuser, updatetime, updateuser
+      )
     values (#{taskdetailpk,jdbcType=INTEGER}, #{taskdetailid,jdbcType=VARCHAR}, #{taskid,jdbcType=VARCHAR}, 
       #{taskkeyword,jdbcType=VARCHAR}, #{searchtype,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, 
       #{region,jdbcType=VARCHAR}, #{isfreeship,jdbcType=VARCHAR}, #{istmall,jdbcType=VARCHAR}, 
       #{iscollection,jdbcType=VARCHAR}, #{isshopping,jdbcType=VARCHAR}, #{isstorecollection,jdbcType=VARCHAR}, 
       #{isfakechat,jdbcType=VARCHAR}, #{fakechatstr1,jdbcType=VARCHAR}, #{fakechatstr2,jdbcType=VARCHAR}, 
       #{fakechatstr3,jdbcType=VARCHAR}, #{fakechatstr4,jdbcType=VARCHAR}, #{taskkeynum,jdbcType=VARCHAR}, 
-      #{minpicture,jdbcType=VARCHAR}, #{maxpicture,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
-      #{isflow,jdbcType=VARCHAR}, #{iscreativetitle,jdbcType=VARCHAR}, #{taskstate,jdbcType=VARCHAR}, 
-      #{taskdate,jdbcType=VARCHAR}, #{taskhour,jdbcType=INTEGER}, #{taskminute,jdbcType=INTEGER}, 
-      #{visit,jdbcType=VARCHAR}, #{collect,jdbcType=VARCHAR}, #{trolley,jdbcType=VARCHAR}, 
-      #{phoneid,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, #{resultstr,jdbcType=VARCHAR}, 
-      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
-      #{updateuser,jdbcType=VARCHAR})
+      #{creativetitle,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR}, #{minpicture,jdbcType=VARCHAR}, 
+      #{maxpicture,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, #{isflow,jdbcType=VARCHAR}, 
+      #{iscreativetitle,jdbcType=VARCHAR}, #{taskstate,jdbcType=VARCHAR}, #{taskdate,jdbcType=VARCHAR}, 
+      #{taskhour,jdbcType=INTEGER}, #{taskminute,jdbcType=INTEGER}, #{visit,jdbcType=VARCHAR}, 
+      #{collect,jdbcType=VARCHAR}, #{trolley,jdbcType=VARCHAR}, #{phoneid,jdbcType=VARCHAR}, 
+      #{subtractpoints,jdbcType=INTEGER}, #{resultstr,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+      #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.zhenapp.po.TTaskDetailinfo" >
     insert into t_task_detailinfo
@@ -219,6 +224,12 @@
       </if>
       <if test="taskkeynum != null" >
         taskkeynum,
+      </if>
+      <if test="creativetitle != null" >
+        creativetitle,
+      </if>
+      <if test="taskimgztc != null" >
+        taskimgztc,
       </if>
       <if test="minpicture != null" >
         minpicture,
@@ -332,6 +343,12 @@
       </if>
       <if test="taskkeynum != null" >
         #{taskkeynum,jdbcType=VARCHAR},
+      </if>
+      <if test="creativetitle != null" >
+        #{creativetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="taskimgztc != null" >
+        #{taskimgztc,jdbcType=VARCHAR},
       </if>
       <if test="minpicture != null" >
         #{minpicture,jdbcType=VARCHAR},
@@ -455,6 +472,12 @@
       <if test="record.taskkeynum != null" >
         taskkeynum = #{record.taskkeynum,jdbcType=VARCHAR},
       </if>
+      <if test="record.creativetitle != null" >
+        creativetitle = #{record.creativetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskimgztc != null" >
+        taskimgztc = #{record.taskimgztc,jdbcType=VARCHAR},
+      </if>
       <if test="record.minpicture != null" >
         minpicture = #{record.minpicture,jdbcType=VARCHAR},
       </if>
@@ -537,6 +560,8 @@
       fakechatstr3 = #{record.fakechatstr3,jdbcType=VARCHAR},
       fakechatstr4 = #{record.fakechatstr4,jdbcType=VARCHAR},
       taskkeynum = #{record.taskkeynum,jdbcType=VARCHAR},
+      creativetitle = #{record.creativetitle,jdbcType=VARCHAR},
+      taskimgztc = #{record.taskimgztc,jdbcType=VARCHAR},
       minpicture = #{record.minpicture,jdbcType=VARCHAR},
       maxpicture = #{record.maxpicture,jdbcType=VARCHAR},
       tasktype = #{record.tasktype,jdbcType=VARCHAR},
@@ -613,6 +638,12 @@
       </if>
       <if test="taskkeynum != null" >
         taskkeynum = #{taskkeynum,jdbcType=VARCHAR},
+      </if>
+      <if test="creativetitle != null" >
+        creativetitle = #{creativetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="taskimgztc != null" >
+        taskimgztc = #{taskimgztc,jdbcType=VARCHAR},
       </if>
       <if test="minpicture != null" >
         minpicture = #{minpicture,jdbcType=VARCHAR},
@@ -693,6 +724,8 @@
       fakechatstr3 = #{fakechatstr3,jdbcType=VARCHAR},
       fakechatstr4 = #{fakechatstr4,jdbcType=VARCHAR},
       taskkeynum = #{taskkeynum,jdbcType=VARCHAR},
+      creativetitle = #{creativetitle,jdbcType=VARCHAR},
+      taskimgztc = #{taskimgztc,jdbcType=VARCHAR},
       minpicture = #{minpicture,jdbcType=VARCHAR},
       maxpicture = #{maxpicture,jdbcType=VARCHAR},
       tasktype = #{tasktype,jdbcType=VARCHAR},

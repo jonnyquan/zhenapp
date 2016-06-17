@@ -231,13 +231,13 @@ public class FirstWebController {
     			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
     			hashmap.put("taskkeynum", taskkeynum);
     			hashmap.put("iscollection", "1");
-    			//hashmap.put("taskstate", "20,21");
+    			hashmap.put("taskstatenot", "22,23");
     			int collectiontaskcount = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
     			hashmap.clear();
     			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
     			hashmap.put("taskkeynum", taskkeynum);
     			hashmap.put("isshopping", "1");
-    			//hashmap.put("taskstate", "20,21");
+    			hashmap.put("taskstatenot", "22,23");
     			int shoppingtaskcount = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
     			map.put("count", tSysconfInfoCustom.getSysconfvalue1());
     			map.put("collectiontaskcount", Integer.parseInt(tSysconfInfoCustom.getSysconfvalue1()) - collectiontaskcount);
@@ -255,6 +255,53 @@ public class FirstWebController {
         }
 		return map;
 	}
+	/*
+	 * 校验直通车能发布的数量
+	 */
+	@RequestMapping(value="/api/url/validateztc")
+	public @ResponseBody ModelMap apiurlvalidateztc(String param,String taskkeynum) throws Exception{
+		String url="http://liuliangapp.com/api/url/validate";
+		ModelMap map = new ModelMap();
+		HttpClient httpClient = new HttpClient();
+		String result="";
+        PostMethod postMethod = new PostMethod(url);
+        //postMethod.setParameter("url", "https://item.taobao.com/item.htm?id=531027639098");
+        //https://detail.tmall.com/item.htm?id=531027639098
+        postMethod.setParameter("url", param);
+        postMethod.setParameter("cache", "true");
+        postMethod.setRequestHeader("secret", secret);
+        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+        int statusCode =  httpClient.executeMethod(postMethod);
+        if(statusCode == 200) {
+            result = postMethod.getResponseBodyAsString();
+            ObjectMapper obj = new ObjectMapper();
+    		FirstWebInfoCustom firstWebInfoCustom = obj.readValue(result, FirstWebInfoCustom.class);
+    		if(firstWebInfoCustom.isSuccess()){
+    			
+    			//做过该宝贝id的直通车任务数
+    			TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
+    			HashMap<String, Object> hashmap = new HashMap<String, Object>();
+    			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
+    			hashmap.put("taskkeynum", taskkeynum);
+    			hashmap.put("taskstatenot", "22,23");
+    			int taskcountztc = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
+    			map.put("count", Integer.parseInt(tSysconfInfoCustom.getSysconfvalue2())-taskcountztc);
+    			map.put("status", "y");
+    			map.put("info", "验证成功");
+    			logger.info("验证成功");
+    		}else{
+    			map.put("status", "n");
+				map.put("info", "验证失败");
+				logger.error("验证失败");
+    		}
+        }else {
+            logger.error("调用失败" + statusCode);
+            map.put("status", "n");
+			map.put("info", "验证失败");
+        }
+		return map;
+	}
+	
 	/*
 	 *七.	验证关键词
 	 * http://liuliangapp.com/api/keywords/validate

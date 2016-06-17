@@ -40,4 +40,14 @@ public class PhoneInfoServiceImp implements PhoneInfoService{
 		return tPhoneInfoCustomMapper.findPhoneAndTask(hashmap);
 	}
 
+	@Override
+	public int insertPhone(TPhoneInfoCustom tPhoneInfoCustom) throws Exception {
+		return tPhoneInfoCustomMapper.insertPhone(tPhoneInfoCustom);
+	}
+
+	@Override
+	public int deletePhone(HashMap<String, Object> hashmap) throws Exception {
+		return tPhoneInfoCustomMapper.deletePhone(hashmap);
+	}
+
 }

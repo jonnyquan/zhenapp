@@ -20,6 +20,7 @@
     <result column="taskmaxprice" property="taskmaxprice" jdbcType="VARCHAR" />
     <result column="shipaddress" property="shipaddress" jdbcType="VARCHAR" />
     <result column="tasksearchType" property="tasksearchtype" jdbcType="VARCHAR" />
+    <result column="creativetitle" property="creativetitle" jdbcType="VARCHAR" />
     <result column="taskimgztc" property="taskimgztc" jdbcType="VARCHAR" />
     <result column="taskimgpt" property="taskimgpt" jdbcType="VARCHAR" />
     <result column="flowcount" property="flowcount" jdbcType="INTEGER" />
@@ -105,11 +106,11 @@
   <sql id="Base_Column_List" >
     taskpk, taskid, tasktype, taskkeynum, taskurl, tasktitle, taskwirelesstitle, taskstartdate, 
     taskenddate, taskdate, taskreleasekeyword, taskkeyword, taskhourcounts, taskprice, 
-    taskminprice, taskmaxprice, shipaddress, tasksearchType, taskimgztc, taskimgpt, flowcount, 
-    Collectioncount, Shoppingcount, storecollectioncount, fakechatcount, fakechatstr1, 
-    fakechatstr2, fakechatstr3, fakechatstr4, deepclick, tasktmallapppct, taskgprspct, 
-    taskPlus, taskduration, iscreativetitle, subtractpoints, taskstate, createtime, createuser, 
-    updatetime, updateuser
+    taskminprice, taskmaxprice, shipaddress, tasksearchType, creativetitle, taskimgztc, 
+    taskimgpt, flowcount, Collectioncount, Shoppingcount, storecollectioncount, fakechatcount, 
+    fakechatstr1, fakechatstr2, fakechatstr3, fakechatstr4, deepclick, tasktmallapppct, 
+    taskgprspct, taskPlus, taskduration, iscreativetitle, subtractpoints, taskstate, 
+    createtime, createuser, updatetime, updateuser
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TTaskInfoExample" >
     select
@@ -148,28 +149,30 @@
       taskdate, taskreleasekeyword, taskkeyword, 
       taskhourcounts, taskprice, taskminprice, 
       taskmaxprice, shipaddress, tasksearchType, 
-      taskimgztc, taskimgpt, flowcount, 
-      Collectioncount, Shoppingcount, storecollectioncount, 
-      fakechatcount, fakechatstr1, fakechatstr2, 
-      fakechatstr3, fakechatstr4, deepclick, 
-      tasktmallapppct, taskgprspct, taskPlus, 
-      taskduration, iscreativetitle, subtractpoints, 
-      taskstate, createtime, createuser, 
-      updatetime, updateuser)
+      creativetitle, taskimgztc, taskimgpt, 
+      flowcount, Collectioncount, Shoppingcount, 
+      storecollectioncount, fakechatcount, fakechatstr1, 
+      fakechatstr2, fakechatstr3, fakechatstr4, 
+      deepclick, tasktmallapppct, taskgprspct, 
+      taskPlus, taskduration, iscreativetitle, 
+      subtractpoints, taskstate, createtime, 
+      createuser, updatetime, updateuser
+      )
     values (#{taskpk,jdbcType=INTEGER}, #{taskid,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
       #{taskkeynum,jdbcType=VARCHAR}, #{taskurl,jdbcType=VARCHAR}, #{tasktitle,jdbcType=VARCHAR}, 
       #{taskwirelesstitle,jdbcType=VARCHAR}, #{taskstartdate,jdbcType=VARCHAR}, #{taskenddate,jdbcType=VARCHAR}, 
       #{taskdate,jdbcType=VARCHAR}, #{taskreleasekeyword,jdbcType=VARCHAR}, #{taskkeyword,jdbcType=VARCHAR}, 
       #{taskhourcounts,jdbcType=VARCHAR}, #{taskprice,jdbcType=VARCHAR}, #{taskminprice,jdbcType=VARCHAR}, 
       #{taskmaxprice,jdbcType=VARCHAR}, #{shipaddress,jdbcType=VARCHAR}, #{tasksearchtype,jdbcType=VARCHAR}, 
-      #{taskimgztc,jdbcType=VARCHAR}, #{taskimgpt,jdbcType=VARCHAR}, #{flowcount,jdbcType=INTEGER}, 
-      #{collectioncount,jdbcType=INTEGER}, #{shoppingcount,jdbcType=INTEGER}, #{storecollectioncount,jdbcType=INTEGER}, 
-      #{fakechatcount,jdbcType=INTEGER}, #{fakechatstr1,jdbcType=VARCHAR}, #{fakechatstr2,jdbcType=VARCHAR}, 
-      #{fakechatstr3,jdbcType=VARCHAR}, #{fakechatstr4,jdbcType=VARCHAR}, #{deepclick,jdbcType=VARCHAR}, 
-      #{tasktmallapppct,jdbcType=VARCHAR}, #{taskgprspct,jdbcType=VARCHAR}, #{taskplus,jdbcType=VARCHAR}, 
-      #{taskduration,jdbcType=VARCHAR}, #{iscreativetitle,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, 
-      #{taskstate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, 
-      #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR})
+      #{creativetitle,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR}, #{taskimgpt,jdbcType=VARCHAR}, 
+      #{flowcount,jdbcType=INTEGER}, #{collectioncount,jdbcType=INTEGER}, #{shoppingcount,jdbcType=INTEGER}, 
+      #{storecollectioncount,jdbcType=INTEGER}, #{fakechatcount,jdbcType=INTEGER}, #{fakechatstr1,jdbcType=VARCHAR}, 
+      #{fakechatstr2,jdbcType=VARCHAR}, #{fakechatstr3,jdbcType=VARCHAR}, #{fakechatstr4,jdbcType=VARCHAR}, 
+      #{deepclick,jdbcType=VARCHAR}, #{tasktmallapppct,jdbcType=VARCHAR}, #{taskgprspct,jdbcType=VARCHAR}, 
+      #{taskplus,jdbcType=VARCHAR}, #{taskduration,jdbcType=VARCHAR}, #{iscreativetitle,jdbcType=VARCHAR}, 
+      #{subtractpoints,jdbcType=INTEGER}, #{taskstate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+      #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.zhenapp.po.TTaskInfo" >
     insert into t_task_info
@@ -227,6 +230,9 @@
       </if>
       <if test="tasksearchtype != null" >
         tasksearchType,
+      </if>
+      <if test="creativetitle != null" >
+        creativetitle,
       </if>
       <if test="taskimgztc != null" >
         taskimgztc,
@@ -352,6 +358,9 @@
       </if>
       <if test="tasksearchtype != null" >
         #{tasksearchtype,jdbcType=VARCHAR},
+      </if>
+      <if test="creativetitle != null" >
+        #{creativetitle,jdbcType=VARCHAR},
       </if>
       <if test="taskimgztc != null" >
         #{taskimgztc,jdbcType=VARCHAR},
@@ -487,6 +496,9 @@
       <if test="record.tasksearchtype != null" >
         tasksearchType = #{record.tasksearchtype,jdbcType=VARCHAR},
       </if>
+      <if test="record.creativetitle != null" >
+        creativetitle = #{record.creativetitle,jdbcType=VARCHAR},
+      </if>
       <if test="record.taskimgztc != null" >
         taskimgztc = #{record.taskimgztc,jdbcType=VARCHAR},
       </if>
@@ -581,6 +593,7 @@
       taskmaxprice = #{record.taskmaxprice,jdbcType=VARCHAR},
       shipaddress = #{record.shipaddress,jdbcType=VARCHAR},
       tasksearchType = #{record.tasksearchtype,jdbcType=VARCHAR},
+      creativetitle = #{record.creativetitle,jdbcType=VARCHAR},
       taskimgztc = #{record.taskimgztc,jdbcType=VARCHAR},
       taskimgpt = #{record.taskimgpt,jdbcType=VARCHAR},
       flowcount = #{record.flowcount,jdbcType=INTEGER},
@@ -661,6 +674,9 @@
       </if>
       <if test="tasksearchtype != null" >
         tasksearchType = #{tasksearchtype,jdbcType=VARCHAR},
+      </if>
+      <if test="creativetitle != null" >
+        creativetitle = #{creativetitle,jdbcType=VARCHAR},
       </if>
       <if test="taskimgztc != null" >
         taskimgztc = #{taskimgztc,jdbcType=VARCHAR},
@@ -753,6 +769,7 @@
       taskmaxprice = #{taskmaxprice,jdbcType=VARCHAR},
       shipaddress = #{shipaddress,jdbcType=VARCHAR},
       tasksearchType = #{tasksearchtype,jdbcType=VARCHAR},
+      creativetitle = #{creativetitle,jdbcType=VARCHAR},
       taskimgztc = #{taskimgztc,jdbcType=VARCHAR},
       taskimgpt = #{taskimgpt,jdbcType=VARCHAR},
       flowcount = #{flowcount,jdbcType=INTEGER},

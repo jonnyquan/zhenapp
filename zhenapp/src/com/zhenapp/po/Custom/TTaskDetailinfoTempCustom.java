@@ -12,6 +12,10 @@ public class TTaskDetailinfoTempCustom extends TTaskDetailinfoTemp{
 		tTaskDetailinfoTempCustom.setTaskkeyword(tTaskDetailInfoCustom.getTaskkeyword());
 		tTaskDetailinfoTempCustom.setSearchtype(tTaskDetailInfoCustom.getSearchtype());
 		tTaskDetailinfoTempCustom.setPrice(tTaskDetailInfoCustom.getPrice());
+		tTaskDetailinfoTempCustom.setMinpicture(tTaskDetailInfoCustom.getMinpicture());
+		tTaskDetailinfoTempCustom.setMaxpicture(tTaskDetailInfoCustom.getMaxpicture());
+		tTaskDetailinfoTempCustom.setTaskimgztc(tTaskDetailInfoCustom.getTaskimgztc());
+		tTaskDetailinfoTempCustom.setCreativetitle(tTaskDetailInfoCustom.getCreativetitle());
 		tTaskDetailinfoTempCustom.setRegion(tTaskDetailInfoCustom.getRegion());
 		tTaskDetailinfoTempCustom.setIsfreeship(tTaskDetailInfoCustom.getIsfreeship());
 		tTaskDetailinfoTempCustom.setIstmall(tTaskDetailInfoCustom.getIstmall());

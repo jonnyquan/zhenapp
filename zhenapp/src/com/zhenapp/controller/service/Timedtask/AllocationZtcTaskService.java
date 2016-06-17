@@ -34,7 +34,7 @@ public class AllocationZtcTaskService {
 	SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
 	SimpleDateFormat HHmm = new SimpleDateFormat("HHmm");
 	
-	public synchronized @ResponseBody String allocateiontaskcollection(TPhoneInfoCustom tPhoneInfoCustom,String tasknumstr) throws Exception{
+	public synchronized @ResponseBody String allocateionztctask(TPhoneInfoCustom tPhoneInfoCustom,String tasknumstr) throws Exception{
 		StringBuffer sb=new StringBuffer();
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.clear();

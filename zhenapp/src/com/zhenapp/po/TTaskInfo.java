@@ -37,6 +37,8 @@ public class TTaskInfo {
 
     private String tasksearchtype;
 
+    private String creativetitle;
+
     private String taskimgztc;
 
     private String taskimgpt;
@@ -225,6 +227,14 @@ public class TTaskInfo {
 
     public void setTasksearchtype(String tasksearchtype) {
         this.tasksearchtype = tasksearchtype == null ? null : tasksearchtype.trim();
+    }
+
+    public String getCreativetitle() {
+        return creativetitle;
+    }
+
+    public void setCreativetitle(String creativetitle) {
+        this.creativetitle = creativetitle == null ? null : creativetitle.trim();
     }
 
     public String getTaskimgztc() {

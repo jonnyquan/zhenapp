@@ -16,7 +16,7 @@
      a.taskreleasekeyword,a.taskkeyword,a.taskhourcounts, 
      a.taskminprice,a.taskmaxprice,a.tasksearchType, 
      a.taskimgztc,a.taskimgpt,a.flowcount, 
-     a.Collectioncount,a.Shoppingcount,a.storecollectioncount,a.fakechatcount,a.tasktmallapppct, 
+     a.Collectioncount,a.Shoppingcount,a.storecollectioncount,a.fakechatcount,a.tasktmallapppct,a.creativetitle,
      a.taskgprspct,a.taskPlus,a.taskduration, 
      a.subtractpoints,a.taskstate,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime, 
      a.createuser,a.updatetime,a.updateuser,b.dicinfoname,
@@ -83,17 +83,17 @@
      a.taskkeynum, a.tasktitle, a.taskwirelesstitle, 
      a.taskstartdate,a.taskenddate,a.taskdate, 
      a.taskreleasekeyword,a.taskkeyword,a.taskhourcounts, 
-     a.taskminprice,a.taskmaxprice,a.tasksearchType, 
+     a.taskminprice,a.taskmaxprice,a.tasksearchType,a.creativetitle,
      a.taskimgztc,a.taskimgpt,a.flowcount, 
      a.Collectioncount,a.Shoppingcount,a.storecollectioncount,a.fakechatcount,a.tasktmallapppct, 
      a.taskgprspct,a.taskPlus,a.taskduration, 
      a.subtractpoints,a.taskstate,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime, 
      a.createuser,a.updatetime,a.updateuser,b.dicinfoname,
      CASE WHEN a.tasktype='34' THEN IFNULL(c.finishcollectioncount,0)
-     WHEN a.tasktype='33' IFNULL(h.finishcount,0)>=IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0)>=IFNULL(c.finishshoppingcount,0) THEN IFNULL(h.finishcount,0)
-     WHEN a.tasktype='33' IFNULL(h.finishcount,0)>=IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishshoppingcount,0)
-     WHEN a.tasktype='33' IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0)>=IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishcollectioncount,0)
-     WHEN a.tasktype='33' IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) and IFNULL(c.finishcollectioncount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishshoppingcount,0)
+     WHEN a.tasktype='33' AND IFNULL(h.finishcount,0)>=IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0)>=IFNULL(c.finishshoppingcount,0) THEN IFNULL(h.finishcount,0)
+     WHEN a.tasktype='33' AND IFNULL(h.finishcount,0)>=IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishshoppingcount,0)
+     WHEN a.tasktype='33' AND IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0)>=IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishcollectioncount,0)
+     WHEN a.tasktype='33' AND IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishcollectioncount,0) and IFNULL(h.finishcount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) and IFNULL(c.finishcollectioncount,0) <![CDATA[<]]> IFNULL(c.finishshoppingcount,0) THEN IFNULL(c.finishshoppingcount,0)
      ELSE IFNULL(c.finishcollectioncount,0) END finishflowcount,
      IFNULL(c.finishcollectioncount,0) AS finishcollectioncount,IFNULL(c.finishshoppingcount,0) AS finishshoppingcount,IFNULL(c.finishstorecollectioncount,0) AS finishstorecollectioncount,IFNULL(c.finishfakechatcount,0) AS finishfakechatcount,IFNULL(d.errorcount,0) AS errorcount,e.dicinfoname AS tasktypename 
      FROM t_task_info a
@@ -295,7 +295,7 @@
       taskwirelesstitle, taskstartdate, taskenddate, 
       taskdate, taskreleasekeyword, taskkeyword, 
       taskhourcounts, taskminprice, taskmaxprice, 
-      tasksearchType, taskimgztc, taskimgpt, 
+      tasksearchType, creativetitle,taskimgztc, taskimgpt, 
       flowcount, Collectioncount, Shoppingcount, 
       storecollectioncount, fakechatcount, fakechatstr1, 
       fakechatstr2, fakechatstr3, fakechatstr4, 
@@ -309,7 +309,7 @@
       #{taskwirelesstitle,jdbcType=VARCHAR}, #{taskstartdate,jdbcType=VARCHAR}, #{taskenddate,jdbcType=VARCHAR}, 
       #{taskdate,jdbcType=VARCHAR}, #{taskreleasekeyword,jdbcType=VARCHAR}, #{taskkeyword,jdbcType=VARCHAR}, 
       #{taskhourcounts,jdbcType=VARCHAR}, #{taskminprice,jdbcType=VARCHAR}, #{taskmaxprice,jdbcType=VARCHAR}, 
-      #{tasksearchtype,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR}, #{taskimgpt,jdbcType=VARCHAR}, 
+      #{tasksearchtype,jdbcType=VARCHAR}, #{creativetitle,jdbcType=VARCHAR},#{taskimgztc,jdbcType=VARCHAR}, #{taskimgpt,jdbcType=VARCHAR}, 
       #{flowcount,jdbcType=INTEGER}, #{collectioncount,jdbcType=INTEGER}, #{shoppingcount,jdbcType=INTEGER}, 
       #{storecollectioncount,jdbcType=INTEGER}, #{fakechatcount,jdbcType=INTEGER}, #{fakechatstr1,jdbcType=VARCHAR}, 
       #{fakechatstr2,jdbcType=VARCHAR}, #{fakechatstr3,jdbcType=VARCHAR}, #{fakechatstr4,jdbcType=VARCHAR}, 

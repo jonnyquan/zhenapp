@@ -440,7 +440,7 @@
 										<div class="form_control clearfix">
 											<label class="form_label"></label> 
 											<label class="form_radio">
-												<input type="radio" name="priceMode" v-model="myfChecked" value="2" onchange="checkpricemode(this);"/>
+												<input type="radio" name="priceMode" id="priceMode2" v-model="myfChecked" value="2" onchange="checkpricemode(this);"/>
 												<span>默认卡原价加减10元（成功率其次，慢）</span></label> 
 											<label class="form_radio">
 												<input type="radio" name="priceMode" v-model="tmChecked" value="3" onchange="checkpricemode(this);"/>
@@ -449,9 +449,9 @@
 										</div>
 										<div class="form_control clearfix" id="div_price">
 											<label class="form_label">自定义价格区间:</label>
-											<input class="form_input input50" type="text" name="taskminprice" id="taskminprice" v-model="start_price" value=0 /> 
+											<input class="form_input input50" type="text" name="taskminprice" id="taskminprice" v-model="start_price" value=0 onchange="setprice(this);"/> 
 											<span class="Validform_checktip scan_break">--</span> 
-											<input class="form_input input50" type="text" name="taskmaxprice" id="taskmaxprice" v-model="end_price" value=0 />
+											<input class="form_input input50" type="text" name="taskmaxprice" id="taskmaxprice" v-model="end_price" value=0 onchange="setprice(this);"/>
 										</div>
 										<div class="form_control clearfix">
 											<label class="form_label">发货地：</label>
@@ -744,14 +744,14 @@
 													onkeyup="this.value=this.value.replace(/\D/g,'')"
 													onafterpaste="this.value=this.value.replace(/\D/g,'')"
 													<c:if test="${tTaskInfoCustom.shoppingcount!=null }">value="${tTaskInfoCustom.shoppingcount}"</c:if>
-													<c:if test="${tTaskInfoCustom.shoppingcount==null }">value="0"</c:if>
+													<c:if test="${tTaskInfoCustom.shoppingcount==null }">value="20"</c:if>
 													 />
 													 <apan style="font-size:20px;">%</apan>
 												（百分比，0到100整数，浏览店铺其它宝贝比例）&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_deepclick"></span>
 								</div>
 								<div class="form_control clearfix">
 									<label class="form_label">收藏数量：</label> 
-									<input name="collectioncount" id="collectioncount" disabled="disabled"
+									<input name="collectioncount" id="collectioncount" onchange="fpsc(this);"
 										placeholder="请输入收藏数"
 										<c:if test="${tTaskInfoCustom.collectioncount!=null }">value="${tTaskInfoCustom.flowcount}"</c:if>
 										<c:if test="${tTaskInfoCustom.collectioncount==null }">value="0"</c:if>
@@ -761,7 +761,7 @@
 								</div>
 								<div class="form_control clearfix">
 									<label class="form_label">加购物车数量：</label> 
-									<input type="text" name="shoppingcount" id="shoppingcount" disabled="disabled"
+									<input type="text" name="shoppingcount" id="shoppingcount" onchange="fpgwc(this);"
 										placeholder="请输入购物车数"
 										<c:if test="${tTaskInfoCustom.shoppingcount!=null }">value="${tTaskInfoCustom.shoppingcount}"</c:if>
 										<c:if test="${tTaskInfoCustom.shoppingcount==null }">value="0"</c:if>
