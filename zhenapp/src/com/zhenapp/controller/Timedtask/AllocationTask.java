@@ -106,6 +106,8 @@ public class AllocationTask {
 				hashmap.clear();
 				hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
 				hashmap.put("taskdate", yyyyMMdd.format(new Date()));
+				hashmap.put("isshopping", "0");
+				hashmap.put("iscollection", "0");
 				hashmap.put("tasktype", 34);
 				hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
 				List<TTaskDetailinfoTempCustom> TTaskDetailinfoTempCustomlistll = taskDetailInfoTempService.findtaskkeynumlistll(hashmap);

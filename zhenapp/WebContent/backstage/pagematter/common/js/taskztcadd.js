@@ -448,18 +448,19 @@ var istitle=0;
 		}
 		if (number.test(temp)) {
 			totalsum();
-			var ys = temp / (24 - hour-1);
-			var fps = temp % (24 - hour-1);
-			for (var i =0; i < hour+1; i++) {
+			/*var ys = temp / (24 - hour);
+			var fps = temp % (24 - hour);
+			for (var i =0; i < hour; i++) {
 				$("#hour_" + i).val("0");
 			}
-			for (var i = hour+1; i < 24; i++) {
+			for (var i = hour; i < 24; i++) {
 				$("#hour_" + i).val(parseInt(ys));
 			}
 			for (var i = 0; i < fps; i++) {
-				var str = parseInt($("#hour_" + (hour+1 + i)).val()) + 1;
-				$("#hour_" + (hour+1 + i)).val(str);
-			}
+				var str = parseInt($("#hour_" + (hour + i)).val()) + 1;
+				$("#hour_" + (hour + i)).val(str);
+			}*/
+			$("#hour_" + hour).val(parseInt(temp));
 		}
 	}
 	function fpsc(obj) {
@@ -627,6 +628,7 @@ var istitle=0;
 							$("#span_flowcount").html("该宝贝发布流量数不允许超过："+llmax);
 							$("#span_flowcount").css("color","red");
 							$("#flowcount").val(llmax);
+							fpll($("#flowcount")[0]);
 						}else{
 							$("#span_flowcount").html("该宝贝发布流量数填写正确!");
 							$("#span_flowcount").css("color","green");

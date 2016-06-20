@@ -53,7 +53,7 @@ public class UpdateSysconfController {
 			tPhoneInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
 			tPhoneInfoCustom.setUpdatetime(sdf.format(new Date()));
 			tPhoneInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
-			tPhoneInfoCustom.setPhoneid((i+200)+"");
+			tPhoneInfoCustom.setPhoneid((i+201)+"");
 			tPhoneInfoCustom.setPhonestate("1");
 			tPhoneInfoCustom.setPhonetype("2");
 			phoneInfoService.insertPhone(tPhoneInfoCustom);

@@ -465,7 +465,7 @@ public class Taskallocation {
 								if(tSysconfInfoCustom.getSysconfvalue5().equals("1")){
 									tTaskDetailInfoCustom.setTaskminute(collectionminuteztc[i]);
 									if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
-										&& j<= Integer.parseInt(hh.format(new Date())) && collectionminuteztc[i] <= Integer.parseInt(mm.format(new Date()))){
+										&& j< Integer.parseInt(hh.format(new Date())) && collectionminuteztc[i] < Integer.parseInt(mm.format(new Date()))){
 										tTaskDetailInfoCustom.setTaskstate("23");
 									}else{
 										tTaskDetailInfoCustom.setTaskstate("40");
@@ -473,7 +473,7 @@ public class Taskallocation {
 								}else{
 									tTaskDetailInfoCustom.setTaskminute(0);
 									if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
-										&& j<= Integer.parseInt(hh.format(new Date())) && 0<= Integer.parseInt(mm.format(new Date()))){
+										&& j< Integer.parseInt(hh.format(new Date())) && 0 < Integer.parseInt(mm.format(new Date()))){
 										tTaskDetailInfoCustom.setTaskstate("23");
 									}else{
 										tTaskDetailInfoCustom.setTaskstate("40");
@@ -511,7 +511,7 @@ public class Taskallocation {
 								if(tSysconfInfoCustom.getSysconfvalue5().equals("1")){
 									tTaskDetailInfoCustom.setTaskminute(minuteztc[i]);
 									if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
-										&& j<= Integer.parseInt(hh.format(new Date())) && minuteztc[i] <= Integer.parseInt(mm.format(new Date()))){
+										&& j< Integer.parseInt(hh.format(new Date())) && minuteztc[i] < Integer.parseInt(mm.format(new Date()))){
 										tTaskDetailInfoCustom.setTaskstate("23");
 									}else{
 										tTaskDetailInfoCustom.setTaskstate("40");
@@ -519,7 +519,7 @@ public class Taskallocation {
 								}else{
 									tTaskDetailInfoCustom.setTaskminute(0);
 									if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
-										&& j<= Integer.parseInt(hh.format(new Date())) && 0<= Integer.parseInt(mm.format(new Date()))){
+										&& j < Integer.parseInt(hh.format(new Date())) && 0 < Integer.parseInt(mm.format(new Date()))){
 										tTaskDetailInfoCustom.setTaskstate("23");
 									}else{
 										tTaskDetailInfoCustom.setTaskstate("40");

@@ -40,6 +40,8 @@ public class AllocationZtcTaskService {
 		hashmap.clear();
 		hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
 		hashmap.put("today", yyyyMMdd.format(new Date()));
+		hashmap.put("isshopping", "1");
+		hashmap.put("iscollection", "1");
 		hashmap.put("HHmm", HHmm.format(new Date().getTime() + 1*60*1000));
 		hashmap.put("tasknumstr", tasknumstr);
 		hashmap.put("tasktype", "34");

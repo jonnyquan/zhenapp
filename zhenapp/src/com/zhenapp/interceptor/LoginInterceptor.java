@@ -91,8 +91,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 			HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 
-		//System.out.println("LoginInterceptor...postHandle");
-
 	}
 
 	// 执行Handler完成执行此方法
@@ -102,11 +100,9 @@ public class LoginInterceptor implements HandlerInterceptor {
 			HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
 		if (ex != null) {
-			System.out.println("存在异常信息,转发到状态页面！");
-			request.getRequestDispatcher("/info.jsp").forward(
-					request, response);
+			request.getRequestDispatcher("/info.jsp").forward(request, response);
+			return;
 		}
-		//System.out.println("LoginInterceptor...afterCompletion");
 	}
 
 }
