@@ -70,6 +70,8 @@ public class CheckFinshOrder {
 	
 	@Value("${secret}")
 	private String secret;
+	@Value("${liuliangapp}")
+	private String liuliangapp;
 	/*
 	 * 判断是否有任务执行完成        修改任务状态,积分处理
 	 */
@@ -115,7 +117,7 @@ public class CheckFinshOrder {
 						//调用接口判断流量任务是否完成
 						HttpClient httpClient = new HttpClient();
 						String result="";
-				        GetMethod getMethod = new GetMethod("http://liuliangapp.com/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/total");
+				        GetMethod getMethod = new GetMethod(liuliangapp + "/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/total");
 				        getMethod.setRequestHeader("secret", secret);
 				        int statusCode =  httpClient.executeMethod(getMethod);
 				        if(statusCode == 200) {

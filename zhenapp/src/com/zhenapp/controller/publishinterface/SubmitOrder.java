@@ -71,6 +71,8 @@ public class SubmitOrder {
 	
 	@Value("${secret}")
 	private String secret;
+	@Value("${liuliangapp}")
+	private String liuliangapp;
 	/*
 	 * 递交订单方式 表单提交
 	 * 
@@ -213,7 +215,7 @@ public class SubmitOrder {
 				//调用接口发送任务
 				HttpClient httpClient = new HttpClient();
 				String result="";
-			    PostMethod postMethod = new PostMethod("http://liuliangapp.com/api/tasks");
+			    PostMethod postMethod = new PostMethod(liuliangapp + "/api/tasks");
 			    postMethod.addParameter("name", tTaskDetailInfoFlowCustom.getTaskkeyword());
 			    postMethod.addParameter("keywords", tTaskDetailInfoFlowCustom.getTaskkeyword());
 			    postMethod.addParameter("product_url", "https://item.taobao.com/item.htm?id="+tTaskInfoCustom.getTaskkeynum());

@@ -98,7 +98,20 @@ public class StringUtilWxf {
 			str="未知排序类型";
 		}
 		return str;
-		
+	}
+	
+	public static String strtonull(String str1){
+		String str="";
+		if(str1==null){
+			str="null";
+		}else{
+			if(str1.length()<1){
+				str="null";
+			}else{
+				str=str1;
+			}
+		}
+		return str;
 	}
 
 }

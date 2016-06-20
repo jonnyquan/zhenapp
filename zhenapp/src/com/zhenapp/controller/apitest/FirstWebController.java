@@ -43,13 +43,15 @@ public class FirstWebController {
 	private TaskInfoService taskInfoService;
 	@Value("${secret}")
 	private String secret;
+	@Value("${liuliangapp}")
+	private String liuliangapp;
 	/*
 	 * 发布任务接口
 	 */
 	@RequestMapping(value="/api/tasks")
 	public @ResponseBody ModelMap apitasks() throws Exception{
 		ModelMap map = new ModelMap();
-		String url="http://liuliangapp.com/api/tasks";
+		String url = liuliangapp+"/api/tasks";
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findAllTaskBypage(hashmap);
 		if(tTaskInfoCustomlist!=null && tTaskInfoCustomlist.size()>0){
@@ -97,7 +99,7 @@ public class FirstWebController {
 	 */
 	@RequestMapping(value="/api/tasks/durations")
 	public @ResponseBody ModelMap apitasksdurations() throws Exception{
-		String url="http://liuliangapp.com/api/tasks/durations";
+		String url= liuliangapp+"/api/tasks/durations";
 		ModelMap map = new ModelMap();
 		HttpClient httpClient = new HttpClient();
 		String result="";
@@ -119,7 +121,7 @@ public class FirstWebController {
 	 */
 	@RequestMapping(value="/api/tasks/cost")
 	public @ResponseBody ModelMap apitaskscost() throws Exception{
-		String url="http://liuliangapp.com/api/tasks/cost";
+		String url= liuliangapp+"/api/tasks/cost";
 		ModelMap map = new ModelMap();
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findAllTaskBypage(hashmap);
@@ -161,7 +163,7 @@ public class FirstWebController {
 	 */
 	@RequestMapping(value="/api/tasks/{id}/finish")
 	public @ResponseBody ModelMap apitasksfinish(@PathVariable(value="id") String id) throws Exception{
-		String url="http://liuliangapp.com/api/tasks/"+id+"/finish";
+		String url= liuliangapp+"/api/tasks/"+id+"/finish";
 		ModelMap map = new ModelMap();
 		HttpClient httpClient = new HttpClient();
 		String result="";
@@ -187,7 +189,7 @@ public class FirstWebController {
 		ModelMap map = new ModelMap();
 		HttpClient httpClient = new HttpClient();
 		String result="";
-        GetMethod getMethod = new GetMethod("http://liuliangapp.com/api/tasks/"+id+"/total");
+        GetMethod getMethod = new GetMethod( liuliangapp+"/api/tasks/"+id+"/total");
         getMethod.setRequestHeader("secret", secret);
         int statusCode =  httpClient.executeMethod(getMethod);
         if(statusCode == 200) {
@@ -205,7 +207,7 @@ public class FirstWebController {
 	 */
 	@RequestMapping(value="/api/url/validate")
 	public @ResponseBody ModelMap apiurlvalidate(String param,String taskkeynum) throws Exception{
-		String url="http://liuliangapp.com/api/url/validate";
+		String url= liuliangapp+"/api/url/validate";
 		ModelMap map = new ModelMap();
 		HttpClient httpClient = new HttpClient();
 		String result="";
@@ -232,12 +234,14 @@ public class FirstWebController {
     			hashmap.put("taskkeynum", taskkeynum);
     			hashmap.put("iscollection", "1");
     			hashmap.put("taskstatenot", "22,23");
+    			hashmap.put("tasktype", "33");
     			int collectiontaskcount = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
     			hashmap.clear();
     			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
     			hashmap.put("taskkeynum", taskkeynum);
     			hashmap.put("isshopping", "1");
     			hashmap.put("taskstatenot", "22,23");
+    			hashmap.put("tasktype", "33");
     			int shoppingtaskcount = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
     			map.put("count", tSysconfInfoCustom.getSysconfvalue1());
     			map.put("collectiontaskcount", Integer.parseInt(tSysconfInfoCustom.getSysconfvalue1()) - collectiontaskcount);
@@ -260,9 +264,9 @@ public class FirstWebController {
 	 */
 	@RequestMapping(value="/api/url/validateztc")
 	public @ResponseBody ModelMap apiurlvalidateztc(String param,String taskkeynum) throws Exception{
-		String url="http://liuliangapp.com/api/url/validate";
+		String url= liuliangapp+"/api/url/validate";
 		ModelMap map = new ModelMap();
-		HttpClient httpClient = new HttpClient();
+		/*HttpClient httpClient = new HttpClient();
 		String result="";
         PostMethod postMethod = new PostMethod(url);
         //postMethod.setParameter("url", "https://item.taobao.com/item.htm?id=531027639098");
@@ -277,15 +281,6 @@ public class FirstWebController {
             ObjectMapper obj = new ObjectMapper();
     		FirstWebInfoCustom firstWebInfoCustom = obj.readValue(result, FirstWebInfoCustom.class);
     		if(firstWebInfoCustom.isSuccess()){
-    			
-    			//做过该宝贝id的直通车任务数
-    			TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
-    			HashMap<String, Object> hashmap = new HashMap<String, Object>();
-    			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
-    			hashmap.put("taskkeynum", taskkeynum);
-    			hashmap.put("taskstatenot", "22,23");
-    			int taskcountztc = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
-    			map.put("count", Integer.parseInt(tSysconfInfoCustom.getSysconfvalue2())-taskcountztc);
     			map.put("status", "y");
     			map.put("info", "验证成功");
     			logger.info("验证成功");
@@ -298,7 +293,10 @@ public class FirstWebController {
             logger.error("调用失败" + statusCode);
             map.put("status", "n");
 			map.put("info", "验证失败");
-        }
+        }*/
+		map.put("status", "y");
+		map.put("info", "验证成功");
+		logger.info("验证成功");
 		return map;
 	}
 	
@@ -308,7 +306,7 @@ public class FirstWebController {
 	 */
 	@RequestMapping(value="/api/keywords/validate/{keywords}/{product_id}")
 	public @ResponseBody ModelMap apikeywordsvalidate(@PathVariable(value="keywords")String keywords,@PathVariable(value="product_id")String product_id) throws Exception{
-		String url="http://liuliangapp.com/api/keywords/validate";
+		String url= liuliangapp+"/api/keywords/validate";
 		ModelMap map = new ModelMap();
 		HttpClient httpClient = new HttpClient();
 		String result="";
@@ -335,13 +333,61 @@ public class FirstWebController {
         }
 		return map;
 	}
+	@RequestMapping(value="/api/keywords/validateztc/{keywords}/{taskkeynum}")
+	public @ResponseBody ModelMap apikeywordsvalidateztc(@PathVariable(value="keywords")String keywords,@PathVariable(value="taskkeynum")String taskkeynum) throws Exception{
+		//String url= liuliangapp+"/api/keywords/validate";
+		ModelMap map = new ModelMap();
+		/*HttpClient httpClient = new HttpClient();
+		String result="";
+        PostMethod postMethod = new PostMethod(url);
+        postMethod.setRequestHeader("secret", secret);
+        //postMethod.setParameter("keywords",URLEncoder.encode(keywords.trim(), "UTF-8") );
+        postMethod.setParameter("keywords",keywords.trim().replace(" ", "　") );
+        postMethod.setParameter("product_id", taskkeynum);
+        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+        int statusCode =  httpClient.executeMethod(postMethod);
+        if(statusCode == 200) {
+            result = postMethod.getResponseBodyAsString();
+            ObjectMapper obj = new ObjectMapper();
+    		ApireturnCustom apireturnCustom = obj.readValue(result, ApireturnCustom.class);
+    		if(apireturnCustom.getSuccess().equals("false")){
+    			map.put("msg", "0");
+    		}else{*/
+    			map.put("msg", "1");
+    			//做过该宝贝id的直通车任务数
+    			TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
+    			HashMap<String, Object> hashmap = new HashMap<String, Object>();
+    			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
+    			hashmap.put("taskkeynum", taskkeynum);
+    			hashmap.put("taskkeyword", keywords);
+    			hashmap.put("taskstatenot", "22,23");
+    			hashmap.put("tasktype", "34");
+    			int taskcountztc = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
+    			map.put("count", Integer.parseInt(tSysconfInfoCustom.getSysconfvalue2())-taskcountztc);
+    			hashmap.clear();
+    			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
+    			hashmap.put("taskkeynum", taskkeynum);
+    			hashmap.put("taskstatenot", "22,23");
+    			hashmap.put("tasktype", "34");
+    			hashmap.put("iscollection", "1");
+    			hashmap.put("isshopping", "1");
+    			int taskcount = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
+    			map.put("countztc", Integer.parseInt(tSysconfInfoCustom.getSysconfvalue2())-taskcount);
+    			/*	}
+        }
+        else {
+            logger.error("调用失败,失败错误码:" + statusCode);
+            map.put("msg", "0");
+        }*/
+		return map;
+	}
 	/*
 	 *八.	查询账号积分
 	 * http://liuliangapp.com/api/points
 	 */
 	@RequestMapping(value="/api/points")
 	public @ResponseBody ModelMap apipoints() throws Exception{
-		String url="http://liuliangapp.com/api/points";
+		String url= liuliangapp+"/api/points";
 		ModelMap map = new ModelMap();
 		HttpClient httpClient = new HttpClient();
 		String result="";

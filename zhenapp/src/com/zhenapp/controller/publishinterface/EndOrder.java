@@ -56,6 +56,8 @@ public class EndOrder {
 	private PriceInfoService priceInfoService;
 	@Value("${secret}")
 	private String secret;
+	@Value("${liuliangapp}")
+	private String liuliangapp;
 	/*
 	 * 终止订单
 	 */
@@ -91,7 +93,7 @@ public class EndOrder {
 					taskDetailInfoTempService.updatestate(hashmap);
 					
 					//并调用接口终止发布到第一个手机网站的任务
-					String url="http://liuliangapp.com/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/finish";
+					String url = liuliangapp + "/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/finish";
 					HttpClient httpClient = new HttpClient();
 					String result="";
 			        PostMethod postMethod = new PostMethod(url);

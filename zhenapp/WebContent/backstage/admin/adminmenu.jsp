@@ -25,7 +25,7 @@
 	<li><a href="${pageContext.request.contextPath}/agent/responseagentmanage"><span class="am-icon-sitemap"></span>代理管理</a></li>
 	<li><a href="${pageContext.request.contextPath}/user/findUsertestAdmin"><span class="am-icon-sitemap"></span>测试账号管理</a></li>
 	<li><a href="${pageContext.request.contextPath}/datacount/responsedatasumadmin"><span class="am-icon-bar-chart"></span>数据统计</a></li>
-	
+	<li><a href="${pageContext.request.contextPath}/user/requestresetpwd"><span class="am-icon-bar-chart"></span>密码重置</a></li>
 	<li class="admin-parent">
 		<a class="am-cf" data-am-collapse="{target: '#collapse-navo'}">
 			<spanclass="am-icon-sign-out"></span>其他 

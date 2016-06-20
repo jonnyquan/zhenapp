@@ -32,10 +32,28 @@
   </select>
    
   <select id="findtaskdatacount" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
-  		SELECT phoneid,SUM(isshopping) AS shoppingcount,SUM(iscollection) AS collectioncount FROM t_task_detailinfo WHERE taskdate =#{date} AND taskstate='21' GROUP BY phoneid ORDER BY phoneid+0
+  		SELECT b.phoneid,SUM(b.isshoppingll) AS shoppingcount,SUM(b.iscollectionll) AS collectioncount,SUM(b.ztc) AS ztccount,
+	SUM(b.isshoppingztc) AS shoppingztccount,SUM(b.iscollectionztc) AS collectionztccount
+	FROM (SELECT a.phoneid,
+	CASE WHEN a.isshopping=1 AND a.tasktype='33' THEN 1 ELSE 0 END AS isshoppingll,
+	CASE WHEN a.iscollection=1 AND a.tasktype='33' THEN 1 ELSE 0 END AS iscollectionll,
+	CASE WHEN a.isshopping=0 AND a.iscollection=0 AND a.tasktype='34' THEN 1 ELSE 0 END AS ztc,
+	CASE WHEN a.isshopping=0 AND a.iscollection=1 AND a.tasktype='34' THEN 1 ELSE 0 END AS isshoppingztc,
+	CASE WHEN a.isshopping=1 AND a.iscollection=0 AND a.tasktype='34' THEN 1 ELSE 0 END AS iscollectionztc 
+	FROM t_task_detailinfo a WHERE a.phoneid IS NOT NULL AND a.taskdate =#{date} AND a.taskstate='21') b
+	GROUP BY b.phoneid ORDER BY b.phoneid+0
   </select>
   <select id="findtaskdatasum" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
-  		SELECT SUM(isshopping) AS shoppingsum,SUM(iscollection) AS collectionsum FROM t_task_detailinfo WHERE taskdate =#{date} AND taskstate='21' 
+  		SELECT SUM(b.isshoppingll) AS shoppingsum,SUM(b.iscollectionll) AS collectionsum,SUM(b.ztc) AS ztcsum,
+	SUM(b.isshoppingztc) AS shoppingztcsum,SUM(b.iscollectionztc) AS collectionztcsum
+	FROM (SELECT a.phoneid,
+	CASE WHEN a.isshopping=1 AND a.tasktype='33' THEN 1 ELSE 0 END AS isshoppingll,
+	CASE WHEN a.iscollection=1 AND a.tasktype='33' THEN 1 ELSE 0 END AS iscollectionll,
+	CASE WHEN a.isshopping=0 AND a.iscollection=0 AND a.tasktype='34' THEN 1 ELSE 0 END AS ztc,
+	CASE WHEN a.isshopping=0 AND a.iscollection=1 AND a.tasktype='34' THEN 1 ELSE 0 END AS isshoppingztc,
+	CASE WHEN a.isshopping=1 AND a.iscollection=0 AND a.tasktype='34' THEN 1 ELSE 0 END AS iscollectionztc 
+	FROM t_task_detailinfo a WHERE a.phoneid IS NOT NULL AND a.taskdate =#{date} AND a.taskstate='21') b
+	
   </select>
   
   <select id="findCounts" resultType="int" parameterType="java.util.HashMap">
@@ -200,6 +218,12 @@
   <select id="findTaskDetailByIdAndtask" parameterType="java.util.HashMap" resultType="int">
   	SELECT COUNT(1) FROM t_task_detailinfo
   	<where>
+  		<if test="tasktype != null and tasktype != '' ">
+  			and tasktype = #{tasktype}
+  		</if>
+  		<if test="taskkeyword != null and taskkeyword != '' ">
+  			and taskkeyword = #{taskkeyword}
+  		</if>
   		<if test="taskdate != null and taskdate != '' ">
   			and taskdate = #{taskdate}
   		</if>
@@ -216,7 +240,7 @@
   			and taskstate in (${taskstate})
   		</if>
   		<if test="taskstatenot != null and taskstatenot != '' ">
-  			and taskstatenot not in (${taskstate})
+  			and taskstate not in (${taskstatenot})
   		</if>
   		<if test="taskid != null and taskid != '' ">
   			and taskid = #{taskid}

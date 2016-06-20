@@ -4,7 +4,12 @@
   <select id="findTaskerrorcounts" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap">
   	SELECT a.taskid,COUNT(1) AS counts FROM t_task_info a
 	LEFT JOIN t_task_detailinfo b ON a.taskid= b.taskid
-	WHERE a.taskstate='16' AND DATE_FORMAT(a.taskdate,'%Y%m%d') = DATE_FORMAT(NOW(),'%Y%m%d') AND b.taskstate='22' GROUP BY a.taskid HAVING counts <![CDATA[<=]]> #{counts}
+	<where>
+		<if test="tasktype != null and tasktype !='' ">
+			and tasktype=#{tasktype}
+		</if>
+		and a.taskstate='16' AND DATE_FORMAT(a.taskdate,'%Y%m%d') = DATE_FORMAT(NOW(),'%Y%m%d') AND b.taskstate='22' GROUP BY a.taskid HAVING counts <![CDATA[>=]]> #{counts}
+	</where>
   </select>
   <select id="findTaskInfoBypks" parameterType="String" resultType="com.zhenapp.po.Custom.TTaskInfoCustom">
   	select * from t_task_info where taskpk in (${value})
@@ -257,6 +262,9 @@
     	<if test="taskdate != null and taskdate != ''">
     		AND taskdate = #{taskdate} 
     	</if>
+    	<if test="taskkeynum != null and taskkeynum != ''">
+    		AND taskkeynum = #{taskkeynum} 
+    	</if>
     </where>
     order by taskpk+0 desc
   </select>
@@ -290,12 +298,13 @@
   	<selectKey keyProperty="taskpk" order="AFTER" resultType="int">
   		select LAST_INSERT_ID()
   	</selectKey>
-      insert into t_task_info (taskid, tasktype, 
+      insert into t_task_info ( taskid, tasktype, 
       taskkeynum, taskurl, tasktitle, 
       taskwirelesstitle, taskstartdate, taskenddate, 
       taskdate, taskreleasekeyword, taskkeyword, 
-      taskhourcounts, taskminprice, taskmaxprice, 
-      tasksearchType, creativetitle,taskimgztc, taskimgpt, 
+      taskhourcounts, taskprice, taskminprice, 
+      taskmaxprice, shipaddress, tasksearchType, 
+      creativetitle, taskimgztc, taskimgpt, 
       flowcount, Collectioncount, Shoppingcount, 
       storecollectioncount, fakechatcount, fakechatstr1, 
       fakechatstr2, fakechatstr3, fakechatstr4, 
@@ -308,8 +317,9 @@
       #{taskkeynum,jdbcType=VARCHAR}, #{taskurl,jdbcType=VARCHAR}, #{tasktitle,jdbcType=VARCHAR}, 
       #{taskwirelesstitle,jdbcType=VARCHAR}, #{taskstartdate,jdbcType=VARCHAR}, #{taskenddate,jdbcType=VARCHAR}, 
       #{taskdate,jdbcType=VARCHAR}, #{taskreleasekeyword,jdbcType=VARCHAR}, #{taskkeyword,jdbcType=VARCHAR}, 
-      #{taskhourcounts,jdbcType=VARCHAR}, #{taskminprice,jdbcType=VARCHAR}, #{taskmaxprice,jdbcType=VARCHAR}, 
-      #{tasksearchtype,jdbcType=VARCHAR}, #{creativetitle,jdbcType=VARCHAR},#{taskimgztc,jdbcType=VARCHAR}, #{taskimgpt,jdbcType=VARCHAR}, 
+      #{taskhourcounts,jdbcType=VARCHAR}, #{taskprice,jdbcType=VARCHAR}, #{taskminprice,jdbcType=VARCHAR}, 
+      #{taskmaxprice,jdbcType=VARCHAR}, #{shipaddress,jdbcType=VARCHAR}, #{tasksearchtype,jdbcType=VARCHAR}, 
+      #{creativetitle,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR}, #{taskimgpt,jdbcType=VARCHAR}, 
       #{flowcount,jdbcType=INTEGER}, #{collectioncount,jdbcType=INTEGER}, #{shoppingcount,jdbcType=INTEGER}, 
       #{storecollectioncount,jdbcType=INTEGER}, #{fakechatcount,jdbcType=INTEGER}, #{fakechatstr1,jdbcType=VARCHAR}, 
       #{fakechatstr2,jdbcType=VARCHAR}, #{fakechatstr3,jdbcType=VARCHAR}, #{fakechatstr4,jdbcType=VARCHAR}, 

@@ -10,6 +10,9 @@
     <result column="sysconfcode2" property="sysconfcode2" jdbcType="VARCHAR" />
     <result column="sysconfname2" property="sysconfname2" jdbcType="VARCHAR" />
     <result column="sysconfvalue2" property="sysconfvalue2" jdbcType="VARCHAR" />
+    <result column="sysconfcode3" property="sysconfcode3" jdbcType="VARCHAR" />
+    <result column="sysconfname3" property="sysconfname3" jdbcType="VARCHAR" />
+    <result column="sysconfvalue3" property="sysconfvalue3" jdbcType="VARCHAR" />
     <result column="sysconfcode4" property="sysconfcode4" jdbcType="VARCHAR" />
     <result column="sysconfname4" property="sysconfname4" jdbcType="VARCHAR" />
     <result column="sysconfvalue4" property="sysconfvalue4" jdbcType="VARCHAR" />
@@ -84,9 +87,9 @@
   </sql>
   <sql id="Base_Column_List" >
     sysconfpk, sysconfid, sysconfcode1, sysconfname1, sysconfvalue1, sysconfcode2, sysconfname2, 
-    sysconfvalue2, sysconfcode4, sysconfname4, sysconfvalue4, sysconfcode5, sysconfname5, 
-    sysconfvalue5, sysconfcode6, sysconfname6, sysconfvalue6, createtime, createuser, 
-    updatetime, updateuser
+    sysconfvalue2, sysconfcode3, sysconfname3, sysconfvalue3, sysconfcode4, sysconfname4, 
+    sysconfvalue4, sysconfcode5, sysconfname5, sysconfvalue5, sysconfcode6, sysconfname6, 
+    sysconfvalue6, createtime, createuser, updatetime, updateuser
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TSysconfInfoExample" >
     select
@@ -121,7 +124,8 @@
   <insert id="insert" parameterType="com.zhenapp.po.TSysconfInfo" >
     insert into t_sysconf_info (sysconfpk, sysconfid, sysconfcode1, 
       sysconfname1, sysconfvalue1, sysconfcode2, 
-      sysconfname2, sysconfvalue2, sysconfcode4, 
+      sysconfname2, sysconfvalue2, sysconfcode3, 
+      sysconfname3, sysconfvalue3, sysconfcode4, 
       sysconfname4, sysconfvalue4, sysconfcode5, 
       sysconfname5, sysconfvalue5, sysconfcode6, 
       sysconfname6, sysconfvalue6, createtime, 
@@ -129,7 +133,8 @@
       )
     values (#{sysconfpk,jdbcType=INTEGER}, #{sysconfid,jdbcType=VARCHAR}, #{sysconfcode1,jdbcType=VARCHAR}, 
       #{sysconfname1,jdbcType=VARCHAR}, #{sysconfvalue1,jdbcType=VARCHAR}, #{sysconfcode2,jdbcType=VARCHAR}, 
-      #{sysconfname2,jdbcType=VARCHAR}, #{sysconfvalue2,jdbcType=VARCHAR}, #{sysconfcode4,jdbcType=VARCHAR}, 
+      #{sysconfname2,jdbcType=VARCHAR}, #{sysconfvalue2,jdbcType=VARCHAR}, #{sysconfcode3,jdbcType=VARCHAR}, 
+      #{sysconfname3,jdbcType=VARCHAR}, #{sysconfvalue3,jdbcType=VARCHAR}, #{sysconfcode4,jdbcType=VARCHAR}, 
       #{sysconfname4,jdbcType=VARCHAR}, #{sysconfvalue4,jdbcType=VARCHAR}, #{sysconfcode5,jdbcType=VARCHAR}, 
       #{sysconfname5,jdbcType=VARCHAR}, #{sysconfvalue5,jdbcType=VARCHAR}, #{sysconfcode6,jdbcType=VARCHAR}, 
       #{sysconfname6,jdbcType=VARCHAR}, #{sysconfvalue6,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
@@ -162,6 +167,15 @@
       </if>
       <if test="sysconfvalue2 != null" >
         sysconfvalue2,
+      </if>
+      <if test="sysconfcode3 != null" >
+        sysconfcode3,
+      </if>
+      <if test="sysconfname3 != null" >
+        sysconfname3,
+      </if>
+      <if test="sysconfvalue3 != null" >
+        sysconfvalue3,
       </if>
       <if test="sysconfcode4 != null" >
         sysconfcode4,
@@ -227,6 +241,15 @@
       </if>
       <if test="sysconfvalue2 != null" >
         #{sysconfvalue2,jdbcType=VARCHAR},
+      </if>
+      <if test="sysconfcode3 != null" >
+        #{sysconfcode3,jdbcType=VARCHAR},
+      </if>
+      <if test="sysconfname3 != null" >
+        #{sysconfname3,jdbcType=VARCHAR},
+      </if>
+      <if test="sysconfvalue3 != null" >
+        #{sysconfvalue3,jdbcType=VARCHAR},
       </if>
       <if test="sysconfcode4 != null" >
         #{sysconfcode4,jdbcType=VARCHAR},
@@ -302,6 +325,15 @@
       <if test="record.sysconfvalue2 != null" >
         sysconfvalue2 = #{record.sysconfvalue2,jdbcType=VARCHAR},
       </if>
+      <if test="record.sysconfcode3 != null" >
+        sysconfcode3 = #{record.sysconfcode3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysconfname3 != null" >
+        sysconfname3 = #{record.sysconfname3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysconfvalue3 != null" >
+        sysconfvalue3 = #{record.sysconfvalue3,jdbcType=VARCHAR},
+      </if>
       <if test="record.sysconfcode4 != null" >
         sysconfcode4 = #{record.sysconfcode4,jdbcType=VARCHAR},
       </if>
@@ -356,6 +388,9 @@
       sysconfcode2 = #{record.sysconfcode2,jdbcType=VARCHAR},
       sysconfname2 = #{record.sysconfname2,jdbcType=VARCHAR},
       sysconfvalue2 = #{record.sysconfvalue2,jdbcType=VARCHAR},
+      sysconfcode3 = #{record.sysconfcode3,jdbcType=VARCHAR},
+      sysconfname3 = #{record.sysconfname3,jdbcType=VARCHAR},
+      sysconfvalue3 = #{record.sysconfvalue3,jdbcType=VARCHAR},
       sysconfcode4 = #{record.sysconfcode4,jdbcType=VARCHAR},
       sysconfname4 = #{record.sysconfname4,jdbcType=VARCHAR},
       sysconfvalue4 = #{record.sysconfvalue4,jdbcType=VARCHAR},
@@ -396,6 +431,15 @@
       </if>
       <if test="sysconfvalue2 != null" >
         sysconfvalue2 = #{sysconfvalue2,jdbcType=VARCHAR},
+      </if>
+      <if test="sysconfcode3 != null" >
+        sysconfcode3 = #{sysconfcode3,jdbcType=VARCHAR},
+      </if>
+      <if test="sysconfname3 != null" >
+        sysconfname3 = #{sysconfname3,jdbcType=VARCHAR},
+      </if>
+      <if test="sysconfvalue3 != null" >
+        sysconfvalue3 = #{sysconfvalue3,jdbcType=VARCHAR},
       </if>
       <if test="sysconfcode4 != null" >
         sysconfcode4 = #{sysconfcode4,jdbcType=VARCHAR},
@@ -448,6 +492,9 @@
       sysconfcode2 = #{sysconfcode2,jdbcType=VARCHAR},
       sysconfname2 = #{sysconfname2,jdbcType=VARCHAR},
       sysconfvalue2 = #{sysconfvalue2,jdbcType=VARCHAR},
+      sysconfcode3 = #{sysconfcode3,jdbcType=VARCHAR},
+      sysconfname3 = #{sysconfname3,jdbcType=VARCHAR},
+      sysconfvalue3 = #{sysconfvalue3,jdbcType=VARCHAR},
       sysconfcode4 = #{sysconfcode4,jdbcType=VARCHAR},
       sysconfname4 = #{sysconfname4,jdbcType=VARCHAR},
       sysconfvalue4 = #{sysconfvalue4,jdbcType=VARCHAR},

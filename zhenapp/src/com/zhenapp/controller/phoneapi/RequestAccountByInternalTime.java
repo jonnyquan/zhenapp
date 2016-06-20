@@ -35,13 +35,14 @@ public class RequestAccountByInternalTime {
 	
 	private static Logger logger = Logger.getLogger(RequestAccountByInternalTime.class);
 	/*
-	 * 设置一键换号
+	 * 一键换号之后获取账号
 	 */
 	@RequestMapping(value="/api/phone/requestAccountByInternalTime/task")
 	public @ResponseBody String phoneChange(String pid) throws Exception{
 		StringBuffer sb=new StringBuffer();
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.put("tbaccountstate", "nochange");
+		hashmap.put("tbaccountphoneid", pid);
 		//查询是否存在状态为nochange的淘宝账号
 		List<TTbaccountInfoCustom> tTbaccountInfoCustomlisttemp = tbaccountInfoService.findAllTbaccountBypage(hashmap);
 		if(tTbaccountInfoCustomlisttemp!=null && tTbaccountInfoCustomlisttemp.size()>0){
@@ -63,7 +64,30 @@ public class RequestAccountByInternalTime {
 			logger.info("一键换号成功!");
 			return sb.toString();
 		}else{
-			return "nochange";
+			List<TTbaccountInfoCustom> tTbaccountInfoCustomlistnull = tbaccountInfoService.findTbaccountByphoneidisnull();
+			if(tTbaccountInfoCustomlistnull != null && tTbaccountInfoCustomlistnull.size()>0){
+				TTbaccountInfoCustom tTbaccountInfoCustom = tTbaccountInfoCustomlistnull.get(0);
+				/*淘宝帐号|淘宝密码 |帐号序号|附加标记
+				sb.append(tTbaccountInfoCustom.getTbaccountname()).append("|")
+					.append(tTbaccountInfoCustom.getTbaccountpwd()).append("|")
+					.append(tTbaccountInfoCustom.getTbaccountpk());*/
+				hashmap.clear();
+				hashmap.put("tbaccountphoneid", pid);
+				hashmap.put("Tbaccountpk", tTbaccountInfoCustom.getTbaccountpk());
+				tbaccountInfoService.updateTbaccount(hashmap);
+				tTbaccountInfoCustom.setTbaccountstate("nochange");
+				tTbaccountInfoCustom.setUpdatetime(sdf.format(new Date()));
+				tTbaccountInfoCustom.setUpdateuser("sys");
+				tbaccountInfoService.updateTbaccountByid(tTbaccountInfoCustom);
+				sb.append(tTbaccountInfoCustom.getTbaccountname()).append("|")
+				.append(tTbaccountInfoCustom.getTbaccountpwd()).append("|")
+				.append(tTbaccountInfoCustom.getTbaccountpk()).append("|")
+				.append(tTbaccountInfoCustom.getTbaccounttag());
+				logger.info("一键换号成功!");
+				return sb.toString();
+			}else{
+				return "该手机的账号库没有账号";
+			}
 		}
 	}
 }

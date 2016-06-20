@@ -340,7 +340,7 @@
 												<td style="width:10px;">
 												</td>
 												<td>
-													<input type="text" name="taskkeywords" style="width:200px;" value="${tTaskInfoCustom.taskkeyword}" placeholder="请输入关键词" onchange="checkword(this);" />		
+													<input type="text" name="taskkeywords" id="taskkeywordcheck" style="width:200px;" value="${tTaskInfoCustom.taskkeyword}" placeholder="请输入关键词" onchange="checkword(this);" />		
 												</td>
 												<td style="width:5px;">
 												</td>
@@ -377,13 +377,14 @@
 								</div>
 								<div class="form_control clearfix">
 									<label class="form_label">模式：</label> 
+									
+									<label class="form_radio">
+										<input type="radio" name="Mode" v-model="tmChecked" checked="checked" value="0" onchange="checkmode(this);"/>
+										<span>新模式(推荐)</span>
+									</label> 
 									<label class="form_radio">
 										<input type="radio" name="Mode" v-model="myfChecked" value="1" onchange="checkmode(this);"/>
 										<span>老模式</span></label> 
-									<label class="form_radio">
-										<input type="radio" name="Mode" v-model="tmChecked" checked="checked" value="0" onchange="checkmode(this);"/>
-										<span>新模式</span>
-									</label> 
 								</div>
 								<div class="form_control clearfix" id="div_taskimgztc" style="display: none;">
 									<label class="form_label">直通车图片：</label> 
@@ -395,7 +396,7 @@
 								</div>
 								<div class="form_control clearfix" id="div_creativetitle" style="display: block;">
 									<label class="form_label">创意标题：</label> 
-									<input type="text" name="creativetitle" placeholder="请输入直通车图片" id="creativetitle" style="width:350px;"
+									<input type="text" name="creativetitle" placeholder="请输入直通车图片" id="creativetitle" style="width:350px;" onchange="checktitle();"
 									<c:if test="${tTaskInfoCustom.creativetitle!=null }">value="${tTaskInfoCustom.creativetitle}"</c:if>
 									<c:if test="${tTaskInfoCustom.creativetitle==null }">value=" "</c:if>
 									maxlength="100" />&nbsp;&nbsp;&nbsp;&nbsp;
@@ -403,7 +404,7 @@
 								</div>
 								<div class="form_control clearfix">
 									<label class="form_label">宝贝价格：</label> 
-									<input type="text" name="taskprice" placeholder="请输入宝贝价格" id="taskprice" style="width:150px;"
+									<input type="text" name="taskprice" placeholder="请输入宝贝价格" id="taskprice" style="width:150px;" onchange="setprice();"
 									<c:if test="${tTaskInfoCustom.taskprice!=null }">value="${tTaskInfoCustom.taskprice}"</c:if>
 									<c:if test="${tTaskInfoCustom.taskprice==null }">value="0"</c:if>
 									maxlength="10"/>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -433,7 +434,7 @@
 												<input type="radio" name="priceMode" v-model="myfChecked" value="0" onchange="checkpricemode(this);"/>
 												<span>默认综合不卡价格（必须排名很前）</span></label> 
 											<label class="form_radio">
-												<input type="radio" name="priceMode" v-model="tmChecked" checked="checked" value="1" onchange="checkpricemode(this);"/>
+												<input type="radio" name="priceMode" id="priceMode2" v-model="tmChecked" checked="checked" value="1" onchange="checkpricemode(this);"/>
 												<span>默认卡原价加减1元（成功率最高，速度最快）</span>
 											</label>
 										</div>
@@ -753,7 +754,7 @@
 									<label class="form_label">收藏数量：</label> 
 									<input name="collectioncount" id="collectioncount" onchange="fpsc(this);"
 										placeholder="请输入收藏数"
-										<c:if test="${tTaskInfoCustom.collectioncount!=null }">value="${tTaskInfoCustom.flowcount}"</c:if>
+										<c:if test="${tTaskInfoCustom.collectioncount!=null }">value="${tTaskInfoCustom.collectioncount}"</c:if>
 										<c:if test="${tTaskInfoCustom.collectioncount==null }">value="0"</c:if>
 										onkeyup="this.value=this.value.replace(/\D/g,'')"
 										onafterpaste="this.value=this.value.replace(/\D/g,'')"/>&nbsp;&nbsp;
@@ -765,6 +766,8 @@
 										placeholder="请输入购物车数"
 										<c:if test="${tTaskInfoCustom.shoppingcount!=null }">value="${tTaskInfoCustom.shoppingcount}"</c:if>
 										<c:if test="${tTaskInfoCustom.shoppingcount==null }">value="0"</c:if>
+										onkeyup="this.value=this.value.replace(/\D/g,'')"
+										onafterpaste="this.value=this.value.replace(/\D/g,'')"
 										/>&nbsp;&nbsp;
 										<span id="span_shopping_text" style="color:red;">* 必须与流量数保持一致</span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_shopping"></span>
 								</div>

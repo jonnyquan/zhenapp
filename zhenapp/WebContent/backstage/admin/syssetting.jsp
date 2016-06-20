@@ -83,7 +83,14 @@
         <div class="am-u-sm-2" style="padding: 0px;">台</div>
       </div>
        <div class="am-form-group">
-        <label for="error_num" class="am-u-sm-4 am-form-label">宝贝错误次数（超过就终止）</label>
+        <label for="error_num" class="am-u-sm-4 am-form-label">宝贝错误次数（超过就终止）--直通车流量</label>
+        <div class="am-u-sm-4">
+          <input type="text" name="sysconfvalue3" value="${tSysconfInfoCustom.sysconfvalue3}">
+        </div>
+        <div class="am-u-sm-2" style="padding: 0px;">个</div>
+      </div>
+      <div class="am-form-group">
+        <label for="error_num" class="am-u-sm-4 am-form-label">宝贝错误次数（超过就终止）--普通流量</label>
         <div class="am-u-sm-4">
           <input type="text" name="sysconfvalue4" value="${tSysconfInfoCustom.sysconfvalue4}">
         </div>

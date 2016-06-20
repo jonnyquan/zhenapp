@@ -1,6 +1,7 @@
 package com.zhenapp.controller.phoneapi;
 
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,10 @@ public class RequestAccount {
 				sb.append(tTbaccountInfoCustom.getTbaccountname()).append("|")
 					.append(tTbaccountInfoCustom.getTbaccountpwd()).append("|")
 					.append(tTbaccountInfoCustom.getTbaccountpk());
+				HashMap<String, Object> hashmap = new HashMap<String, Object>();
+				hashmap.put("tbaccountphoneid", pid);
+				hashmap.put("Tbaccountpk", tTbaccountInfoCustom.getTbaccountpk());
+				tbaccountInfoService.updateTbaccount(hashmap);
 			}else{
 				sb.append("未获取到淘宝账号信息");
 			}

@@ -50,10 +50,10 @@
 		select * from t_tbaccount_info 
 		<where>
 			<if test="tbaccountphoneid != null and tbaccountphoneid !='' ">
-				tbaccountphoneid = #{tbaccountphoneid}
+				and tbaccountphoneid = #{tbaccountphoneid}
 			</if>
 			<if test="tbaccountstate != null and tbaccountstate !='' ">
-				tbaccountstate = #{tbaccountstate}
+				and tbaccountstate = #{tbaccountstate}
 			</if>
 			and tbaccountstate != '65'
 		</where>
@@ -108,4 +108,13 @@
 	<delete id="deleteTbaccountByid" parameterType="String">
 		update t_tbaccount_info set tbaccountstate = '65' where tbaccountid in (#{tbaccountids})
 	</delete>
+	
+	<update id="updateTbaccount">
+		update t_tbaccount_info set tbaccountphoneid = #{tbaccountphoneid}
+		<where>
+			<if test="Tbaccountpk!=null and Tbaccountpk !=''">
+				and Tbaccountpk = #{Tbaccountpk}
+			</if>
+		</where>
+	</update>
 </mapper>

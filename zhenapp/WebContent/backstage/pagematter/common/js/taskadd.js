@@ -434,8 +434,8 @@ var isurl=false;
 				success:function(data,state){
 					if(data!=null && data.status=='y'){
 						//llmax=data.count;
-						scmax=data.collectiontaskcount;
-						gwcmax=data.shoppingtaskcount;
+						scmax=data.collectiontaskcount/keywords;
+						gwcmax=data.shoppingtaskcount/keywords;
 						$("#span_shopping_text").html("  今天最多还可发:"+gwcmax);
 						$("#span_collection_text").html("  今天最多还可发:"+scmax);
 						if(parseInt($("#flowcount").val()) > parseInt(llmax)){
@@ -615,8 +615,8 @@ function checkurl_2(obj){
 			type : "POST",
 			success:function(data,state){
 				if(data!=null && data.status=='y'){
-					scmax=data.collectiontaskcount;
-					gwcmax=data.shoppingtaskcount;
+					scmax=data.collectiontaskcount/keywords;
+					gwcmax=data.shoppingtaskcount/keywords;
 					$("#span_shopping_text").html("  今天最多还可发:"+gwcmax);
 					$("#span_collection_text").html("  今天最多还可发："+scmax);
 					if(parseInt($("#flowcount").val()) > parseInt(llmax)){

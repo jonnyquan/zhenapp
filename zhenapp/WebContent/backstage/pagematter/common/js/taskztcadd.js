@@ -13,7 +13,11 @@ var mode=0;
 var pricemode=0;
 var taskminpricestr=0;
 var taskmaxpricestr=0;
+var istitle=0;
+
 	;$(function() {
+		checkpricemode($("input[name=priceMode]:checked")[0]);
+		
 		$("#taskurl").focus();
 		$(".box").show();
 		$(".box").click(function(){
@@ -21,7 +25,11 @@ var taskmaxpricestr=0;
 		
 		if($("#taskurl").val().length >1){
 			checkurl_2($("#taskurl")[0]);
+			
+			checkword($("#taskkeywordcheck")[0]);
 		}
+		
+		
 		fpll($("#flowcount")[0]);//默认加载一次分配流量数
 		
 		$('#datefrom').datebox({
@@ -142,6 +150,14 @@ var taskmaxpricestr=0;
 		*/
 		$("#subbtn").click(function () {
 			checkpricemode($("#priceMode2")[0]);
+			checktitle();
+			if(istitle==0){
+				$.messager.alert('消息提示', '请正确输入创意标题!', 'info', function () {
+					$('#creativetitle').focus();
+				});
+				return false;
+			}
+			
 			if (!$('#taskurl').validatebox('isValid')) {
 				$.messager.alert('消息提示', '请输入宝贝url!', 'info', function () {
 					$('#taskurl').focus();
@@ -281,11 +297,13 @@ var taskmaxpricestr=0;
 				url : uri+"/task/saveTaskInfo",
 				type : "POST",
 				data : {
+					llmax :llmax,
+					scmax : scmax,
+					gwcmax : gwcmax,
 					taskurl : $("#taskurl").val(),
 					taskimgztc : $("#taskimgztc").val(),
 					creativetitle : $("#creativetitle").val(),
 					deepclick : $("#deepclick").val(),
-					taskprice : $("#taskprice").val(),
 					shipaddress : $("#shipaddress").val(),
 					taskkeynum : taskkeynumval,
 					taskkeywords : taskkeywords.join('===='),
@@ -316,8 +334,32 @@ var taskmaxpricestr=0;
 						$.messager.alert('消息提示', '代理积分不足,任务发布失败!', 'info', function () {
 							window.location.href=uri+"/task/responsetaskadd";
 						});
+					}else if(data.data=="allocationing"){
+						$.messager.alert('消息提示', '该宝贝id有待分配状态的任务,任务发布失败!', 'info', function () {
+							window.location.href=uri+"/task/responsetaskadd";
+						});
 					}else if(data.data=="low"){
 						$.messager.alert('消息提示', '余额不足,任务发布失败!', 'info', function () {
+							window.location.href=uri+"/task/responsetaskadd";
+						});
+					}else if(data.data=="llmaxerror"){
+						$.messager.alert('消息提示', '超出允许发布的最大流量数,任务发布失败!', 'info', function () {
+							window.location.href=uri+"/task/responsetaskadd";
+						});
+					}else if(data.data=="scmaxerror"){
+						$.messager.alert('消息提示', '超出允许发布的最大收藏数,任务发布失败!', 'info', function () {
+							window.location.href=uri+"/task/responsetaskadd";
+						});
+					}else if(data.data=="gwcmaxerror"){
+						$.messager.alert('消息提示', '超出允许发布的最大加购数,任务发布失败!', 'info', function () {
+							window.location.href=uri+"/task/responsetaskadd";
+						});
+					}else if(data.data=="gwcnotsc"){
+						$.messager.alert('消息提示', '加购数必须等于收藏数,任务发布失败!', 'info', function () {
+							window.location.href=uri+"/task/responsetaskadd";
+						});
+					}else if(data.data=="count0"){
+						$.messager.alert('消息提示', '发布的任务数必须为正整数,任务发布失败!', 'info', function () {
 							window.location.href=uri+"/task/responsetaskadd";
 						});
 					}else{
@@ -352,13 +394,13 @@ var taskmaxpricestr=0;
 		if(parseInt(temp1) < parseInt(temp2)){
 			$("#span_flowcount").html("发布流量数不得小于收藏数");
 			$("#span_flowcount").css("color","red");
-			$("#flowcount").focus();
+			//$("#flowcount").focus();
 			return false;
 		}
 		if(parseInt(temp1) < parseInt(temp3)){
 			$("#span_flowcount").html("发布流量数不得小于加购物车数!");
 			$("#span_flowcount").css("color","red");
-			$("#flowcount").focus();
+			//$("#flowcount").focus();
 			return false;
 		}
 		$("#sum").html(parseInt($("#lls_3").text())+parseInt($("#scs_3").text())+parseInt($("#gwcs_3").text()));
@@ -399,6 +441,7 @@ var taskmaxpricestr=0;
 			$("#span_flowcount").html("该宝贝发布流量数不能大于允许发布的最大流量数!");
 			$("#span_flowcount").css("color","red");
 			$("#flowcount").val(llmax);
+			temp=llmax;
 		}else{
 			$("#span_flowcount").html("该宝贝发布流量数填写正确!");
 			$("#span_flowcount").css("color","green");
@@ -512,41 +555,15 @@ var taskmaxpricestr=0;
 			 return false;
 		}else{
 			$.ajax({
-				url : uri+"/api/url/validate?param="+param +"&&taskkeynum=" + taskkeynumval,
+				url : uri+"/api/url/validateztc?param="+param +"&&taskkeynum=" + taskkeynumval,
 				type : "POST",
 				success:function(data,state){
 					if(data!=null && data.status=='y'){
-						//llmax=data.count;
-						scmax=data.collectiontaskcount;
-						gwcmax=data.shoppingtaskcount;
-						$("#span_shopping_text").html("  今天最多还可发:"+gwcmax);
-						$("#span_collection_text").html("  今天最多还可发:"+scmax);
-						if(parseInt($("#flowcount").val()) > parseInt(llmax)){
-							
-						}else{
-							$("#span_flowcount").html("该宝贝发布流量数填写正确!");
-							$("#span_flowcount").css("color","green");
-							fpll($("#flowcount")[0]);
-						}
-						if(parseInt($("#collectioncount").val()) > parseInt(scmax)){
-							$("#span_collection").html("该宝贝发布收藏数不能大于允许发布的最大收藏数");
-							$("#span_collection").css("color","red");
-							$("#collectioncount").val(scmax);
-						}else{
-							$("#span_collection").html("该宝贝发布收藏数填写正确!");
-							$("#span_collection").css("color","green");
-						}
-						if(parseInt($("#shoppingcount").val()) > parseInt(gwcmax)){
-							$("#span_shoppingcount").html("该宝贝发布加购数不能大于允许发布的最大加购数");
-							$("#span_shoppingcount").css("color","red");
-							$("#shoppingcount").val(gwcmax);
-						}else{
-							$("#span_shopping").html("该宝贝发布加购数填写正确!");
-							$("#span_shopping").css("color","green");
-						}
+						$("#span_taskurl").html("宝贝url填写正确!");
+						$("#span_taskurl").css("color","green");
 					}else{
-						$("#collection_span").html("  最多可发布购物车数:0");
-						$("#shopping_span").html("  最多可发布收藏数：0");
+						$("#span_shopping").html("  最多可发布购物车数:0");
+						$("#span_collection").html("  最多可发布收藏数：0");
 						$("#span_taskurl").html("请检查输入的宝贝url!");
 						$("#span_taskurl").css("color","red");
 						$("#taskurl").focus();
@@ -585,7 +602,7 @@ var taskmaxpricestr=0;
 		}
 		if(taskkeynumval.length>1){
 			$.ajax({
-				url : uri+"/api/keywords/validate/"+obj.value+"/"+taskkeynumval,
+				url : uri+"/api/keywords/validateztc/"+obj.value+"/"+taskkeynumval,
 				type : "POST",
 				success:function(data,state){
 					if(data.msg == 0){
@@ -600,7 +617,37 @@ var taskmaxpricestr=0;
 						istaskword="";
 						$(obj).parent().next().next().next().next().html("关键词填写正确");
 						$(obj).parent().next().next().next().next().css("color","green");
-						
+						llmax=data.count/keywords;
+						scmax=data.countztc/keywords;
+						gwcmax=data.countztc/keywords;
+						$("#span_flowcount_text").html("  今天最多还可发:"+llmax);
+						$("#span_shopping_text").html("  今天最多还可发:"+gwcmax);
+						$("#span_collection_text").html("  今天最多还可发:"+scmax);
+						if(parseInt($("#flowcount").val()) > parseInt(llmax)){
+							$("#span_flowcount").html("该宝贝发布流量数不允许超过："+llmax);
+							$("#span_flowcount").css("color","red");
+							$("#flowcount").val(llmax);
+						}else{
+							$("#span_flowcount").html("该宝贝发布流量数填写正确!");
+							$("#span_flowcount").css("color","green");
+							fpll($("#flowcount")[0]);
+						}
+						if(parseInt($("#collectioncount").val()) > parseInt(scmax)){
+							$("#span_collection").html("该宝贝发布收藏数不能大于允许发布的最大收藏数");
+							$("#span_collection").css("color","red");
+							$("#collectioncount").val(scmax);
+						}else{
+							$("#span_collection").html("该宝贝发布收藏数填写正确!");
+							$("#span_collection").css("color","green");
+						}
+						if(parseInt($("#shoppingcount").val()) > parseInt(gwcmax)){
+							$("#span_shoppingcount").html("该宝贝发布加购数不能大于允许发布的最大加购数");
+							$("#span_shoppingcount").css("color","red");
+							$("#shoppingcount").val(gwcmax);
+						}else{
+							$("#span_shopping").html("该宝贝发布加购数填写正确!");
+							$("#span_shopping").css("color","green");
+						}
 					}
 				}
 			});
@@ -648,6 +695,7 @@ function addinput(){
 		newTr.insertCell(6).innerHTML="";
 	}
 	keywords = $("input[name='taskkeywords']").length;
+	checkurl($("#taskurl")[0]);
 	totalsum();
 }
 /*
@@ -656,6 +704,7 @@ function addinput(){
 function delRow(r){ 
 	document.getElementById("tab_keyword").deleteRow(r.parentNode.parentNode.rowIndex);
 	keywords = $("input[name='taskkeywords']").length;
+	checkurl($("#taskurl")[0]);
 	totalsum();
 }	
 
@@ -699,34 +748,8 @@ function checkurl_2(obj){
 			type : "POST",
 			success:function(data,state){
 				if(data!=null && data.status=='y'){
-					scmax=data.count;
-					gwcmax=data.count;
-					$("#span_shopping_text").html("  今天最多还可发:"+gwcmax);
-					$("#span_collection_text").html("  今天最多还可发："+scmax);
-					if(parseInt($("#flowcount").val()) > parseInt(llmax)){
-						
-					}else{
-						$("#span_flowcount").html("该宝贝发布流量数填写正确!");
-						$("#span_flowcount").css("color","green");
-						fpll($("#flowcount")[0]);
-					}
-					if(parseInt($("#collectioncount").val()) > parseInt(scmax)){
-						$("#span_collection").html("该宝贝发布收藏数不能大于允许发布的最大收藏数");
-						$("#span_collection").css("color","red");
-						$("#collectioncount").val(scmax);
-					}else{
-						$("#span_collection").html("该宝贝发布收藏数填写正确!");
-						$("#span_collection").css("color","green");
-					}
-					if(parseInt($("#shoppingcount").val()) > parseInt(gwcmax)){
-						
-						$("#span_shoppingcount").html("该宝贝发布加购数不能大于允许发布的最大加购数");
-						$("#span_shoppingcount").css("color","red");
-						$("#shoppingcount").val(gwcmax);
-					}else{
-						$("#span_shopping").html("该宝贝发布加购数填写正确!");
-						$("#span_shopping").css("color","green");
-					}
+					$("#span_taskurl").html("宝贝url填写正确!");
+					$("#span_taskurl").css("color","green");
 				}else{
 					$("#collection_span").html("  最多可发布购物车数:0");
 					$("#shopping_span").html("  最多可发布收藏数：0");
@@ -759,10 +782,10 @@ function checkmode(obj){
 /*
  *价格变化设置值
  */
-function setprice(obj){
+function setprice(){
 	taskminpricestr = $("#taskminprice").val();
 	taskmaxpricestr = $("#taskmaxprice").val();
-	checkpricemode($("#priceMode2")[0]);
+	checkpricemode($("input[name=priceMode]:checked")[0]);
 }
 /*
 检查卡价格模式
@@ -834,5 +857,19 @@ function checkpricemode(obj){
 		$("#span_taskprice").html("请先输入正确的价格!");
 		$("#span_taskprice").css("color","red");
 		$("#span_taskprice").val("0");
+	}
+}
+
+function checktitle(){
+	var title = $("#creativetitle").val();
+	if(title.length<9){
+		istitle=0;
+		$("#span_creativetitle").html("创意标题不得少于9位");
+		$("#span_creativetitle").css("color","red");
+		$("#creativetitle").focus();
+	}else{
+		istitle=1;
+		$("#span_creativetitle").html("创意标题输入正确");
+		$("#span_creativetitle").css("color","green");
 	}
 }

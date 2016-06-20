@@ -26,6 +26,28 @@
 		group by taskkeynum
 	</select>
 	
+	<select id="findtaskkeynumlistll" resultType="com.zhenapp.po.Custom.TTaskDetailinfoTempCustom" parameterType="java.util.HashMap">
+		SELECT taskkeynum,taskkeyword,COUNT(1) AS counts  FROM t_task_detailinfo_temp 
+		<where>
+			<if test="taskdate != null and taskdate != '' ">
+				and taskdate=#{taskdate}
+			</if>
+			<if test="phoneid != null and phoneid != '' ">
+				and phoneid=#{phoneid}
+			</if>
+			<if test="isshopping != null and isshopping != '' ">
+				and isshopping=#{isshopping}
+			</if>
+			<if test="iscollection != null and iscollection != '' ">
+				and iscollection=#{iscollection}
+			</if>
+			<if test="tasktype != null and tasktype != '' ">
+				and tasktype=#{tasktype}
+			</if>
+		</where>
+		GROUP BY taskkeynum,taskkeyword HAVING counts <![CDATA[<]]> 1
+	</select>
+	
 	
 	<delete id="deletetaskDetailInfoTemp" parameterType="java.util.HashMap">
 		delete from t_task_detailinfo_temp 

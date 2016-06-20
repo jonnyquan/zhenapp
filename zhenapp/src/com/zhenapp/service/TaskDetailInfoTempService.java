@@ -17,4 +17,7 @@ public interface TaskDetailInfoTempService {
 	public int updatestate(HashMap<String, Object> hashmap) throws Exception;
 	//根据手机号查询某一日期做过的任务类型的宝贝id
 	public List<TTaskDetailinfoTempCustom> findtaskkeynumlist(HashMap<String, Object> hashmap) throws Exception;
+	//根据手机号查询某一日期做过的任务类型的宝贝id
+	public List<TTaskDetailinfoTempCustom> findtaskkeynumlistll(HashMap<String, Object> hashmap) throws Exception;
+	
 }

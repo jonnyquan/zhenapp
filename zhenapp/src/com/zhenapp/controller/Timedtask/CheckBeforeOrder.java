@@ -68,6 +68,8 @@ public class CheckBeforeOrder {
 	
 	@Value("${secret}")
 	private String secret;
+	@Value("${liuliangapp}")
+	private String liuliangapp;
 	/*
 	 * 查询今天之前的任务      每天0点1分执行
 	 */
@@ -229,7 +231,7 @@ public class CheckBeforeOrder {
 					}else{
 						HttpClient httpClient = new HttpClient();
 						String result="";
-				        GetMethod getMethod = new GetMethod("http://liuliangapp.com/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/total");
+				        GetMethod getMethod = new GetMethod(liuliangapp + "/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/total");
 				        getMethod.setRequestHeader("secret", secret);
 				        int statusCode =  httpClient.executeMethod(getMethod);
 				        if(statusCode == 200) {

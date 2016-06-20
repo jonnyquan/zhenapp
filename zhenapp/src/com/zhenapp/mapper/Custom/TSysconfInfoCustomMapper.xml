@@ -6,6 +6,7 @@
     set
       sysconfvalue1 = #{sysconfvalue1,jdbcType=VARCHAR},
       sysconfvalue2 = #{sysconfvalue2,jdbcType=VARCHAR},
+      sysconfvalue3 = #{sysconfvalue3,jdbcType=VARCHAR},
       sysconfvalue4 = #{sysconfvalue4,jdbcType=VARCHAR},
       sysconfvalue5 = #{sysconfvalue5,jdbcType=VARCHAR},
       sysconfvalue6 = #{sysconfvalue6,jdbcType=VARCHAR},

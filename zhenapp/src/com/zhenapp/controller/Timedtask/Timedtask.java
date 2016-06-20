@@ -138,9 +138,9 @@ public class Timedtask {
         }
 		logger.info("插入日期....每天0点2分执行一次");
 	}
-	@Scheduled(cron = "0 */5 * * * ?")//每5分钟执行一次
+	@Scheduled(cron = "0 */1 * * * ?")//每1分钟执行一次
 	public void allocation() throws Exception { 
-		logger.info("分配任务开始....每5分钟执行一次");
+		logger.info("分配任务开始....每1分钟执行一次");
 		HttpClient httpClient = new HttpClient();
 		String result="";
         PostMethod postMethod = new PostMethod(host+"/api/allocation");
@@ -152,6 +152,6 @@ public class Timedtask {
         }else {
             logger.info("调用接口失败(/api/allocation)，返回："+statusCode);
         }
-		logger.info("分配任务完成....每5分钟执行一次");
+		logger.info("分配任务完成....每1分钟执行一次");
 	}
 }

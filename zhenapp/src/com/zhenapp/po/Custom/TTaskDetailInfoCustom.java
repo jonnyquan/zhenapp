@@ -1,6 +1,7 @@
 package com.zhenapp.po.Custom;
 
 import com.zhenapp.po.TTaskDetailinfo;
+import com.zhenapp.util.StringUtilWxf;
 
 public class TTaskDetailInfoCustom extends TTaskDetailinfo{
 	private String isshoppingname;
@@ -12,11 +13,65 @@ public class TTaskDetailInfoCustom extends TTaskDetailinfo{
 	private String taskpk;
 	private int shoppingcount;
 	private int collectioncount;
+	private int ztccount;
+	private int shoppingztccount;
+	private int collectionztccount;
 	private int shoppingsum;
 	private int collectionsum;
+	private int ztcsum;
+	private int shoppingztcsum;
+	private int collectionztcsum;
 	private String taskstatename;
 	
 	
+	public int getShoppingztcsum() {
+		return shoppingztcsum;
+	}
+
+	public void setShoppingztcsum(int shoppingztcsum) {
+		this.shoppingztcsum = shoppingztcsum;
+	}
+
+	public int getCollectionztcsum() {
+		return collectionztcsum;
+	}
+
+	public void setCollectionztcsum(int collectionztcsum) {
+		this.collectionztcsum = collectionztcsum;
+	}
+
+	public int getShoppingztccount() {
+		return shoppingztccount;
+	}
+
+	public void setShoppingztccount(int shoppingztccount) {
+		this.shoppingztccount = shoppingztccount;
+	}
+
+	public int getCollectionztccount() {
+		return collectionztccount;
+	}
+
+	public void setCollectionztccount(int collectionztccount) {
+		this.collectionztccount = collectionztccount;
+	}
+
+	public int getZtcsum() {
+		return ztcsum;
+	}
+
+	public void setZtcsum(int ztcsum) {
+		this.ztcsum = ztcsum;
+	}
+
+	public int getZtccount() {
+		return ztccount;
+	}
+
+	public void setZtccount(int ztccount) {
+		this.ztccount = ztccount;
+	}
+
 	public String getTaskstatename() {
 		return taskstatename;
 	}
@@ -140,11 +195,11 @@ public class TTaskDetailInfoCustom extends TTaskDetailinfo{
 		.append("否").append("&")//直通车筛选的价格范围1
 		.append("否").append("&")//直通车筛选的价格范围2
 		.append("否").append("&")//自定义筛选的地区
-		.append(tTaskDetailInfoCustom.getMinpicture()).append("&")//最小价格
-		.append(tTaskDetailInfoCustom.getMaxpicture()).append("&")//最大价格
+		//.append(tTaskDetailInfoCustom.getMinpicture()).append("&")//最小价格
+		//.append(tTaskDetailInfoCustom.getMaxpicture()).append("&")//最大价格
 		.append(tTaskDetailInfoCustom.getPrice()).append("&")//宝贝价格
-		.append(tTaskDetailInfoCustom.getTaskimgztc()).append("&")//直通车图片地址
-		.append(tTaskDetailInfoCustom.getCreativetitle());//创意标题
+		.append(StringUtilWxf.strtonull(tTaskDetailInfoCustom.getTaskimgztc())).append("&")//直通车图片地址
+		.append(StringUtilWxf.strtonull(tTaskDetailInfoCustom.getCreativetitle()));//创意标题
 		//.append(tTaskDetailInfoCustom.getIsstorecollection().equals("1")?"是":"否").append("&")//是否店铺收藏
 		//.append(tTaskDetailInfoCustom.getIsfakechat().equals("1")?"是":"否").append("&")//是否假聊
 		//.append(tTaskDetailInfoCustom.getFakechatstr1()).append("&")//假聊信息第一句

@@ -79,6 +79,9 @@
             <thead>
               <tr>
                 <th>手机编号</th>
+                <th>完成直通车流量</th>
+                <th>完成直通车收藏数</th>
+                <th>完成直通车加购数</th>
                 <th>完成收藏数</th>
                 <th>完成加购数</th>
               </tr>
@@ -88,12 +91,18 @@
 	              <c:forEach items="${tTaskDetailInfoCustomlist }" var="list">
 		              <tr>
 		                 <td>${list.phoneid}</td>
+		                 <td>${list.ztccount}</td>
+		                 <td>${list.collectionztccount}</td>
+		                 <td>${list.shoppingztccount}</td>
 		                 <td>${list.collectioncount}</td>
 		                 <td>${list.shoppingcount}</td>
 		              </tr>
 	              </c:forEach>
 	              <tr>
 	              	<td>总计</td>
+	              	<td>${tTaskDetailInfoCustom.ztcsum}</td>
+	              	<td>${tTaskDetailInfoCustom.collectionztcsum}</td>
+	              	<td>${tTaskDetailInfoCustom.shoppingztcsum}</td>
 	              	<td>${tTaskDetailInfoCustom.collectionsum}</td>
 	              	<td>${tTaskDetailInfoCustom.shoppingsum}</td>
 	              </tr>

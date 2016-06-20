@@ -2,6 +2,8 @@ package com.zhenapp.controller.back.task;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -73,11 +75,13 @@ public class SaveTaskController {
 	private String secret;
 	@Value("${middleRows}")
 	private Integer middleRows;
+	@Value("${liuliangapp}")
+	private String liuliangapp;
 	/*
 	 * 发布任务 新增订单信息
 	 */
 	@RequestMapping(value="/saveTaskInfo")
-	public @ResponseBody ModelMap saveTaskInfo(HttpSession session, TTaskInfoCustom tTaskInfoCustom,String taskkeywords) throws Exception{
+	public @ResponseBody ModelMap saveTaskInfo(HttpSession session, TTaskInfoCustom tTaskInfoCustom,String taskkeywords,String llmax,String gwcmax,String scmax) throws Exception{
 		ModelMap map=new ModelMap();
 		TUserInfoCustom tUserInfoCustom = (TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentByAgentid(tUserInfoCustom.getAgentid());
@@ -118,6 +122,39 @@ public class SaveTaskController {
 			map.put("data", "refuse");
 			return map;
 		}
+		
+		if(tTaskInfoCustom.getTasktype().equals("34")){
+			if(tTaskInfoCustom.getFlowcount() > Integer.parseInt(llmax)){
+				map.put("data", "llmaxerror");
+				return map;
+			}
+			if(tTaskInfoCustom.getCollectioncount() > Integer.parseInt(scmax)){
+				map.put("data", "scmaxerror");
+				return map;
+			}
+			if(tTaskInfoCustom.getShoppingcount() > Integer.parseInt(gwcmax)){
+				map.put("data", "gwcmaxerror");
+				return map;
+			}
+			if(tTaskInfoCustom.getShoppingcount() - tTaskInfoCustom.getCollectioncount() !=0){
+				map.put("data", "gwcnotsc");
+				return map;
+			}
+			if(tTaskInfoCustom.getFlowcount() <0 || tTaskInfoCustom.getShoppingcount() <0 ||  tTaskInfoCustom.getCollectioncount()<0){
+				map.put("data", "count0");
+				return map;
+			}
+			HashMap<String, Object> hashmaping=new HashMap<String, Object>();
+			hashmaping.put("taskstate", "15");
+			hashmaping.put("taskkeynum", tTaskInfoCustom.getTaskkeynum());
+			hashmaping.put("taskdate", yyyyMMdd.format(new Date()));
+			List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findTaskallocation(hashmaping);
+			if(tTaskInfoCustomlist!=null && tTaskInfoCustomlist.size()>0){
+				map.put("data", "allocationing");
+				return map;
+			}
+		}
+		
 		//得到有多少小时是需要发布任务的
 		int hourcount=0;
 		for (int j = 0; j < hourarr.length; j++) {
@@ -131,6 +168,7 @@ public class SaveTaskController {
 		tTaskInfoCustom.setTaskkeynum(tTaskInfoCustom.getTaskkeynum());
 		tTaskInfoCustom.setTaskreleasekeyword(taskkeywords);
 		tTaskInfoCustom.setTaskhourcounts(tTaskInfoCustom.getTaskhourcounts());
+		tTaskInfoCustom.setTaskprice(tTaskInfoCustom.getTaskprice());
 		tTaskInfoCustom.setTaskminprice(tTaskInfoCustom.getTaskminprice());
 		tTaskInfoCustom.setTaskmaxprice(tTaskInfoCustom.getTaskmaxprice());
 		tTaskInfoCustom.setTaskimgztc(tTaskInfoCustom.getTaskimgztc());

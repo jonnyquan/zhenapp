@@ -39,7 +39,7 @@ public class ValidcodeController {
 	 * 发送重置密码的验证码
 	 */
 	@RequestMapping(value="/sendvalidcode/{email}/{usernick}")
-	public @ResponseBody ModelMap sendvalidcode(@PathVariable(value="email")String email,String usernick) throws Exception{
+	public @ResponseBody ModelMap sendvalidcode(@PathVariable(value="email")String email,@PathVariable(value="usernick")String usernick) throws Exception{
 		ModelMap map = new ModelMap();
 		String[] beforeShuffle = new String[] { "2", "3", "4", "5", "6", "7",  
                 "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",  

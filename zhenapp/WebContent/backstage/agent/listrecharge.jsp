@@ -105,6 +105,7 @@
           <thead>
             <tr class="am-success">
               <th>备注(充值id)</th>
+              <th>校验码</th>
               <th>用户名</th>
               <th>充值金额</th>
               <th>充值时间</th>
@@ -116,6 +117,7 @@
             <c:forEach items="${tRechargeInfoCustomlist }" var="list">
             	<tr data-id="${list.rechargepk}">
                 <td>${list.rechargeid}</td>
+                <td>${list.rechargeverification}</td>
                 <td>${list.usernick}</td>
                 <td><a href="#">${list.rechargemoney}</a></td>
                 <td>${list.createtime}</td>

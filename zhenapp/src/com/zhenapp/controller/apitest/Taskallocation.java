@@ -66,6 +66,9 @@ public class Taskallocation {
 	private String secret;
 	@Value("${middleRows}")
 	private Integer middleRows;
+	@Value("${liuliangapp}")
+	private String liuliangapp;
+	
 	/*
 	 * 任务分配
 	 */
@@ -361,7 +364,7 @@ public class Taskallocation {
 						//调用接口发送任务
 						HttpClient httpClient = new HttpClient();
 						String result="";
-					    PostMethod postMethod = new PostMethod("http://liuliangapp.com/api/tasks");
+					    PostMethod postMethod = new PostMethod(liuliangapp + "/api/tasks");
 					    postMethod.addParameter("name", tTaskDetailInfoFlowCustom.getTaskkeyword());
 					    postMethod.addParameter("keywords", tTaskDetailInfoFlowCustom.getTaskkeyword());
 					    postMethod.addParameter("product_url", "https://item.taobao.com/item.htm?id="+tTaskInfoCustom.getTaskkeynum());
@@ -411,14 +414,30 @@ public class Taskallocation {
 					for (int i = 0; i < collectionfpsztc; i++) {
 						collectionarrztc[i]=collectionarrztc[i]+1;
 					}
+					
+					int ysztc = tTaskInfoCustom.getFlowcount() / hourcount;
+					int fpsztc = tTaskInfoCustom.getFlowcount() % hourcount;
+					int []arrztc = new int[hourcount];
+					for (int i = 0; i < arrztc.length; i++) {
+						arrztc[i]=ysztc;
+					}
+					for (int i = 0; i < fpsztc; i++) {
+						arrztc[i]=arrztc[i]+1;
+					}
+					
 					int count=0;
 					for (int j = 0; j < hourarr.length; j++) {
 						if(!hourarr[j].equals("0")){
 							int collectionhoursumztc = collectionarrztc[count];//每小时分配的收藏数
+							int hoursumztc = arrztc[count];//每小时分配的流量数
 							count=count+1;
 							int [] collectionminuteztc = new int[collectionhoursumztc];
 							for(int a=0;a<collectionhoursumztc ; a++){
 								collectionminuteztc[a]=a*60/collectionhoursumztc;
+							}
+							int [] minuteztc = new int[hoursumztc];
+							for(int a=0;a<hoursumztc ; a++){
+								minuteztc[a]=a*60/hoursumztc;
 							}
 							//1.先分配绑定的
 							for (int i = 0; i < collectionminuteztc.length; i++) {
@@ -467,8 +486,7 @@ public class Taskallocation {
 								taskDetailInfoService.insertDetailinfo(tTaskDetailInfoCustom);
 							}
 							//2.再分配单独的直通车流量
-							int flowcountys = tTaskInfoCustom.getFlowcount()-tTaskInfoCustom.getCollectioncount();
-							for (int i = 0; i < flowcountys; i++) {
+							for (int i = collectionminuteztc.length; i < minuteztc.length; i++) {
 								TTaskDetailInfoCustom tTaskDetailInfoCustom=new TTaskDetailInfoCustom();
 								tTaskDetailInfoCustom.setTaskdetailid(UUID.randomUUID().toString().replace("-", ""));
 								tTaskDetailInfoCustom.setTaskid(tTaskInfoCustom.getTaskid());
@@ -491,9 +509,9 @@ public class Taskallocation {
 								tTaskDetailInfoCustom.setTaskdate(tTaskInfoCustom.getTaskdate());
 								tTaskDetailInfoCustom.setTaskhour(j);
 								if(tSysconfInfoCustom.getSysconfvalue5().equals("1")){
-									tTaskDetailInfoCustom.setTaskminute(collectionminuteztc[i]);
+									tTaskDetailInfoCustom.setTaskminute(minuteztc[i]);
 									if(Integer.parseInt(tTaskInfoCustom.getTaskdate())<=Integer.parseInt(yyyyMMdd.format(new Date()))
-										&& j<= Integer.parseInt(hh.format(new Date())) && collectionminuteztc[i] <= Integer.parseInt(mm.format(new Date()))){
+										&& j<= Integer.parseInt(hh.format(new Date())) && minuteztc[i] <= Integer.parseInt(mm.format(new Date()))){
 										tTaskDetailInfoCustom.setTaskstate("23");
 									}else{
 										tTaskDetailInfoCustom.setTaskstate("40");
@@ -513,7 +531,6 @@ public class Taskallocation {
 								tTaskDetailInfoCustom.setUpdateuser(tTaskInfoCustom.getCreateuser());
 								taskDetailInfoService.insertDetailinfo(tTaskDetailInfoCustom);
 							}
-							
 						}
 					}
 				}

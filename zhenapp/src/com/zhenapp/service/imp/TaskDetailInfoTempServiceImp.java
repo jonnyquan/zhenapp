@@ -39,4 +39,10 @@ public class TaskDetailInfoTempServiceImp implements TaskDetailInfoTempService {
 		// TODO Auto-generated method stub
 		return TTaskDetailinfoTempCustomMapper.findtaskkeynumlist(hashmap);
 	}
+	@Override
+	public List<TTaskDetailinfoTempCustom> findtaskkeynumlistll(
+			HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return TTaskDetailinfoTempCustomMapper.findtaskkeynumlistll(hashmap);
+	}
 }

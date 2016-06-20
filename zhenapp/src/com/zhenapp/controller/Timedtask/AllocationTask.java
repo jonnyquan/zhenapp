@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhenapp.controller.service.Timedtask.AllocationZtcTaskService;
+import com.zhenapp.controller.service.Timedtask.AllocationZtcllTaskService;
 import com.zhenapp.controller.service.Timedtask.AllocationcollectionTaskService;
 import com.zhenapp.controller.service.Timedtask.AllocationfakechatTaskService;
 import com.zhenapp.controller.service.Timedtask.AllocationshoppingTaskService;
@@ -46,6 +47,8 @@ public class AllocationTask {
 	private AllocationstorecollectionTaskService allocationstorecollectionTaskService;
 	@Autowired
 	private AllocationZtcTaskService allocationZtcTaskService;
+	@Autowired
+	private AllocationZtcllTaskService allocationZtcllTaskService;
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 	SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
@@ -88,6 +91,8 @@ public class AllocationTask {
 				hashmap.clear();
 				hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
 				hashmap.put("taskdate", yyyyMMdd.format(new Date()));
+				hashmap.put("isshopping", "1");
+				hashmap.put("iscollection", "1");
 				hashmap.put("tasktype", 34);
 				hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
 				List<TTaskDetailinfoTempCustom> TTaskDetailinfoTempCustomlist = taskDetailInfoTempService.findtaskkeynumlist(hashmap);
@@ -97,6 +102,20 @@ public class AllocationTask {
 				}
 				String taskkeynumztc =sbztc.toString().length()>1?sbztc.toString().substring(0, sbztc.toString().length()-1):"";
 				allocationZtcTaskService.allocateionztctask(tPhoneInfoCustom,taskkeynumztc);
+				
+				hashmap.clear();
+				hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
+				hashmap.put("taskdate", yyyyMMdd.format(new Date()));
+				hashmap.put("tasktype", 34);
+				hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
+				List<TTaskDetailinfoTempCustom> TTaskDetailinfoTempCustomlistll = taskDetailInfoTempService.findtaskkeynumlistll(hashmap);
+				StringBuffer sbztcll = new StringBuffer();
+				for (int j = 0; j < TTaskDetailinfoTempCustomlistll.size(); j++) {
+					sbztcll.append(TTaskDetailinfoTempCustomlistll.get(j).getTaskkeynum()).append(",");
+				}
+				String taskkeynumztcll =sbztcll.toString().length()>1?sbztcll.toString().substring(0, sbztcll.toString().length()-1):"";
+				allocationZtcllTaskService.allocateionztctaskll(tPhoneInfoCustom,taskkeynumztcll);
+				
 			}
 			/*
 			hashmap.clear();

@@ -65,6 +65,8 @@ public class CheckEndOrder {
 	
 	@Value("${secret}")
 	private String secret;
+	@Value("${liuliangapp}")
+	private String liuliangapp;
 	/*
 	 * 每一分钟执行一次 查询任务状态为终止中的任务,检查是否所有详情任务都已返回，如果都已处理修改为已终止，结束任务，返回积分
 	 */
@@ -102,7 +104,7 @@ public class CheckEndOrder {
 						}else{
 							HttpClient httpClient = new HttpClient();
 							String result="";
-					        GetMethod getMethod = new GetMethod("http://liuliangapp.com/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/total");
+					        GetMethod getMethod = new GetMethod(liuliangapp + "/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/total");
 					        getMethod.setRequestHeader("secret", secret);
 					        int statusCode =  httpClient.executeMethod(getMethod);
 					        if(statusCode == 200) {

@@ -52,4 +52,10 @@ public interface TbaccountInfoService {
 	 * 按条件删除淘宝账号信息
 	 */
 	public int deleteAccount(HashMap<String, Object> pagemap) throws Exception;
+	
+	/*
+	 * 更新淘宝账号信息
+	 */
+	public int updateTbaccount(HashMap<String, Object> hashmap) throws Exception;
+	
 }
