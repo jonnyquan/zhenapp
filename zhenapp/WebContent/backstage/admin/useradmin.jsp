@@ -125,6 +125,8 @@
                   <c:if test="${list.usertestnick == null and list.userroleid == 3}">
                   	<a href="${pageContext.request.contextPath}/user/setUsertest/${list.userpk}" class="am-badge am-badge-primary">设为测试账号</a>
                   </c:if>
+                  
+                  <a href="${pageContext.request.contextPath}/user/requestresetpwd/${list.userid}" class="am-badge am-badge-primary">重置密码</a>
               </td>
             </tr>
           </c:forEach>

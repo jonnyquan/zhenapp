@@ -38,8 +38,8 @@
 	CASE WHEN a.isshopping=1 AND a.tasktype='33' THEN 1 ELSE 0 END AS isshoppingll,
 	CASE WHEN a.iscollection=1 AND a.tasktype='33' THEN 1 ELSE 0 END AS iscollectionll,
 	CASE WHEN a.isshopping=0 AND a.iscollection=0 AND a.tasktype='34' THEN 1 ELSE 0 END AS ztc,
-	CASE WHEN a.isshopping=0 AND a.iscollection=1 AND a.tasktype='34' THEN 1 ELSE 0 END AS isshoppingztc,
-	CASE WHEN a.isshopping=1 AND a.iscollection=0 AND a.tasktype='34' THEN 1 ELSE 0 END AS iscollectionztc 
+	CASE WHEN a.isshopping=1 AND a.iscollection=1 AND a.tasktype='34' THEN 1 ELSE 0 END AS isshoppingztc,
+	CASE WHEN a.isshopping=1 AND a.iscollection=1 AND a.tasktype='34' THEN 1 ELSE 0 END AS iscollectionztc 
 	FROM t_task_detailinfo a WHERE a.phoneid IS NOT NULL AND a.taskdate =#{date} AND a.taskstate='21') b
 	GROUP BY b.phoneid ORDER BY b.phoneid+0
   </select>
@@ -50,8 +50,8 @@
 	CASE WHEN a.isshopping=1 AND a.tasktype='33' THEN 1 ELSE 0 END AS isshoppingll,
 	CASE WHEN a.iscollection=1 AND a.tasktype='33' THEN 1 ELSE 0 END AS iscollectionll,
 	CASE WHEN a.isshopping=0 AND a.iscollection=0 AND a.tasktype='34' THEN 1 ELSE 0 END AS ztc,
-	CASE WHEN a.isshopping=0 AND a.iscollection=1 AND a.tasktype='34' THEN 1 ELSE 0 END AS isshoppingztc,
-	CASE WHEN a.isshopping=1 AND a.iscollection=0 AND a.tasktype='34' THEN 1 ELSE 0 END AS iscollectionztc 
+	CASE WHEN a.isshopping=1 AND a.iscollection=1 AND a.tasktype='34' THEN 1 ELSE 0 END AS isshoppingztc,
+	CASE WHEN a.isshopping=1 AND a.iscollection=1 AND a.tasktype='34' THEN 1 ELSE 0 END AS iscollectionztc 
 	FROM t_task_detailinfo a WHERE a.phoneid IS NOT NULL AND a.taskdate =#{date} AND a.taskstate='21') b
 	
   </select>

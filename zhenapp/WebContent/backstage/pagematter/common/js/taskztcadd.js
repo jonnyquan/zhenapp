@@ -796,13 +796,13 @@ function checkpricemode(obj){
 	if(teststr.test(price)){
 		if(obj.checked==true){
 			if(obj.value=='3'){
-				taskminprice=0;
-				taskmaxprice=0;
+				taskminpricestr=0;
+				taskmaxpricestr=0;
 				$("#taskminprice").attr("disabled",false);
 				$("#taskmaxprice").attr("disabled",false);
 			}else if(obj.value=='0'){
-				taskminprice=0;
-				taskmaxprice=0;
+				taskminpricestr=0;
+				taskmaxpricestr=0;
 				$("#taskminprice").val("0");
 				$("#taskmaxprice").val("0");
 				$("#taskminprice").attr("disabled","disabled"); 

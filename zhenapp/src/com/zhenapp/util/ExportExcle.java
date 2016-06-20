@@ -53,7 +53,7 @@ public class ExportExcle {
             DatacountInfoCustom datacountInfoCustom = (DatacountInfoCustom) list.get(i);  
             // 第四步，创建单元格，并设置值  
             row.createCell((short) 0).setCellValue(datacountInfoCustom.getDate());  
-            row.createCell((short) 1).setCellValue(datacountInfoCustom.getFlowcount());  
+            row.createCell((short) 1).setCellValue(datacountInfoCustom.getFinishcount());  
             row.createCell((short) 2).setCellValue(datacountInfoCustom.getCollectioncount());
             row.createCell((short) 3).setCellValue(datacountInfoCustom.getShoppingcount());
             row.createCell((short) 4).setCellValue(datacountInfoCustom.getBuypoints());

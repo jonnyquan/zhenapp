@@ -123,6 +123,20 @@ public class SaveTaskController {
 			return map;
 		}
 		
+		HashMap<String, Object> hashmaping=new HashMap<String, Object>();
+		hashmaping.put("taskstate", "15");
+		hashmaping.put("taskkeynum", tTaskInfoCustom.getTaskkeynum());
+		hashmaping.put("taskdate", yyyyMMdd.format(new Date()));
+		List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findTaskallocation(hashmaping);
+		if(tTaskInfoCustomlist!=null && tTaskInfoCustomlist.size()>0){
+			map.put("data", "allocationing");
+			return map;
+		}
+		if(tTaskInfoCustom.getFlowcount() <0 || tTaskInfoCustom.getShoppingcount() <0 ||  tTaskInfoCustom.getCollectioncount()<0){
+			map.put("data", "count0");
+			return map;
+		}
+		
 		if(tTaskInfoCustom.getTasktype().equals("34")){
 			if(tTaskInfoCustom.getFlowcount() > Integer.parseInt(llmax)){
 				map.put("data", "llmaxerror");
@@ -140,19 +154,8 @@ public class SaveTaskController {
 				map.put("data", "gwcnotsc");
 				return map;
 			}
-			if(tTaskInfoCustom.getFlowcount() <0 || tTaskInfoCustom.getShoppingcount() <0 ||  tTaskInfoCustom.getCollectioncount()<0){
-				map.put("data", "count0");
-				return map;
-			}
-			HashMap<String, Object> hashmaping=new HashMap<String, Object>();
-			hashmaping.put("taskstate", "15");
-			hashmaping.put("taskkeynum", tTaskInfoCustom.getTaskkeynum());
-			hashmaping.put("taskdate", yyyyMMdd.format(new Date()));
-			List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findTaskallocation(hashmaping);
-			if(tTaskInfoCustomlist!=null && tTaskInfoCustomlist.size()>0){
-				map.put("data", "allocationing");
-				return map;
-			}
+			
+			
 		}
 		
 		//得到有多少小时是需要发布任务的
@@ -162,28 +165,32 @@ public class SaveTaskController {
 				hourcount=hourcount+1;
 			}
 		}
-		tTaskInfoCustom.setTasktitle(tTaskInfoCustom.getTasktitle());
-		tTaskInfoCustom.setTaskwirelesstitle(tTaskInfoCustom.getTaskwirelesstitle());
+
+		tTaskInfoCustom.setTasktitle(tTaskInfoCustom.getTasktitle());//宝贝标题
+		tTaskInfoCustom.setTaskurl(tTaskInfoCustom.getTaskurl());//宝贝url
+		tTaskInfoCustom.setDeepclick(tTaskInfoCustom.getDeepclick());//深入点击率%
+		tTaskInfoCustom.setTaskwirelesstitle(tTaskInfoCustom.getTaskwirelesstitle());//无线端标题
+		tTaskInfoCustom.setShipaddress(tTaskInfoCustom.getShipaddress());//地区
 		tTaskInfoCustom.setTasktype(tTaskInfoCustom.getTasktype());//33 流量   34 直通车
-		tTaskInfoCustom.setTaskkeynum(tTaskInfoCustom.getTaskkeynum());
-		tTaskInfoCustom.setTaskreleasekeyword(taskkeywords);
-		tTaskInfoCustom.setTaskhourcounts(tTaskInfoCustom.getTaskhourcounts());
-		tTaskInfoCustom.setTaskprice(tTaskInfoCustom.getTaskprice());
-		tTaskInfoCustom.setTaskminprice(tTaskInfoCustom.getTaskminprice());
-		tTaskInfoCustom.setTaskmaxprice(tTaskInfoCustom.getTaskmaxprice());
-		tTaskInfoCustom.setTaskimgztc(tTaskInfoCustom.getTaskimgztc());
-		tTaskInfoCustom.setCreativetitle(tTaskInfoCustom.getCreativetitle());
-		tTaskInfoCustom.setTasksearchtype(tTaskInfoCustom.getTasksearchtype());
-		tTaskInfoCustom.setFlowcount(tTaskInfoCustom.getFlowcount());
-		tTaskInfoCustom.setCollectioncount(tTaskInfoCustom.getCollectioncount());
-		tTaskInfoCustom.setShoppingcount(tTaskInfoCustom.getShoppingcount());
-		tTaskInfoCustom.setStorecollectioncount(tTaskInfoCustom.getStorecollectioncount());
-		tTaskInfoCustom.setFakechatcount(tTaskInfoCustom.getFakechatcount());
-		tTaskInfoCustom.setFakechatstr1(tTaskInfoCustom.getFakechatstr1());
-		tTaskInfoCustom.setFakechatstr2(tTaskInfoCustom.getFakechatstr2());
-		tTaskInfoCustom.setFakechatstr3(tTaskInfoCustom.getFakechatstr3());
-		tTaskInfoCustom.setFakechatstr4(tTaskInfoCustom.getFakechatstr4());
-		tTaskInfoCustom.setSubtractpoints(subtractpoints);
+		tTaskInfoCustom.setTaskkeynum(tTaskInfoCustom.getTaskkeynum());//宝贝id
+		tTaskInfoCustom.setTaskreleasekeyword(taskkeywords);//多个标题以====分割
+		tTaskInfoCustom.setTaskhourcounts(tTaskInfoCustom.getTaskhourcounts());//时间轴
+		tTaskInfoCustom.setTaskprice(tTaskInfoCustom.getTaskprice());//宝贝价格
+		tTaskInfoCustom.setTaskminprice(tTaskInfoCustom.getTaskminprice());//最小价格
+		tTaskInfoCustom.setTaskmaxprice(tTaskInfoCustom.getTaskmaxprice());//最大价格
+		tTaskInfoCustom.setTaskimgztc(tTaskInfoCustom.getTaskimgztc());//直通车图片地址
+		tTaskInfoCustom.setCreativetitle(tTaskInfoCustom.getCreativetitle());//创意标题
+		tTaskInfoCustom.setTasksearchtype(tTaskInfoCustom.getTasksearchtype());//搜索类型
+		tTaskInfoCustom.setFlowcount(tTaskInfoCustom.getFlowcount());//流量数
+		tTaskInfoCustom.setCollectioncount(tTaskInfoCustom.getCollectioncount());//收藏数
+		tTaskInfoCustom.setShoppingcount(tTaskInfoCustom.getShoppingcount());//加购数
+		//tTaskInfoCustom.setStorecollectioncount(tTaskInfoCustom.getStorecollectioncount());
+		//tTaskInfoCustom.setFakechatcount(tTaskInfoCustom.getFakechatcount());
+		//tTaskInfoCustom.setFakechatstr1(tTaskInfoCustom.getFakechatstr1());
+		//tTaskInfoCustom.setFakechatstr2(tTaskInfoCustom.getFakechatstr2());
+		//tTaskInfoCustom.setFakechatstr3(tTaskInfoCustom.getFakechatstr3());
+		//tTaskInfoCustom.setFakechatstr4(tTaskInfoCustom.getFakechatstr4());
+		tTaskInfoCustom.setSubtractpoints(subtractpoints);//消耗的积分数
 		tTaskInfoCustom.setTaskstate("15");//待分配状态
 		tTaskInfoCustom.setCreatetime(sdf.format(new Date()));
 		tTaskInfoCustom.setUpdatetime(sdf.format(new Date()));

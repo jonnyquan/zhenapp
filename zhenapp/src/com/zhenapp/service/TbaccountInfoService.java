@@ -57,5 +57,8 @@ public interface TbaccountInfoService {
 	 * 更新淘宝账号信息
 	 */
 	public int updateTbaccount(HashMap<String, Object> hashmap) throws Exception;
-	
+	/*
+	 * 查询淘宝账号信息
+	 */
+	public List<TTbaccountInfoCustom> findTbaccount(HashMap<String, Object> pagemap) throws Exception;
 }

@@ -534,13 +534,13 @@
 								</div>
 								<table class="table" style="margin-bottom:0px;">
 									<tr class="active">
-										<td>【流量数：<span id="lls_1">0</span>个，流量单个花费:<span id="lls_2" style="color:red;">${tPriceInfoCustom.pricecounts1}</span>(积分)/个，总计：<span id="lls_3">0</span>(积分)】</td>
+										<td>【流量数：<span id="lls_1">0</span>个，流量单个花费:<span id="lls_2" style="color:red;">${tPriceInfoCustom.pricecounts4}</span>(积分)/个，总计：<span id="lls_3">0</span>(积分)】</td>
 									</tr>
 									<tr class="default">
-										<td>【收藏数：<span id="scs_1">0</span>个，收藏单个花费:<span id="scs_2" style="color:red;">${tPriceInfoCustom.pricecounts2}</span>(积分)/个，总计：<span id="scs_3">0</span>(积分)】</td>
+										<td>【收藏数：<span id="scs_1">0</span>个，收藏单个花费:<span id="scs_2" style="color:red;">${tPriceInfoCustom.pricecounts5}</span>(积分)/个，总计：<span id="scs_3">0</span>(积分)】</td>
 									</tr>
 									<tr class="active">
-										<td>【购物车数：<span id="gwcs_1">0</span>个，加购物车单个花费:<span id="gwcs_2" style="color:red;">${tPriceInfoCustom.pricecounts3}</span>/个，总计：<span id="gwcs_3">0</span>(积分)】</td>
+										<td>【购物车数：<span id="gwcs_1">0</span>个，加购物车单个花费:<span id="gwcs_2" style="color:red;">${tPriceInfoCustom.pricecounts6}</span>/个，总计：<span id="gwcs_3">0</span>(积分)】</td>
 									</tr>
 									<tr class="success">
 										<td>【总费用:<span id="sum" style="color:red;">0</span>(积分)】</td>

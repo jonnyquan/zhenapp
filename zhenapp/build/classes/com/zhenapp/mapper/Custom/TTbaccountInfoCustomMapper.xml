@@ -16,6 +16,14 @@
 		update t_tbaccount_info set tbaccounttag=#{tbaccounttag},updatetime=#{updatetime},updateuser=#{updateuser}
 	</update>
 	
+	<select id="findTbaccount"  parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTbaccountInfoCustom" >
+		select * from t_tbaccount_info 
+		<where>
+			<if test="tbaccounttag !=null and tbaccounttag !=''">
+				and tbaccounttag IS NOT NULL
+			</if>
+		</where>
+	</select>
 	
 	<select id="findTbaccountBypage" resultType="com.zhenapp.po.Custom.TTbaccountInfoCustom" parameterType="java.util.HashMap">
 		select * from t_tbaccount_info 

@@ -166,21 +166,29 @@ public class TbaccountInfoController {
 		ModelMap map = new ModelMap();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		List<TTbaccountInfoTempCustom> tTbaccountInfoTempCustomlist = tbaccountInfoTempService.findAllTTbaccountInfoTemp();
-		for (int i = 0; i < tTbaccountInfoTempCustomlist.size(); i++) {
-			TTbaccountInfoTempCustom tTbaccountInfoTempCustom= tTbaccountInfoTempCustomlist.get(i);
-			TTbaccountInfoCustom tTbaccountInfoCustom = new TTbaccountInfoCustom();
-			tTbaccountInfoCustom.setTbaccountid(UUID.randomUUID().toString().replace("-", ""));
-			tTbaccountInfoCustom.setTbaccountname(tTbaccountInfoTempCustom.getTbaccountname());
-			tTbaccountInfoCustom.setTbaccountpwd(tTbaccountInfoTempCustom.getTbaccountpwd());
-			if (tTbaccountInfoTempCustom.getTbaccountphoneid()!=null) {
-				tTbaccountInfoCustom.setTbaccountphoneid(tTbaccountInfoTempCustom.getTbaccountphoneid());
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("tbaccounttag", "1");
+		List<TTbaccountInfoCustom> listtag = tbaccountInfoService.findTbaccount(hashmap);
+		if(tTbaccountInfoTempCustomlist!=null && tTbaccountInfoTempCustomlist.size()>0){
+			for (int i = 0; i < tTbaccountInfoTempCustomlist.size(); i++) {
+				TTbaccountInfoTempCustom tTbaccountInfoTempCustom= tTbaccountInfoTempCustomlist.get(i);
+				TTbaccountInfoCustom tTbaccountInfoCustom = new TTbaccountInfoCustom();
+				tTbaccountInfoCustom.setTbaccountid(UUID.randomUUID().toString().replace("-", ""));
+				tTbaccountInfoCustom.setTbaccountname(tTbaccountInfoTempCustom.getTbaccountname());
+				tTbaccountInfoCustom.setTbaccountpwd(tTbaccountInfoTempCustom.getTbaccountpwd());
+				if(listtag!=null && listtag.size()>0){
+					tTbaccountInfoCustom.setTbaccounttag(listtag.get(0).getTbaccounttag());
+				}
+				if (tTbaccountInfoTempCustom.getTbaccountphoneid()!=null) {
+					tTbaccountInfoCustom.setTbaccountphoneid(tTbaccountInfoTempCustom.getTbaccountphoneid());
+				}
+				tTbaccountInfoCustom.setTbaccountstate("60");
+				tTbaccountInfoCustom.setCreatetime(sdf.format(new Date()));
+				tTbaccountInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+				tTbaccountInfoCustom.setUpdatetime(sdf.format(new Date()));
+				tTbaccountInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
+				tbaccountInfoService.insertTbaccount(tTbaccountInfoCustom);
 			}
-			tTbaccountInfoCustom.setTbaccountstate("60");
-			tTbaccountInfoCustom.setCreatetime(sdf.format(new Date()));
-			tTbaccountInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
-			tTbaccountInfoCustom.setUpdatetime(sdf.format(new Date()));
-			tTbaccountInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
-			tbaccountInfoService.insertTbaccount(tTbaccountInfoCustom);
 		}
 		logger.info("保存淘宝账号信息成功!");
 		map.put("ec", "0");
@@ -194,19 +202,27 @@ public class TbaccountInfoController {
 		ModelMap map = new ModelMap();
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		List<TTbaccountInfoTempCustom> tTbaccountInfoTempCustomlist = tbaccountInfoTempService.findAllTTbaccountInfoTemp();
-		for (int i = 0; i < tTbaccountInfoTempCustomlist.size(); i++) {
-			TTbaccountInfoTempCustom tTbaccountInfoTempCustom= tTbaccountInfoTempCustomlist.get(i);
-			TTbaccountInfoCustom tTbaccountInfoCustom = new TTbaccountInfoCustom();
-			tTbaccountInfoCustom.setTbaccountid(UUID.randomUUID().toString().replace("-", ""));
-			tTbaccountInfoCustom.setTbaccountname(tTbaccountInfoTempCustom.getTbaccountname());
-			tTbaccountInfoCustom.setTbaccountpwd(tTbaccountInfoTempCustom.getTbaccountpwd());
-			tTbaccountInfoCustom.setTbaccountphoneid(phoneid);
-			tTbaccountInfoCustom.setTbaccountstate("60");
-			tTbaccountInfoCustom.setCreatetime(sdf.format(new Date()));
-			tTbaccountInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
-			tTbaccountInfoCustom.setUpdatetime(sdf.format(new Date()));
-			tTbaccountInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
-			tbaccountInfoService.insertTbaccount(tTbaccountInfoCustom);
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("tbaccounttag", "1");
+		List<TTbaccountInfoCustom> listtag = tbaccountInfoService.findTbaccount(hashmap);
+		if(tTbaccountInfoTempCustomlist!=null && tTbaccountInfoTempCustomlist.size()>0){
+			for (int i = 0; i < tTbaccountInfoTempCustomlist.size(); i++) {
+				TTbaccountInfoTempCustom tTbaccountInfoTempCustom= tTbaccountInfoTempCustomlist.get(i);
+				TTbaccountInfoCustom tTbaccountInfoCustom = new TTbaccountInfoCustom();
+				tTbaccountInfoCustom.setTbaccountid(UUID.randomUUID().toString().replace("-", ""));
+				tTbaccountInfoCustom.setTbaccountname(tTbaccountInfoTempCustom.getTbaccountname());
+				tTbaccountInfoCustom.setTbaccountpwd(tTbaccountInfoTempCustom.getTbaccountpwd());
+				tTbaccountInfoCustom.setTbaccountphoneid(phoneid);
+				if(listtag!=null && listtag.size()>0){
+					tTbaccountInfoCustom.setTbaccounttag(listtag.get(0).getTbaccounttag());
+				}
+				tTbaccountInfoCustom.setTbaccountstate("60");
+				tTbaccountInfoCustom.setCreatetime(sdf.format(new Date()));
+				tTbaccountInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+				tTbaccountInfoCustom.setUpdatetime(sdf.format(new Date()));
+				tTbaccountInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
+				tbaccountInfoService.insertTbaccount(tTbaccountInfoCustom);
+			}
 		}
 		logger.info("按手机号分配淘宝账号信息成功!");
 		map.put("ec", "0");
@@ -221,22 +237,30 @@ public class TbaccountInfoController {
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		List<TTbaccountInfoTempCustom> tTbaccountInfoTempCustomlist = tbaccountInfoTempService.findAllTTbaccountInfoTemp();
 		List<TPhoneInfoCustom> TPhoneInfoCustomlist = phoneInfoService.findAllPhoneBycount(phoneCount);
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("tbaccounttag", "1");
+		List<TTbaccountInfoCustom> listtag = tbaccountInfoService.findTbaccount(hashmap);
 		int a=0;
-		for (int i = 0; i < TPhoneInfoCustomlist.size(); i++) {
-			for (int j = 0; j < num; j++) {
-				TTbaccountInfoTempCustom tTbaccountInfoTempCustom= tTbaccountInfoTempCustomlist.get(a);
-				TTbaccountInfoCustom tTbaccountInfoCustom = new TTbaccountInfoCustom();
-				tTbaccountInfoCustom.setTbaccountid(UUID.randomUUID().toString().replace("-", ""));
-				tTbaccountInfoCustom.setTbaccountname(tTbaccountInfoTempCustom.getTbaccountname());
-				tTbaccountInfoCustom.setTbaccountpwd(tTbaccountInfoTempCustom.getTbaccountpwd());
-				tTbaccountInfoCustom.setTbaccountphoneid(TPhoneInfoCustomlist.get(i).getPhoneid());
-				tTbaccountInfoCustom.setCreatetime(sdf.format(new Date()));
-				tTbaccountInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
-				tTbaccountInfoCustom.setUpdatetime(sdf.format(new Date()));
-				tTbaccountInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
-				tbaccountInfoService.insertTbaccount(tTbaccountInfoCustom);
-				a++;
-			}	
+		if(TPhoneInfoCustomlist!=null && TPhoneInfoCustomlist.size()>0){
+			for (int i = 0; i < TPhoneInfoCustomlist.size(); i++) {
+				for (int j = 0; j < num; j++) {
+					TTbaccountInfoTempCustom tTbaccountInfoTempCustom= tTbaccountInfoTempCustomlist.get(a);
+					TTbaccountInfoCustom tTbaccountInfoCustom = new TTbaccountInfoCustom();
+					tTbaccountInfoCustom.setTbaccountid(UUID.randomUUID().toString().replace("-", ""));
+					if(listtag!=null && listtag.size()>0){
+						tTbaccountInfoCustom.setTbaccounttag(listtag.get(0).getTbaccounttag());
+					}
+					tTbaccountInfoCustom.setTbaccountname(tTbaccountInfoTempCustom.getTbaccountname());
+					tTbaccountInfoCustom.setTbaccountpwd(tTbaccountInfoTempCustom.getTbaccountpwd());
+					tTbaccountInfoCustom.setTbaccountphoneid(TPhoneInfoCustomlist.get(i).getPhoneid());
+					tTbaccountInfoCustom.setCreatetime(sdf.format(new Date()));
+					tTbaccountInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
+					tTbaccountInfoCustom.setUpdatetime(sdf.format(new Date()));
+					tTbaccountInfoCustom.setUpdateuser(tUserInfoCustom.getUserid());
+					tbaccountInfoService.insertTbaccount(tTbaccountInfoCustom);
+					a++;
+				}	
+			}
 		}
 		logger.info("按平均分配淘宝账号信息"+a+"条成功!");
 		map.put("ec", "0");

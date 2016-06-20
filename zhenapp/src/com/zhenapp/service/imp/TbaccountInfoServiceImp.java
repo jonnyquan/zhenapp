@@ -95,4 +95,10 @@ public class TbaccountInfoServiceImp implements TbaccountInfoService{
 		return tTbaccountInfoCustomMapper.updateTbaccount(hashmap);
 	}
 
+	@Override
+	public List<TTbaccountInfoCustom> findTbaccount(
+			HashMap<String, Object> pagemap) throws Exception {
+		return tTbaccountInfoCustomMapper.findTbaccount(pagemap);
+	}
+
 }

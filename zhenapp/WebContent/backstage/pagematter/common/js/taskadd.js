@@ -250,6 +250,14 @@ var isurl=false;
 						$.messager.alert('消息提示', '余额不足,任务发布失败!', 'info', function () {
 							window.location.href=uri+"/task/responsetaskadd";
 						});
+					}else if(data.data=="allocationing"){
+						$.messager.alert('消息提示', '该宝贝id有待分配状态的任务,任务发布失败!', 'info', function () {
+							window.location.href=uri+"/task/responsetaskadd";
+						});
+					}else if(data.data=="count0"){
+						$.messager.alert('消息提示', '发布的任务数必须为正整数,任务发布失败!', 'info', function () {
+							window.location.href=uri+"/task/responsetaskadd";
+						});
 					}else{
 						$.messager.alert('消息提示', '发布失败!', 'info', function () {
 							window.location.href=uri+"/task/responsetaskadd";

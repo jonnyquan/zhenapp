@@ -109,7 +109,7 @@
               </c:if>
               <c:if test="${tTaskDetailInfoCustomlist == null }">
               	<tr>
-	              	<td colspan="3"><center><span>暂无详细数据...</span></center></td>
+	              	<td colspan="6"><center><span>暂无详细数据...</span></center></td>
 	              </tr>
               </c:if>
             </tbody>

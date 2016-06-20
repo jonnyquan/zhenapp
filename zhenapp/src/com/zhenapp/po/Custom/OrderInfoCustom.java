@@ -14,7 +14,44 @@ public class OrderInfoCustom {
 	private String searchType;
 	private String timecontrol;
 	private String image;
+	private String tasktitle;
+	private String deepclick;
+	private String shipaddress;
+	private String taskprice;
+	private String creativetitle;
 	
+	
+	public String getTasktitle() {
+		return tasktitle;
+	}
+	public void setTasktitle(String tasktitle) {
+		this.tasktitle = tasktitle;
+	}
+	public String getDeepclick() {
+		return deepclick;
+	}
+	public void setDeepclick(String deepclick) {
+		this.deepclick = deepclick;
+	}
+	public String getShipaddress() {
+		return shipaddress;
+	}
+	public void setShipaddress(String shipaddress) {
+		this.shipaddress = shipaddress;
+	}
+	public String getTaskprice() {
+		return taskprice;
+	}
+	public void setTaskprice(String taskprice) {
+		this.taskprice = taskprice;
+	}
+	
+	public String getCreativetitle() {
+		return creativetitle;
+	}
+	public void setCreativetitle(String creativetitle) {
+		this.creativetitle = creativetitle;
+	}
 	public String getMinPrice() {
 		return minPrice;
 	}

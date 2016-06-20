@@ -114,37 +114,43 @@
             <thead>
               <tr>
                 <th>日期</th>
-                <th>访问量</th>
-                <th>收藏量</th>
-                <th>购物车量</th>
+                <th>普通流量</th>
+                <th>收藏量(流量)</th>
+                <th>购物车量(流量)</th>
+                <th>直通车流量</th>
+                <th>收藏量(直通车)</th>
+                <th>购物车量(直通车)</th>
                 <th>购买积分</th>
                 <th>发布任务</th>
                 <th>后台操作</th>
               </tr>
               </thead>
               <tbody>
-              <c:if test="${datacountInfoCustomlist == null}">
-              	<tr>
-	              	<td colspan="7">暂无详细数据</td>
-	            </tr>
-              </c:if>
               <c:if test="${datacountInfoCustomlist != null}">
-	              <c:forEach items="${datacountInfoCustomlist }" var="list">
-		              <tr>
-		                 <td>${list.date}</td>
-		                 <td>${list.flowcount}</td>
-		                 <td>${list.collectioncount}</td>
-		                 <td>${list.shoppingcount}</td>
-		                 <td>${list.buypoints}</td>
-		                 <td>${list.expendpoints}</td>
-		                 <td>${list.handworkpoints}</td>
-		              </tr>
-	              </c:forEach>
+              	<c:forEach items="${datacountInfoCustomlist }" var="list">
+	              <tr>
+	                 <td>${list.date}</td>
+	                 <td>${list.finishcount}</td>
+	                 <td>${list.collectioncount}</td>
+	                 <td>${list.shoppingcount}</td>
+	                 <td>${list.ztccount}</td>
+	                 <td>${list.collectionztccount}</td>
+	                 <td>${list.shoppingztccount}</td>
+	                 <td>${list.buypoints}</td>
+	                 <td>${list.expendpoints}</td>
+	                 <td>${list.handworkpoints}</td>
+	              </tr>
+                </c:forEach>
+              </c:if>
+              <c:if test="${datacountInfoCustom != null}">
 	              <tr>
 	              	<td>总计</td>
-	              	<td>${datacountInfoCustom.sumflowcount}</td>
-	              	<td>${datacountInfoCustom.sumcollectioncount}</td>
-	              	<td>${datacountInfoCustom.sumshoppingcount}</td>
+	              	<td>${datacountInfoCustom.finishsum}</td>
+	              	<td>${datacountInfoCustom.collectionsum}</td>
+	              	<td>${datacountInfoCustom.shoppingsum}</td>
+	              	<td>${datacountInfoCustom.ztcsum}</td>
+	              	<td>${datacountInfoCustom.collectionztcsum}</td>
+	              	<td>${datacountInfoCustom.shoppingztcsum}</td>
 	              	<td>${datacountInfoCustom.sumbuypoints}</td>
 	              	<td>${datacountInfoCustom.sumexpendpoints}</td>
 	              	<td>${datacountInfoCustom.sumhandworkpoints}</td>

@@ -10,7 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>积分明细</title>
+<title>密码重置</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/myPage.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/backstage/agent/pagematter/amazeui.min.css" />
@@ -62,6 +62,7 @@
   <div class="am-cf am-padding">
     <div class="am-fl am-cf">
       <form action="${pageContext.request.contextPath}/user/resetPwd" method="post">
+      <input type="hidden" name="userid" value="${userid}">
       	  <table>
       	  	<tr>
       	  		<td>

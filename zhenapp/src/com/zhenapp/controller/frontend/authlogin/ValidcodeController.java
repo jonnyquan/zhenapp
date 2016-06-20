@@ -54,7 +54,7 @@ public class ValidcodeController {
         String afterShuffle = sb.toString();  
         String result = afterShuffle.substring(0, 6);
         HashMap<String, Object> hashmap = new HashMap<String, Object>();
-        hashmap.put("email", email);
+        hashmap.put("regemail", email);
         hashmap.put("usernick", usernick);
         hashmap.put("regvalidcode", result);
 		userInfoService.updateValidByemailandusernick(hashmap);

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,28 +24,29 @@ public class ResetPwdController {
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 
 	/*
-	 * 修改全体用户密码
+	 * 根据用户主键修改用户密码
 	 */
 	@RequestMapping(value="/resetPwd")
-	public @ResponseBody ModelAndView resetPwd(HttpSession session,String password) throws Exception{
+	public @ResponseBody ModelAndView resetPwd(HttpSession session,String password,String userid) throws Exception{
 		ModelAndView mv =new ModelAndView();
 		TUserInfoCustom tUserInfoCustom = ((TUserInfoCustom)session.getAttribute("tUserInfoCustom"));
 		TUserInfoCustom tUserInfoCustomtemp = new TUserInfoCustom();
+		tUserInfoCustomtemp.setUserid(userid);
 		tUserInfoCustomtemp.setUserpwd(MD5Util.string2MD5(password));
 		tUserInfoCustomtemp.setUpdatetime(sdf.format(new Date()));
 		tUserInfoCustomtemp.setUpdateuser(tUserInfoCustom.getUserid());
 		userInfoService.updateUserpwdByuserid(tUserInfoCustomtemp);
-		mv.setViewName("/user/requestresetpwd");
+		mv.setViewName("/user/findUserByPageAndAdmin");
 		return mv;
 	}
 	
 	/*
 	 * 跳转到重置所有用户密码页面
 	 */
-	@RequestMapping(value="/requestresetpwd")
-	public @ResponseBody ModelAndView requestresetpwd() throws Exception{
+	@RequestMapping(value="/requestresetpwd/{userid}")
+	public @ResponseBody ModelAndView requestresetpwd(@PathVariable(value="userid")String userid) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		
+		mv.addObject("userid",userid);
 		mv.setViewName("/backstage/admin/resetPwd.jsp");
 		return mv;
 	}
