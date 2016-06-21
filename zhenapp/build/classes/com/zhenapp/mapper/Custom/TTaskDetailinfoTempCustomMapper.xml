@@ -45,7 +45,7 @@
 				and tasktype=#{tasktype}
 			</if>
 		</where>
-		GROUP BY taskkeynum,taskkeyword HAVING counts <![CDATA[<]]> 1
+		GROUP BY taskkeynum,taskkeyword HAVING counts <![CDATA[>]]> 0
 	</select>
 	
 	

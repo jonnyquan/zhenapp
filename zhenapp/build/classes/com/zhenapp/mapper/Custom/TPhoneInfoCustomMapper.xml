@@ -28,7 +28,7 @@
   
   <select id="findPhoneAndTask" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TPhoneInfoCustom">
   	SELECT a.phoneid,b.counts FROM t_phone_info a
-	LEFT JOIN (SELECT phoneid,COUNT(1) AS counts FROM t_task_detailinfo WHERE taskstate='40' GROUP BY phoneid) b ON a.phoneid=b.phoneid
+	LEFT JOIN (SELECT phoneid,COUNT(1) AS counts FROM t_task_detailinfo_temp WHERE taskstate='40' GROUP BY phoneid) b ON a.phoneid=b.phoneid
 	<where>
 		<if test="phonestate !=null and phonestate != '' ">
 			and a.phonestate = #{phonestate}

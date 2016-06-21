@@ -7,6 +7,8 @@ import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 
 
 public interface TTaskDetailinfoCustomMapper {
+	//查询执行过的id和关键词的详情任务
+	public List<TTaskDetailInfoCustom> findexitid(HashMap<String, Object> hashmap) throws Exception;
 	//查询出终止任务个数
 	public int findcountEndstate(String taskid) throws Exception;
 	//根据日期按手机分组统计完成的收藏数和加购数

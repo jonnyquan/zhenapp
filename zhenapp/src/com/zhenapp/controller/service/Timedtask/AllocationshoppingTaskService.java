@@ -39,7 +39,7 @@ public class AllocationshoppingTaskService {
 		StringBuffer sb=new StringBuffer();
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.put("phoneid", tPhoneInfoCustom.getPhoneid());
-		hashmap.put("isshopping", 1);
+		hashmap.put("isshopping", "1");
 		hashmap.put("today", yyyyMMdd.format(new Date()));
 		hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
 		hashmap.put("tasknumstr", tasknumstr);

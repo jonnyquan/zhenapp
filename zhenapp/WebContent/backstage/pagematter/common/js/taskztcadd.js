@@ -815,9 +815,9 @@ function checkpricemode(obj){
 					if(parseInt(price)<1){
 						taskminpricestr=0;
 					}else{
-						taskminpricestr= (parseInt(price.split(".")[0])-1)+""+price.split(".")[1];
+						taskminpricestr= (parseInt(price.split(".")[0])-1)+"."+price.split(".")[1];
 					}
-					taskmaxpricestr= (parseInt(price.split(".")[0])+1)+""+price.split(".")[1];
+					taskmaxpricestr= (parseInt(price.split(".")[0])+1)+"."+price.split(".")[1];
 				}else{
 					if(parseInt(price)<1){
 						taskminpricestr=0;
@@ -836,9 +836,9 @@ function checkpricemode(obj){
 					if(parseInt(price)<10){
 						taskminpricestr=0;
 					}else{
-						taskminpricestr= (parseInt(price.split(".")[0])-10) + "" + price.split(".")[1];
+						taskminpricestr= (parseInt(price.split(".")[0])-10) + "." + price.split(".")[1];
 					}
-					taskmaxpricestr= (parseInt(price.split(".")[0])+10) + "" + price.split(".")[1];
+					taskmaxpricestr= (parseInt(price.split(".")[0])+10) + "." + price.split(".")[1];
 				}else{
 					if(parseInt(price)<10){
 						taskminpricestr=0;

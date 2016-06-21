@@ -744,8 +744,8 @@
 									<input type="text" name="deepclick" id="deepclick" maxlength="3" onblur="checkdeep();"
 													onkeyup="this.value=this.value.replace(/\D/g,'')"
 													onafterpaste="this.value=this.value.replace(/\D/g,'')"
-													<c:if test="${tTaskInfoCustom.shoppingcount!=null }">value="${tTaskInfoCustom.shoppingcount}"</c:if>
-													<c:if test="${tTaskInfoCustom.shoppingcount==null }">value="20"</c:if>
+													<c:if test="${tTaskInfoCustom.deepclick!=null }">value="${tTaskInfoCustom.deepclick}"</c:if>
+													<c:if test="${tTaskInfoCustom.deepclick==null }">value="20"</c:if>
 													 />
 													 <apan style="font-size:20px;">%</apan>
 												（百分比，0到100整数，浏览店铺其它宝贝比例）&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_deepclick"></span>

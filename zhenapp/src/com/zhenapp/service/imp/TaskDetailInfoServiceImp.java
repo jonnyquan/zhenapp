@@ -126,4 +126,9 @@ public class TaskDetailInfoServiceImp implements TaskDetailInfoService {
 	public int findcountEndstate(String taskid) throws Exception {
 		return tTaskDetailinfoCustomMapper.findcountEndstate(taskid);
 	}
+	@Override
+	public List<TTaskDetailInfoCustom> findexitid(
+			HashMap<String, Object> hashmap) throws Exception {
+		return tTaskDetailinfoCustomMapper.findexitid(hashmap);
+	}
 }

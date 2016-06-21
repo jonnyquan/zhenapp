@@ -1,8 +1,10 @@
 package com.zhenapp.controller.service.Timedtask;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.zhenapp.po.Custom.TPhoneInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailinfoTempCustom;
+import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.service.PhoneInfoService;
 import com.zhenapp.service.SysconfInfoService;
 import com.zhenapp.service.TaskDetailInfoService;
@@ -37,13 +40,33 @@ public class AllocationZtcllTaskService {
 	public synchronized @ResponseBody String allocateionztctaskll(TPhoneInfoCustom tPhoneInfoCustom,String tasknumstr) throws Exception{
 		StringBuffer sb=new StringBuffer();
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		List<TTaskInfoCustom> numwordslist = new ArrayList<TTaskInfoCustom>();
+		if(tasknumstr.length()>0){
+			String[] numwordsarr = tasknumstr.split("====");
+			if(numwordsarr.length>0){
+				for (int i = 0; i < numwordsarr.length; i++) {
+					TTaskInfoCustom tTaskInfoCustom = new TTaskInfoCustom();
+					String []numwordarr = numwordsarr[i].split(",");
+					if(numwordarr.length>1){
+						tTaskInfoCustom.setTaskkeynum(numwordarr[0]);
+						tTaskInfoCustom.setTaskkeyword(numwordarr[1]);
+						numwordslist.add(tTaskInfoCustom);
+					}
+				}
+				hashmap.put("numwordslist", numwordslist);
+			}
+		}
+		hashmap.put("today", yyyyMMdd.format(new Date()));
+		List<TTaskDetailInfoCustom> idslist = taskDetailInfoService.findexitid(hashmap);
 		hashmap.clear();
+		if(idslist!=null && idslist.size()>0){
+			hashmap.put("idslist", idslist);
+		}
 		hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
 		hashmap.put("today", yyyyMMdd.format(new Date()));
 		hashmap.put("HHmm", HHmm.format(new Date().getTime() + 1*60*1000));
-		hashmap.put("tasknumstr", tasknumstr);
-		hashmap.put("isshopping", 0);
-		hashmap.put("iscollection", 0);
+		hashmap.put("isshopping", "0");
+		hashmap.put("iscollection", "0");
 		hashmap.put("tasktype", "34");
 		TTaskDetailInfoCustom tTaskDetailInfoCustom = taskDetailInfoService.requesttaskByphoneid_temp(hashmap);
 		if(tTaskDetailInfoCustom!=null){

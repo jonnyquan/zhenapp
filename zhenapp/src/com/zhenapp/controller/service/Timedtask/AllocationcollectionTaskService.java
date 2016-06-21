@@ -39,7 +39,7 @@ public class AllocationcollectionTaskService {
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.clear();
 		hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
-		hashmap.put("iscollection", 1);
+		hashmap.put("iscollection", "1");
 		hashmap.put("today", yyyyMMdd.format(new Date()));
 		hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
 		hashmap.put("tasknumstr", tasknumstr);

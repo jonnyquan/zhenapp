@@ -8,19 +8,24 @@
   	SELECT a.* FROM t_task_detailinfo a
 	<where>
 		<if test="iscollection != null and iscollection != '' ">
-			AND a.iscollection ='1'
+			AND a.iscollection = #{iscollection}
 		</if>
 		<if test="isstorecollection != null and isstorecollection != '' ">
 			AND a.isstorecollection ='1'
 		</if>
 		<if test="isshopping != null and isshopping != '' ">
-			AND a.isshopping ='1'
+			AND a.isshopping =#{isshopping}
 		</if>
 		<if test="isfakechat != null and isfakechat != '' ">
 			AND a.isfakechat ='1'
 		</if>
 		<if test="tasknumstr != null and tasknumstr != '' ">
 			AND a.taskkeynum NOT IN (${tasknumstr})
+		</if>
+		<if test="idslist != null and idslist != '' ">
+			<foreach collection="idslist" item="list">
+				AND a.taskid != #{list.taskid}
+			</foreach>
 		</if>
 		<if test="tasktype != null and tasktype != '' ">
 			AND a.tasktype = #{tasktype}
@@ -29,6 +34,21 @@
 	AND a.phoneid IS NULL AND a.taskstate='40' AND a.taskdate=#{today} and a.resultstr is null
 	AND (CASE WHEN a.taskminute>9 THEN CONCAT(a.taskhour,a.taskminute)+0 <![CDATA[<=]]> #{HHmm}+0 ELSE CONCAT(a.taskhour,'0',a.taskminute)+0 <![CDATA[<=]]> #{HHmm}+0 END)
   	ORDER BY a.taskhour,a.taskminute LIMIT 0,1
+  </select>
+  
+  <select id="findexitid" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
+  	SELECT taskid FROM t_task_detailinfo_temp 
+  	<where>
+		<if test="numwordslist != null and numwordslist != '' ">
+			<foreach collection="numwordslist" item="list" open="AND (" close=")" separator="OR">
+				(taskkeynum = #{list.taskkeynum} AND taskkeyword = #{list.taskkeyword})
+			</foreach>
+  		</if>
+		<if test="today != null and today != '' ">
+			AND taskdate = #{today}
+  		</if>
+  	</where>
+  	group by taskid
   </select>
    
   <select id="findtaskdatacount" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
