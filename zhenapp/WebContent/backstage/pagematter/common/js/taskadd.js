@@ -258,6 +258,10 @@ var isurl=false;
 						$.messager.alert('消息提示', '发布的任务数必须为正整数,任务发布失败!', 'info', function () {
 							window.location.href=uri+"/task/responsetaskadd";
 						});
+					}else if(data.data=="flowerror"){
+						$.messager.alert('消息提示', '流量数与单位小时流量数之和不匹配,任务发布失败!', 'info', function () {
+							window.location.href=uri+"/task/responsetaskadd";
+						});
 					}else{
 						$.messager.alert('消息提示', '发布失败!', 'info', function () {
 							window.location.href=uri+"/task/responsetaskadd";

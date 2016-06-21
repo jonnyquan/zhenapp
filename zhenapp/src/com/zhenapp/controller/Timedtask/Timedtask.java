@@ -89,9 +89,9 @@ public class Timedtask {
         logger.info("任务错误数大于等于系统设置的最大任务错误数即终止该任务数....每分钟执行一次");
 	}
 	
-	@Scheduled(cron = "0 */1 * * * ?")//每隔2分钟执行一次 将符合要求的详情任务放入详情任务临时表   
+	@Scheduled(cron = "0 */1 * * * ?")//每隔2分钟执行一次 将符合要求的详情任务放入详情任务临时表 (流量任务)  
 	public void job5() throws HttpException, IOException {
-		logger.info("给任务指定手机执行开始....每隔2分钟执行一次");
+		logger.info("给(流量任务)任务指定手机执行开始....每隔2分钟执行一次");
 		HttpClient httpClient = new HttpClient();
 		String result="";
 		String url = host+"/api/allocationTask";
@@ -103,6 +103,22 @@ public class Timedtask {
             logger.info("调用接口成功(/api/allocationTask)，返回："+result);
         }else {
             logger.info("调用接口失败(/api/allocationTask)，返回："+statusCode);
+        }
+	}
+	@Scheduled(cron = "0 */1 * * * ?")//每隔2分钟执行一次 将符合要求的详情任务放入详情任务临时表   
+	public void job6() throws HttpException, IOException {
+		logger.info("给(直通车任务)指定手机执行开始....每隔2分钟执行一次");
+		HttpClient httpClient = new HttpClient();
+		String result="";
+		String url = host+"/api/allocationztcTask";
+        PostMethod postMethod = new PostMethod(url);
+        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+        int statusCode =  httpClient.executeMethod(postMethod);
+        if(statusCode == 200) {
+            result = postMethod.getResponseBodyAsString();
+            logger.info("调用接口成功(/api/allocationztcTask)，返回："+result);
+        }else {
+            logger.info("调用接口失败(/api/allocationztcTask)，返回："+statusCode);
         }
 	}
 	
@@ -148,9 +164,9 @@ public class Timedtask {
         int statusCode =  httpClient.executeMethod(postMethod);
         if(statusCode == 200) {
             result = postMethod.getResponseBodyAsString();
-            logger.info("调用接口成功(/api/allocation)，返回："+result);
+            logger.info("调用接口成功(/api/allocation),返回："+result);
         }else {
-            logger.info("调用接口失败(/api/allocation)，返回："+statusCode);
+            logger.info("调用接口失败(/api/allocation),返回："+statusCode);
         }
 		logger.info("分配任务完成....每1分钟执行一次");
 	}

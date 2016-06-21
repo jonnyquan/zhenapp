@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.zhenapp.po.Custom.TPhoneInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailinfoTempCustom;
-import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.service.PhoneInfoService;
 import com.zhenapp.service.SysconfInfoService;
 import com.zhenapp.service.TaskDetailInfoService;
@@ -40,27 +39,27 @@ public class AllocationZtcllTaskService {
 	public synchronized @ResponseBody String allocateionztctaskll(TPhoneInfoCustom tPhoneInfoCustom,String tasknumstr) throws Exception{
 		StringBuffer sb=new StringBuffer();
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
-		List<TTaskInfoCustom> numwordslist = new ArrayList<TTaskInfoCustom>();
+		List<TTaskDetailInfoCustom> numwordslist = new ArrayList<TTaskDetailInfoCustom>();
 		if(tasknumstr.length()>0){
 			String[] numwordsarr = tasknumstr.split("====");
 			if(numwordsarr.length>0){
 				for (int i = 0; i < numwordsarr.length; i++) {
-					TTaskInfoCustom tTaskInfoCustom = new TTaskInfoCustom();
+					TTaskDetailInfoCustom tTaskDetailInfoCustom = new TTaskDetailInfoCustom();
 					String []numwordarr = numwordsarr[i].split(",");
 					if(numwordarr.length>1){
-						tTaskInfoCustom.setTaskkeynum(numwordarr[0]);
-						tTaskInfoCustom.setTaskkeyword(numwordarr[1]);
-						numwordslist.add(tTaskInfoCustom);
+						tTaskDetailInfoCustom.setTaskkeynum(numwordarr[0]);
+						tTaskDetailInfoCustom.setTaskkeyword(numwordarr[1]);
+						numwordslist.add(tTaskDetailInfoCustom);
 					}
 				}
 				hashmap.put("numwordslist", numwordslist);
 			}
-		}
-		hashmap.put("today", yyyyMMdd.format(new Date()));
-		List<TTaskDetailInfoCustom> idslist = taskDetailInfoService.findexitid(hashmap);
-		hashmap.clear();
-		if(idslist!=null && idslist.size()>0){
-			hashmap.put("idslist", idslist);
+			hashmap.put("today", yyyyMMdd.format(new Date()));
+			List<TTaskDetailInfoCustom> idslist = taskDetailInfoService.findexitid(hashmap);
+			hashmap.clear();
+			if(idslist!=null && idslist.size()>0){
+				hashmap.put("idslist", idslist);
+			}
 		}
 		hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
 		hashmap.put("today", yyyyMMdd.format(new Date()));

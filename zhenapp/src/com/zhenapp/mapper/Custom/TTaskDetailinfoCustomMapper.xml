@@ -37,18 +37,18 @@
   </select>
   
   <select id="findexitid" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
-  	SELECT taskid FROM t_task_detailinfo_temp 
+	  SELECT taskid FROM t_task_detailinfo_temp 
   	<where>
-		<if test="numwordslist != null and numwordslist != '' ">
-			<foreach collection="numwordslist" item="list" open="AND (" close=")" separator="OR">
-				(taskkeynum = #{list.taskkeynum} AND taskkeyword = #{list.taskkeyword})
+		<if test="numwordslist != null and numwordslist != ''">
+			<foreach collection="numwordslist" item="tasklist" open="AND (" close=")" separator="OR" >
+				(taskkeyword = ${tasklist.taskkeyword} AND taskkeynum = #{tasklist.taskkeynum})
 			</foreach>
   		</if>
 		<if test="today != null and today != '' ">
 			AND taskdate = #{today}
   		</if>
   	</where>
-  	group by taskid
+  	GROUP BY taskid 
   </select>
    
   <select id="findtaskdatacount" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">

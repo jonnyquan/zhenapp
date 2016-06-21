@@ -158,6 +158,14 @@ public class SaveTaskController {
 			
 		}
 		
+		int flowtemp=0;
+		for (int j = 0; j < hourarr.length; j++) {
+			flowtemp = flowtemp + Integer.parseInt(hourarr[j]);
+		}
+		if(flowtemp - tTaskInfoCustom.getFlowcount()!=0){
+			map.put("data", "flowerror");
+			return map;
+		}
 		//得到有多少小时是需要发布任务的
 		int hourcount=0;
 		for (int j = 0; j < hourarr.length; j++) {
@@ -165,6 +173,8 @@ public class SaveTaskController {
 				hourcount=hourcount+1;
 			}
 		}
+		
+		
 
 		tTaskInfoCustom.setTasktitle(tTaskInfoCustom.getTasktitle());//宝贝标题
 		tTaskInfoCustom.setTaskurl(tTaskInfoCustom.getTaskurl());//宝贝url

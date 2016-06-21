@@ -55,12 +55,12 @@ public class AllocationZtcTaskService {
 				}
 				hashmap.put("numwordslist", numwordslist);
 			}
-		}
-		hashmap.put("today", yyyyMMdd.format(new Date()));
-		List<TTaskDetailInfoCustom> idslist = taskDetailInfoService.findexitid(hashmap);
-		hashmap.clear();
-		if(idslist!=null && idslist.size()>0){
-			hashmap.put("idslist", idslist);
+			hashmap.put("today", yyyyMMdd.format(new Date()));
+			List<TTaskDetailInfoCustom> idslist = taskDetailInfoService.findexitid(hashmap);
+			hashmap.clear();
+			if(idslist!=null && idslist.size()>0){
+				hashmap.put("idslist", idslist);
+			}
 		}
 		hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
 		hashmap.put("today", yyyyMMdd.format(new Date()));

@@ -141,6 +141,15 @@ public class SubmitOrder {
 		}
 		
 		String [] hourarr = orderInfoCustom.getTimecontrol().split(",");
+		
+		int flowtemp=0;
+		for (int j = 0; j < hourarr.length; j++) {
+			flowtemp = flowtemp + Integer.parseInt(hourarr[j]);
+		}
+		if(flowtemp - orderInfoCustom.getTotalTask()!=0){
+			map.put("data", "flowerror");
+			return map;
+		}
 		//得到有多少小时是需要发布任务的
 		int hourcount=0;
 		for (int j = 0; j < hourarr.length; j++) {

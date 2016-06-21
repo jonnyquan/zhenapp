@@ -33,6 +33,9 @@
 		<if test="phonestate !=null and phonestate != '' ">
 			and a.phonestate = #{phonestate}
 		</if>
+		<if test="phonetype !=null and phonetype != '' ">
+			and a.phonetype = #{phonetype}
+		</if>
 	</where>
 	ORDER BY b.counts,a.phoneid+0
   </select>
