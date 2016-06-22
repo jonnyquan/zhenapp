@@ -33,6 +33,17 @@ public class StringUtilWxf {
 		} while (beginIndexFlag || endIndexFlag);
 		return source;
 	}
+	public static String trimFirstChar(String source, String element) {
+		boolean beginIndexFlag = true;
+		do {
+			int beginIndex = source.indexOf(element) == 0 ? 1 : 0;
+			int endIndex = source.lastIndexOf(element) + 1 == source.length() ? source
+					.lastIndexOf(element) : source.length();
+			source = source.substring(beginIndex, endIndex);
+			beginIndexFlag = (source.indexOf(element) == 0);
+		} while (beginIndexFlag);
+		return source;
+	}
 	
 	
 	/*
@@ -114,4 +125,8 @@ public class StringUtilWxf {
 		return str;
 	}
 
+	
+	public static void main(String[]args){
+		System.out.println(StringUtilWxf.trimFirstChar(" asdasdad sd sda  ", " "));
+	}
 }

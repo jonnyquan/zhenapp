@@ -151,10 +151,18 @@ public class CheckFinshOrder {
 		        	//更新任务状态
 		        	hashmap.clear();
 					hashmap.put("taskid", tTaskInfoCustom.getTaskid());
-					hashmap.put("taskstate", 17);
+					hashmap.put("taskstate", "17");
+					hashmap.put("oldfinshtaskstate", "16");
 					hashmap.put("updatetime", sdf.format(new Date()));
-					hashmap.put("updateuser", "sys");
-		        	taskInfoService.updateTaskstate(hashmap);
+					hashmap.put("updateuser", "检查任务是否已完成");
+					int finshcount = taskInfoService.updateTaskstate(hashmap);
+					if(finshcount > 0){
+						map.put("data", "success");
+						logger.info("该订单已成功完成!");
+					}else{
+						logger.info("该订单"+tTaskInfoCustom.getTaskid()+"无法修改为已完成"+hashmap.toString());
+						return map;
+					}
 		        	//任务失败积分数返回
 		        	int finishcount = 0;
 		        	//给用户添加积分明细记录
@@ -196,8 +204,8 @@ public class CheckFinshOrder {
 						hashmap.put("iscollection", "0");
 						hashmap.put("isshopping", "0");
 						finishcount = taskDetailInfoService.findCounts(hashmap);
-						int pointsflowztc = (tTaskInfoCustom.getFlowcount()-finishcount)*Integer.parseInt(tPriceInfoCustom.getPricecounts4());
-			        	int pointsflowagentztc = (tTaskInfoCustom.getFlowcount()-finishcount)*Integer.parseInt(tPriceAgentInfoCustom.getPricecounts4());
+						int pointsflowztc = finishcount*Integer.parseInt(tPriceInfoCustom.getPricecounts4());
+			        	int pointsflowagentztc = finishcount*Integer.parseInt(tPriceAgentInfoCustom.getPricecounts4());
 			        	hashmap.clear();
 			        	hashmap.put("taskid", tTaskInfoCustom.getTaskid());
 						hashmap.put("taskstate", "22,23");
@@ -205,21 +213,23 @@ public class CheckFinshOrder {
 						hashmap.put("iscollection", "1");
 						hashmap.put("isshopping", "1");
 			        	int errorcounts = taskDetailInfoService.findCounts(hashmap);
+			        	int pointllztc = errorcounts*Integer.parseInt(tPriceInfoCustom.getPricecounts4());
 						int pointscollectztc = errorcounts*Integer.parseInt(tPriceInfoCustom.getPricecounts5());
 						int pointsshoppingztc = errorcounts*Integer.parseInt(tPriceInfoCustom.getPricecounts6());
+						int pointllagentztc = errorcounts*Integer.parseInt(tPriceAgentInfoCustom.getPricecounts4());
 						int pointscollectagentztc = errorcounts*Integer.parseInt(tPriceAgentInfoCustom.getPricecounts5());
 						int pointsshoppingagentztc = errorcounts*Integer.parseInt(tPriceAgentInfoCustom.getPricecounts6());
 						//给用户添加终止任务所返回的积分
-						tUserInfoCustom.setPoints(tUserInfoCustom.getPoints() + pointsflowztc + pointscollectztc + pointsshoppingztc);
+						tUserInfoCustom.setPoints(tUserInfoCustom.getPoints() + pointsflowztc + pointllztc + pointscollectztc + pointsshoppingztc);
 						
-						tPointsInfoCustom.setPointreason("任务完成" + tTaskInfoCustom.getTaskpk() + ",失败任务返回积分"+(pointsflowztc + pointscollectztc + pointsshoppingztc));
-						tPointsInfoCustom.setPointsupdate((pointsflowztc + pointscollectztc + pointsshoppingztc));
+						tPointsInfoCustom.setPointreason("任务完成" + tTaskInfoCustom.getTaskpk() + ",失败任务返回积分"+(pointsflowztc + pointllztc + pointscollectztc + pointsshoppingztc));
+						tPointsInfoCustom.setPointsupdate((pointsflowztc + pointllztc + pointscollectztc + pointsshoppingztc));
 						tPointsInfoCustom.setPoints(tUserInfoCustom.getPoints());
 						//给代理添加终止任务所返回的积分
-						tUserInfoCustomagent.setPoints(tUserInfoCustomagent.getPoints() + pointsflowagentztc + pointscollectagentztc + pointsshoppingagentztc);
+						tUserInfoCustomagent.setPoints(tUserInfoCustomagent.getPoints() + pointsflowagentztc + pointllagentztc + pointscollectagentztc + pointsshoppingagentztc);
 						
-						tPointsInfoCustomagent.setPointreason("任务完成" + tTaskInfoCustom.getTaskpk() + ",失败任务返回积分"+(pointsflowagentztc + pointscollectagentztc + pointsshoppingagentztc));
-						tPointsInfoCustomagent.setPointsupdate((pointsflowagentztc + pointscollectagentztc + pointsshoppingagentztc));
+						tPointsInfoCustomagent.setPointreason("任务完成" + tTaskInfoCustom.getTaskpk() + ",失败任务返回积分"+(pointsflowagentztc + pointllagentztc + pointscollectagentztc + pointsshoppingagentztc));
+						tPointsInfoCustomagent.setPointsupdate((pointsflowagentztc + pointllagentztc + pointscollectagentztc + pointsshoppingagentztc));
 						tPointsInfoCustomagent.setPoints(tUserInfoCustomagent.getPoints());
 		        	}
 		        	tUserInfoCustom.setUpdatetime(sdf.format(new Date()));
@@ -243,7 +253,7 @@ public class CheckFinshOrder {
 					tPointsInfoCustomagent.setCreateuser(tUserInfoCustomagent.getUserid());
 					tPointsInfoCustomagent.setCreatetime(sdf.format(new Date()));
 					tPointsInfoCustomagent.setUpdatetime(sdf.format(new Date()));
-					tPointsInfoCustomagent.setUpdateuser("sys");
+					tPointsInfoCustomagent.setUpdateuser("检查订单是否完成");
 					tPointsInfoCustomagent.setPointsid(UUID.randomUUID().toString().replace("-", ""));
 					tPointsInfoCustomagent.setPointstype("28");
 					tPointsInfoCustomagent.setTaskpk(tTaskInfoCustom.getTaskpk());

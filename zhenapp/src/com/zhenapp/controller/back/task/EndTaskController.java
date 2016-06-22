@@ -58,13 +58,19 @@ public class EndTaskController {
 			return map;
 		}
 		hashmap.put("taskstate", 18);
-		taskInfoService.updateTaskstate(hashmap);//修改状态为终止中
-		taskDetailInfoService.updateterminationstate(hashmap);//修改状态为执行终止
-		taskDetailInfoFlowService.updateTaskstate(hashmap);//流量详情修改为终止中
-		hashmap.put("newstate", 40);
-		hashmap.put("oldstate", 23);
-		taskDetailInfoTempService.updatestate(hashmap);
-		
+		hashmap.put("oldfinshtaskstate", "16");
+		int endcounts = taskInfoService.updateTaskstate(hashmap);//修改状态为终止中
+		if(endcounts>0){
+			taskDetailInfoService.updateterminationstate(hashmap);//修改状态为执行终止
+			taskDetailInfoFlowService.updateTaskstate(hashmap);//流量详情修改为终止中
+			hashmap.put("newstate", 40);
+			hashmap.put("oldstate", 23);
+			taskDetailInfoTempService.updatestate(hashmap);
+		}else{
+			map.put("data", "stateerror");
+			logger.error("终止订单失败,无法修改为已终止"+hashmap.toString());
+			return map;
+		}
 		if(tTaskInfoCustomtemp.getTasktype().equals("33")){
 			TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);//根据任务id查询出流量详情信息
 			hashmap.clear();

@@ -176,10 +176,10 @@
 	                <td>${list.flowcount }</td>
 	                <td>${list.collectioncount }</td>
 	                <td>${list.shoppingcount }</td>
-	                <td>${list.finishflowcount }</td>
-	                <td>${list.finishcollectioncount }</td>
-	                <td>${list.finishshoppingcount }</td>
-	                <td class="font-red">${list.errorcount}</td>
+	                <td><font color="green">${list.finishflowcount }</font></td>
+	                <td><font color="green">${list.finishcollectioncount }</font></td>
+	                <td><font color="green">${list.finishshoppingcount }</font></td>
+	                <td class="font-red"><font color="red">${list.errorcount}</font></td>
 	                <td>${list.taskdaterange }</td>
 	                <td>${list.createtime }</td>
 	                <td>${list.dicinfoname} </td>
