@@ -238,7 +238,35 @@ public class CheckBeforeOrder {
 					hashmapusertest.put("usertestid", tTaskDetailInfoFlowCustom.getCreateuser());
 					List<TUsertestInfoCustom> tUsertestInfoCustomlist = usertestInfoService.findUserTest(hashmapusertest);
 					if(tUsertestInfoCustomlist!=null && tUsertestInfoCustomlist.size()>0){
-						
+						if(tUsertestInfoCustomlist.get(0).getUserroleid().equals("2")
+								&& tTaskInfoCustom.getFlowcount() !=0){
+							HttpClient httpClient = new HttpClient();
+							String result="";
+					        GetMethod getMethod = new GetMethod(liuliangapp + "/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/total");
+					        getMethod.setRequestHeader("secret", secret);
+					        int statusCode =  httpClient.executeMethod(getMethod);
+					        if(statusCode == 200) {
+					            result = getMethod.getResponseBodyAsString();
+					            if(result.indexOf("total")==-1){
+					            	result = StringUtilWxf.translat(result);
+					            	logger.error("/api/platform/updateTaskstateByTime---->调用成功，执行失败返回信息" + result);
+					            	throw new RuntimeException();
+					            }else{
+					            	ObjectMapper obj = new ObjectMapper();
+					 	    		MsgInfoCustom msgInfoCustom = obj.readValue(result, MsgInfoCustom.class);
+					 	    		result=msgInfoCustom.getTotal()+"";
+					 	    		//更新完成数
+					 	    		hashmap.put("finishcount", msgInfoCustom.getTotal());
+					 	    		taskDetailInfoFlowService.updatefinishcount(hashmap);
+					 	    		flowcounts= Integer.parseInt(msgInfoCustom.getTotal());
+					            }
+					            map.put("msg", result);
+					            logger.error("/api/platform/updateTaskstateByTime---->调用成功返回码" + result);
+					        }else {
+					            logger.error("凌晨处理任务失败/api/platform/updateTaskstateByTime---->失败错误码" + statusCode);
+					            throw new RuntimeException();
+					        }
+						}
 					}else{
 						HttpClient httpClient = new HttpClient();
 						String result="";

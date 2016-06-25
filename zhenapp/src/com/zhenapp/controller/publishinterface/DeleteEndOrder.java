@@ -50,7 +50,7 @@ public class DeleteEndOrder {
 	private PriceInfoService priceInfoService;
 	
 	/*
-	 * 每隔1分钟执行一次     将任务为已终止的订单   详情任务状态为执行终止	的详情任务删除
+	 * 详情任务状态为执行终止	的详情任务删除
 	 */
 	@RequestMapping(value="/api/platform/deleteTaskstate")
 	public @ResponseBody ModelMap deleteTaskstate() throws Exception{

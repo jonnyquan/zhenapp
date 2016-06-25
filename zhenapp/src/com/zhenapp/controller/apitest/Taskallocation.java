@@ -390,7 +390,53 @@ public class Taskallocation {
 					hashmaptest.put("page", 0);
 					hashmaptest.put("rows", middleRows);
 					List<TUsertestInfoCustom> tUsertestInfoCustomlist = usertestInfoService.findUserTest(hashmaptest);
-					if(tUsertestInfoCustomlist == null || tUsertestInfoCustomlist.size()<1){
+					if(tUsertestInfoCustomlist != null && tUsertestInfoCustomlist.size()>0){
+						if(tUsertestInfoCustomlist.get(0).getUserroleid().equals("2")
+								&& tTaskInfoCustom.getFlowcount() !=0){
+							//调用接口发送任务
+							HttpClient httpClient = new HttpClient();
+							String result="";
+						    PostMethod postMethod = new PostMethod(liuliangapp + "/api/tasks");
+						    postMethod.addParameter("name", tTaskDetailInfoFlowCustom.getTaskkeyword());
+						    postMethod.addParameter("keywords", tTaskDetailInfoFlowCustom.getTaskkeyword());
+						    postMethod.addParameter("product_url", "https://item.taobao.com/item.htm?id="+tTaskInfoCustom.getTaskkeynum());
+						    postMethod.addParameter("start_date", yyyy_MM_dd.format(yyyyMMdd.parse(tTaskInfoCustom.getTaskstartdate())));
+						    postMethod.addParameter("end_date", yyyy_MM_dd.format(yyyyMMdd.parse(tTaskInfoCustom.getTaskenddate())));
+						    postMethod.addParameter("hour_counts", "["+tTaskInfoCustom.getTaskhourcounts()+"]");
+						    postMethod.addParameter("duration", "2");
+						    postMethod.addParameter("plus", "true");
+						    postMethod.addParameter("gprs_pct", "40");
+						    postMethod.addParameter("tmall_app_pct", "20");
+						    postMethod.addParameter("deep_click_pct", tTaskDetailInfoFlowCustom.getDeepclick()==null?"0":tTaskDetailInfoFlowCustom.getDeepclick());
+						    postMethod.setRequestHeader("secret", secret);
+						    postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+						    int statusCode =  httpClient.executeMethod(postMethod);
+						    if(statusCode == 200) {
+						        result = postMethod.getResponseBodyAsString();
+						        if(result.indexOf("id")==-1){
+					            	result = StringUtilWxf.translat(result);
+					            	logger.info("调用发布任务"+ tTaskInfoCustom.getTaskpk() +"接口失败，错误信息:" + result);
+					            	map.put("msg", "调用发布任务接口失败，错误信息:" + result);
+					            	throw new RuntimeException();
+					            }else{
+					            	ObjectMapper obj = new ObjectMapper();
+					 	    		MsgInfoCustom msgInfoCustom = obj.readValue(result, MsgInfoCustom.class);
+					 	    		result = msgInfoCustom.getId() + "";
+					 	    		logger.info("调用发布任务接口成功!");
+					 	    		//将调用接口返回的订单号设置到流量任务记录中
+					 	    		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+					 	    		hashmap.put("taskdetailid", msgInfoCustom.getId());
+					 	    		hashmap.put("taskdetailpk", tTaskDetailInfoFlowCustom.getTaskdetailpk());
+					 	    		hashmap.put("taskid", tTaskDetailInfoFlowCustom.getTaskid());
+					 	    		taskDetailInfoFlowService.updateTaskdetailIdByPk(hashmap);
+					 	    		logger.info("更新返回的订单号成功，"+"单号：" + tTaskDetailInfoFlowCustom.getTaskdetailpk());
+					            }
+						    }else {
+						        map.put("msg", "失败错误码" + statusCode);
+						        throw new RuntimeException();
+						    }
+						}
+					}else{
 						//调用接口发送任务
 						HttpClient httpClient = new HttpClient();
 						String result="";

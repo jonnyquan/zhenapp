@@ -39,7 +39,7 @@ public interface RechargeInfoService {
 	/*
 	 * 根据验证码更新充值状态
 	 */
-	public int updateRechargestate(String verificationcode)throws Exception;
+	public int updateRechargestate(HashMap<String, Object> hashmap)throws Exception;
 	/*
 	 * 根据验证码查询充值信息
 	 */

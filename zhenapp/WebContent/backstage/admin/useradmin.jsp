@@ -122,10 +122,9 @@
                   <c:if test="${list.userroleid == 3}">
                  	 <a href="${pageContext.request.contextPath}/user/setAgent/${list.userpk}" class="am-badge am-badge-primary">设为代理</a>
                   </c:if>
-                  <c:if test="${list.usertestnick == null and list.userroleid == 3}">
+                  <c:if test="${list.usertestnick == null}">
                   	<a href="${pageContext.request.contextPath}/user/setUsertest/${list.userpk}" class="am-badge am-badge-primary">设为测试账号</a>
                   </c:if>
-                  
                   <a href="${pageContext.request.contextPath}/user/requestresetpwd/${list.userid}" class="am-badge am-badge-primary">重置密码</a>
               </td>
             </tr>

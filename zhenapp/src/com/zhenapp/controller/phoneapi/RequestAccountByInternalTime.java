@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zhenapp.po.Custom.TChangeInfoCustom;
 import com.zhenapp.po.Custom.TTbaccountInfoCustom;
+import com.zhenapp.service.ChangeInfoService;
 import com.zhenapp.service.PhoneInfoService;
 import com.zhenapp.service.ScriptInfoService;
 import com.zhenapp.service.TaskDetailInfoService;
@@ -28,6 +30,8 @@ public class RequestAccountByInternalTime {
 	private TaskDetailInfoService taskDetailInfoService;
 	@Autowired
 	private TbaccountInfoService tbaccountInfoService;
+	@Autowired
+	private ChangeInfoService changeInfoService;
 	@Autowired
 	private ScriptInfoService scriptInfoService;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -48,6 +52,12 @@ public class RequestAccountByInternalTime {
 		if(tTbaccountInfoCustomlisttemp!=null && tTbaccountInfoCustomlisttemp.size()>0){
 			return "nochange";
 		}
+		//该手机编号下状态未点击一键换号
+		hashmap.put("phoneid", pid);
+		TChangeInfoCustom tChangeInfoCustom = changeInfoService.findChangeinfo(hashmap);
+		if(tChangeInfoCustom.getTbaccountstate() == 0){
+			return "nochange";
+		}
 		hashmap.clear();
 		hashmap.put("tbaccountphoneid", pid);
 		List<TTbaccountInfoCustom> tTbaccountInfoCustomlist = tbaccountInfoService.findTbaccountByPhoneidandtag(hashmap);
@@ -61,6 +71,9 @@ public class RequestAccountByInternalTime {
 			.append(tTbaccountInfoCustom.getTbaccountpwd()).append("|")
 			.append(tTbaccountInfoCustom.getTbaccountpk()).append("|")
 			.append(tTbaccountInfoCustom.getTbaccounttag());
+			hashmap.put("phoneid", pid);
+			hashmap.put("tbaccountstate", "0");
+			changeInfoService.updatestate(hashmap);
 			logger.info("一键换号成功!");
 			return sb.toString();
 		}else{
@@ -83,6 +96,9 @@ public class RequestAccountByInternalTime {
 				.append(tTbaccountInfoCustom.getTbaccountpwd()).append("|")
 				.append(tTbaccountInfoCustom.getTbaccountpk()).append("|")
 				.append(tTbaccountInfoCustom.getTbaccounttag());
+				hashmap.put("phoneid", pid);
+				hashmap.put("tbaccountstate", "0");
+				changeInfoService.updatestate(hashmap);
 				logger.info("一键换号成功!");
 				return sb.toString();
 			}else{

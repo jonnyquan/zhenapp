@@ -99,7 +99,7 @@
   			<label>网站地址</label>
   		</td>
   		<td>
-  			<input type="text" id="url" name="url" placeholder="网站地址" class='form-control' value="${tAgentInfoCustom.url }">(如：http://www.baodu.com)
+  			<input type="text" id="url" name="url" placeholder="网站地址" class='form-control' value="${tAgentInfoCustom.url }">(如：www.baodu.com)
   		</td>
   	</tr>
   	<tr>

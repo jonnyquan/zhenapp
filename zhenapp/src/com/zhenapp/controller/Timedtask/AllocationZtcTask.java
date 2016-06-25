@@ -90,34 +90,6 @@ public class AllocationZtcTask {
 			}
 			String taskkeynumztcll =sbztcll.toString().length()>1?sbztcll.toString():"";
 			allocationZtcllTaskService.allocateionztctaskll(tPhoneInfoCustom,taskkeynumztcll);
-			
-			/*
-			hashmap.clear();
-			hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
-			hashmap.put("isstorecollection", 1);
-			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
-			hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
-			List<TTaskDetailinfoTempCustom> TTaskDetailinfoTempCustomlisstorecollection = taskDetailInfoTempService.findtaskkeynumlist(hashmap);
-			StringBuffer sbisstorecollection = new StringBuffer();
-			for (int j = 0; j < TTaskDetailinfoTempCustomlisisshopping.size(); j++) {
-				sbisstorecollection.append(TTaskDetailinfoTempCustomlisstorecollection.get(j).getTaskkeynum()).append(",");
-			}
-			String taskkeynumstrisstorecollection =sbisstorecollection.toString().length()>1?sbisstorecollection.toString().substring(0, sbisstorecollection.toString().length()-1):"";
-			allocationstorecollectionTaskService.allocateiontaskstorecollection(tPhoneInfoCustom,taskkeynumstrisstorecollection);
-			
-			hashmap.clear();
-			hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
-			hashmap.put("isfakechat", 1);
-			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
-			hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
-			List<TTaskDetailinfoTempCustom> TTaskDetailinfoTempCustomlisfakechat = taskDetailInfoTempService.findtaskkeynumlist(hashmap);
-			StringBuffer sbisfakechat = new StringBuffer();
-			for (int j = 0; j < TTaskDetailinfoTempCustomlisfakechat.size(); j++) {
-				sbisfakechat.append(TTaskDetailinfoTempCustomlisfakechat.get(j).getTaskkeynum()).append(",");
-			}
-			String taskkeynumstrisfakechat =sbisfakechat.toString().length()>1?sbisfakechat.toString().substring(0, sbisfakechat.toString().length()-1):"";
-			allocationfakechatTaskService.allocateiontaskfakechat(tPhoneInfoCustom,taskkeynumstrisfakechat);
-			*/
 		}
 		return map;
 	}

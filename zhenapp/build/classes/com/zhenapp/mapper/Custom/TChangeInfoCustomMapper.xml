@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenapp.mapper.Custom.TChangeInfoCustomMapper" >
+	<select id="findChangeinfo" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TChangeInfoCustom">
+		SELECT * FROM t_change_info 
+		<where>
+			<if test="phoneid != null and phoneid != ''">
+				and phoneid = #{phoneid}
+			</if>
+		</where>
+	</select>
+	
+	<update id="updatestate" parameterType="java.util.HashMap">
+		UPDATE t_change_info SET tbaccountstate=#{tbaccountstate} 
+		<where>
+			<if test="phoneid != null and phoneid != ''">
+				and phoneid = #{phoneid}
+			</if>
+		</where>
+	</update>
+</mapper>

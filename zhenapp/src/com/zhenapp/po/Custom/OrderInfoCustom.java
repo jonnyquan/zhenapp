@@ -14,6 +14,7 @@ public class OrderInfoCustom {
 	private String searchType;
 	private String timecontrol;
 	private String image;
+	private String taskurl;
 	private String tasktitle;
 	private String deepclick;
 	private String shipaddress;
@@ -21,6 +22,12 @@ public class OrderInfoCustom {
 	private String creativetitle;
 	
 	
+	public String getTaskurl() {
+		return taskurl;
+	}
+	public void setTaskurl(String taskurl) {
+		this.taskurl = taskurl;
+	}
 	public String getTasktitle() {
 		return tasktitle;
 	}

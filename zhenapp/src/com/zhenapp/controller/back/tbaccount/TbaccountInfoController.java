@@ -29,6 +29,7 @@ import com.zhenapp.po.Custom.TPhoneInfoCustom;
 import com.zhenapp.po.Custom.TTbaccountInfoCustom;
 import com.zhenapp.po.Custom.TTbaccountInfoTempCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
+import com.zhenapp.service.ChangeInfoService;
 import com.zhenapp.service.PhoneInfoService;
 import com.zhenapp.service.TbaccountInfoService;
 import com.zhenapp.service.TbaccountInfoTempService;
@@ -44,13 +45,12 @@ public class TbaccountInfoController {
 	private TbaccountInfoTempService tbaccountInfoTempService;
 	@Autowired
 	private PhoneInfoService phoneInfoService;
-	
+	@Autowired
+	private ChangeInfoService changeInfoService;
 	@Value("${config.tbidfile}")
 	private String tbidfilepath;
-	
 	@Value("${middleRows}")
 	private Integer middleRows;
-	
 	/*
 	 * 跳转到上传淘宝账号界面
 	 */
@@ -278,8 +278,13 @@ public class TbaccountInfoController {
 		hashmap.put("updatetime",sdf.format(new Date()));
 		hashmap.put("updateuser",tUserInfoCustom.getUserid());
 		int i= tbaccountInfoService.updateTbaccountTag(hashmap);
+		
 		//将状为nochange的账号信息状态修改为未测试 60
 		tbaccountInfoService.updateTbaccountstate();
+		
+		hashmap.clear();
+		hashmap.put("tbaccountstate", "1");
+		changeInfoService.updatestate(hashmap);
 		logger.info("修改淘宝账号手机标记信息"+i+"条成功!");
 		map.put("ec", "0");
 		return map;

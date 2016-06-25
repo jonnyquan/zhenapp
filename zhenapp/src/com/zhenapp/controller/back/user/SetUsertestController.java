@@ -2,12 +2,12 @@ package com.zhenapp.controller.back.user;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,7 +17,7 @@ import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Custom.TUsertestInfoCustom;
 import com.zhenapp.service.UserInfoService;
 import com.zhenapp.service.UsertestInfoService;
-@Transactional
+
 @Controller
 @RequestMapping(value="/user")
 public class SetUsertestController {
@@ -36,15 +36,21 @@ public class SetUsertestController {
 		ModelAndView mv = new ModelAndView();
 		TUserInfoCustom tUserInfoCustomsession=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		TUserInfoCustom TUserInfoCustom = userInfoService.findUserByuserpk(userpk);
-		TUsertestInfoCustom tUsertestInfoCustom = new TUsertestInfoCustom();
-		tUsertestInfoCustom.setUsertestpk(TUserInfoCustom.getUserpk());
-		tUsertestInfoCustom.setUsertestid(TUserInfoCustom.getUserid());
-		tUsertestInfoCustom.setUsertestnick(TUserInfoCustom.getUsernick());
-		tUsertestInfoCustom.setCreatetime(sdf.format(new Date()));
-		tUsertestInfoCustom.setCreateuser(tUserInfoCustomsession.getUserid());
-		tUsertestInfoCustom.setUpdatetime(sdf.format(new Date()));
-		tUsertestInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
-		usertestInfoService.insertUsertest(tUsertestInfoCustom);
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("usertestid",TUserInfoCustom.getUserid());
+		int i = usertestInfoService.findTotalUsertest(hashmap);
+		if(i<1){
+			TUsertestInfoCustom tUsertestInfoCustom = new TUsertestInfoCustom();
+			tUsertestInfoCustom.setUsertestpk(TUserInfoCustom.getUserpk());
+			tUsertestInfoCustom.setUsertestid(TUserInfoCustom.getUserid());
+			tUsertestInfoCustom.setUsertestnick(TUserInfoCustom.getUsernick());
+			tUsertestInfoCustom.setCreatetime(sdf.format(new Date()));
+			tUsertestInfoCustom.setUserroleid(TUserInfoCustom.getUserroleid()+"");
+			tUsertestInfoCustom.setCreateuser(tUserInfoCustomsession.getUserid());
+			tUsertestInfoCustom.setUpdatetime(sdf.format(new Date()));
+			tUsertestInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
+			usertestInfoService.insertUsertest(tUsertestInfoCustom);
+		}
 		mv.setViewName("/user/findUsertestAdmin");
 		return mv;
 	}

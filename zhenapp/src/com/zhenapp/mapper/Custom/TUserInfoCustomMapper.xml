@@ -23,6 +23,9 @@
     	<if test="userstate != null and userstate != '' ">
     		and userstate = #{userstate}
     	</if>
+    	<if test="userroleid != null and userroleid != '' ">
+    		and userroleid = #{userroleid}
+    	</if>
     </where>
   </select>
   <select id="findUserByuserid" parameterType="String" resultType="com.zhenapp.po.Custom.TUserInfoCustom">

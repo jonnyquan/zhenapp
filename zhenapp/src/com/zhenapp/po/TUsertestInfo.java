@@ -7,6 +7,8 @@ public class TUsertestInfo {
 
     private String usertestnick;
 
+    private String userroleid;
+
     private String createtime;
 
     private String createuser;
@@ -37,6 +39,14 @@ public class TUsertestInfo {
 
     public void setUsertestnick(String usertestnick) {
         this.usertestnick = usertestnick == null ? null : usertestnick.trim();
+    }
+
+    public String getUserroleid() {
+        return userroleid;
+    }
+
+    public void setUserroleid(String userroleid) {
+        this.userroleid = userroleid == null ? null : userroleid.trim();
     }
 
     public String getCreatetime() {

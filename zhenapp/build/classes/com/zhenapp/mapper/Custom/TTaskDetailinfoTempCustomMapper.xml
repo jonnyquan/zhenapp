@@ -27,7 +27,7 @@
 	</select>
 	
 	<select id="findtaskkeynumlistll" resultType="com.zhenapp.po.Custom.TTaskDetailinfoTempCustom" parameterType="java.util.HashMap">
-		SELECT taskkeynum,taskkeyword,COUNT(1) AS counts  FROM t_task_detailinfo_temp 
+		SELECT taskkeynum,taskkeyword FROM t_task_detailinfo_temp 
 		<where>
 			<if test="taskdate != null and taskdate != '' ">
 				and taskdate=#{taskdate}
@@ -45,7 +45,7 @@
 				and tasktype=#{tasktype}
 			</if>
 		</where>
-		GROUP BY taskkeynum,taskkeyword HAVING counts <![CDATA[>]]> 0
+		GROUP BY taskkeynum,taskkeyword
 	</select>
 	
 	

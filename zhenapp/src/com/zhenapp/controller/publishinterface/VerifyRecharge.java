@@ -2,13 +2,14 @@ package com.zhenapp.controller.publishinterface;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,6 +25,7 @@ import com.zhenapp.service.TaskDetailInfoFlowService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.UserInfoService;
+@Transactional
 @Controller
 public class VerifyRecharge {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -52,17 +54,21 @@ public class VerifyRecharge {
 	/*
 	 * 通过接口调用		确认充值
 	 */
-	@RequestMapping(value="/api/platform/updateRechargestate/{verificationcode}")
-	public @ResponseBody ModelMap updateRechargestate(@PathVariable(value="verificationcode")String verificationcode) throws Exception{
+	@RequestMapping(value="/api/platform/updateRechargestate")
+	public @ResponseBody ModelMap updateRechargestate(String verificationcode,String rechargemoney,String keys) throws Exception{
 		ModelMap map = new ModelMap();
 		//修改充值记录状态为已确认
-		int i= rechargeInfoService.updateRechargestate(verificationcode);
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("verificationcode", verificationcode);
+		hashmap.put("rechargemoney", rechargemoney);
+		hashmap.put("keys", "chongzhijiekou");
+		int i= rechargeInfoService.updateRechargestate(hashmap);
 		if(i>0){
 			TRechargeInfoCustom tRechargeInfoCustom=rechargeInfoService.findRechargeBycode(verificationcode);
 			//插入账户明细
 			TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserid(tRechargeInfoCustom.getCreateuser());
 			TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
-			tPointsInfoCustom.setCreateuser("接口确认充值");
+			tPointsInfoCustom.setCreateuser(tUserInfoCustom.getUserid());
 			tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
 			tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
 			tPointsInfoCustom.setUpdateuser("接口确认充值");
@@ -86,6 +92,5 @@ public class VerifyRecharge {
 			map.put("data", "error");
 			return map;
 		}
-		
 	}
 }

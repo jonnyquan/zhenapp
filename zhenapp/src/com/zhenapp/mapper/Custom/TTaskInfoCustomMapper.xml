@@ -313,7 +313,7 @@
   	<selectKey keyProperty="taskpk" order="AFTER" resultType="int">
   		select LAST_INSERT_ID()
   	</selectKey>
-      insert into t_task_info ( taskid, tasktype, 
+      insert into t_task_info (taskid, tasktype, 
       taskkeynum, taskurl, tasktitle, 
       taskwirelesstitle, taskstartdate, taskenddate, 
       taskdate, taskreleasekeyword, taskkeyword, 
@@ -328,7 +328,7 @@
       subtractpoints, taskstate, createtime, 
       createuser, updatetime, updateuser
       )
-    values ( #{taskid,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
+    values (#{taskid,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
       #{taskkeynum,jdbcType=VARCHAR}, #{taskurl,jdbcType=VARCHAR}, #{tasktitle,jdbcType=VARCHAR}, 
       #{taskwirelesstitle,jdbcType=VARCHAR}, #{taskstartdate,jdbcType=VARCHAR}, #{taskenddate,jdbcType=VARCHAR}, 
       #{taskdate,jdbcType=VARCHAR}, #{taskreleasekeyword,jdbcType=VARCHAR}, #{taskkeyword,jdbcType=VARCHAR}, 

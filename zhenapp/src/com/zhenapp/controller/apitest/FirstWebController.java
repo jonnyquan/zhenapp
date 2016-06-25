@@ -264,7 +264,7 @@ public class FirstWebController {
 	 */
 	@RequestMapping(value="/api/url/validateztc")
 	public @ResponseBody ModelMap apiurlvalidateztc(String param,String taskkeynum) throws Exception{
-		String url= liuliangapp+"/api/url/validate";
+		//String url= liuliangapp+"/api/url/validate";
 		ModelMap map = new ModelMap();
 		/*HttpClient httpClient = new HttpClient();
 		String result="";

@@ -304,6 +304,76 @@ public class TUsertestInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andUserroleidIsNull() {
+            addCriterion("userroleid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserroleidIsNotNull() {
+            addCriterion("userroleid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserroleidEqualTo(String value) {
+            addCriterion("userroleid =", value, "userroleid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserroleidNotEqualTo(String value) {
+            addCriterion("userroleid <>", value, "userroleid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserroleidGreaterThan(String value) {
+            addCriterion("userroleid >", value, "userroleid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserroleidGreaterThanOrEqualTo(String value) {
+            addCriterion("userroleid >=", value, "userroleid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserroleidLessThan(String value) {
+            addCriterion("userroleid <", value, "userroleid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserroleidLessThanOrEqualTo(String value) {
+            addCriterion("userroleid <=", value, "userroleid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserroleidLike(String value) {
+            addCriterion("userroleid like", value, "userroleid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserroleidNotLike(String value) {
+            addCriterion("userroleid not like", value, "userroleid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserroleidIn(List<String> values) {
+            addCriterion("userroleid in", values, "userroleid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserroleidNotIn(List<String> values) {
+            addCriterion("userroleid not in", values, "userroleid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserroleidBetween(String value1, String value2) {
+            addCriterion("userroleid between", value1, value2, "userroleid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserroleidNotBetween(String value1, String value2) {
+            addCriterion("userroleid not between", value1, value2, "userroleid");
+            return (Criteria) this;
+        }
+
         public Criteria andCreatetimeIsNull() {
             addCriterion("createtime is null");
             return (Criteria) this;

@@ -81,5 +81,16 @@ public class TTaskInfoCustom extends TTaskInfo{
 	public void setDicinfoname(String dicinfoname) {
 		this.dicinfoname = dicinfoname;
 	}
-   
+	@Override
+	public String toString() {
+		return "TTaskInfoCustom [finishflowcount=" + finishflowcount
+				+ ", finishcollectioncount=" + finishcollectioncount
+				+ ", finishshoppingcount=" + finishshoppingcount
+				+ ", finishstorecollectioncount=" + finishstorecollectioncount
+				+ ", finishfakechatcount=" + finishfakechatcount
+				+ ", errorcount=" + errorcount + ", dicinfoname=" + dicinfoname
+				+ ", tasktypename=" + tasktypename + ", usernick=" + usernick
+				+ ", taskdaterange=" + taskdaterange + ", counts=" + counts
+				+ "]";
+	}
 }

@@ -13,9 +13,9 @@
 <body>
 
 	<form id="form" action="${pageContext.request.contextPath}/api/platform/flow/save" method="post">
-		用户名:<input type="text" name="partnerId" value="wuxiaofan11" />
-		提交数据json字符串:<input type="text" name="data" value='{"minPrice":"30","maxPrice":"30","totalTask":20,"totalCollectProduct":20,"totalShoppingCart":20,"taskstartdate":"2016-05-06","taskenddate":"2016-05-09","kwd":"男装1====男装2====男装3====","nid":"12345678945","ktype":"33","searchType":"35","timecontrol":"0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,10,0,0,0,0,0,0,0,0","image":"https://img.alicdn.com/bao/uploaded/i4/411832242/TB20MMqlVXXXXbQXXXXXXXXXXXX_!!411832242.jpg_430x430q90.jpg"}' />
-		验证加密字符串:<input type="text" name="validation" value="fc3904b3dedc8eaec47b3492f31fc775" />
+		用户名:<input type="text" name="partnerId" value="liuliangapp" />
+		提交数据json字符串:<input type="text" name="data" value='{"minPrice":0,"totalTask":10,"totalCollectProduct":10,"totalShoppingCart":10,"kwd":"粗柄木柄园艺","nid":38404501492,"ktype":"FLOW","searchType":"COMPOSITE","timecontrol":"0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,2,2"}' />
+		验证加密字符串:<input type="text" name="validation" value="b6304131f66cff059f6c0d406b3a5acb" />
 		<input type="submit" value="提交"/>
 	</form>
 	

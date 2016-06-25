@@ -122,7 +122,16 @@
 	</delete>
 	
 	
-	<update id="updateRechargestate" parameterType="String">
-		UPDATE t_recharge_info SET rechargestate='25' WHERE rechargeverification=#{verificationcode} AND rechargestate='24'
+	<update id="updateRechargestate" parameterType="java.util.HashMap">
+		UPDATE t_recharge_info SET rechargestate='25' 
+		<where>
+			<if test="verificationcode != null and verificationcode != ''">
+	    		and rechargeverification = #{verificationcode}
+	    	</if>
+	    	<if test="rechargemoney != null and rechargemoney != ''">
+	    		and rechargemoney = #{rechargemoney}
+	    	</if>
+	    	AND rechargestate='24'
+		</where>
 	</update>
 </mapper>

@@ -130,9 +130,11 @@
 									<td>
 										<div class="am-btn-toolbar">
 											<div class="am-btn-group am-btn-group-xs">
-												<a class="am-btn am-btn-default am-btn-xs am-text-danger" href="${pageContext.request.contextPath}/tbaoccount/deletetaobaoidBypk?tbaccountid=${list.tbaccountid}"> 
-													<span class="am-icon-trash-o"></span> 删除
-												</a>
+												<c:if test="${list.tbaccountstate !='nochange'}">
+													<a class="am-btn am-btn-default am-btn-xs am-text-danger" href="${pageContext.request.contextPath}/tbaoccount/deletetaobaoidBypk?tbaccountid=${list.tbaccountid}"> 
+														<span class="am-icon-trash-o"></span> 删除
+													</a>
+												</c:if>
 											</div>
 										</div>
 									</td>

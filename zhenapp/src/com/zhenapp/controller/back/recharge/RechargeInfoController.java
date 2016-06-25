@@ -2,6 +2,7 @@ package com.zhenapp.controller.back.recharge;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -53,7 +54,9 @@ public class RechargeInfoController {
 		ModelMap map = new ModelMap();
 		TUserInfoCustom tUserInfoCustomsession = (TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		//修改充值记录状态为已确认
-		int i= rechargeInfoService.updateRechargestate(verificationcode);
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("verificationcode", verificationcode);
+		int i= rechargeInfoService.updateRechargestate(hashmap);
 		if(i>0){
 			TRechargeInfoCustom tRechargeInfoCustom=rechargeInfoService.findRechargeBycode(verificationcode);
 			//插入账户明细
@@ -62,7 +65,7 @@ public class RechargeInfoController {
 			tPointsInfoCustom.setCreateuser(tRechargeInfoCustom.getCreateuser());
 			tPointsInfoCustom.setCreatetime(sdf.format(new Date()));
 			tPointsInfoCustom.setUpdatetime(sdf.format(new Date()));
-			tPointsInfoCustom.setUpdateuser("sys");
+			tPointsInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
 			tPointsInfoCustom.setPointreason("充值到账"+tRechargeInfoCustom.getRechargepoints()+"赠送"+tRechargeInfoCustom.getRechargegivepoints());
 			tPointsInfoCustom.setPointsid(UUID.randomUUID().toString().replace("-", ""));
 			tPointsInfoCustom.setPoints(tUserInfoCustom.getPoints()+tRechargeInfoCustom.getRechargepoints()+tRechargeInfoCustom.getRechargegivepoints());
@@ -77,8 +80,6 @@ public class RechargeInfoController {
 			tUserInfoCustom.setUpdateuser(tUserInfoCustomsession.getUserid());
 			userInfoService.updateUserinfoPointByUserid(tUserInfoCustom);
 			//扣除用户所属代理积分
-			
-			
 		}
 		map.put("data", "success");
 		return map;

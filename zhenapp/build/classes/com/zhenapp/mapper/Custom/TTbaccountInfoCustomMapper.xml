@@ -74,7 +74,7 @@
 	</select>
 	
 	<select id="findTbaccountByPhoneid" parameterType="String" resultType="com.zhenapp.po.Custom.TTbaccountInfoCustom">
-		select * from t_tbaccount_info where tbaccountphoneid=#{tbaccountphoneid} and (tbaccountstate ='60' or tbaccountstate='61') order by tbaccountpk+0
+		select * from t_tbaccount_info where tbaccountphoneid=#{tbaccountphoneid} and (tbaccountstate ='60' or tbaccountstate='61' or tbaccountstate='nochange') order by tbaccountpk+0
 	</select>
 	
 	<select id="findTbaccountByPhoneidandtag" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTbaccountInfoCustom">
@@ -85,7 +85,6 @@
 			</if>
 			and tbaccounttag IS NOT NULL  order by tbaccountpk+0
 		</where>
-
 	</select>
 	
 	<select id="findTbaccountByAccountname" parameterType="String" resultType="com.zhenapp.po.Custom.TTbaccountInfoCustom">
@@ -102,7 +101,7 @@
 	</update>
 	
 	<delete id="deleteAccount" parameterType="java.util.HashMap">
-		delete from t_tbaccount_info 
+		delete from t_tbaccount_info
 		<where>
 			<if test="tbaccountphoneid != null and tbaccountphoneid !='' ">
 				and tbaccountphoneid = #{tbaccountphoneid}
@@ -114,7 +113,7 @@
 	</delete>
 	
 	<delete id="deleteTbaccountByid" parameterType="String">
-		update t_tbaccount_info set tbaccountstate = '65' where tbaccountid in (#{tbaccountids})
+		delete from t_tbaccount_info where tbaccountid in (#{tbaccountids})
 	</delete>
 	
 	<update id="updateTbaccount">
