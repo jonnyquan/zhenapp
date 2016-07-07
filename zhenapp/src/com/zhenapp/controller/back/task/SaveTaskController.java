@@ -178,7 +178,7 @@ public class SaveTaskController {
 		TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		if(tTaskInfoCustom.getTasktype().equals("34")){
-			if(tTaskInfoCustom.getCreativetitle()!=null && tTaskInfoCustom.getCreativetitle().length()>=9){
+			if(tTaskInfoCustom.getCreativetitle()==null || tTaskInfoCustom.getCreativetitle().length()<9){
 				map.put("data", "118");
 				return map;
 			}

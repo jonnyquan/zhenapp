@@ -273,7 +273,7 @@ public class SubmitOrder {
 		TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		if(orderInfoCustom.getKtype().equals("34")){
-			if(orderInfoCustom.getCreativetitle()!=null && orderInfoCustom.getCreativetitle().length()>=9){
+			if(orderInfoCustom.getCreativetitle()==null || orderInfoCustom.getCreativetitle().length() < 9){
 				map.put("data", "118");
 				return map;
 			}
