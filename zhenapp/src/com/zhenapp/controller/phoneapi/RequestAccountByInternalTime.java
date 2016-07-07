@@ -14,26 +14,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.zhenapp.po.Custom.TChangeInfoCustom;
 import com.zhenapp.po.Custom.TTbaccountInfoCustom;
 import com.zhenapp.service.ChangeInfoService;
-import com.zhenapp.service.PhoneInfoService;
-import com.zhenapp.service.ScriptInfoService;
-import com.zhenapp.service.TaskDetailInfoService;
-import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.TbaccountInfoService;
 
 @Controller
 public class RequestAccountByInternalTime {
 	@Autowired
-	private PhoneInfoService phoneInfoService;
-	@Autowired
-	private TaskInfoService taskInfoService;
-	@Autowired
-	private TaskDetailInfoService taskDetailInfoService;
-	@Autowired
 	private TbaccountInfoService tbaccountInfoService;
 	@Autowired
 	private ChangeInfoService changeInfoService;
-	@Autowired
-	private ScriptInfoService scriptInfoService;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 	SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
 	
@@ -55,7 +43,7 @@ public class RequestAccountByInternalTime {
 		//该手机编号下状态未点击一键换号
 		hashmap.put("phoneid", pid);
 		TChangeInfoCustom tChangeInfoCustom = changeInfoService.findChangeinfo(hashmap);
-		if(tChangeInfoCustom.getTbaccountstate() == 0){
+		if(tChangeInfoCustom!=null && tChangeInfoCustom.getTbaccountstate() == 0){
 			return "nochange";
 		}
 		hashmap.clear();

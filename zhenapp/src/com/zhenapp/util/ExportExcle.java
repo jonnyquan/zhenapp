@@ -1,18 +1,8 @@
 package com.zhenapp.util;
 
-import java.io.FileOutputStream;
-import java.util.List;
-
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-
-import com.zhenapp.po.Custom.DatacountInfoCustom;
 
 public class ExportExcle {
-	
+	/*
 	public void ExprotExcle(List<DatacountInfoCustom> list,String filepath){
 		// 第一步，创建一个webbook，对应一个Excel文件  
         HSSFWorkbook wb = new HSSFWorkbook();  
@@ -59,9 +49,9 @@ public class ExportExcle {
             row.createCell((short) 4).setCellValue(datacountInfoCustom.getBuypoints());
             row.createCell((short) 5).setCellValue(datacountInfoCustom.getExpendpoints());
             row.createCell((short) 6).setCellValue("0");
-           /* cell = row.createCell((short) 3);  
-            cell.setCellValue(new SimpleDateFormat("yyyy-mm-dd").format(stu  
-                    .getBirth()));*/  
+           // cell = row.createCell((short) 3);  
+           // cell.setCellValue(new SimpleDateFormat("yyyy-mm-dd").format(stu  
+           //         .getBirth()));  
         }  
         // 第六步，将文件存到指定位置  
         try  
@@ -75,5 +65,5 @@ public class ExportExcle {
             e.printStackTrace();
         }
 	}
-	
+	*/
 }

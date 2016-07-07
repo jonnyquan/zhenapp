@@ -13,38 +13,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhenapp.controller.service.Timedtask.AllocationZtcTaskService;
 import com.zhenapp.controller.service.Timedtask.AllocationZtcllTaskService;
-import com.zhenapp.controller.service.Timedtask.AllocationcollectionTaskService;
-import com.zhenapp.controller.service.Timedtask.AllocationfakechatTaskService;
-import com.zhenapp.controller.service.Timedtask.AllocationshoppingTaskService;
-import com.zhenapp.controller.service.Timedtask.AllocationstorecollectionTaskService;
 import com.zhenapp.po.Custom.TPhoneInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailinfoTempCustom;
 import com.zhenapp.service.PhoneInfoService;
-import com.zhenapp.service.SysconfInfoService;
-import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskDetailInfoTempService;
-import com.zhenapp.service.TaskInfoService;
 
 @Controller
 public class AllocationZtcTask {
 	@Autowired
-	private SysconfInfoService sysconfInfoService;
-	@Autowired
 	private PhoneInfoService phoneInfoService;
 	@Autowired
-	private TaskInfoService taskInfoService;
-	@Autowired
 	private TaskDetailInfoTempService taskDetailInfoTempService;
-	@Autowired
-	private TaskDetailInfoService taskDetailInfoService;
-	@Autowired
-	private AllocationcollectionTaskService allocationcollectionTaskService;
-	@Autowired
-	private AllocationshoppingTaskService allocationshoppingTaskService;
-	@Autowired
-	private AllocationfakechatTaskService allocationfakechatTaskService;
-	@Autowired
-	private AllocationstorecollectionTaskService allocationstorecollectionTaskService;
 	@Autowired
 	private AllocationZtcTaskService allocationZtcTaskService;
 	@Autowired

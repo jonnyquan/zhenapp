@@ -325,6 +325,8 @@ public class SubmitOrder {
 				tTaskInfoCustom.setTaskid(UUID.randomUUID().toString().replace("-", ""));
 				tTaskInfoCustom.setTaskkeyword(taskkeywordarr[ii]);
 				tTaskInfoCustom.setTaskdate(yyyyMMdd.format(date));
+				tTaskInfoCustom.setTaskstartdate(yyyyMMdd.format(date));
+				tTaskInfoCustom.setTaskenddate(yyyyMMdd.format(date));
 				tTaskInfoCustom.setTaskstate("15");//待分配状态
 				taskInfoService.insertTaskInfo(tTaskInfoCustom);
 				//保存代理的积分变动

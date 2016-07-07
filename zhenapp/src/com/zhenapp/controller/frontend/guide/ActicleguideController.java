@@ -19,7 +19,6 @@ import com.zhenapp.po.Custom.TelectricityCustom;
 import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.ElectrityInfoService;
 import com.zhenapp.service.GuideInfoService;
-import com.zhenapp.service.IndexInfoService;
 import com.zhenapp.service.WebInfoService;
 
 @Controller
@@ -33,8 +32,6 @@ public class ActicleguideController {
 	private WebInfoService webInfoService;
 	@Autowired
 	private AgentInfoService agentInfoService;
-	@Autowired
-	private IndexInfoService indexInfoService;
 	
 	@Value("${maxRows}")
 	private Integer maxRows;

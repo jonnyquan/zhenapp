@@ -2,18 +2,19 @@ package com.zhenapp.controller.back.web;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Custom.TWebInfoCustom;
 import com.zhenapp.service.AgentInfoService;
-import com.zhenapp.service.PriceInfoService;
-import com.zhenapp.service.UserInfoService;
 import com.zhenapp.service.WebInfoService;
 
 @Controller
@@ -23,10 +24,6 @@ public class SaveWebAgentController {
 	private WebInfoService webInfoService;
 	@Autowired
 	private AgentInfoService agentInfoService;
-	@Autowired
-	private PriceInfoService priceInfoService;
-	@Autowired
-	private UserInfoService userInfoService;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 
 	@RequestMapping(value="/agentAndwebSave")

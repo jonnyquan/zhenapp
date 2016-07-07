@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.PointsInfoService;
-import com.zhenapp.service.PriceInfoService;
 import com.zhenapp.service.UserInfoService;
 @Transactional
 @Controller
@@ -27,8 +26,6 @@ public class HandWorkRechargeAdminforAgentController {
 	private UserInfoService userInfoService;
 	@Autowired
 	private PointsInfoService pointsInfoService;
-	@Autowired
-	private PriceInfoService priceInfoService;
 	
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 	private static Logger logger = Logger.getLogger(HandWorkRechargeAdminforAgentController.class);

@@ -21,8 +21,6 @@ import com.zhenapp.po.Custom.TelectricityCustom;
 import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.ElectrityInfoService;
 import com.zhenapp.service.GuideInfoService;
-import com.zhenapp.service.IndexInfoService;
-import com.zhenapp.service.IntroInfoService;
 import com.zhenapp.service.NoteInfoService;
 @Transactional
 @Controller
@@ -36,10 +34,6 @@ public class AddNoteAgentController {
 	private GuideInfoService guideInfoService;
 	@Autowired
 	private AgentInfoService agentInfoService;
-	@Autowired
-	private IntroInfoService introInfoService;
-	@Autowired
-	private IndexInfoService indexInfoService;
 	
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 	/*

@@ -4,7 +4,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,11 +30,6 @@ public class RepublishTaskController {
 	@Autowired
 	private AgentInfoService agentInfoService;
 	
-	@Value("${secret}")
-	private String secret;
-	@Value("${middleRows}")
-	private Integer middleRows;
-
 	@RequestMapping(value="/againtaskBytaskid/{taskid}")
 	public @ResponseBody ModelAndView againtaskBytaskid(HttpSession session,@PathVariable(value="taskid") String taskid) throws Exception{
 		ModelAndView mv = new ModelAndView();

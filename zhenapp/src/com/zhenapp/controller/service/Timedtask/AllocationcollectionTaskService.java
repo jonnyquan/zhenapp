@@ -12,20 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.zhenapp.po.Custom.TPhoneInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailinfoTempCustom;
-import com.zhenapp.service.PhoneInfoService;
-import com.zhenapp.service.SysconfInfoService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskDetailInfoTempService;
-import com.zhenapp.service.TaskInfoService;
 @Transactional
 @Service
 public class AllocationcollectionTaskService {
-	@Autowired
-	private SysconfInfoService sysconfInfoService;
-	@Autowired
-	private PhoneInfoService phoneInfoService;
-	@Autowired
-	private TaskInfoService taskInfoService;
 	@Autowired
 	private TaskDetailInfoTempService taskDetailInfoTempService;
 	@Autowired

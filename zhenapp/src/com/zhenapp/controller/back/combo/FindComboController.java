@@ -17,7 +17,6 @@ import com.zhenapp.po.Custom.TComboInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.ComboInfoService;
-import com.zhenapp.service.UserInfoService;
 
 @Controller
 @RequestMapping(value = "/combo")
@@ -26,8 +25,6 @@ public class FindComboController {
 	private ComboInfoService comboInfoService;
 	@Autowired
 	private AgentInfoService agentInfoService;
-	@Autowired
-	private UserInfoService userInfoService;
 	
 	//private SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 	@Value("${middleRows}")

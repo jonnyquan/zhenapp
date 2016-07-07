@@ -9,7 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TWebInfoCustom;
 import com.zhenapp.service.AgentInfoService;
-import com.zhenapp.service.UserInfoService;
 import com.zhenapp.service.WebInfoService;
 
 @Controller
@@ -19,8 +18,6 @@ public class FindWebAdminController {
 	private WebInfoService webInfoService;
 	@Autowired
 	private AgentInfoService agentInfoService;
-	@Autowired
-	private UserInfoService userInfoService;
 	/*
 	 * 根据代理id查询web信息--系统管理员
 	 */

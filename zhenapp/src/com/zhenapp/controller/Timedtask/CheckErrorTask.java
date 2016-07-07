@@ -19,16 +19,11 @@ import com.zhenapp.po.Custom.TSysconfInfoCustom;
 import com.zhenapp.po.Custom.TTaskDetailInfoFlowCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.po.Custom.TUsertestInfoCustom;
-import com.zhenapp.service.DateInfoService;
-import com.zhenapp.service.PointsInfoService;
-import com.zhenapp.service.PriceInfoService;
-import com.zhenapp.service.RechargeInfoService;
 import com.zhenapp.service.SysconfInfoService;
 import com.zhenapp.service.TaskDetailInfoFlowService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskDetailInfoTempService;
 import com.zhenapp.service.TaskInfoService;
-import com.zhenapp.service.UserInfoService;
 import com.zhenapp.service.UsertestInfoService;
 @Transactional
 @Controller
@@ -38,25 +33,15 @@ public class CheckErrorTask {
 	SimpleDateFormat yyyy_MM_dd = new SimpleDateFormat("yyyy-MM-dd");
 	private static Logger logger = Logger.getLogger(CheckErrorTask.class);
 	@Autowired
-	private UserInfoService userInfoService;
-	@Autowired
 	private SysconfInfoService sysconfInfoService;
 	@Autowired
 	private TaskInfoService taskInfoService;
-	@Autowired
-	private RechargeInfoService rechargeInfoService;
 	@Autowired
 	private TaskDetailInfoService taskDetailInfoService;
 	@Autowired
 	private TaskDetailInfoTempService taskDetailInfoTempService;
 	@Autowired
-	private PointsInfoService pointsInfoService;
-	@Autowired
-	private DateInfoService dateInfoService;
-	@Autowired
 	private TaskDetailInfoFlowService taskDetailInfoFlowService;
-	@Autowired
-	private PriceInfoService priceInfoService;
 	@Autowired
 	private UsertestInfoService usertestInfoService;
 	

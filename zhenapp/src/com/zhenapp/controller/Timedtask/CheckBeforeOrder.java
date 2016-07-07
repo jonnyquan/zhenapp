@@ -26,12 +26,9 @@ import com.zhenapp.po.Custom.TTaskDetailInfoFlowCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Custom.TUsertestInfoCustom;
-import com.zhenapp.service.DateInfoService;
 import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.PriceAgentInfoService;
 import com.zhenapp.service.PriceInfoService;
-import com.zhenapp.service.RechargeInfoService;
-import com.zhenapp.service.SysconfInfoService;
 import com.zhenapp.service.TaskDetailInfoFlowService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskDetailInfoTempService;
@@ -49,17 +46,11 @@ public class CheckBeforeOrder {
 	@Autowired
 	private UserInfoService userInfoService;
 	@Autowired
-	private SysconfInfoService sysconfInfoService;
-	@Autowired
 	private TaskInfoService taskInfoService;
-	@Autowired
-	private RechargeInfoService rechargeInfoService;
 	@Autowired
 	private TaskDetailInfoService taskDetailInfoService;
 	@Autowired
 	private PointsInfoService pointsInfoService;
-	@Autowired
-	private DateInfoService dateInfoService;
 	@Autowired
 	private TaskDetailInfoFlowService taskDetailInfoFlowService;
 	@Autowired
@@ -114,7 +105,11 @@ public class CheckBeforeOrder {
 				TPointsInfoCustom tPointsInfoCustomagent =new TPointsInfoCustom();
 				if(tTaskInfoCustom.getTasktype().equals("33")){
 	        		TTaskDetailInfoFlowCustom TTaskDetailInfoFlowCustombefore = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);
-	        		finishcount = TTaskDetailInfoFlowCustombefore.getFinishcount();
+	        		if(TTaskDetailInfoFlowCustombefore!=null){
+	        			finishcount = TTaskDetailInfoFlowCustombefore.getFinishcount();
+	        		}else{
+	        			finishcount = 0;
+	        		}
 	        		int pointsflow = (tTaskInfoCustom.getFlowcount()-finishcount)*Integer.parseInt(tPriceInfoCustom.getPricecounts1());
 		        	int pointsflowagent = (tTaskInfoCustom.getFlowcount()-finishcount)*Integer.parseInt(tPriceAgentInfoCustom.getPricecounts1());
 		        	//加购，收藏失败
@@ -139,6 +134,10 @@ public class CheckBeforeOrder {
 					tPointsInfoCustomagent.setPointreason("任务完成" + tTaskInfoCustom.getTaskpk() + ",失败任务返回积分"+(pointsflowagent + pointscollectagent + pointsshoppingagent));
 					tPointsInfoCustomagent.setPointsupdate((pointsflowagent + pointscollectagent + pointsshoppingagent));
 					tPointsInfoCustomagent.setPoints(tUserInfoCustomagent.getPoints());
+					hashmap.clear();
+		        	hashmap.put("taskid", tTaskInfoCustom.getTaskid());
+					hashmap.put("taskstate", "17");
+					taskDetailInfoFlowService.updateTaskstate(hashmap);
 	        	}else{
 	        		hashmap.clear();
 					hashmap.put("taskid", tTaskInfoCustom.getTaskid());
@@ -237,13 +236,14 @@ public class CheckBeforeOrder {
 					hashmapusertest.put("rows", 10);
 					hashmapusertest.put("usertestid", tTaskDetailInfoFlowCustom.getCreateuser());
 					List<TUsertestInfoCustom> tUsertestInfoCustomlist = usertestInfoService.findUserTest(hashmapusertest);
+					HttpClient httpClient = new HttpClient();
+					String result="";
+			        GetMethod getMethod = new GetMethod(liuliangapp + "/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/total");
+			        getMethod.setRequestHeader("secret", secret);
 					if(tUsertestInfoCustomlist!=null && tUsertestInfoCustomlist.size()>0){
 						if(tUsertestInfoCustomlist.get(0).getUserroleid().equals("2")
 								&& tTaskInfoCustom.getFlowcount() !=0){
-							HttpClient httpClient = new HttpClient();
-							String result="";
-					        GetMethod getMethod = new GetMethod(liuliangapp + "/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/total");
-					        getMethod.setRequestHeader("secret", secret);
+							
 					        int statusCode =  httpClient.executeMethod(getMethod);
 					        if(statusCode == 200) {
 					            result = getMethod.getResponseBodyAsString();
@@ -268,10 +268,7 @@ public class CheckBeforeOrder {
 					        }
 						}
 					}else{
-						HttpClient httpClient = new HttpClient();
-						String result="";
-				        GetMethod getMethod = new GetMethod(liuliangapp + "/api/tasks/"+tTaskDetailInfoFlowCustom.getTaskdetailid()+"/total");
-				        getMethod.setRequestHeader("secret", secret);
+						
 				        int statusCode =  httpClient.executeMethod(getMethod);
 				        if(statusCode == 200) {
 				            result = getMethod.getResponseBodyAsString();

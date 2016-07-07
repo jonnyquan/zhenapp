@@ -18,7 +18,6 @@ import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Custom.TWebInfoCustom;
 import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.ComboInfoService;
-import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.RechargeInfoService;
 import com.zhenapp.service.WebInfoService;
 
@@ -27,9 +26,7 @@ import com.zhenapp.service.WebInfoService;
 public class insertPointsController {
 	
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
-	
-	@Autowired
-	private PointsInfoService pointsInfoService;
+
 	@Autowired
 	private ComboInfoService comboInfoService;
 	@Autowired

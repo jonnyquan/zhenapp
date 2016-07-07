@@ -12,16 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhenapp.po.Custom.TTaskInfoCustom;
-import com.zhenapp.service.DateInfoService;
-import com.zhenapp.service.PointsInfoService;
-import com.zhenapp.service.PriceInfoService;
-import com.zhenapp.service.RechargeInfoService;
-import com.zhenapp.service.SysconfInfoService;
-import com.zhenapp.service.TaskDetailInfoFlowService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskDetailInfoTempService;
 import com.zhenapp.service.TaskInfoService;
-import com.zhenapp.service.UserInfoService;
 @Controller
 public class DeleteEndOrder {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -29,25 +22,11 @@ public class DeleteEndOrder {
 	SimpleDateFormat yyyy_MM_dd = new SimpleDateFormat("yyyy-MM-dd");
 	private static Logger logger = Logger.getLogger(DeleteEndOrder.class);
 	@Autowired
-	private UserInfoService userInfoService;
-	@Autowired
-	private SysconfInfoService sysconfInfoService;
-	@Autowired
 	private TaskInfoService taskInfoService;
-	@Autowired
-	private RechargeInfoService rechargeInfoService;
 	@Autowired
 	private TaskDetailInfoService taskDetailInfoService;
 	@Autowired
-	private PointsInfoService pointsInfoService;
-	@Autowired
-	private DateInfoService dateInfoService;
-	@Autowired
-	private TaskDetailInfoFlowService taskDetailInfoFlowService;
-	@Autowired
 	private TaskDetailInfoTempService taskDetailInfoTempService;
-	@Autowired
-	private PriceInfoService priceInfoService;
 	
 	/*
 	 * 详情任务状态为执行终止	的详情任务删除

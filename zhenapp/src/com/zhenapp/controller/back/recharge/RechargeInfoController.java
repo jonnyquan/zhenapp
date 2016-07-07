@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
 import com.zhenapp.po.Custom.TRechargeInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
-import com.zhenapp.service.ComboInfoService;
 import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.RechargeInfoService;
 import com.zhenapp.service.UserInfoService;
@@ -27,8 +26,6 @@ import com.zhenapp.service.UserInfoService;
 @Controller
 @RequestMapping(value="/recharge")
 public class RechargeInfoController {
-	@Autowired
-	private ComboInfoService comboInfoService;
 	@Autowired
 	private RechargeInfoService rechargeInfoService;
 	@Autowired

@@ -2,18 +2,19 @@ package com.zhenapp.controller.back.points;
 
 import java.util.HashMap;
 import java.util.List;
+
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.zhenapp.po.Custom.TAgentInfoCustom;
 import com.zhenapp.po.Custom.TRechargeInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.AgentInfoService;
-import com.zhenapp.service.ComboInfoService;
-import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.RechargeInfoService;
 import com.zhenapp.service.UserInfoService;
 
@@ -21,11 +22,6 @@ import com.zhenapp.service.UserInfoService;
 @RequestMapping(value="/points")
 public class ResponseConsumeAgentController {
 	
-	
-	@Autowired
-	private PointsInfoService pointsInfoService;
-	@Autowired
-	private ComboInfoService comboInfoService;
 	@Autowired
 	private RechargeInfoService rechargeInfoService;
 	@Autowired

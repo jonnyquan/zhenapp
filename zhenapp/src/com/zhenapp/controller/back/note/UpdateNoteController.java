@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhenapp.po.Custom.TNoteInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
-import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.ElectrityInfoService;
 import com.zhenapp.service.GuideInfoService;
 import com.zhenapp.service.IndexInfoService;
@@ -31,8 +30,6 @@ public class UpdateNoteController {
 	private ElectrityInfoService electrityInfoService;
 	@Autowired
 	private GuideInfoService guideInfoService;
-	@Autowired
-	private AgentInfoService agentInfoService;
 	@Autowired
 	private IntroInfoService introInfoService;
 	@Autowired

@@ -11,27 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
-import com.zhenapp.service.PhoneInfoService;
-import com.zhenapp.service.ScriptInfoService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskDetailInfoTempService;
-import com.zhenapp.service.TaskInfoService;
-import com.zhenapp.service.TbaccountInfoService;
 
 @Controller
 public class Requesttask {
 	@Autowired
-	private PhoneInfoService phoneInfoService;
-	@Autowired
-	private TaskInfoService taskInfoService;
-	@Autowired
 	private TaskDetailInfoTempService taskDetailInfoTempService;
 	@Autowired
 	private TaskDetailInfoService taskDetailInfoService;
-	@Autowired
-	private TbaccountInfoService tbaccountInfoService;
-	@Autowired
-	private ScriptInfoService scriptInfoService;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 	SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
 	SimpleDateFormat HHmm = new SimpleDateFormat("HHmm");

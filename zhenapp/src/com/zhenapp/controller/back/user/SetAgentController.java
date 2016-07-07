@@ -24,11 +24,9 @@ import com.zhenapp.po.Custom.TPriceInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Custom.TWebInfoCustom;
 import com.zhenapp.service.AgentInfoService;
-import com.zhenapp.service.ComboInfoService;
 import com.zhenapp.service.IndexInfoService;
 import com.zhenapp.service.IntroInfoService;
 import com.zhenapp.service.NoteInfoService;
-import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.PriceAgentInfoService;
 import com.zhenapp.service.PriceInfoService;
 import com.zhenapp.service.UserInfoService;
@@ -40,15 +38,11 @@ public class SetAgentController {
 	@Autowired
 	private UserInfoService userInfoService;
 	@Autowired
-	private PointsInfoService pointsInfoService;
-	@Autowired
 	private AgentInfoService agentInfoService;
 	@Autowired
 	private PriceInfoService priceInfoService;
 	@Autowired
 	private WebInfoService webInfoService;
-	@Autowired
-	private ComboInfoService comboInfoService;
 	@Autowired
 	private IntroInfoService introInfoService;
 	@Autowired

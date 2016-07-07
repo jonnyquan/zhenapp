@@ -18,11 +18,6 @@ import com.zhenapp.po.Custom.TTaskDetailInfoFlowCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Custom.TUsertestInfoCustom;
-import com.zhenapp.service.DateInfoService;
-import com.zhenapp.service.PointsInfoService;
-import com.zhenapp.service.PriceInfoService;
-import com.zhenapp.service.RechargeInfoService;
-import com.zhenapp.service.SysconfInfoService;
 import com.zhenapp.service.TaskDetailInfoFlowService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskDetailInfoTempService;
@@ -41,23 +36,13 @@ public class EndOrder {
 	@Autowired
 	private UsertestInfoService usertestInfoService;
 	@Autowired
-	private SysconfInfoService sysconfInfoService;
-	@Autowired
 	private TaskInfoService taskInfoService;
-	@Autowired
-	private RechargeInfoService rechargeInfoService;
 	@Autowired
 	private TaskDetailInfoService taskDetailInfoService;
 	@Autowired
 	private TaskDetailInfoTempService taskDetailInfoTempService;
 	@Autowired
-	private PointsInfoService pointsInfoService;
-	@Autowired
-	private DateInfoService dateInfoService;
-	@Autowired
 	private TaskDetailInfoFlowService taskDetailInfoFlowService;
-	@Autowired
-	private PriceInfoService priceInfoService;
 	@Value("${secret}")
 	private String secret;
 	@Value("${liuliangapp}")

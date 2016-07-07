@@ -7,7 +7,6 @@ import java.util.HashMap;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +24,6 @@ public class ResponseNoticeEditController {
 	private NoteInfoService noteService;
 	
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
-	@Value("${middleRows}")
-	private Integer middleRows;
 
 	/*
 	 * 跳转到公告编辑界面-----系统管理员

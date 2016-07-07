@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
@@ -25,17 +24,13 @@ import com.zhenapp.po.Custom.TSysconfInfoCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.AgentInfoService;
-import com.zhenapp.service.PhoneInfoService;
 import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.PriceAgentInfoService;
 import com.zhenapp.service.PriceInfoService;
 import com.zhenapp.service.SysconfInfoService;
-import com.zhenapp.service.TaskDetailInfoFlowService;
 import com.zhenapp.service.TaskDetailInfoService;
-import com.zhenapp.service.TaskDetailInfoTempService;
 import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.UserInfoService;
-import com.zhenapp.service.UsertestInfoService;
 import com.zhenapp.util.DateUtilWxf;
 @Transactional
 @Controller
@@ -47,8 +42,6 @@ public class SaveTaskController {
 	SimpleDateFormat hh = new SimpleDateFormat("HH");
 	SimpleDateFormat mm = new SimpleDateFormat("mm");
 	private static Logger logger = Logger.getLogger(SaveTaskController.class);
-	@Autowired
-	private TaskDetailInfoTempService taskDetailInfoTempService;
 	@Autowired
 	private TaskInfoService taskInfoService;
 	@Autowired
@@ -65,19 +58,7 @@ public class SaveTaskController {
 	private PointsInfoService pointsInfoService;
 	@Autowired
 	private TaskDetailInfoService taskDetailInfoService;
-	@Autowired
-	private PhoneInfoService phoneInfoService;
-	@Autowired
-	private TaskDetailInfoFlowService taskDetailInfoFlowService;
-	@Autowired
-	private UsertestInfoService usertestInfoService;
 	
-	@Value("${secret}")
-	private String secret;
-	@Value("${middleRows}")
-	private Integer middleRows;
-	@Value("${liuliangapp}")
-	private String liuliangapp;
 	/*
 	 * 发布任务 新增订单信息
 	 */

@@ -16,14 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.zhenapp.po.Custom.TPointsInfoCustom;
 import com.zhenapp.po.Custom.TRechargeInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
-import com.zhenapp.service.DateInfoService;
 import com.zhenapp.service.PointsInfoService;
-import com.zhenapp.service.PriceInfoService;
 import com.zhenapp.service.RechargeInfoService;
-import com.zhenapp.service.SysconfInfoService;
-import com.zhenapp.service.TaskDetailInfoFlowService;
-import com.zhenapp.service.TaskDetailInfoService;
-import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.UserInfoService;
 @Transactional
 @Controller
@@ -35,21 +29,9 @@ public class VerifyRecharge {
 	@Autowired
 	private UserInfoService userInfoService;
 	@Autowired
-	private SysconfInfoService sysconfInfoService;
-	@Autowired
-	private TaskInfoService taskInfoService;
-	@Autowired
 	private RechargeInfoService rechargeInfoService;
 	@Autowired
-	private TaskDetailInfoService taskDetailInfoService;
-	@Autowired
 	private PointsInfoService pointsInfoService;
-	@Autowired
-	private DateInfoService dateInfoService;
-	@Autowired
-	private TaskDetailInfoFlowService taskDetailInfoFlowService;
-	@Autowired
-	private PriceInfoService priceInfoService;
 	
 	/*
 	 * 通过接口调用		确认充值

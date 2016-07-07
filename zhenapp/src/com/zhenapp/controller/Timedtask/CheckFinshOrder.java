@@ -26,12 +26,9 @@ import com.zhenapp.po.Custom.TTaskDetailInfoFlowCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.po.Custom.TUsertestInfoCustom;
-import com.zhenapp.service.DateInfoService;
 import com.zhenapp.service.PointsInfoService;
 import com.zhenapp.service.PriceAgentInfoService;
 import com.zhenapp.service.PriceInfoService;
-import com.zhenapp.service.RechargeInfoService;
-import com.zhenapp.service.SysconfInfoService;
 import com.zhenapp.service.TaskDetailInfoFlowService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskInfoService;
@@ -48,17 +45,11 @@ public class CheckFinshOrder {
 	@Autowired
 	private UserInfoService userInfoService;
 	@Autowired
-	private SysconfInfoService sysconfInfoService;
-	@Autowired
 	private TaskInfoService taskInfoService;
-	@Autowired
-	private RechargeInfoService rechargeInfoService;
 	@Autowired
 	private TaskDetailInfoService taskDetailInfoService;
 	@Autowired
 	private PointsInfoService pointsInfoService;
-	@Autowired
-	private DateInfoService dateInfoService;
 	@Autowired
 	private TaskDetailInfoFlowService taskDetailInfoFlowService;
 	@Autowired

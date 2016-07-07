@@ -297,6 +297,9 @@
     	<if test="before != null and before != ''">
     		and taskdate+0 <![CDATA[<]]> DATE_FORMAT(#{before},'%Y%m%d')+0
     	</if>
+    	<if test="allocationdate != null and allocationdate != ''">
+    		and taskdate+0 <![CDATA[>=]]> DATE_FORMAT(#{allocationdate},'%Y%m%d')+0
+    	</if>
     </where>
   </select>
   <select id="findEndTaskfordel" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap">

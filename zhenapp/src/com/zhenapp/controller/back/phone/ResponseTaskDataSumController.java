@@ -13,14 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
-import com.zhenapp.service.PhoneInfoService;
 import com.zhenapp.service.TaskDetailInfoService;
 
 @Controller
 @RequestMapping(value="/phone")
 public class ResponseTaskDataSumController {
-	@Autowired
-	private PhoneInfoService phoneInfoService;
 	@Autowired
 	private TaskDetailInfoService taskDetailInfoService;
 	

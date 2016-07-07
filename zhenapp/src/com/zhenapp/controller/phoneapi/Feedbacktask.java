@@ -11,23 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
-import com.zhenapp.service.PhoneInfoService;
-import com.zhenapp.service.ScriptInfoService;
 import com.zhenapp.service.TaskDetailInfoService;
-import com.zhenapp.service.TaskInfoService;
-import com.zhenapp.service.TbaccountInfoService;
 @Controller
 public class Feedbacktask {
 	@Autowired
-	private PhoneInfoService phoneInfoService;
-	@Autowired
-	private TaskInfoService taskInfoService;
-	@Autowired
 	private TaskDetailInfoService taskDetailInfoService;
-	@Autowired
-	private TbaccountInfoService tbaccountInfoService;
-	@Autowired
-	private ScriptInfoService scriptInfoService;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 	SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
 	
