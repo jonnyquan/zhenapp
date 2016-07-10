@@ -108,12 +108,12 @@ var istitle=0;
 			missingMessage : '请输入发布购物车数',
 			invalidMessage : '发布购物车数不得为空',
 		});
-		//深入点击验证
+		/*深入点击验证
 		$('#deepclick').validatebox({
 			required : true,
 			missingMessage : '请输入深入点击比例',
 			invalidMessage : '深入点击比例不得为空',
-		});
+		});*/
 		//宝贝价格验证
 		$('#taskprice').validatebox({
 			required : true,
@@ -150,13 +150,8 @@ var istitle=0;
 		*/
 		$("#subbtn").click(function () {
 			checkpricemode($("#priceMode2")[0]);
-			checktitle();
-			if(istitle==0){
-				$.messager.alert('消息提示', '请正确输入创意标题!', 'info', function () {
-					$('#creativetitle').focus();
-				});
-				return false;
-			}
+			
+			
 			
 			if (!$('#taskurl').validatebox('isValid')) {
 				$.messager.alert('消息提示', '请输入宝贝url!', 'info', function () {
@@ -191,6 +186,13 @@ var istitle=0;
 					return false;
 				}
 			}else{
+				checktitle();
+				if(istitle==0){
+					$.messager.alert('消息提示', '请正确输入创意标题!', 'info', function () {
+						$('#creativetitle').focus();
+					});
+					return false;
+				}
 				if (!$('#creativetitle').validatebox('isValid')) {
 					$.messager.alert('消息提示', '请输入创意标题!', 'info', function () {
 						$('#creativetitle').focus();
@@ -218,12 +220,7 @@ var istitle=0;
 				});
 				return false;
 			}
-			if (!$('#deepclick').validatebox('isValid')) {
-				$.messager.alert('消息提示', '请输入深入点击比例!', 'info', function () {
-					$('#deepclick').focus();
-				});
-				return false;
-			}
+			
 			if (!$('#flowcount').validatebox('isValid')) {
 				$.messager.alert('消息提示', '请输入发布流量数!', 'info', function () {
 					$('#flowcount').focus();
@@ -303,7 +300,8 @@ var istitle=0;
 					taskurl : $("#taskurl").val(),
 					taskimgztc : $("#taskimgztc").val(),
 					creativetitle : $("#creativetitle").val(),
-					deepclick : $("#deepclick").val(),
+					mode : mode,
+					deepclick : "0",
 					shipaddress : $("#shipaddress").val(),
 					taskkeynum : taskkeynumval,
 					taskkeywords : taskkeywords.join('===='),
@@ -667,7 +665,7 @@ var istitle=0;
 	
 	/*
 	验证深入点击比例不超过100
-	*/
+	
 	function checkdeep(){
 		var deep = $('#deepclick').val();
 		var   type="^[0-9]*[1-9][0-9]*$"; 
@@ -681,7 +679,7 @@ var istitle=0;
 			$("#span_deepclick").html("深入点击比例填写正确!");
 			$("#span_deepclick").css("color","green");
 		}
-	}
+	}*/
 	
 	
 	

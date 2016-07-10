@@ -63,7 +63,7 @@ public class SaveTaskController {
 	 * 发布任务 新增订单信息
 	 */
 	@RequestMapping(value="/saveTaskInfo")
-	public @ResponseBody ModelMap saveTaskInfo(HttpSession session, TTaskInfoCustom tTaskInfoCustom,String taskkeywords) throws Exception{
+	public @ResponseBody ModelMap saveTaskInfo(String mode,HttpSession session, TTaskInfoCustom tTaskInfoCustom,String taskkeywords) throws Exception{
 		ModelMap map=new ModelMap();
 		TUserInfoCustom tUserInfoCustom = (TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentByAgentid(tUserInfoCustom.getAgentid());
@@ -178,9 +178,11 @@ public class SaveTaskController {
 		TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		if(tTaskInfoCustom.getTasktype().equals("34")){
-			if(tTaskInfoCustom.getCreativetitle()==null || tTaskInfoCustom.getCreativetitle().length()<9){
-				map.put("data", "118");
-				return map;
+			if(mode.equals("0")){
+				if(tTaskInfoCustom.getCreativetitle()==null || tTaskInfoCustom.getCreativetitle().length()<9){
+					map.put("data", "118");
+					return map;
+				}
 			}
 			hashmap.clear();
 			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
