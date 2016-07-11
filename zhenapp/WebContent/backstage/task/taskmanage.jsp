@@ -416,7 +416,7 @@ input {
 	<div class="copyRight">
 		<div class="warp1200 footer">
 			<p>
-				Copyright (c) 2015 <a href="${pageContext.request.contextPath}/frontend/index" title="淘宝流量">淘宝流量</a> | <a href="${pageContext.request.contextPath}/frontend/index" title="${tAgentInfoCustom.agentname }">${tAgentInfoCustom.agentname }</a>(www.zhenapp.cn) Inc. All Rights. 浙ICP备140452118号-5.
+				Copyright (c) 2015  Inc. All Rights. 浙ICP备140452118号-5.
 			</p>
 		</div>
 	</div>

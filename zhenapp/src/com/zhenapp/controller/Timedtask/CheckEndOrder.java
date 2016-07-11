@@ -169,13 +169,6 @@ public class CheckEndOrder {
 					            throw new RuntimeException();
 					        }
 						}
-					}else{
-						/*查询直通车任务完成个数
-						hashmap.clear();
-						hashmap.put("taskid", tTaskInfoCustom.getTaskid());
-						hashmap.put("taskstate", "21");
-						flowcounts = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
-						*/
 					}
 		        	int finishcount = 0;
 		        	//给用户添加积分明细记录
@@ -282,8 +275,6 @@ public class CheckEndOrder {
 					tPointsInfoCustomagent.setTaskpk(tTaskInfoCustom.getTaskpk());
 					tPointsInfoCustomagent.setUserid(tUserInfoCustomagent.getUserid());
 					pointsInfoService.savePoints(tPointsInfoCustomagent);
-					
-					
 				}else{
 					logger.info("该订单还有正在执行的任务!");
 					map.put("data", "error");

@@ -259,9 +259,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 	<div class="copyRight">
 		<div class="warp1200 footer">
 			<p>
-				<a href="${pageContext.request.contextPath}/frontend/index" title="淘宝流量">淘宝流量</a>
-				${tWebInfoCustom.record}
-				<a href="${pageContext.request.contextPath}/frontend/index" title="${tAgentInfoCustom.agentname }">${tAgentInfoCustom.agentname }</a>
+				Copyright (c) 2015  Inc. All Rights. 浙ICP备140452118号-5.
 			</p>
 		</div>
 	</div>

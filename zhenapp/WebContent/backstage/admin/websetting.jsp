@@ -107,7 +107,7 @@
   			<label>备案信息</label>
   		</td>
   		<td>
-  			<input type="text" id="record" name="record" placeholder="备案信息" class='form-control' value="${tWebInfoCustom.record}">(如:Copyright (c) 2015 zhenapp.cn Inc. All Rights. 浙ICP备140452118号-5)
+  			<input type="text" id="record" name="record" placeholder="备案信息" class='form-control' value="${tWebInfoCustom.record}">(如:Copyright (c) 2015 Inc. All Rights. 浙ICP备140452118号-5)
   		</td>
   	</tr>
   	<tr>
@@ -283,7 +283,7 @@
     data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
   <footer>
     <hr>
-    <p class="am-padding-left">Copyright (c) 2015 zhenapp.cn Inc. All Rights. 浙ICP备140452118号-5</p>
+    <p class="am-padding-left">Copyright (c) 2015 Inc. All Rights. 浙ICP备140452118号-5</p>
   </footer>
 </body>
 </html>

@@ -201,11 +201,7 @@
 <div class="copyRight">
 	<div class="warp1200 footer">
 		<p>
-			Copyright<span>&copy;</span>2010-2015<span><a
-				href="${pageContext.request.contextPath}/frontend/index"
-				title="淘宝流量">淘宝流量</a> | <a
-				href="${pageContext.request.contextPath}/frontend/index"
-				title="${tAgentInfoCustom.agentname }">${tAgentInfoCustom.agentname }</a>(LiuLiangCun.COM).</span>All Rights Reserved.
+			Copyright (c) 2015  Inc. All Rights. 浙ICP备140452118号-5.
 		</p>
 	</div>
 </div>

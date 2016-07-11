@@ -89,7 +89,7 @@ public class CheckFinshOrder {
 				if(tTaskInfoCustom.getTasktype().equals("33")){
 					checkcount = tTaskInfoCustom.getCollectioncount()+tTaskInfoCustom.getShoppingcount();
 				}else{
-					checkcount = tTaskInfoCustom.getFlowcount();
+					checkcount = tTaskInfoCustom.getCollectioncount();
 				}
 				if(counts==checkcount){
 					//收藏和加购任务已经执行完成

@@ -296,7 +296,7 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/easyui/locale/easyui-lang-zh_CN.js"></script>
   <footer>
     <hr>
-    <p class="am-padding-left">Copyright (c) 2015 zhenapp.cn Inc. All Rights. 浙ICP备140452118号-5</p>
+    <p class="am-padding-left">Copyright (c) 2015  Inc. All Rights. 浙ICP备140452118号-5.</p>
   </footer>
 
 </body>
