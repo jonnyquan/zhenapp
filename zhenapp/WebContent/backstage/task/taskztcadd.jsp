@@ -431,20 +431,29 @@
 										<div class="form_control clearfix">
 											<label class="form_label">卡价格模式：</label> 
 											<label class="form_radio">
-												<input type="radio" name="priceMode" v-model="myfChecked" value="0" onchange="checkpricemode(this);"/>
+												<input type="radio" name="priceMode" 
+												<c:if test="${tTaskInfoCustom!=null && tTaskInfoCustom.priceMode=='0'}">checked="checked"</c:if>
+												 v-model="myfChecked" value="0"  onchange="checkpricemode(this);"/>
 												<span>默认综合不卡价格（必须排名很前）</span></label> 
 											<label class="form_radio">
-												<input type="radio" name="priceMode" id="priceMode2" v-model="tmChecked" checked="checked" value="1" onchange="checkpricemode(this);"/>
+												<input type="radio" name="priceMode" 
+												<c:if test="${tTaskInfoCustom == null}">checked="checked"</c:if>
+												<c:if test="${tTaskInfoCustom!=null && tTaskInfoCustom.priceMode=='1' }">checked="checked"</c:if>
+												id="priceMode2" v-model="tmChecked" value="1" onchange="checkpricemode(this);"/>
 												<span>默认卡原价加减1元（成功率最高，速度最快）</span>
 											</label>
 										</div>
 										<div class="form_control clearfix">
 											<label class="form_label"></label> 
 											<label class="form_radio">
-												<input type="radio" name="priceMode" id="priceMode2" v-model="myfChecked" value="2" onchange="checkpricemode(this);"/>
+												<input type="radio" name="priceMode" 
+												<c:if test="${tTaskInfoCustom!=null && tTaskInfoCustom.priceMode=='2' }">checked="checked"</c:if>
+												id="priceMode2" v-model="myfChecked" value="2" onchange="checkpricemode(this);"/>
 												<span>默认卡原价加减10元（成功率其次，慢）</span></label> 
 											<label class="form_radio">
-												<input type="radio" name="priceMode" v-model="tmChecked" value="3" onchange="checkpricemode(this);"/>
+												<input type="radio" name="priceMode" 
+												<c:if test="${tTaskInfoCustom!=null && tTaskInfoCustom.priceMode=='3' }">checked="checked"</c:if>
+												v-model="tmChecked" value="3" onchange="checkpricemode(this);"/>
 												<span>自定义（请亲自手动搜索成功再用）</span>
 											</label> 
 										</div>

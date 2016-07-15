@@ -43,6 +43,15 @@ public class RepublishTaskController {
 			if(tTaskInfoCustom.getTasktype().equals("33")){
 				mv.setViewName("/backstage/task/taskadd.jsp");
 			}else{
+				if(Integer.parseInt(tTaskInfoCustom.getTaskprice())-Integer.parseInt(tTaskInfoCustom.getTaskminprice())==1){
+					tTaskInfoCustom.setPriceMode("1");
+				}else if(tTaskInfoCustom.getTaskminprice().equals("0") && tTaskInfoCustom.getTaskmaxprice().equals("0")){
+					tTaskInfoCustom.setPriceMode("0");
+				}else if(Integer.parseInt(tTaskInfoCustom.getTaskprice())-Integer.parseInt(tTaskInfoCustom.getTaskminprice())==10){
+					tTaskInfoCustom.setPriceMode("2");
+				}else{
+					tTaskInfoCustom.setPriceMode("3");
+				}
 				mv.setViewName("/backstage/task/taskztcadd.jsp");
 			}
 			return mv;

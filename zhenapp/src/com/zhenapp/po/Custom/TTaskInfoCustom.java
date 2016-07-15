@@ -15,6 +15,15 @@ public class TTaskInfoCustom extends TTaskInfo{
     private String taskdaterange;
     private int counts;
     
+    private String priceMode;
+    
+    
+	public String getPriceMode() {
+		return priceMode;
+	}
+	public void setPriceMode(String priceMode) {
+		this.priceMode = priceMode;
+	}
 	public Integer getFinishstorecollectioncount() {
 		return finishstorecollectioncount;
 	}

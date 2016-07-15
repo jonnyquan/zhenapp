@@ -98,4 +98,11 @@ public class TaskInfoServiceImp implements TaskInfoService {
 		return tTaskInfoCustomMapper.findEndTaskfordel(hashmap);
 	}
 
+	@Override
+	public int updatedeepclick(HashMap<String, Object> hashmap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskInfoCustomMapper.updatedeepclick(hashmap);
+	}
+
 }

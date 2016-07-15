@@ -83,9 +83,6 @@
     	<if test="taskkeynum != null and taskkeynum != ''">
     		and a.taskkeynum = #{taskkeynum}
     	</if>
-    	<if test="taskid != null and taskid != ''">
-    		and a.taskid = #{taskid}
-    	</if>
     </where>
      ORDER BY a.taskpk+0 DESC LIMIT #{page},#{rows}
   </select>
@@ -246,9 +243,6 @@
     	<if test="taskkeynum != null and taskkeynum != ''">
     		and a.taskkeynum = #{taskkeynum}
     	</if>
-    	<if test="taskid != null and taskid != ''">
-    		and a.taskid = #{taskid}
-    	</if>
     </where>
   </select>
   
@@ -365,7 +359,9 @@
   		</if>
   	</where>
   </update>
-  
+  <update id="updatedeepclick" parameterType="java.util.HashMap">
+  	UPDATE t_task_info SET deepclick='0' WHERE taskid=#{taskid}
+  </update>
   <delete id="deleteTaskBypk" parameterType="String">
     delete from t_task_info where taskpk in (${value})
   </delete>

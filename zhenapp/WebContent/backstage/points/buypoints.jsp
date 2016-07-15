@@ -222,7 +222,7 @@
 						<form class="koo_fromBox" action="${pageContext.request.contextPath}/points/buypoints" method="post">
 							<div class="taxkTips">
 								<h2>可选套餐&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								基本定价：    手机流量0.1元    收藏价格0.1元    加购0.1元</h2>
+								<!--  基本定价：    手机流量0.1元    收藏价格0.1元    加购0.1元--></h2>
 							</div>
 							<c:forEach items="${tComboInfoCustomlist}" var="list" varStatus="status">
 								<div class="form_control">

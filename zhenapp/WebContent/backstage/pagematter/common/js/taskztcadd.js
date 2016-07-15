@@ -282,7 +282,7 @@ var istitle=0;
 			inputtaskhourcounts.each(function(){
 				var me = $(this);
 				temphourcounts=parseInt(temphourcounts)+parseInt(me.val());
-				taskhourcounts.push(me.val());//保存value到一个数组中
+				taskhourcounts.push(parseInt(me.val()));//保存value到一个数组中
 			});
 			
 			if(temphourcounts==0){

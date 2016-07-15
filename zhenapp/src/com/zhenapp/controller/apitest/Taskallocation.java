@@ -274,22 +274,22 @@ public class Taskallocation {
 						    if(statusCode == 200) {
 						        result = postMethod.getResponseBodyAsString();
 						        if(result.indexOf("id")==-1){
+						        	String tempcode=result;
 					            	result = StringUtilWxf.translat(result);
 					            	logger.info("调用发布任务"+ tTaskInfoCustom.getTaskpk() +"接口失败，错误信息:" + result);
 					            	map.put("msg", "调用发布任务接口失败，错误信息:" + result);
+					            	//如果是因为深入点击比例错误，则修改任务信息中深入点击比例为0
+					            	if(tempcode.equals("116")){
+					            		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+					            		hashmap.put("taskid", tTaskInfoCustom.getTaskid());
+					            		taskInfoService.updatedeepclick(hashmap);
+					            	}
 					            	throw new RuntimeException();
 					            }else{
 					            	ObjectMapper obj = new ObjectMapper();
 					 	    		MsgInfoCustom msgInfoCustom = obj.readValue(result, MsgInfoCustom.class);
 					 	    		result = msgInfoCustom.getId() + "";
 					 	    		logger.info("调用发布任务接口成功!");
-					 	    		//将调用接口返回的订单号设置到流量任务记录中
-					 	    		//HashMap<String, Object> hashmap = new HashMap<String, Object>();
-					 	    		//hashmap.put("taskdetailid", msgInfoCustom.getId());
-					 	    		//hashmap.put("taskdetailpk", tTaskDetailInfoFlowCustom.getTaskdetailpk());
-					 	    		//hashmap.put("taskid", tTaskDetailInfoFlowCustom.getTaskid());
-					 	    		//taskDetailInfoFlowService.updateTaskdetailIdByPk(hashmap);
-					 	    		//logger.info("更新返回的订单号成功，"+"单号：" + tTaskDetailInfoFlowCustom.getTaskdetailpk());
 					 	    		tTaskDetailInfoFlowCustom.setTaskdetailid(msgInfoCustom.getId()+"");
 					 	    		taskDetailInfoFlowService.insertTaskDetailInfoFlow(tTaskDetailInfoFlowCustom);
 					            }
@@ -311,13 +311,6 @@ public class Taskallocation {
 				 	    		MsgInfoCustom msgInfoCustom = obj.readValue(result, MsgInfoCustom.class);
 				 	    		result = msgInfoCustom.getId() + "";
 				 	    		logger.info("调用发布任务接口成功!");
-				 	    		//将调用接口返回的订单号设置到流量任务记录中
-				 	    		//HashMap<String, Object> hashmap = new HashMap<String, Object>();
-				 	    		//hashmap.put("taskdetailid", msgInfoCustom.getId());
-				 	    		//hashmap.put("taskdetailpk", tTaskDetailInfoFlowCustom.getTaskdetailpk());
-				 	    		//hashmap.put("taskid", tTaskDetailInfoFlowCustom.getTaskid());
-				 	    		//taskDetailInfoFlowService.updateTaskdetailIdByPk(hashmap);
-				 	    		//logger.info("更新返回的订单号成功，"+"单号：" + tTaskDetailInfoFlowCustom.getTaskdetailpk());
 				 	    		tTaskDetailInfoFlowCustom.setTaskdetailid(msgInfoCustom.getId()+"");
 				 	    		taskDetailInfoFlowService.insertTaskDetailInfoFlow(tTaskDetailInfoFlowCustom);
 				            }
