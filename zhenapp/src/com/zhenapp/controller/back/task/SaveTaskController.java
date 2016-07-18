@@ -183,6 +183,15 @@ public class SaveTaskController {
 					map.put("data", "118");
 					return map;
 				}
+				if(tTaskInfoCustom.getCreativetitle().indexOf("http")!=-1){
+					map.put("data", "118");
+					return map;
+				}
+			}else{
+				if(tTaskInfoCustom.getTaskimgztc().indexOf("/T")==-1){
+					map.put("data", "直通车地址不符合规范!");
+					return map;
+				}
 			}
 			hashmap.clear();
 			hashmap.put("taskdate", yyyyMMdd.format(new Date()));

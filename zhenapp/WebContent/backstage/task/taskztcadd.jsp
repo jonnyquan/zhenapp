@@ -309,7 +309,7 @@
 					<div class="tabtitle clearfix">
 						<a href="${pageContext.request.contextPath}/task/responsetaskadd" class="row_l ">淘宝APP流量</a>
 						<a href="${pageContext.request.contextPath}/task/responsetaskztcadd" class="row_l hover">淘宝APP直通车流量</a>
-						<a href="${pageContext.request.contextPath}/frontend/articleguidedetail/5" target="_blank" class="row_r" style="color:#FF0000">如何发布淘宝APP流量？</a>
+						<a href="${pageContext.request.contextPath}/frontend/articleguidedetail/5" target="_blank" class="row_r" style="color:#FF0000">【必看】----直通车发布教程----不看无法发布</a>
 					</div>
 					<div class="umainbox">
 						<!--main-->
@@ -382,9 +382,12 @@
 										<input type="radio" name="Mode" v-model="tmChecked" checked="checked" value="0" onchange="checkmode(this);"/>
 										<span>新模式(推荐)</span>
 									</label> 
+									<!-- 
 									<label class="form_radio">
 										<input type="radio" name="Mode" v-model="myfChecked" value="1" onchange="checkmode(this);"/>
-										<span>老模式</span></label> 
+										<span>老模式</span>
+									</label> 
+									 -->
 								</div>
 								<div class="form_control clearfix" id="div_taskimgztc" style="display: none;">
 									<label class="form_label">直通车图片：</label> 
@@ -400,7 +403,7 @@
 									<c:if test="${tTaskInfoCustom.creativetitle!=null }">value="${tTaskInfoCustom.creativetitle}"</c:if>
 									<c:if test="${tTaskInfoCustom.creativetitle==null }">value=" "</c:if>
 									maxlength="100" />&nbsp;&nbsp;&nbsp;&nbsp;
-									<span id="span_creativetitle"></span>
+									<span id="span_creativetitle"></span><font color="red">*必须正确填写创意标题</font>
 								</div>
 								<div class="form_control clearfix">
 									<label class="form_label">宝贝价格：</label> 
@@ -463,6 +466,7 @@
 											<span class="Validform_checktip scan_break">--</span> 
 											<input class="form_input input50" type="text" name="taskmaxprice" id="taskmaxprice" v-model="end_price" value=0 onchange="setprice(this);"/>
 										</div>
+										<!-- 
 										<div class="form_control clearfix">
 											<label class="form_label">发货地：</label>
 											<select name="shipaddress" id="shipaddress" class="form_select select_big" v-model="loc">
@@ -533,7 +537,7 @@
 												<option value="澳门">澳门</option>
 												<option value="台湾">台湾</option>
 											</select>
-										</div>
+										</div> -->
 								<div class="taxkTips">
 									<h2>
 										<scan class="scan_icon">

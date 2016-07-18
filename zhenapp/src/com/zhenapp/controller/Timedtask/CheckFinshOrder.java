@@ -84,11 +84,15 @@ public class CheckFinshOrder {
 				hashmap.clear();
 				hashmap.put("taskid", tTaskInfoCustom.getTaskid());
 				hashmap.put("taskstate", "21,22");
-				int counts = taskDetailInfoService.findCounts(hashmap);
+				int counts = 0;
 				int checkcount = 0;
 				if(tTaskInfoCustom.getTasktype().equals("33")){
+					counts = taskDetailInfoService.findCounts(hashmap);
 					checkcount = tTaskInfoCustom.getCollectioncount()+tTaskInfoCustom.getShoppingcount();
 				}else{
+					hashmap.put("iscollection", "1");
+					hashmap.put("isshopping", "1");
+					counts = taskDetailInfoService.findCounts(hashmap);
 					checkcount = tTaskInfoCustom.getCollectioncount();
 				}
 				if(counts==checkcount){
@@ -134,7 +138,15 @@ public class CheckFinshOrder {
 					            throw new RuntimeException();
 					        }
 						}else{
-							isfinishflow = true;
+							hashmap.clear();
+							hashmap.put("taskid", tTaskInfoCustom.getTaskid());
+							hashmap.put("taskstate", "21,22");
+							int counts_ztc = taskDetailInfoService.findCounts(hashmap);
+							if(counts_ztc==tTaskInfoCustom.getFlowcount()){
+								isfinishflow = true;
+							}else{
+								isfinishflow = false;
+							}
 						}
 					}else{
 						//调用接口判断流量任务是否完成
@@ -167,7 +179,15 @@ public class CheckFinshOrder {
 				        }
 					}
 				}else{
-					isfinishflow = true;
+					hashmap.clear();
+					hashmap.put("taskid", tTaskInfoCustom.getTaskid());
+					hashmap.put("taskstate", "21,22");
+					int counts_ztc = taskDetailInfoService.findCounts(hashmap);
+					if(counts_ztc==tTaskInfoCustom.getFlowcount()){
+						isfinishflow = true;
+					}else{
+						isfinishflow = false;
+					}
 				}
 		        if(isfinish && isfinishflow){
 		        	//表示任务已完成

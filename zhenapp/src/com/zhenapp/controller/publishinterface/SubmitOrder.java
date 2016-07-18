@@ -281,6 +281,15 @@ public class SubmitOrder {
 				map.put("data", "118");
 				return map;
 			}
+			if(orderInfoCustom.getCreativetitle().indexOf("http")!=-1){
+				map.put("data", "118");
+				return map;
+			}
+			if(tTaskInfoCustom.getTaskimgztc()!=null && tTaskInfoCustom.getTaskimgztc().indexOf("/T")==-1){
+				map.put("data", "直通车地址不符合规范!");
+				return map;
+			}
+			
 			int gwcmax = 0;
 			int scmax = 0;
 			hashmap.clear();

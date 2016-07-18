@@ -302,7 +302,7 @@ var istitle=0;
 					creativetitle : $("#creativetitle").val(),
 					mode : mode,
 					deepclick : "0",
-					shipaddress : $("#shipaddress").val(),
+					shipaddress : "Alladdress",
 					taskkeynum : taskkeynumval,
 					taskkeywords : taskkeywords.join('===='),
 					tasktype:"34",

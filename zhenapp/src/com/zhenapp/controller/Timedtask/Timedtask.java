@@ -54,9 +54,9 @@ public class Timedtask {
         logger.info("将执行终止状态的详情任务删除....每分钟执行一次");
 	}
 	
-	@Scheduled(cron = "0 */10 * * * ?")//每隔10分钟执行一次 判断任务是否已完成
+	@Scheduled(cron = "0 */5 * * * ?")//每隔5分钟执行一次 判断任务是否已完成
 	public void job3() throws HttpException, IOException {
-		logger.info("任务执行开始....每10分钟执行一次检查任务是否执行完成");
+		logger.info("任务执行开始....每5分钟执行一次检查任务是否执行完成");
 		HttpClient httpClient = new HttpClient();
 		String result="";
 		String url = host+"/api/platform/cyclecheckTask";
@@ -69,7 +69,7 @@ public class Timedtask {
         }else {
             logger.info("调用接口失败(/api/platform/cyclecheckTask)，返回："+statusCode);
         }
-        logger.info("任务执行结束....每10分钟执行一次检查任务是否执行完成");
+        logger.info("任务执行结束....每5分钟执行一次检查任务是否执行完成");
 	}
 	
 	@Scheduled(cron = "0 */1 * * * ?")//每隔1分钟执行一次 将任务错误数大于等于系统设置的最大任务错误数即终止该任务

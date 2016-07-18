@@ -43,11 +43,23 @@ public class RepublishTaskController {
 			if(tTaskInfoCustom.getTasktype().equals("33")){
 				mv.setViewName("/backstage/task/taskadd.jsp");
 			}else{
-				if(Integer.parseInt(tTaskInfoCustom.getTaskprice())-Integer.parseInt(tTaskInfoCustom.getTaskminprice())==1){
+				int price = 0;
+				if(tTaskInfoCustom.getTaskprice().indexOf(".")!=-1){
+					price = Integer.parseInt(tTaskInfoCustom.getTaskprice().split("\\.")[0]);
+				}else{
+					price = Integer.parseInt(tTaskInfoCustom.getTaskprice());
+				}
+				int minprice = 0;
+				if(tTaskInfoCustom.getTaskminprice().indexOf(".")!=-1){
+					minprice = Integer.parseInt(tTaskInfoCustom.getTaskminprice().split("\\.")[0]);
+				}else{
+					minprice = Integer.parseInt(tTaskInfoCustom.getTaskminprice());
+				}
+				if(price-minprice==1){
 					tTaskInfoCustom.setPriceMode("1");
 				}else if(tTaskInfoCustom.getTaskminprice().equals("0") && tTaskInfoCustom.getTaskmaxprice().equals("0")){
 					tTaskInfoCustom.setPriceMode("0");
-				}else if(Integer.parseInt(tTaskInfoCustom.getTaskprice())-Integer.parseInt(tTaskInfoCustom.getTaskminprice())==10){
+				}else if(price-minprice==10){
 					tTaskInfoCustom.setPriceMode("2");
 				}else{
 					tTaskInfoCustom.setPriceMode("3");

@@ -309,7 +309,7 @@
 					<div class="tabtitle clearfix">
 						<a href="${pageContext.request.contextPath}/task/responsetaskadd" class="row_l hover">淘宝APP流量</a>
 						<a href="${pageContext.request.contextPath}/task/responsetaskztcadd" class="row_l ">淘宝APP直通车流量</a>
-						<a href="${pageContext.request.contextPath}/frontend/articleguidedetail/5" target="_blank" class="row_r" style="color:#FF0000">如何发布淘宝APP流量？</a>
+						<a href="${pageContext.request.contextPath}/frontend/articleguidedetail/5" target="_blank" class="row_r" style="color:#FF0000">【必看】----直通车发布教程----不看无法发布</a>
 					</div>
 					<div class="umainbox">
 						<!--main-->
@@ -401,7 +401,7 @@
 											<input class="form_input input50" type="text" name="taskminprice" id="taskminprice" v-model="start_price" value=0 /> 
 											<span class="Validform_checktip scan_break">--</span> 
 											<input class="form_input input50" type="text" name="taskmaxprice" id="taskmaxprice" v-model="end_price" value=0 /> 
-											<label class="form_label">发货地：</label>
+											<!-- <label class="form_label">发货地：</label>
 											<select name="shipaddress" id="shipaddress" class="form_select select_big" v-model="loc">
 												<option value="所有地区">所有地区</option>
 												<option value="江浙沪">江浙沪</option>
@@ -469,7 +469,7 @@
 												<option value="香港">香港</option>
 												<option value="澳门">澳门</option>
 												<option value="台湾">台湾</option>
-											</select>
+											</select> -->
 										</div>
 
 										<div class="form_control clearfix">
