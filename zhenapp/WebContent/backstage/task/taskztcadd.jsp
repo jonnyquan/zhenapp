@@ -399,7 +399,7 @@
 								</div>
 								<div class="form_control clearfix" id="div_creativetitle" style="display: block;">
 									<label class="form_label">创意标题：</label> 
-									<input type="text" name="creativetitle" placeholder="请输入直通车图片" id="creativetitle" style="width:350px;" onchange="checktitle();"
+									<input type="text" name="creativetitle" placeholder="请输入创意标题" id="creativetitle" style="width:350px;" onchange="checktitle();"
 									<c:if test="${tTaskInfoCustom.creativetitle!=null }">value="${tTaskInfoCustom.creativetitle}"</c:if>
 									<c:if test="${tTaskInfoCustom.creativetitle==null }">value=" "</c:if>
 									maxlength="100" />&nbsp;&nbsp;&nbsp;&nbsp;
