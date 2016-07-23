@@ -60,7 +60,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 		<div class="warp1200 toplogin clearfix">
 			<div class="userlogin row_r" id="userLogin">
 				<c:if test="${tUserInfoCustom == null}">
-					您好，欢迎来到旺点击！<a href="${pageContext.request.contextPath}/frontend/authlogin">马上登录</a>|<a href="${pageContext.request.contextPath}/frontend/authregister">快速注册</a>
+					您好，欢迎来到${tAgentInfoCustom.agentname }！<a href="${pageContext.request.contextPath}/frontend/authlogin">马上登录</a>|<a href="${pageContext.request.contextPath}/frontend/authregister">快速注册</a>
 				</c:if>
 				<c:if test="${tUserInfoCustom != null}">
 					<div class="userlogin row_r" id="userLogin">您好 <span>${tUserInfoCustom.usernick }</span> 欢迎您回来！<a href="${pageContext.request.contextPath}/frontend/authlogin">进入会员中心</a>|<a href="${pageContext.request.contextPath}/user/authlogout">退出登录</a></div>

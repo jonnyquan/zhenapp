@@ -81,11 +81,6 @@ public class CheckFinshOrder {
 				boolean isfinish = false;
 				boolean isfinishflow = false;
 				TTaskInfoCustom tTaskInfoCustom = tTaskInfoCustomlist.get(i);
-				TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserid(tTaskInfoCustom.getCreateuser());
-				TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentByAgentid(tUserInfoCustom.getAgentid());
-				TUserInfoCustom tUserInfoCustomagent = userInfoService.findUserByuserid(tAgentInfoCustom.getAgentuserid());
-				TPriceInfoCustom tPriceInfoCustom = priceInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
-				TPriceAgentInfoCustom tPriceAgentInfoCustom = priceAgentInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
 				hashmap.clear();
 				hashmap.put("taskid", tTaskInfoCustom.getTaskid());
 				hashmap.put("taskstate", "21,22");
@@ -217,6 +212,12 @@ public class CheckFinshOrder {
 					TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
 					//给代理添加积分明细记录
 					TPointsInfoCustom tPointsInfoCustomagent =new TPointsInfoCustom();
+					TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserid(tTaskInfoCustom.getCreateuser());
+					TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentByAgentid(tUserInfoCustom.getAgentid());
+					TUserInfoCustom tUserInfoCustomagent = userInfoService.findUserByuserid(tAgentInfoCustom.getAgentuserid());
+					TPriceInfoCustom tPriceInfoCustom = priceInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
+					TPriceAgentInfoCustom tPriceAgentInfoCustom = priceAgentInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
+					
 		        	if(tTaskInfoCustom.getTasktype().equals("33")){
 		        		TTaskDetailInfoFlowCustom TTaskDetailInfoFlowCustombefore = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);
 		        		finishcount = TTaskDetailInfoFlowCustombefore.getFinishcount();

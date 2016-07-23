@@ -54,9 +54,9 @@ public class Timedtask {
         logger.info("将执行终止状态的详情任务删除....每分钟执行一次");
 	}
 	
-	@Scheduled(cron = "0 */5 * * * ?")//每隔5分钟执行一次 判断任务是否已完成
+	@Scheduled(cron = "0 */3 * * * ?")//每隔3分钟执行一次 判断任务是否已完成
 	public void job3() throws HttpException, IOException {
-		logger.info("任务执行开始....每5分钟执行一次检查任务是否执行完成");
+		logger.info("任务执行开始....每3分钟执行一次检查任务是否执行完成");
 		HttpClient httpClient = new HttpClient();
 		String result="";
 		String url = host+"/api/platform/cyclecheckTask";

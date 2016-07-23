@@ -80,11 +80,6 @@ public class CheckEndOrder {
 		if(tTaskInfoCustomlist!=null && tTaskInfoCustomlist.size()>0){
 			for (int i = 0; i < tTaskInfoCustomlist.size(); i++) {
 				TTaskInfoCustom tTaskInfoCustom = tTaskInfoCustomlist.get(i);
-				TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserid(tTaskInfoCustom.getCreateuser());
-				TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentByAgentid(tUserInfoCustom.getAgentid());
-				TUserInfoCustom tUserInfoCustomagent = userInfoService.findUserByuserid(tAgentInfoCustom.getAgentuserid());
-				TPriceInfoCustom tPriceInfoCustom = priceInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
-				TPriceAgentInfoCustom tPriceAgentInfoCustom = priceAgentInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
 				
 				//查询该任务 执行中的详情任务条数
 				hashmap.clear();
@@ -175,6 +170,12 @@ public class CheckEndOrder {
 					TPointsInfoCustom tPointsInfoCustom =new TPointsInfoCustom();
 					//给代理添加积分明细记录
 					TPointsInfoCustom tPointsInfoCustomagent =new TPointsInfoCustom();
+					TUserInfoCustom tUserInfoCustom = userInfoService.findUserByuserid(tTaskInfoCustom.getCreateuser());
+					TAgentInfoCustom tAgentInfoCustom = agentInfoService.findAgentByAgentid(tUserInfoCustom.getAgentid());
+					TUserInfoCustom tUserInfoCustomagent = userInfoService.findUserByuserid(tAgentInfoCustom.getAgentuserid());
+					TPriceInfoCustom tPriceInfoCustom = priceInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
+					TPriceAgentInfoCustom tPriceAgentInfoCustom = priceAgentInfoService.findPriceByAgentid(tUserInfoCustom.getAgentid());
+					
 					if(tTaskInfoCustom.getTasktype().equals("33")){
 						hashmap.put("taskid", tTaskInfoCustom.getTaskid());
 						hashmap.put("taskstate", "21");
@@ -187,6 +188,7 @@ public class CheckEndOrder {
 				        if(maxcount < flowcounts){
 		 	    			maxcount = flowcounts;
 				        }
+				        
 				     	int pointsflow = (tTaskInfoCustom.getFlowcount()-maxcount)*Integer.parseInt(tPriceInfoCustom.getPricecounts1());
 			        	int pointsflowagent = (tTaskInfoCustom.getFlowcount()-maxcount)*Integer.parseInt(tPriceAgentInfoCustom.getPricecounts1());
 			        	//加购，收藏失败和终止的
