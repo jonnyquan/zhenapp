@@ -237,7 +237,7 @@
       var tasktype = $("#tasktype").val();
       var datefrom = $("input[name='datefrom']")[0].value;
       var dateto = $("input[name='dateto']")[0].value;
-      window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanageagent?page=" + num + "&datefrom=" + datefrom + "&dateto=" + dateto + "&taskpk=" + taskpk
+      window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanageagentbefore?page=" + num + "&datefrom=" + datefrom + "&dateto=" + dateto + "&taskpk=" + taskpk
           + "&taskkeynum=" + taskkeynum + "&taskkeyword="+taskkeyword+"&tasktype="+tasktype;
   }
   
