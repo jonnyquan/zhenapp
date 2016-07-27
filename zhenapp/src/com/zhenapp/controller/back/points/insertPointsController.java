@@ -42,7 +42,7 @@ public class insertPointsController {
 	@RequestMapping(value="/buypoints")
 	public ModelAndView buypoints(String id,HttpSession session) throws Exception{
 		ModelAndView mv=new ModelAndView();
-		String verificationcode = UUID.randomUUID().toString().replace("-", "");
+		String verificationcode = UUID.randomUUID().toString().replace("-", "").substring(0, 20);
 		TUserInfoCustom tUserInfoCustom=(TUserInfoCustom) session.getAttribute("tUserInfoCustom");
 		TComboInfoCustom tComboInfoCustom= comboInfoService.findComboByid(id);
 		TRechargeInfoCustom tRechargeInfoCustom=new TRechargeInfoCustom();

@@ -420,36 +420,4 @@ public class TTaskInfo {
     public void setUpdateuser(String updateuser) {
         this.updateuser = updateuser == null ? null : updateuser.trim();
     }
-
-	@Override
-	public String toString() {
-		return "TTaskInfo [taskpk=" + taskpk + ", taskid=" + taskid
-				+ ", tasktype=" + tasktype + ", taskkeynum=" + taskkeynum
-				+ ", taskurl=" + taskurl + ", tasktitle=" + tasktitle
-				+ ", taskwirelesstitle=" + taskwirelesstitle
-				+ ", taskstartdate=" + taskstartdate + ", taskenddate="
-				+ taskenddate + ", taskdate=" + taskdate
-				+ ", taskreleasekeyword=" + taskreleasekeyword
-				+ ", taskkeyword=" + taskkeyword + ", taskhourcounts="
-				+ taskhourcounts + ", taskprice=" + taskprice
-				+ ", taskminprice=" + taskminprice + ", taskmaxprice="
-				+ taskmaxprice + ", shipaddress=" + shipaddress
-				+ ", tasksearchtype=" + tasksearchtype + ", creativetitle="
-				+ creativetitle + ", taskimgztc=" + taskimgztc + ", taskimgpt="
-				+ taskimgpt + ", flowcount=" + flowcount + ", collectioncount="
-				+ collectioncount + ", shoppingcount=" + shoppingcount
-				+ ", storecollectioncount=" + storecollectioncount
-				+ ", fakechatcount=" + fakechatcount + ", fakechatstr1="
-				+ fakechatstr1 + ", fakechatstr2=" + fakechatstr2
-				+ ", fakechatstr3=" + fakechatstr3 + ", fakechatstr4="
-				+ fakechatstr4 + ", deepclick=" + deepclick
-				+ ", tasktmallapppct=" + tasktmallapppct + ", taskgprspct="
-				+ taskgprspct + ", taskplus=" + taskplus + ", taskduration="
-				+ taskduration + ", iscreativetitle=" + iscreativetitle
-				+ ", subtractpoints=" + subtractpoints + ", taskstate="
-				+ taskstate + ", createtime=" + createtime + ", createuser="
-				+ createuser + ", updatetime=" + updatetime + ", updateuser="
-				+ updateuser + "]";
-	}
-    
 }

@@ -17,7 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="淘口令,刷淘宝流量,淘宝刷流量软件,淘宝流量,淘宝刷流量" />
-<meta name="description" content="旺点击是一个快速提升淘宝手机流量、淘口令流量、淘宝无线流量、淘宝APP流量的平台,真流量优势:  百分百模拟刷淘宝手机流量、淘口令、淘宝刷流量软件、刷淘宝流量软件。" />
+<meta name="description" content="${tAgentInfoCustom.agentname }是一个快速提升淘宝手机流量、淘口令流量、淘宝无线流量、淘宝APP流量的平台,真流量优势:  百分百模拟刷淘宝手机流量、淘口令、淘宝刷流量软件、刷淘宝流量软件。" />
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/frontend/pagematter/common/img/favicon.ico" type="image/x-icon" />
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/frontend/pagematter/common/css/font-awesome.min.css">

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
@@ -17,11 +18,15 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.zhenapp.mapper.Custom.FirstWebInfoCustom;
 import com.zhenapp.po.Custom.ApireturnCustom;
 import com.zhenapp.po.Custom.MsgInfoCustom;
+import com.zhenapp.po.Custom.TRankipInfoCustom;
 import com.zhenapp.po.Custom.TSysconfInfoCustom;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
+import com.zhenapp.po.Custom.TaoBaoztcOne;
+import com.zhenapp.service.RankipInfoService;
 import com.zhenapp.service.SysconfInfoService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskInfoService;
@@ -41,6 +46,8 @@ public class FirstWebController {
 	private TaskDetailInfoService taskDetailInfoService;
 	@Autowired
 	private TaskInfoService taskInfoService;
+	@Autowired
+	private RankipInfoService rankipInfoService;
 	@Value("${secret}")
 	private String secret;
 	@Value("${liuliangapp}")
@@ -405,4 +412,35 @@ public class FirstWebController {
 	}
 	
 	//================================================================================
+	@RequestMapping(value="/api/search/{fullname}/{itemId}/{startprice}")
+	public @ResponseBody ModelMap search(@PathVariable(value="fullname")String fullname,@PathVariable(value="itemId")String itemId,@PathVariable(value="startprice")String startprice) throws Exception{
+		TRankipInfoCustom tRankipInfoCustom = rankipInfoService.findRankip();
+		String url= "http://"+tRankipInfoCustom.getRankip()+":20021/TaoBaoRank/api/search";
+		ModelMap map = new ModelMap();
+		HttpClient httpClient = new HttpClient();
+		String result="";
+        PostMethod postMethod = new PostMethod(url);
+        postMethod.setParameter("fullname",fullname);
+        postMethod.setParameter("itemId", itemId);
+        postMethod.setParameter("startprice", startprice);
+        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+        int statusCode =  httpClient.executeMethod(postMethod);
+        if(statusCode == 200) {
+            result = postMethod.getResponseBodyAsString();
+            if(result.indexOf("\"n\"")!=-1){
+            	map.put("status", "n");
+            }else{
+            	ObjectMapper obj = new ObjectMapper();
+        		TaoBaoztcOne taoBaoztcOne = obj.readValue(result, TaoBaoztcOne.class);
+        		map.put("pic_path",taoBaoztcOne.getPicpath());
+				map.put("pic_path2", taoBaoztcOne.getPicpath2());
+				map.put("isP4p", taoBaoztcOne.getIsp4p());
+				map.put("status", "y");
+            }
+        }else {
+        	map.put("status", "n");
+            logger.error("调用查询直通车排名失败：失败码："+statusCode);
+        }
+		return map;
+	}
 }

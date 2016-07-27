@@ -126,7 +126,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
                         <h1>${tGuideInfoCustom.guidename }</h1>
 
                         <div class="date">
-                             <a href="${pageContext.request.contextPath}/frontend/index">旺点击</a><span>发布：${tGuideInfoCustom.createtime}</span>
+                             <a href="${pageContext.request.contextPath}/frontend/index">${tAgentInfoCustom.agentname }</a><span>发布：${tGuideInfoCustom.createtime}</span>
                         </div>
                         <div class="content">
                             <!--  <p>淘口令模式对无排名的新宝贝非常有用，不再需要为找不到宝贝而烦恼。</p><p>淘口令在哪里？淘口令怎么打开？</p><p>淘口令打开的两种方法：</p><p><span style="color: rgb(0, 112, 192);"><strong>第一种：淘宝APP的宝贝页面——分享——复制（第一种方法比较简便）</strong></span></p><p><img src="/ueditor/php/upload/image/20160414/1460616520557597.jpg" title="1460616520557597.jpg" alt="3.jpg"/>&nbsp;&nbsp;<img src="/ueditor/php/upload/image/20160414/1460616527742510.jpg" title="1460616527742510.jpg" alt="4.jpg"/></p><p><strong><span style="color: rgb(0, 112, 192);">第二种：千牛APP的流量中心——淘口令（第二种方法可以自定义推广文字）</span></strong></p><p><img src="/ueditor/php/upload/image/20160414/1460616541330227.jpg" title="1460616541330227.jpg" alt="1.jpg"/>&nbsp;&nbsp;<img src="/ueditor/php/upload/image/20160414/1460616546942717.jpg" title="1460616546942717.jpg" alt="2.jpg"/></p>

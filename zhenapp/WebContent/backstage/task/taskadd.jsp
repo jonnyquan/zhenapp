@@ -17,6 +17,7 @@
 <![endif]-->
 <meta name="keywords" content="无线流量,无限流量代运营,无线刷流量 " />
 <meta name="description" content="无线流量,无限流量代运营,无线刷流量 " />
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/frontend/pagematter/common/img/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css"

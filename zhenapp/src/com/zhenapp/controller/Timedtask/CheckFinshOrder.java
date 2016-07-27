@@ -95,7 +95,7 @@ public class CheckFinshOrder {
 					counts = taskDetailInfoService.findCounts(hashmap);
 					checkcount = tTaskInfoCustom.getCollectioncount();
 				}
-				if(counts==checkcount){
+				if(counts>=checkcount){
 					//收藏和加购任务已经执行完成
 					isfinish=true;
 				}

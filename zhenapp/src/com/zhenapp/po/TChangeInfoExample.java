@@ -104,6 +104,76 @@ public class TChangeInfoExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
+        public Criteria andPhoneidIsNull() {
+            addCriterion("phoneid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneidIsNotNull() {
+            addCriterion("phoneid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneidEqualTo(String value) {
+            addCriterion("phoneid =", value, "phoneid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneidNotEqualTo(String value) {
+            addCriterion("phoneid <>", value, "phoneid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneidGreaterThan(String value) {
+            addCriterion("phoneid >", value, "phoneid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneidGreaterThanOrEqualTo(String value) {
+            addCriterion("phoneid >=", value, "phoneid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneidLessThan(String value) {
+            addCriterion("phoneid <", value, "phoneid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneidLessThanOrEqualTo(String value) {
+            addCriterion("phoneid <=", value, "phoneid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneidLike(String value) {
+            addCriterion("phoneid like", value, "phoneid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneidNotLike(String value) {
+            addCriterion("phoneid not like", value, "phoneid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneidIn(List<String> values) {
+            addCriterion("phoneid in", values, "phoneid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneidNotIn(List<String> values) {
+            addCriterion("phoneid not in", values, "phoneid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneidBetween(String value1, String value2) {
+            addCriterion("phoneid between", value1, value2, "phoneid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneidNotBetween(String value1, String value2) {
+            addCriterion("phoneid not between", value1, value2, "phoneid");
+            return (Criteria) this;
+        }
+
         public Criteria andTbaccountstateIsNull() {
             addCriterion("tbaccountstate is null");
             return (Criteria) this;

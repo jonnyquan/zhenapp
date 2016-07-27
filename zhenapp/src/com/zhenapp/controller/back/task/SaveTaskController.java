@@ -174,7 +174,6 @@ public class SaveTaskController {
 		tPointsInfoCustom.setPointstype("27");
 		int newpoints =Integer.parseInt(points);
 		int newpointsagent = Integer.parseInt(pointsagent);
-		//做过该宝贝id的直通车任务数
 		TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		if(tTaskInfoCustom.getTasktype().equals("34")){

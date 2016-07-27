@@ -1,3 +1,4 @@
+#Sat Jul 23 23:26:21 CST 2016
 eclipse.preferences.version=1
 encoding//WebContent/backstage/agent/useragent.jsp=UTF-8
 encoding//WebContent/backstage/pagematter/common/css/font-awesome.min.css=UTF-8
@@ -12,4 +13,5 @@ encoding//WebContent/frontend/pagematter/common/css/index.css=UTF-8
 encoding//WebContent/frontend/pagematter/common/css/layer.css=UTF-8
 encoding//WebContent/frontend/pagematter/common/css/validform.style.css=UTF-8
 encoding//src/com/zhenapp/test/TextImprot.java=UTF-8
+encoding//src/com/zhenapp/util/Search.java=gbk
 encoding/<project>=UTF-8

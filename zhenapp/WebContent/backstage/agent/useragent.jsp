@@ -152,6 +152,8 @@
       location.href = "${pageContext.request.contextPath}/user/findUserByPageandRole?page=1&usernick=" + name + "&userpk=" + id + "&userphone=" + mobile;
     });
 
+    
+
     $(document).on("click", ".deleteUser", function() {
       if (confirm("你确定要删除吗？")) {
         $.getJSON('${pageContext.request.contextPath}/user/deleteUserByUserpkAndRole', {
@@ -184,7 +186,7 @@
 		{totalPages : parseInt($("#countindex").val()),
 			visiblePages : parseInt($("#visiblePages").val()),
 			currentPage : index,
-			first : '<li class="first"><a href="${pageContext.request.contextPath}/task/responsetaskmanage?page=1">首页</a></li>',
+			first : '<li class="first"><a onclick="btn_search(1);">首页</a></li>',
 			prev : '<li class="prev"><a href="javascript:;">上一页</a></li>',
 			next : '<li class="next"><a href="javascript:;">下一页</a></li>',
 			last : '<li class="last"><a href="javascript:;">末页</a></li>',
@@ -192,11 +194,17 @@
 			onPageChange : function(num, type) {
 				if (type == "change") {
 					//exeData(num, type);
-					window.location.href = "${pageContext.request.contextPath}/task/responsetaskmanage?page=" + num;
+					btn_search(num);
 				}
 			}
 		});
 	}
+	function btn_search(num){
+        var name = $("#userName").val();
+        var id = $("#userId").val();
+        var mobile = $("#mobile").val();
+        location.href = "${pageContext.request.contextPath}/user/findUserByPageandRole?page="+num+"&usernick=" + name + "&userpk=" + id + "&userphone=" + mobile;
+     }
 </script>
   <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
   <footer>

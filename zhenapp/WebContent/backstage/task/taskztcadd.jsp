@@ -17,8 +17,12 @@
 <![endif]-->
 <meta name="keywords" content="无线流量,无限流量代运营,无线刷流量 " />
 <meta name="description" content="无线流量,无限流量代运营,无线刷流量 " />
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/frontend/pagematter/common/img/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/backstage/pagematter/common/js/jquery-1.11.1.min.js"></script>
+	
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap-theme.min.css" />
 <link rel="stylesheet" type="text/css"
@@ -33,8 +37,7 @@
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/common.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/backstage/pagematter/common/css/sweetalert.css">
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/backstage/pagematter/common/js/jquery-1.11.1.min.js"></script>
+
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/backstage/pagematter/common/js/common.js"></script>
 <script type="text/javascript"
@@ -382,12 +385,10 @@
 										<input type="radio" name="Mode" v-model="tmChecked" checked="checked" value="0" onchange="checkmode(this);"/>
 										<span>新模式(推荐)</span>
 									</label> 
-									<!-- 
 									<label class="form_radio">
 										<input type="radio" name="Mode" v-model="myfChecked" value="1" onchange="checkmode(this);"/>
 										<span>老模式</span>
-									</label> 
-									 -->
+									</label>
 								</div>
 								<div class="form_control clearfix" id="div_taskimgztc" style="display: none;">
 									<label class="form_label">直通车图片：</label> 
@@ -397,6 +398,7 @@
 									maxlength="1000" />&nbsp;&nbsp;&nbsp;&nbsp;
 									<span id="span_taskimgztc"></span>
 								</div>
+								
 								<div class="form_control clearfix" id="div_creativetitle" style="display: block;">
 									<label class="form_label">创意标题：</label> 
 									<input type="text" name="creativetitle" placeholder="请输入创意标题" id="creativetitle" style="width:350px;" onchange="checktitle();"
@@ -418,7 +420,7 @@
 										<h2>
 											<scan class="scan_icon">
 											<a><i class="fa fa-chevron-circle-right fa-lg"></i></a></scan>
-											卡位可选信息区（点击显示更多可选项，以更好的提升宝贝流量）建议保持默认不做更改!!
+											卡位可选信息区（价格区间太大或太小均可导致找宝贝失败，如果实际排名不在200内（车位前5-7）甚至更低，必须卡价格）
 										</h2>
 									</div>
 										<div class="form_control clearfix">
@@ -435,109 +437,72 @@
 											<label class="form_label">卡价格模式：</label> 
 											<label class="form_radio">
 												<input type="radio" name="priceMode" 
-												<c:if test="${tTaskInfoCustom!=null && tTaskInfoCustom.priceMode=='0'}">checked="checked"</c:if>
 												 v-model="myfChecked" value="0"  onchange="checkpricemode(this);"/>
 												<span>默认综合不卡价格（必须排名很前）</span></label> 
+											
 											<label class="form_radio">
-												<input type="radio" name="priceMode" 
-												<c:if test="${tTaskInfoCustom == null}">checked="checked"</c:if>
-												<c:if test="${tTaskInfoCustom!=null && tTaskInfoCustom.priceMode=='1' }">checked="checked"</c:if>
-												id="priceMode2" v-model="tmChecked" value="1" onchange="checkpricemode(this);"/>
-												<span>默认卡原价加减1元（成功率最高，速度最快）</span>
-											</label>
+												<input type="radio" name="priceMode"
+												v-model="tmChecked" value="3" onchange="checkpricemode(this);"/>
+												<span>自定义（如检测不在排名内，请尝试缩小或扩大价格区间再次检测）</span>
+											</label> 
 										</div>
 										<div class="form_control clearfix">
 											<label class="form_label"></label> 
 											<label class="form_radio">
-												<input type="radio" name="priceMode" 
-												<c:if test="${tTaskInfoCustom!=null && tTaskInfoCustom.priceMode=='2' }">checked="checked"</c:if>
-												id="priceMode2" v-model="myfChecked" value="2" onchange="checkpricemode(this);"/>
-												<span>默认卡原价加减10元（成功率其次，慢）</span></label> 
-											<label class="form_radio">
-												<input type="radio" name="priceMode" 
-												<c:if test="${tTaskInfoCustom!=null && tTaskInfoCustom.priceMode=='3' }">checked="checked"</c:if>
-												v-model="tmChecked" value="3" onchange="checkpricemode(this);"/>
-												<span>自定义（请亲自手动搜索成功再用）</span>
-											</label> 
+												<input type="radio" name="priceMode"  checked="checked"
+												 v-model="myfChecked" value="1"  onchange="checkpricemode(this);"/>
+												<span>自动卡价格（推荐）&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												&nbsp;&nbsp;&nbsp;
+												</span>
+											</label>
 										</div>
 										<div class="form_control clearfix" id="div_price">
 											<label class="form_label">自定义价格区间:</label>
 											<input class="form_input input50" type="text" name="taskminprice" id="taskminprice" v-model="start_price" value=0 onchange="setprice(this);"/> 
 											<span class="Validform_checktip scan_break">--</span> 
 											<input class="form_input input50" type="text" name="taskmaxprice" id="taskmaxprice" v-model="end_price" value=0 onchange="setprice(this);"/>
+											最小价格填写为宝贝的原价或者比原价少1-10元最容易校验成功
 										</div>
-										<!-- 
-										<div class="form_control clearfix">
-											<label class="form_label">发货地：</label>
-											<select name="shipaddress" id="shipaddress" class="form_select select_big" v-model="loc">
-												<option value="所有地区">所有地区</option>
-												<option value="江浙沪">江浙沪</option>
-												<option value="珠三角">珠三角</option>
-												<option value="港澳台">港澳台</option>
-												<option value="海外">海外</option>
-												<option value="北京">北京</option>
-												<option value="上海">上海</option>
-												<option value="广州">广州</option>
-												<option value="深圳">深圳</option>
-												<option value="杭州">杭州</option>
-												<option value="温州">温州</option>
-												<option value="宁波">宁波</option>
-												<option value="南京">南京</option>
-												<option value="苏州">苏州</option>
-												<option value="济南">济南</option>
-												<option value="青岛">青岛</option>
-												<option value="大连">大连</option>
-												<option value="无锡">无锡</option>
-												<option value="合肥">合肥</option>
-												<option value="天津">天津</option>
-												<option value="长沙">长沙</option>
-												<option value="武汉">武汉</option>
-												<option value="郑州">郑州</option>
-												<option value="石家庄">石家庄</option>
-												<option value="成都">成都</option>
-												<option value="重庆">重庆</option>
-												<option value="西安">西安</option>
-												<option value="昆明">昆明</option>
-												<option value="南宁">南宁</option>
-												<option value="福州">福州</option>
-												<option value="厦门">厦门</option>
-												<option value="南昌">南昌</option>
-												<option value="东莞">东莞</option>
-												<option value="沈阳">沈阳</option>
-												<option value="长春">长春</option>
-												<option value="哈尔滨">哈尔滨</option>
-												<option value="河北">河北</option>
-												<option value="河南">河南</option>
-												<option value="湖北">湖北</option>
-												<option value="湖南">湖南</option>
-												<option value="福建">福建</option>
-												<option value="江苏">江苏</option>
-												<option value="江西">江西</option>
-												<option value="广东">广东</option>
-												<option value="广西">广西</option>
-												<option value="海南">海南</option>
-												<option value="浙江">浙江</option>
-												<option value="安徽">安徽</option>
-												<option value="吉林">吉林</option>
-												<option value="辽宁">辽宁</option>
-												<option value="黑龙江">黑龙江</option>
-												<option value="山东">山东</option>
-												<option value="山西">山西</option>
-												<option value="陕西">陕西</option>
-												<option value="新疆">新疆</option>
-												<option value="内蒙古">内蒙古</option>
-												<option value="云南">云南</option>
-												<option value="贵州">贵州</option>
-												<option value="四川">四川</option>
-												<option value="甘肃">甘肃</option>
-												<option value="宁夏">宁夏</option>
-												<option value="青海">青海</option>
-												<option value="西藏">西藏</option>
-												<option value="香港">香港</option>
-												<option value="澳门">澳门</option>
-												<option value="台湾">台湾</option>
-											</select>
-										</div> -->
+										<div class="form_control clearfix" id="div_price">
+											<label class="form_label" style="margin-left: 200px;">
+												<a href="#" class="btn btn-success btn-xs" id="a_check"> 校验直通车实际排名  </a>
+											</label>
+											<font color="red">安徽芜湖地区不能屏蔽才能校验</font>
+											<!--  <div id="div_image" style="margin-left: 300px;display: none;">
+												<div class="small_pic">
+													<a href="#pic_one">
+														<img id="img_ztc" height="60px" width="60px;" src="http://g.search1.alicdn.com/img/i1/139560256167526225/TB2iNn6tXXXXXakXpXXXXXXXXXX_!!0-saturn_solar.jpg_60x60.jpg" />
+													</a>
+												</div>
+												<div id="pic_one" style="display:none;">
+													<img id="img_ztc2" src="http://g.search1.alicdn.com/img/i1/139560256167526225/TB2iNn6tXXXXXakXpXXXXXXXXXX_!!0-saturn_solar.jpg_350x350.jpg" />
+												</div>
+											</div>-->
+										</div>
+										<div id="div_image" style="margin-left: 10px;display: none;">
+											<div class="small_pic">
+												<a href="#pic_one">
+													<img id="img_ztc" height="60px" width="60px;" src="http://g.search1.alicdn.com/img/i1/139560256167526225/TB2iNn6tXXXXXakXpXXXXXXXXXX_!!0-saturn_solar.jpg_60x60.jpg" />
+												</a>
+											</div>
+											<div id="pic_one" style="display:none;">
+												<img id="img_ztc2" src="http://g.search1.alicdn.com/img/i1/139560256167526225/TB2iNn6tXXXXXakXpXXXXXXXXXX_!!0-saturn_solar.jpg_350x350.jpg" />
+											</div>
+										</div>
+										<div id="div_bur" style="margin-left:205px;margin-top:10px;display: none;">
+											<img src="${pageContext.request.contextPath}/backstage/pagematter/common/img/bur.gif"></img>
+										</div>
+										<div id="div_dialog" title="校验发布宝贝信息" style="margin-left:25px;margin-top:10px;width:300px;height:150px;">
+												<p>直通车实际排名不在200内</p>
+												<p>1，直通车出价尽量控制到排名5到10名内</p>
+												<p>2，请尝试把价格区间扩大或者缩小再次检查</p>
+												<p>3，如刚操作过直通车后台，15分钟后方能搜到结果</p>
+												<p>4，如果检测不到不要紧，请尝试强制发布</p>
+												<a href="#" id="a_return" class="btn btn-info btn-xs" > 返回修改</a>
+												<a href="#" id="a_compel" class="btn btn-danger btn-xs" > 强制发布</a>
+											</div>
+										
 								<div class="taxkTips">
 									<h2>
 										<scan class="scan_icon">
@@ -776,6 +741,7 @@
 								</div>
 								<div id="buttonSubmit" class="form_control clearfix"
 									style="margin-top:20px; border-bottom:none;">
+									
 									<div class="botton" style="margin-left:40px;">
 										<input type="button" class="btn btn-info" id="subbtn" value="发布任务" />
 									</div>
@@ -792,29 +758,25 @@
 			</div>
 			<script type="text/javascript">
         $(function () {
+        	$("div.small_pic a").fancyZoom({scaleImg: true, closeOnClick: true});
         	$(".leftmenu").load("${pageContext.request.contextPath}/backstage/user/menu.jsp");
         	
-            $(".koo_fromBox").Validform({
-                tiptype: 3,
-            });
         });
-        $(document).ready(function(){
+        /*$(document).ready(function(){
             $(".box_toggle").on('click', (function(){
                 $(this).next(".toggle_wrapper").animate({height: 'toggle', opacity: 'toggle'}, "slow");
             },function(){
                 $(this).next(".toggle_wrapper").animate({height: 'toggle', opacity: 'toggle'}, "slow");
             }));
-        });
+        });*/
         var uri = "${pageContext.request.contextPath}";
     </script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/layer_user.js"></script>
+
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/taskztcadd.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/backstage/pagematter/common/js/Validform_v5.3.2.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/backstage/pagematter/common/js/content_zoom.js"></script>
 		</div>
 	</div>
 	<div class="copyRight">

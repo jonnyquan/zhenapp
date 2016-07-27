@@ -46,5 +46,6 @@
 				and taskid = #{taskid}
 			</if>
 		</where>
+		limit 0,1
 	</select>
 </mapper>
