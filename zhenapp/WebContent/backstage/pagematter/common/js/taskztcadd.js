@@ -1,8 +1,11 @@
 var myDate = new Date();
 var hour = myDate.getHours();
-var llmax = 10000;//最大流量数
+var llmax = 50;//最大流量数
 var gwcmax = 0;//最大购物车数
 var scmax = 0;//最大收藏数量
+var llmax_temp = 50;//查询的临时最大流量数
+var gwcmax_temp = 0;//查询的临时最大购物车数
+var scmax_temp = 0;//查询的临时最大收藏数量
 var keywords=1;//关键词数量
 var days=1;//天数
 var subtractll = 0;//统计消耗积分时要去掉的当天不发布的流量数
@@ -675,13 +678,16 @@ function checkword(obj){
 					istaskword="";
 					$(obj).parent().next().next().next().next().html("关键词填写正确");
 					$(obj).parent().next().next().next().next().css("color","green");
-					llmax=data.count/keywords;
-					scmax=data.countztc/keywords;
-					gwcmax=data.countztc/keywords;
+					llmax_temp=data.count;
+					scmax_temp=data.countztc;
+					gwcmax_temp=data.countztc;
+					llmax=llmax_temp;
+					scmax=llmax_temp/keywords;
+					gwcmax=llmax_temp/keywords;
 					$("#span_flowcount_text").html("  今天最多还可发:"+llmax);
 					$("#span_shopping_text").html("  今天最多还可发:"+gwcmax);
 					$("#span_collection_text").html("  今天最多还可发:"+scmax);
-					if(parseInt($("#flowcount").val()) > parseInt(llmax)){
+					if(parseInt($("#flowcount").val()) > parseInt(llmax_temp)){
 						$("#span_flowcount").html("该宝贝发布流量数不允许超过："+llmax);
 						$("#span_flowcount").css("color","red");
 						$("#flowcount").val(llmax);
@@ -694,7 +700,7 @@ function checkword(obj){
 					if(parseInt($("#collectioncount").val()) > parseInt(scmax)){
 						$("#span_collection").html("该宝贝发布收藏数不能大于允许发布的最大收藏数");
 						$("#span_collection").css("color","red");
-						$("#collectioncount").val(scmax);
+						$("#collectioncount").val(scmax_temp);
 					}else{
 						$("#span_collection").html("该宝贝发布收藏数填写正确!");
 						$("#span_collection").css("color","green");
@@ -720,7 +726,8 @@ function checkword(obj){
 /*
 添加多关键词
  */
-function addinput(){ 
+function addinput(){
+	
 	var trNumber=document.getElementById("tab_keyword").rows.length; 
 	if(trNumber<4){
 		var newTr=document.getElementById("tab_keyword").insertRow(trNumber); 
@@ -733,6 +740,9 @@ function addinput(){
 		newTr.insertCell(6).innerHTML="";
 	}
 	keywords = $("input[name='taskkeywords']").length;
+	llmax=llmax_temp;
+	scmax=llmax_temp/keywords;
+	gwcmax=llmax_temp/keywords;
 	checkurl($("#taskurl")[0]);
 	totalsum();
 }
@@ -742,6 +752,9 @@ function addinput(){
 function delRow(r){ 
 	document.getElementById("tab_keyword").deleteRow(r.parentNode.parentNode.rowIndex);
 	keywords = $("input[name='taskkeywords']").length;
+	llmax=llmax_temp;
+	scmax=llmax_temp/keywords;
+	gwcmax=llmax_temp/keywords;
 	checkurl($("#taskurl")[0]);
 	totalsum();
 }	

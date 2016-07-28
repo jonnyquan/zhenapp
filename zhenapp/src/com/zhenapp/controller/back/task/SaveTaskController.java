@@ -202,15 +202,15 @@ public class SaveTaskController {
 			int shoppingerror = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
 			int scmax=Integer.parseInt(tSysconfInfoCustom.getSysconfvalue2())-shoppingerror;
 			int gwcmax=Integer.parseInt(tSysconfInfoCustom.getSysconfvalue2())-shoppingerror;
-			if(tTaskInfoCustom.getCollectioncount() - scmax > 0){
+			if(tTaskInfoCustom.getCollectioncount()*taskkeywordarr.length - scmax > 0){
 				map.put("data", "scmaxerror");
 				return map;
 			}
-			if(tTaskInfoCustom.getShoppingcount() - gwcmax > 0){
+			if(tTaskInfoCustom.getShoppingcount()*taskkeywordarr.length - gwcmax > 0){
 				map.put("data", "gwcmaxerror");
 				return map;
 			}
-			if(tTaskInfoCustom.getShoppingcount() - tTaskInfoCustom.getCollectioncount() !=0){
+			if(tTaskInfoCustom.getShoppingcount()*taskkeywordarr.length - tTaskInfoCustom.getCollectioncount() !=0){
 				map.put("data", "gwcnotsc");
 				return map;
 			}

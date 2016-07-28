@@ -271,36 +271,7 @@ public class FirstWebController {
 	 */
 	@RequestMapping(value="/api/url/validateztc")
 	public @ResponseBody ModelMap apiurlvalidateztc(String param,String taskkeynum) throws Exception{
-		//String url= liuliangapp+"/api/url/validate";
 		ModelMap map = new ModelMap();
-		/*HttpClient httpClient = new HttpClient();
-		String result="";
-        PostMethod postMethod = new PostMethod(url);
-        //postMethod.setParameter("url", "https://item.taobao.com/item.htm?id=531027639098");
-        //https://detail.tmall.com/item.htm?id=531027639098
-        postMethod.setParameter("url", param);
-        postMethod.setParameter("cache", "true");
-        postMethod.setRequestHeader("secret", secret);
-        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
-        int statusCode =  httpClient.executeMethod(postMethod);
-        if(statusCode == 200) {
-            result = postMethod.getResponseBodyAsString();
-            ObjectMapper obj = new ObjectMapper();
-    		FirstWebInfoCustom firstWebInfoCustom = obj.readValue(result, FirstWebInfoCustom.class);
-    		if(firstWebInfoCustom.isSuccess()){
-    			map.put("status", "y");
-    			map.put("info", "验证成功");
-    			logger.info("验证成功");
-    		}else{
-    			map.put("status", "n");
-				map.put("info", "验证失败");
-				logger.error("验证失败");
-    		}
-        }else {
-            logger.error("调用失败" + statusCode);
-            map.put("status", "n");
-			map.put("info", "验证失败");
-        }*/
 		map.put("status", "y");
 		map.put("info", "验证成功");
 		logger.info("验证成功");
@@ -342,50 +313,27 @@ public class FirstWebController {
 	}
 	@RequestMapping(value="/api/keywords/validateztc/{keywords}/{taskkeynum}")
 	public @ResponseBody ModelMap apikeywordsvalidateztc(@PathVariable(value="keywords")String keywords,@PathVariable(value="taskkeynum")String taskkeynum) throws Exception{
-		//String url= liuliangapp+"/api/keywords/validate";
 		ModelMap map = new ModelMap();
-		/*HttpClient httpClient = new HttpClient();
-		String result="";
-        PostMethod postMethod = new PostMethod(url);
-        postMethod.setRequestHeader("secret", secret);
-        //postMethod.setParameter("keywords",URLEncoder.encode(keywords.trim(), "UTF-8") );
-        postMethod.setParameter("keywords",keywords.trim().replace(" ", "　") );
-        postMethod.setParameter("product_id", taskkeynum);
-        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
-        int statusCode =  httpClient.executeMethod(postMethod);
-        if(statusCode == 200) {
-            result = postMethod.getResponseBodyAsString();
-            ObjectMapper obj = new ObjectMapper();
-    		ApireturnCustom apireturnCustom = obj.readValue(result, ApireturnCustom.class);
-    		if(apireturnCustom.getSuccess().equals("false")){
-    			map.put("msg", "0");
-    		}else{*/
-    			map.put("msg", "1");
-    			//做过该宝贝id的直通车任务数
-    			TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
-    			HashMap<String, Object> hashmap = new HashMap<String, Object>();
-    			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
-    			hashmap.put("taskkeynum", taskkeynum);
-    			hashmap.put("taskkeyword", keywords);
-    			hashmap.put("taskstatenot", "22,23");
-    			hashmap.put("tasktype", "34");
-    			int taskcountztc = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
-    			map.put("count", Integer.parseInt(tSysconfInfoCustom.getSysconfvalue2())-taskcountztc);
-    			hashmap.clear();
-    			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
-    			hashmap.put("taskkeynum", taskkeynum);
-    			hashmap.put("taskstatenot", "22,23");
-    			hashmap.put("tasktype", "34");
-    			hashmap.put("iscollection", "1");
-    			hashmap.put("isshopping", "1");
-    			int taskcount = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
-    			map.put("countztc", Integer.parseInt(tSysconfInfoCustom.getSysconfvalue2())-taskcount);
-    			/*	}
-        }
-        else {
-            logger.error("调用失败,失败错误码:" + statusCode);
-            map.put("msg", "0");
-        }*/
+		map.put("msg", "1");
+		//做过该宝贝id的直通车任务数
+		TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("taskdate", yyyyMMdd.format(new Date()));
+		hashmap.put("taskkeynum", taskkeynum);
+		hashmap.put("taskkeyword", keywords);
+		hashmap.put("taskstatenot", "22,23");
+		hashmap.put("tasktype", "34");
+		int taskcountztc = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
+		map.put("count", Integer.parseInt(tSysconfInfoCustom.getSysconfvalue2())-taskcountztc<0?0:Integer.parseInt(tSysconfInfoCustom.getSysconfvalue2())-taskcountztc);
+		hashmap.clear();
+		hashmap.put("taskdate", yyyyMMdd.format(new Date()));
+		hashmap.put("taskkeynum", taskkeynum);
+		hashmap.put("taskstatenot", "22,23");
+		hashmap.put("tasktype", "34");
+		hashmap.put("iscollection", "1");
+		hashmap.put("isshopping", "1");
+		int taskcount = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
+		map.put("countztc", Integer.parseInt(tSysconfInfoCustom.getSysconfvalue2())-taskcount<0?0:Integer.parseInt(tSysconfInfoCustom.getSysconfvalue2())-taskcount);
 		return map;
 	}
 	/*
