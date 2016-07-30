@@ -294,6 +294,10 @@
     	<if test="allocationdate != null and allocationdate != ''">
     		and taskdate+0 <![CDATA[>=]]> DATE_FORMAT(#{allocationdate},'%Y%m%d')+0
     	</if>
+    	<if test="tasktype != null and tasktype != ''">
+    		and tasktype = #{tasktype}
+    	</if>
+    	
     </where>
   </select>
   <select id="findEndTaskfordel" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap">

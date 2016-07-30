@@ -40,7 +40,7 @@ img {
 		<p><img src="${pageContext.request.contextPath}/webimg/404.jpg"/></p>
 	</div>
 	<div style="margin:0px auto;color:red;">
-		${msg}<a target="_blank" href="tencent://message/?uin=319809430&&Site=sc.chinaz.com&&Menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=1:12345678:42"></a>
+		${msg}<a target="_blank" href="tencent://message/?uin=1105889150&&Site=sc.chinaz.com&&Menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=1:12345678:42"></a>
 	</div>
 </body>
 </html>

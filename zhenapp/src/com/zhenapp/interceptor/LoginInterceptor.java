@@ -1,5 +1,6 @@
 package com.zhenapp.interceptor;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -99,9 +100,16 @@ public class LoginInterceptor implements HandlerInterceptor {
 	public void afterCompletion(HttpServletRequest request,
 			HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-		if (ex != null) {
+		/*if (ex != null) {
 			request.getRequestDispatcher("/info.jsp").forward(request, response);
 			return;
+		}*/
+		RequestDispatcher rd =request.getRequestDispatcher("/info.jsp");
+		try{
+			rd.forward(request, response);
+			return;
+		}catch (Exception e) {
+			//request.getRequestDispatcher("/info.jsp").forward(request, response);
 		}
 	}
 

@@ -1,4 +1,4 @@
-package com.zhenapp.controller.Timedtask;
+/*package com.zhenapp.controller.Timedtask;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhenapp.po.Custom.TSysconfInfoCustom;
@@ -49,10 +48,10 @@ public class CheckErrorTask {
 	private String secret;
 	@Value("${liuliangapp}")
 	private String liuliangapp;
-	/*
+	
 	 * 将任务错误数大于等于系统设置的最大任务错误数即终止该任务
-	 */
-	@RequestMapping(value="/api/platform/endTaskstate")
+	 
+	//@RequestMapping(value="/api/platform/endTaskstate")
 	public @ResponseBody ModelMap endTaskstate() throws Exception{
 		ModelMap map = new ModelMap();
 		TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
@@ -135,6 +134,7 @@ public class CheckErrorTask {
 				}
 			}
 		}
+		
 		hashmap.clear();
 		hashmap.put("counts", tSysconfInfoCustom.getSysconfname3());
 		hashmap.put("tasktype", "34");
@@ -164,3 +164,4 @@ public class CheckErrorTask {
 		return map;
 	}
 }
+*/

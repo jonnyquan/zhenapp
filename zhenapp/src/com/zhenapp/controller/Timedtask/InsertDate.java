@@ -6,13 +6,14 @@ import java.util.Date;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhenapp.po.Custom.TDateInfoCustom;
 import com.zhenapp.service.DateInfoService;
-
+@Transactional
 @Controller
 public class InsertDate {
 	private static Logger logger = Logger.getLogger(InsertDate.class);
@@ -23,7 +24,7 @@ public class InsertDate {
 	SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
 	SimpleDateFormat HHmm = new SimpleDateFormat("HHmm");
 	@RequestMapping(value="/api/platform/insertDateByTimes")
-	public @ResponseBody ModelMap allocateiontask() throws Exception{
+	public @ResponseBody ModelMap insertDateByTimes() throws Exception{
 		ModelMap map = new ModelMap();
 		TDateInfoCustom tDateInfoCustom = new TDateInfoCustom();
 		tDateInfoCustom.setDateid(yyyyMMdd.format(new Date()));

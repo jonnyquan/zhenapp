@@ -4,9 +4,9 @@
 	<select id="findDataBydate" resultType="com.zhenapp.po.Custom.DatacountInfoCustom" parameterType="java.util.HashMap">
 		SELECT aaa.datevalue AS DATE,SUM(IFNULL(aaa.finishcount,0)) AS finishcount,SUM(IFNULL(aaa.shoppingcount,0)) AS shoppingcount,SUM(IFNULL(aaa.collectioncount,0)) AS collectioncount,
 		SUM(IFNULL(aaa.ztccount,0)) AS ztccount,SUM(IFNULL(aaa.shoppingztccount,0)) AS shoppingztccount,SUM(IFNULL(aaa.collectionztccount,0)) AS collectionztccount,
-		SUM(IFNULL(aaa.buypoints,0)) AS buypoints,SUM(IFNULL(aaa.expendpoints,0))-SUM(IFNULL(aaa.endpoints2,0)) AS expendpoints,SUM(IFNULL(aaa.handworkpoints,0)) AS handworkpoints
+		SUM(IFNULL(aaa.buypoints,0)) AS buypoints,SUM(IFNULL(aaa.counts,0)) AS expendpoints,SUM(IFNULL(aaa.handworkpoints,0)) AS handworkpoints
 		FROM (
-		SELECT AA.*,BB.finishcount,B.shoppingcount,B.collectioncount,B.ztccount,B.shoppingztccount,B.collectionztccount,C.buypoints,D.expendpoints,E.handworkpoints,F.expendpoints AS endpoints2 FROM 
+		SELECT AA.*,BB.finishcount,B.shoppingcount,B.collectioncount,B.ztccount,B.shoppingztccount,B.collectionztccount,C.buypoints,D.counts,E.handworkpoints FROM 
 		(SELECT A.datevalue,A.userid,B.agentpk,B.agentid,b.agentuserid FROM (SELECT a.datevalue,b.userid,b.agentid FROM t_date_info a,t_user_info b) A LEFT JOIN t_agent_info B ON A.AGENTID=B.AGENTID) AA
 		LEFT JOIN (SELECT b.taskdate,b.createuser,SUM(b.isshoppingll) AS shoppingcount,SUM(b.iscollectionll) AS collectioncount,SUM(b.ztc) AS ztccount,
 		SUM(b.isshoppingztc) AS shoppingztccount,SUM(b.iscollectionztc) AS collectionztccount FROM(SELECT taskdate,createuser,
@@ -18,8 +18,7 @@
 		FROM t_task_detailinfo WHERE taskstate='21') b GROUP BY b.taskdate,b.createuser) B ON AA.datevalue=B.taskdate AND AA.userid=B.createuser
 		LEFT JOIN (SELECT LEFT(createtime,8) AS taskdate,createuser,finishcount FROM t_task_detailinfo_flow) BB ON AA.datevalue=BB.taskdate AND AA.userid=BB.createuser
 		LEFT JOIN (SELECT LEFT(createtime,8) AS taskdate,createuser,SUM(pointsupdate) AS buypoints FROM t_points_info WHERE pointstype='26' GROUP BY LEFT(createtime,8),createuser) C ON AA.datevalue=C.taskdate AND AA.userid=C.createuser
-		LEFT JOIN (SELECT LEFT(createtime,8) AS taskdate,createuser,SUM(pointsupdate) AS expendpoints FROM t_points_info WHERE pointstype='27' GROUP BY LEFT(createtime,8),createuser) D ON AA.datevalue=D.taskdate AND AA.userid=D.createuser
-		LEFT JOIN (SELECT LEFT(createtime,8) AS taskdate,createuser,SUM(pointsupdate) AS expendpoints FROM t_points_info WHERE pointstype='28' GROUP BY LEFT(createtime,8),createuser) F ON AA.datevalue=F.taskdate AND AA.userid=F.createuser
+		LEFT JOIN (SELECT taskdate,createuser,(COUNT(iscollection)+COUNT(isshopping)+COUNT(1)) AS counts FROM t_task_detailinfo WHERE taskstate='21' GROUP BY taskdate,createuser) D ON AA.datevalue=D.taskdate AND AA.userid=D.createuser
 		LEFT JOIN (SELECT LEFT(createtime,8) AS taskdate,createuser,SUM(pointsupdate) AS handworkpoints FROM t_points_info WHERE pointstype='31' GROUP BY LEFT(createtime,8),createuser) E ON AA.datevalue=E.taskdate AND AA.userid=E.createuser
 		<where>
 			<if test="agentid != null and agentid !='' ">
@@ -41,9 +40,9 @@
 	<select id="findSUMDataBydate" resultType="com.zhenapp.po.Custom.DatacountInfoCustom" parameterType="java.util.HashMap">  
 		SELECT SUM(IFNULL(aaa.finishcount,0)) AS finishsum,SUM(IFNULL(aaa.shoppingcount,0)) AS shoppingsum,SUM(IFNULL(aaa.collectioncount,0)) AS collectionsum,
 		SUM(IFNULL(aaa.ztccount,0)) AS ztcsum,SUM(IFNULL(aaa.shoppingztccount,0)) AS shoppingztcsum,SUM(IFNULL(aaa.collectionztccount,0)) AS collectionztcsum,
-		SUM(IFNULL(aaa.buypoints,0)) AS sumbuypoints,SUM(IFNULL(aaa.expendpoints,0))-SUM(IFNULL(aaa.endpoints2,0)) AS sumexpendpoints,SUM(IFNULL(aaa.handworkpoints,0)) AS sumhandworkpoints
+		SUM(IFNULL(aaa.buypoints,0)) AS sumbuypoints,SUM(IFNULL(aaa.counts,0)) AS sumexpendpoints,SUM(IFNULL(aaa.handworkpoints,0)) AS sumhandworkpoints
 		FROM (
-		SELECT AA.*,BB.finishcount,B.shoppingcount,B.collectioncount,B.ztccount,B.shoppingztccount,B.collectionztccount,C.buypoints,D.expendpoints,E.handworkpoints,F.expendpoints AS endpoints2 FROM 
+		SELECT AA.*,BB.finishcount,B.shoppingcount,B.collectioncount,B.ztccount,B.shoppingztccount,B.collectionztccount,C.buypoints,D.counts,E.handworkpoints FROM  
 		(SELECT A.datevalue,A.userid,B.agentpk,B.agentid,b.agentuserid FROM (SELECT a.datevalue,b.userid,b.agentid FROM t_date_info a,t_user_info b) A LEFT JOIN t_agent_info B ON A.AGENTID=B.AGENTID) AA
 		LEFT JOIN (SELECT b.taskdate,b.createuser,SUM(b.isshoppingll) AS shoppingcount,SUM(b.iscollectionll) AS collectioncount,SUM(b.ztc) AS ztccount,
 		SUM(b.isshoppingztc) AS shoppingztccount,SUM(b.iscollectionztc) AS collectionztccount FROM(SELECT taskdate,createuser,
@@ -55,8 +54,7 @@
 		FROM t_task_detailinfo WHERE taskstate='21') b GROUP BY b.taskdate,b.createuser) B ON AA.datevalue=B.taskdate AND AA.userid=B.createuser
 		LEFT JOIN (SELECT LEFT(createtime,8) AS taskdate,createuser,finishcount FROM t_task_detailinfo_flow) BB ON AA.datevalue=BB.taskdate AND AA.userid=BB.createuser
 		LEFT JOIN (SELECT LEFT(createtime,8) AS taskdate,createuser,SUM(pointsupdate) AS buypoints FROM t_points_info WHERE pointstype='26' GROUP BY LEFT(createtime,8),createuser) C ON AA.datevalue=C.taskdate AND AA.userid=C.createuser
-		LEFT JOIN (SELECT LEFT(createtime,8) AS taskdate,createuser,SUM(pointsupdate) AS expendpoints FROM t_points_info WHERE pointstype='27' GROUP BY LEFT(createtime,8),createuser) D ON AA.datevalue=D.taskdate AND AA.userid=D.createuser
-		LEFT JOIN (SELECT LEFT(createtime,8) AS taskdate,createuser,SUM(pointsupdate) AS expendpoints FROM t_points_info WHERE pointstype='28' GROUP BY LEFT(createtime,8),createuser) F ON AA.datevalue=F.taskdate AND AA.userid=F.createuser
+		LEFT JOIN (SELECT taskdate,createuser,(COUNT(iscollection)+COUNT(isshopping)+COUNT(1)) AS counts FROM t_task_detailinfo WHERE taskstate='21' GROUP BY taskdate,createuser) D ON AA.datevalue=D.taskdate AND AA.userid=D.createuser
 		LEFT JOIN (SELECT LEFT(createtime,8) AS taskdate,createuser,SUM(pointsupdate) AS handworkpoints FROM t_points_info WHERE pointstype='31' GROUP BY LEFT(createtime,8),createuser) E ON AA.datevalue=E.taskdate AND AA.userid=E.createuser
 		<where>
 			<if test="agentid != null and agentid !='' ">

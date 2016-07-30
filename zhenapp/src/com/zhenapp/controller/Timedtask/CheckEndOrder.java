@@ -1,4 +1,4 @@
-package com.zhenapp.controller.Timedtask;
+/*package com.zhenapp.controller.Timedtask;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -67,9 +67,9 @@ public class CheckEndOrder {
 	private String secret;
 	@Value("${liuliangapp}")
 	private String liuliangapp;
-	/*
+	
 	 * 每一分钟执行一次 查询任务状态为终止中的任务,检查是否所有详情任务都已返回，如果都已处理修改为已终止，结束任务，返回积分
-	 */
+	 
 	@RequestMapping("/api/platform/updateTaskstateByTiming")
 	public @ResponseBody ModelMap updateTaskstateByTiming() throws Exception{
 		ModelMap map = new ModelMap();
@@ -287,3 +287,4 @@ public class CheckEndOrder {
 		return map;
 	}
 }
+*/

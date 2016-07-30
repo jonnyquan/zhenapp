@@ -294,7 +294,7 @@ public class Taskallocation {
 					 	    		taskDetailInfoFlowService.insertTaskDetailInfoFlow(tTaskDetailInfoFlowCustom);
 					            }
 						    }else {
-						        map.put("msg", "失败错误码" + statusCode);
+						        map.put("msg", "调用接口失败,失败错误码" + statusCode);
 						        throw new RuntimeException();
 						    }
 						}
@@ -302,9 +302,16 @@ public class Taskallocation {
 					    if(statusCode == 200) {
 					        result = postMethod.getResponseBodyAsString();
 					        if(result.indexOf("id")==-1){
+					        	String tempcode=result;
 				            	result = StringUtilWxf.translat(result);
 				            	logger.info("调用发布任务"+ tTaskInfoCustom.getTaskpk() +"接口失败，错误信息:" + result);
 				            	map.put("msg", "调用发布任务接口失败，错误信息:" + result);
+				            	//如果是因为深入点击比例错误，则修改任务信息中深入点击比例为0
+				            	if(tempcode.equals("116")){
+				            		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+				            		hashmap.put("taskid", tTaskInfoCustom.getTaskid());
+				            		taskInfoService.updatedeepclick(hashmap);
+				            	}
 				            	throw new RuntimeException();
 				            }else{
 				            	ObjectMapper obj = new ObjectMapper();
@@ -315,7 +322,7 @@ public class Taskallocation {
 				 	    		taskDetailInfoFlowService.insertTaskDetailInfoFlow(tTaskDetailInfoFlowCustom);
 				            }
 					    }else {
-					        map.put("msg", "失败错误码" + statusCode);
+					        map.put("msg", "调用接口失败,失败错误码" + statusCode);
 					        throw new RuntimeException();
 					    }
 					}

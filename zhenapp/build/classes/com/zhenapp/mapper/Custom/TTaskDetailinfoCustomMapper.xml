@@ -124,7 +124,7 @@
   <select id="findTaskDetailByProblemAndPage" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom"  parameterType="java.util.HashMap">
   		select * from t_task_detailinfo 
   		<where>
-  			and phoneid IS NOT NULL AND visit IS NULL AND collect IS NULL AND trolley IS NULL AND TIMESTAMPDIFF(MINUTE ,DATE_FORMAT(createtime,'%Y%m%d%H%i%s'),DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'))>5
+  			and phoneid IS NOT NULL AND visit IS NULL AND collect IS NULL AND trolley IS NULL AND TIMESTAMPDIFF(MINUTE ,DATE_FORMAT(createtime,'%Y%m%d%H%i%s'),DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'))>10
   			<if test="phoneid !=null and phoneid != ''">
 		  		and phoneid = #{phoneid}
 		  	</if>
@@ -141,7 +141,7 @@
   <select id="findTotalTaskDetailByProblemAndPage" resultType="int" parameterType="java.util.HashMap">
   		select count(1) from t_task_detailinfo 
   		<where>
-  			and phoneid IS NOT NULL AND visit IS NULL AND collect IS NULL AND trolley IS NULL AND TIMESTAMPDIFF(MINUTE ,DATE_FORMAT(createtime,'%Y%m%d%H%i%s'),DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'))>5
+  			and phoneid IS NOT NULL AND visit IS NULL AND collect IS NULL AND trolley IS NULL AND TIMESTAMPDIFF(MINUTE ,DATE_FORMAT(createtime,'%Y%m%d%H%i%s'),DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'))>10
   			<if test="phoneid !=null and phoneid != ''">
 		  		and phoneid = #{phoneid}
 		  	</if>

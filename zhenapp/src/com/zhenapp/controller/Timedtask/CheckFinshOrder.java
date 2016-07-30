@@ -1,4 +1,4 @@
-package com.zhenapp.controller.Timedtask;
+/*package com.zhenapp.controller.Timedtask;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhenapp.po.Custom.MsgInfoCustom;
@@ -67,10 +66,10 @@ public class CheckFinshOrder {
 	private String secret;
 	@Value("${liuliangapp}")
 	private String liuliangapp;
-	/*
+	
 	 * 判断是否有任务执行完成        修改任务状态,积分处理
-	 */
-	@RequestMapping(value="/api/platform/cyclecheckTask")
+	 
+	//@RequestMapping(value="/api/platform/cyclecheckTask")
 	public @ResponseBody ModelMap cyclecheckTask() throws Exception{
 		ModelMap map = new ModelMap();
 		HashMap<String, Object> hashmap=new HashMap<String, Object>();
@@ -201,9 +200,9 @@ public class CheckFinshOrder {
 					int finshcount = taskInfoService.updateTaskstate(hashmap);
 					if(finshcount > 0){
 						map.put("data", "success");
-						logger.info("该订单已成功完成!");
+						logger.info(tTaskInfoCustom.getTaskpk()+"该订单已成功完成!");
 					}else{
-						logger.info("该订单"+tTaskInfoCustom.getTaskid()+"无法修改为已完成"+hashmap.toString());
+						logger.info("该订单"+tTaskInfoCustom.getTaskpk()+"无法修改为已完成"+hashmap.toString());
 						return map;
 					}
 		        	//任务失败积分数返回
@@ -319,3 +318,4 @@ public class CheckFinshOrder {
 		return map;	
 	}
 }
+*/

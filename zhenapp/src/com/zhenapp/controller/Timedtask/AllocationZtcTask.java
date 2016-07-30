@@ -44,8 +44,7 @@ public class AllocationZtcTask {
 			hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
 			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
 			hashmap.put("tasktype", "34");
-			hashmap.put("taskstate", "21,40");
-			hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
+			hashmap.put("taskstate", "21,20,40");
 			List<TTaskDetailinfoTempCustom> TTaskDetailinfoTempCustomlist = taskDetailInfoTempService.findtaskkeynumlistll(hashmap);
 			StringBuffer sbztc = new StringBuffer();
 			for (int j = 0; j < TTaskDetailinfoTempCustomlist.size(); j++) {
@@ -57,11 +56,8 @@ public class AllocationZtcTask {
 			hashmap.clear();
 			hashmap.put("phoneid",tPhoneInfoCustom.getPhoneid());
 			hashmap.put("taskdate", yyyyMMdd.format(new Date()));
-			//hashmap.put("isshopping", "0");
-			//hashmap.put("iscollection", "0");
 			hashmap.put("tasktype", "34");
-			hashmap.put("taskstate", "21,40");
-			hashmap.put("HHmm", HHmm.format(new Date().getTime() + 2*60*1000));
+			hashmap.put("taskstate", "21,20,40");
 			List<TTaskDetailinfoTempCustom> TTaskDetailinfoTempCustomlistll = taskDetailInfoTempService.findtaskkeynumlistll(hashmap);
 			StringBuffer sbztcll = new StringBuffer();
 			for (int j = 0; j < TTaskDetailinfoTempCustomlistll.size(); j++) {
