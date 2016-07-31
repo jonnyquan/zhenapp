@@ -38,7 +38,7 @@ public class FeedbackAccount {
 			tbaccountInfoService.updateTbaccountByid(tTbaccountInfoCustom);
 			map.put("return", "success");
 		}else{
-			map.put("return", "为查询到该账号信息或该账号信息不唯一");
+			map.put("return", "未查询到该账号信息或该账号信息不唯一");
 		}
 		return map;
 	}

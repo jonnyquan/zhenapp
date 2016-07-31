@@ -39,7 +39,7 @@ public class CheckBeforeOrder {
 		if(tTaskInfoCustomlistfinish!=null && tTaskInfoCustomlistfinish.size()>0){
 			for (int i = 0; i < tTaskInfoCustomlistfinish.size(); i++) {
 				TTaskInfoCustom tTaskInfoCustom = tTaskInfoCustomlistfinish.get(i);
-				checkBeforeOrderService.updateTaskstateByTime(tTaskInfoCustom);
+				map = checkBeforeOrderService.updateTaskstateByTime(tTaskInfoCustom);
 			}
 			logger.info("处理前一天未执行完成的任务结束");
 		}

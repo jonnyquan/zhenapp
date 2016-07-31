@@ -383,7 +383,7 @@
 	</where>
   </update>
   <update id="updateTaskDetailresultByid"  parameterType="java.util.HashMap" >
-  	update t_task_detailinfo set resultstr=#{result},updatetime=#{updatetime},updateuser=#{updateuser} where taskdetailid = #{taskdetailid} and phoneid is null
+  	update t_task_detailinfo set resultstr=#{result},updatetime=#{updatetime},updateuser=#{updateuser} where taskdetailid = #{taskdetailid}
   </update>
   <delete id="deleteTaskBystate" parameterType="java.util.HashMap">
 	  delete from t_task_detailinfo 

@@ -51,9 +51,9 @@ public class Timedtask {
         logger.info("判断终止中的直通车任务是否已终止....每分钟执行一次");
 	}
 	
-	@Scheduled(cron = "0 */2 * * * ?")//每隔1分钟执行一次 将执行终止状态的详情任务删除
+	@Scheduled(cron = "0 */5 * * * ?")//每隔1分钟执行一次 将执行终止状态的详情任务删除
 	public void job2() throws HttpException, IOException {
-		logger.info("任务执行开始....每分钟执行一次");
+		logger.info("任务执行开始....每5分钟执行一次");
 		HttpClient httpClient = new HttpClient();
 		String result="";
 		String url = host+"/api/platform/deleteTaskstate";
@@ -66,7 +66,7 @@ public class Timedtask {
         }else {
             logger.info("调用接口失败(/api/platform/deleteTaskstate)，返回："+statusCode);
         }
-        logger.info("将执行终止状态的详情任务删除....每分钟执行一次");
+        logger.info("将执行终止状态的详情任务删除....每5分钟执行一次");
 	}
 	
 	@Scheduled(cron = "0 */3 * * * ?")//每隔3分钟执行一次 判断任务是否已完成
