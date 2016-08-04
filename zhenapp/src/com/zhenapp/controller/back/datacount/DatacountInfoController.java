@@ -76,10 +76,10 @@ public class DatacountInfoController {
 	public @ResponseBody ModelAndView responsedatasumadmin(String tasktype,String datefrom,String dateto,String agentpk) throws Exception{
 		ModelAndView mv= new ModelAndView();
 		HashMap<String, Object> hashmap=new HashMap<String, Object>();
-		if(datefrom!=null){
+		if(datefrom!=null && !datefrom.equals("")){
 			hashmap.put("datefrom", datefrom.replace("-", ""));
 		}
-		if(datefrom!=null){
+		if(dateto!=null && !dateto.equals("")){
 			hashmap.put("dateto", dateto.replace("-", ""));
 		}
 		if(datefrom == null && dateto == null){

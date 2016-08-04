@@ -52,10 +52,10 @@ public class ResponseTaskManageAgentController {
 		}
 		pagemap.put("page", (page - 1) * middleRows);
 		pagemap.put("rows", middleRows);
-		if(datefrom!=null){
+		if(datefrom!=null && !datefrom.equals("")){
 			pagemap.put("datefrom", datefrom.replace("-", ""));
 		}
-		if(dateto!=null){
+		if(dateto!=null && !dateto.equals("")){
 			pagemap.put("dateto", dateto.replace("-", ""));
 		}
 		pagemap.put("taskpk", taskpk);

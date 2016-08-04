@@ -29,8 +29,11 @@
 			<p>
 				<a href="${pageContext.request.contextPath}/task/responsetaskztcadd" id="addztctask"><i class="fa fa-angle-right"></i>发布直通车任务</a>
 			</p>
-			<p>
+			<!--  <p>
 				<a href="${pageContext.request.contextPath}/task/responsetaskmanage" id="managetask"><i class="fa fa-angle-right"></i>任务管理</a>
+			</p>-->
+			<p>
+				<a href="${pageContext.request.contextPath}/api/findTaskInfoQueryuser" id="managetask"><i class="fa fa-angle-right"></i>任务管理</a>
 			</p>
 		</dd>
 	</dl>

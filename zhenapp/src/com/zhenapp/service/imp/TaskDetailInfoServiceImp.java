@@ -131,4 +131,10 @@ public class TaskDetailInfoServiceImp implements TaskDetailInfoService {
 			HashMap<String, Object> hashmap) throws Exception {
 		return tTaskDetailinfoCustomMapper.findexitid(hashmap);
 	}
+	@Override
+	public List<TTaskDetailInfoCustom> findTaskDetail(
+			HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskDetailinfoCustomMapper.findTaskDetail(hashmap);
+	}
 }

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenapp.mapper.Custom.TTaskInfoQueryCustomMapper" >
+	<select id="findTaskInfo" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskInfoQueryCustom">
+		SELECT b.usernick,a.taskpk,a.taskid,a.taskkeynum,a.tasktype,a.taskkeyword,a.flowcount AS flowcounts,a.collectioncount AS collectioncounts,a.shoppingcount AS shoppingcounts,a.taskdate,a.createtime as publishtime,a.taskstate,a.createuser,a.createtime
+		 FROM t_task_info a
+		LEFT JOIN t_user_info b ON a.createuser=b.userid
+		WHERE a.taskdate >= #{taskdate} AND a.taskpk NOT IN (SELECT taskpk FROM t_task_info_query)
+	</select>
+	
+	<select id="findTaskInfoByMap" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskInfoQueryCustom">
+		SELECT a.*,DATE_FORMAT(a.publishtime,'%Y-%m-%d %H:%i:%s')AS createtimename,b.dicinfoname AS taskstaterange,c.agentid FROM t_task_info_query a 
+		LEFT JOIN t_data_dic_info b ON a.taskstate=b.dicinfoid
+		LEFT JOIN t_user_info c ON a.createuser=c.userid
+		<where>
+			<if test="taskdate !=null and taskdate !=''">
+				and a.taskdate = #{taskdate}
+			</if>
+			<if test="taskstate !=null and taskstate !=''">
+				and a.taskstate in (${taskstate})
+			</if>
+			<if test="tasktype !=null and tasktype !=''">
+				and a.tasktype = #{tasktype}
+			</if>
+			<if test="datefrom !=null and datefrom !=''">
+				and a.publishtime >= #{datefrom}
+			</if>
+			<if test="dateto !=null and dateto !=''">
+				and a.publishtime <![CDATA[<=]]> #{dateto}
+			</if>
+			<if test="taskpk !=null and taskpk !=''">
+				and a.taskpk = #{taskpk}
+			</if>
+			<if test="taskkeynum !=null and taskkeynum !=''">
+				and a.taskkeynum = #{taskkeynum}
+			</if>
+			<if test="taskkeyword !=null and taskkeyword !=''">
+				and a.taskkeyword = #{taskkeyword}
+			</if>
+			<if test="tasktype !=null and tasktype !=''">
+				and a.tasktype = #{tasktype}
+			</if>
+			<if test="today !=null and today !=''">
+				and a.taskdate = #{today}
+			</if>
+			<if test="before != null and before != '' ">
+				and a.taskdate <![CDATA[<]]> #{before}
+			</if>
+			<if test="agentid != null and agentid != '' ">
+				and c.agentid = #{agentid}
+			</if>
+			<if test="userid != null and userid != '' ">
+				and a.createuser = #{userid}
+			</if>
+		</where>
+		ORDER BY taskpk DESC LIMIT #{page},#{rows}
+	</select>
+	
+	<select id="findTotalTaskInfoByMap" parameterType="java.util.HashMap" resultType="int">
+		SELECT count(1) FROM t_task_info_query a 
+		LEFT JOIN t_data_dic_info b ON a.taskstate=b.dicinfoid
+		LEFT JOIN t_user_info c ON a.createuser=c.userid
+		<where>
+			<if test="taskdate !=null and taskdate !=''">
+				and taskdate = #{taskdate}
+			</if>
+			<if test="taskstate !=null and taskstate !=''">
+				and taskstate in (${taskstate})
+			</if>
+			<if test="tasktype !=null and tasktype !=''">
+				and tasktype = #{tasktype}
+			</if>
+			<if test="datefrom !=null and datefrom !=''">
+				and publishtime >= #{datefrom}
+			</if>
+			<if test="dateto !=null and dateto !=''">
+				and publishtime <![CDATA[<=]]> #{dateto}
+			</if>
+			<if test="taskpk !=null and taskpk !=''">
+				and taskpk = #{taskpk}
+			</if>
+			<if test="taskkeynum !=null and taskkeynum !=''">
+				and taskkeynum = #{taskkeynum}
+			</if>
+			<if test="taskkeyword !=null and taskkeyword !=''">
+				and taskkeyword = #{taskkeyword}
+			</if>
+			<if test="tasktype !=null and tasktype !=''">
+				and tasktype = #{tasktype}
+			</if>
+			<if test="today !=null and today !=''">
+				and a.taskdate = #{today}
+			</if>
+			<if test="before != null and before != '' ">
+				and a.taskdate <![CDATA[<]]> #{before}
+			</if>
+			<if test="agentid != null and agentid != '' ">
+				and c.agentid = #{agentid}
+			</if>
+			<if test="userid != null and userid != '' ">
+				and a.createuser = #{userid}
+			</if>
+		</where>
+	</select>
+
+	
+	<insert id="saveTaskInfo" parameterType="com.zhenapp.po.Custom.TTaskInfoQueryCustom">
+		insert into t_task_info_query (usernick, taskpk,taskid,
+	     taskkeynum, tasktype, taskkeyword,
+	     flowcounts, collectioncounts, shoppingcounts,
+	     finshflowcounts, finshcollectioncounts,
+	     finshshoppingcounts, errorcounts, taskdate,
+	     publishtime, taskstate, createtime,
+	     createuser, updatetime, updateuser
+	     )
+	   values (#{usernick,jdbcType=VARCHAR}, #{taskpk,jdbcType=INTEGER}, #{taskid,jdbcType=VARCHAR},
+	     #{taskkeynum,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, #{taskkeyword,jdbcType=VARCHAR}, 
+	     #{flowcounts,jdbcType=INTEGER}, #{collectioncounts,jdbcType=INTEGER}, #{shoppingcounts,jdbcType=INTEGER}, 
+	     #{finshflowcounts,jdbcType=INTEGER}, #{finshcollectioncounts,jdbcType=INTEGER}, 
+	     #{finshshoppingcounts,jdbcType=INTEGER}, #{errorcounts,jdbcType=INTEGER}, #{taskdate,jdbcType=VARCHAR}, 
+	     #{publishtime,jdbcType=VARCHAR}, #{taskstate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+	     #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}
+	     )
+	</insert>
+	
+	<update id="updateTaskInfo" parameterType="java.util.HashMap">
+		update t_task_info_query
+    set
+      finshflowcounts = #{finshflowcounts,jdbcType=INTEGER},
+      finshcollectioncounts = #{finshcollectioncounts,jdbcType=INTEGER},
+      finshshoppingcounts = #{finshshoppingcounts,jdbcType=INTEGER},
+      errorcounts = #{errorcounts,jdbcType=INTEGER},
+      updatetime = #{updatetime,jdbcType=VARCHAR},
+      updateuser = #{updateuser,jdbcType=VARCHAR}
+    where taskid = #{taskid,jdbcType=VARCHAR}
+	</update>
+	<update id="updateTaskInfoState" parameterType="java.util.HashMap">
+		update t_task_info_query
+    set
+      taskstate = #{taskstate,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=VARCHAR},
+      updateuser = #{updateuser,jdbcType=VARCHAR}
+    where taskid = #{taskid,jdbcType=VARCHAR}
+	</update>
+</mapper>

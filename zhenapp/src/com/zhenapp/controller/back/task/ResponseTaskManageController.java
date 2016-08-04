@@ -44,10 +44,10 @@ public class ResponseTaskManageController {
 		pagemap.put("taskkeynum", taskkeynum);
 		pagemap.put("tasktype", tasktype);
 		pagemap.put("taskstate", taskstate);
-		if(datefrom!=null){
+		if(datefrom!=null && !datefrom.equals("")){
 			pagemap.put("datefrom", datefrom.replace("-", "")+"000000");
 		}
-		if(dateto!=null){
+		if(dateto!=null && !dateto.equals("")){
 			pagemap.put("dateto", dateto.replace("-", "")+"235959");
 		}
 		pagemap.put("today", yyyyMMdd.format(new Date()));

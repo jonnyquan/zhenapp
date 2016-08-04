@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhenapp.mapper.Custom.TTaskDetailinfoCustomMapper" >
+	<select id="findTaskDetail" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
+		SELECT a.* FROM t_task_detailinfo a
+		<where>
+			<if test="taskid != null and taskid != '' ">
+				AND a.taskid = #{taskid}
+			</if>
+			<if test="taskstate != null and taskstate != '' ">
+				AND a.taskstate in (${taskstate})
+			</if>
+		</where>
+	</select>
+
   <select id="requesttaskByphoneid" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
   	SELECT a.* FROM t_task_detailinfo_temp a where a.phoneid=#{phoneid} AND a.taskstate='40' ORDER BY taskhour,taskminute LIMIT 0,1
   </select>
@@ -57,7 +69,7 @@
 	FROM (SELECT a.phoneid,
 	CASE WHEN a.isshopping=1 AND a.tasktype='33' THEN 1 ELSE 0 END AS isshoppingll,
 	CASE WHEN a.iscollection=1 AND a.tasktype='33' THEN 1 ELSE 0 END AS iscollectionll,
-	CASE WHEN a.isshopping=0 AND a.iscollection=0 AND a.tasktype='34' THEN 1 ELSE 0 END AS ztc,
+	CASE WHEN a.tasktype='34' THEN 1 ELSE 0 END AS ztc,
 	CASE WHEN a.isshopping=1 AND a.iscollection=1 AND a.tasktype='34' THEN 1 ELSE 0 END AS isshoppingztc,
 	CASE WHEN a.isshopping=1 AND a.iscollection=1 AND a.tasktype='34' THEN 1 ELSE 0 END AS iscollectionztc 
 	FROM t_task_detailinfo a WHERE a.phoneid IS NOT NULL AND a.taskdate =#{date} AND a.taskstate='21') b
@@ -69,7 +81,7 @@
 	FROM (SELECT a.phoneid,
 	CASE WHEN a.isshopping=1 AND a.tasktype='33' THEN 1 ELSE 0 END AS isshoppingll,
 	CASE WHEN a.iscollection=1 AND a.tasktype='33' THEN 1 ELSE 0 END AS iscollectionll,
-	CASE WHEN a.isshopping=0 AND a.iscollection=0 AND a.tasktype='34' THEN 1 ELSE 0 END AS ztc,
+	CASE WHEN a.tasktype='34' THEN 1 ELSE 0 END AS ztc,
 	CASE WHEN a.isshopping=1 AND a.iscollection=1 AND a.tasktype='34' THEN 1 ELSE 0 END AS isshoppingztc,
 	CASE WHEN a.isshopping=1 AND a.iscollection=1 AND a.tasktype='34' THEN 1 ELSE 0 END AS iscollectionztc 
 	FROM t_task_detailinfo a WHERE a.phoneid IS NOT NULL AND a.taskdate =#{date} AND a.taskstate='21') b
@@ -124,7 +136,7 @@
   <select id="findTaskDetailByProblemAndPage" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom"  parameterType="java.util.HashMap">
   		select * from t_task_detailinfo 
   		<where>
-  			and phoneid IS NOT NULL AND visit IS NULL AND collect IS NULL AND trolley IS NULL AND TIMESTAMPDIFF(MINUTE ,DATE_FORMAT(createtime,'%Y%m%d%H%i%s'),DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'))>10
+  			and phoneid IS NOT NULL AND visit IS NULL AND collect IS NULL AND trolley IS NULL AND TIMESTAMPDIFF(MINUTE ,DATE_FORMAT(updatetime,'%Y%m%d%H%i%s'),DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'))>10
   			<if test="phoneid !=null and phoneid != ''">
 		  		and phoneid = #{phoneid}
 		  	</if>
@@ -141,7 +153,7 @@
   <select id="findTotalTaskDetailByProblemAndPage" resultType="int" parameterType="java.util.HashMap">
   		select count(1) from t_task_detailinfo 
   		<where>
-  			and phoneid IS NOT NULL AND visit IS NULL AND collect IS NULL AND trolley IS NULL AND TIMESTAMPDIFF(MINUTE ,DATE_FORMAT(createtime,'%Y%m%d%H%i%s'),DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'))>10
+  			and phoneid IS NOT NULL AND visit IS NULL AND collect IS NULL AND trolley IS NULL AND TIMESTAMPDIFF(MINUTE ,DATE_FORMAT(updatetime,'%Y%m%d%H%i%s'),DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'))>10
   			<if test="phoneid !=null and phoneid != ''">
 		  		and phoneid = #{phoneid}
 		  	</if>

@@ -417,7 +417,7 @@ var ispass=0;
 			success:function(data,state){
 				$('#subbtn').removeAttr("disabled");
 				if(data.data=="insertsuccess"){
-					$.messager.alert('消息提示', '任务发布成功!', 'info', function () {
+					$.messager.alert('消息提示', '任务发布成功,20秒后显示订单详情!', 'info', function () {
 						window.location.href=uri+"/task/responsetaskadd";
 					});
 				}else if(data.data=="refuse"){

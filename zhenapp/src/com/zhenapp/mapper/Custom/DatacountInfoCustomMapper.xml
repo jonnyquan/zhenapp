@@ -12,7 +12,7 @@
 		SUM(b.isshoppingztc) AS shoppingztccount,SUM(b.iscollectionztc) AS collectionztccount FROM(SELECT taskdate,createuser,
 		CASE WHEN isshopping=1 AND tasktype='33' THEN 1 ELSE 0 END AS isshoppingll,
 		CASE WHEN iscollection=1 AND tasktype='33' THEN 1 ELSE 0 END AS iscollectionll,
-		CASE WHEN isshopping=0 AND iscollection=0 AND tasktype='34' THEN 1 ELSE 0 END AS ztc,
+		CASE WHEN tasktype='34' THEN 1 ELSE 0 END AS ztc,
 		CASE WHEN isshopping=1 AND iscollection=1 AND tasktype='34' THEN 1 ELSE 0 END AS isshoppingztc,
 		CASE WHEN isshopping=1 AND iscollection=1 AND tasktype='34' THEN 1 ELSE 0 END AS iscollectionztc
 		FROM t_task_detailinfo WHERE taskstate='21') b GROUP BY b.taskdate,b.createuser) B ON AA.datevalue=B.taskdate AND AA.userid=B.createuser
@@ -48,7 +48,7 @@
 		SUM(b.isshoppingztc) AS shoppingztccount,SUM(b.iscollectionztc) AS collectionztccount FROM(SELECT taskdate,createuser,
 		CASE WHEN isshopping=1 AND tasktype='33' THEN 1 ELSE 0 END AS isshoppingll,
 		CASE WHEN iscollection=1 AND tasktype='33' THEN 1 ELSE 0 END AS iscollectionll,
-		CASE WHEN isshopping=0 AND iscollection=0 AND tasktype='34' THEN 1 ELSE 0 END AS ztc,
+		CASE WHEN tasktype='34' THEN 1 ELSE 0 END AS ztc,
 		CASE WHEN isshopping=1 AND iscollection=1 AND tasktype='34' THEN 1 ELSE 0 END AS isshoppingztc,
 		CASE WHEN isshopping=1 AND iscollection=1 AND tasktype='34' THEN 1 ELSE 0 END AS iscollectionztc
 		FROM t_task_detailinfo WHERE taskstate='21') b GROUP BY b.taskdate,b.createuser) B ON AA.datevalue=B.taskdate AND AA.userid=B.createuser

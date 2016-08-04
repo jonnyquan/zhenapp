@@ -37,10 +37,10 @@ public class ResponseTaskManageAdminController {
 		}
 		pagemap.put("page", (page - 1) * middleRows);
 		pagemap.put("rows", middleRows);
-		if(datefrom!=null){
+		if(datefrom!=null && !datefrom.equals("")){
 			pagemap.put("datefrom", datefrom.replace("-", "")+"000000");
 		}
-		if(dateto!=null){
+		if(dateto!=null && !dateto.equals("")){
 			pagemap.put("dateto", dateto.replace("-", "")+"235959");
 		}
 		pagemap.put("taskpk", taskpk);

@@ -40,7 +40,7 @@ public class DeleteEndOrder {
 				//hashmap.put("taskid", tTaskInfoCustomlist.get(i).getTaskid());
 				taskDetailInfoService.deleteTaskBystate(hashmap);
 				taskDetailInfoTempService.deletetaskDetailInfoTemp(hashmap);
-				logger.info("删除的所有已终止订单!");
+				logger.info("删除所有已终止订单!");
 			//}
 		//}
 		return map;

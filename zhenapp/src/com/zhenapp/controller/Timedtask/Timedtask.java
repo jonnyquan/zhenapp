@@ -219,20 +219,94 @@ public class Timedtask {
         }
 		logger.info("插入日期....每天0点2分执行一次");
 	}
-	@Scheduled(cron = "0 */1 * * * ?")//每1分钟执行一次
-	public void allocation() throws Exception { 
-		logger.info("分配任务开始....每1分钟执行一次");
+	@Scheduled(cron = "0 */2 * * * ?")//每2分钟执行一次
+	public void allocationll() throws Exception { 
+		logger.info("分配流量任务开始....每2分钟执行一次");
 		HttpClient httpClient = new HttpClient();
 		String result="";
-        PostMethod postMethod = new PostMethod(host+"/api/allocation");
+        PostMethod postMethod = new PostMethod(host+"/api/allocationll");
         postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
         int statusCode =  httpClient.executeMethod(postMethod);
         if(statusCode == 200) {
             result = postMethod.getResponseBodyAsString();
-            logger.info("调用接口成功(/api/allocation),返回："+result);
+            logger.info("调用接口成功(/api/allocationll),返回："+result);
         }else {
-            logger.info("调用接口失败(/api/allocation),返回："+statusCode);
+            logger.info("调用接口失败(/api/allocationll),返回："+statusCode);
         }
-		logger.info("分配任务完成....每1分钟执行一次");
+		logger.info("分配流量任务完成....每2分钟执行一次");
 	}
+	@Scheduled(cron = "0 */1 * * * ?")//每1分钟执行一次
+	public void allocationztc() throws Exception { 
+		logger.info("分配直通车任务开始....每1分钟执行一次");
+		HttpClient httpClient = new HttpClient();
+		String result="";
+        PostMethod postMethod = new PostMethod(host+"/api/allocationztc");
+        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+        int statusCode =  httpClient.executeMethod(postMethod);
+        if(statusCode == 200) {
+            result = postMethod.getResponseBodyAsString();
+            logger.info("调用接口成功(/api/allocationztc),返回："+result);
+        }else {
+            logger.info("调用接口失败(/api/allocationztc),返回："+statusCode);
+        }
+		logger.info("分配直通车任务完成....每1分钟执行一次");
+	}
+	
+	@Scheduled(cron = "0/20 * * * * ?")//每20秒钟执行一次
+	public void saveTaskQuery() throws Exception { 
+		HttpClient httpClient = new HttpClient();
+		String result="";
+        PostMethod postMethod = new PostMethod(host+"/api/saveTaskInfoQuery");
+        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+        int statusCode =  httpClient.executeMethod(postMethod);
+        if(statusCode == 200) {
+            result = postMethod.getResponseBodyAsString();
+            logger.info("调用接口成功(/api/saveTaskInfoQuery),返回："+result);
+        }else {
+            logger.info("调用接口失败(/api/saveTaskInfoQuery),返回："+statusCode);
+        }
+	}
+	@Scheduled(cron = "0 */3 * * * ?")//每3分钟执行一次
+	public void updateTaskQueryll() throws Exception { 
+		HttpClient httpClient = new HttpClient();
+		String result="";
+        PostMethod postMethod = new PostMethod(host+"/api/updateTaskInfo33");
+        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+        int statusCode =  httpClient.executeMethod(postMethod);
+        if(statusCode == 200) {
+            result = postMethod.getResponseBodyAsString();
+            logger.info("调用接口成功(/api/updateTaskInfo33),返回："+result);
+        }else {
+            logger.info("调用接口失败(/api/updateTaskInfo33),返回："+statusCode);
+        }
+	}
+	@Scheduled(cron = "0 */3 * * * ?")//每3分钟执行一次
+	public void updateTaskQueryztc() throws Exception { 
+		HttpClient httpClient = new HttpClient();
+		String result="";
+        PostMethod postMethod = new PostMethod(host+"/api/updateTaskInfo34");
+        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+        int statusCode =  httpClient.executeMethod(postMethod);
+        if(statusCode == 200) {
+            result = postMethod.getResponseBodyAsString();
+            logger.info("调用接口成功(/api/updateTaskInfo34),返回："+result);
+        }else {
+            logger.info("调用接口失败(/api/updateTaskInfo34),返回："+statusCode);
+        }
+	}
+	@Scheduled(cron = "0 */4 * * * ?")//每4分钟执行一次
+	public void updateTaskQuerystate() throws Exception { 
+		HttpClient httpClient = new HttpClient();
+		String result="";
+        PostMethod postMethod = new PostMethod(host+"/api/updateTaskInfostate");
+        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+        int statusCode =  httpClient.executeMethod(postMethod);
+        if(statusCode == 200) {
+            result = postMethod.getResponseBodyAsString();
+            logger.info("调用接口成功(/api/updateTaskInfostate),返回："+result);
+        }else {
+            logger.info("调用接口失败(/api/updateTaskInfostate),返回："+statusCode);
+        }
+	}
+	
 }
