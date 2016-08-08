@@ -197,9 +197,17 @@ public class TTaskDetailInfoCustom extends TTaskDetailinfo{
 		.append("否").append("&")//自定义筛选的地区
 		//.append(tTaskDetailInfoCustom.getMinpicture()).append("&")//最小价格
 		//.append(tTaskDetailInfoCustom.getMaxpicture()).append("&")//最大价格
-		.append(tTaskDetailInfoCustom.getPrice()).append("&")//宝贝价格
-		.append(StringUtilWxf.strtonull(tTaskDetailInfoCustom.getTaskimgztc())).append("&")//直通车图片地址
-		.append(StringUtilWxf.trimFirstChar(StringUtilWxf.strtonull(tTaskDetailInfoCustom.getCreativetitle()), " "));//创意标题
+		.append(tTaskDetailInfoCustom.getPrice()).append("&");//宝贝价格
+		if(tTaskDetailInfoCustom.getTaskimgztc()!=null && tTaskDetailInfoCustom.getTaskimgztc().length()>2){
+			sb.append(StringUtilWxf.strtonull(tTaskDetailInfoCustom.getTaskimgztc())).append("&")//直通车图片地址
+			.append("null");//创意标题
+			
+		}else{
+			sb.append("null").append("&")//直通车图片地址
+			.append(StringUtilWxf.trimFirstChar(StringUtilWxf.strtonull(tTaskDetailInfoCustom.getCreativetitle()), " "));//创意标题
+			
+		}
+		
 		//.append(tTaskDetailInfoCustom.getIsstorecollection().equals("1")?"是":"否").append("&")//是否店铺收藏
 		//.append(tTaskDetailInfoCustom.getIsfakechat().equals("1")?"是":"否").append("&")//是否假聊
 		//.append(tTaskDetailInfoCustom.getFakechatstr1()).append("&")//假聊信息第一句

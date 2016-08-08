@@ -14,6 +14,9 @@
   <select id="findTaskInfoBypks" parameterType="String" resultType="com.zhenapp.po.Custom.TTaskInfoCustom">
   	select * from t_task_info where taskpk in (${value})
   </select>
+  <select id="findAllocation" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskInfoCustom">
+  	SELECT * FROM t_task_info WHERE taskstate=#{taskstate} AND taskdate=#{taskdate} AND tasktype=#{tasktype} AND taskid NOT IN (SELECT taskid FROM t_task_detailinfo)
+  </select>
   <select id="findTaskBypage" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap" >
   SELECT g.usernick,DATE_FORMAT(a.taskdate,'%Y-%m-%d') AS taskdaterange,a.taskpk,a.taskid, a.tasktype, 
      a.taskkeynum, a.tasktitle, a.taskwirelesstitle, 

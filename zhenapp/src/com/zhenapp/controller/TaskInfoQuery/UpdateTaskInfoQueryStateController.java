@@ -27,7 +27,7 @@ public class UpdateTaskInfoQueryStateController {
 	public @ResponseBody ModelMap updateTaskInfostate() throws Exception{
 		ModelMap map = new ModelMap();
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
-		hashmap.put("taskdate", yyyyMMdd.format(new Date()));
+		//hashmap.put("taskdate", yyyyMMdd.format(new Date()));
 		hashmap.put("taskstate", "16,18,15");
 		hashmap.put("page", 0);
 		hashmap.put("rows", 1000);

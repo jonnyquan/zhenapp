@@ -171,7 +171,7 @@ public class Timedtask {
         }
 	}
 	
-	@Scheduled(cron = "0 5 0 * * ?")//每天0点1分执行一次
+	@Scheduled(cron = "0 5 0 * * ?")//每天0点5分执行一次
 	public void updateTaskstateByTime() throws Exception { 
 		logger.info("处理前一天的任务....每天0点5分执行一次");
 		HttpClient httpClient = new HttpClient();
@@ -252,7 +252,7 @@ public class Timedtask {
 		logger.info("分配直通车任务完成....每1分钟执行一次");
 	}
 	
-	@Scheduled(cron = "0/20 * * * * ?")//每20秒钟执行一次
+	@Scheduled(cron = "0/30 * * * * ?")//每30秒钟执行一次
 	public void saveTaskQuery() throws Exception { 
 		HttpClient httpClient = new HttpClient();
 		String result="";
@@ -306,6 +306,36 @@ public class Timedtask {
             logger.info("调用接口成功(/api/updateTaskInfostate),返回："+result);
         }else {
             logger.info("调用接口失败(/api/updateTaskInfostate),返回："+statusCode);
+        }
+	}
+	
+	
+	@Scheduled(cron = "0 */20 * * * ?")//每20分钟执行一次
+	public void checkTaskallocationll() throws Exception { 
+		HttpClient httpClient = new HttpClient();
+		String result="";
+        PostMethod postMethod = new PostMethod(host+"/api/checkallocationll");
+        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+        int statusCode =  httpClient.executeMethod(postMethod);
+        if(statusCode == 200) {
+            result = postMethod.getResponseBodyAsString();
+            logger.info("调用接口成功(/api/checkallocationll),返回："+result);
+        }else {
+            logger.info("调用接口失败(/api/checkallocationll),返回："+statusCode);
+        }
+	}
+	@Scheduled(cron = "0 */20 * * * ?")//每20分钟执行一次
+	public void checkTaskallocationztc() throws Exception { 
+		HttpClient httpClient = new HttpClient();
+		String result="";
+        PostMethod postMethod = new PostMethod(host+"/api/checkallocationztc");
+        postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+        int statusCode =  httpClient.executeMethod(postMethod);
+        if(statusCode == 200) {
+            result = postMethod.getResponseBodyAsString();
+            logger.info("调用接口成功(/api/checkallocationztc),返回："+result);
+        }else {
+            logger.info("调用接口失败(/api/checkallocationztc),返回："+statusCode);
         }
 	}
 	

@@ -801,10 +801,12 @@ function checkmode(obj){
 			mode=1;
 			$("#div_taskimgztc").show();
 			$("#div_creativetitle").hide();
+			$("#creativetitle").val("");
 		}else{
 			mode=0;
 			$("#div_creativetitle").show();
 			$("#div_taskimgztc").hide();
+			$("#taskimgztc").val("");
 		}
 	}
 }

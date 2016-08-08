@@ -52,6 +52,14 @@
 	</select>
 	
 	
+	<select id="findallocation" resultType="com.zhenapp.po.Custom.TTaskDetailinfoTempCustom" parameterType="java.util.HashMap">
+		SELECT * FROM t_task_detailinfo_temp where taskstate='40' AND phoneid IS NOT NULL LIMIT #{page},#{rows}
+	</select>
+	<select id="findTotalallocation" resultType="int" parameterType="java.util.HashMap">
+		SELECT count(1) FROM t_task_detailinfo_temp where taskstate='40' AND phoneid IS NOT NULL
+	</select>
+	
+	
 	<delete id="deletetaskDetailInfoTemp" parameterType="java.util.HashMap">
 		delete from t_task_detailinfo_temp 
 		<where>

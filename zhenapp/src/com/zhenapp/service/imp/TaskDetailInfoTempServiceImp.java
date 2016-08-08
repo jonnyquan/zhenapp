@@ -45,4 +45,16 @@ public class TaskDetailInfoTempServiceImp implements TaskDetailInfoTempService {
 		// TODO Auto-generated method stub
 		return TTaskDetailinfoTempCustomMapper.findtaskkeynumlistll(hashmap);
 	}
+	@Override
+	public List<TTaskDetailinfoTempCustom> findallocation(
+			HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return TTaskDetailinfoTempCustomMapper.findallocation(hashmap);
+	}
+	@Override
+	public int findTotalallocation(HashMap<String, Object> hashmap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return TTaskDetailinfoTempCustomMapper.findTotalallocation(hashmap);
+	}
 }

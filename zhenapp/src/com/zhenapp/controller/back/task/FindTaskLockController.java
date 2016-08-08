@@ -1,5 +1,7 @@
 package com.zhenapp.controller.back.task;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import com.zhenapp.service.TaskDetailInfoService;
 public class FindTaskLockController {
 	@Autowired
 	private TaskDetailInfoService taskDetailInfoService;
+	SimpleDateFormat yyyyMMdd=new SimpleDateFormat("yyyyMMdd");
 	@Value("${middleRows}")
 	private Integer middleRows;
 	
@@ -33,6 +36,7 @@ public class FindTaskLockController {
 		pagemap.put("phoneid", phoneid);
 		pagemap.put("taskkeynum", taskkeynum);
 		pagemap.put("taskdetailpk", taskdetailpk);
+		pagemap.put("today", yyyyMMdd.format(new Date()));
 		//系统管理员
 		List<TTaskDetailInfoCustom> tTaskDetailInfoCustomlist = taskDetailInfoService.findTaskDetailByProblemAndPage(pagemap);
 		int total = taskDetailInfoService.findTotalTaskDetailByProblemAndPage(pagemap);

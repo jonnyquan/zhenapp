@@ -105,4 +105,11 @@ public class TaskInfoServiceImp implements TaskInfoService {
 		return tTaskInfoCustomMapper.updatedeepclick(hashmap);
 	}
 
+	@Override
+	public List<TTaskInfoCustom> findAllocation(HashMap<String, Object> hashmap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskInfoCustomMapper.findAllocation(hashmap);
+	}
+
 }

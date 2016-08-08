@@ -14,7 +14,7 @@
 	</select>
 
   <select id="requesttaskByphoneid" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
-  	SELECT a.* FROM t_task_detailinfo_temp a where a.phoneid=#{phoneid} AND a.taskstate='40' ORDER BY taskhour,taskminute LIMIT 0,1
+  	SELECT a.* FROM t_task_detailinfo_temp a where a.phoneid=#{phoneid} AND a.taskstate='40' ORDER BY createtime LIMIT 0,1
   </select>
   <select id="requesttaskByphoneid_temp" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
   	SELECT a.* FROM t_task_detailinfo a
@@ -39,6 +39,11 @@
 				AND a.taskid != #{list.taskid}
 			</foreach>
 		</if>
+		<if test="numwordslist != null and numwordslist != ''">
+			<foreach collection="numwordslist" item="tasklist" open="AND (" close=")" separator="OR" >
+				(a.taskkeyword != ${tasklist.taskkeyword} AND a.taskkeynum != #{tasklist.taskkeynum})
+			</foreach>
+  		</if>
 		<if test="tasktype != null and tasktype != '' ">
 			AND a.tasktype = #{tasktype}
 		</if>
@@ -140,6 +145,9 @@
   			<if test="phoneid !=null and phoneid != ''">
 		  		and phoneid = #{phoneid}
 		  	</if>
+		  	<if test="today !=null and today != ''">
+		  		and taskdate = #{today}
+		  	</if>
 	  		<if test="taskdetailpk !=null and taskdetailpk != ''">
 		  		and taskdetailpk = #{taskdetailpk}
 		  	</if>
@@ -156,6 +164,9 @@
   			and phoneid IS NOT NULL AND visit IS NULL AND collect IS NULL AND trolley IS NULL AND TIMESTAMPDIFF(MINUTE ,DATE_FORMAT(updatetime,'%Y%m%d%H%i%s'),DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'))>10
   			<if test="phoneid !=null and phoneid != ''">
 		  		and phoneid = #{phoneid}
+		  	</if>
+		  	<if test="today !=null and today != ''">
+		  		and taskdate = #{today}
 		  	</if>
 	  		<if test="taskdetailpk !=null and taskdetailpk != ''">
 		  		and taskdetailpk = #{taskdetailpk}

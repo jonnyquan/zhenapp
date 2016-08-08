@@ -5,7 +5,7 @@
 		SELECT b.usernick,a.taskpk,a.taskid,a.taskkeynum,a.tasktype,a.taskkeyword,a.flowcount AS flowcounts,a.collectioncount AS collectioncounts,a.shoppingcount AS shoppingcounts,a.taskdate,a.createtime as publishtime,a.taskstate,a.createuser,a.createtime
 		 FROM t_task_info a
 		LEFT JOIN t_user_info b ON a.createuser=b.userid
-		WHERE a.taskdate >= #{taskdate} AND a.taskpk NOT IN (SELECT taskpk FROM t_task_info_query)
+		WHERE a.taskdate >= #{taskdate} AND a.taskpk NOT IN (SELECT taskpk FROM t_task_info_query) AND a.taskstate!='15'
 	</select>
 	
 	<select id="findTaskInfoByMap" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskInfoQueryCustom">
