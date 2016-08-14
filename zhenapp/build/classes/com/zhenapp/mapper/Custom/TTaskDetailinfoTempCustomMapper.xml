@@ -53,10 +53,35 @@
 	
 	
 	<select id="findallocation" resultType="com.zhenapp.po.Custom.TTaskDetailinfoTempCustom" parameterType="java.util.HashMap">
-		SELECT * FROM t_task_detailinfo_temp where taskstate='40' AND phoneid IS NOT NULL LIMIT #{page},#{rows}
+		SELECT * FROM t_task_detailinfo_temp 
+		<where>
+			<if test="phoneid != null and phoneid != '' ">
+				and phoneid =#{phoneid}
+			</if>
+			<if test="taskkeynum != null and taskkeynum != '' ">
+				and taskkeynum =#{taskkeynum}
+			</if>
+			<if test="taskdetailid != null and taskdetailid != '' ">
+				and taskdetailid =#{taskdetailid}
+			</if>
+			and taskstate='40' AND phoneid IS NOT NULL 
+		</where>
+			LIMIT #{page},#{rows}
 	</select>
 	<select id="findTotalallocation" resultType="int" parameterType="java.util.HashMap">
-		SELECT count(1) FROM t_task_detailinfo_temp where taskstate='40' AND phoneid IS NOT NULL
+		SELECT count(1) FROM t_task_detailinfo_temp 
+		<where>
+			<if test="phoneid != null and phoneid != '' ">
+				and phoneid =#{phoneid}
+			</if>
+			<if test="taskkeynum != null and taskkeynum != '' ">
+				and taskkeynum =#{taskkeynum}
+			</if>
+			<if test="taskdetailid != null and taskdetailid != '' ">
+				and taskdetailid =#{taskdetailid}
+			</if>
+			and taskstate='40' AND phoneid IS NOT NULL 
+		</where>
 	</select>
 	
 	

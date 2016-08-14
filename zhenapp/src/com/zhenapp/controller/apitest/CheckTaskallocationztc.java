@@ -29,7 +29,7 @@ public class CheckTaskallocationztc {
 	private CheckTaskallocationztcService checkTaskallocationztcService;
 	
 	/*
-	 * 任务分配
+	 * 检查是否未分配
 	 */
 	@RequestMapping(value="/checkallocationztc")
 	public @ResponseBody ModelMap allocationztc() throws Exception{

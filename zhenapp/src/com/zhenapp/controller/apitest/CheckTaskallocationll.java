@@ -42,8 +42,10 @@ public class CheckTaskallocationll {
 		if(ttaskInfoCustomlist!=null && ttaskInfoCustomlist.size()>0){
 			for (int ii = 0; ii < ttaskInfoCustomlist.size(); ii++) {
 				TTaskInfoCustom tTaskInfoCustom = ttaskInfoCustomlist.get(ii);
-				checkTaskallocationllService.allocationService(tTaskInfoCustom);
-				logger.error("任务:"+tTaskInfoCustom.getTaskpk()+"再次分配完成");
+				if(tTaskInfoCustom.getCollectioncount()>0 || tTaskInfoCustom.getShoppingcount()>0){
+					checkTaskallocationllService.allocationService(tTaskInfoCustom);
+					logger.error("任务:"+tTaskInfoCustom.getTaskpk()+"再次分配完成");
+				}
 			}
 		}
 		return map;

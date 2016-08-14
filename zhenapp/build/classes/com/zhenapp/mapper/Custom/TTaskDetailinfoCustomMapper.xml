@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhenapp.mapper.Custom.TTaskDetailinfoCustomMapper" >
+
+	<select id="requesttaskAuto" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
+		SELECT * FROM t_task_detailinfo WHERE (taskkeynum,taskkeyword) NOT IN (
+		SELECT taskkeynum,taskkeyword FROM t_task_detailinfo WHERE phoneid=#{phoneid} AND taskdate=#{taskdate}) AND taskdate=#{taskdate} AND taskstate='40'
+		AND (CASE WHEN taskminute>9 AND taskhour >9 THEN CONCAT(taskhour,taskminute) <![CDATA[<=]]> #{HHmm} WHEN taskminute > 9 AND taskhour <![CDATA[<=]]> 9 THEN CONCAT('0',taskhour,taskminute) <![CDATA[<=]]> #{HHmm} WHEN taskminute <![CDATA[<=]]> 9 AND taskhour <![CDATA[<=]]> 9 THEN CONCAT('0',taskhour,'0',taskminute) <![CDATA[<=]]> #{HHmm} ELSE CONCAT(taskhour,'0',taskminute) <![CDATA[<=]]> #{HHmm} END)
+		ORDER BY taskhour,taskminute LIMIT 0,1
+	</select>
 	<select id="findTaskDetail" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
 		SELECT a.* FROM t_task_detailinfo a
 		<where>
@@ -49,7 +56,7 @@
 		</if>
 	</where>
 	AND a.phoneid IS NULL AND a.taskstate='40' AND a.taskdate=#{today} and a.resultstr is null
-	AND (CASE WHEN a.taskminute>9 THEN CONCAT(a.taskhour,a.taskminute)+0 <![CDATA[<=]]> #{HHmm}+0 ELSE CONCAT(a.taskhour,'0',a.taskminute)+0 <![CDATA[<=]]> #{HHmm}+0 END)
+	AND (CASE WHEN taskminute>9 AND taskhour >9 THEN CONCAT(taskhour,taskminute) <![CDATA[<=]]> #{HHmm} WHEN taskminute > 9 AND taskhour <![CDATA[<=]]> 9 THEN CONCAT('0',taskhour,taskminute) <![CDATA[<=]]> #{HHmm} WHEN taskminute <![CDATA[<=]]> 9 AND taskhour <![CDATA[<=]]> 9 THEN CONCAT('0',taskhour,'0',taskminute) <![CDATA[<=]]> #{HHmm} ELSE CONCAT(taskhour,'0',taskminute) <![CDATA[<=]]> #{HHmm} END)
   	ORDER BY a.taskhour,a.taskminute LIMIT 0,1
   </select>
   
@@ -321,7 +328,7 @@
   </insert>
 
   <update id="updateTaskDetailstate" parameterType="java.util.HashMap">
-  	update t_task_detailinfo set taskstate = #{taskstate},phoneid = #{phoneid}  where taskdetailid = #{taskdetailid} and phoneid is null
+  	update t_task_detailinfo set taskstate = #{taskstate},phoneid = #{phoneid},updatetime=#{updatetime},updateuser=#{updateuser}  where taskdetailid = #{taskdetailid} and phoneid is null
   </update>
   
   <update id="updateTaskDetailstateByTaskidAndoldstate" parameterType="java.util.HashMap">
@@ -413,6 +420,9 @@
 	  <where>
 	  	<if test="taskstate != null and taskstate != '' ">
 	  		and taskstate = #{taskstate}
+	  	</if>
+	  	<if test="taskdate != null and taskdate != '' ">
+	  		and taskdate <![CDATA[<]]> #{taskdate}
 	  	</if>
 	  	<if test="taskid != null and taskid != '' ">
 	  		and taskid = #{taskid}

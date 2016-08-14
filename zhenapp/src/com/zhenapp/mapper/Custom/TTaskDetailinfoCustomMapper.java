@@ -7,6 +7,8 @@ import com.zhenapp.po.Custom.TTaskDetailInfoCustom;
 
 
 public interface TTaskDetailinfoCustomMapper {
+	public TTaskDetailInfoCustom requesttaskAuto(HashMap<String, Object> hashmap) throws Exception;
+	
 	//根据条件查询详情任务信息
 	public List<TTaskDetailInfoCustom> findTaskDetail(HashMap<String, Object> hashmap) throws Exception;
 	//查询执行过的id和关键词的详情任务

@@ -30,4 +30,8 @@ public interface TaskInfoQueryService {
 	 * 更新订单状态
 	 */
 	public int updateTaskInfoState(HashMap<String, Object> hashmap) throws Exception;
+	/**
+	 * 删除订单表中没有的信息
+	 */
+	public int deleteTaskInfo() throws Exception;
 }

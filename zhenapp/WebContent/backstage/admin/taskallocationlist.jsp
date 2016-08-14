@@ -69,25 +69,23 @@
 			<strong class="am-text-primary am-text-lg">卡机任务 </strong>
 		</div>
 	</div>
-<!--  
 	<div class="am-g" id="module-head" style="margin-bottom: 10px;">
-		<div class="am-u-sm-12 am-u-md-6">
+		<div class="am-u-sm-12 am-u-md-12">
 			<form class="am-form-inline" role="form">
 				<div class="am-form-group">
-					<input type="text" id="pid" class="am-form-field am-input-sm" value="${phoneid}" placeholder="手机号">
-				</div>
-
-				<div class="am-form-group">
-					<input type="text" id="nid" class="am-form-field am-input-sm" value="${taskkeynum}" placeholder="宝贝id">
+					<input type="text" id="phoneid" class="am-form-field am-input-sm" value="${phoneid}" placeholder="手机号">
 				</div>
 				<div class="am-form-group">
-					<input type="text" id="fid" class="am-form-field am-input-sm" value="${taskdetailpk}" placeholder="订单id">
+					<input type="text" id="taskkeynum" class="am-form-field am-input-sm" value="${taskkeynum}" placeholder="宝贝id">
+				</div>
+				<div class="am-form-group">
+					<input type="text" id="taskdetailid" class="am-form-field am-input-sm" value="${taskdetailid}" placeholder="流量id">
 				</div>
 				<button class="am-btn am-btn-default" id="search" type="button">搜索</button>
 			</form>
 		</div>
 	</div>
--->
+
 	<div class="am-g">
 		<div class="am-u-sm-12">
 			<form class="am-form">
@@ -96,10 +94,11 @@
 					<thead>
 						<tr class="am-success">
 							<th>手机号</th>
-							<th>订单ID</th>
+							<th>流量ID</th>
 							<th>宝贝ID</th>
 							<th>是否加购物车</th>
 							<th>是否收藏</th>
+							<th>创建时间</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -114,11 +113,11 @@
 						<c:forEach items="${tTaskDetailinfoTempCustomlist}" var="list">
 							<tr data-id="${list.taskdetailpk }">
 								<th>${list.phoneid }</th>
-								<td>${list.taskdetailpk }</td>
+								<td>${list.taskdetailid }</td>
 								<td>${list.taskkeynum }</td>
 								<td>${list.isshopping }</td>
 								<td>${list.iscollection }</td>
-								
+								<td>${list.createtime }</td>
 							</tr>
 						</c:forEach>
 					</c:if>
@@ -149,7 +148,10 @@
 		});
 	});
 	function btn_search(num){
-		window.location.href = "${pageContext.request.contextPath}/task/findallocation?page=" + num ;
+		var phoneid = $("#phoneid").val();
+		var taskkeynum = $("#taskkeynum").val();
+		var taskdetailid = $("#taskdetailid").val();
+		window.location.href = "${pageContext.request.contextPath}/task/findallocation?page=" + num +"&&phoneid="+phoneid+"&&taskkeynum="+taskkeynum+"&&taskdetailid="+taskdetailid;
 	}
 	  var index = Number("${pagenum}");
 		if (index.length < 1) {

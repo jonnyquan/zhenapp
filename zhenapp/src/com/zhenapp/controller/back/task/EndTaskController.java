@@ -1,5 +1,7 @@
 package com.zhenapp.controller.back.task;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,6 +25,7 @@ import com.zhenapp.po.Custom.TUsertestInfoCustom;
 import com.zhenapp.service.TaskDetailInfoFlowService;
 import com.zhenapp.service.TaskDetailInfoService;
 import com.zhenapp.service.TaskDetailInfoTempService;
+import com.zhenapp.service.TaskInfoQueryService;
 import com.zhenapp.service.TaskInfoService;
 import com.zhenapp.service.UsertestInfoService;
 @Transactional
@@ -40,7 +43,11 @@ public class EndTaskController {
 	private TaskDetailInfoFlowService taskDetailInfoFlowService;
 	@Autowired
 	private UsertestInfoService usertestInfoService;
+	@Autowired
+	private TaskInfoQueryService taskInfoQueryService;
 	
+	SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
+	SimpleDateFormat yyyyMMddHHmmss = new SimpleDateFormat("yyyyMMddHHmmss");
 	@Value("${secret}")
 	private String secret;
 	@Value("${liuliangapp}")
@@ -61,6 +68,7 @@ public class EndTaskController {
 		hashmap.put("taskstate", 18);
 		hashmap.put("oldfinshtaskstate", "16");
 		int endcounts = taskInfoService.updateTaskstate(hashmap);//修改状态为终止中
+		
 		if(endcounts>0){
 			taskDetailInfoService.updateterminationstate(hashmap);//修改状态为执行终止
 			taskDetailInfoFlowService.updateTaskstate(hashmap);//流量详情修改为终止中
@@ -72,6 +80,9 @@ public class EndTaskController {
 			logger.error("终止订单失败,无法修改为已终止"+hashmap.toString());
 			return map;
 		}
+		hashmap.put("updatetime", yyyyMMddHHmmss.format(new Date()));
+		hashmap.put("updateuser", "修改状态");
+		taskInfoQueryService.updateTaskInfoState(hashmap);//修改状态为终止中
 		if(tTaskInfoCustomtemp.getTasktype().equals("33")){
 			TTaskDetailInfoFlowCustom tTaskDetailInfoFlowCustom = taskDetailInfoFlowService.findTaskdetailInfo(hashmap);//根据任务id查询出流量详情信息
 			hashmap.clear();

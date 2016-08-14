@@ -41,7 +41,7 @@
 				and a.tasktype = #{tasktype}
 			</if>
 			<if test="today !=null and today !=''">
-				and a.taskdate = #{today}
+				and a.taskdate >= #{today}
 			</if>
 			<if test="before != null and before != '' ">
 				and a.taskdate <![CDATA[<]]> #{before}
@@ -89,7 +89,7 @@
 				and tasktype = #{tasktype}
 			</if>
 			<if test="today !=null and today !=''">
-				and a.taskdate = #{today}
+				and a.taskdate >= #{today}
 			</if>
 			<if test="before != null and before != '' ">
 				and a.taskdate <![CDATA[<]]> #{before}
@@ -142,4 +142,8 @@
       updateuser = #{updateuser,jdbcType=VARCHAR}
     where taskid = #{taskid,jdbcType=VARCHAR}
 	</update>
+	
+	<delete id="deleteTaskInfo">
+	  	DELETE FROM t_task_info_query WHERE taskpk NOT IN (SELECT taskpk FROM t_task_info) AND taskstate='16'
+  	</delete>
 </mapper>

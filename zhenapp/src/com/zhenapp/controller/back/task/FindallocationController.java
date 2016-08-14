@@ -21,7 +21,7 @@ public class FindallocationController {
 	@Value("${middleRows}")
 	private Integer middleRows;
 	@RequestMapping(value="/task/findallocation")
-	public @ResponseBody ModelAndView findallocation(Integer page) throws Exception{
+	public @ResponseBody ModelAndView findallocation(Integer page,String phoneid,String taskkeynum,String taskdetailid) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
@@ -29,11 +29,17 @@ public class FindallocationController {
 		}
 		pagemap.put("page", (page - 1) * middleRows);
 		pagemap.put("rows", middleRows);
+		pagemap.put("phoneid", phoneid);
+		pagemap.put("taskkeynum", taskkeynum);
+		pagemap.put("taskdetailid", taskdetailid);
 		List<TTaskDetailinfoTempCustom> tTaskDetailinfoTempCustomlist = taskDetailInfoTempService.findallocation(pagemap);
 		int total = taskDetailInfoTempService.findTotalallocation(pagemap);
 		mv.addObject("tTaskDetailinfoTempCustomlist", tTaskDetailinfoTempCustomlist);
 		mv.addObject("total", total);
 		mv.addObject("pagenum", page);
+		mv.addObject("phoneid", phoneid);
+		mv.addObject("taskkeynum", taskkeynum);
+		mv.addObject("taskdetailid", taskdetailid);
 		mv.setViewName("/backstage/admin/taskallocationlist.jsp");
 		return mv;
 	}

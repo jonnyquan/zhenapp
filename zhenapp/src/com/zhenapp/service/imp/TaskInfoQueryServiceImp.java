@@ -53,5 +53,11 @@ public class TaskInfoQueryServiceImp implements TaskInfoQueryService {
 		// TODO Auto-generated method stub
 		return tTaskInfoQueryCustomMapper.findTotalTaskInfoByMap(hashmap);
 	}
+
+	@Override
+	public int deleteTaskInfo() throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskInfoQueryCustomMapper.deleteTaskInfo();
+	}
 	
 }
