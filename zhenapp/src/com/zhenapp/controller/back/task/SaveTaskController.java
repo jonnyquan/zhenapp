@@ -210,7 +210,7 @@ public class SaveTaskController {
 				map.put("data", "gwcmaxerror");
 				return map;
 			}
-			if(tTaskInfoCustom.getShoppingcount()*taskkeywordarr.length - tTaskInfoCustom.getCollectioncount() !=0){
+			if(tTaskInfoCustom.getShoppingcount() - tTaskInfoCustom.getCollectioncount() !=0){
 				map.put("data", "gwcnotsc");
 				return map;
 			}

@@ -76,7 +76,7 @@
 
         <div class="am-form-group">
           <div class="am-u-sm-9 am-u-sm-offset-3">
-            <button type="button" id="btn_submit" class="am-btn am-btn-primary">提交</button>
+            <button type="submit" class="am-btn am-btn-primary">提交</button>
           </div>
         </div>
       </form>
@@ -86,22 +86,7 @@
 <script>
   $(function() {
   $("#menu").load("${pageContext.request.contextPath}/backstage/agent/menu.jsp");
-	$("#btn_submit").click(function(){
-		var type=$("input[name='recharge']:checked").val();
-		var updatepoints=$("#updatepoints").val();
-		var oldpoints="${points}";
-		if(type=="deduct"){
-			if(oldpoints<updatepoints){
-				$.messager.alert('消息提示', '扣款积分不能超过用户携带最大数值!', 'info', function () {
-					$("#updatepoints").focus();
-				});
-				return false;
-			}
-		}
-		$('#publisFlow').submit();
-	});
-	  
-	  
+	
     $('#publisFlow').validate({
       rules : {
     	updatepoints : {

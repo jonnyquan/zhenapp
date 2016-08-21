@@ -193,6 +193,7 @@ public class TaskallocationztcService {
 		int i= taskInfoService.updateTaskstate(hashmap3);
 		if(i<1){
 			logger.error("任务："+tTaskInfoCustom.getTaskpk()+"已经拆分过了");
+			throw new RuntimeException();
 		}
 		return map;
 	}

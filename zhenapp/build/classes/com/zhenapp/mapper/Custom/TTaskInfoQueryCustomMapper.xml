@@ -144,6 +144,6 @@
 	</update>
 	
 	<delete id="deleteTaskInfo">
-	  	DELETE FROM t_task_info_query WHERE taskpk NOT IN (SELECT taskpk FROM t_task_info) AND taskstate='16'
+	  	DELETE FROM t_task_info_query WHERE taskpk NOT IN (SELECT taskpk FROM t_task_info) AND taskstate in (16,18)
   	</delete>
 </mapper>

@@ -725,7 +725,13 @@
 													 <apan style="font-size:20px;">%</apan>
 												（百分比，1到100整数，浏览店铺其它宝贝比例）&nbsp;&nbsp;&nbsp;&nbsp;<span id="span_deepclick"></span>
 								</div>
-								<div class="form_control clearfix">
+								<input name="collectioncount" id="collectioncount" type="hidden" value="0"/>
+								<input  id="span_collection" type="hidden" />
+								<input  id="span_collection_text" type="hidden" />
+								<input name="shoppingcount" id="shoppingcount" type="hidden" value="0"/>
+								<input id="span_shopping" type="hidden" />
+								<input id="span_shopping_text" type="hidden" />
+								<!--  <div class="form_control clearfix">
 									<label class="form_label">收藏数量：</label> 
 									<input name="collectioncount" id="collectioncount"
 										placeholder="请输入收藏数" onchange="fpsc(this)" 
@@ -748,6 +754,8 @@
 								<div class="form_control clearfix">
 									<span style="color: red;padding-left: 100px;">* 请注意商品必须有库存，做活动时候放不了购物车</span>
 								</div>
+								-->
+								
 								<!--  <div class="form_control clearfix">
 									<label class="form_label">店铺收藏数量：</label> 
 									<input type="text" name="storecollectioncount" id="storecollectioncount"
