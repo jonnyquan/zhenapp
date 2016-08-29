@@ -336,6 +336,31 @@ public class FirstWebController {
 		map.put("countztc", Integer.parseInt(tSysconfInfoCustom.getSysconfvalue2())-taskcount<0?0:Integer.parseInt(tSysconfInfoCustom.getSysconfvalue2())-taskcount);
 		return map;
 	}
+	@RequestMapping(value="/api/keywords/validateztc")
+	public @ResponseBody ModelMap apikeywordsvalidateztcno(String keywords,String taskkeynum) throws Exception{
+		ModelMap map = new ModelMap();
+		map.put("msg", "1");
+		//做过该宝贝id的直通车任务数
+		TSysconfInfoCustom tSysconfInfoCustom = sysconfInfoService.findSysconf();
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("taskdate", yyyyMMdd.format(new Date()));
+		hashmap.put("taskkeynum", taskkeynum);
+		hashmap.put("taskkeyword", keywords);
+		hashmap.put("taskstatenot", "22,23");
+		hashmap.put("tasktype", "34");
+		int taskcountztc = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
+		map.put("count", Integer.parseInt(tSysconfInfoCustom.getSysconfvalue2())-taskcountztc<0?0:Integer.parseInt(tSysconfInfoCustom.getSysconfvalue2())-taskcountztc);
+		hashmap.clear();
+		hashmap.put("taskdate", yyyyMMdd.format(new Date()));
+		hashmap.put("taskkeynum", taskkeynum);
+		hashmap.put("taskstatenot", "22,23");
+		hashmap.put("tasktype", "34");
+		hashmap.put("iscollection", "1");
+		hashmap.put("isshopping", "1");
+		int taskcount = taskDetailInfoService.findTaskDetailByIdAndtask(hashmap);
+		map.put("countztc", Integer.parseInt(tSysconfInfoCustom.getSysconfvalue2())-taskcount<0?0:Integer.parseInt(tSysconfInfoCustom.getSysconfvalue2())-taskcount);
+		return map;
+	}
 	/*
 	 *八.	查询账号积分
 	 * http://liuliangapp.com/api/points

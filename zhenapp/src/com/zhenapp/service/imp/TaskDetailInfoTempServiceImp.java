@@ -57,4 +57,10 @@ public class TaskDetailInfoTempServiceImp implements TaskDetailInfoTempService {
 		// TODO Auto-generated method stub
 		return TTaskDetailinfoTempCustomMapper.findTotalallocation(hashmap);
 	}
+	@Override
+	public int deleteDate(HashMap<String, Object> hashmap)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return TTaskDetailinfoTempCustomMapper.deleteDate(hashmap);
+	}
 }

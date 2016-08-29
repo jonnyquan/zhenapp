@@ -1494,6 +1494,76 @@ public class TTaskDetailinfoTempExample {
             return (Criteria) this;
         }
 
+        public Criteria andDrillimgIsNull() {
+            addCriterion("drillimg is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgIsNotNull() {
+            addCriterion("drillimg is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgEqualTo(String value) {
+            addCriterion("drillimg =", value, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgNotEqualTo(String value) {
+            addCriterion("drillimg <>", value, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgGreaterThan(String value) {
+            addCriterion("drillimg >", value, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgGreaterThanOrEqualTo(String value) {
+            addCriterion("drillimg >=", value, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgLessThan(String value) {
+            addCriterion("drillimg <", value, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgLessThanOrEqualTo(String value) {
+            addCriterion("drillimg <=", value, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgLike(String value) {
+            addCriterion("drillimg like", value, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgNotLike(String value) {
+            addCriterion("drillimg not like", value, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgIn(List<String> values) {
+            addCriterion("drillimg in", values, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgNotIn(List<String> values) {
+            addCriterion("drillimg not in", values, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgBetween(String value1, String value2) {
+            addCriterion("drillimg between", value1, value2, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgNotBetween(String value1, String value2) {
+            addCriterion("drillimg not between", value1, value2, "drillimg");
+            return (Criteria) this;
+        }
+
         public Criteria andMinpictureIsNull() {
             addCriterion("minpicture is null");
             return (Criteria) this;

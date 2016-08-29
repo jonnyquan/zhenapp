@@ -6,7 +6,7 @@
 		SELECT * FROM t_task_detailinfo WHERE (taskkeynum,taskkeyword) NOT IN (
 		SELECT taskkeynum,taskkeyword FROM t_task_detailinfo WHERE phoneid=#{phoneid} AND taskdate=#{taskdate}) AND taskdate=#{taskdate} AND taskstate='40'
 		AND (CASE WHEN taskminute>9 AND taskhour >9 THEN CONCAT(taskhour,taskminute) <![CDATA[<=]]> #{HHmm} WHEN taskminute > 9 AND taskhour <![CDATA[<=]]> 9 THEN CONCAT('0',taskhour,taskminute) <![CDATA[<=]]> #{HHmm} WHEN taskminute <![CDATA[<=]]> 9 AND taskhour <![CDATA[<=]]> 9 THEN CONCAT('0',taskhour,'0',taskminute) <![CDATA[<=]]> #{HHmm} ELSE CONCAT(taskhour,'0',taskminute) <![CDATA[<=]]> #{HHmm} END)
-		ORDER BY taskhour,taskminute LIMIT 0,1
+		ORDER BY taskhour,taskminute,ordernum LIMIT 0,1
 	</select>
 	<select id="findTaskDetail" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
 		SELECT a.* FROM t_task_detailinfo a
@@ -146,47 +146,55 @@
   </select>
   
   <select id="findTaskDetailByProblemAndPage" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom"  parameterType="java.util.HashMap">
-  		select * from t_task_detailinfo 
+  		select b.taskpk,a.* from t_task_detailinfo a
+  		LEFT JOIN t_task_info b ON a.taskid=b.taskid
   		<where>
-  			and phoneid IS NOT NULL AND visit IS NULL AND collect IS NULL AND trolley IS NULL AND TIMESTAMPDIFF(MINUTE ,DATE_FORMAT(updatetime,'%Y%m%d%H%i%s'),DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'))>10
+  			and a.phoneid IS NOT NULL AND a.visit IS NULL AND a.collect IS NULL AND a.trolley IS NULL AND TIMESTAMPDIFF(MINUTE ,DATE_FORMAT(a.updatetime,'%Y%m%d%H%i%s'),DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'))>10
   			<if test="phoneid !=null and phoneid != ''">
-		  		and phoneid = #{phoneid}
+		  		and a.phoneid = #{phoneid}
 		  	</if>
 		  	<if test="today !=null and today != ''">
-		  		and taskdate = #{today}
+		  		and a.taskdate = #{today}
 		  	</if>
 	  		<if test="taskdetailpk !=null and taskdetailpk != ''">
-		  		and taskdetailpk = #{taskdetailpk}
+		  		and a.taskdetailpk = #{taskdetailpk}
 		  	</if>
 		  	<if test="taskkeynum !=null and taskkeynum != ''">
-		  		and taskkeynum = #{taskkeynum}
+		  		and a.taskkeynum = #{taskkeynum}
+		  	</if>
+		  	<if test="taskpk !=null and taskpk != ''">
+		  		and b.taskpk = #{taskpk}
 		  	</if>
   		</where>
   </select>
   
   
   <select id="findTotalTaskDetailByProblemAndPage" resultType="int" parameterType="java.util.HashMap">
-  		select count(1) from t_task_detailinfo 
+  		select count(1) from t_task_detailinfo a
+  		LEFT JOIN t_task_info b ON a.taskid=b.taskid
   		<where>
-  			and phoneid IS NOT NULL AND visit IS NULL AND collect IS NULL AND trolley IS NULL AND TIMESTAMPDIFF(MINUTE ,DATE_FORMAT(updatetime,'%Y%m%d%H%i%s'),DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'))>10
+  			and a.phoneid IS NOT NULL AND a.visit IS NULL AND a.collect IS NULL AND a.trolley IS NULL AND TIMESTAMPDIFF(MINUTE ,DATE_FORMAT(a.updatetime,'%Y%m%d%H%i%s'),DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'))>10
   			<if test="phoneid !=null and phoneid != ''">
-		  		and phoneid = #{phoneid}
+		  		and a.phoneid = #{phoneid}
 		  	</if>
 		  	<if test="today !=null and today != ''">
-		  		and taskdate = #{today}
+		  		and a.taskdate = #{today}
 		  	</if>
 	  		<if test="taskdetailpk !=null and taskdetailpk != ''">
-		  		and taskdetailpk = #{taskdetailpk}
+		  		and a.taskdetailpk = #{taskdetailpk}
 		  	</if>
 		  	<if test="taskkeynum !=null and taskkeynum != ''">
-		  		and taskkeynum = #{taskkeynum}
+		  		and a.taskkeynum = #{taskkeynum}
+		  	</if>
+		  	<if test="taskpk !=null and taskpk != ''">
+		  		and b.taskpk = #{taskpk}
 		  	</if>
   		</where>
   </select>
   
   <select id="findTaskDetailByPage" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom" parameterType="java.util.HashMap">
 	SELECT g.dicinfoname as taskstatename,f.taskpk,a.taskdetailpk, a.taskdetailid, a.taskid, a.taskkeyword, a.searchtype,e.dicinfoname AS tasktypename, a.price, a.region, a.isfreeship, 
-    a.istmall, a.iscollection,CASE WHEN a.iscollection='0' THEN '否' ELSE '是' END AS iscollectionname,a.isshopping, CASE WHEN a.isshopping='0' THEN '否' ELSE '是' END AS isshoppingname, a.taskkeynum, a.creativetitle, a.taskimgztc,a.minpicture, a.maxpicture, a.tasktype, 
+    a.istmall, a.iscollection,CASE WHEN a.iscollection='0' THEN '否' ELSE '是' END AS iscollectionname,a.isshopping, CASE WHEN a.isshopping='0' THEN '否' ELSE '是' END AS isshoppingname, a.taskkeynum, a.creativetitle, a.taskimgztc,a.drillimg,a.minpicture, a.maxpicture, a.tasktype, 
     a.isflow, a.iscreativetitle, a.taskstate, a.taskdate, a.taskhour, a.taskminute, 
     a.visit,b.dictypename AS visitname ,a.collect,c.dictypename AS collectname, a.trolley, d.dictypename AS trolleyname, a.phoneid, a.subtractpoints, a.resultstr,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime, a.createuser, DATE_FORMAT(a.updatetime,'%Y-%m-%d %H:%i:%s') AS updatetime, 
     a.updateuser FROM t_task_detailinfo a
@@ -304,7 +312,7 @@
       region, isfreeship, istmall, 
       iscollection, isshopping, isstorecollection, 
       isfakechat, fakechatstr1, fakechatstr2, 
-      fakechatstr3, fakechatstr4, taskkeynum,creativetitle, taskimgztc, 
+      fakechatstr3, fakechatstr4, taskkeynum,creativetitle, taskimgztc, drillimg,ordernum,
       minpicture, maxpicture, tasktype, 
       isflow, iscreativetitle, taskstate, 
       taskdate, taskhour, taskminute, 
@@ -317,7 +325,7 @@
       #{region,jdbcType=VARCHAR}, #{isfreeship,jdbcType=VARCHAR}, #{istmall,jdbcType=VARCHAR}, 
       #{iscollection,jdbcType=VARCHAR}, #{isshopping,jdbcType=VARCHAR}, #{isstorecollection,jdbcType=VARCHAR}, 
       #{isfakechat,jdbcType=VARCHAR}, #{fakechatstr1,jdbcType=VARCHAR}, #{fakechatstr2,jdbcType=VARCHAR}, 
-      #{fakechatstr3,jdbcType=VARCHAR}, #{fakechatstr4,jdbcType=VARCHAR}, #{taskkeynum,jdbcType=VARCHAR},#{creativetitle,jdbcType=VARCHAR},#{taskimgztc,jdbcType=VARCHAR}, 
+      #{fakechatstr3,jdbcType=VARCHAR}, #{fakechatstr4,jdbcType=VARCHAR}, #{taskkeynum,jdbcType=VARCHAR},#{creativetitle,jdbcType=VARCHAR},#{taskimgztc,jdbcType=VARCHAR},#{drillimg,jdbcType=VARCHAR}, #{ordernum,jdbcType=VARCHAR}, 
       #{minpicture,jdbcType=VARCHAR}, #{maxpicture,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
       #{isflow,jdbcType=VARCHAR}, #{iscreativetitle,jdbcType=VARCHAR}, #{taskstate,jdbcType=VARCHAR}, 
       #{taskdate,jdbcType=VARCHAR}, #{taskhour,jdbcType=INTEGER}, #{taskminute,jdbcType=INTEGER}, 
@@ -428,5 +436,9 @@
 	  		and taskid = #{taskid}
 	  	</if>
 	  </where>
+  </delete>
+  
+  <delete id="deleteDate" parameterType="java.util.HashMap" >
+  	DELETE FROM t_task_detailinfo WHERE createtime <![CDATA[<]]> #{time}
   </delete>
 </mapper>

@@ -103,6 +103,8 @@ public class TaskallocationztcService {
 					tTaskDetailInfoCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
 					tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
 					tTaskDetailInfoCustom.setTaskimgztc(tTaskInfoCustom.getTaskimgztc());
+					tTaskDetailInfoCustom.setDrillimg(tTaskInfoCustom.getDrillimg());
+					tTaskDetailInfoCustom.setOrdernum(i);
 					tTaskDetailInfoCustom.setCreativetitle(tTaskInfoCustom.getCreativetitle());
 					tTaskDetailInfoCustom.setIscollection("0");
 					tTaskDetailInfoCustom.setIsshopping("0");
@@ -149,6 +151,8 @@ public class TaskallocationztcService {
 					tTaskDetailInfoCustom.setMinpicture(tTaskInfoCustom.getTaskminprice());
 					tTaskDetailInfoCustom.setMaxpicture(tTaskInfoCustom.getTaskmaxprice());
 					tTaskDetailInfoCustom.setTaskimgztc(tTaskInfoCustom.getTaskimgztc());
+					tTaskDetailInfoCustom.setDrillimg(tTaskInfoCustom.getDrillimg());
+					tTaskDetailInfoCustom.setOrdernum(i);
 					tTaskDetailInfoCustom.setCreativetitle(tTaskInfoCustom.getCreativetitle());
 					tTaskDetailInfoCustom.setIscollection("1");
 					tTaskDetailInfoCustom.setIsshopping("1");

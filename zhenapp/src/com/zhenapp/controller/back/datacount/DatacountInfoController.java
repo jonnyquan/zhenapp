@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zhenapp.po.Custom.DatacountInfoCustom;
 import com.zhenapp.po.Custom.TAgentInfoCustom;
+import com.zhenapp.po.Custom.TDatacountInfoCustom;
 import com.zhenapp.po.Custom.TUserInfoCustom;
 import com.zhenapp.service.AgentInfoService;
 import com.zhenapp.service.DatacountInfoService;
@@ -98,6 +99,37 @@ public class DatacountInfoController {
 		mv.addObject("datacountInfoCustom", datacountInfoCustom);
 		mv.addObject("tAgentInfoCustomlist", tAgentInfoCustomlist);
 		mv.setViewName("/backstage/admin/datasum.jsp");
+		return mv;
+	}
+	/*
+	 * 根据日期和任务类型查询统计 -----系统管理员
+	 */
+	@RequestMapping(value="/responsedatacountsumadmin")
+	public @ResponseBody ModelAndView responsedatacountsumadmin(String tasktype,String datefrom,String dateto,String agentid) throws Exception{
+		ModelAndView mv= new ModelAndView();
+		HashMap<String, Object> hashmap=new HashMap<String, Object>();
+		if(datefrom!=null && !datefrom.equals("")){
+			hashmap.put("datefrom", datefrom.replace("-", ""));
+		}
+		if(dateto!=null && !dateto.equals("")){
+			hashmap.put("dateto", dateto.replace("-", ""));
+		}
+		if(datefrom == null && dateto == null){
+			hashmap.put("datefrom", yyyyMMdd.format(new Date()));
+			hashmap.put("dateto", yyyyMMdd.format(new Date()));
+		}
+		//hashmap.put("tasktype", tasktype);
+		hashmap.put("agentid", agentid);
+		List<TDatacountInfoCustom> tDatacountInfoCustomlist=datacountInfoService.findDatacountBydate(hashmap);
+		TDatacountInfoCustom tDatacountInfoCustom=datacountInfoService.findSUMDatacountBydate(hashmap);
+		//查询所有代理信息
+		List<TAgentInfoCustom> tAgentInfoCustomlist = agentInfoService.findAllAgentBypage(hashmap);
+		mv.addObject("total", tDatacountInfoCustomlist.size());
+		mv.addObject("agentid", agentid);
+		mv.addObject("tDatacountInfoCustomlist", tDatacountInfoCustomlist);
+		mv.addObject("tDatacountInfoCustom", tDatacountInfoCustom);
+		mv.addObject("tAgentInfoCustomlist", tAgentInfoCustomlist);
+		mv.setViewName("/backstage/admin/datacountsum.jsp");
 		return mv;
 	}
 }

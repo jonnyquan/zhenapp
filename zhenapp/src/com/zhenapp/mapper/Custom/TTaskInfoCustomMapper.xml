@@ -35,7 +35,7 @@
      a.taskstartdate,a.taskenddate,a.taskdate, 
      a.taskreleasekeyword,a.taskkeyword,a.taskhourcounts, 
      a.taskminprice,a.taskmaxprice,a.tasksearchType, 
-     a.taskimgztc,a.taskimgpt,a.flowcount, 
+     a.taskimgztc,a.taskimgpt,a.drillimg,a.flowcount, 
      a.Collectioncount,a.Shoppingcount,a.storecollectioncount,a.fakechatcount,a.tasktmallapppct,a.creativetitle,
      a.taskgprspct,a.taskPlus,a.taskduration, 
      a.subtractpoints,a.taskstate,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime, 
@@ -108,7 +108,7 @@
      a.taskstartdate,a.taskenddate,a.taskdate, 
      a.taskreleasekeyword,a.taskkeyword,a.taskhourcounts, 
      a.taskminprice,a.taskmaxprice,a.tasksearchType,a.creativetitle,
-     a.taskimgztc,a.taskimgpt,a.flowcount, 
+     a.taskimgztc,a.taskimgpt,a.drillimg,a.flowcount, 
      a.Collectioncount,a.Shoppingcount,a.storecollectioncount,a.fakechatcount,a.tasktmallapppct, 
      a.taskgprspct,a.taskPlus,a.taskduration, 
      a.subtractpoints,a.taskstate,DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') AS createtime, 
@@ -325,6 +325,10 @@
     select * from t_task_info WHERE taskkeynum=#{taskkeynum}
   </select>
   
+  <delete id="deleteDate" parameterType="java.util.HashMap" >
+    DELETE FROM t_task_info WHERE createtime <![CDATA[<]]> #{time}
+  </delete>
+  
   <insert id="insertTaskInfo" parameterType="com.zhenapp.po.Custom.TTaskInfoCustom" >
   	<selectKey keyProperty="taskpk" order="AFTER" resultType="int">
   		select LAST_INSERT_ID()
@@ -335,7 +339,7 @@
       taskdate, taskreleasekeyword, taskkeyword, 
       taskhourcounts, taskprice, taskminprice, 
       taskmaxprice, shipaddress, tasksearchType, 
-      creativetitle, taskimgztc, taskimgpt, 
+      creativetitle, taskimgztc,drillimg, taskimgpt, 
       flowcount, Collectioncount, Shoppingcount, 
       storecollectioncount, fakechatcount, fakechatstr1, 
       fakechatstr2, fakechatstr3, fakechatstr4, 
@@ -350,7 +354,7 @@
       #{taskdate,jdbcType=VARCHAR}, #{taskreleasekeyword,jdbcType=VARCHAR}, #{taskkeyword,jdbcType=VARCHAR}, 
       #{taskhourcounts,jdbcType=VARCHAR}, #{taskprice,jdbcType=VARCHAR}, #{taskminprice,jdbcType=VARCHAR}, 
       #{taskmaxprice,jdbcType=VARCHAR}, #{shipaddress,jdbcType=VARCHAR}, #{tasksearchtype,jdbcType=VARCHAR}, 
-      #{creativetitle,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR}, #{taskimgpt,jdbcType=VARCHAR}, 
+      #{creativetitle,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR},#{drillimg,jdbcType=VARCHAR}, #{taskimgpt,jdbcType=VARCHAR}, 
       #{flowcount,jdbcType=INTEGER}, #{collectioncount,jdbcType=INTEGER}, #{shoppingcount,jdbcType=INTEGER}, 
       #{storecollectioncount,jdbcType=INTEGER}, #{fakechatcount,jdbcType=INTEGER}, #{fakechatstr1,jdbcType=VARCHAR}, 
       #{fakechatstr2,jdbcType=VARCHAR}, #{fakechatstr3,jdbcType=VARCHAR}, #{fakechatstr4,jdbcType=VARCHAR}, 

@@ -23,6 +23,7 @@
     <result column="creativetitle" property="creativetitle" jdbcType="VARCHAR" />
     <result column="taskimgztc" property="taskimgztc" jdbcType="VARCHAR" />
     <result column="taskimgpt" property="taskimgpt" jdbcType="VARCHAR" />
+    <result column="drillimg" property="drillimg" jdbcType="VARCHAR" />
     <result column="flowcount" property="flowcount" jdbcType="INTEGER" />
     <result column="Collectioncount" property="collectioncount" jdbcType="INTEGER" />
     <result column="Shoppingcount" property="shoppingcount" jdbcType="INTEGER" />
@@ -107,10 +108,10 @@
     taskpk, taskid, tasktype, taskkeynum, taskurl, tasktitle, taskwirelesstitle, taskstartdate, 
     taskenddate, taskdate, taskreleasekeyword, taskkeyword, taskhourcounts, taskprice, 
     taskminprice, taskmaxprice, shipaddress, tasksearchType, creativetitle, taskimgztc, 
-    taskimgpt, flowcount, Collectioncount, Shoppingcount, storecollectioncount, fakechatcount, 
-    fakechatstr1, fakechatstr2, fakechatstr3, fakechatstr4, deepclick, tasktmallapppct, 
-    taskgprspct, taskPlus, taskduration, iscreativetitle, subtractpoints, taskstate, 
-    createtime, createuser, updatetime, updateuser
+    taskimgpt, drillimg, flowcount, Collectioncount, Shoppingcount, storecollectioncount, 
+    fakechatcount, fakechatstr1, fakechatstr2, fakechatstr3, fakechatstr4, deepclick, 
+    tasktmallapppct, taskgprspct, taskPlus, taskduration, iscreativetitle, subtractpoints, 
+    taskstate, createtime, createuser, updatetime, updateuser
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TTaskInfoExample" >
     select
@@ -150,14 +151,14 @@
       taskhourcounts, taskprice, taskminprice, 
       taskmaxprice, shipaddress, tasksearchType, 
       creativetitle, taskimgztc, taskimgpt, 
-      flowcount, Collectioncount, Shoppingcount, 
-      storecollectioncount, fakechatcount, fakechatstr1, 
-      fakechatstr2, fakechatstr3, fakechatstr4, 
-      deepclick, tasktmallapppct, taskgprspct, 
-      taskPlus, taskduration, iscreativetitle, 
-      subtractpoints, taskstate, createtime, 
-      createuser, updatetime, updateuser
-      )
+      drillimg, flowcount, Collectioncount, 
+      Shoppingcount, storecollectioncount, fakechatcount, 
+      fakechatstr1, fakechatstr2, fakechatstr3, 
+      fakechatstr4, deepclick, tasktmallapppct, 
+      taskgprspct, taskPlus, taskduration, 
+      iscreativetitle, subtractpoints, taskstate, 
+      createtime, createuser, updatetime, 
+      updateuser)
     values (#{taskpk,jdbcType=INTEGER}, #{taskid,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
       #{taskkeynum,jdbcType=VARCHAR}, #{taskurl,jdbcType=VARCHAR}, #{tasktitle,jdbcType=VARCHAR}, 
       #{taskwirelesstitle,jdbcType=VARCHAR}, #{taskstartdate,jdbcType=VARCHAR}, #{taskenddate,jdbcType=VARCHAR}, 
@@ -165,14 +166,14 @@
       #{taskhourcounts,jdbcType=VARCHAR}, #{taskprice,jdbcType=VARCHAR}, #{taskminprice,jdbcType=VARCHAR}, 
       #{taskmaxprice,jdbcType=VARCHAR}, #{shipaddress,jdbcType=VARCHAR}, #{tasksearchtype,jdbcType=VARCHAR}, 
       #{creativetitle,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR}, #{taskimgpt,jdbcType=VARCHAR}, 
-      #{flowcount,jdbcType=INTEGER}, #{collectioncount,jdbcType=INTEGER}, #{shoppingcount,jdbcType=INTEGER}, 
-      #{storecollectioncount,jdbcType=INTEGER}, #{fakechatcount,jdbcType=INTEGER}, #{fakechatstr1,jdbcType=VARCHAR}, 
-      #{fakechatstr2,jdbcType=VARCHAR}, #{fakechatstr3,jdbcType=VARCHAR}, #{fakechatstr4,jdbcType=VARCHAR}, 
-      #{deepclick,jdbcType=VARCHAR}, #{tasktmallapppct,jdbcType=VARCHAR}, #{taskgprspct,jdbcType=VARCHAR}, 
-      #{taskplus,jdbcType=VARCHAR}, #{taskduration,jdbcType=VARCHAR}, #{iscreativetitle,jdbcType=VARCHAR}, 
-      #{subtractpoints,jdbcType=INTEGER}, #{taskstate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
-      #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{updateuser,jdbcType=VARCHAR}
-      )
+      #{drillimg,jdbcType=VARCHAR}, #{flowcount,jdbcType=INTEGER}, #{collectioncount,jdbcType=INTEGER}, 
+      #{shoppingcount,jdbcType=INTEGER}, #{storecollectioncount,jdbcType=INTEGER}, #{fakechatcount,jdbcType=INTEGER}, 
+      #{fakechatstr1,jdbcType=VARCHAR}, #{fakechatstr2,jdbcType=VARCHAR}, #{fakechatstr3,jdbcType=VARCHAR}, 
+      #{fakechatstr4,jdbcType=VARCHAR}, #{deepclick,jdbcType=VARCHAR}, #{tasktmallapppct,jdbcType=VARCHAR}, 
+      #{taskgprspct,jdbcType=VARCHAR}, #{taskplus,jdbcType=VARCHAR}, #{taskduration,jdbcType=VARCHAR}, 
+      #{iscreativetitle,jdbcType=VARCHAR}, #{subtractpoints,jdbcType=INTEGER}, #{taskstate,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{updateuser,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zhenapp.po.TTaskInfo" >
     insert into t_task_info
@@ -239,6 +240,9 @@
       </if>
       <if test="taskimgpt != null" >
         taskimgpt,
+      </if>
+      <if test="drillimg != null" >
+        drillimg,
       </if>
       <if test="flowcount != null" >
         flowcount,
@@ -367,6 +371,9 @@
       </if>
       <if test="taskimgpt != null" >
         #{taskimgpt,jdbcType=VARCHAR},
+      </if>
+      <if test="drillimg != null" >
+        #{drillimg,jdbcType=VARCHAR},
       </if>
       <if test="flowcount != null" >
         #{flowcount,jdbcType=INTEGER},
@@ -505,6 +512,9 @@
       <if test="record.taskimgpt != null" >
         taskimgpt = #{record.taskimgpt,jdbcType=VARCHAR},
       </if>
+      <if test="record.drillimg != null" >
+        drillimg = #{record.drillimg,jdbcType=VARCHAR},
+      </if>
       <if test="record.flowcount != null" >
         flowcount = #{record.flowcount,jdbcType=INTEGER},
       </if>
@@ -596,6 +606,7 @@
       creativetitle = #{record.creativetitle,jdbcType=VARCHAR},
       taskimgztc = #{record.taskimgztc,jdbcType=VARCHAR},
       taskimgpt = #{record.taskimgpt,jdbcType=VARCHAR},
+      drillimg = #{record.drillimg,jdbcType=VARCHAR},
       flowcount = #{record.flowcount,jdbcType=INTEGER},
       Collectioncount = #{record.collectioncount,jdbcType=INTEGER},
       Shoppingcount = #{record.shoppingcount,jdbcType=INTEGER},
@@ -683,6 +694,9 @@
       </if>
       <if test="taskimgpt != null" >
         taskimgpt = #{taskimgpt,jdbcType=VARCHAR},
+      </if>
+      <if test="drillimg != null" >
+        drillimg = #{drillimg,jdbcType=VARCHAR},
       </if>
       <if test="flowcount != null" >
         flowcount = #{flowcount,jdbcType=INTEGER},
@@ -772,6 +786,7 @@
       creativetitle = #{creativetitle,jdbcType=VARCHAR},
       taskimgztc = #{taskimgztc,jdbcType=VARCHAR},
       taskimgpt = #{taskimgpt,jdbcType=VARCHAR},
+      drillimg = #{drillimg,jdbcType=VARCHAR},
       flowcount = #{flowcount,jdbcType=INTEGER},
       Collectioncount = #{collectioncount,jdbcType=INTEGER},
       Shoppingcount = #{shoppingcount,jdbcType=INTEGER},

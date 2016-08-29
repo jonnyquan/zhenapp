@@ -43,6 +43,8 @@ public class TTaskInfo {
 
     private String taskimgpt;
 
+    private String drillimg;
+
     private Integer flowcount;
 
     private Integer collectioncount;
@@ -251,6 +253,14 @@ public class TTaskInfo {
 
     public void setTaskimgpt(String taskimgpt) {
         this.taskimgpt = taskimgpt == null ? null : taskimgpt.trim();
+    }
+
+    public String getDrillimg() {
+        return drillimg;
+    }
+
+    public void setDrillimg(String drillimg) {
+        this.drillimg = drillimg == null ? null : drillimg.trim();
     }
 
     public Integer getFlowcount() {

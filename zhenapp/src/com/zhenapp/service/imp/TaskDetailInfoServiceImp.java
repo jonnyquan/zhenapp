@@ -143,4 +143,9 @@ public class TaskDetailInfoServiceImp implements TaskDetailInfoService {
 		// TODO Auto-generated method stub
 		return tTaskDetailinfoCustomMapper.requesttaskAuto(hashmap);
 	}
+	@Override
+	public int deleteDate(HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskDetailinfoCustomMapper.deleteDate(hashmap);
+	}
 }

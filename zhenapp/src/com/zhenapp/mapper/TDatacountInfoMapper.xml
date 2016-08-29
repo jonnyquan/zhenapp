@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenapp.mapper.TDatacountInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zhenapp.po.TDatacountInfo" >
+    <id column="datacountpk" property="datacountpk" jdbcType="INTEGER" />
+    <result column="agentid" property="agentid" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="finishcount" property="finishcount" jdbcType="VARCHAR" />
+    <result column="shoppingcount" property="shoppingcount" jdbcType="VARCHAR" />
+    <result column="collectioncount" property="collectioncount" jdbcType="VARCHAR" />
+    <result column="ztccount" property="ztccount" jdbcType="VARCHAR" />
+    <result column="shoppingztccount" property="shoppingztccount" jdbcType="VARCHAR" />
+    <result column="collectionztccount" property="collectionztccount" jdbcType="VARCHAR" />
+    <result column="buypoints" property="buypoints" jdbcType="VARCHAR" />
+    <result column="expendpoints" property="expendpoints" jdbcType="VARCHAR" />
+    <result column="handworkpoints" property="handworkpoints" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    datacountpk, agentid, userid, date, finishcount, shoppingcount, collectioncount, 
+    ztccount, shoppingztccount, collectionztccount, buypoints, expendpoints, handworkpoints
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhenapp.po.TDatacountInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_datacount_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_datacount_info
+    where datacountpk = #{datacountpk,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_datacount_info
+    where datacountpk = #{datacountpk,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zhenapp.po.TDatacountInfoExample" >
+    delete from t_datacount_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhenapp.po.TDatacountInfo" >
+    insert into t_datacount_info (datacountpk, agentid, userid, 
+      date, finishcount, shoppingcount, 
+      collectioncount, ztccount, shoppingztccount, 
+      collectionztccount, buypoints, expendpoints, 
+      handworkpoints)
+    values (#{datacountpk,jdbcType=INTEGER}, #{agentid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{date,jdbcType=VARCHAR}, #{finishcount,jdbcType=VARCHAR}, #{shoppingcount,jdbcType=VARCHAR}, 
+      #{collectioncount,jdbcType=VARCHAR}, #{ztccount,jdbcType=VARCHAR}, #{shoppingztccount,jdbcType=VARCHAR}, 
+      #{collectionztccount,jdbcType=VARCHAR}, #{buypoints,jdbcType=VARCHAR}, #{expendpoints,jdbcType=VARCHAR}, 
+      #{handworkpoints,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhenapp.po.TDatacountInfo" >
+    insert into t_datacount_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="datacountpk != null" >
+        datacountpk,
+      </if>
+      <if test="agentid != null" >
+        agentid,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="finishcount != null" >
+        finishcount,
+      </if>
+      <if test="shoppingcount != null" >
+        shoppingcount,
+      </if>
+      <if test="collectioncount != null" >
+        collectioncount,
+      </if>
+      <if test="ztccount != null" >
+        ztccount,
+      </if>
+      <if test="shoppingztccount != null" >
+        shoppingztccount,
+      </if>
+      <if test="collectionztccount != null" >
+        collectionztccount,
+      </if>
+      <if test="buypoints != null" >
+        buypoints,
+      </if>
+      <if test="expendpoints != null" >
+        expendpoints,
+      </if>
+      <if test="handworkpoints != null" >
+        handworkpoints,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="datacountpk != null" >
+        #{datacountpk,jdbcType=INTEGER},
+      </if>
+      <if test="agentid != null" >
+        #{agentid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="finishcount != null" >
+        #{finishcount,jdbcType=VARCHAR},
+      </if>
+      <if test="shoppingcount != null" >
+        #{shoppingcount,jdbcType=VARCHAR},
+      </if>
+      <if test="collectioncount != null" >
+        #{collectioncount,jdbcType=VARCHAR},
+      </if>
+      <if test="ztccount != null" >
+        #{ztccount,jdbcType=VARCHAR},
+      </if>
+      <if test="shoppingztccount != null" >
+        #{shoppingztccount,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionztccount != null" >
+        #{collectionztccount,jdbcType=VARCHAR},
+      </if>
+      <if test="buypoints != null" >
+        #{buypoints,jdbcType=VARCHAR},
+      </if>
+      <if test="expendpoints != null" >
+        #{expendpoints,jdbcType=VARCHAR},
+      </if>
+      <if test="handworkpoints != null" >
+        #{handworkpoints,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhenapp.po.TDatacountInfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_datacount_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_datacount_info
+    <set >
+      <if test="record.datacountpk != null" >
+        datacountpk = #{record.datacountpk,jdbcType=INTEGER},
+      </if>
+      <if test="record.agentid != null" >
+        agentid = #{record.agentid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finishcount != null" >
+        finishcount = #{record.finishcount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shoppingcount != null" >
+        shoppingcount = #{record.shoppingcount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collectioncount != null" >
+        collectioncount = #{record.collectioncount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ztccount != null" >
+        ztccount = #{record.ztccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shoppingztccount != null" >
+        shoppingztccount = #{record.shoppingztccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collectionztccount != null" >
+        collectionztccount = #{record.collectionztccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buypoints != null" >
+        buypoints = #{record.buypoints,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expendpoints != null" >
+        expendpoints = #{record.expendpoints,jdbcType=VARCHAR},
+      </if>
+      <if test="record.handworkpoints != null" >
+        handworkpoints = #{record.handworkpoints,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_datacount_info
+    set datacountpk = #{record.datacountpk,jdbcType=INTEGER},
+      agentid = #{record.agentid,jdbcType=VARCHAR},
+      userid = #{record.userid,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=VARCHAR},
+      finishcount = #{record.finishcount,jdbcType=VARCHAR},
+      shoppingcount = #{record.shoppingcount,jdbcType=VARCHAR},
+      collectioncount = #{record.collectioncount,jdbcType=VARCHAR},
+      ztccount = #{record.ztccount,jdbcType=VARCHAR},
+      shoppingztccount = #{record.shoppingztccount,jdbcType=VARCHAR},
+      collectionztccount = #{record.collectionztccount,jdbcType=VARCHAR},
+      buypoints = #{record.buypoints,jdbcType=VARCHAR},
+      expendpoints = #{record.expendpoints,jdbcType=VARCHAR},
+      handworkpoints = #{record.handworkpoints,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhenapp.po.TDatacountInfo" >
+    update t_datacount_info
+    <set >
+      <if test="agentid != null" >
+        agentid = #{agentid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="finishcount != null" >
+        finishcount = #{finishcount,jdbcType=VARCHAR},
+      </if>
+      <if test="shoppingcount != null" >
+        shoppingcount = #{shoppingcount,jdbcType=VARCHAR},
+      </if>
+      <if test="collectioncount != null" >
+        collectioncount = #{collectioncount,jdbcType=VARCHAR},
+      </if>
+      <if test="ztccount != null" >
+        ztccount = #{ztccount,jdbcType=VARCHAR},
+      </if>
+      <if test="shoppingztccount != null" >
+        shoppingztccount = #{shoppingztccount,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionztccount != null" >
+        collectionztccount = #{collectionztccount,jdbcType=VARCHAR},
+      </if>
+      <if test="buypoints != null" >
+        buypoints = #{buypoints,jdbcType=VARCHAR},
+      </if>
+      <if test="expendpoints != null" >
+        expendpoints = #{expendpoints,jdbcType=VARCHAR},
+      </if>
+      <if test="handworkpoints != null" >
+        handworkpoints = #{handworkpoints,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where datacountpk = #{datacountpk,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhenapp.po.TDatacountInfo" >
+    update t_datacount_info
+    set agentid = #{agentid,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=VARCHAR},
+      date = #{date,jdbcType=VARCHAR},
+      finishcount = #{finishcount,jdbcType=VARCHAR},
+      shoppingcount = #{shoppingcount,jdbcType=VARCHAR},
+      collectioncount = #{collectioncount,jdbcType=VARCHAR},
+      ztccount = #{ztccount,jdbcType=VARCHAR},
+      shoppingztccount = #{shoppingztccount,jdbcType=VARCHAR},
+      collectionztccount = #{collectionztccount,jdbcType=VARCHAR},
+      buypoints = #{buypoints,jdbcType=VARCHAR},
+      expendpoints = #{expendpoints,jdbcType=VARCHAR},
+      handworkpoints = #{handworkpoints,jdbcType=VARCHAR}
+    where datacountpk = #{datacountpk,jdbcType=INTEGER}
+  </update>
+</mapper>

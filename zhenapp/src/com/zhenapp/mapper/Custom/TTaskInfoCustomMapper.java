@@ -7,6 +7,7 @@ import com.zhenapp.po.Custom.TTaskInfoCustom;
 
 
 public interface TTaskInfoCustomMapper {
+	public int deleteDate(HashMap<String, Object> hashmap) throws Exception;
 	//查询当前已分配任务但未生成详情任务的订单
 	public List<TTaskInfoCustom> findAllocation(HashMap<String, Object> hashmap) throws Exception;
 	

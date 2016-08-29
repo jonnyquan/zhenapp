@@ -81,7 +81,7 @@
 					<input type="text" id="nid" class="am-form-field am-input-sm" value="${taskkeynum}" placeholder="宝贝id">
 				</div>
 				<div class="am-form-group">
-					<input type="text" id="fid" class="am-form-field am-input-sm" value="${taskdetailpk}" placeholder="订单id">
+					<input type="text" id="fid" class="am-form-field am-input-sm" value="${taskpk}" placeholder="订单id">
 				</div>
 				<button class="am-btn am-btn-default" id="search" type="button">搜索</button>
 			</form>
@@ -117,7 +117,7 @@
 						<c:forEach items="${tTaskDetailInfoCustomlist}" var="list">
 							<tr data-id="${list.taskdetailpk }">
 								<th>${list.phoneid }</th>
-								<td>${list.taskdetailpk }</td>
+								<td>${list.taskpk }</td>
 								<td>${list.taskkeynum }</td>
 								<td>${list.isshopping }</td>
 								<td>${list.iscollection }</td>
@@ -156,7 +156,7 @@
 		var pid = $("#pid").val();
 		var nid = $("#nid").val();
 		var fid = $("#fid").val();
-		window.location.href = "${pageContext.request.contextPath}/task/findtasklocklist?page=" + num + "&&phoneid=" + pid + "&&taskkeynum=" + nid+"&&taskdetailpk="+fid;
+		window.location.href = "${pageContext.request.contextPath}/task/findtasklocklist?page=" + num + "&&phoneid=" + pid + "&&taskkeynum=" + nid+"&&taskpk="+fid;
 	}
 	  var index = Number("${pagenum}");
 		if (index.length < 1) {

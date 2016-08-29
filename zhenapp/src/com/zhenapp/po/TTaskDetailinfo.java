@@ -41,6 +41,10 @@ public class TTaskDetailinfo {
 
     private String taskimgztc;
 
+    private String drillimg;
+
+    private Integer ordernum;
+
     private String minpicture;
 
     private String maxpicture;
@@ -237,6 +241,22 @@ public class TTaskDetailinfo {
 
     public void setTaskimgztc(String taskimgztc) {
         this.taskimgztc = taskimgztc == null ? null : taskimgztc.trim();
+    }
+
+    public String getDrillimg() {
+        return drillimg;
+    }
+
+    public void setDrillimg(String drillimg) {
+        this.drillimg = drillimg == null ? null : drillimg.trim();
+    }
+
+    public Integer getOrdernum() {
+        return ordernum;
+    }
+
+    public void setOrdernum(Integer ordernum) {
+        this.ordernum = ordernum;
     }
 
     public String getMinpicture() {

@@ -6,6 +6,7 @@ import java.util.List;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 
 public interface TaskInfoService {
+	public int deleteDate(HashMap<String, Object> hashmap) throws Exception;
 	//查询当前已分配任务但未生成详情任务的订单
 	public List<TTaskInfoCustom> findAllocation(HashMap<String, Object> hashmap) throws Exception;
 	//根据任务id修改任务的深入点击比例为0

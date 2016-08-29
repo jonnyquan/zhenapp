@@ -1494,6 +1494,136 @@ public class TTaskDetailinfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andDrillimgIsNull() {
+            addCriterion("drillimg is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgIsNotNull() {
+            addCriterion("drillimg is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgEqualTo(String value) {
+            addCriterion("drillimg =", value, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgNotEqualTo(String value) {
+            addCriterion("drillimg <>", value, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgGreaterThan(String value) {
+            addCriterion("drillimg >", value, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgGreaterThanOrEqualTo(String value) {
+            addCriterion("drillimg >=", value, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgLessThan(String value) {
+            addCriterion("drillimg <", value, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgLessThanOrEqualTo(String value) {
+            addCriterion("drillimg <=", value, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgLike(String value) {
+            addCriterion("drillimg like", value, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgNotLike(String value) {
+            addCriterion("drillimg not like", value, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgIn(List<String> values) {
+            addCriterion("drillimg in", values, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgNotIn(List<String> values) {
+            addCriterion("drillimg not in", values, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgBetween(String value1, String value2) {
+            addCriterion("drillimg between", value1, value2, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrillimgNotBetween(String value1, String value2) {
+            addCriterion("drillimg not between", value1, value2, "drillimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrdernumIsNull() {
+            addCriterion("ordernum is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrdernumIsNotNull() {
+            addCriterion("ordernum is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrdernumEqualTo(Integer value) {
+            addCriterion("ordernum =", value, "ordernum");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrdernumNotEqualTo(Integer value) {
+            addCriterion("ordernum <>", value, "ordernum");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrdernumGreaterThan(Integer value) {
+            addCriterion("ordernum >", value, "ordernum");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrdernumGreaterThanOrEqualTo(Integer value) {
+            addCriterion("ordernum >=", value, "ordernum");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrdernumLessThan(Integer value) {
+            addCriterion("ordernum <", value, "ordernum");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrdernumLessThanOrEqualTo(Integer value) {
+            addCriterion("ordernum <=", value, "ordernum");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrdernumIn(List<Integer> values) {
+            addCriterion("ordernum in", values, "ordernum");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrdernumNotIn(List<Integer> values) {
+            addCriterion("ordernum not in", values, "ordernum");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrdernumBetween(Integer value1, Integer value2) {
+            addCriterion("ordernum between", value1, value2, "ordernum");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrdernumNotBetween(Integer value1, Integer value2) {
+            addCriterion("ordernum not between", value1, value2, "ordernum");
+            return (Criteria) this;
+        }
+
         public Criteria andMinpictureIsNull() {
             addCriterion("minpicture is null");
             return (Criteria) this;

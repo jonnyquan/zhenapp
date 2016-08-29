@@ -99,6 +99,11 @@
 			</if>
 		</where>
 	</delete>
+	
+	<delete id="deleteDate" parameterType="java.util.HashMap">
+		DELETE FROM t_task_detailinfo_temp WHERE createtime <![CDATA[<]]> #{time}
+	</delete>
+	
 	<update id="updatestate" parameterType="java.util.HashMap">
 		update t_task_detailinfo_temp set taskstate = #{oldstate} 
 		<where>
@@ -121,7 +126,7 @@
       iscollection, isshopping, isstorecollection, 
       isfakechat, fakechatstr1, fakechatstr2, 
       fakechatstr3, fakechatstr4, taskkeynum, 
-      creativetitle, taskimgztc,minpicture, maxpicture, tasktype, 
+      creativetitle, taskimgztc,drillimg,minpicture, maxpicture, tasktype, 
       isflow, iscreativetitle, taskstate, 
       taskdate, taskhour, taskminute, 
       visit, collect, trolley, 
@@ -133,7 +138,7 @@
       #{region,jdbcType=VARCHAR}, #{isfreeship,jdbcType=VARCHAR}, #{istmall,jdbcType=VARCHAR}, 
       #{iscollection,jdbcType=VARCHAR}, #{isshopping,jdbcType=VARCHAR}, #{isstorecollection,jdbcType=VARCHAR}, 
       #{isfakechat,jdbcType=VARCHAR}, #{fakechatstr1,jdbcType=VARCHAR}, #{fakechatstr2,jdbcType=VARCHAR}, 
-      #{fakechatstr3,jdbcType=VARCHAR}, #{fakechatstr4,jdbcType=VARCHAR}, #{taskkeynum,jdbcType=VARCHAR}, #{creativetitle,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR}, 
+      #{fakechatstr3,jdbcType=VARCHAR}, #{fakechatstr4,jdbcType=VARCHAR}, #{taskkeynum,jdbcType=VARCHAR}, #{creativetitle,jdbcType=VARCHAR}, #{taskimgztc,jdbcType=VARCHAR},#{drillimg,jdbcType=VARCHAR}, 
       #{minpicture,jdbcType=VARCHAR}, #{maxpicture,jdbcType=VARCHAR}, #{tasktype,jdbcType=VARCHAR}, 
       #{isflow,jdbcType=VARCHAR}, #{iscreativetitle,jdbcType=VARCHAR}, #{taskstate,jdbcType=VARCHAR}, 
       #{taskdate,jdbcType=VARCHAR}, #{taskhour,jdbcType=INTEGER}, #{taskminute,jdbcType=INTEGER}, 

@@ -59,5 +59,11 @@ public class TaskInfoQueryServiceImp implements TaskInfoQueryService {
 		// TODO Auto-generated method stub
 		return tTaskInfoQueryCustomMapper.deleteTaskInfo();
 	}
+
+	@Override
+	public int deleteDate(HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskInfoQueryCustomMapper.deleteDate(hashmap);
+	}
 	
 }

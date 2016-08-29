@@ -25,7 +25,7 @@ public class FindTaskLockController {
 	 * 跳转卡机任务查询界面-----系统管理员
 	 */
 	@RequestMapping(value="/findtasklocklist")
-	public ModelAndView findtasklocklist(Integer page,String taskdetailpk,String phoneid,String taskkeynum) throws Exception{
+	public ModelAndView findtasklocklist(Integer page,String taskpk,String phoneid,String taskkeynum) throws Exception{
 		ModelAndView mv=new ModelAndView();
 		HashMap<String,Object> pagemap=new HashMap<String,Object>();
 		if (page == null || page==0) {
@@ -35,7 +35,7 @@ public class FindTaskLockController {
 		pagemap.put("rows", middleRows);
 		pagemap.put("phoneid", phoneid);
 		pagemap.put("taskkeynum", taskkeynum);
-		pagemap.put("taskdetailpk", taskdetailpk);
+		pagemap.put("taskpk", taskpk);
 		pagemap.put("today", yyyyMMdd.format(new Date()));
 		//系统管理员
 		List<TTaskDetailInfoCustom> tTaskDetailInfoCustomlist = taskDetailInfoService.findTaskDetailByProblemAndPage(pagemap);
@@ -45,7 +45,7 @@ public class FindTaskLockController {
 		mv.addObject("pagenum", page);
 		mv.addObject("phoneid", phoneid);
 		mv.addObject("taskkeynum", taskkeynum);
-		mv.addObject("taskdetailpk", taskdetailpk);
+		mv.addObject("taskpk", taskpk);
 		mv.setViewName("/backstage/admin/tasklocklist.jsp");
 		return mv;
 	}

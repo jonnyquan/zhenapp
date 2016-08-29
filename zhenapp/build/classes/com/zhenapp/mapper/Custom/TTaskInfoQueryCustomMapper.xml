@@ -146,4 +146,8 @@
 	<delete id="deleteTaskInfo">
 	  	DELETE FROM t_task_info_query WHERE taskpk NOT IN (SELECT taskpk FROM t_task_info) AND taskstate in (16,18)
   	</delete>
+  	
+    <delete id="deleteDate"  parameterType="java.util.HashMap">
+    	DELETE FROM t_task_info_query WHERE createtime <![CDATA[<]]> #{time}
+    </delete>
 </mapper>

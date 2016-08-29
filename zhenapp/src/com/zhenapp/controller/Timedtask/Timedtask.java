@@ -65,6 +65,11 @@ public class Timedtask {
 	private InsertDate insertDate;
 	@Autowired
 	private DeleteTaskQueryController deleteTaskQueryController;
+	@Autowired
+	private DeleteData deleteData;
+	@Autowired
+	private SaveDatacount saveDatacount;
+	
 	
 	@Value("${host}")
 	private String host;
@@ -201,7 +206,7 @@ public class Timedtask {
 		logger.info("分配直通车任务完成....每1分钟执行一次");
 	}
 	
-	@Scheduled(cron = "0/30 * * * * ?")//每30秒钟执行一次
+	@Scheduled(cron = "0/40 * * * * ?")//每40秒钟执行一次
 	public void saveTaskQuery() throws Exception { 
 		taskInfoQueryController.saveTaskInfo();
 	}
@@ -235,4 +240,16 @@ public class Timedtask {
 	public void deleteTaskQuery() throws Exception { 
 		deleteTaskQueryController.deleteTaskInfoQuery();
 	}
+	
+	@Scheduled(cron = "0 30 0 * * ?")//每天0点30分执行一次
+	public void deleteDate() throws Exception { 
+		deleteData.deleteData();
+	}
+	
+	@Scheduled(cron = "0 50 0 * * ?")//每天0点50分执行一次
+	public void saveDatacount() throws Exception { 
+		saveDatacount.saveDatacount();
+	}
+	
+	
 }

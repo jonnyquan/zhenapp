@@ -41,6 +41,8 @@ public class TTaskDetailinfoTemp {
 
     private String taskimgztc;
 
+    private String drillimg;
+
     private String minpicture;
 
     private String maxpicture;
@@ -237,6 +239,14 @@ public class TTaskDetailinfoTemp {
 
     public void setTaskimgztc(String taskimgztc) {
         this.taskimgztc = taskimgztc == null ? null : taskimgztc.trim();
+    }
+
+    public String getDrillimg() {
+        return drillimg;
+    }
+
+    public void setDrillimg(String drillimg) {
+        this.drillimg = drillimg == null ? null : drillimg.trim();
     }
 
     public String getMinpicture() {

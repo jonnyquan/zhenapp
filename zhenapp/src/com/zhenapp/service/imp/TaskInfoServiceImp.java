@@ -101,15 +101,18 @@ public class TaskInfoServiceImp implements TaskInfoService {
 	@Override
 	public int updatedeepclick(HashMap<String, Object> hashmap)
 			throws Exception {
-		// TODO Auto-generated method stub
 		return tTaskInfoCustomMapper.updatedeepclick(hashmap);
 	}
 
 	@Override
 	public List<TTaskInfoCustom> findAllocation(HashMap<String, Object> hashmap)
 			throws Exception {
-		// TODO Auto-generated method stub
 		return tTaskInfoCustomMapper.findAllocation(hashmap);
+	}
+
+	@Override
+	public int deleteDate(HashMap<String, Object> hashmap) throws Exception {
+		return tTaskInfoCustomMapper.deleteDate(hashmap);
 	}
 
 }

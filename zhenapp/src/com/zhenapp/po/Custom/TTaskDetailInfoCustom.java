@@ -198,14 +198,25 @@ public class TTaskDetailInfoCustom extends TTaskDetailinfo{
 		//.append(tTaskDetailInfoCustom.getMinpicture()).append("&")//最小价格
 		//.append(tTaskDetailInfoCustom.getMaxpicture()).append("&")//最大价格
 		.append(tTaskDetailInfoCustom.getPrice()).append("&");//宝贝价格
-		if(tTaskDetailInfoCustom.getTaskimgztc()!=null && tTaskDetailInfoCustom.getTaskimgztc().length()>2){
+		/*if(tTaskDetailInfoCustom.getTaskimgztc()!=null && tTaskDetailInfoCustom.getTaskimgztc().length()>2){
 			sb.append(StringUtilWxf.strtonull(tTaskDetailInfoCustom.getTaskimgztc())).append("&")//直通车图片地址
 			.append("null");//创意标题
-			
 		}else{
 			sb.append("null").append("&")//直通车图片地址
 			.append(StringUtilWxf.trimFirstChar(StringUtilWxf.strtonull(tTaskDetailInfoCustom.getCreativetitle()), " "));//创意标题
-			
+		}*/
+		if(tTaskDetailInfoCustom.getTaskimgztc()!=null && tTaskDetailInfoCustom.getTaskimgztc().length()>2){
+			sb.append(StringUtilWxf.strtonull(tTaskDetailInfoCustom.getTaskimgztc())).append("&")//直通车图片地址
+			.append("null").append("&")//创意标题
+			.append("null");//钻展图片
+		}else if(tTaskDetailInfoCustom.getCreativetitle()!=null && tTaskDetailInfoCustom.getCreativetitle().length()>2){
+			sb.append("null").append("&")//直通车图片地址
+			.append(StringUtilWxf.trimFirstChar(StringUtilWxf.strtonull(tTaskDetailInfoCustom.getCreativetitle()), " ")).append("&")//创意标题
+			.append("null");
+		}else{
+			sb.append("null").append("&")//直通车图片地址
+			.append("null").append("&")
+			.append(StringUtilWxf.trimFirstChar(StringUtilWxf.strtonull(tTaskDetailInfoCustom.getDrillimg()), " "));
 		}
 		
 		//.append(tTaskDetailInfoCustom.getIsstorecollection().equals("1")?"是":"否").append("&")//是否店铺收藏

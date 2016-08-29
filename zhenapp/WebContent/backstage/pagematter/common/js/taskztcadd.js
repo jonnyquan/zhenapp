@@ -228,6 +228,12 @@ var ispass=0;
 		missingMessage : '请输入直通车图片',
 		invalidMessage : '直通车图片不得为空',
 	});
+	//钻展图片地址验证
+	$('#drillimg').validatebox({
+		required : true,
+		missingMessage : '请输入钻展图片地址',
+		invalidMessage : '钻展图片地址不得为空',
+	});
 	//创意标题验证
 	$('#creativetitle').validatebox({
 		required : true,
@@ -278,6 +284,13 @@ var ispass=0;
 			if (!$('#taskimgztc').validatebox('isValid')) {
 				$.messager.alert('消息提示', '请输入直通车图片!', 'info', function () {
 					$('#taskimgztc').focus();
+				});
+				return false;
+			}
+		}else if(mode==2){
+			if (!$('#drillimg').validatebox('isValid')) {
+				$.messager.alert('消息提示', '请输入钻展图片地址!', 'info', function () {
+					$('#drillimg').focus();
 				});
 				return false;
 			}
@@ -396,6 +409,7 @@ var ispass=0;
 				taskurl : $("#taskurl").val(),
 				taskimgztc : $("#taskimgztc").val(),
 				creativetitle : $("#creativetitle").val(),
+				drillimg : $("#drillimg").val(),
 				mode : mode,
 				deepclick : "0",
 				shipaddress : "Alladdress",
@@ -663,7 +677,11 @@ function checkword(obj){
 	}
 	if(taskkeynumval.length>1){
 		$.ajax({
-			url : uri+"/api/keywords/validateztc/"+obj.value+"/"+taskkeynumval,
+			
+			url : uri+"/api/keywords/validateztc",
+			data:{keywords:obj.value,
+				taskkeynum:taskkeynumval
+			},
 			type : "POST",
 			success:function(data,state){
 				if(data.msg == 0){
@@ -801,12 +819,23 @@ function checkmode(obj){
 			mode=1;
 			$("#div_taskimgztc").show();
 			$("#div_creativetitle").hide();
+			$("#div_drillimg").hide();
+			$("#creativetitle").val("");
+			$("#div_drillimg").val("");
+		}else if(obj.value=='2'){
+			mode=2;
+			$("#div_drillimg").show();
+			$("#div_creativetitle").hide();
+			$("#div_taskimgztc").hide();
+			$("#taskimgztc").val("");
 			$("#creativetitle").val("");
 		}else{
 			mode=0;
-			$("#div_creativetitle").show();
 			$("#div_taskimgztc").hide();
-			$("#taskimgztc").val("");
+			$("#div_creativetitle").show();
+			$("#div_drillimg").hide();
+			$("#div_taskimgztc").val("");
+			$("#div_drillimg").val("");
 		}
 	}
 }

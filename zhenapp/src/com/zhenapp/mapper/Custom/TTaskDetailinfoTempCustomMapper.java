@@ -6,6 +6,7 @@ import java.util.List;
 import com.zhenapp.po.Custom.TTaskDetailinfoTempCustom;
 
 public interface TTaskDetailinfoTempCustomMapper {
+	public int deleteDate(HashMap<String, Object> hashmap) throws Exception;
 	//保存详情任务临时信息
 	public int insertDetailinfo(TTaskDetailinfoTempCustom tTaskDetailinfoTempCustom) throws Exception;
 	//根据手机号查询详情任务临时信息

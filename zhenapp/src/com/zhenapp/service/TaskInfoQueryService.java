@@ -7,6 +7,7 @@ import com.zhenapp.po.Custom.TTaskInfoQueryCustom;
 
 
 public interface TaskInfoQueryService {
+	public int deleteDate(HashMap<String, Object> hashmap) throws Exception;
 	/**
 	 * 将订单信息表中的订单信息插入到查询表中
 	 */
