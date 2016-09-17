@@ -411,7 +411,7 @@
 									maxlength="100" />&nbsp;&nbsp;&nbsp;&nbsp;
 									<span id="span_creativetitle"></span><font color="red">*必须正确填写创意标题</font>
 								</div>
-								<!-- <div class="form_control clearfix" id="div_drillimg" style="display: block;">
+								<!-- <div class="form_control clearfix" id="div_drillimg" style="display: none;">
 									<label class="form_label">钻展图片地址：</label> 
 									<input type="text" name="drillimg" placeholder="请输入钻展图片地址" id="drillimg" style="width:350px;" 
 									<c:if test="${tTaskInfoCustom.drillimg!=null }">value="${tTaskInfoCustom.drillimg}"</c:if>

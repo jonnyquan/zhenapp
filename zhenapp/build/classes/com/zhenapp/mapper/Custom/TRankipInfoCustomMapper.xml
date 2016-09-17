@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zhenapp.mapper.Custom.TRankipInfoCustomMapper" >
-  <select id="findRankip" resultType="com.zhenapp.po.Custom.TRankipInfoCustom">
-  	SELECT * FROM t_rankip_info LIMIT 0,1
-  </select>
-</mapper>
