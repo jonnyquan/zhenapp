@@ -277,6 +277,18 @@
     order by taskpk+0 desc
   </select>
   
+  <select id="findErrorTaskInfo" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap">
+  	SELECT * FROM t_task_info 
+  	<where>
+  		<if test="taskstate != null and taskstate != ''">
+    		and taskstate = #{taskstate}
+    	</if>
+    	<if test="minute != null and minute != ''">
+    		AND TIMESTAMPDIFF(MINUTE ,DATE_FORMAT(updatetime,'%Y%m%d%H%i%s'),DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'))> #{minute}
+    	</if>
+  	</where>
+  </select>
+  
   <select id="findTaskallocation" resultType="com.zhenapp.po.Custom.TTaskInfoCustom" parameterType="java.util.HashMap" >
     select * from t_task_info
     <where>

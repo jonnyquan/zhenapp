@@ -251,5 +251,8 @@ public class Timedtask {
 		saveDatacount.saveDatacount();
 	}
 	
-	
+	@Scheduled(cron = "0 */59 * * * ?")//每59分钟执行一次终止发布失败的流量任务
+	public void endTaskError() throws Exception { 
+		checkEndOrderll.checkEndErrorOrderll();
+	}
 }

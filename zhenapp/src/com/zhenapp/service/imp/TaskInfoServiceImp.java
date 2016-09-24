@@ -115,4 +115,11 @@ public class TaskInfoServiceImp implements TaskInfoService {
 		return tTaskInfoCustomMapper.deleteDate(hashmap);
 	}
 
+	@Override
+	public List<TTaskInfoCustom> findErrorTaskInfo(
+			HashMap<String, Object> hashmap) throws Exception {
+		// TODO Auto-generated method stub
+		return tTaskInfoCustomMapper.findErrorTaskInfo(hashmap);
+	}
+
 }

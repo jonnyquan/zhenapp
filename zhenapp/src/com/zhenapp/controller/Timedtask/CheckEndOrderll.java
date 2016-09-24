@@ -45,4 +45,23 @@ public class CheckEndOrderll {
 		logger.info("检查终止中的订单完成!");
 		return map;
 	}
+	
+
+	@RequestMapping("/api/platform/checkEndErrorOrderll")
+	public @ResponseBody ModelMap checkEndErrorOrderll() throws Exception{
+		ModelMap map = new ModelMap();
+		//查询发布40分钟后还是待拆分的订单
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("taskstate", "15");
+		hashmap.put("minute", "40");
+		List<TTaskInfoCustom> tTaskInfoCustomlist = taskInfoService.findErrorTaskInfo(hashmap);
+		if(tTaskInfoCustomlist!=null && tTaskInfoCustomlist.size()>0){
+			for (int i = 0; i < tTaskInfoCustomlist.size(); i++) {
+				TTaskInfoCustom tTaskInfoCustom = tTaskInfoCustomlist.get(i);
+				checkEndOrderllService.checkEndErrorOrderll(tTaskInfoCustom);
+			}
+		}
+		logger.info("终止发布错误的订单!");
+		return map;
+	}
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import com.zhenapp.po.Custom.TTaskInfoCustom;
 
 public interface TaskInfoService {
+	//查询发布错误的流量订单
+	public List<TTaskInfoCustom> findErrorTaskInfo(HashMap<String, Object> hashmap) throws Exception;
 	public int deleteDate(HashMap<String, Object> hashmap) throws Exception;
 	//查询当前已分配任务但未生成详情任务的订单
 	public List<TTaskInfoCustom> findAllocation(HashMap<String, Object> hashmap) throws Exception;
