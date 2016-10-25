@@ -3,8 +3,11 @@
 <mapper namespace="com.zhenapp.mapper.Custom.TTaskDetailinfoCustomMapper" >
 
 	<select id="requesttaskAuto" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
-		SELECT * FROM t_task_detailinfo WHERE (taskkeynum,taskkeyword,taskid) NOT IN (
-		SELECT taskkeynum,taskkeyword,taskid FROM t_task_detailinfo WHERE phoneid=#{phoneid} AND taskdate=#{taskdate}) AND taskdate=#{taskdate} AND taskstate='40'
+		SELECT * FROM t_task_detailinfo WHERE (taskkeynum,taskkeyword) NOT IN (
+		SELECT taskkeynum,taskkeyword FROM t_task_detailinfo WHERE phoneid=#{phoneid} AND taskdate=#{taskdate} AND taskstate !='22') 
+		AND taskid NOT IN (SELECT taskid FROM t_task_detailinfo WHERE phoneid=#{phoneid} AND taskdate=#{taskdate} )
+		AND taskkeynum NOT IN (SELECT taskkeynum FROM t_task_detailinfo WHERE phoneid=#{phoneid} AND taskdate=#{taskdate} AND iscollection='1' AND taskstate='21') 
+		AND taskdate=#{taskdate} AND taskstate='40'
 		AND (CASE WHEN taskminute>9 AND taskhour >9 THEN CONCAT(taskhour,taskminute) <![CDATA[<=]]> #{HHmm} WHEN taskminute > 9 AND taskhour <![CDATA[<=]]> 9 THEN CONCAT('0',taskhour,taskminute) <![CDATA[<=]]> #{HHmm} WHEN taskminute <![CDATA[<=]]> 9 AND taskhour <![CDATA[<=]]> 9 THEN CONCAT('0',taskhour,'0',taskminute) <![CDATA[<=]]> #{HHmm} ELSE CONCAT(taskhour,'0',taskminute) <![CDATA[<=]]> #{HHmm} END)
 		ORDER BY taskhour,taskminute,ordernum LIMIT 0,1
 	</select>

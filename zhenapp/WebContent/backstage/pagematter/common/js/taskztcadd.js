@@ -700,8 +700,8 @@ function checkword(obj){
 					scmax_temp=data.countztc;
 					gwcmax_temp=data.countztc;
 					llmax=llmax_temp;
-					scmax=llmax_temp/keywords;
-					gwcmax=llmax_temp/keywords;
+					scmax=scmax_temp/keywords;
+					gwcmax=gwcmax_temp/keywords;
 					$("#span_flowcount_text").html("  今天最多还可发:"+llmax);
 					$("#span_shopping_text").html("  今天最多还可发:"+gwcmax);
 					$("#span_collection_text").html("  今天最多还可发:"+scmax);
