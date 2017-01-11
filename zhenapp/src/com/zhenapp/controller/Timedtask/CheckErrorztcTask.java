@@ -29,7 +29,7 @@ public class CheckErrorztcTask {
 	private TaskInfoService taskInfoService;
 	@Autowired
 	private SysconfInfoService sysconfInfoService;
-	/*
+	/*每分钟检测直通车任务执行错误数是否超出限制
 	 * 将任务错误数大于等于系统设置的最大任务错误数即终止该任务
 	 */
 	@RequestMapping(value="/api/platform/checkErrorztcTaskztc")

@@ -12,7 +12,9 @@ import com.zhenapp.controller.service.Timedtask.SaveDatacountService;
 public class SaveDatacount {
 	@Autowired
 	private SaveDatacountService saveDatacountService;
-	
+	/**
+	 * 每天0点50分执行一次 保存数据统计信息
+	 */
 	@RequestMapping("/api/saveDatacount")
 	public @ResponseBody ModelMap saveDatacount() throws Exception{
 		ModelMap map = new ModelMap();

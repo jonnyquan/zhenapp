@@ -389,10 +389,10 @@
 										<input type="radio" name="Mode" v-model="myfChecked" value="1" onchange="checkmode(this);"/>
 										<span>老模式</span>
 									</label>
-									<!--  <label class="form_radio">
+									<label class="form_radio">
 										<input type="radio" name="Mode" v-model="myfChecked" value="2" onchange="checkmode(this);"/>
 										<span>钻展模式</span>
-									</label>-->
+									</label>
 								</div>
 								<div class="form_control clearfix" id="div_taskimgztc" style="display: none;">
 									<label class="form_label">直通车图片：</label> 
@@ -411,7 +411,7 @@
 									maxlength="100" />&nbsp;&nbsp;&nbsp;&nbsp;
 									<span id="span_creativetitle"></span><font color="red">*必须正确填写创意标题</font>
 								</div>
-								<!-- <div class="form_control clearfix" id="div_drillimg" style="display: none;">
+								<div class="form_control clearfix" id="div_drillimg" style="display: none;">
 									<label class="form_label">钻展图片地址：</label> 
 									<input type="text" name="drillimg" placeholder="请输入钻展图片地址" id="drillimg" style="width:350px;" 
 									<c:if test="${tTaskInfoCustom.drillimg!=null }">value="${tTaskInfoCustom.drillimg}"</c:if>
@@ -419,7 +419,6 @@
 									maxlength="100" />&nbsp;&nbsp;&nbsp;&nbsp;
 									<span id="span_creativetitle"></span><font color="red">*必须正确填写钻展图片地址</font>
 								</div>
-								 -->
 								<div class="form_control clearfix">
 									<label class="form_label">宝贝价格：</label> 
 									<input type="text" name="taskprice" placeholder="请输入宝贝价格" id="taskprice" style="width:150px;" onchange="setprice();"

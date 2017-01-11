@@ -26,8 +26,8 @@ public class CheckFinshOrderByll {
 	@Autowired
 	private CheckFinshOrderByllService checkFinshOrderByllService;
 	
-	/*
-	 * 判断是否有任务执行完成        修改任务状态,积分处理
+	/*每隔3分钟执行一次 判断流量任务是否已完成
+	 * 判断是否有流量任务执行完成        修改任务状态,积分处理
 	 */
 	@RequestMapping(value="/api/platform/cyclecheckTaskByll")
 	public @ResponseBody ModelMap checkFinshOrderByll() throws Exception{
@@ -42,10 +42,8 @@ public class CheckFinshOrderByll {
 				checkFinshOrderByllService.cyclecheckTaskByll(tTaskInfoCustom);
 			}
 			logger.info("检查订单是否已完成结束!");
-			map.put("msg", "检查订单是否已完成结束!");
 		}else{
 			logger.info("没有正在运行中的订单!");
-			map.put("msg", "没有正在运行中的订单!");
 		}
 		return map;	
 	}

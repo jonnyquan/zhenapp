@@ -24,14 +24,12 @@ public class CheckBeforeOrderEnd {
 	@Autowired
 	private TaskInfoService taskInfoService;
 	/*
-	 * 查询今天之前的任务      每天0点1分执行
+	 * 查询今天之前的终止中任务      每天0点20分执行
 	 */
 	@RequestMapping(value="/api/platform/updateTaskstateByTimeEnd")
 	public @ResponseBody ModelMap updateTaskstateByTime() throws Exception{
 		ModelMap map = new ModelMap();
-		//还在执行中的任务   变成已完成	状态为待分配（15） 和运行中（16）的任务
 		HashMap<String, Object> hashmap=new HashMap<String, Object>();
-		
 		//终止中的任务变成已终止      并且给用户返还积分		状态为终止中（18）的任务
 		hashmap.put("taskstate", "18");
 		List<TTaskInfoCustom> tTaskInfoCustomlistend = taskInfoService.findTaskInfoByTaskstate(hashmap);

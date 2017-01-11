@@ -19,7 +19,10 @@ public class SaveDatacountService {
 	private static Logger logger = Logger.getLogger(SaveDatacountService.class);
 	@Autowired
 	private DatacountInfoService datacountInfoService;
-
+	
+	/*
+	 * 每天0点50分执行一次 保存数据统计信息
+	 */
 	public @ResponseBody ModelMap saveDatacount() throws Exception{
 		ModelMap map = new ModelMap();
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();

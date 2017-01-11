@@ -26,8 +26,8 @@ public class CheckFinshOrderByZtc {
 	@Autowired
 	private TaskInfoService taskInfoService;
 
-	/*
-	 * 判断是否有任务执行完成        修改任务状态,积分处理 直通车
+	/* 每隔3分钟执行一次 判断直通车任务是否已完成
+	 * 判断是否有直通车任务执行完成        修改任务状态,积分处理 直通车
 	 */
 	@RequestMapping(value="/api/platform/cyclecheckTaskByztc")
 	public @ResponseBody ModelMap checkFinshOrderByZtc() throws Exception{

@@ -9,7 +9,7 @@
 		AND taskkeynum NOT IN (SELECT taskkeynum FROM t_task_detailinfo WHERE phoneid=#{phoneid} AND taskdate=#{taskdate} AND iscollection='1' AND taskstate='21') 
 		AND taskdate=#{taskdate} AND taskstate='40'
 		AND (CASE WHEN taskminute>9 AND taskhour >9 THEN CONCAT(taskhour,taskminute) <![CDATA[<=]]> #{HHmm} WHEN taskminute > 9 AND taskhour <![CDATA[<=]]> 9 THEN CONCAT('0',taskhour,taskminute) <![CDATA[<=]]> #{HHmm} WHEN taskminute <![CDATA[<=]]> 9 AND taskhour <![CDATA[<=]]> 9 THEN CONCAT('0',taskhour,'0',taskminute) <![CDATA[<=]]> #{HHmm} ELSE CONCAT(taskhour,'0',taskminute) <![CDATA[<=]]> #{HHmm} END)
-		ORDER BY taskhour,taskminute,ordernum LIMIT 0,1
+		ORDER BY taskhour,taskminute LIMIT 0,1
 	</select>
 	<select id="findTaskDetail" parameterType="java.util.HashMap" resultType="com.zhenapp.po.Custom.TTaskDetailInfoCustom">
 		SELECT a.* FROM t_task_detailinfo a
@@ -442,6 +442,15 @@
   </delete>
   
   <delete id="deleteDate" parameterType="java.util.HashMap" >
-  	DELETE FROM t_task_detailinfo WHERE createtime <![CDATA[<]]> #{time}
+  	DELETE FROM t_task_detailinfo 
+  	<where>
+  		<if test="time != null and time != '' ">
+	  		and createtime <![CDATA[<]]> #{time}
+	  	</if>
+	  	<if test="taskstate != null and taskstate != '' ">
+	  		and taskid IN (SELECT taskid FROM t_task_info_query WHERE taskstate IN (${taskstate}))
+	  	</if>
+	</where>
+  	
   </delete>
 </mapper>

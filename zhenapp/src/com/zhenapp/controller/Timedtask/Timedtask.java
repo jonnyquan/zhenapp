@@ -42,7 +42,9 @@ public class Timedtask {
 	@Autowired
 	private AllocationZtcTask allocationZtcTask;
 	@Autowired
-	private CheckBeforeOrder checkBeforeOrder;
+	private CheckBeforeOrderll checkBeforeOrderll;
+	@Autowired
+	private CheckBeforeOrderztc checkBeforeOrderztc;
 	@Autowired
 	private CheckBeforeOrderEnd checkBeforeOrderEnd;
 	@Autowired
@@ -74,6 +76,53 @@ public class Timedtask {
 	@Value("${host}")
 	private String host;
 	
+	/** 定时执行一次的任务 */ 
+	@Scheduled(cron = "0 2 0 * * ?")//每天0点2分执行一次
+	public void insertDateByTimes() throws Exception { 
+		insertDate.insertDateByTimes();
+		logger.info("插入日期....每天0点2分执行一次");
+	}
+	@Scheduled(cron = "0 50 0 * * ?")//每天0点50分执行一次 将执行终止状态的详情任务删除
+	public void job2() throws HttpException, IOException {
+		try {
+			deleteEndOrder.deleteTaskstate();
+			logger.info("调用接口成功(/api/platform/deleteTaskstate)");
+		} catch (Exception e) {
+			logger.info("调用接口失败(/api/platform/deleteTaskstate)");
+		}
+        logger.info("每天0点5分执行一次 将执行终止状态的详情任务删除");
+	}
+	@Scheduled(cron = "0 2 0 * * ?")//每天0点2分执行一次 将未完成的流量任务自动终止
+	public void updateTaskstateByTimell() throws Exception {
+        checkBeforeOrderll.checkBeforeOrder();
+		logger.info("每天0点2分执行一次 将未完成的流量任务自动终止");
+	}
+	@Scheduled(cron = "0 3 0 * * ?")//每天0点3分执行一次 将未完成的流量任务自动终止
+	public void updateTaskstateByTimeztc() throws Exception {
+        checkBeforeOrderztc.checkBeforeOrder();
+		logger.info("每天0点3分执行一次 将未完成的直通车任务自动终止");
+	}
+	
+	@Scheduled(cron = "0 20 0 * * ?")//每天0点20分执行一次 处理前一天终止中的任务
+	public void updateTaskstateByTimeEnd() throws Exception { 
+		checkBeforeOrderEnd.updateTaskstateByTime();
+		logger.info("处理前一天终止中的任务....每天0点20分执行一次");
+	}
+	@Scheduled(cron = "0 30 1 * * ?")//每天1点30分删除前一天的数据
+	public void deleteDate() throws Exception { 
+		deleteData.deleteData();
+	}
+	
+	@Scheduled(cron = "0 50 0 * * ?")//每天0点50分执行一次 保存数据统计信息
+	public void saveDatacount() throws Exception { 
+		saveDatacount.saveDatacount();
+	}
+	/** 定时循环执行的任务 */
+	@Scheduled(cron = "0 */10 * * * ?")//每10分钟删除已完成和已终止的详情任务数据
+	public void deleteDetailinfoDate() throws Exception { 
+		deleteData.deleteDetailinfoDate();
+	}
+	
 	@Scheduled(cron = "0 */1 * * * ?")//判断终止中的流量任务是否已终止
 	public void job1() throws HttpException, IOException {
 		try {
@@ -95,19 +144,8 @@ public class Timedtask {
 		}
         logger.info("判断终止中的直通车任务是否已终止....每分钟执行一次");
 	}
-	
-	@Scheduled(cron = "0 */5 * * * ?")//每隔1分钟执行一次 将执行终止状态的详情任务删除
-	public void job2() throws HttpException, IOException {
-		try {
-			deleteEndOrder.deleteTaskstate();
-			logger.info("调用接口成功(/api/platform/deleteTaskstate)");
-		} catch (Exception e) {
-			logger.info("调用接口失败(/api/platform/deleteTaskstate)");
-		}
-        logger.info("将执行终止状态的详情任务删除....每5分钟执行一次");
-	}
-	
-	@Scheduled(cron = "0 */3 * * * ?")//每隔3分钟执行一次 判断任务是否已完成
+
+	@Scheduled(cron = "0 */3 * * * ?")//每隔3分钟执行一次 判断直通车任务是否已完成
 	public void job3() throws HttpException, IOException {
 		try {
 			checkFinshOrderByZtc.checkFinshOrderByZtc();
@@ -115,10 +153,10 @@ public class Timedtask {
 		} catch (Exception e) {
 			logger.info("调用接口失败(/api/platform/cyclecheckTaskByztc)");
 		}
-        logger.info("任务执行结束....每3分钟执行一次检查<直通车>任务是否执行完成");
+        logger.info("每隔3分钟执行一次 判断直通车任务是否已完成");
 	}
 
-	@Scheduled(cron = "0 */3 * * * ?")//每隔3分钟执行一次 判断任务是否已完成
+	@Scheduled(cron = "0 */3 * * * ?")//每隔3分钟执行一次 判断流量任务是否已完成
 	public void job33() throws HttpException, IOException {
 		try {
 			checkFinshOrderByll.checkFinshOrderByll();
@@ -126,10 +164,10 @@ public class Timedtask {
 		} catch (Exception e) {
 			logger.info("调用接口失败(/api/platform/cyclecheckTaskByll)");
 		}
-        logger.info("任务执行结束....每3分钟执行一次检查<流量>任务是否执行完成");
+        logger.info("每隔3分钟执行一次 判断流量任务是否已完成");
 	}
 	
-	@Scheduled(cron = "0 */1 * * * ?")//检测流量任务执行错误数是否超出限制
+	@Scheduled(cron = "0 */1 * * * ?")//每分钟检测流量任务执行错误数是否超出限制
 	public void job4() throws HttpException, IOException {
 		try {
 			checkErrorll.checkErrorll();
@@ -137,10 +175,10 @@ public class Timedtask {
 		} catch (Exception e) {
 			logger.info("调用接口失败(/api/platform/checkErrorll)");
 		}
-        logger.info("每分钟检测执行任务错误数是否超出限制");
+        logger.info("每分钟检测流量任务执行错误数是否超出限制");
 	}
 	
-	@Scheduled(cron = "0 */1 * * * ?")//检测直通车任务执行错误数是否超出限制
+	@Scheduled(cron = "0 */1 * * * ?")//每分钟检测直通车任务执行错误数是否超出限制
 	public void job44() throws HttpException, IOException {
 		try {
 			checkErrorztcTask.checkErrorztcTask();
@@ -149,7 +187,7 @@ public class Timedtask {
 			logger.info("调用接口失败(/api/platform/checkErrorztcTaskztc)");
 			e.printStackTrace();
 		}
-        logger.info("每分钟检测执行任务错误数是否超出限制");
+        logger.info("每分钟检测直通车任务执行错误数是否超出限制");
 	}
 	
 	@Scheduled(cron = "0 */1 * * * ?")//每隔1分钟执行一次 将符合要求的详情任务放入详情任务临时表 (流量任务)  
@@ -176,23 +214,7 @@ public class Timedtask {
 		logger.info("每隔2分钟执行一次 将符合要求的详情任务放入详情任务临时表   ");
 	}*/
 	
-	@Scheduled(cron = "0 5 0 * * ?")//每天0点5分执行一次
-	public void updateTaskstateByTime() throws Exception {
-        checkBeforeOrder.checkBeforeOrder();
-		logger.info("处理前一天的任务....每天0点5分执行一次");
-	}
 	
-	@Scheduled(cron = "0 5 0 * * ?")//每天0点1分执行一次
-	public void updateTaskstateByTimeEnd() throws Exception { 
-		checkBeforeOrderEnd.updateTaskstateByTime();
-		logger.info("处理前一天的任务....每天0点5分执行一次");
-	}
-	
-	@Scheduled(cron = "0 2 0 * * ?")//每天0点2分执行一次
-	public void insertDateByTimes() throws Exception { 
-		insertDate.insertDateByTimes();
-		logger.info("插入日期....每天0点2分执行一次");
-	}
 	
 	@Scheduled(cron = "0 */2 * * * ?")//每2分钟执行一次
 	public void allocationll() throws Exception { 
@@ -239,16 +261,6 @@ public class Timedtask {
 	@Scheduled(cron = "0 */7 * * * ?")//每5分钟执行一次
 	public void deleteTaskQuery() throws Exception { 
 		deleteTaskQueryController.deleteTaskInfoQuery();
-	}
-	
-	@Scheduled(cron = "0 30 0 * * ?")//每天0点30分执行一次
-	public void deleteDate() throws Exception { 
-		deleteData.deleteData();
-	}
-	
-	@Scheduled(cron = "0 50 0 * * ?")//每天0点50分执行一次
-	public void saveDatacount() throws Exception { 
-		saveDatacount.saveDatacount();
 	}
 	
 	@Scheduled(cron = "0 */59 * * * ?")//每59分钟执行一次终止发布失败的流量任务

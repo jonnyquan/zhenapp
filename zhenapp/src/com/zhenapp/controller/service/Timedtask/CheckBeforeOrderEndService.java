@@ -62,7 +62,7 @@ public class CheckBeforeOrderEndService {
 	@Value("${liuliangapp}")
 	private String liuliangapp;
 	/*
-	 * 查询今天之前的任务      每天0点1分执行
+	 * 查询今天之前的终止中任务      每天0点20分执行
 	 */
 	public @ResponseBody ModelMap updateTaskstateByTime(TTaskInfoCustom tTaskInfoCustom) throws Exception{
 		ModelMap map = new ModelMap();

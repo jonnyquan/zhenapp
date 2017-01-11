@@ -28,9 +28,12 @@ public class DeleteDataService {
 	private TaskDetailInfoTempService taskDetailInfoTempService;
 	@Autowired
 	private TaskInfoQueryService taskInfoQueryService;
+	/*
+	 * 每天1点30分删除前一天的数据
+	 */
 	public @ResponseBody ModelMap deleteData() throws Exception{
 		ModelMap map = new ModelMap();
-		String time = sdf.format(new Date().getTime()-(2*24*3600*1000)-(30*60*1000));
+		String time = sdf.format(new Date().getTime()-(1*24*3600*1000)-(30*60*1000));
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.put("time", time);
 		try{
@@ -39,9 +42,20 @@ public class DeleteDataService {
 			taskDetailInfoTempService.deleteDate(hashmap);
 			taskInfoQueryService.deleteDate(hashmap);
 		}catch(Exception e){
-			logger.error("每天0点20分删除前两天的数据,删除时间节点为:"+time+"==============删除失败!!!");
+			logger.error("每天0点20分删除前一天的数据,删除时间节点为:"+time+"==============删除失败!!!");
 		}
-		logger.info("每天0点20分删除前两天的数据,删除时间节点为:"+time);
+		logger.info("每天0点20分删除前一天的数据,删除时间节点为:"+time);
 		return map;
+	}
+	
+	/**
+	 * 每10分钟删除已完成和已终止的详情任务数据
+	 */
+	public void deleteDetailinfoDate() throws Exception{
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("taskstate", "17,19");
+		
+		taskDetailInfoService.deleteDate(hashmap);
+		
 	}
 }

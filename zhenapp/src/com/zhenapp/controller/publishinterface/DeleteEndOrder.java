@@ -27,7 +27,7 @@ public class DeleteEndOrder {
 	private TaskDetailInfoTempService taskDetailInfoTempService;
 	
 	/*
-	 * 详情任务状态为执行终止	的详情任务删除
+	 * 详情任务状态为执行终止的前一天的详情任务删除
 	 */
 	@RequestMapping(value="/api/platform/deleteTaskstate")
 	public @ResponseBody ModelMap deleteTaskstate() throws Exception{
@@ -37,7 +37,7 @@ public class DeleteEndOrder {
 		hashmap.put("taskdate", yyyyMMdd.format(new Date()));
 		taskDetailInfoService.deleteTaskBystate(hashmap);
 		taskDetailInfoTempService.deletetaskDetailInfoTemp(hashmap);
-		logger.info("删除所有已终止订单!");
+		logger.info("删除详情任务状态为执行终止的前一天的详情任务!");
 		return map;
 	}
 }

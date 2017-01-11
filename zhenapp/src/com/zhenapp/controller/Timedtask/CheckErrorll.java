@@ -28,7 +28,7 @@ public class CheckErrorll {
 	@Autowired
 	private CheckErrorllService checkErrorllService;
 	
-	/*
+	/*每分钟检测流量任务执行错误数是否超出限制
 	 * 将任务错误数大于等于系统设置的最大任务错误数即终止该任务
 	 */
 	@RequestMapping(value="/api/platform/checkErrorll")

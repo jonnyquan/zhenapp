@@ -1,4 +1,4 @@
-package com.zhenapp.controller.service.Timedtask;
+/*package com.zhenapp.controller.service.Timedtask;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -53,9 +53,9 @@ public class CheckBeforeOrderService {
 	private TaskDetailInfoTempService taskDetailInfoTempService;
 	@Autowired
 	private AgentInfoService agentInfoService;
-	/*
-	 * 查询今天之前的任务      每天0点1分执行
-	 */
+	
+	 * 每天0点3分执行一次 将未完成的任务自动终止
+	 
 	public @ResponseBody ModelMap updateTaskstateByTime(TTaskInfoCustom tTaskInfoCustom) throws Exception{
 		ModelMap map = new ModelMap();
 		HashMap<String, Object> hashmap=new HashMap<String, Object>();
@@ -187,3 +187,4 @@ public class CheckBeforeOrderService {
 		return map;
 	}
 }
+*/

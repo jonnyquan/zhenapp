@@ -301,7 +301,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
     	function load(){
             var anli = "${anli}";
             if(anli.length > 0){
-            	location.hash="anli";
+            	location.harh="anli";
             }
     	}
 
